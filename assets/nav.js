@@ -28,10 +28,10 @@
   nav.setAttribute('id', 'site-nav');
   nav.innerHTML =
     '<div style="max-width:780px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between">' +
-      '<a href="' + homeUrl + '" style="font-family:\'Source Serif 4\',Pretendard,sans-serif;font-size:0.95rem;font-weight:700;color:inherit;text-decoration:none;letter-spacing:-0.5px">' +
+      '<a href="' + homeUrl + '" style="font-family:\'Source Serif 4\',\'Source Serif 4 Fallback\',\'Pretendard Variable\',Pretendard,serif;font-size:0.95rem;font-weight:700;color:inherit;text-decoration:none;letter-spacing:-0.5px">' +
         'Editorial' +
       '</a>' +
-      '<a href="' + homeUrl + '" style="font-family:\'Source Serif 4\',Pretendard,sans-serif;font-size:0.8rem;color:#8a8680;text-decoration:none">' +
+      '<a href="' + homeUrl + '" style="font-family:\'Source Serif 4\',\'Source Serif 4 Fallback\',\'Pretendard Variable\',Pretendard,serif;font-size:0.8rem;color:#8a8680;text-decoration:none">' +
         '\u2190 \ubaa9\ub85d\uc73c\ub85c' +
       '</a>' +
     '</div>';

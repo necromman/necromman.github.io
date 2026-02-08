@@ -40,6 +40,9 @@ editorial/
 │           └── SKILL.md                    # 시리즈 네비게이션 스킬
 ├── assets/
 │   ├── editorial-base.css                  # 콘텐츠 페이지 공통 CSS (디자인 시스템 베이스)
+│   ├── fonts/                              # 셀프호스팅 웹폰트 (WOFF2)
+│   │   ├── source-serif-4-latin-wght-normal.woff2   # Source Serif 4 variable
+│   │   └── jetbrains-mono-latin-wght-normal.woff2   # JetBrains Mono variable
 │   ├── nav.js                              # 공통 네비게이션 (전 페이지 자동 삽입)
 │   └── series-nav.js                       # 시리즈 내 이전/다음 글 네비게이션
 ├── content/                                # 모든 콘텐츠 HTML
@@ -111,9 +114,14 @@ editorial/
 ## 공통 컴포넌트
 
 ### 공통 CSS (`assets/editorial-base.css`)
-- 콘텐츠 페이지의 공통 디자인 시스템 CSS (변수, 리셋, 타이포그래피, 레이아웃 컴포넌트)
+- 콘텐츠 페이지의 공통 디자인 시스템 CSS (셀프호스팅 폰트 @font-face, 변수, 리셋, 타이포그래피, 레이아웃 컴포넌트)
+- 셀프호스팅 폰트: Source Serif 4 + JetBrains Mono (variable woff2, `font-display: optional`) + 메트릭 보정 폴백 (fontpie 계산)
 - `:root` 변수, body, `.page`, `.masthead`, `.section-head`, `.prose`, `.pull-quote`, `.mechanism-row`, `.technique`, `.warning-box`, `.closing`, `.footer`, 반응형, 프린트 스타일 포함
-- **새 콘텐츠 추가 시** `<link rel="stylesheet" href="../../assets/editorial-base.css">`를 Pretendard CDN 링크 바로 다음에 추가한다
+- **새 콘텐츠 추가 시** 아래 순서로 `<head>`에 추가한다:
+  1. `<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>` (CLS 방지)
+  2. `<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>`
+  3. `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">`
+  4. `<link rel="stylesheet" href="../../assets/editorial-base.css">`
 - 각 HTML의 `<style>` 태그에는 해당 페이지 **고유 컴포넌트 CSS만** 남긴다 (masthead 오버라이드, 페이지 전용 레이아웃 등)
 - 공통 CSS를 수정하면 모든 콘텐츠 페이지에 일괄 반영된다
 
@@ -134,7 +142,7 @@ editorial/
 ## 디자인 시스템
 
 ### 핵심 디자인 규칙
-- **서체**: 영문 Source Serif 4(세리프) + 한글 Pretendard(산세리프). Noto Serif KR 사용 금지 (한글에서 올드함)
+- **서체**: 영문 Source Serif 4(세리프, 셀프호스팅) + 한글 Pretendard Variable(산세리프, CDN 다이나믹 서브셋). Noto Serif KR 사용 금지 (한글에서 올드함). Google Fonts 외부 로드 금지 (셀프호스팅 필수, `font-display: optional`로 CLS 제로)
 - **색상**: 모든 색상은 CSS 변수로 관리. 하드코딩 금지
   - `--bg`, `--fg`, `--muted`, `--accent`, `--rule`, `--card-bg`, `--prose`, `--secondary`
 - **한글 라벨**: 한글 포함 라벨은 모노스페이스 금지. 본문 서체 0.8rem 이상, letter-spacing 2px 이하
@@ -180,5 +188,5 @@ editorial/
 
 - 콘텐츠 HTML은 `editorial-base.css`(공통) + 인라인 `<style>`(고유) 구조. 공통 디자인 변경 시 CSS 파일만 수정하면 전체 반영
 - 콘텐츠 페이지에 날짜를 화면에 표시하지 않는다 (SEO 메타에만 기록)
-- 새 콘텐츠 추가 시: `content/[시리즈-슬러그]/` 폴더에 넣고, 두 스킬(editorial-content-page + seo) 참조하고, `editorial-base.css` 링크 + nav.js + series-nav.js 스크립트 포함하고, `series-nav.js`의 SERIES 데이터에 글 추가하고, `content/index.md` + `index.html` 업데이트
+- 새 콘텐츠 추가 시: `content/[시리즈-슬러그]/` 폴더에 넣고, 두 스킬(editorial-content-page + seo) 참조하고, 폰트 preload + Pretendard CDN + `editorial-base.css` 링크 + nav.js + series-nav.js 스크립트 포함하고, `series-nav.js`의 SERIES 데이터에 글 추가하고, `content/index.md` + `index.html` 업데이트. **Google Fonts 외부 링크 사용 금지 (셀프호스팅)**
 - 새 시리즈 추가 시: 이 문서의 콘텐츠 관리 섹션과 `content/index.md` 모두 업데이트

@@ -26,26 +26,41 @@ description: Use this skill when the user wants to create a single-page HTML doc
 **핵심:** 영문은 세리프, 한글은 모던 산세리프를 조합한다. 한국어 세리프(Noto Serif KR 등)는 획이 두껍고 올드한 인상을 주므로 사용하지 않는다.
 
 ```
-영문 세리프:    'Source Serif 4' (제목/본문의 라틴 글리프)
-한글 산세리프:  'Pretendard' (제목/본문의 한글 글리프)
-라벨/넘버링:   'JetBrains Mono' (monospace)
+영문 세리프:    'Source Serif 4' (제목/본문의 라틴 글리프) — 셀프호스팅, font-display: optional
+한글 산세리프:  'Pretendard Variable' (제목/본문의 한글 글리프) — jsDelivr CDN, 다이나믹 서브셋
+라벨/넘버링:   'JetBrains Mono' (monospace) — 셀프호스팅, font-display: optional
 ```
 
-**CSS font-family 작성법:** 한 스택 안에 라틴 서체를 먼저, 한글 서체를 뒤에 배치한다. 브라우저는 글리프가 없는 문자에 대해 다음 서체로 fallback한다.
+**CSS font-family 작성법:** 한 스택 안에 라틴 서체를 먼저, 메트릭 보정 폴백을 그 다음, 한글 서체를 뒤에 배치한다. 브라우저는 글리프가 없는 문자에 대해 다음 서체로 fallback한다.
 
 ```css
---serif: 'Source Serif 4', 'Pretendard', sans-serif;
+--serif: 'Source Serif 4', 'Source Serif 4 Fallback', 'Pretendard Variable', 'Pretendard', serif;
+--mono: 'JetBrains Mono', 'JetBrains Mono Fallback', 'Courier New', monospace;
 ```
 
-이렇게 하면 영문은 Source Serif 4(세리프)로, 한글은 Pretendard(산세리프)로 렌더링된다. 한국 고급 출판물에서 자주 쓰이는 조합이다.
+이렇게 하면 영문은 Source Serif 4(세리프)로, 한글은 Pretendard Variable(산세리프)로 렌더링된다. 한국 고급 출판물에서 자주 쓰이는 조합이다. `Source Serif 4 Fallback`과 `JetBrains Mono Fallback`은 fontpie로 계산된 메트릭 보정 폴백 폰트로, CLS(레이아웃 시프트)를 제거한다.
 
-**Pretendard CDN + 공통 CSS:**
+**폰트 로딩 (Zero CLS 전략):**
+
+Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `editorial-base.css`에서 `@font-face`로 선언한다 (`font-display: optional`). Pretendard는 jsDelivr CDN의 변수 다이나믹 서브셋을 사용한다.
+
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<!-- 폰트 preload (Source Serif 4만 — 본문 폰트이므로 최우선) -->
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<!-- Pretendard CDN preconnect + 다이나믹 서브셋 -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<!-- 공통 CSS (셀프호스팅 @font-face 포함) -->
 <link rel="stylesheet" href="../../assets/editorial-base.css">
 ```
 
-`editorial-base.css`에 변수, 리셋, 타이포그래피, 공통 컴포넌트(masthead, section-head, prose, pull-quote, mechanism-row, technique, warning-box, closing, footer, 반응형, 프린트)가 포함되어 있다. 각 HTML의 `<style>` 태그에는 **해당 페이지 고유 컴포넌트만** 작성한다.
+`editorial-base.css`에 셀프호스팅 폰트 `@font-face`(Source Serif 4, JetBrains Mono, 메트릭 보정 폴백), 변수, 리셋, 타이포그래피, 공통 컴포넌트(masthead, section-head, prose, pull-quote, mechanism-row, technique, warning-box, closing, footer, 반응형, 프린트)가 포함되어 있다. 각 HTML의 `<style>` 태그에는 **해당 페이지 고유 컴포넌트만** 작성한다.
+
+**왜 이렇게 하는가:**
+- `font-display: optional` — 폰트가 ~100ms 내 로드되면 사용, 아니면 폴백 유지. **스왑이 발생하지 않아 CLS 제로.**
+- `preload` — 셀프호스팅 폰트를 HTML 파싱과 동시에 다운로드 시작. optional의 100ms 윈도우 내 거의 항상 도착.
+- 메트릭 보정 폴백 — fontpie로 계산된 정확한 `size-adjust`, `ascent-override` 값으로, 만약 폴백이 보여도 레이아웃이 동일.
+- 다이나믹 서브셋 — Pretendard의 92개 유니코드 슬라이스 중 페이지에 필요한 것만 다운로드.
 
 **금지 서체:** Noto Serif KR(한글 세리프 — 무겁고 올드함), Cormorant Garamond(올드스타일 숫자 문제), Inter/Roboto/Arial/system-ui(AI 출력물 느낌).
 
@@ -97,6 +112,7 @@ description: Use this skill when the user wants to create a single-page HTML doc
   |- 본문 prose
   |- 3-column grid  — 1px gap, border로 구분 (카드 아님)
   +- Pull quote     — 상하 border, 중앙 정렬, bold
+  +- Timeline       — 1px gap grid, 시간+설명 2컬럼
   |
 [Part II]         — 기술/방법론 블록 반복
   |- 넘버 + 제목
@@ -190,6 +206,87 @@ description: Use this skill when the user wants to create a single-page HTML doc
 }
 ```
 
+#### Timeline (시간순 사건 정리)
+
+사건 전개, 사고 경과 등 시간 순서가 핵심인 정보를 정리할 때 사용한다. `.mechanism-row`와 동일한 **1px 갭 그리드** 패턴을 따른다. 장식적 요소(세로 선, 원형 마커 등)를 사용하지 않고, 구조화된 데이터 테이블처럼 표현한다.
+
+**디자인 원칙:**
+- `.mechanism-row`처럼 `background: var(--rule)` + `gap: 1px`로 셀 사이 구분선을 만든다
+- 시간 컬럼은 `card-bg` 배경으로 시각적 분리 — 본문과 시간의 위계가 명확해진다
+- 장식적 세로 선(`::before`)이나 원형 도트 마커를 사용하지 않는다
+- 각 행의 높이는 콘텐츠에 따라 자연스럽게 결정된다
+
+**HTML 마크업:**
+```html
+<div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px">타임라인 제목</div>
+
+<ul class="timeline">
+  <li>
+    <span class="t-time">19:00</span>
+    <div class="t-desc">사건 설명. <strong>강조할 부분</strong>은 bold로 처리.</div>
+  </li>
+  <li>
+    <span class="t-time">19:20</span>
+    <div class="t-desc">다음 사건 설명.</div>
+  </li>
+</ul>
+```
+
+**CSS 패턴 (페이지 인라인 `<style>`에 작성):**
+```css
+/* TIMELINE — 1px gap grid (mechanism-row 패턴) */
+.timeline {
+  margin: 40px 0 48px;
+  list-style: none;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  display: grid;
+  gap: 1px;
+}
+.timeline li {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  background: var(--bg);
+}
+.timeline .t-time {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  padding: 20px 12px;
+  text-align: right;
+  background: var(--card-bg);    /* 시간 컬럼만 배경색 분리 */
+}
+.timeline .t-desc {
+  font-size: 0.92rem;
+  color: var(--prose);
+  line-height: 1.7;
+  padding: 20px 24px;
+}
+.timeline .t-desc strong {
+  font-weight: 700;
+  color: var(--fg);
+}
+
+/* 모바일 */
+@media (max-width: 700px) {
+  .timeline li { grid-template-columns: 64px 1fr; }
+  .timeline .t-time { padding: 16px 8px; font-size: 0.75rem; }
+  .timeline .t-desc { padding: 16px; }
+}
+```
+
+**금지 패턴:**
+- `::before`로 세로 연결 선 만들기 — 장식적이고, 콘텐츠와 정렬이 어긋나기 쉽다
+- `border-radius: 50%`의 원형 도트 마커 — 에디토리얼 스타일과 맞지 않는다
+- `border-bottom`으로 행 구분 — 1px 갭 그리드가 더 깔끔하다
+- 타임라인 제목에 `<h3>` + 인라인 스타일 — 한글 라벨 패턴(serif, 0.8rem, letter-spacing 2px)을 사용한다
+
+**타임라인 제목 라벨 규칙:**
+- 한글이 포함되므로 모노스페이스를 쓰지 않는다
+- `var(--serif)`, `0.8rem`, `letter-spacing: 2px`, `font-weight: 700`, `color: var(--muted)` 패턴을 따른다
+- `.w-title`과 동일한 한글 라벨 규칙 적용
+
 #### Warning/Self-Diagnosis Box
 
 한글이 포함된 제목(.w-title)은 모노스페이스가 아닌 본문 서체를 사용한다.
@@ -268,7 +365,9 @@ description: Use this skill when the user wants to create a single-page HTML doc
 - [ ] font-variant-numeric이 적용되어 있는가
 - [ ] 본문 line-height가 1.85 이상인가
 - [ ] **모든 색상이 CSS 변수로 정의되어 있는가 (하드코딩 없음)**
-- [ ] **한글 서체가 Pretendard로 렌더링되는가 (Noto Serif KR 아님)**
+- [ ] **한글 서체가 Pretendard Variable로 렌더링되는가 (Noto Serif KR 아님)**
+- [ ] **폰트 preload 태그가 `<head>`에 있는가 (source-serif-4 woff2)**
+- [ ] **Google Fonts `@import`나 외부 `<link>`를 사용하지 않는가 (셀프호스팅 필수)**
 - [ ] **한글 font-weight가 라틴 대비 적절한가 (너무 무겁지 않은가)**
 
 ## 이 스킬이 만들어진 배경

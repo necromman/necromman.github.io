@@ -15,10 +15,15 @@ assets/editorial-base.css
 
 ## HTML에서 로드하는 방법
 
-Pretendard CDN 다음, 인라인 `<style>` 이전에 배치한다:
+폰트 preload → Pretendard CDN → editorial-base.css → 인라인 `<style>` 순서로 배치한다:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<!-- 1. 본문 폰트 preload (셀프호스팅, CLS 제거용) -->
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<!-- 2. Pretendard CDN (변수 다이나믹 서브셋) -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<!-- 3. 공통 CSS (셀프호스팅 @font-face + 디자인 시스템) -->
 <link rel="stylesheet" href="../../assets/editorial-base.css">
 <style>
   /* 이 페이지 고유 스타일만 여기에 작성 */
@@ -33,7 +38,8 @@ Pretendard CDN 다음, 인라인 `<style>` 이전에 배치한다:
 
 | 항목 | 설명 |
 |------|------|
-| `@import` Google Fonts | JetBrains Mono + Source Serif 4 |
+| `@font-face` 셀프호스팅 폰트 | Source Serif 4 (variable, woff2, `font-display: optional`), JetBrains Mono (variable, woff2, `font-display: optional`) |
+| `@font-face` 메트릭 보정 폴백 | Source Serif 4 Fallback (Times New Roman 기반, fontpie 계산값), JetBrains Mono Fallback (Courier New 기반) |
 | `:root` 변수 | `--bg`, `--fg`, `--muted`, `--accent`, `--rule`, `--card-bg`, `--prose`, `--secondary`, `--serif`, `--mono` |
 | `*` 리셋 | margin, padding, box-sizing |
 | `body` | 서체, 배경, 색상, line-height, antialiasing, font-variant-numeric |
@@ -117,6 +123,7 @@ Pretendard CDN 다음, 인라인 `<style>` 이전에 배치한다:
 
 - **editorial-base.css를 수정하면 모든 콘텐츠 페이지에 영향을 준다.** 변경 전 전체 페이지에 미치는 영향을 고려한다.
 - 색상 값을 변경할 때는 `:root` 변수만 수정한다. 하드코딩된 색상값을 직접 쓰지 않는다.
-- `@import url()`은 CSS 파일 최상단에 있어야 한다. 다른 규칙보다 위에 배치한다.
+- **폰트는 셀프호스팅한다.** Google Fonts `@import`나 외부 `<link>`를 사용하지 않는다. 새 폰트를 추가하려면 `assets/fonts/`에 WOFF2 파일을 넣고 `@font-face`를 editorial-base.css에 선언한다.
+- **폰트 메트릭 보정 폴백을 반드시 함께 선언한다.** `npx fontpie [font.woff2] --fallback serif` 또는 `--fallback mono`로 정확한 `size-adjust`, `ascent-override`, `descent-override` 값을 계산하여 CLS를 방지한다.
 - 새 공통 컴포넌트를 추가할 때는 3개 이상의 페이지에서 동일하게 사용되는 경우에만 base에 넣는다. 1-2개 페이지에서만 쓰이면 인라인 `<style>`에 둔다.
 - `nav.js`의 인라인 스타일(`border-bottom`, `background`, `sticky`)도 이 디자인 시스템의 변수 값을 사용한다. nav.js 수정 시 변수값과 동기화한다.

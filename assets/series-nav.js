@@ -3,13 +3,21 @@
   var SERIES = {
     'wasted-life-series': {
       label: 'Series 01',
-      title: '99%\uAC00 \uC778\uC0DD\uC744 \uB0AD\uBE44\uD558\uB294 \uC774\uC720',
+      title: '99%가 인생을 낭비하는 이유',
       articles: [
-        { slug: '99-percent-wasted-life-guide', title: '99\uD37C\uC13C\uD2B8 \uC778\uC0DD\uB0AD\uBE44 \uC801\uC6A9\uAC00\uC774\uB4DC' },
-        { slug: 'what-self-help-wont-tell-you', title: '\uC790\uAE30\uACC4\uBC1C\uC774 \uB9D0\uD558\uC9C0 \uC54A\uB294 \uAC83' },
-        { slug: 'conditions-for-change', title: '\uBCC0\uD654\uC758 \uC870\uAC74' },
-        { slug: 'so-what-now', title: '\uADF8\uB798\uC11C \uC5B4\uB5A1\uD558\uB77C\uACE0' },
-        { slug: 'how-this-was-made', title: '\uC774 \uBB38\uC11C\uB294 \uC5B4\uB5BB\uAC8C \uB9CC\uB4E4\uC5B4\uC84C\uB294\uAC00' }
+        { slug: '99-percent-wasted-life-guide', title: '99퍼센트 인생낭비 적용가이드' },
+        { slug: 'what-self-help-wont-tell-you', title: '자기계발이 말하지 않는 것' },
+        { slug: 'conditions-for-change', title: '변화의 조건' },
+        { slug: 'so-what-now', title: '그래서 어떡하라고' },
+        { slug: 'how-this-was-made', title: '이 문서는 어떻게 만들어졌는가' }
+      ]
+    },
+    'bithumb-60t-series': {
+      label: 'Series 02',
+      title: '딸깍 한 번의 60조 원',
+      articles: [
+        { slug: 'bithumb-60-trillion-incident', title: '딸깍 한 번의 60조 원' },
+        { slug: 'whose-money-is-it', title: '그 돈은 누구의 것인가' }
       ]
     }
   };
@@ -54,7 +62,7 @@
     html += '<a href="' + prev.slug + '.html" style="background:#faf8f4;padding:24px 20px;text-decoration:none;color:inherit;display:block;transition:background 0.2s"' +
       ' onmouseover="this.style.background=\'#f2efe9\'" onmouseout="this.style.background=\'#faf8f4\'">' +
       '<span style="font-family:\'JetBrains Mono\',monospace;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:#8a8680;display:block;margin-bottom:8px">' +
-      '\u2190 \uC774\uC804 \uAE00</span>' +
+      '\u2190 이전 글</span>' +
       '<span style="font-family:\'Source Serif 4\',Pretendard,sans-serif;font-size:0.95rem;font-weight:600;line-height:1.4;color:#1a1a18">' +
       prev.title + '</span></a>';
   } else {
@@ -66,7 +74,7 @@
     html += '<a href="' + next.slug + '.html" style="background:#faf8f4;padding:24px 20px;text-decoration:none;color:inherit;display:block;text-align:right;transition:background 0.2s"' +
       ' onmouseover="this.style.background=\'#f2efe9\'" onmouseout="this.style.background=\'#faf8f4\'">' +
       '<span style="font-family:\'JetBrains Mono\',monospace;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:#8a8680;display:block;margin-bottom:8px">' +
-      '\uB2E4\uC74C \uAE00 \u2192</span>' +
+      '다음 글 \u2192</span>' +
       '<span style="font-family:\'Source Serif 4\',Pretendard,sans-serif;font-size:0.95rem;font-weight:600;line-height:1.4;color:#1a1a18">' +
       next.title + '</span></a>';
   } else {

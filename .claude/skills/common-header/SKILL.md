@@ -74,7 +74,7 @@ nav.js의 인라인 스타일은 editorial-base.css의 디자인 시스템 변�
 | `background` | `#faf8f4` | `--bg` |
 | `border-bottom` | `1px solid #d5d0c8` | `--rule` |
 | `color` (← 목록으로) | `#8a8680` | `--muted` |
-| `font-family` | `'Source Serif 4', Pretendard, sans-serif` | `--serif` |
+| `font-family` | `'Source Serif 4', 'Source Serif 4 Fallback', 'Pretendard Variable', 'Pretendard', serif` | `--serif` |
 | `position` | `sticky` | — |
 | `top` | `0` | — |
 | `z-index` | `100` | — |
