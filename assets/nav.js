@@ -40,10 +40,10 @@
 
   document.body.insertBefore(nav, document.body.firstChild);
 
-  // GoatCounter 추적 스크립트 동적 삽입
-  var gc = document.createElement('script');
-  gc.setAttribute('data-goatcounter', 'https://necromman.goatcounter.com/count');
-  gc.async = true;
-  gc.src = '//gc.zgo.at/count.js';
-  document.head.appendChild(gc);
+  // GoatCounter 수동 추적 (count.js 없이 — CSP 충돌 방지)
+  if (location.protocol !== 'file:' && location.hostname !== 'localhost') {
+    var img = new Image();
+    img.src = 'https://necromman.goatcounter.com/count?p=' + encodeURIComponent(location.pathname)
+      + '&r=' + encodeURIComponent(document.referrer);
+  }
 })();

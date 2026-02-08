@@ -403,7 +403,7 @@
 
   <footer class="site-footer">
     <div class="visitor-count" id="visitorCount">
-      <span id="visitorNum" data-goatcounter-visits="TOTAL" style="font-size:1.1rem;font-weight:600;color:var(--fg);letter-spacing:0">0</span>
+      <span id="visitorNum" style="font-size:1.1rem;font-weight:600;color:var(--fg);letter-spacing:0">0</span>
     </div>
     <p>Editorial &middot; 2026</p>
   </footer>
@@ -478,34 +478,27 @@ function toggleSeries(header) {
   toggle.classList.toggle('collapsed');
 }
 
-// GoatCounter 누적 방문자 수 표시
+// GoatCounter 수동 추적 (count.js 없이 — CSP 충돌 방지)
+(function() {
+  if (location.protocol === 'file:' || location.hostname === 'localhost') return;
+  var img = new Image();
+  img.src = 'https://necromman.goatcounter.com/count?p=' + encodeURIComponent(location.pathname)
+    + '&r=' + encodeURIComponent(document.referrer);
+})();
+
+// GoatCounter JSON API로 누적 방문자 수 표시
 (function() {
   var numEl = document.getElementById('visitorNum');
   if (!numEl) return;
 
-  // count.js 로드 대기 → visit_count 호출 → 값 채워짐 확인
-  var timer = setInterval(function() {
-    if (window.goatcounter && window.goatcounter.visit_count) {
-      clearInterval(timer);
-      numEl.textContent = '';
-      window.goatcounter.visit_count();
-      // visit_count가 비동기로 값을 채우므로, 값이 들어올 때까지 확인
-      var check = setInterval(function() {
-        if (numEl.textContent && numEl.textContent !== '0') {
-          clearInterval(check);
-        }
-      }, 300);
-      setTimeout(function() {
-        clearInterval(check);
-        if (!numEl.textContent) numEl.textContent = '0';
-      }, 4000);
-    }
-  }, 200);
-
-  setTimeout(function() { clearInterval(timer); }, 5000);
+  fetch('https://necromman.goatcounter.com/counter/TOTAL.json')
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      var count = parseInt(d.count, 10);
+      if (count > 0) numEl.textContent = count.toLocaleString();
+    })
+    .catch(function() {});
 })();
 </script>
-<script data-goatcounter="https://necromman.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
