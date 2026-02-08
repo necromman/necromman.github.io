@@ -357,6 +357,31 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
 - `.closing` 직전에 pull-quote 배치 — 둘 다 결론처럼 보여 시각적으로 겹친다
 - `<h2>` 전체를 `<strong>`으로 감싸기 — 전반부 일반체 + 후반부 accent의 대비가 핵심이다
 
+#### Footer (출처/크레딧)
+
+`.footer` 안에 출처와 크레딧을 `<p>` 태그로 직접 작성한다. "Sources:" 접두사를 본문 안에 인라인으로 포함한다.
+
+**HTML 마크업:**
+```html
+<footer class="footer">
+  <p>Sources: 출처A (연도) &middot; 출처B (연도) &middot; 출처C (연도)</p>
+  <p>Research assisted by Claude &middot; 2026</p>
+</footer>
+```
+
+**금지 패턴:**
+```html
+<!-- 절대 금지 — 별도 라벨 요소를 만들지 않는다 -->
+<div class="source-label">Sources</div>
+<p>출처 목록...</p>
+```
+
+**규칙:**
+- "Sources:"는 `<p>` 태그 안에 텍스트로 포함한다. 별도 `<div>`, `<span>`, `<h3>` 등의 라벨 요소를 만들지 않는다
+- `.footer p`는 `editorial-base.css`에서 이미 모노스페이스, 0.55rem, letter-spacing 3px, uppercase로 스타일링되어 있다
+- 출처 사이 구분자는 `&middot;` (가운뎃점)을 사용한다
+- 크레딧 라인이 필요하면 두 번째 `<p>`로 추가한다
+
 ## 반응형 처리 (필수)
 
 **반응형은 선택이 아니라 필수다.** 모든 멀티 컬럼 레이아웃은 모바일(max-width: 700px)에서 1-column으로 전환되어야 한다.
@@ -424,6 +449,39 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
 }
 ```
 
+### 화살표 방향 전환 — transform: rotate 금지
+
+가로 흐름(→)이 모바일에서 세로 흐름(↓)으로 바뀔 때, `transform: rotate(90deg)`를 사용하면 **레이아웃 박스는 그대로인데 시각적으로만 회전**하여 화살표가 엉뚱한 위치에 표시된다.
+
+**금지 패턴:**
+```css
+/* 절대 금지 — transform은 레이아웃에 영향을 주지 않아 위치가 어긋난다 */
+@media (max-width: 700px) {
+  .flow-arrow { transform: rotate(90deg); }
+  .role-arrow { transform: rotate(90deg); }
+}
+```
+
+**올바른 패턴 — CSS pseudo-element로 문자 교체:**
+```css
+/* 모바일에서 → 를 ↓ 로 교체 */
+@media (max-width: 700px) {
+  .flow-arrow {
+    font-size: 0;        /* 원본 → 숨김 */
+    text-align: center;
+  }
+  .flow-arrow::after {
+    content: '↓';
+    font-size: 0.85rem;  /* 원래 폰트 크기 복원 */
+  }
+}
+```
+
+**왜 이렇게 하는가:**
+- `transform`은 시각적 렌더링만 변경하고 레이아웃 박스(너비/높이)는 변경하지 않는다
+- 전체 너비 요소에서 `rotate(90deg)`를 적용하면 회전 중심이 요소 가운데이므로, 좌측 정렬된 텍스트가 예측 불가능한 위치로 이동한다
+- `font-size: 0` + `::after` 방식은 레이아웃 흐름을 깨뜨리지 않고 문자를 깨끗하게 교체한다
+
 ## 콘텐츠 작성 규칙
 
 ### 정보 구조화 프로세스
@@ -458,6 +516,7 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
 - [ ] **모바일 반응형이 작동하는가 (모든 멀티 컬럼 그리드가 1-column으로 전환)**
 - [ ] **인라인 `style`로 `grid-template-columns`를 지정하지 않았는가 (CSS 클래스 사용 필수)**
 - [ ] **페이지 고유 그리드에 `@media (max-width: 700px)` 오버라이드가 있는가**
+- [ ] **모바일 화살표 방향 전환에 `transform: rotate(90deg)`를 사용하지 않았는가 (pseudo-element 교체 필수)**
 - [ ] font-variant-numeric이 적용되어 있는가
 - [ ] 본문 line-height가 1.85 이상인가
 - [ ] **모든 색상이 CSS 변수로 정의되어 있는가 (하드코딩 없음)**
@@ -468,6 +527,7 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
 - [ ] **`.closing`에 `<h2>` + `<p class="sub">` 구조인가**
 - [ ] **`.closing h2`에 `<strong>` accent color가 적용되어 있는가 (전반부 일반체 + 후반부 accent)**
 - [ ] **`.closing` 직전에 pull-quote가 없는가 (둘 다 결론처럼 보여 시각적으로 겹침)**
+- [ ] **`.footer` 안에 별도 라벨 요소(`<div class="source-label">` 등)를 만들지 않았는가 ("Sources:"는 `<p>` 안에 인라인 텍스트로)**
 
 ## 이 스킬이 만들어진 배경
 

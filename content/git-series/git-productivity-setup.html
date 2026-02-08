@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>.gitconfig 하나로 생산성 2배 — Editorial</title>
+<meta name="description" content="Git 코어 개발자들이 만장일치로 추천하는 .gitconfig 설정, 터미널을 바꾸는 도구(delta, lazygit, gh), 그리고 Git 2.49의 Rust 도입까지. 생산성을 두 배로 끌어올리는 실전 가이드.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/git-series/git-productivity-setup.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content=".gitconfig 하나로 생산성 2배">
+<meta property="og:description" content="Git 코어 개발자들이 만장일치로 추천하는 .gitconfig 설정, 터미널을 바꾸는 도구(delta, lazygit, gh), 그리고 Git 2.49의 Rust 도입까지. 생산성을 두 배로 끌어올리는 실전 가이드.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/git-series/git-productivity-setup.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-09">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content=".gitconfig 하나로 생산성 2배">
+<meta name="twitter:description" content="Git 코어 개발자들이 만장일치로 추천하는 .gitconfig 설정, 터미널을 바꾸는 도구(delta, lazygit, gh), 그리고 Git 2.49의 Rust 도입까지. 생산성을 두 배로 끌어올리는 실전 가이드.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":".gitconfig 하나로 생산성 2배","description":"Git 코어 개발자들이 만장일치로 추천하는 .gitconfig 설정, 터미널을 바꾸는 도구(delta, lazygit, gh), 그리고 Git 2.49의 Rust 도입까지. 생산성을 두 배로 끌어올리는 실전 가이드.","datePublished":"2026-02-09","dateModified":"2026-02-09","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/git-series/git-productivity-setup.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead .deck { max-width: 560px; }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    padding: 20px 24px;
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    line-height: 1.75;
+    overflow-x: auto;
+    white-space: pre;
+    margin: 24px 0;
+    color: var(--prose);
+    border-radius: 0;
+  }
+  .code-block .code-label {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .code-block .code-comment {
+    color: var(--muted);
+  }
+  .code-block .code-key {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* 2-COLUMN GRID */
+  .mechanism-2col {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* TOOL CARD inside mechanism */
+  .tool-meta {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 12px;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    margin: 40px 0 48px;
+    list-style: none;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    display: grid;
+    gap: 1px;
+  }
+  .timeline li {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    background: var(--bg);
+  }
+  .timeline .t-time {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    padding: 20px 12px;
+    text-align: right;
+    background: var(--card-bg);
+  }
+  .timeline .t-desc {
+    font-size: 0.92rem;
+    color: var(--prose);
+    line-height: 1.7;
+    padding: 20px 24px;
+  }
+  .timeline .t-desc strong {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* COMPARISON TABLE */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 32px 0 40px;
+  }
+  .compare-grid .cg-head {
+    background: var(--card-bg);
+    padding: 16px 14px;
+    font-family: var(--serif);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--fg);
+  }
+  .compare-grid .cg-cell {
+    background: var(--bg);
+    padding: 14px 14px;
+    font-size: 0.82rem;
+    color: var(--prose);
+    line-height: 1.6;
+  }
+  .compare-grid .cg-cell strong {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* ALIAS LIST */
+  .alias-list {
+    list-style: none;
+    margin: 24px 0;
+  }
+  .alias-list li {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.9rem;
+    color: var(--prose);
+    line-height: 1.6;
+  }
+  .alias-list li:last-child { border-bottom: none; }
+  .alias-list .al-cmd {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  @media (max-width: 700px) {
+    .mechanism-2col { grid-template-columns: 1fr; }
+    .timeline li { grid-template-columns: 72px 1fr; }
+    .timeline .t-time { padding: 16px 8px; font-size: 0.75rem; }
+    .timeline .t-desc { padding: 16px; }
+    .compare-grid { grid-template-columns: 1fr 1fr; }
+    .alias-list li { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<div class="page">
+
+  <article>
+    <header class="masthead">
+      <div class="issue">Series 09 &mdash; Article 05 of 05</div>
+      <h1>.gitconfig 하나로 생산성 <strong>2배</strong></h1>
+      <p class="deck">Git 코어 개발자들이 만장일치로 추천하는 설정, 터미널을 바꾸는 도구, 그리고 Git 2.49에 Rust가 들어온 이유.</p>
+    </header>
+
+    <main>
+
+      <!-- PART I -->
+      <section>
+        <div class="section-head">
+          <span class="num">Part I</span>
+          <h2>Git 코어 개발자들의 .gitconfig &mdash; <strong>3단계 추천</strong></h2>
+        </div>
+
+        <p class="prose">
+          2024년 GitButler 블로그가 Git 코어 개발자들을 대상으로 "Spring Cleaning" 설문을 진행했다. <strong>"당신의 .gitconfig에서 반드시 켜야 할 설정은?"</strong>이라는 질문에 대한 답변을 집계한 결과, 설정들이 세 단계로 나뉘었다. 만장일치(Tier 1), 반대 의견 없음(Tier 2), 취향 차이(Tier 3).
+        </p>
+
+        <div class="mechanism-row">
+          <div class="mechanism">
+            <div class="m-label">Tier 1</div>
+            <h3>확실히 Git을 개선</h3>
+            <p><strong>push.autoSetupRemote</strong> &mdash; 처음 push할 때 --set-upstream 자동 설정. 매번 입력하던 그 명령이 사라진다.</p>
+            <p style="margin-top:10px"><strong>fetch.prune</strong> &mdash; fetch할 때 삭제된 원격 브랜치 자동 정리. stale 브랜치가 쌓이지 않는다.</p>
+            <p style="margin-top:10px"><strong>diff.algorithm=histogram</strong> &mdash; 기본 myers보다 정확한 diff. 함수 이동을 더 잘 감지한다.</p>
+            <p style="margin-top:10px"><strong>branch.sort=-committerdate</strong> &mdash; 최근 커밋 순으로 브랜치 정렬. 가장 활발한 브랜치가 맨 위.</p>
+            <p style="margin-top:10px"><strong>column.ui=auto</strong> &mdash; branch, tag 목록을 컬럼 레이아웃으로 출력. 터미널 공간 활용.</p>
+            <p class="tool-meta">Unanimous &mdash; 반대 의견 0</p>
+          </div>
+          <div class="mechanism">
+            <div class="m-label">Tier 2</div>
+            <h3>안 할 이유가 없는 것</h3>
+            <p><strong>rerere.enabled</strong> &mdash; 충돌 해결을 기억하고 같은 충돌에 자동 적용. rebase 반복 작업이 극적으로 줄어든다.</p>
+            <p style="margin-top:10px"><strong>commit.verbose</strong> &mdash; 커밋 메시지 편집기에 diff를 함께 표시. 변경 내용을 보면서 메시지를 작성할 수 있다.</p>
+            <p style="margin-top:10px"><strong>rebase.autoSquash</strong> &mdash; fixup!/squash! 접두사 커밋을 자동 재배치. interactive rebase가 깔끔해진다.</p>
+            <p style="margin-top:10px"><strong>help.autocorrect=prompt</strong> &mdash; 오타 명령을 감지하고 "Did you mean...?" 확인. 실수가 사고로 이어지지 않는다.</p>
+            <p class="tool-meta">Near-unanimous</p>
+          </div>
+          <div class="mechanism">
+            <div class="m-label">Tier 3</div>
+            <h3>취향의 영역</h3>
+            <p><strong>merge.conflictstyle=zdiff3</strong> &mdash; 충돌 마커에 "원본 코드"를 함께 표시. 3-way merge의 컨텍스트가 보인다. 일부 개발자는 복잡하다고 느낀다.</p>
+            <p style="margin-top:10px"><strong>pull.rebase</strong> &mdash; pull할 때 merge 대신 rebase. 히스토리가 깔끔하지만, 초보자에게는 위험할 수 있다.</p>
+            <p style="margin-top:10px"><strong>core.fsmonitor</strong> &mdash; 파일 시스템 변경 감지 데몬. 대규모 레포에서 status/add 속도 향상. 작은 레포에서는 체감 차이 없음.</p>
+            <p class="tool-meta">Varies by workflow</p>
+          </div>
+        </div>
+
+        <p class="prose">
+          주목할 점은 Tier 1의 <strong>push.autoSetupRemote</strong>이다. 2022년에 추가된 비교적 최근 설정인데, 코어 개발자 전원이 추천했다. 새 브랜치를 만들고 처음 push할 때마다 <code style="font-family:var(--mono);font-size:0.88rem;color:var(--accent)">git push --set-upstream origin feature/xxx</code>를 입력하던 시대가 끝났다.
+        </p>
+      </section>
+
+      <!-- PART II -->
+      <section>
+        <div class="section-head">
+          <span class="num">Part II</span>
+          <h2>복붙하면 끝나는 <strong>.gitconfig 완성본</strong></h2>
+        </div>
+
+        <p class="prose">
+          아래는 Tier 1 + Tier 2 설정을 모두 포함하고, 실전에서 바로 쓸 수 있는 alias를 추가한 완성본이다. 파일 위치는 <code style="font-family:var(--mono);font-size:0.88rem;color:var(--accent)">~/.gitconfig</code>이다. 각 설정에 한글 주석을 달았다.
+        </p>
+
+        <div class="code-block"><span class="code-label">.gitconfig &mdash; Recommended Full Config</span>
+<span class="code-comment"># ── 사용자 정보 ──</span>
+<span class="code-key">[user]</span>
+    name = Your Name
+    email = your@email.com
+
+<span class="code-comment"># ── Tier 1: 만장일치 설정 ──</span>
+<span class="code-key">[push]</span>
+    autoSetupRemote = true         <span class="code-comment"># 첫 push 시 --set-upstream 자동</span>
+<span class="code-key">[fetch]</span>
+    prune = true                   <span class="code-comment"># 삭제된 원격 브랜치 자동 정리</span>
+<span class="code-key">[diff]</span>
+    algorithm = histogram          <span class="code-comment"># 더 정확한 diff 알고리즘</span>
+    colorMoved = plain             <span class="code-comment"># 이동된 코드를 색으로 구분</span>
+<span class="code-key">[branch]</span>
+    sort = -committerdate          <span class="code-comment"># 최근 커밋 순 브랜치 정렬</span>
+<span class="code-key">[column]</span>
+    ui = auto                      <span class="code-comment"># 컬럼 레이아웃 출력</span>
+
+<span class="code-comment"># ── Tier 2: 안 할 이유 없는 것 ──</span>
+<span class="code-key">[rerere]</span>
+    enabled = true                 <span class="code-comment"># 충돌 해결 기억 및 자동 적용</span>
+<span class="code-key">[commit]</span>
+    verbose = true                 <span class="code-comment"># 커밋 편집기에 diff 표시</span>
+<span class="code-key">[rebase]</span>
+    autoSquash = true              <span class="code-comment"># fixup!/squash! 자동 재배치</span>
+<span class="code-key">[help]</span>
+    autocorrect = prompt           <span class="code-comment"># 오타 명령 교정 프롬프트</span>
+
+<span class="code-comment"># ── Tier 3: 선택 사항 (취향) ──</span>
+<span class="code-key">[merge]</span>
+    conflictstyle = zdiff3         <span class="code-comment"># 3-way 충돌 마커 (원본 포함)</span>
+<span class="code-key">[pull]</span>
+    rebase = true                  <span class="code-comment"># pull시 merge 대신 rebase</span>
+
+<span class="code-comment"># ── 실전 Alias ──</span>
+<span class="code-key">[alias]</span>
+    s = status -s                  <span class="code-comment"># 짧은 상태 출력</span>
+    lg = log --oneline --graph --all --decorate  <span class="code-comment"># 그래프 로그</span>
+    undo = reset --soft HEAD~1     <span class="code-comment"># 마지막 커밋 취소 (변경 유지)</span>
+    fpush = push --force-with-lease <span class="code-comment"># 안전한 force push</span>
+    co = checkout                  <span class="code-comment"># 축약</span>
+    br = branch                    <span class="code-comment"># 축약</span>
+    ci = commit                    <span class="code-comment"># 축약</span>
+    sw = switch                    <span class="code-comment"># Git 2.23+ 브랜치 전환</span>
+    last = log -1 --stat           <span class="code-comment"># 마지막 커밋 상세</span>
+    unstage = restore --staged     <span class="code-comment"># 스테이징 취소</span>
+    amend = commit --amend --no-edit <span class="code-comment"># 메시지 안 바꾸고 수정</span>
+    wip = !git add -A &amp;&amp; git commit -m "WIP"  <span class="code-comment"># 임시 저장</span></div>
+
+        <p class="prose">
+          <strong>Mathias Bynens</strong>의 dotfiles 저장소는 GitHub에서 30,000개 이상의 스타를 받았다. 그의 .gitconfig는 위 설정의 대부분을 포함하고 있다. <strong>Scott Chacon</strong>(GitHub 공동 창업자)의 dotfiles 역시 비슷한 패턴을 따른다. "좋은 .gitconfig"에 대한 개발 커뮤니티의 합의가 이미 존재한다는 뜻이다.
+        </p>
+
+        <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px;margin-top:40px">추천 Alias 상세</div>
+
+        <ul class="alias-list">
+          <li>
+            <span class="al-cmd">git s</span>
+            <span><strong>status -s</strong> &mdash; 변경 파일 목록만 한 줄씩 출력. 기본 status의 장황한 설명 대신 M/A/D 플래그로 즉시 파악.</span>
+          </li>
+          <li>
+            <span class="al-cmd">git lg</span>
+            <span><strong>log --oneline --graph --all --decorate</strong> &mdash; 전체 브랜치의 커밋 히스토리를 ASCII 그래프로 시각화. GUI 없이도 브랜치 흐름이 보인다.</span>
+          </li>
+          <li>
+            <span class="al-cmd">git undo</span>
+            <span><strong>reset --soft HEAD~1</strong> &mdash; 마지막 커밋만 취소하고 변경 사항은 스테이징 영역에 유지. "커밋을 잘못 했을 때" 첫 번째 선택지.</span>
+          </li>
+          <li>
+            <span class="al-cmd">git fpush</span>
+            <span><strong>push --force-with-lease</strong> &mdash; force push하되, 원격에 다른 사람의 커밋이 있으면 거부. --force보다 안전한 대안.</span>
+          </li>
+        </ul>
+
+        <div class="pull-quote">
+          <p>.gitconfig를 한 번도 수정하지 않았다면,<br><strong>Git의 절반만 쓰고 있는 것이다.</strong></p>
+          <div class="attr">GitButler Blog &mdash; Core Dev Survey</div>
+        </div>
+      </section>
+
+      <!-- PART III -->
+      <section>
+        <div class="section-head">
+          <span class="num">Part III</span>
+          <h2>터미널을 바꿔라 &mdash; <strong>delta, lazygit, gh</strong></h2>
+        </div>
+
+        <p class="prose">
+          .gitconfig를 최적화했다면, 다음은 도구다. Git의 기본 출력은 1990년대의 유산이다. diff는 읽기 어렵고, log는 단색이며, 스테이징은 파일 경로를 일일이 타이핑해야 한다. 하지만 2026년의 터미널 도구들은 이 모든 것을 바꿔놓았다.
+        </p>
+
+        <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px;margin-top:40px">터미널 도구</div>
+
+        <div class="mechanism-row">
+          <div class="mechanism">
+            <div class="m-label">delta</div>
+            <h3>Syntax-Highlighted Diff</h3>
+            <p><strong>구문 강조</strong>, <strong>단어 단위 변경 감지</strong>, side-by-side 출력을 지원하는 diff 뷰어. git diff, git log, git show의 출력을 자동으로 파이프해서 가독성을 극대화한다.</p>
+            <p class="tool-meta">Rust &mdash; 25k+ Stars</p>
+          </div>
+          <div class="mechanism">
+            <div class="m-label">lazygit</div>
+            <h3>Go TUI</h3>
+            <p>하나의 화면에 <strong>status, log, diff, staging</strong>을 모두 표시하는 터미널 UI. 키보드만으로 스테이징, 커밋, rebase, cherry-pick, stash를 처리한다. Git 명령어를 몰라도 된다.</p>
+            <p class="tool-meta">Go &mdash; 55k+ Stars</p>
+          </div>
+          <div class="mechanism">
+            <div class="m-label">gitui</div>
+            <h3>Rust TUI</h3>
+            <p>lazygit의 Rust 대안. <strong>대규모 레포에서 가장 빠르다.</strong> 100만 커밋 레포에서도 즉각 반응한다. UI는 lazygit보다 단순하지만, 핵심 기능은 모두 있다.</p>
+            <p class="tool-meta">Rust &mdash; 18k+ Stars</p>
+          </div>
+        </div>
+
+        <div class="code-block"><span class="code-label">.gitconfig &mdash; delta Integration</span>
+<span class="code-key">[core]</span>
+    pager = delta                  <span class="code-comment"># git diff/log 출력을 delta로 파이프</span>
+<span class="code-key">[interactive]</span>
+    diffFilter = delta --color-only <span class="code-comment"># git add -p에서도 delta 적용</span>
+<span class="code-key">[delta]</span>
+    navigate = true                <span class="code-comment"># n/N으로 파일 간 점프</span>
+    side-by-side = true            <span class="code-comment"># 좌우 분할 diff</span>
+    line-numbers = true            <span class="code-comment"># 줄번호 표시</span>
+    syntax-theme = ansi            <span class="code-comment"># 터미널 테마 따라감</span></div>
+
+        <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px;margin-top:48px">GitHub CLI와 AI</div>
+
+        <div class="mechanism-row mechanism-2col">
+          <div class="mechanism">
+            <div class="m-label">gh (GitHub CLI)</div>
+            <h3>터미널에서 GitHub</h3>
+            <p><strong>gh pr create</strong>로 브라우저 없이 PR을 만든다. <strong>gh pr checkout</strong>으로 리뷰할 PR을 로컬에 즉시 체크아웃한다. <strong>gh copilot suggest</strong>로 자연어를 Git 명령으로 변환한다.</p>
+            <p style="margin-top:10px;font-size:0.85rem;color:var(--secondary)">gh run list, gh issue create, gh release create까지 &mdash; GitHub 워크플로우의 90%를 터미널에서 처리할 수 있다.</p>
+          </div>
+          <div class="mechanism">
+            <div class="m-label">Copilot for CLI</div>
+            <h3>자연어 &rarr; 명령</h3>
+            <p><strong>"지난주에 main에 머지된 PR 목록을 보여줘"</strong>라고 치면, gh copilot suggest가 정확한 gh/git 명령을 생성한다. 명령어를 외울 필요가 없다.</p>
+            <p style="margin-top:10px;font-size:0.85rem;color:var(--secondary)">gh copilot explain &mdash; 복잡한 명령의 의미를 자연어로 해석해준다.</p>
+          </div>
+        </div>
+
+        <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px;margin-top:48px">IDE와 데스크톱 GUI</div>
+
+        <div class="mechanism-row">
+          <div class="mechanism">
+            <div class="m-label">VS Code</div>
+            <h3>GitLens + Git Graph</h3>
+            <p><strong>GitLens</strong>(40M+ 설치)는 인라인 blame, 파일 히스토리, 커밋 비교를 에디터 안에서 제공한다. <strong>Git Graph</strong>는 브랜치 시각화를 GUI 수준으로 끌어올린다.</p>
+          </div>
+          <div class="mechanism">
+            <div class="m-label">Fork</div>
+            <h3>$49.99 &mdash; 빠른 GUI</h3>
+            <p>macOS + Windows. <strong>가장 빠른 데스크톱 Git 클라이언트</strong>로 평가받는다. interactive rebase가 드래그 앤 드롭. 대규모 레포에서도 버벅이지 않는다.</p>
+          </div>
+          <div class="mechanism">
+            <div class="m-label">Sourcetree</div>
+            <h3>무료 &mdash; Atlassian</h3>
+            <p>무료 데스크톱 클라이언트. Bitbucket/GitHub/GitLab 모두 지원. UI가 다소 복잡하지만 기능은 충분하다. GitKraken(유료)은 더 세련된 UI를 원할 때 대안.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PART IV -->
+      <section>
+        <div class="section-head">
+          <span class="num">Part IV</span>
+          <h2>Git 2025&ndash;2026, <strong>무엇이 바뀌었나</strong></h2>
+        </div>
+
+        <p class="prose">
+          Git은 매 분기 새 버전을 릴리스한다. 2025년에는 역사적인 변화가 있었다. <strong>Rust 코드가 처음 들어왔고</strong>, 30년 된 zlib이 교체되었으며, 머지 전략이 전면 교체되었다. "느리고 안정적인" Git의 이미지가 바뀌고 있다.
+        </p>
+
+        <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px">Git 버전 타임라인</div>
+
+        <ul class="timeline">
+          <li>
+            <span class="t-time">v2.49</span>
+            <div class="t-desc"><strong>Rust 코드 최초 도입.</strong> libgit2 의존성의 일부를 Rust로 교체하기 시작. Git의 미래 방향을 선언한 역사적 릴리스. "C만으로는 더 이상 안전하지 않다"는 코어 팀의 합의.</div>
+          </li>
+          <li>
+            <span class="t-time">v2.49</span>
+            <div class="t-desc"><strong>zlib-ng 전환.</strong> 30년 된 zlib을 zlib-ng로 교체. 압축/해제 속도 약 <strong>25% 향상.</strong> clone, push, gc 모든 작업에서 체감된다.</div>
+          </li>
+          <li>
+            <span class="t-time">v2.49</span>
+            <div class="t-desc"><strong>Name-Hash v2.</strong> repack 알고리즘의 파일 매칭 로직 개선. Chromium 레포 기준 repack 시간 <strong>96초 &rarr; 34초.</strong> 대규모 모노레포에서 극적인 효과.</div>
+          </li>
+          <li>
+            <span class="t-time">v2.50</span>
+            <div class="t-desc"><strong>ORT가 recursive를 대체.</strong> 기본 머지 전략이 recursive에서 ORT(Ostensibly Recursive's Twin)로 변경. "삭제된 코드가 디버깅된 코드다(deleted code is debugged code!)" &mdash; 코어 팀의 선언.</div>
+          </li>
+        </ul>
+
+        <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px;margin-top:40px">진행 중인 변화</div>
+
+        <div class="mechanism-row">
+          <div class="mechanism">
+            <div class="m-label">Monorepo</div>
+            <h3>Sparse Checkout + Partial Clone</h3>
+            <p><strong>Sparse Checkout</strong>은 레포의 일부 디렉토리만 체크아웃한다. <strong>Partial Clone</strong>은 blob을 필요할 때만 다운로드한다. 두 기능을 합치면 수십 GB 모노레포를 로컬에서 수 MB로 다룰 수 있다.</p>
+          </div>
+          <div class="mechanism">
+            <div class="m-label">Hash</div>
+            <h3>SHA-256 전환</h3>
+            <p>SHA-1의 보안 한계로 SHA-256 전환이 진행 중이다. 아직 실험 단계(experimental)이지만, 새 레포를 SHA-256으로 생성하는 것이 가능하다. SHA-1과의 호환성 문제가 최대 과제.</p>
+          </div>
+          <div class="mechanism">
+            <div class="m-label">Next-Gen</div>
+            <h3>Jujutsu (jj)</h3>
+            <p>Google 엔지니어가 만든 <strong>차세대 버전 관리 시스템.</strong> Git과 호환되면서 근본적으로 다른 모델을 제시한다. 워킹 카피가 자동 커밋되고, 브랜치 없이 작업하며, undo가 모든 곳에서 동작한다.</p>
+          </div>
+        </div>
+
+        <div class="pull-quote">
+          <p>Git은 변하지 않는 도구가 아니다.<br><strong>매 분기, 조용히 진화하고 있다.</strong></p>
+        </div>
+      </section>
+
+      <!-- PART V -->
+      <section>
+        <div class="section-head">
+          <span class="num">Part V</span>
+          <h2>시크릿 스캐너, AI 커밋, <strong>그리고 미래</strong></h2>
+        </div>
+
+        <p class="prose">
+          .gitconfig와 도구를 넘어서, Git 워크플로우의 외곽에는 보안, AI 자동화, 대규모 레포 관리라는 세 가지 전선이 있다. 이 영역들은 아직 "기본 설정"에 포함되지 않지만, 프로덕션 환경에서는 이미 필수가 되었다.
+        </p>
+
+        <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px;margin-top:40px">시크릿 탐지 도구 비교</div>
+
+        <div class="compare-grid">
+          <div class="cg-head">도구</div>
+          <div class="cg-head">방식</div>
+          <div class="cg-head">장점</div>
+          <div class="cg-head">단점</div>
+
+          <div class="cg-cell"><strong>Gitleaks</strong></div>
+          <div class="cg-cell">정규식 기반 스캔. pre-commit hook + CI 통합</div>
+          <div class="cg-cell">빠르고 가벼움. TOML 규칙 커스텀 용이</div>
+          <div class="cg-cell">엔트로피 분석 없음. 커스텀 시크릿 패턴 누락 가능</div>
+
+          <div class="cg-cell"><strong>TruffleHog</strong></div>
+          <div class="cg-cell">정규식 + 엔트로피 분석. 600+ 디텍터 내장</div>
+          <div class="cg-cell">가장 포괄적. AWS/GCP/Azure 키 자동 검증</div>
+          <div class="cg-cell">스캔 속도 느림. 대규모 레포에서 시간 소요</div>
+
+          <div class="cg-cell"><strong>git-secrets</strong></div>
+          <div class="cg-cell">AWS 전용. pre-commit hook으로 차단</div>
+          <div class="cg-cell">AWS 환경에 최적화. 설치 간단</div>
+          <div class="cg-cell">AWS 외 시크릿 미지원. 업데이트 느림</div>
+
+          <div class="cg-cell"><strong>GitHub Push Protection</strong></div>
+          <div class="cg-cell">서버 사이드. push 시점에 시크릿 자동 차단</div>
+          <div class="cg-cell">설정 불필요. GitHub 통합. 가장 편리</div>
+          <div class="cg-cell">GitHub 전용. 커스텀 패턴 제한적</div>
+        </div>
+
+        <p class="prose">
+          이상적인 구성은 <strong>이중 방어</strong>다. 로컬에서 Gitleaks(pre-commit hook)로 1차 차단하고, 서버에서 GitHub Push Protection으로 2차 차단한다. "실수로 push해도 막힌다"는 안전망이 핵심이다.
+        </p>
+
+        <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px;margin-top:48px">AI 커밋과 자동화</div>
+
+        <div class="mechanism-row mechanism-2col">
+          <div class="mechanism">
+            <div class="m-label">AI Commit</div>
+            <h3>커밋 메시지 자동 생성</h3>
+            <p><strong>GitHub Copilot</strong>은 VS Code에서 커밋 메시지를 자동 제안한다. <strong>aicommits</strong>는 터미널에서 diff를 분석해 Conventional Commits 형식의 메시지를 생성한다.</p>
+            <p style="margin-top:10px;font-size:0.85rem;color:var(--secondary)">완벽하지 않다. 생성된 메시지를 반드시 검토하고 수정해야 한다. "AI가 쓴 커밋 메시지"가 레포를 오염시키는 것은 새로운 종류의 기술 부채다.</p>
+          </div>
+          <div class="mechanism">
+            <div class="m-label">CLI AI</div>
+            <h3>gh copilot suggest</h3>
+            <p><strong>"3일 이내에 변경된 파일 목록을 보여줘"</strong>라고 입력하면 <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent)">git log --since='3 days ago' --name-only</code>를 제안한다. Git의 수백 개 옵션을 외울 필요가 없다.</p>
+            <p style="margin-top:10px;font-size:0.85rem;color:var(--secondary)">gh copilot explain으로 팀원이 작성한 복잡한 명령의 의미를 즉시 파악할 수 있다.</p>
+          </div>
+        </div>
+
+        <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px;margin-top:48px">프로덕션 워크플로우</div>
+
+        <div class="mechanism-row">
+          <div class="mechanism">
+            <div class="m-label">Monorepo</div>
+            <h3>Turborepo + Nx</h3>
+            <p><strong>Turborepo</strong>는 태스크 캐싱과 병렬 실행으로 모노레포 빌드를 최적화한다. <strong>Nx</strong>는 의존성 그래프 기반으로 영향받는 프로젝트만 테스트한다. 둘 다 sparse-checkout과 결합하면 CI 시간이 극적으로 단축된다.</p>
+          </div>
+          <div class="mechanism">
+            <div class="m-label">Signing</div>
+            <h3>SSH 커밋 서명</h3>
+            <p>Git 2.34부터 <strong>SSH 키로 커밋에 서명</strong>할 수 있다. GPG보다 설정이 간단하다. 이미 GitHub에 등록된 SSH 키를 그대로 사용하면 된다. <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent)">gpg.format = ssh</code> 한 줄이면 끝.</p>
+          </div>
+          <div class="mechanism">
+            <div class="m-label">Maintenance</div>
+            <h3>git maintenance start</h3>
+            <p><strong>백그라운드 최적화</strong> 명령. commit-graph, prefetch, gc, pack-refs를 스케줄링하여 자동 실행한다. 대규모 레포에서 status, log, fetch 속도가 점진적으로 개선된다.</p>
+          </div>
+        </div>
+
+        <div class="code-block"><span class="code-label">SSH Commit Signing &mdash; .gitconfig</span>
+<span class="code-key">[user]</span>
+    signingkey = ~/.ssh/id_ed25519.pub  <span class="code-comment"># SSH 공개키 경로</span>
+<span class="code-key">[gpg]</span>
+    format = ssh                        <span class="code-comment"># GPG 대신 SSH 사용</span>
+<span class="code-key">[commit]</span>
+    gpgsign = true                      <span class="code-comment"># 모든 커밋에 자동 서명</span>
+<span class="code-key">[gpg "ssh"]</span>
+    allowedSignersFile = ~/.ssh/allowed_signers  <span class="code-comment"># 검증용 허용 목록</span></div>
+
+        <div class="code-block"><span class="code-label">git maintenance &mdash; Background Optimization</span>
+<span class="code-comment"># 백그라운드 유지보수 시작 (cron/launchd 자동 등록)</span>
+<span class="code-key">git maintenance start</span>
+
+<span class="code-comment"># 수동 실행: commit-graph 갱신</span>
+<span class="code-key">git maintenance run --task=commit-graph</span>
+
+<span class="code-comment"># 수동 실행: gc (가비지 컬렉션)</span>
+<span class="code-key">git maintenance run --task=gc</span>
+
+<span class="code-comment"># 등록된 스케줄 확인</span>
+<span class="code-key">git maintenance status</span></div>
+
+        <div class="warning-box">
+          <div class="w-title">더 배우고 싶다면</div>
+          <ol class="warning-list">
+            <li><strong>Pro Git 한국어판(무료)</strong> &mdash; git-scm.com/book/ko/v2. Git의 내부 구조까지 다루는 공식 교과서. 전문 무료.</li>
+            <li><strong>GitButler Blog</strong> &mdash; Git 코어 개발자 인터뷰, 신규 기능 해설, 설정 추천의 원천 소스.</li>
+            <li><strong>Mathias Bynens dotfiles</strong> &mdash; github.com/mathiasbynens/dotfiles. 30k+ 스타. .gitconfig뿐 아니라 전체 개발 환경 참고용.</li>
+            <li><strong>Git Release Notes</strong> &mdash; github.com/git/git/tree/master/Documentation/RelNotes. 모든 버전의 변경 내역 원문.</li>
+            <li><strong>Jujutsu (jj)</strong> &mdash; github.com/jj-vcs/jj. Git-compatible next-gen VCS. Google 내부에서 실사용 중.</li>
+            <li><strong>delta</strong> &mdash; github.com/dandavison/delta. diff 뷰어. 설치 후 5분 안에 효과를 체감한다.</li>
+          </ol>
+        </div>
+      </section>
+
+    </main>
+
+    <div class="closing">
+      <h2>좋은 도구는 실력의 일부다<br><strong>설정 한 줄이 하루를 바꾼다</strong></h2>
+      <p class="sub">도구에 투자한 시간은 이자가 붙는다. .gitconfig 한 줄, alias 하나, delta 설치 하나. 작은 최적화가 매일 반복되면 연간 수백 시간이 된다.</p>
+    </div>
+
+    <footer class="footer">
+      <p>
+        GitButler Blog, "Git Tips: Core Dev Spring Cleaning" (gitbutler.com/blog)<br>
+        Git Official Documentation (git-scm.com/doc)<br>
+        Git Release Notes v2.49, v2.50 (github.com/git/git/tree/master/Documentation/RelNotes)<br>
+        Pro Git Book, Korean Edition (git-scm.com/book/ko/v2)<br>
+        delta &mdash; A syntax-highlighting pager for git (github.com/dandavison/delta)<br>
+        lazygit &mdash; Simple terminal UI for git (github.com/jesseduffield/lazygit)<br>
+        gitui &mdash; Blazing fast terminal UI for git (github.com/extrawurst/gitui)<br>
+        GitHub CLI (cli.github.com)<br>
+        Gitleaks (github.com/gitleaks/gitleaks)<br>
+        TruffleHog (github.com/trufflesecurity/trufflehog)<br>
+        Jujutsu (github.com/jj-vcs/jj)<br>
+        Mathias Bynens dotfiles (github.com/mathiasbynens/dotfiles)<br>
+        Scott Chacon dotfiles (github.com/schacon)
+      </p>
+    </footer>
+
+  </article>
+
+</div>
+</body>
+</html>

@@ -138,7 +138,14 @@
       grid-template-columns: 1fr;
       gap: 16px;
     }
-    .role-arrow { transform: rotate(90deg); }
+    .role-arrow {
+      font-size: 0;
+      text-align: center;
+    }
+    .role-arrow::after {
+      content: '↓';
+      font-size: 1.2rem;
+    }
     .app-columns { grid-template-columns: 1fr; gap: 32px; }
   }
 </style>

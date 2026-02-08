@@ -61,6 +61,38 @@
         { slug: 'lineage-classic-bj-stamina', title: '올나잇은 20대의 특권이었다' },
         { slug: 'lineage-never-ends', title: '리니지는 끝나지 않는다' }
       ]
+    },
+    'claude-cowork-series': {
+      label: 'Series 07',
+      title: '딸깍이 소프트웨어를 죽인다고?',
+      articles: [
+        { slug: 'saaspocalypse-what-happened', title: '7일 만에 1조 달러가 증발했다' },
+        { slug: 'is-software-really-dead', title: '소프트웨어는 정말 죽는가' },
+        { slug: 'software-survival-playbook', title: '소프트웨어 생존 플레이북' },
+        { slug: 'future-of-software-2030', title: '2030년, 소프트웨어의 다음 형태' }
+      ]
+    },
+    'vibe-design-series': {
+      label: 'Series 08',
+      title: '디자이너 없이 제품 만들기',
+      articles: [
+        { slug: 'purple-gradient-syndrome', title: '보라색 그라디언트 증후군' },
+        { slug: 'design-tokens-as-language', title: '디자인 토큰이라는 언어' },
+        { slug: 'steal-like-a-designer', title: '남의 디자인을 훔치는 기술' },
+        { slug: 'shadcn-cheat-code', title: 'shadcn/ui라는 치트키' },
+        { slug: 'before-you-deploy', title: '배포 버튼을 누르기 전에' }
+      ]
+    },
+    'git-series': {
+      label: 'Series 09',
+      title: 'Git, pair 없이 살아남기',
+      articles: [
+        { slug: 'git-junior-survival-guide', title: 'commit, push, 기도 — 주니어의 Git' },
+        { slug: 'git-disaster-and-recovery', title: 'force push 하나로 팀을 멸망시키는 법' },
+        { slug: 'git-hidden-gems', title: 'git bisect를 아는 사람은 1%뿐이다' },
+        { slug: 'git-branching-strategies', title: '브랜치 전략은 팀의 거울이다' },
+        { slug: 'git-productivity-setup', title: '.gitconfig 하나로 생산성 2배' }
+      ]
     }
   };
 

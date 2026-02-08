@@ -172,7 +172,14 @@
     .timeline .t-desc { padding: 16px; }
     .timeline li { grid-template-columns: 64px 1fr; }
     .flow { flex-direction: column; }
-    .flow-arrow { transform: rotate(90deg); }
+    .flow-arrow {
+      font-size: 0;
+      text-align: center;
+    }
+    .flow-arrow::after {
+      content: '↓';
+      font-size: 0.85rem;
+    }
   }
 </style>
 <script src="../../assets/nav.js" defer></script>

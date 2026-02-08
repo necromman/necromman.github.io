@@ -154,6 +154,35 @@ editorial/
 | 03 | `lineage-classic-bj-stamina.html` | 올나잇은 20대의 특권이었다 | 유머 — 40대 BJ들의 체력 이슈와 데포로쥬 3파전 |
 | 04 | `lineage-never-ends.html` | 리니지는 끝나지 않는다 | 결론 — 트럭시위부터 0.0001% 확률까지 28년 유산과 전망 |
 
+### 시리즈 7: 딸깍이 소프트웨어를 죽인다고? (claude-cowork-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `saaspocalypse-what-happened.html` | 7일 만에 1조 달러가 증발했다 | 사건분석 — SaaSpocalypse 전말 재구성 |
+| 02 | `is-software-really-dead.html` | 소프트웨어는 정말 죽는가 | 팩트분석 — 찬반 데이터 대결 |
+| 03 | `software-survival-playbook.html` | 소프트웨어 생존 플레이북 | 실전가이드 — 기업/개발자/사무직별 대응 |
+| 04 | `future-of-software-2030.html` | 2030년, 소프트웨어의 다음 형태 | 전망 — 4가지 시나리오와 타임라인 |
+
+### 시리즈 8: 디자이너 없이 제품 만들기 (vibe-design-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `purple-gradient-syndrome.html` | 보라색 그라디언트 증후군 | 분석 — AI UI가 다 비슷한 이유와 디자인 드리프트 |
+| 02 | `design-tokens-as-language.html` | 디자인 토큰이라는 언어 | 가이드 — CSS 변수, Tailwind @theme, AI 규칙 파일 |
+| 03 | `steal-like-a-designer.html` | 남의 디자인을 훔치는 기술 | 실전 — 참조 디자인, Figma MCP, 워크플로우 |
+| 04 | `shadcn-cheat-code.html` | shadcn/ui라는 치트키 | 실전 — 컴포넌트 라이브러리와 테마 커스터마이징 |
+| 05 | `before-you-deploy.html` | 배포 버튼을 누르기 전에 | 실전 — 30분 디자인 QA 체크리스트와 제품화 |
+
+### 시리즈 9: Git, pair 없이 살아남기 (git-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `git-junior-survival-guide.html` | commit, push, 기도 — 주니어의 Git | 입문 — 주니어 생존 명령어와 실전 워크플로우 |
+| 02 | `git-disaster-and-recovery.html` | force push 하나로 팀을 멸망시키는 법 | 사고/복구 — 실제 사고와 복구 매뉴얼 |
+| 03 | `git-hidden-gems.html` | git bisect를 아는 사람은 1%뿐이다 | 심화 — 숨겨진 고급 기능 해부 |
+| 04 | `git-branching-strategies.html` | 브랜치 전략은 팀의 거울이다 | 전략 — Git Flow vs GitHub Flow vs Trunk-Based |
+| 05 | `git-productivity-setup.html` | .gitconfig 하나로 생산성 2배 | 생산성 — 추천 도구, 설정, AI 연동 |
+
 ## 콘텐츠 제작 워크플로우
 
 0. **기획**: `plans/[시리즈-슬러그]/series-plan.md`에 자료조사 + 시리즈 구성 기획서 작성 (series-plan 스킬 참조)

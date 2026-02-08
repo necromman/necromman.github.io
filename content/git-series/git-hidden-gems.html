@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>git bisect를 아는 사람은 1%뿐이다 — Editorial</title>
+<meta name="description" content="500개 커밋에서 범인을 9번 만에 찾는 git bisect, 두 브랜치를 동시에 여는 worktree, 같은 충돌을 두 번 풀지 않는 rerere. 대부분이 모르는 Git의 숨겨진 무기를 총정리한다.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/git-series/git-hidden-gems.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git bisect를 아는 사람은 1%뿐이다">
+<meta property="og:description" content="500개 커밋에서 범인을 9번 만에 찾는 git bisect, 두 브랜치를 동시에 여는 worktree, 같은 충돌을 두 번 풀지 않는 rerere. 대부분이 모르는 Git의 숨겨진 무기를 총정리한다.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/git-series/git-hidden-gems.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-09">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="git bisect를 아는 사람은 1%뿐이다">
+<meta name="twitter:description" content="500개 커밋에서 범인을 9번 만에 찾는 git bisect, 두 브랜치를 동시에 여는 worktree, 같은 충돌을 두 번 풀지 않는 rerere. 대부분이 모르는 Git의 숨겨진 무기를 총정리한다.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"git bisect를 아는 사람은 1%뿐이다","description":"500개 커밋에서 범인을 9번 만에 찾는 git bisect, 두 브랜치를 동시에 여는 worktree, 같은 충돌을 두 번 풀지 않는 rerere. 대부분이 모르는 Git의 숨겨진 무기를 총정리한다.","datePublished":"2026-02-09","dateModified":"2026-02-09","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/git-series/git-hidden-gems.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead .deck { max-width: 560px; }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    padding: 20px 24px;
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    line-height: 1.75;
+    overflow-x: auto;
+    white-space: pre;
+    margin: 24px 0;
+    color: var(--prose);
+    border-radius: 0;
+  }
+  .code-block .code-label {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .code-block .code-comment {
+    color: var(--muted);
+  }
+  .code-block .code-key {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* FLAG COMPARISON — 2-column mechanism variant */
+  .mechanism-2col {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* SCENARIO BOX */
+  .scenario-box {
+    border-left: 3px solid var(--accent);
+    background: var(--card-bg);
+    padding: 24px 28px;
+    margin: 28px 0;
+  }
+  .scenario-box .s-label {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .scenario-box p {
+    font-size: 0.92rem;
+    color: var(--prose);
+    line-height: 1.8;
+  }
+  .scenario-box p strong {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* INLINE CODE */
+  code {
+    font-family: var(--mono);
+    font-size: 0.82em;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--card-bg);
+    padding: 2px 6px;
+  }
+
+  /* STEP LIST */
+  .step-list {
+    list-style: none;
+    counter-reset: step;
+    margin: 28px 0;
+  }
+  .step-list li {
+    font-size: 0.92rem;
+    color: var(--prose);
+    padding: 12px 0 12px 36px;
+    position: relative;
+    border-bottom: 1px solid var(--rule);
+    counter-increment: step;
+    line-height: 1.7;
+  }
+  .step-list li:last-child { border-bottom: none; }
+  .step-list li::before {
+    content: counter(step, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    top: 14px;
+  }
+  .step-list li strong {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* COMPARISON GRID — 3-column for blame flags */
+  .flag-grid {
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 32px 0;
+  }
+  .flag-grid .fg-cell {
+    background: var(--bg);
+    padding: 16px 16px;
+    font-size: 0.85rem;
+    color: var(--prose);
+    line-height: 1.6;
+  }
+  .flag-grid .fg-cell.is-header {
+    background: var(--card-bg);
+    font-family: var(--serif);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--muted);
+  }
+  .flag-grid .fg-cell .flag-name {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  @media (max-width: 700px) {
+    .mechanism-2col { grid-template-columns: 1fr; }
+    .flag-grid { grid-template-columns: 1fr; }
+    .flag-grid .fg-cell.is-header:not(:first-child) { display: none; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+
+<article>
+<div class="page">
+
+  <header class="masthead">
+    <div class="issue">Series 09 &mdash; Article 03 of 05</div>
+    <h1>git bisect를 아는 사람은<br><strong>1%</strong>뿐이다</h1>
+    <p class="deck">500개 커밋에서 범인을 9번 만에 찾고, 두 브랜치를 동시에 열고, 같은 충돌을 두 번 풀지 않는 방법. Git에는 대부분이 모르는 무기가 있다.</p>
+  </header>
+
+  <main>
+
+  <!-- ============================================ -->
+  <!-- PART I: git bisect                           -->
+  <!-- ============================================ -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part I</span>
+      <h2>500개 커밋에서 범인을 <strong>9번 만에</strong> 찾는 법</h2>
+    </div>
+
+    <p class="prose">
+      버그가 발견됐다. 언제부터 있었는지 모른다. 지난 한 달간 쌓인 커밋은 500개. 하나씩 checkout해서 테스트하면 500번이다. 하지만 <strong>이진 탐색(binary search)</strong>을 적용하면 이야기가 달라진다. log2(500)은 약 9. 최대 9번의 확인으로 범인 커밋을 특정할 수 있다. 그것이 <code>git bisect</code>다.
+    </p>
+
+    <div class="mechanism-row">
+      <div class="mechanism">
+        <div class="m-label">Complexity</div>
+        <h3>O(log n)</h3>
+        <p>100개 커밋이면 7번, 1,000개 커밋이면 10번, 10,000개 커밋이면 14번. 선형 탐색과 비교 자체가 불가능한 효율이다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">Principle</div>
+        <h3>이진 탐색</h3>
+        <p>정상 커밋과 버그 커밋 사이의 중간 지점을 반복적으로 테스트한다. 매 단계마다 탐색 범위가 절반으로 줄어든다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">Output</div>
+        <h3>범인 커밋 특정</h3>
+        <p>최종 결과는 단 하나의 커밋 해시. 누가, 언제, 어떤 변경으로 버그를 유발했는지 정확히 알 수 있다.</p>
+      </div>
+    </div>
+
+    <p class="prose">
+      사용법은 단순하다. <strong>시작 → 좋은 커밋 지정 → 나쁜 커밋 지정 → 반복 판정 → 종료.</strong> Git이 중간 커밋을 자동으로 checkout해주고, 개발자는 good 또는 bad만 알려주면 된다.
+    </p>
+
+    <div class="code-block"><span class="code-label">git bisect &mdash; manual workflow</span>
+<span class="code-comment"># 1. bisect 세션 시작</span>
+<span class="code-key">git bisect start</span>
+
+<span class="code-comment"># 2. 현재 커밋이 버그가 있다고 표시</span>
+<span class="code-key">git bisect bad</span>
+
+<span class="code-comment"># 3. 정상이었던 과거 커밋을 지정</span>
+<span class="code-key">git bisect good v2.1.0</span>
+
+<span class="code-comment"># Git이 자동으로 중간 커밋을 checkout한다</span>
+<span class="code-comment"># Bisecting: 249 revisions left to test after this (roughly 8 steps)</span>
+
+<span class="code-comment"># 4. 테스트 후 판정 — 반복</span>
+<span class="code-key">git bisect good</span>      <span class="code-comment">← 이 커밋은 정상</span>
+<span class="code-key">git bisect bad</span>       <span class="code-comment">← 이 커밋은 버그 있음</span>
+
+<span class="code-comment"># ... 반복 (약 9회) ...</span>
+
+<span class="code-comment"># 5. 범인 발견</span>
+<span class="code-comment"># abc1234 is the first bad commit</span>
+<span class="code-comment"># commit abc1234</span>
+<span class="code-comment"># Author: someone &lt;someone@example.com&gt;</span>
+<span class="code-comment"># Date:   Mon Jan 15 14:30:00 2026 +0900</span>
+<span class="code-comment">#</span>
+<span class="code-comment">#     refactor: change API response format</span>
+
+<span class="code-comment"># 6. 세션 종료 — HEAD를 원래 위치로 복원</span>
+<span class="code-key">git bisect reset</span></div>
+
+    <p class="prose">
+      수동으로 good/bad를 판정하는 것도 나쁘지 않지만, <strong>자동화</strong>가 가능하다. 테스트 스크립트를 넘기면 Git이 알아서 모든 것을 처리한다. 개발자는 커피를 마시며 결과를 기다리면 된다.
+    </p>
+
+    <div class="code-block"><span class="code-label">git bisect run &mdash; automated</span>
+<span class="code-comment"># 테스트 스크립트로 자동 bisect</span>
+<span class="code-key">git bisect start HEAD v2.1.0</span>
+<span class="code-key">git bisect run npm test</span>
+
+<span class="code-comment"># 또는 특정 테스트 파일만</span>
+<span class="code-key">git bisect run pytest tests/test_api.py</span>
+
+<span class="code-comment"># 커스텀 스크립트도 가능</span>
+<span class="code-key">git bisect run ./check-bug.sh</span>
+
+<span class="code-comment"># 종료 코드 규칙:</span>
+<span class="code-comment">#   0     = good (테스트 통과)</span>
+<span class="code-comment">#   1-124 = bad  (테스트 실패)</span>
+<span class="code-comment">#   125   = skip (이 커밋은 빌드 불가 — 건너뜀)</span>
+<span class="code-comment">#   126+  = bisect 중단</span></div>
+
+    <p class="prose">
+      종료 코드 <strong>125</strong>는 특별하다. 빌드가 깨진 커밋처럼 테스트 자체를 실행할 수 없는 경우에 사용한다. bisect는 해당 커밋을 건너뛰고 인접 커밋으로 이동한다. 또한 <code>good</code>/<code>bad</code> 용어 대신 <code>old</code>/<code>new</code>를 사용할 수도 있다. 버그가 아니라 특정 동작이 언제 도입됐는지 찾을 때 유용하다.
+    </p>
+
+    <div class="code-block"><span class="code-label">alternative terminology</span>
+<span class="code-comment"># old/new 용어 — "이 기능이 언제 추가됐지?"</span>
+<span class="code-key">git bisect start --term-old=before --term-new=after</span>
+<span class="code-key">git bisect before v1.0.0</span>
+<span class="code-key">git bisect after HEAD</span></div>
+
+    <div class="pull-quote">
+      <p><strong>bisect</strong>는 디버깅의 <strong>grep</strong>이다.<br>존재를 모르면 쓸 수 없고, 한 번 쓰면 없이는 못 산다.</p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- PART II: git worktree                        -->
+  <!-- ============================================ -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part II</span>
+      <h2>두 브랜치를 <strong>동시에</strong> 여는 마법</h2>
+    </div>
+
+    <p class="prose">
+      feature 브랜치에서 리팩토링 작업 중이다. 코드를 절반쯤 뜯어놓은 상태에서 슬랙 알림이 온다. <strong>"프로덕션 긴급 핫픽스 부탁합니다."</strong> 선택지는 세 가지. stash로 임시 저장하고 브랜치를 전환하거나, 작업을 커밋하거나, 아예 레포를 하나 더 클론하거나. 전부 불편하다.
+    </p>
+
+    <p class="prose">
+      <code>git worktree</code>는 네 번째 선택지다. <strong>하나의 .git 디렉토리</strong>를 공유하면서 <strong>여러 개의 작업 디렉토리</strong>를 동시에 유지한다. 각 디렉토리는 독립된 브랜치를 checkout한 상태이므로, 리팩토링을 중단하지 않고 핫픽스 작업을 병렬로 진행할 수 있다.
+    </p>
+
+    <div class="scenario-box">
+      <span class="s-label">시나리오</span>
+      <p>리팩토링 중 긴급 핫픽스 요청이 들어왔다. <strong>stash 대신 worktree</strong>를 사용하면 현재 작업을 한 줄도 건드리지 않고 핫픽스 브랜치를 별도 디렉토리에서 작업할 수 있다. 핫픽스가 끝나면 그 디렉토리만 삭제하면 된다.</p>
+    </div>
+
+    <div class="code-block"><span class="code-label">git worktree &mdash; basic workflow</span>
+<span class="code-comment"># 현재 위치: ~/project (feature/refactor 브랜치)</span>
+
+<span class="code-comment"># 1. 핫픽스용 worktree 생성</span>
+<span class="code-key">git worktree add ../project-hotfix hotfix/login-crash</span>
+
+<span class="code-comment"># 2. 새 디렉토리 구조</span>
+<span class="code-comment"># ~/project/          ← feature/refactor (원래 작업 유지)</span>
+<span class="code-comment"># ~/project-hotfix/   ← hotfix/login-crash (핫픽스 작업)</span>
+
+<span class="code-comment"># 3. 핫픽스 작업</span>
+<span class="code-key">cd ../project-hotfix</span>
+<span class="code-comment"># ... 수정, 커밋, 푸시 ...</span>
+
+<span class="code-comment"># 4. 완료 후 정리</span>
+<span class="code-key">cd ../project</span>
+<span class="code-key">git worktree remove ../project-hotfix</span></div>
+
+    <div class="mechanism-row mechanism-2col">
+      <div class="mechanism">
+        <div class="m-label">Advantage 01</div>
+        <h3>.git/objects 공유</h3>
+        <p>클론과 달리 오브젝트 스토어를 공유한다. 디스크 공간이 두 배가 되지 않는다. 대형 레포에서 특히 유효하다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">Advantage 02</div>
+        <h3>독립된 빌드 환경</h3>
+        <p>각 worktree는 독립된 node_modules, build 디렉토리를 가진다. 브랜치 전환 시 빌드 캐시가 날아가는 문제가 없다.</p>
+      </div>
+    </div>
+
+    <div class="code-block"><span class="code-label">worktree management</span>
+<span class="code-comment"># 모든 worktree 목록 확인</span>
+<span class="code-key">git worktree list</span>
+<span class="code-comment"># /home/dev/project          abc1234 [feature/refactor]</span>
+<span class="code-comment"># /home/dev/project-hotfix   def5678 [hotfix/login-crash]</span>
+
+<span class="code-comment"># 새 브랜치를 생성하면서 worktree 추가</span>
+<span class="code-key">git worktree add -b experiment/new-api ../project-experiment</span>
+
+<span class="code-comment"># 삭제된 worktree 정리 (디렉토리를 수동 삭제한 경우)</span>
+<span class="code-key">git worktree prune</span>
+
+<span class="code-comment"># worktree 이동</span>
+<span class="code-key">git worktree move ../project-hotfix ../hotfixes/login</span></div>
+
+    <p class="prose">
+      AI 기반 병렬 개발에서도 worktree는 핵심이다. 여러 AI 에이전트가 동시에 서로 다른 브랜치를 작업할 때, <strong>각 에이전트에게 독립된 worktree</strong>를 할당하면 충돌 없이 병렬 작업이 가능하다. Claude Code의 멀티 에이전트 모드가 정확히 이 패턴을 사용한다.
+    </p>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- PART III: git rerere                         -->
+  <!-- ============================================ -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part III</span>
+      <h2>같은 충돌을 <strong>두 번 풀지 않는다</strong></h2>
+    </div>
+
+    <p class="prose">
+      feature 브랜치에서 main을 merge했다. 충돌이 발생해서 10분간 수동으로 해결했다. 다음 날 코드 리뷰에서 rebase로 바꿔달라는 요청이 왔다. merge를 취소하고 rebase를 실행했더니 <strong>똑같은 충돌이 다시 나왔다.</strong> 어제 풀었던 그 충돌을 또 풀어야 한다.
+    </p>
+
+    <p class="prose">
+      <code>git rerere</code>는 <strong>REuse REcorded REsolution</strong>의 줄임말이다. 충돌을 해결한 기록을 저장해두고, 동일한 충돌이 다시 발생하면 <strong>자동으로 같은 방식으로 해결</strong>한다. 설정 한 줄이면 된다.
+    </p>
+
+    <div class="code-block"><span class="code-label">rerere &mdash; one-line setup</span>
+<span class="code-comment"># 전역 설정 — 한 번만 실행하면 영구 적용</span>
+<span class="code-key">git config --global rerere.enabled true</span>
+
+<span class="code-comment"># 프로젝트별 설정</span>
+<span class="code-key">git config rerere.enabled true</span></div>
+
+    <p class="prose">
+      이후 흐름은 이렇다. merge에서 충돌을 해결하면 rerere가 <strong>.git/rr-cache/</strong>에 해결 패턴을 기록한다. 나중에 rebase에서 동일한 충돌이 발생하면, rerere가 기록을 참조해 <strong>자동으로 해결</strong>한다. 개발자는 아무것도 할 필요가 없다.
+    </p>
+
+    <div class="code-block"><span class="code-label">rerere in action</span>
+<span class="code-comment"># 1. merge에서 충돌 발생</span>
+<span class="code-key">git merge main</span>
+<span class="code-comment"># CONFLICT (content): Merge conflict in src/api.js</span>
+<span class="code-comment"># Recorded preimage for 'src/api.js'    ← rerere가 기록 시작</span>
+
+<span class="code-comment"># 2. 수동으로 충돌 해결</span>
+<span class="code-key">vi src/api.js</span>
+<span class="code-key">git add src/api.js</span>
+<span class="code-key">git commit</span>
+<span class="code-comment"># Recorded resolution for 'src/api.js'  ← rerere가 해결 패턴 저장</span>
+
+<span class="code-comment"># 3. 나중에 rebase에서 동일 충돌 발생</span>
+<span class="code-key">git rebase main</span>
+<span class="code-comment"># CONFLICT (content): Merge conflict in src/api.js</span>
+<span class="code-comment"># Resolved 'src/api.js' using previous resolution  ← 자동 해결!</span>
+
+<span class="code-comment"># 4. 확인 후 계속 진행</span>
+<span class="code-key">git add src/api.js</span>
+<span class="code-key">git rebase --continue</span></div>
+
+    <div class="mechanism-row">
+      <div class="mechanism">
+        <div class="m-label">Storage</div>
+        <h3>.git/rr-cache/</h3>
+        <p>해결 기록은 .git/rr-cache/ 디렉토리에 저장된다. preimage(충돌 상태)와 postimage(해결 후 상태)의 쌍으로 관리된다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">Scope</div>
+        <h3>패턴 매칭</h3>
+        <p>rerere는 충돌 영역의 텍스트 패턴을 기준으로 매칭한다. 완전히 같은 충돌이 아니어도 패턴이 일치하면 적용된다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">Safety</div>
+        <h3>자동 커밋 안 함</h3>
+        <p>rerere는 충돌을 해결할 뿐 자동으로 커밋하지 않는다. 반드시 개발자가 결과를 확인하고 add + commit해야 한다.</p>
+      </div>
+    </div>
+
+    <div class="code-block"><span class="code-label">rerere management</span>
+<span class="code-comment"># 저장된 해결 기록 확인</span>
+<span class="code-key">git rerere status</span>
+
+<span class="code-comment"># 현재 해결 내용 diff 확인</span>
+<span class="code-key">git rerere diff</span>
+
+<span class="code-comment"># 잘못된 해결 기록 삭제</span>
+<span class="code-key">git rerere forget src/api.js</span>
+
+<span class="code-comment"># 전체 캐시 정리</span>
+<span class="code-key">git rerere gc</span></div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- PART IV: blame & log                         -->
+  <!-- ============================================ -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part IV</span>
+      <h2>코드 <strong>고고학</strong></h2>
+    </div>
+
+    <p class="prose">
+      <code>git blame</code>은 "누가 이 줄을 작성했는가"를 알려주는 도구다. 대부분의 개발자가 여기까지만 안다. 하지만 blame의 진짜 힘은 <strong>플래그 조합</strong>에 있다. 포매팅 변경을 무시하고, 파일 간 코드 이동을 추적하고, 특정 커밋을 아예 blame 대상에서 제외하는 것까지 가능하다.
+    </p>
+
+    <div class="code-block"><span class="code-label">git blame &mdash; hidden flags</span>
+<span class="code-comment"># 기본 blame</span>
+<span class="code-key">git blame src/utils.js</span>
+
+<span class="code-comment"># -w: 공백 변경 무시 (Prettier 리포매팅 무시)</span>
+<span class="code-key">git blame -w src/utils.js</span>
+
+<span class="code-comment"># -C: 같은 파일 내 코드 이동 감지</span>
+<span class="code-key">git blame -C src/utils.js</span>
+
+<span class="code-comment"># -C -C: 파일 간 코드 이동 감지 (같은 커밋 내)</span>
+<span class="code-key">git blame -C -C src/utils.js</span>
+
+<span class="code-comment"># -C -C -C: 모든 커밋에서 파일 간 코드 이동 감지</span>
+<span class="code-key">git blame -C -C -C src/utils.js</span>
+
+<span class="code-comment"># 조합 — 포매팅 무시 + 파일 간 이동 감지</span>
+<span class="code-key">git blame -w -C -C src/utils.js</span></div>
+
+    <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px">-C 플래그 비교</div>
+
+    <div class="flag-grid">
+      <div class="fg-cell is-header">플래그</div>
+      <div class="fg-cell is-header">탐지 범위</div>
+      <div class="fg-cell is-header">성능</div>
+      <div class="fg-cell"><span class="flag-name">-C</span></div>
+      <div class="fg-cell">같은 파일 내 코드 블록 이동</div>
+      <div class="fg-cell">빠름</div>
+      <div class="fg-cell"><span class="flag-name">-C -C</span></div>
+      <div class="fg-cell">같은 커밋 내 파일 간 이동</div>
+      <div class="fg-cell">보통</div>
+      <div class="fg-cell"><span class="flag-name">-C -C -C</span></div>
+      <div class="fg-cell">모든 커밋에서 파일 간 이동</div>
+      <div class="fg-cell">느림</div>
+    </div>
+
+    <p class="prose">
+      Prettier나 ESLint로 전체 코드베이스를 리포매팅한 적이 있다면, <code>git blame</code>이 무용지물이 된다. 모든 줄이 리포매팅 커밋으로 표시되기 때문이다. <strong>.git-blame-ignore-revs</strong> 파일이 이 문제를 해결한다.
+    </p>
+
+    <div class="code-block"><span class="code-label">.git-blame-ignore-revs</span>
+<span class="code-comment"># Prettier 전체 적용 (2026-01-15)</span>
+abc1234567890abcdef1234567890abcdef123456
+
+<span class="code-comment"># ESLint --fix 전체 적용 (2026-01-20)</span>
+def4567890abcdef1234567890abcdef12345678</div>
+
+    <div class="code-block"><span class="code-label">설정</span>
+<span class="code-comment"># 로컬 Git 설정에 등록</span>
+<span class="code-key">git config blame.ignoreRevsFile .git-blame-ignore-revs</span>
+
+<span class="code-comment"># GitHub도 이 파일을 자동 인식한다</span>
+<span class="code-comment"># 레포에 커밋해두면 GitHub의 blame 뷰에서도 해당 커밋이 제외된다</span></div>
+
+    <p class="prose">
+      <code>git log</code>에도 대부분이 모르는 강력한 기능들이 숨어 있다. 특정 함수의 변경 히스토리를 추적하고, 코드 조각이 언제 추가됐는지 검색하고, 프로젝트 기여자 순위를 매기는 것까지 한 줄이면 된다.
+    </p>
+
+    <div class="code-block"><span class="code-label">git log &mdash; advanced search</span>
+<span class="code-comment"># -L: 특정 함수의 변경 히스토리 추적</span>
+<span class="code-key">git log -L :parseConfig:src/config.js</span>
+
+<span class="code-comment"># -L: 특정 라인 범위의 히스토리</span>
+<span class="code-key">git log -L 10,50:src/config.js</span>
+
+<span class="code-comment"># -S: pickaxe — 특정 문자열이 추가/삭제된 커밋 검색</span>
+<span class="code-key">git log -S "API_KEY" --oneline</span>
+
+<span class="code-comment"># -G: 정규식으로 변경 내용 검색</span>
+<span class="code-key">git log -G "TODO|FIXME|HACK" --oneline</span>
+
+<span class="code-comment"># shortlog: 기여자 랭킹</span>
+<span class="code-key">git shortlog -sn --all</span>
+<span class="code-comment">#   142  Alice Kim</span>
+<span class="code-comment">#    87  Bob Park</span>
+<span class="code-comment">#    23  Charlie Lee</span>
+
+<span class="code-comment"># shortlog: 이메일 포함</span>
+<span class="code-key">git shortlog -sne --all</span></div>
+
+    <div class="pull-quote">
+      <p><code>git log -L</code>은 함수 단위의 <strong>타임머신</strong>이다.<br>코드가 왜 지금의 모습이 됐는지, 한 줄로 추적한다.</p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- PART V: stash, rebase, archive, notes        -->
+  <!-- ============================================ -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part V</span>
+      <h2>스태시의 진짜 사용법, <strong>그리고 더</strong></h2>
+    </div>
+
+    <p class="prose">
+      <code>git stash</code>는 대부분의 개발자가 "잠깐 저장, 나중에 복원"으로만 쓴다. 하지만 stash에는 파일 단위 저장, 설명 메시지, 브랜치 변환까지 다양한 기능이 있다. 그리고 stash 너머에는 Interactive Rebase, archive, notes 같은 도구들이 기다리고 있다.
+    </p>
+
+    <div class="code-block"><span class="code-label">git stash &mdash; advanced usage</span>
+<span class="code-comment"># 설명 메시지와 함께 stash (나중에 뭔지 알 수 있다)</span>
+<span class="code-key">git stash push -m "WIP: API 인증 로직 절반 완료"</span>
+
+<span class="code-comment"># 특정 파일만 stash</span>
+<span class="code-key">git stash push -m "auth only" -- src/auth.js src/token.js</span>
+
+<span class="code-comment"># 목록 확인</span>
+<span class="code-key">git stash list</span>
+<span class="code-comment"># stash@{0}: On feature/auth: WIP: API 인증 로직 절반 완료</span>
+<span class="code-comment"># stash@{1}: On main: auth only</span></div>
+
+    <div class="mechanism-row mechanism-2col">
+      <div class="mechanism">
+        <div class="m-label">pop</div>
+        <h3>꺼내고 삭제</h3>
+        <p><code>git stash pop</code>은 가장 최근 stash를 워킹 디렉토리에 적용하고 <strong>stash 목록에서 삭제</strong>한다. 일회성 저장에 적합하다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">apply</div>
+        <h3>꺼내고 유지</h3>
+        <p><code>git stash apply</code>는 적용하되 <strong>stash 목록에서 삭제하지 않는다.</strong> 여러 브랜치에 같은 변경을 적용하고 싶을 때 유용하다.</p>
+      </div>
+    </div>
+
+    <p class="prose">
+      stash가 쌓여서 돌아가기 어려워졌다면, <strong>브랜치로 변환</strong>하는 것이 깔끔하다. <code>git stash branch</code>는 stash를 기반으로 새 브랜치를 생성하고, stash 내용을 적용한 뒤, 해당 stash를 삭제한다.
+    </p>
+
+    <div class="code-block"><span class="code-label">stash to branch</span>
+<span class="code-comment"># stash@{0}을 기반으로 새 브랜치 생성</span>
+<span class="code-key">git stash branch feature/auth-wip stash@{0}</span>
+
+<span class="code-comment"># 결과: feature/auth-wip 브랜치에 stash 내용이 적용됨</span>
+<span class="code-comment"># stash@{0}은 자동 삭제</span></div>
+
+    <p class="prose">
+      <strong>Interactive Rebase</strong>는 Git에서 가장 강력하면서도 가장 적게 활용되는 기능이다. 커밋 히스토리를 정리하고, 합치고, 순서를 바꾸고, 메시지를 수정하는 모든 것이 가능하다.
+    </p>
+
+    <div class="code-block"><span class="code-label">interactive rebase &mdash; commands</span>
+<span class="code-comment"># 최근 5개 커밋을 대상으로 interactive rebase</span>
+<span class="code-key">git rebase -i HEAD~5</span>
+
+<span class="code-comment"># 에디터에 나타나는 커밋 목록과 명령어:</span>
+<span class="code-key">pick</span>   abc1234 feat: add login API       <span class="code-comment">← 그대로 유지</span>
+<span class="code-key">squash</span> def5678 fix: typo in login        <span class="code-comment">← 이전 커밋에 합침 (메시지 편집)</span>
+<span class="code-key">fixup</span>  ghi9012 fix: another typo         <span class="code-comment">← 이전 커밋에 합침 (메시지 버림)</span>
+<span class="code-key">reword</span> jkl3456 WIP: auth middleware      <span class="code-comment">← 커밋 메시지만 수정</span>
+<span class="code-key">drop</span>   mno7890 debug: console.log       <span class="code-comment">← 커밋 삭제</span></div>
+
+    <p class="prose">
+      <code>--fixup</code>과 <code>--autosquash</code>를 조합하면 Interactive Rebase를 더 효율적으로 쓸 수 있다. 작업 중 발견한 작은 수정을 fixup 커밋으로 만들어두면, 나중에 autosquash가 알아서 올바른 위치에 합쳐준다.
+    </p>
+
+    <div class="code-block"><span class="code-label">--fixup + --autosquash workflow</span>
+<span class="code-comment"># 1. 원래 커밋</span>
+<span class="code-key">git commit -m "feat: add login API"</span>     <span class="code-comment">← abc1234</span>
+
+<span class="code-comment"># 2. 나중에 해당 커밋에 대한 수정을 fixup으로 생성</span>
+<span class="code-key">git commit --fixup=abc1234</span>
+
+<span class="code-comment"># 3. autosquash로 자동 정리</span>
+<span class="code-key">git rebase -i --autosquash HEAD~5</span>
+<span class="code-comment"># fixup 커밋이 자동으로 원래 커밋 바로 아래에 배치된다</span>
+
+<span class="code-comment"># 항상 autosquash를 켜두려면:</span>
+<span class="code-key">git config --global rebase.autoSquash true</span></div>
+
+    <p class="prose">
+      마지막으로 두 가지 더. <code>git archive</code>는 .git 디렉토리를 제외한 깨끗한 소스 스냅샷을 만든다. 배포용 패키지나 코드 리뷰용 아카이브에 유용하다. <code>git notes</code>는 커밋 해시를 변경하지 않고 메타데이터를 추가한다. 코드 리뷰 코멘트, 배포 정보 등을 커밋에 붙일 수 있다.
+    </p>
+
+    <div class="code-block"><span class="code-label">git archive &mdash; clean snapshot</span>
+<span class="code-comment"># 현재 HEAD를 tar.gz로 아카이브</span>
+<span class="code-key">git archive --format=tar.gz --prefix=myproject/ HEAD > release.tar.gz</span>
+
+<span class="code-comment"># 특정 브랜치를 zip으로</span>
+<span class="code-key">git archive --format=zip main > main-snapshot.zip</span>
+
+<span class="code-comment"># 특정 디렉토리만 아카이브</span>
+<span class="code-key">git archive HEAD src/ docs/ > partial.tar</span></div>
+
+    <div class="code-block"><span class="code-label">git notes &mdash; metadata without hash change</span>
+<span class="code-comment"># 커밋에 노트 추가 (해시 변경 없음)</span>
+<span class="code-key">git notes add -m "Deployed to production 2026-02-09" abc1234</span>
+
+<span class="code-comment"># 노트 확인</span>
+<span class="code-key">git log --show-notes</span>
+
+<span class="code-comment"># 노트 수정</span>
+<span class="code-key">git notes edit abc1234</span>
+
+<span class="code-comment"># 노트를 리모트에 푸시 (기본적으로 push되지 않는다)</span>
+<span class="code-key">git push origin refs/notes/commits</span></div>
+
+    <div class="warning-box">
+      <div class="w-title">주의: Interactive Rebase 안전 규칙</div>
+      <ul class="warning-list">
+        <li>이미 push한 커밋은 rebase하지 않는다. 공유된 히스토리를 변경하면 팀원 전원에게 영향이 간다.</li>
+        <li>rebase 중 문제가 생기면 <code>git rebase --abort</code>로 원래 상태로 돌아올 수 있다.</li>
+        <li>force push가 필요한 상황이라면 <code>--force-with-lease</code>를 사용한다. 다른 사람의 커밋을 덮어쓰는 실수를 방지한다.</li>
+        <li><code>git reflog</code>는 최후의 안전망이다. 실수로 날린 커밋도 30일간 reflog에 남아있다.</li>
+        <li>squash/fixup 전에 항상 <code>git log --oneline</code>으로 커밋 순서를 확인한다.</li>
+      </ul>
+    </div>
+  </section>
+
+  </main>
+
+  <div class="closing">
+    <h2>대부분의 개발자는<br><strong>Git의 10%만 사용한다</strong></h2>
+    <p class="sub">bisect, worktree, rerere, blame -C, interactive rebase. 이 다섯 가지만 알아도 상위 1%의 Git 사용자다. 매일 쓰는 도구의 숨겨진 힘을 꺼내라.</p>
+  </div>
+
+  <footer class="footer">
+    <p>
+      Git Official Documentation (git-scm.com/docs)<br>
+      Pro Git Book, 2nd Edition &mdash; Scott Chacon, Ben Straub (git-scm.com/book)<br>
+      GitHub Blog &mdash; .git-blame-ignore-revs (github.blog)<br>
+      Atlassian Git Tutorials &mdash; Advanced Git (atlassian.com/git/tutorials)<br>
+      Julia Evans &mdash; Oh shit, git!? (ohshitgit.com)
+    </p>
+  </footer>
+
+</div>
+</article>
+</body>
+</html>

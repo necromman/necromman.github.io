@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>7일 만에 1조 달러가 증발했다 — Editorial</title>
+<meta name="description" content="Anthropic의 Claude Cowork 출시 후 글로벌 소프트웨어 주식 시가총액 1조 달러가 증발했다. SaaSpocalypse로 불린 2026년 2월 대폭락의 전말을 재구성한다.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/claude-cowork-series/saaspocalypse-what-happened.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7일 만에 1조 달러가 증발했다">
+<meta property="og:description" content="Anthropic의 Claude Cowork 출시 후 글로벌 소프트웨어 주식 시가총액 1조 달러가 증발했다. SaaSpocalypse로 불린 2026년 2월 대폭락의 전말을 재구성한다.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/claude-cowork-series/saaspocalypse-what-happened.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-09">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="7일 만에 1조 달러가 증발했다">
+<meta name="twitter:description" content="Anthropic의 Claude Cowork 출시 후 글로벌 소프트웨어 주식 시가총액 1조 달러가 증발했다. SaaSpocalypse로 불린 2026년 2월 대폭락의 전말을 재구성한다.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"7일 만에 1조 달러가 증발했다","description":"Anthropic의 Claude Cowork 출시 후 글로벌 소프트웨어 주식 시가총액 1조 달러가 증발했다. SaaSpocalypse로 불린 2026년 2월 대폭락의 전말을 재구성한다.","datePublished":"2026-02-09","dateModified":"2026-02-09","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/claude-cowork-series/saaspocalypse-what-happened.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead h1 {
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -2px;
+  }
+  .masthead .deck { max-width: 540px; }
+
+  /* TIMELINE */
+  .timeline {
+    margin: 40px 0 48px;
+    list-style: none;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    display: grid;
+    gap: 1px;
+  }
+  .timeline li {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    background: var(--bg);
+  }
+  .timeline .t-time {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    padding: 20px 12px;
+    text-align: right;
+    background: var(--card-bg);
+  }
+  .timeline .t-desc {
+    font-size: 0.92rem;
+    color: var(--prose);
+    line-height: 1.7;
+    padding: 20px 24px;
+  }
+  .timeline .t-desc strong {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* STOCK TABLE */
+  .stock-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 32px 0 40px;
+    font-size: 0.88rem;
+  }
+  .stock-table th {
+    font-family: var(--serif);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--fg);
+  }
+  .stock-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--prose);
+    line-height: 1.5;
+  }
+  .stock-table .drop {
+    font-family: var(--mono);
+    font-weight: 700;
+    color: var(--accent);
+    text-align: right;
+    white-space: nowrap;
+  }
+  .stock-table .company {
+    font-weight: 700;
+    color: var(--fg);
+  }
+  .stock-table .note {
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  /* PLUGIN GRID */
+  .plugin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 32px 0 40px;
+  }
+  .plugin-item {
+    background: var(--bg);
+    padding: 20px 16px;
+  }
+  .plugin-item .p-num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .plugin-item .p-name {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--fg);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .plugin-item .p-desc {
+    font-size: 0.82rem;
+    color: var(--secondary);
+    line-height: 1.5;
+  }
+
+  /* 2-COL MECHANISM */
+  .mechanism-2col { grid-template-columns: 1fr 1fr; }
+
+  /* IMPACT CARD */
+  .impact-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 32px 0 40px;
+  }
+  .impact-card {
+    background: var(--bg);
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .impact-card .i-num {
+    font-family: var(--mono);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .impact-card .i-label {
+    font-size: 0.82rem;
+    color: var(--secondary);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 700px) {
+    .timeline li { grid-template-columns: 80px 1fr; }
+    .timeline .t-time { padding: 16px 8px; font-size: 0.72rem; }
+    .timeline .t-desc { padding: 16px; }
+    .stock-table { font-size: 0.8rem; }
+    .stock-table th, .stock-table td { padding: 10px 8px; }
+    .plugin-grid { grid-template-columns: 1fr; }
+    .mechanism-2col { grid-template-columns: 1fr; }
+    .impact-section { grid-template-columns: 1fr; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <span class="issue">Series 07 &middot; Part I</span>
+  <h1>7일 만에<br><strong>1조 달러가 증발했다</strong></h1>
+  <p class="deck">Anthropic의 AI 에이전트 Claude Cowork가 촉발한 글로벌 소프트웨어 주식 대폭락, 'SaaSpocalypse'의 전말을 재구성한다.</p>
+</header>
+
+<main>
+
+<!-- PART I: 사건 재구성 -->
+<section>
+<div class="section-head">
+  <span class="num">Part I</span>
+  <h2>월요일, 413조 원이 사라졌다</h2>
+</div>
+
+<p class="prose">2026년 2월 3일 월요일. 미국 증시가 열리자마자 소프트웨어 섹터가 무너졌다. 하루 만에 <strong>2,850억 달러(약 413조 원)</strong>의 시가총액이 증발했다. 블룸버그 트레이더들은 이날의 매도를 <strong>"'get me out' 스타일"</strong>이라고 표현했다. 제프리스(Jefferies)의 제프리 파부짜는 이 사태에 이름을 붙였다: <strong>SaaSpocalypse</strong>.</p>
+
+<p class="prose">화요일에도 매도는 이어졌다. S&P 500 소프트웨어&서비스 지수가 4.6% 추가 하락했다. 수요일, OpenAI가 엔터프라이즈용 "시맨틱 운영체제" Frontier를 발표하며 공포를 더했다. 같은 날 Anthropic은 Opus 4.6 모델을 출시했다. 목요일, 애틀라시안이 23% 매출 성장을 발표했지만 주가는 6% 떨어졌다.</p>
+
+<p class="prose">7일 동안의 누적 손실은 <strong>약 1조 달러(약 1,450조 원)</strong>에 달했다. JPMorgan의 토비 오그는 이렇게 진단했다.</p>
+
+<div class="pull-quote">
+  <p>"이 섹터는 더 이상 무죄 추정이 아니라,<br><strong>재판 전에 선고를 받고 있다.</strong>"</p>
+  <div class="attr">Toby Ogg &middot; JPMorgan</div>
+</div>
+
+<div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px">SaaSpocalypse 타임라인</div>
+
+<ul class="timeline">
+  <li>
+    <span class="t-time">1.12</span>
+    <div class="t-desc">Anthropic, <strong>Claude Cowork</strong> 리서치 프리뷰 출시. "Claude Code for the rest of your work"</div>
+  </li>
+  <li>
+    <span class="t-time">1.30</span>
+    <div class="t-desc">Cowork에 <strong>11개 플러그인</strong> 추가. 법률, 재무, 영업, 마케팅 등 전문 업무 영역 진입</div>
+  </li>
+  <li>
+    <span class="t-time">2.3 (월)</span>
+    <div class="t-desc"><strong>$285B 하루 증발.</strong> "SaaSpocalypse" 명명. 가트너 -31%, 리갈줌 -20%</div>
+  </li>
+  <li>
+    <span class="t-time">2.4 (화)</span>
+    <div class="t-desc">S&P 500 소프트웨어 지수 -4.6%. 유럽 소프트웨어 지수 -5%+. <strong>인도 IT 지수 -7%</strong></div>
+  </li>
+  <li>
+    <span class="t-time">2.5 (수)</span>
+    <div class="t-desc">OpenAI, <strong>Frontier</strong>(시맨틱 OS) 출시. Anthropic, <strong>Opus 4.6</strong> 업데이트</div>
+  </li>
+  <li>
+    <span class="t-time">2.6 (목)</span>
+    <div class="t-desc">애틀라시안 23% 매출 성장에도 -6%. 누적 <strong>~$1T 증발</strong></div>
+  </li>
+</ul>
+
+<div class="impact-section">
+  <div class="impact-card">
+    <span class="i-num">$285B</span>
+    <span class="i-label">2월 3일 하루 만에<br>증발한 시가총액</span>
+  </div>
+  <div class="impact-card">
+    <span class="i-num">~$1T</span>
+    <span class="i-label">7일 누적<br>시가총액 손실</span>
+  </div>
+  <div class="impact-card">
+    <span class="i-num">-31%</span>
+    <span class="i-label">가트너 단일일<br>최대 하락폭</span>
+  </div>
+</div>
+</section>
+
+<!-- PART II: Claude Cowork의 정체 -->
+<section>
+<div class="section-head">
+  <span class="num">Part II</span>
+  <h2>챗봇이 에이전트가 되다</h2>
+</div>
+
+<p class="prose">Claude Cowork는 2026년 1월 12일에 리서치 프리뷰로 출시되었다. Anthropic은 이를 <strong>"Claude Code for the rest of your work"</strong>라고 정의했다. 개발자 전용이었던 Claude Code의 자율 실행 능력을 비개발자 지식 노동자에게 확장한 것이다.</p>
+
+<p class="prose">기존 AI 챗봇과의 결정적 차이는 <strong>로컬 파일 시스템 접근</strong>이다. 사용자가 폴더 접근 권한을 부여하면, Cowork는 해당 폴더의 파일을 자율적으로 읽고, 편집하고, 새로 만든다. 질문에 답하는 것이 아니라 <strong>업무 결과물을 직접 생산</strong>한다.</p>
+
+<div class="mechanism-row mechanism-2col">
+  <div class="mechanism">
+    <div class="m-label">기존 AI 챗봇</div>
+    <h3>질문 → 텍스트 답변</h3>
+    <p>사용자가 파일을 업로드하고, AI가 텍스트로 응답하면, 사용자가 결과를 직접 파일로 옮긴다. 모든 단계에 사람의 개입이 필요하다.</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">Claude Cowork</div>
+    <h3>지시 → 파일 생성</h3>
+    <p>로컬 폴더에 직접 접근하여, 엑셀 분석 보고서를 만들고, PPT를 생성하고, 코드를 작성한다. <strong>사람은 결과를 검수</strong>하면 된다.</p>
+  </div>
+</div>
+
+<p class="prose">1월 30일, Anthropic은 11개 오픈소스 플러그인을 추가했다. 이 플러그인이 SaaSpocalypse의 직접적 기폭제가 되었다. 법률, 재무, 영업, 마케팅, 고객지원, 프로젝트 관리 등 기존 SaaS 소프트웨어가 독점하던 영역을 월 20달러짜리 AI 에이전트가 침범한 것이다.</p>
+
+<div class="plugin-grid">
+  <div class="plugin-item">
+    <span class="p-num">01</span>
+    <span class="p-name">Productivity</span>
+    <span class="p-desc">업무, 일정, 일일 워크플로우 관리</span>
+  </div>
+  <div class="plugin-item">
+    <span class="p-num">02</span>
+    <span class="p-name">Enterprise Search</span>
+    <span class="p-desc">사내 도구/문서 통합 검색</span>
+  </div>
+  <div class="plugin-item">
+    <span class="p-num">03</span>
+    <span class="p-name">Sales</span>
+    <span class="p-desc">CRM 연동, 리드 조사, 콜 후속</span>
+  </div>
+  <div class="plugin-item">
+    <span class="p-num">04</span>
+    <span class="p-name">Finance</span>
+    <span class="p-desc">재무 모델링, 분석, 지표 추적</span>
+  </div>
+  <div class="plugin-item">
+    <span class="p-num">05</span>
+    <span class="p-name">Data</span>
+    <span class="p-desc">대시보드 연동, 트렌드 분석</span>
+  </div>
+  <div class="plugin-item">
+    <span class="p-num">06</span>
+    <span class="p-name">Legal</span>
+    <span class="p-desc">계약 검토, NDA 분류, 컴플라이언스</span>
+  </div>
+  <div class="plugin-item">
+    <span class="p-num">07</span>
+    <span class="p-name">Marketing</span>
+    <span class="p-desc">캠페인, 콘텐츠 워크플로우</span>
+  </div>
+  <div class="plugin-item">
+    <span class="p-num">08</span>
+    <span class="p-name">Customer Support</span>
+    <span class="p-desc">고객 지원 티켓 처리</span>
+  </div>
+  <div class="plugin-item">
+    <span class="p-num">09</span>
+    <span class="p-name">Project Mgmt</span>
+    <span class="p-desc">프로젝트 조율, 진행 관리</span>
+  </div>
+  <div class="plugin-item">
+    <span class="p-num">10</span>
+    <span class="p-name">Biology Research</span>
+    <span class="p-desc">과학 연구 워크플로우</span>
+  </div>
+  <div class="plugin-item">
+    <span class="p-num">11</span>
+    <span class="p-name">Plugin Builder</span>
+    <span class="p-desc">나만의 플러그인 제작</span>
+  </div>
+  <div class="plugin-item" style="background:var(--card-bg)">
+    <span class="p-num" style="color:var(--muted)">$20</span>
+    <span class="p-name" style="color:var(--secondary)">/월</span>
+    <span class="p-desc">Pro 플랜 기준 가격.<br>모든 기능 동일, 요금제 차이는 사용량 한도뿐</span>
+  </div>
+</div>
+
+<p class="prose">핵심은 가격이다. 기존 기업용 소프트웨어는 사용자 1인당 월 수십~수백 달러를 청구한다. Salesforce CRM은 인당 $25~$300, ServiceNow는 인당 수백 달러, 법률 리서치 도구는 연간 수만 달러다. Claude Cowork Pro는 <strong>월 20달러</strong>로 이 모든 영역에 범용적으로 접근한다.</p>
+</section>
+
+<!-- PART III: 주가 폭락의 지도 -->
+<section>
+<div class="section-head">
+  <span class="num">Part III</span>
+  <h2>주가 폭락의 지도</h2>
+</div>
+
+<p class="prose">SaaSpocalypse의 피해는 균등하지 않았다. AI 에이전트가 직접 대체할 수 있는 "문서 중심, 규칙 기반" 업무를 가진 기업일수록 더 크게 떨어졌다. 반대로, 데이터 인프라나 보안처럼 AI가 대체하기 어려운 기반 기술 기업은 상대적으로 선방했다.</p>
+
+<div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px">미국 소프트웨어 기업 주가 하락</div>
+
+<table class="stock-table">
+  <thead>
+    <tr>
+      <th>기업</th>
+      <th>카테고리</th>
+      <th style="text-align:right">하락폭</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="company">Gartner</span></td>
+      <td>리서치/분석 <span class="note">&middot; 가이던스 부진 겹침</span></td>
+      <td class="drop">-31%</td>
+    </tr>
+    <tr>
+      <td><span class="company">LegalZoom</span></td>
+      <td>법률 테크 <span class="note">&middot; Legal 플러그인 직격</span></td>
+      <td class="drop">-20%</td>
+    </tr>
+    <tr>
+      <td><span class="company">Thomson Reuters</span></td>
+      <td>법률/데이터 <span class="note">&middot; 사상 최대 단일일 하락</span></td>
+      <td class="drop">-15.8%</td>
+    </tr>
+    <tr>
+      <td><span class="company">RELX (LexisNexis)</span></td>
+      <td>법률/데이터 분석</td>
+      <td class="drop">-14%</td>
+    </tr>
+    <tr>
+      <td><span class="company">Intuit (TurboTax)</span></td>
+      <td>세무/회계 소프트웨어</td>
+      <td class="drop">-11%</td>
+    </tr>
+    <tr>
+      <td><span class="company">ServiceNow</span></td>
+      <td>엔터프라이즈 워크플로우 <span class="note">&middot; YTD -28%</span></td>
+      <td class="drop">-7%</td>
+    </tr>
+    <tr>
+      <td><span class="company">Salesforce</span></td>
+      <td>CRM <span class="note">&middot; YTD -26%</span></td>
+      <td class="drop">-6~7%</td>
+    </tr>
+    <tr>
+      <td><span class="company">Atlassian</span></td>
+      <td>협업 도구 <span class="note">&middot; 23% 매출 성장에도 하락</span></td>
+      <td class="drop">-6%</td>
+    </tr>
+    <tr>
+      <td><span class="company">Adobe</span></td>
+      <td>크리에이티브/문서</td>
+      <td class="drop">-4.6%</td>
+    </tr>
+    <tr>
+      <td><span class="company">Microsoft</span></td>
+      <td>빅테크 <span class="note">&middot; 광범위한 기술주 하락</span></td>
+      <td class="drop">-3.7%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="prose">가장 큰 타격을 받은 카테고리는 <strong>법률 테크</strong>다. Claude Cowork의 Legal 플러그인이 계약 검토, NDA 분류, 컴플라이언스 체크를 자동화하면서, 이 분야의 유료 소프트웨어 존재 이유에 직접 의문을 제기한 셈이다. LegalZoom -20%, Thomson Reuters -15.8%, RELX -14% — 법률 테크 3사의 하락폭이 이를 증명한다.</p>
+</section>
+
+<!-- PART IV: 글로벌 파급 -->
+<section>
+<div class="section-head">
+  <span class="num">Part IV</span>
+  <h2>OpenAI도 가세하다</h2>
+</div>
+
+<p class="prose">2월 5일, OpenAI가 "시맨틱 운영체제" <strong>Frontier</strong>를 발표했다. Frontier는 기존 SaaS 앱 <strong>위에</strong> 올라가는 오케스트레이션 레이어다. Salesforce와 Adobe를 "필수적인 사용자 인터페이스"가 아닌 <strong>"수확할 데이터 사일로"</strong>로 취급한다고 Fortune은 보도했다.</p>
+
+<p class="prose">이것이 시장이 공포에 빠진 핵심 논리다. Frontier 에이전트가 사람 대신 Salesforce에 로그인하여 영업 워크플로우를 실행한다면, Per-seat(인원당 과금) 라이선스 모델의 존재 이유가 사라진다. 같은 날 Anthropic이 Opus 4.6 모델을 출시하면서, 양대 AI 기업이 동시에 SaaS의 존재론적 위기를 가속시켰다.</p>
+
+<div class="pull-quote">
+  <p>Frontier는 Salesforce를<br><strong>"수확할 데이터 사일로"로 취급한다.</strong></p>
+  <div class="attr">Fortune &middot; 2026.02.05</div>
+</div>
+
+<p class="prose">파급은 글로벌했다. 유럽의 Stoxx 소프트웨어 지수가 5% 이상 하락했고, 프랑스 Capgemini는 9.2% 떨어졌다. 인도에서는 Nifty IT 지수가 7% 이상 급락하며 약 2조 루피(약 $24B)가 증발했다. 인포시스 -7.2%, TCS -5.6%, 위프로 -6~8% — AI 에이전트가 법률 검토, 영업 워크플로우, 데이터 분석을 자동화하면, 인도 IT 아웃소싱 산업의 근간이 흔들린다는 공포가 반영된 수치다.</p>
+</section>
+
+<!-- PART V: 한국의 413조 -->
+<section>
+<div class="section-head">
+  <span class="num">Part V</span>
+  <h2>한국의 '클로드 쇼크'</h2>
+</div>
+
+<p class="prose">한국 증시도 예외가 아니었다. 한국 미디어는 이 사태를 <strong>"클로드 쇼크"</strong>, <strong>"413조 증발 공포"</strong>, <strong>"SW 종말 포모(FOMO)"</strong>로 명명했다. 디지털투데이는 "글로벌 SW주 시총 435조원 증발"이라는 헤드라인을 걸었다.</p>
+
+<div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px">한국 소프트웨어 기업 주가 하락</div>
+
+<table class="stock-table">
+  <thead>
+    <tr>
+      <th>기업</th>
+      <th>카테고리</th>
+      <th style="text-align:right">하락폭</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="company">현대오토에버</span></td>
+      <td>자동차 IT/SI</td>
+      <td class="drop">-15.5%</td>
+    </tr>
+    <tr>
+      <td><span class="company">더존비즈온</span></td>
+      <td>ERP/비즈니스 소프트웨어</td>
+      <td class="drop">-14.0%</td>
+    </tr>
+    <tr>
+      <td><span class="company">한글과컴퓨터</span></td>
+      <td>오피스/문서 소프트웨어</td>
+      <td class="drop">-11.0%</td>
+    </tr>
+    <tr>
+      <td><span class="company">안랩</span></td>
+      <td>사이버보안</td>
+      <td class="drop">-7.7%</td>
+    </tr>
+    <tr>
+      <td><span class="company">삼성SDS</span></td>
+      <td>시스템 통합</td>
+      <td class="drop">-4.4%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="prose">더존비즈온과 한글과컴퓨터의 하락이 두드러진다. ERP와 오피스 소프트웨어는 AI 에이전트가 대체할 수 있는 "데이터 입력 + 문서 생성" 업무의 최전선에 있다. 반면 삼성SDS는 시스템 통합(SI)이 주력이라 상대적으로 하락폭이 작았다.</p>
+
+<p class="prose">뉴스1은 <strong>"월가 덮친 'SW 종말 포모', 한국도 예외 아냐"</strong>라는 기사에서 "관련 정책과 VC 전략의 근본적인 수정은 불가피하다"고 분석했다. 한국 VC 업계가 "SaaS 생태계를 통한 안정적 반복 매출"을 전제로 투자해온 모델 자체가 흔들리고 있다는 진단이다.</p>
+
+<p class="prose">유니콘타임스는 2024년 12월 나델라의 발언을 소환하며 물었다: <strong>"SaaS는 죽었다 — 나델라의 예언이 적중하는가?"</strong></p>
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>플러그인 하나가<br><strong>1조 달러를 증발시켰다.</strong></h2>
+  <p class="sub">이것이 과잉 공포인지, 아니면 소프트웨어 산업의 구조적 전환점인지는 2편에서 데이터로 검증한다.</p>
+</div>
+
+<footer class="footer">
+  <p>Sources: Bloomberg, "What's Behind the 'SaaSpocalypse' Plunge" (2026.02.04) &middot; CNBC, "AI fears pummel software stocks" (2026.02.06) &middot; Fortune, "OpenAI launches Frontier" (2026.02.05) &middot; Yahoo Finance, "$1 trillion lost in week" (2026.02) &middot; TechCrunch, "Anthropic brings agentic plugins to Cowork" (2026.01.30) &middot; Claude Blog, "Introducing Cowork" (2026.01.12) &middot; Invezz, "Why software stocks are crashing" (2026.02.04) &middot; The Motley Fool, "Why Gartner Stock Fell 31%" (2026.02.03) &middot; 디지털투데이, "클로드 쇼크에 글로벌 SW주 시총 435조 증발" (2026.02) &middot; 머니투데이, "美 증시에 클로드 코워크 충격" (2026.02.04) &middot; 뉴스1, "월가 덮친 'SW 종말 포모' 한국도 예외 아냐" (2026.02) &middot; The Week, "Anthropic's new AI tool that caused shares of TCS, Infosys, Wipro to crash" (2026.02.04)</p>
+</footer>
+
+</div>
+</article>
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>디자인 토큰이라는 언어 — Editorial</title>
+<meta name="description" content="AI에게 '예쁘게 만들어'라고 하면 보라색이 나온다. '이 규칙대로 만들어'라고 하면 일관된 디자인이 나온다. CSS 변수, Tailwind @theme, CLAUDE.md로 디자인을 정의하는 법.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/vibe-design-series/design-tokens-as-language.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="디자인 토큰이라는 언어">
+<meta property="og:description" content="AI에게 '예쁘게 만들어'라고 하면 보라색이 나온다. '이 규칙대로 만들어'라고 하면 일관된 디자인이 나온다. CSS 변수, Tailwind @theme, CLAUDE.md로 디자인을 정의하는 법.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/vibe-design-series/design-tokens-as-language.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-09">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="디자인 토큰이라는 언어">
+<meta name="twitter:description" content="AI에게 '예쁘게 만들어'라고 하면 보라색이 나온다. '이 규칙대로 만들어'라고 하면 일관된 디자인이 나온다. CSS 변수, Tailwind @theme, CLAUDE.md로 디자인을 정의하는 법.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"디자인 토큰이라는 언어","description":"AI에게 '예쁘게 만들어'라고 하면 보라색이 나온다. '이 규칙대로 만들어'라고 하면 일관된 디자인이 나온다. CSS 변수, Tailwind @theme, CLAUDE.md로 디자인을 정의하는 법.","datePublished":"2026-02-09","dateModified":"2026-02-09","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/vibe-design-series/design-tokens-as-language.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead .deck { max-width: 540px; }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: var(--fg);
+    color: #e8e6e0;
+    padding: 28px 32px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    line-height: 1.8;
+    overflow-x: auto;
+    margin: 32px 0;
+    border-radius: 0;
+  }
+  .code-block .comment { color: #8a8680; }
+  .code-block .prop { color: #e8a87c; }
+  .code-block .val { color: #a3c9a8; }
+  .code-block .sel { color: #c9a8e8; }
+
+  /* BEFORE/AFTER */
+  .ba-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0;
+  }
+  .ba-cell {
+    background: var(--bg);
+    padding: 32px 28px;
+  }
+  .ba-cell.before { background: var(--card-bg); }
+  .ba-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .ba-label.after-label { color: var(--accent); }
+  .ba-code {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.9;
+    color: var(--prose);
+  }
+
+  /* TIMELINE */
+  .evolution {
+    margin: 40px 0 48px;
+    list-style: none;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    display: grid;
+    gap: 1px;
+  }
+  .evolution li {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    background: var(--bg);
+  }
+  .evolution .evo-year {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent);
+    padding: 20px 16px;
+    text-align: right;
+    background: var(--card-bg);
+  }
+  .evolution .evo-desc {
+    font-size: 0.88rem;
+    color: var(--prose);
+    line-height: 1.7;
+    padding: 20px 24px;
+  }
+
+  /* LAYER STACK */
+  .layer-stack {
+    margin: 40px 0 48px;
+    border: 1px solid var(--rule);
+  }
+  .layer {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    border-bottom: 1px solid var(--rule);
+  }
+  .layer:last-child { border-bottom: none; }
+  .layer-name {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--fg);
+    padding: 24px 20px;
+    background: var(--card-bg);
+    display: flex;
+    align-items: center;
+  }
+  .layer-desc {
+    font-size: 0.85rem;
+    color: var(--prose);
+    line-height: 1.7;
+    padding: 24px 24px;
+  }
+
+  @media (max-width: 700px) {
+    .ba-row { grid-template-columns: 1fr; }
+    .evolution li { grid-template-columns: 80px 1fr; }
+    .evolution .evo-year { font-size: 0.7rem; padding: 16px 8px; }
+    .evolution .evo-desc { padding: 16px; }
+    .layer { grid-template-columns: 1fr; }
+    .layer-name { padding: 16px 20px; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="issue">Design Without a Designer — Article 02</div>
+    <h1><strong>디자인 토큰</strong>이라는<br>언어</h1>
+    <p class="deck">AI에게 "예쁘게 만들어"라고 하면 보라색이 나온다.<br>"이 규칙대로 만들어"라고 하면 일관된 디자인이 나온다.</p>
+  </header>
+
+  <!-- PART 1 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part I</span>
+      <h2>색상에 <strong>이름</strong>을 붙여라</h2>
+    </div>
+
+    <p class="prose">
+      1편에서 AI가 만드는 디자인이 왜 다 비슷한지 해부했다. 해법의 첫 번째 단계는 놀라울 정도로 단순하다. <strong>색상에 이름을 붙이는 것이다.</strong>
+    </p>
+
+    <p class="prose">
+      AI에게 "파란 버튼을 만들어"라고 하면, AI는 <code>#3b82f6</code>이든 <code>#6366f1</code>이든 그때그때 다른 값을 생성한다. 세션이 바뀌면 같은 "파란색"이 미묘하게 달라진다. 이것이 <strong>디자인 드리프트</strong>의 시작이다. 반면 "primary 색상으로 버튼을 만들어"라고 하고, primary가 <code>--color-primary: #2563eb</code>로 정의되어 있다면, 어떤 세션에서든 동일한 결과가 나온다.
+    </p>
+
+    <div class="ba-row">
+      <div class="ba-cell before">
+        <span class="ba-label">Before</span>
+        <div class="ba-code">
+          background: <strong>#6366f1</strong>;<br>
+          color: <strong>#ffffff</strong>;<br>
+          border: 1px solid <strong>#4f46e5</strong>;<br>
+          font-size: <strong>14px</strong>;
+        </div>
+      </div>
+      <div class="ba-cell">
+        <span class="ba-label after-label">After</span>
+        <div class="ba-code">
+          background: var(<strong>--color-primary</strong>);<br>
+          color: var(<strong>--color-on-primary</strong>);<br>
+          border: 1px solid var(<strong>--color-primary-dark</strong>);<br>
+          font-size: var(<strong>--text-sm</strong>);
+        </div>
+      </div>
+    </div>
+
+    <p class="prose">
+      왼쪽은 하드코딩이다. 색상값을 외우지 않는 한, 같은 색을 다시 쓸 수 없다. 오른쪽은 <strong>디자인 토큰</strong>이다. 이름이 있기 때문에 AI든 인간이든 같은 이름을 참조하면 같은 결과가 나온다. 디자인 토큰은 <strong>"디자인 결정의 단일 진실 소스(single source of truth)"</strong>다.
+    </p>
+
+    <p class="prose">
+      이 개념은 2025년 10월, <strong>W3C Design Tokens Community Group</strong>이 첫 번째 안정 버전(stable version)을 발표하면서 공식 표준이 되었다. 벤더 중립적 포맷으로, 어떤 도구에서든 동일한 디자인 결정을 공유할 수 있다. 하지만 이 표준을 몰라도 괜찮다. 가장 접근하기 쉬운 디자인 토큰은 이미 모든 브라우저가 지원하는 <strong>CSS 변수</strong>다.
+    </p>
+
+    <div class="code-block">
+      <span class="comment">/* 이것이 디자인 토큰이다 */</span><br>
+      <span class="sel">:root</span> {<br>
+      &nbsp;&nbsp;<span class="prop">--bg</span>: <span class="val">#faf8f4</span>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/* 크림 배경 */</span><br>
+      &nbsp;&nbsp;<span class="prop">--fg</span>: <span class="val">#1a1a18</span>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/* 거의 검정 */</span><br>
+      &nbsp;&nbsp;<span class="prop">--accent</span>: <span class="val">#c43e2a</span>;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/* 포인트 — 딱 하나 */</span><br>
+      &nbsp;&nbsp;<span class="prop">--muted</span>: <span class="val">#8a8680</span>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/* 보조 텍스트 */</span><br>
+      &nbsp;&nbsp;<span class="prop">--rule</span>: <span class="val">#d5d0c8</span>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/* 구분선 */</span><br>
+      &nbsp;&nbsp;<span class="prop">--card-bg</span>: <span class="val">#f2efe9</span>;&nbsp;&nbsp;&nbsp;<span class="comment">/* 카드 배경 */</span><br>
+      }
+    </div>
+
+    <p class="prose">
+      6개의 변수로 전체 페이지의 색상 체계가 정의된다. AI에게 "accent 색상으로 강조해"라고 하면, <code>#c43e2a</code>가 아니라 <code>var(--accent)</code>를 사용한다. <strong>색상이 바뀌어도 변수 하나만 수정하면 전체가 바뀐다.</strong> 이것이 디자인 토큰의 핵심이다.
+    </p>
+  </section>
+
+  <!-- PART 2 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part II</span>
+      <h2>Tailwind v4가 <strong>바꾼 것</strong></h2>
+    </div>
+
+    <p class="prose">
+      CSS 변수는 어디서든 쓸 수 있지만, <strong>Tailwind CSS를 사용하는 프로젝트</strong>에서는 더 강력한 도구가 있다. Tailwind v4에서 도입된 <code>@theme</code> 디렉티브다. 이것은 CSS 파일 안에서 직접 디자인 토큰을 정의하는 기능이다. JavaScript 설정 파일(<code>tailwind.config.js</code>)이 더 이상 필요 없다.
+    </p>
+
+    <div class="code-block">
+      <span class="comment">/* tailwind v4 — CSS 하나로 디자인 시스템 정의 */</span><br>
+      <span class="sel">@theme</span> {<br>
+      &nbsp;&nbsp;<span class="prop">--color-primary</span>: <span class="val">#2563eb</span>;<br>
+      &nbsp;&nbsp;<span class="prop">--color-accent</span>: <span class="val">#dc2626</span>;<br>
+      &nbsp;&nbsp;<span class="prop">--color-surface</span>: <span class="val">#fafafa</span>;<br>
+      &nbsp;&nbsp;<span class="prop">--spacing-sm</span>: <span class="val">0.5rem</span>;<br>
+      &nbsp;&nbsp;<span class="prop">--spacing-md</span>: <span class="val">1rem</span>;<br>
+      &nbsp;&nbsp;<span class="prop">--spacing-lg</span>: <span class="val">2rem</span>;<br>
+      &nbsp;&nbsp;<span class="prop">--font-sans</span>: <span class="val">"Pretendard Variable", sans-serif</span>;<br>
+      &nbsp;&nbsp;<span class="prop">--font-serif</span>: <span class="val">"Source Serif 4", serif</span>;<br>
+      }
+    </div>
+
+    <p class="prose">
+      <code>@theme</code>에 토큰을 정의하면 Tailwind가 자동으로 유틸리티 클래스를 생성한다. <code>--color-primary</code>를 정의하면 <code>bg-primary</code>, <code>text-primary</code>, <code>border-primary</code>가 즉시 사용 가능해진다. 동시에 브라우저가 CSS 변수로도 노출하므로, 인라인 스타일에서도 <code>var(--color-primary)</code>로 참조할 수 있다.
+    </p>
+
+    <p class="prose">
+      이것이 왜 중요한가. <strong>LLM은 Tailwind 코드를 다른 어떤 스타일링 방식보다 잘 생성한다.</strong> GitHub Copilot, Cursor, Claude 어디서든 Tailwind 유틸리티 클래스의 생성 정확도가 가장 높다. <code>@theme</code>으로 토큰을 정의해두면, AI가 생성하는 모든 코드가 자동으로 그 토큰을 참조한다. 디자인 일관성이 <strong>구조적으로 보장</strong>되는 것이다.
+    </p>
+
+    <p class="prose">
+      Tailwind를 사용하지 않는 프로젝트도 원리는 동일하다. <code>:root</code>에 CSS 변수를 정의하고, AI에게 "모든 색상은 CSS 변수를 사용할 것"이라고 지시하면 된다. 이 문서 자체가 그렇게 만들어졌다. Tailwind 없이, <code>editorial-base.css</code>의 8개 CSS 변수만으로 전체 디자인 시스템이 작동한다.
+    </p>
+  </section>
+
+  <!-- PART 3 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part III</span>
+      <h2>AI 규칙 파일에 <strong>디자인</strong>을 심어라</h2>
+    </div>
+
+    <p class="prose">
+      CSS 변수로 토큰을 정의했다. 그런데 AI가 그 변수를 사용하게 하려면 어떻게 해야 하는가? 매번 프롬프트에 "CSS 변수를 써"라고 반복하는 건 비효율적이고, 잊기 쉽다. 해법은 <strong>AI 규칙 파일</strong>이다. 프로젝트에 한 번 정의해두면, 모든 AI 세션에서 자동으로 참조되는 지시서다.
+    </p>
+
+    <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px">AI 규칙 파일의 진화</div>
+
+    <ul class="evolution">
+      <li>
+        <span class="evo-year">2023-2024</span>
+        <div class="evo-desc"><strong>.cursorrules</strong> — Cursor가 선도. 프로젝트 루트에 단일 파일을 두면 AI가 매 세션마다 읽는다. 디자인 규칙도 여기에 넣을 수 있었다.</div>
+      </li>
+      <li>
+        <span class="evo-year">2025 초</span>
+        <div class="evo-desc"><strong>.cursor/rules/*.mdc</strong> — 구조화된 규칙 파일. YAML frontmatter + XML 태그로 파일별, 기능별 분리가 가능해졌다.</div>
+      </li>
+      <li>
+        <span class="evo-year">2025 중</span>
+        <div class="evo-desc"><strong>AGENTS.md</strong> — OpenAI, Google, Anthropic, Cursor, Sourcegraph이 합의한 오픈 표준. 60,000+ 오픈소스 프로젝트가 채택. 도구 중립적.</div>
+      </li>
+      <li>
+        <span class="evo-year">2025-2026</span>
+        <div class="evo-desc"><strong>CLAUDE.md</strong> — Anthropic의 Claude Code 전용. "CLAUDE.md를 만들되, AGENTS.md를 참조하게 하라"가 현재 권장 패턴.</div>
+      </li>
+    </ul>
+
+    <p class="prose">
+      핵심은 이것이다. <strong>어떤 도구를 쓰든, 프로젝트 루트에 디자인 규칙을 마크다운으로 기술</strong>하면 AI가 읽는다. Cursor를 쓰면 <code>.cursor/rules/</code>에, Claude Code를 쓰면 <code>CLAUDE.md</code>에, 둘 다 지원하려면 <code>AGENTS.md</code>에 넣으면 된다.
+    </p>
+
+    <p class="prose">
+      실전 예시를 보자. 이 editorial 프로젝트의 <code>CLAUDE.md</code>에는 다음과 같은 디자인 규칙이 들어 있다.
+    </p>
+
+    <div class="code-block">
+      <span class="comment"># 디자인 시스템 (CLAUDE.md 발췌)</span><br><br>
+      <span class="comment">## 색상 규칙</span><br>
+      - 모든 색상은 CSS 변수로 관리. 하드코딩 금지<br>
+      - accent color는 한 가지만 사용 (--accent)<br>
+      - 그라디언트 사용 금지<br><br>
+      <span class="comment">## 서체 규칙</span><br>
+      - 영문: Source Serif 4 (셀프호스팅)<br>
+      - 한글: Pretendard Variable (CDN)<br>
+      - Google Fonts 외부 로드 금지<br>
+      - Noto Serif KR 사용 금지<br><br>
+      <span class="comment">## 금지 항목</span><br>
+      - 이모지, 이탤릭, 그라디언트, 다크 테마
+    </div>
+
+    <p class="prose">
+      이 규칙이 <code>CLAUDE.md</code>에 존재하는 것만으로, Claude Code가 이 프로젝트의 모든 HTML을 생성할 때 자동으로 참조한다. "accent 색상을 써"라고 말하지 않아도 <code>var(--accent)</code>를 사용하고, "이모지 넣지 마"라고 말하지 않아도 이모지를 넣지 않는다. <strong>프롬프트 반복이 사라지고, 일관성이 구조적으로 보장된다.</strong>
+    </p>
+
+    <p class="prose">
+      효과는 정량적으로 검증되었다. AI 규칙 파일을 사용하는 프로젝트에서 <strong>컨텍스트 전환이 40% 감소</strong>하고, <strong>코드 일관성이 65% 향상</strong>되었다. 새 팀원이 프로젝트를 클론하는 즉시 동일한 AI 가이드라인이 적용된다는 점도 핵심 이점이다.
+    </p>
+  </section>
+
+  <!-- PART 4 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part IV</span>
+      <h2>규칙이 만드는 <strong>일관성</strong></h2>
+    </div>
+
+    <p class="prose">
+      디자인 토큰과 AI 규칙 파일을 조합하면, 디자인 시스템의 레이어가 완성된다. 각 레이어가 무엇을 담당하는지 정리하면 이렇다.
+    </p>
+
+    <div class="layer-stack">
+      <div class="layer">
+        <div class="layer-name">CSS 변수</div>
+        <div class="layer-desc"><strong>값의 정의.</strong> 색상, 폰트, 간격 등 구체적인 값을 이름으로 매핑한다. <code>--accent: #c43e2a</code>. 브라우저가 직접 해석한다.</div>
+      </div>
+      <div class="layer">
+        <div class="layer-name">@theme</div>
+        <div class="layer-desc"><strong>유틸리티 생성.</strong> Tailwind v4 전용. CSS 변수를 정의하면서 동시에 유틸리티 클래스를 자동 생성한다. Tailwind를 쓰지 않으면 이 레이어는 건너뛴다.</div>
+      </div>
+      <div class="layer">
+        <div class="layer-name">CLAUDE.md</div>
+        <div class="layer-desc"><strong>행동의 정의.</strong> AI가 코드를 생성할 때 따라야 할 규칙을 기술한다. "하드코딩 금지", "이모지 금지", "이 폰트만 사용" 등. 토큰의 존재만으로는 부족하고, 사용 규칙이 있어야 한다.</div>
+      </div>
+      <div class="layer">
+        <div class="layer-name">컴포넌트 패턴</div>
+        <div class="layer-desc"><strong>구조의 정의.</strong> Pull quote는 상하 border만, 카드는 배경색 차이 없이 1px 갭 그리드로, 체크리스트는 넘버링 아이콘으로. 반복되는 구조를 CSS 클래스로 정의해둔다.</div>
+      </div>
+    </div>
+
+    <p class="prose">
+      이 editorial 프로젝트가 좋은 사례다. CSS 변수 8개, <code>editorial-base.css</code> 하나, <code>CLAUDE.md</code>에 디자인 규칙과 스킬 시스템을 정의해둔 결과, 시리즈 6개 30편 이상의 콘텐츠가 <strong>동일한 디자인 언어</strong>로 생성되었다. Tailwind를 사용하지 않는 vanilla CSS 프로젝트에서도 토큰 + 규칙 파일만으로 일관성이 유지된다는 증거다.
+    </p>
+
+    <div class="pull-quote">
+      <p>디자인 토큰은 AI와 인간이<br>같은 디자인을 보장하는 계약서다.</p>
+    </div>
+
+    <p class="prose">
+      규칙 파일의 Before/After를 보자. 동일한 프롬프트 "블로그 콘텐츠 페이지를 만들어"를 던졌을 때, 규칙 파일 유무에 따른 차이다.
+    </p>
+
+    <div class="ba-row">
+      <div class="ba-cell before">
+        <span class="ba-label">규칙 없음</span>
+        <div class="ba-code">
+          Inter 폰트<br>
+          보라색 그라디언트 헤더<br>
+          이모지 섹션 아이콘<br>
+          다크 테마<br>
+          <code>#6366f1</code> 하드코딩<br>
+          반응형 미적용
+        </div>
+      </div>
+      <div class="ba-cell">
+        <span class="ba-label after-label">규칙 적용</span>
+        <div class="ba-code">
+          Source Serif 4 + Pretendard<br>
+          크림 배경 + 1px 구분선<br>
+          넘버링 + 라벨 텍스트<br>
+          라이트 테마<br>
+          <code>var(--accent)</code> 참조<br>
+          모바일 1-column 전환
+        </div>
+      </div>
+    </div>
+
+    <p class="prose">
+      차이는 명확하다. 규칙이 없으면 AI는 학습 데이터의 중앙값을 출력한다. 규칙이 있으면 <strong>규칙이 정의한 디자인을 출력</strong>한다. 디자인 토큰과 규칙 파일은 AI에게 "네 기본값 대신 이걸 써"라고 말하는 <strong>가장 효율적인 방법</strong>이다.
+    </p>
+
+    <p class="prose">
+      다음 편에서는 이 토큰과 규칙을 실제 프로젝트에 어떻게 적용하는지 다룬다. 참조 디자인을 수집하고, Figma MCP로 구조를 추출하고, AI에게 맥락으로 전달하는 워크플로우 전체를 시연한다.
+    </p>
+  </section>
+
+  <div class="closing">
+    <h2>"예쁘게 만들어"는 프롬프트가 아니다<br><strong>규칙이 프롬프트다</strong></h2>
+    <p class="sub">CSS 변수 6개, 규칙 파일 1개. 그것만으로 AI가 만드는 모든 화면이 같은 언어를 말한다.</p>
+  </div>
+
+  <footer class="footer">
+    <p>
+      W3C Design Tokens Community Group. "Design Tokens Specification 2025.10." 2025.10.28.<br>
+      Tailwind CSS. "Tailwind CSS v4.0." tailwindcss.com/blog/tailwindcss-v4.<br>
+      AGENTS.md. "A Standard for Coding Agent Instructions." agents.md.<br>
+      Arize AI. "Optimizing Coding Agent Rules." 2025.<br>
+      Magic Patterns. "Should you use Tailwind in 2025?" 2025.<br>
+      Nicolalazzari.ai. "Tailwind Design Tokens: Complete Guide 2025."
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>

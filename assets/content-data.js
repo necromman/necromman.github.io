@@ -250,5 +250,141 @@ window.CONTENT_DATA = [
         search: '리니지 문화 트럭시위 택진이형 사행성 0.0001 확률 린저씨 미래 전망 28년'
       }
     ]
+  },
+  {
+    id: 'claude-cowork',
+    seriesNum: 7,
+    title: '딸깍이 소프트웨어를 죽인다고?',
+    description: 'Claude Cowork 출시 후 7일 만에 1조 달러가 증발했다. AI 에이전트가 기존 소프트웨어를 정말 대체하는지, 데이터로 검증하고 생존 전략까지.',
+    articles: [
+      {
+        num: 1,
+        title: '7일 만에 1조 달러가 증발했다',
+        role: 'SaaSpocalypse 사건 재구성',
+        tag: '사건분석',
+        href: 'content/claude-cowork-series/saaspocalypse-what-happened.html',
+        search: 'Claude Cowork 클로드 코워크 SaaSpocalypse 소프트웨어 주가 폭락 413조 증발 가트너 리갈줌 Anthropic'
+      },
+      {
+        num: 2,
+        title: '소프트웨어는 정말 죽는가',
+        role: '찬반 데이터 대결 — 팩트 기반 검증',
+        tag: '팩트분석',
+        href: 'content/claude-cowork-series/is-software-really-dead.html',
+        search: 'SaaS 종말 AI 에이전트 소프트웨어 대체 젠슨 황 반박 나델라 골드만삭스 가트너 클라르나 AI 프로젝트 실패율'
+      },
+      {
+        num: 3,
+        title: '소프트웨어 생존 플레이북',
+        role: '기업/개발자/사무직/투자자별 대응 전략',
+        tag: '실전가이드',
+        href: 'content/claude-cowork-series/software-survival-playbook.html',
+        search: 'AI 시대 소프트웨어 전략 SaaS 생존 개발자 대응 사무직 AI 에이전트 활용 한국 기업 투자 체크리스트'
+      },
+      {
+        num: 4,
+        title: '2030년, 소프트웨어의 다음 형태',
+        role: '4가지 시나리오와 2026-2035 타임라인',
+        tag: '전망',
+        href: 'content/claude-cowork-series/future-of-software-2030.html',
+        search: '에이전틱 AI 미래 소프트웨어 2030 타임라인 SaaS 미래 메인프레임 Bain 가트너 Per-seat 과금 모델'
+      }
+    ]
+  },
+  {
+    id: 'vibe-design',
+    seriesNum: 8,
+    title: '디자이너 없이 제품 만들기',
+    description: '바이브 코딩의 진짜 병목은 디자인이다. bg-indigo-500의 원죄부터 디자인 토큰, 참조 디자인 워크플로우, shadcn/ui 전략, 배포 전 QA까지.',
+    articles: [
+      {
+        num: 1,
+        title: '보라색 그라디언트 증후군',
+        role: 'AI UI가 다 비슷한 이유와 디자인 드리프트의 메커니즘',
+        tag: '분석',
+        href: 'content/vibe-design-series/purple-gradient-syndrome.html',
+        search: '보라색 그라디언트 AI 디자인 슬롭 bg-indigo-500 다크플로우 METR 바이브코딩 디자인 일관성 Tailwind Adam Wathan'
+      },
+      {
+        num: 2,
+        title: '디자인 토큰이라는 언어',
+        role: 'CSS 변수, Tailwind @theme, CLAUDE.md로 AI에게 디자인을 가르치는 법',
+        tag: '가이드',
+        href: 'content/vibe-design-series/design-tokens-as-language.html',
+        search: '디자인 토큰 CSS 변수 Tailwind v4 @theme CLAUDE.md AGENTS.md cursorrules 디자인 시스템 W3C'
+      },
+      {
+        num: 3,
+        title: '남의 디자인을 훔치는 기술',
+        role: '참조 디자인 수집부터 Figma MCP, screenshot-to-code까지',
+        tag: '실전',
+        href: 'content/vibe-design-series/steal-like-a-designer.html',
+        search: '참조 디자인 Dribbble Mobbin Figma MCP screenshot-to-code PageAI 워크플로우 스크린샷 코드 변환'
+      },
+      {
+        num: 4,
+        title: 'shadcn/ui라는 치트키',
+        role: '106K Stars 컴포넌트 라이브러리로 디자인 문제를 우회하는 전략',
+        tag: '실전',
+        href: 'content/vibe-design-series/shadcn-cheat-code.html',
+        search: 'shadcn ui 컴포넌트 라이브러리 Tailwind UI ShipFast Marc Lou 보일러플레이트 테마 커스터마이징 브랜딩'
+      },
+      {
+        num: 5,
+        title: '배포 버튼을 누르기 전에',
+        role: '30분 디자인 QA 체크리스트와 MVP에서 제품으로의 전환',
+        tag: '실전',
+        href: 'content/vibe-design-series/before-you-deploy.html',
+        search: '디자인 QA 체크리스트 접근성 반응형 비주얼 리그레션 Chromatic Percy MVP 제품화 배포'
+      }
+    ]
+  },
+  {
+    id: 'git-survival',
+    seriesNum: 9,
+    title: 'Git, pair 없이 살아남기',
+    description: '개발자 93.87%가 쓰지만 52.2%는 매달 실수한다. 주니어 생존 명령어부터 force push 참사, 숨겨진 기능, 브랜치 전략, 생산성 세팅까지.',
+    articles: [
+      {
+        num: 1,
+        title: 'commit, push, 기도 — 주니어의 Git',
+        role: '주니어 생존 명령어와 실전 워크플로우',
+        tag: '입문',
+        href: 'content/git-series/git-junior-survival-guide.html',
+        search: 'Git 주니어 입문 commit push pull merge 브랜치 GitHub Flow 커밋 메시지 컨벤셔널 커밋'
+      },
+      {
+        num: 2,
+        title: 'force push 하나로 팀을 멸망시키는 법',
+        role: '실제 사고와 복구 매뉴얼',
+        tag: '사고/복구',
+        href: 'content/git-series/git-disaster-and-recovery.html',
+        search: 'Git 사고 force push reset revert reflog 시크릿 유출 GitGuardian Jenkins GitLab 삼성 복구'
+      },
+      {
+        num: 3,
+        title: 'git bisect를 아는 사람은 1%뿐이다',
+        role: '숨겨진 고급 기능 해부',
+        tag: '심화',
+        href: 'content/git-series/git-hidden-gems.html',
+        search: 'Git bisect worktree rerere blame stash interactive rebase archive notes 숨겨진 기능 고급'
+      },
+      {
+        num: 4,
+        title: '브랜치 전략은 팀의 거울이다',
+        role: 'Git Flow vs GitHub Flow vs Trunk-Based',
+        tag: '전략',
+        href: 'content/git-series/git-branching-strategies.html',
+        search: 'Git Flow GitHub Flow Trunk-Based 브랜치 전략 PR 코드리뷰 merge rebase squash Git Hooks'
+      },
+      {
+        num: 5,
+        title: '.gitconfig 하나로 생산성 2배',
+        role: '추천 도구, 설정, AI 연동',
+        tag: '생산성',
+        href: 'content/git-series/git-productivity-setup.html',
+        search: 'gitconfig alias delta lazygit gh CLI Git 생산성 AI 커밋 도구 추천 설정 Rust'
+      }
+    ]
   }
 ];

@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>배포 버튼을 누르기 전에 — Editorial</title>
+<meta name="description" content="작동하는 것과 제품인 것의 차이는 디자인 QA에 있다. 배포 전 30분 투자로 AI가 만든 티를 80% 제거하는 체크리스트.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/vibe-design-series/before-you-deploy.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="배포 버튼을 누르기 전에">
+<meta property="og:description" content="작동하는 것과 제품인 것의 차이는 디자인 QA에 있다. 배포 전 30분 투자로 AI가 만든 티를 80% 제거하는 체크리스트.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/vibe-design-series/before-you-deploy.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-09">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="배포 버튼을 누르기 전에">
+<meta name="twitter:description" content="작동하는 것과 제품인 것의 차이는 디자인 QA에 있다. 배포 전 30분 투자로 AI가 만든 티를 80% 제거하는 체크리스트.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"배포 버튼을 누르기 전에","description":"작동하는 것과 제품인 것의 차이는 디자인 QA에 있다. 배포 전 30분 투자로 AI가 만든 티를 80% 제거하는 체크리스트.","datePublished":"2026-02-09","dateModified":"2026-02-09","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/vibe-design-series/before-you-deploy.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead .deck { max-width: 540px; }
+
+  /* BLIND SPOT GRID */
+  .blindspot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .blindspot-cell {
+    background: var(--bg);
+    padding: 28px 24px;
+  }
+  .blindspot-cell .bs-num {
+    font-family: var(--mono);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .blindspot-cell h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 8px;
+  }
+  .blindspot-cell p {
+    font-size: 0.82rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+  .blindspot-cell .bs-stat {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 10px;
+    letter-spacing: 1px;
+  }
+
+  /* CHECKLIST SECTION */
+  .qa-section {
+    margin: 48px 0;
+  }
+  .qa-section .qa-category {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .qa-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px;
+  }
+  .qa-list li {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 0;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .qa-list li:last-child {
+    border-bottom: none;
+  }
+  .qa-list .qa-num {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .qa-list .qa-text {
+    font-size: 0.9rem;
+    color: var(--prose);
+    line-height: 1.7;
+  }
+  .qa-list .qa-text strong {
+    color: var(--fg);
+  }
+  .qa-list .qa-detail {
+    font-size: 0.8rem;
+    color: var(--secondary);
+    margin-top: 4px;
+    line-height: 1.6;
+  }
+
+  /* TIME BUDGET */
+  .time-budget {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .time-budget .tb-cell {
+    background: var(--bg);
+    padding: 28px 24px;
+    text-align: center;
+  }
+  .time-budget .tb-time {
+    font-family: var(--mono);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--fg);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .time-budget .tb-unit {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .time-budget .tb-desc {
+    font-size: 0.82rem;
+    color: var(--secondary);
+    line-height: 1.6;
+  }
+
+  /* TOOL COMPARE */
+  .tool-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .tool-card {
+    background: var(--bg);
+    padding: 28px 24px;
+  }
+  .tool-card .tc-name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--fg);
+    margin-bottom: 4px;
+  }
+  .tool-card .tc-focus {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .tool-card .tc-desc {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+  .tool-card .tc-best {
+    font-size: 0.8rem;
+    color: var(--prose);
+    font-weight: 700;
+    margin-top: 12px;
+  }
+
+  /* PRIORITY STACK */
+  .priority-stack {
+    margin: 40px 0 48px;
+    border: 1px solid var(--rule);
+    background: var(--rule);
+    display: grid;
+    gap: 1px;
+  }
+  .priority-item {
+    background: var(--bg);
+    padding: 24px 28px;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 0;
+    align-items: baseline;
+  }
+  .priority-item .pi-rank {
+    font-family: var(--mono);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .priority-item .pi-title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--fg);
+    margin-bottom: 4px;
+  }
+  .priority-item .pi-desc {
+    font-size: 0.82rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: var(--fg);
+    color: var(--bg);
+    padding: 28px 32px;
+    margin: 32px 0;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    line-height: 1.8;
+    overflow-x: auto;
+  }
+  .code-block .code-comment { color: var(--muted); }
+  .code-block .code-str { color: #86efac; }
+
+  /* MAKER PATTERN */
+  .maker-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .maker-cell {
+    background: var(--bg);
+    padding: 28px 24px;
+  }
+  .maker-cell .mk-name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--fg);
+    margin-bottom: 4px;
+  }
+  .maker-cell .mk-revenue {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .maker-cell .mk-pattern {
+    font-size: 0.85rem;
+    color: var(--prose);
+    line-height: 1.7;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .maker-cell .mk-detail {
+    font-size: 0.82rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .blindspot-grid { grid-template-columns: 1fr; }
+    .time-budget { grid-template-columns: 1fr; }
+    .tool-compare { grid-template-columns: 1fr; }
+    .maker-grid { grid-template-columns: 1fr; }
+    .priority-item { grid-template-columns: 48px 1fr; }
+    .code-block { padding: 20px; font-size: 0.72rem; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">Series 08 — 05 of 05</p>
+  <h1>배포 버튼을 누르기<br><strong>전에</strong></h1>
+  <p class="deck">"작동하는 것"과 "제품인 것"의 차이는 디자인 QA에 있다. 배포 전 30분 투자로 AI가 만든 티를 80% 제거하는 체크리스트.</p>
+</header>
+
+<!-- ─── PART I ─── -->
+<section>
+<div class="section-head">
+  <span class="num">Part I</span>
+  <h2>AI가 놓치는 것들</h2>
+</div>
+
+<p class="prose">바이브 코딩으로 기능을 완성했다. 로그인 작동하고, 데이터 저장되고, 결제까지 된다. 배포 버튼에 손이 간다. <strong>잠깐.</strong> AI가 만든 코드가 기능적으로 완벽하더라도, 디자인 측면에서 AI는 체계적으로 특정 영역을 놓친다. 그리고 그 빈틈이 사용자에게는 "이거 AI가 만들었네"라는 인상을 준다.</p>
+
+<div class="blindspot-grid">
+  <div class="blindspot-cell">
+    <div class="bs-num">01</div>
+    <h4>접근성(a11y)</h4>
+    <p>자동화 도구가 감지하는 WCAG 이슈는 전체의 30~50%에 불과하다. AI는 시맨틱 HTML 대신 div를 남발하고, alt 텍스트는 기계적이다. "공원의 개"는 맞추지만 "안내견"이라는 맥락은 놓친다.</p>
+    <div class="bs-stat">WCAG AUTO-DETECT: 30-50%</div>
+  </div>
+  <div class="blindspot-cell">
+    <div class="bs-num">02</div>
+    <h4>반응형</h4>
+    <p>AI는 데스크톱 퍼스트로 생성한다. 모바일은 사후 대응이다. 320px 화면에서 텍스트가 넘치고, 터치 타겟이 너무 작고, 가로 스크롤이 발생하는 문제가 빈번하다.</p>
+    <div class="bs-stat">MOBILE FIRST: RARELY</div>
+  </div>
+  <div class="blindspot-cell">
+    <div class="bs-num">03</div>
+    <h4>한글 타이포그래피</h4>
+    <p>AI는 영문 기준으로 타이포그래피를 생성한다. line-height 1.5는 영문에 최적이지만 한글에서는 답답하다. letter-spacing도 양수 값이 한글에서 어색하게 작용한다.</p>
+    <div class="bs-stat">KO LINE-HEIGHT: 1.8-2.0 NEEDED</div>
+  </div>
+  <div class="blindspot-cell">
+    <div class="bs-num">04</div>
+    <h4>마이크로 인터랙션</h4>
+    <p>hover, focus, transition — AI가 가장 대충 처리하는 영역이다. 버튼에 hover 효과가 없으면 사용자는 "이게 클릭되는 건가" 의심한다. focus ring이 없으면 키보드 사용자는 현재 위치를 잃는다.</p>
+    <div class="bs-stat">HOVER/FOCUS: OFTEN MISSING</div>
+  </div>
+</div>
+
+<p class="prose">이 네 가지는 AI가 <strong>구조적으로</strong> 약한 영역이다. AI는 시각적 결과물을 보지 못한 채 코드만 생성하기 때문이다. 데스크톱에서 보기 좋은 3열 그리드가 모바일에서 어떻게 보이는지, line-height 1.5의 한글이 얼마나 빽빽한지, hover 없는 버튼이 사용자에게 어떤 느낌인지 — AI는 이런 "체감"을 계산하지 못한다.</p>
+
+<p class="prose">좋은 소식은, 이 문제들 대부분이 <strong>30분이면 잡힌다는 것이다.</strong></p>
+</section>
+
+<!-- ─── PART II ─── -->
+<section>
+<div class="section-head">
+  <span class="num">Part II</span>
+  <h2>30분 디자인 QA 체크리스트</h2>
+</div>
+
+<p class="prose">아래 체크리스트는 배포 직전에 30분 안에 수행할 수 있는 디자인 QA 항목이다. 전문 디자이너의 리뷰를 대체하지 않지만, <strong>"AI가 만든 티"의 80%는 이것만으로 제거된다.</strong> 6개 카테고리, 24개 항목.</p>
+
+<div class="time-budget">
+  <div class="tb-cell">
+    <div class="tb-time">10</div>
+    <div class="tb-unit">MIN</div>
+    <div class="tb-desc">색상 + 타이포그래피 + 간격. 시각적 일관성의 기반.</div>
+  </div>
+  <div class="tb-cell">
+    <div class="tb-time">10</div>
+    <div class="tb-unit">MIN</div>
+    <div class="tb-desc">반응형 + 접근성. 모바일 확인과 기본 a11y 점검.</div>
+  </div>
+  <div class="tb-cell">
+    <div class="tb-time">10</div>
+    <div class="tb-unit">MIN</div>
+    <div class="tb-desc">성능 + 인터랙션. Lighthouse 돌리고, hover/focus 확인.</div>
+  </div>
+</div>
+
+<!-- Checklist Category 1 -->
+<div class="qa-section">
+  <div class="qa-category">01 — 색상</div>
+  <ul class="qa-list">
+    <li>
+      <span class="qa-num">01</span>
+      <div>
+        <div class="qa-text"><strong>모든 색상이 CSS 변수로 정의되어 있는가?</strong></div>
+        <div class="qa-detail">하드코딩된 #hex 값이 있으면 디자인 드리프트의 시작이다. 검색: 정규식 #[0-9a-fA-F]{3,8}</div>
+      </div>
+    </li>
+    <li>
+      <span class="qa-num">02</span>
+      <div>
+        <div class="qa-text"><strong>accent color가 1~2가지 이내인가?</strong></div>
+        <div class="qa-detail">AI는 섹션마다 다른 accent를 쓰는 경향이 있다. 전체 앱에서 하나의 primary, 하나의 destructive면 충분하다.</div>
+      </div>
+    </li>
+    <li>
+      <span class="qa-num">03</span>
+      <div>
+        <div class="qa-text"><strong>텍스트/배경 색상 대비가 4.5:1 이상인가?</strong></div>
+        <div class="qa-detail">WCAG AA 기준. Chrome DevTools > Rendering > CSS Overview에서 한 번에 확인 가능.</div>
+      </div>
+    </li>
+    <li>
+      <span class="qa-num">04</span>
+      <div>
+        <div class="qa-text"><strong>그라디언트를 쓰고 있다면, 정말 필요한가?</strong></div>
+        <div class="qa-detail">AI가 넣은 그라디언트의 90%는 불필요하다. 단색으로 바꿔보고, 더 나으면 단색을 유지하라.</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- Checklist Category 2 -->
+<div class="qa-section">
+  <div class="qa-category">02 — 타이포그래피</div>
+  <ul class="qa-list">
+    <li>
+      <span class="qa-num">05</span>
+      <div>
+        <div class="qa-text"><strong>폰트가 2종 이내인가?</strong></div>
+        <div class="qa-detail">본문 1종 + 모노스페이스(코드/라벨용) 1종이면 충분하다. 3종 이상은 시각적 혼란.</div>
+      </div>
+    </li>
+    <li>
+      <span class="qa-num">06</span>
+      <div>
+        <div class="qa-text"><strong>한글 폰트의 line-height가 1.8 이상인가?</strong></div>
+        <div class="qa-detail">영문 기준 1.5는 한글에서 답답하다. 본문은 1.8~2.0, 제목은 1.2~1.4가 적절하다.</div>
+      </div>
+    </li>
+    <li>
+      <span class="qa-num">07</span>
+      <div>
+        <div class="qa-text"><strong>제목 위계가 h1 → h2 → h3 순서대로인가?</strong></div>
+        <div class="qa-detail">AI는 종종 h1을 여러 개 쓰거나 h2 없이 h3을 바로 쓴다. SEO와 접근성 모두에 영향.</div>
+      </div>
+    </li>
+    <li>
+      <span class="qa-num">08</span>
+      <div>
+        <div class="qa-text"><strong>font-variant-numeric: lining-nums를 적용했는가?</strong></div>
+        <div class="qa-detail">올드스타일 숫자(1234가 위아래로 춤추는 현상)는 한국어 콘텐츠에서 어색하다.</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- Checklist Category 3 -->
+<div class="qa-section">
+  <div class="qa-category">03 — 간격</div>
+  <ul class="qa-list">
+    <li>
+      <span class="qa-num">09</span>
+      <div>
+        <div class="qa-text"><strong>padding/margin이 4px 또는 8px 배수 단위인가?</strong></div>
+        <div class="qa-detail">AI는 13px, 17px 같은 임의 값을 쓰는 경향이 있다. 4/8/12/16/24/32/48/64 체계로 통일.</div>
+      </div>
+    </li>
+    <li>
+      <span class="qa-num">10</span>
+      <div>
+        <div class="qa-text"><strong>같은 역할의 요소가 같은 간격을 가지는가?</strong></div>
+        <div class="qa-detail">카드 A는 padding 16px, 카드 B는 padding 20px — 이런 불일치가 "AI스러운" 느낌의 원인.</div>
+      </div>
+    </li>
+    <li>
+      <span class="qa-num">11</span>
+      <div>
+        <div class="qa-text"><strong>요소 간 간격이 충분한가?</strong></div>
+        <div class="qa-detail">AI는 여백을 아끼는 경향이 있다. 섹션 간 최소 48px, 문단 간 최소 24px 확보.</div>
+      </div>
+    </li>
+    <li>
+      <span class="qa-num">12</span>
+      <div>
+        <div class="qa-text"><strong>콘텐츠 영역 최대 너비가 설정되어 있는가?</strong></div>
+        <div class="qa-detail">본문 텍스트가 전체 화면을 가로지르면 읽기 어렵다. 산문은 max-width 680px, 레이아웃은 1200px 권장.</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- Checklist Category 4 -->
+<div class="qa-section">
+  <div class="qa-category">04 — 반응형</div>
+  <ul class="qa-list">
+    <li>
+      <span class="qa-num">13</span>
+      <div>
+        <div class="qa-text"><strong>320px 화면에서 가로 스크롤이 없는가?</strong></div>
+        <div class="qa-detail">Chrome DevTools > Device Mode에서 iPhone SE(375px)와 Galaxy Fold(280px) 확인.</div>
+      </div>
+    </li>
+    <li>
+      <span class="qa-num">14</span>
+      <div>
+        <div class="qa-text"><strong>멀티 컬럼 그리드가 모바일에서 1열로 전환되는가?</strong></div>
+        <div class="qa-detail">인라인 style로 grid-template-columns를 지정하면 미디어쿼리가 작동하지 않는다. CSS 클래스 필수.</div>
+      </div>
+    </li>
+    <li>
+      <span class="qa-num">15</span>
+      <div>
+        <div class="qa-text"><strong>터치 타겟이 44px 이상인가?</strong></div>
+        <div class="qa-detail">Apple HIG 기준 최소 44x44px. AI가 만든 작은 링크/버튼은 모바일에서 누르기 어렵다.</div>
+      </div>
+    </li>
+    <li>
+      <span class="qa-num">16</span>
+      <div>
+        <div class="qa-text"><strong>텍스트가 잘리거나 넘치지 않는가?</strong></div>
+        <div class="qa-detail">overflow: hidden이 중요한 텍스트를 숨기고 있지 않은지. 한글은 영문보다 글자 폭이 넓어 잘림 빈도가 높다.</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- Checklist Category 5 -->
+<div class="qa-section">
+  <div class="qa-category">05 — 접근성</div>
+  <ul class="qa-list">
+    <li>
+      <span class="qa-num">17</span>
+      <div>
+        <div class="qa-text"><strong>모든 이미지에 의미 있는 alt 텍스트가 있는가?</strong></div>
+        <div class="qa-detail">AI가 생성한 alt="image" 또는 alt=""를 전수 검사. 장식용 이미지만 alt="" 허용.</div>
+      </div>
+    </li>
+    <li>
+      <span class="qa-num">18</span>
+      <div>
+        <div class="qa-text"><strong>Tab 키로 모든 인터랙티브 요소를 순회할 수 있는가?</strong></div>
+        <div class="qa-detail">Tab을 눌러보라. focus ring이 보여야 하고, 논리적 순서로 이동해야 한다.</div>
+      </div>
+    </li>
+    <li>
+      <span class="qa-num">19</span>
+      <div>
+        <div class="qa-text"><strong>시맨틱 HTML을 사용하는가?</strong></div>
+        <div class="qa-detail">div로만 이루어진 구조가 아닌지. button, nav, main, article, section, header, footer 확인.</div>
+      </div>
+    </li>
+    <li>
+      <span class="qa-num">20</span>
+      <div>
+        <div class="qa-text"><strong>Lighthouse Accessibility 점수가 90 이상인가?</strong></div>
+        <div class="qa-detail">Chrome DevTools > Lighthouse > Accessibility. 90 미만이면 심각한 접근성 이슈가 있다.</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- Checklist Category 6 -->
+<div class="qa-section">
+  <div class="qa-category">06 — 성능과 인터랙션</div>
+  <ul class="qa-list">
+    <li>
+      <span class="qa-num">21</span>
+      <div>
+        <div class="qa-text"><strong>CLS(Cumulative Layout Shift)가 0.1 이하인가?</strong></div>
+        <div class="qa-detail">폰트 로딩으로 레이아웃이 밀리지 않는지. font-display: optional + preload가 가장 확실한 해법.</div>
+      </div>
+    </li>
+    <li>
+      <span class="qa-num">22</span>
+      <div>
+        <div class="qa-text"><strong>이미지에 width/height가 명시되어 있는가?</strong></div>
+        <div class="qa-detail">이미지 크기를 예약하지 않으면 로딩 시 레이아웃이 뛴다. loading="lazy" 속성도 확인.</div>
+      </div>
+    </li>
+    <li>
+      <span class="qa-num">23</span>
+      <div>
+        <div class="qa-text"><strong>모든 버튼/링크에 hover 효과가 있는가?</strong></div>
+        <div class="qa-detail">hover 없는 인터랙티브 요소는 사용자에게 "작동하는가?" 의심을 준다. opacity 0.8이라도 넣어라.</div>
+      </div>
+    </li>
+    <li>
+      <span class="qa-num">24</span>
+      <div>
+        <div class="qa-text"><strong>transition이 자연스러운가?</strong></div>
+        <div class="qa-detail">0ms(즉시 변환)는 기계적이고, 500ms 이상은 느리다. 150~300ms, ease-out이 자연스럽다.</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div class="pull-quote">
+  <p>24개 항목, 30분.<br>이것만으로 <strong>"AI가 만든 티"의<br>80%가 사라진다.</strong></p>
+  <div class="attr">DESIGN QA CHECKLIST</div>
+</div>
+</section>
+
+<!-- ─── PART III ─── -->
+<section>
+<div class="section-head">
+  <span class="num">Part III</span>
+  <h2>비주얼 리그레션 테스팅</h2>
+</div>
+
+<p class="prose">체크리스트는 수동이다. 매 배포마다 24개를 확인하는 것은 현실적이지 않다. 자동화가 필요하다. <strong>비주얼 리그레션 테스팅</strong>은 코드 변경 전후의 스크린샷을 비교해서 의도하지 않은 시각적 변화를 잡아내는 방법이다.</p>
+
+<div class="tool-compare">
+  <div class="tool-card">
+    <div class="tc-name">Chromatic</div>
+    <div class="tc-focus">COMPONENT LEVEL</div>
+    <div class="tc-desc">Storybook과 직접 통합. 컴포넌트 단위로 스크린샷을 비교한다. 3줄 코드로 CI에 추가 가능. PR마다 시각적 변경을 자동 감지.</div>
+    <div class="tc-best">최적: Storybook을 쓰는 React/Vue 프로젝트</div>
+  </div>
+  <div class="tool-card">
+    <div class="tc-name">Percy</div>
+    <div class="tc-focus">FULL PAGE</div>
+    <div class="tc-desc">전체 페이지 레벨 크로스 브라우저 검증. OCR 기반 텍스트 시프트 감지. Chrome, Firefox, Safari 동시 비교.</div>
+    <div class="tc-best">최적: 랜딩 페이지, 마케팅 사이트</div>
+  </div>
+</div>
+
+<p class="prose">그러나 1인 메이커에게 Chromatic이나 Percy는 과할 수 있다. <strong>간소화 버전</strong>이 있다. AI에게 스크린샷을 주고 디자인 리뷰를 요청하는 것이다. Claude나 GPT-4V는 스크린샷을 분석해서 간격 불일치, 색상 문제, 정렬 오류를 잡아낼 수 있다.</p>
+
+<div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px">AI 디자인 리뷰 프롬프트</div>
+
+<div class="code-block">
+<span class="code-str">이 스크린샷은 내 웹앱의 [페이지명]이다.</span>
+<span class="code-str">다음 기준으로 디자인을 리뷰해줘:</span>
+
+<span class="code-str">1. 색상 일관성: 사용된 색상이 3가지 이내인가?</span>
+<span class="code-str">2. 간격 일관성: 같은 역할의 요소가 같은 간격을 가지는가?</span>
+<span class="code-str">3. 타이포그래피: 폰트 종류가 2개 이내인가? 위계가 명확한가?</span>
+<span class="code-str">4. 정렬: 요소들이 그리드에 맞춰 정렬되어 있는가?</span>
+<span class="code-str">5. 모바일: 이 레이아웃이 320px에서 작동할 것 같은가?</span>
+
+<span class="code-str">각 항목에 대해 "통과/실패"와 구체적인 개선 제안을 줘.</span>
+</div>
+
+<p class="prose">이 방법은 완벽하지 않지만, <strong>비용 0원으로 1분 안에</strong> 피드백을 받을 수 있다. Playwright MCP를 사용하면 이 과정을 자동화할 수도 있다 — 코드 변경 후 자동으로 스크린샷을 찍고, AI가 이전 버전과 비교하고, 문제가 있으면 경고를 보내는 파이프라인이다.</p>
+</section>
+
+<!-- ─── PART IV ─── -->
+<section>
+<div class="section-head">
+  <span class="num">Part IV</span>
+  <h2>MVP에서 제품으로</h2>
+</div>
+
+<p class="prose">이 시리즈의 첫 편에서 시작한 질문으로 돌아간다. <strong>"바이브 코딩으로 만든 것을 어떻게 제품으로 만드는가?"</strong></p>
+
+<p class="prose">답은 인디해커들의 실전에 있다. 성공한 1인 메이커들은 놀라울 정도로 비슷한 패턴을 따른다.</p>
+
+<div class="maker-grid">
+  <div class="maker-cell">
+    <div class="mk-name">Pieter Levels</div>
+    <div class="mk-revenue">$250,000+/MONTH</div>
+    <div class="mk-pattern">"의도적으로 못생기게 시작"</div>
+    <div class="mk-detail">vanilla HTML + jQuery. 기능이 검증된 후에만 디자인을 개선한다. 첫 버전은 항상 못생겼다.</div>
+  </div>
+  <div class="maker-cell">
+    <div class="mk-name">Marc Lou</div>
+    <div class="mk-revenue">$124,772/MONTH</div>
+    <div class="mk-pattern">"디자인을 템플릿화하라"</div>
+    <div class="mk-detail">Tailwind + shadcn 기반 보일러플레이트. 디자인 결정을 한 번 내리고, 모든 프로젝트에 재사용한다.</div>
+  </div>
+  <div class="maker-cell">
+    <div class="mk-name">Tony Dinh</div>
+    <div class="mk-revenue">$83,000/MONTH</div>
+    <div class="mk-pattern">"직관적 명확성"</div>
+    <div class="mk-detail">화려한 디자인 대신 인터페이스의 기능적 명확성에 집중한다. 사용자가 3초 안에 이해하는 것이 목표.</div>
+  </div>
+</div>
+
+<p class="prose">공통 패턴이 보인다. <strong>디자인 퀄리티보다 문제 해결이 수익을 만든다.</strong> 그러나 "최소한의 일관성"은 반드시 필요하다. 사용자는 "못생긴 것"은 용서하지만, "불일치하는 것"은 불신한다. 버튼 색이 페이지마다 다르고, 간격이 들쭉날쭉하면 — 기능이 아무리 좋아도 사용자는 "이거 믿을 수 있나?"를 의심한다.</p>
+
+<p class="prose">하이브리드 모델을 제안한다. <strong>AI로 빠르게 만들고, 검증된 부분만 정밀하게 다듬는다.</strong></p>
+
+<div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px">디자인 리팩토링 우선순위</div>
+
+<div class="priority-stack">
+  <div class="priority-item">
+    <div class="pi-rank">01</div>
+    <div>
+      <div class="pi-title">전환 화면</div>
+      <div class="pi-desc">랜딩 페이지, 가격표, 결제 화면. 사용자가 돈을 내는 결정을 하는 곳. 여기서 "AI가 만든 티"가 나면 전환율이 직접 떨어진다.</div>
+    </div>
+  </div>
+  <div class="priority-item">
+    <div class="pi-rank">02</div>
+    <div>
+      <div class="pi-title">첫인상 화면</div>
+      <div class="pi-desc">온보딩, 로그인, 대시보드 첫 화면. 사용자가 서비스를 처음 마주하는 곳. 3초 안에 "이건 제대로 만들었네"라는 인상을 줘야 한다.</div>
+    </div>
+  </div>
+  <div class="priority-item">
+    <div class="pi-rank">03</div>
+    <div>
+      <div class="pi-title">반복 사용 화면</div>
+      <div class="pi-desc">핵심 기능 화면, 일일 사용 대시보드. 매일 보는 화면이 불편하면 이탈률이 올라간다. 간격과 타이포그래피에 집중.</div>
+    </div>
+  </div>
+  <div class="priority-item">
+    <div class="pi-rank">04</div>
+    <div>
+      <div class="pi-title">나머지</div>
+      <div class="pi-desc">설정, 프로필, 도움말. 사용 빈도가 낮은 화면은 기본 shadcn/Tailwind 테마를 유지해도 충분하다. 나중에 다듬어도 늦지 않다.</div>
+    </div>
+  </div>
+</div>
+
+<p class="prose">이 우선순위의 핵심은 <strong>"모든 것을 한 번에 완벽하게 만들려 하지 않는다"</strong>는 것이다. 전환 화면을 먼저 다듬고, 나머지는 사용자 피드백이 쌓이면 그때 개선한다. 데이터 없이 디자인을 다듬는 것은 AI에게 "예쁘게 만들어"라고 하는 것과 같다 — 방향 없는 노력이다.</p>
+
+<p class="prose">시리즈 전체를 관통하는 원칙은 하나다.</p>
+</section>
+
+<!-- ─── CLOSING ─── -->
+<div class="closing">
+  <h2>빠르게 검증하고, 정밀하게 측정하고,<br><strong>의도적으로 확장하라.</strong></h2>
+  <p class="sub">AI는 속도를 준다. 방향은 당신이 정한다. CSS 변수 8개, 규칙 파일 1개, 체크리스트 24항목. 이것이 디자이너 없이 제품을 만드는 최소한의 도구다.</p>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+  <p>
+    WCAG 2.2 — Web Content Accessibility Guidelines<br>
+    Chromatic — chromatic.com / Percy — percy.io<br>
+    Pieter Levels — levels.io / Marc Lou — shipfa.st<br>
+    Tony Dinh — tonydinh.com<br>
+    Stack Overflow Developer Survey 2025 — AI Section<br>
+    METR (2025). "AI on Experienced Developer Productivity"<br>
+    Apple Human Interface Guidelines — Touch Target 44px<br>
+    Google Lighthouse — Performance & Accessibility Audit
+  </p>
+</footer>
+
+</div>
+</article>
+</body>
+</html>

@@ -225,7 +225,14 @@
     .timeline .t-time { padding: 16px 8px; font-size: 0.75rem; }
     .timeline .t-desc { padding: 16px; }
     .flow { flex-direction: column; }
-    .flow-arrow { transform: rotate(90deg); }
+    .flow-arrow {
+      font-size: 0;
+      text-align: center;
+    }
+    .flow-arrow::after {
+      content: '↓';
+      font-size: 0.85rem;
+    }
     .scenario-body { padding: 24px 20px; }
   }
 </style>

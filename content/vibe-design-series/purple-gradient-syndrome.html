@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>보라색 그라디언트 증후군 — Editorial</title>
+<meta name="description" content="바이브 코딩으로 만든 UI는 왜 다 비슷한가. bg-indigo-500의 원죄부터 다크 플로우까지, AI가 디자인을 망치는 구조를 해부한다.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/vibe-design-series/purple-gradient-syndrome.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="보라색 그라디언트 증후군">
+<meta property="og:description" content="바이브 코딩으로 만든 UI는 왜 다 비슷한가. bg-indigo-500의 원죄부터 다크 플로우까지, AI가 디자인을 망치는 구조를 해부한다.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/vibe-design-series/purple-gradient-syndrome.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-09">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="보라색 그라디언트 증후군">
+<meta name="twitter:description" content="바이브 코딩으로 만든 UI는 왜 다 비슷한가. bg-indigo-500의 원죄부터 다크 플로우까지, AI가 디자인을 망치는 구조를 해부한다.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"보라색 그라디언트 증후군","description":"바이브 코딩으로 만든 UI는 왜 다 비슷한가. bg-indigo-500의 원죄부터 다크 플로우까지, AI가 디자인을 망치는 구조를 해부한다.","datePublished":"2026-02-09","dateModified":"2026-02-09","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/vibe-design-series/purple-gradient-syndrome.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead .deck { max-width: 540px; }
+
+  /* SYMPTOM GRID */
+  .symptom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .symptom-cell {
+    background: var(--bg);
+    padding: 28px 24px;
+  }
+  .symptom-cell .s-num {
+    font-family: var(--mono);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .symptom-cell h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--fg);
+  }
+  .symptom-cell p {
+    font-size: 0.82rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+
+  /* STAT ROW */
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0;
+  }
+  .stat-cell {
+    background: var(--bg);
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .stat-cell .stat-num {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--fg);
+    line-height: 1.2;
+  }
+  .stat-cell .stat-unit {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .stat-cell .stat-desc {
+    font-size: 0.78rem;
+    color: var(--secondary);
+    margin-top: 8px;
+    line-height: 1.6;
+  }
+
+  /* CYCLE FLOW */
+  .cycle-flow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+    align-items: center;
+    gap: 0;
+    margin: 40px 0 48px;
+    border: 1px solid var(--rule);
+    background: var(--card-bg);
+    padding: 32px 24px;
+  }
+  .cycle-step {
+    text-align: center;
+    padding: 0 8px;
+  }
+  .cycle-step .step-num {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .cycle-step p {
+    font-size: 0.85rem;
+    color: var(--prose);
+    line-height: 1.6;
+    font-weight: 600;
+  }
+  .cycle-arrow {
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* DARK FLOW COMPARISON */
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin: 40px 0;
+  }
+  .compare-col .col-title {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    font-weight: 700;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--fg);
+    margin-bottom: 20px;
+  }
+  .compare-col p {
+    font-size: 0.88rem;
+    color: var(--prose);
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+
+  /* CHECKLIST */
+  .checklist {
+    margin: 40px 0 48px;
+    list-style: none;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    display: grid;
+    gap: 1px;
+  }
+  .checklist li {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    background: var(--bg);
+  }
+  .checklist .chk-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card-bg);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    padding: 16px 0;
+  }
+  .checklist .chk-text {
+    padding: 16px 20px;
+    font-size: 0.88rem;
+    color: var(--prose);
+    line-height: 1.7;
+  }
+  .checklist .chk-text strong {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* STAT 2-COL */
+  .stat-2col {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 700px) {
+    .symptom-grid { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr; }
+    .stat-2col { grid-template-columns: 1fr; }
+    .compare-row { grid-template-columns: 1fr; gap: 32px; }
+    .cycle-flow {
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding: 24px 20px;
+    }
+    .cycle-arrow {
+      font-size: 0;
+      text-align: center;
+      padding: 8px 0;
+    }
+    .cycle-arrow::after {
+      content: '\2193';
+      font-size: 0.85rem;
+    }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="issue">Design Without a Designer — Article 01</div>
+    <h1><strong>보라색</strong> 그라디언트<br>증후군</h1>
+    <p class="deck">바이브 코딩의 진짜 병목은 코드가 아니다.<br>AI가 만드는 UI는 왜 다 비슷한가.</p>
+  </header>
+
+  <!-- PART 1 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part I</span>
+      <h2><strong>bg-indigo-500</strong>의 원죄</h2>
+    </div>
+
+    <p class="prose">
+      바이브 코딩으로 만든 웹사이트를 열어보면, 익숙한 풍경이 펼쳐진다. 보라색 그라디언트 헤더. Inter 또는 Roboto 폰트. 3열 카드 그리드. 미세한 그림자와 둥근 모서리. 소극적이고 균일하게 분배된 색상 팔레트. 이 모든 게 <strong>어디선가 본 것 같다</strong>면, 실제로 어디서든 볼 수 있기 때문이다. AI가 만드는 UI는 전부 같은 얼굴을 하고 있다.
+    </p>
+
+    <p class="prose">
+      이 현상에는 이름이 있다. <strong>"AI Slop Design"</strong> — 이미지 생성 AI가 만드는 키치한 산출물을 "AI 슬롭"이라 부르듯, UI 세계에도 동일한 현상이 번지고 있다. LLM에게 "landing page를 만들어줘"라고 프롬프트를 던지면, 2019년부터 2024년까지 GitHub에 올라온 모든 Tailwind CSS 튜토리얼의 <strong>통계적 중앙값</strong>을 돌려받는 것이다.
+    </p>
+
+    <p class="prose">
+      원인은 놀라울 정도로 구체적이다. 2025년 8월, Tailwind CSS의 창시자 <strong>Adam Wathan</strong>이 공개적으로 사과했다.
+    </p>
+
+    <div class="pull-quote">
+      <p>5년 전 Tailwind UI의 모든 버튼에 bg-indigo-500을 적용한 것에 대해 사과한다.</p>
+      <div class="attr">Adam Wathan, Tailwind CSS 창시자</div>
+    </div>
+
+    <p class="prose">
+      그것이 시작이었다. Tailwind UI의 데모 코드가 보라색을 기본으로 사용했고, 수만 개의 튜토리얼과 블로그 포스트가 그 색상을 그대로 복사했다. 그 코드들이 GitHub에 쌓였고, LLM의 학습 데이터가 되었다. 결과적으로 AI에게 UI를 요청하면 <strong>보라색이 기본값</strong>으로 출력되는 구조가 만들어진 것이다.
+    </p>
+
+    <div class="symptom-grid">
+      <div class="symptom-cell">
+        <div class="s-num">01</div>
+        <h4>보라/인디고 액센트</h4>
+        <p>Tailwind bg-indigo-500에서 시작된 편향. AI가 학습한 수만 개 데모의 기본 색상이다.</p>
+      </div>
+      <div class="symptom-cell">
+        <div class="s-num">02</div>
+        <h4>Inter 또는 Roboto</h4>
+        <p>개성 없는 산세리프. 어떤 브랜드에도 쓸 수 있다는 건 어떤 브랜드도 아니라는 뜻이다.</p>
+      </div>
+      <div class="symptom-cell">
+        <div class="s-num">03</div>
+        <h4>3열 카드 그리드</h4>
+        <p>아이콘 + 제목 + 설명의 반복. "기능 소개" 섹션의 사실상 유일한 패턴이 되었다.</p>
+      </div>
+      <div class="symptom-cell">
+        <div class="s-num">04</div>
+        <h4>균일한 색상 배분</h4>
+        <p>대비가 없다. 모든 요소가 비슷한 시각적 무게를 갖는다. 위계가 사라진 디자인.</p>
+      </div>
+      <div class="symptom-cell">
+        <div class="s-num">05</div>
+        <h4>미세한 그림자</h4>
+        <p>shadow-sm, rounded-lg의 반복. 카드가 떠 있는 것 같지만 실제로는 아무것도 구분하지 않는다.</p>
+      </div>
+      <div class="symptom-cell">
+        <div class="s-num">06</div>
+        <h4>상태의 부재</h4>
+        <p>에러 상태, 로딩 상태, 빈 상태가 없다. "기본 화면"만 존재하는 데모용 디자인.</p>
+      </div>
+    </div>
+
+    <p class="prose">
+      더 심각한 문제가 있다. 이 패턴은 스스로를 강화한다.
+    </p>
+
+    <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px">자기 강화 순환</div>
+
+    <div class="cycle-flow">
+      <div class="cycle-step">
+        <span class="step-num">Step 01</span>
+        <p>AI가 보라색 사이트를 생성</p>
+      </div>
+      <div class="cycle-arrow">&rarr;</div>
+      <div class="cycle-step">
+        <span class="step-num">Step 02</span>
+        <p>웹에 배포되어 공개</p>
+      </div>
+      <div class="cycle-arrow">&rarr;</div>
+      <div class="cycle-step">
+        <span class="step-num">Step 03</span>
+        <p>새 모델의 학습 데이터에 흡수</p>
+      </div>
+      <div class="cycle-arrow">&rarr;</div>
+      <div class="cycle-step">
+        <span class="step-num">Step 04</span>
+        <p>보라색 편향이 더 강화</p>
+      </div>
+    </div>
+
+    <p class="prose">
+      AI가 만든 보라색 사이트가 웹에 올라가면, 그 사이트가 다시 새로운 AI 모델의 훈련 데이터에 포함된다. 다음 세대의 AI는 더 강한 보라색 편향을 갖게 된다. <strong>피드백 루프</strong>다. 누구도 의도하지 않았지만, 구조적으로 탈출이 어려운 순환이 만들어진 것이다.
+    </p>
+  </section>
+
+  <!-- PART 2 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part II</span>
+      <h2>디자인이 무너지는 <strong>메커니즘</strong></h2>
+    </div>
+
+    <p class="prose">
+      보라색은 증상일 뿐이다. 근본적인 문제는 <strong>바이브 코딩이라는 작업 방식 자체</strong>가 디자인 일관성을 구조적으로 파괴한다는 데 있다. fast.ai의 창립자 <strong>Jeremy Howard</strong>는 이 현상에 이름을 붙였다. <strong>"다크 플로우(Dark Flow)"</strong>.
+    </p>
+
+    <p class="prose">
+      개념은 이렇다. 바이브 코딩을 하면 결과물이 빠르게 나온다. 프롬프트 하나에 화면 하나가 뚝딱 만들어진다. 이 속도감이 <strong>슬롯머신과 동일한 심리적 메커니즘</strong>을 작동시킨다. 슬롯머신의 "Loss Disguised as a Win" — 돈을 잃고 있는데 축하 효과음이 나오면 이기고 있다는 착각을 하게 되듯, 바이브 코딩도 실제로는 비생산적인 작업을 하면서 생산성의 환상을 심어준다.
+    </p>
+
+    <div class="compare-row">
+      <div class="compare-col">
+        <div class="col-title">진정한 플로우의 3요소</div>
+        <p><strong>기술-도전 수준 매칭.</strong> 자신의 실력에 맞는 적절한 난이도. 너무 쉽지도 어렵지도 않은 지점에서 몰입이 발생한다.</p>
+        <p><strong>명확한 성과 피드백.</strong> 내가 한 행동의 결과를 즉시 확인할 수 있다. 코드를 쓰고 실행하면 바로 결과가 보인다.</p>
+        <p><strong>진정한 주체성.</strong> 내가 결과물을 만들고 있다는 감각. 도구가 아니라 내가 의사결정의 주체다.</p>
+      </div>
+      <div class="compare-col">
+        <div class="col-title">다크 플로우의 위반</div>
+        <p><strong>난이도 붕괴.</strong> AI가 대부분을 처리하니 도전 자체가 사라진다. 몰입 대신 감시 모드에 진입한다.</p>
+        <p><strong>피드백 왜곡.</strong> 빠른 결과물이 "잘 되고 있다"는 신호를 보내지만, 실제로 디자인은 드리프트하고 있다.</p>
+        <p><strong>주체성 상실.</strong> 코드를 이해하지 못한 채 "되네?"만 확인한다. 의사결정이 AI에게 넘어간 상태.</p>
+      </div>
+    </div>
+
+    <p class="prose">
+      2025년 7월, METR(Model Evaluation & Threat Research)이 발표한 연구가 이를 정량적으로 확인했다. 16명의 숙련된 오픈소스 개발자가 246개의 실제 작업에서 AI 도구를 사용한 결과, 실제 생산성은 <strong>19% 감소</strong>했다. 그런데 본인들은 <strong>20% 빨라졌다</strong>고 인식했다. 인식과 현실 사이에 <strong>39%p의 괴리</strong>가 존재한다.
+    </p>
+
+    <div class="stat-row">
+      <div class="stat-cell">
+        <div class="stat-num">-19<span class="stat-unit">%</span></div>
+        <div class="stat-desc">실제 생산성 변화<br>(METR 연구, 246개 작업)</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">+20<span class="stat-unit">%</span></div>
+        <div class="stat-desc">본인이 인식한 속도 향상<br>(동일 연구 참여자)</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">39<span class="stat-unit">%p</span></div>
+        <div class="stat-desc">인식과 현실의 괴리<br>(역대 가장 큰 편차)</div>
+      </div>
+    </div>
+
+    <p class="prose">
+      더 놀라운 건, 연구 참여자의 <strong>69%가 속도 저하를 측정적으로 경험</strong>했음에도 실험이 끝난 후 AI 도구를 계속 사용했다는 점이다. 다크 플로우의 핵심이 여기에 있다. 느리다는 걸 알면서도 빠르다고 느끼기 때문에 멈추지 못한다.
+    </p>
+
+    <p class="prose">
+      디자인에서 이 현상은 더 심각하다. 세션이 길어질수록 AI는 이전 맥락을 잃고, 색상이 미묘하게 바뀌고, 간격이 흔들리고, 폰트가 섞인다. 한 화면씩 보면 괜찮아 보이지만, 전체를 놓고 보면 <strong>일관성이 완전히 무너져 있다</strong>. 이것이 "디자인 드리프트"다.
+    </p>
+
+    <div class="pull-quote">
+      <p>모든 AI 생성 사이트에는 무균질적인 품질이 있다.<br>기술적으로 맞는 말을 다 하지만,<br>진짜 대화는 해본 적 없는 사람을 만난 느낌이다.</p>
+    </div>
+
+    <p class="prose">
+      이 평가가 핵심을 찌른다. AI가 만드는 디자인은 "전문적으로" 보이지만, 인간의 감정을 위키피디아 글로 배운 사람이 디자인한 것 같다. 브랜드 개성이 없다. 어떤 사업체에든 쓸 수 있는 범용적 디자인은, 결국 <strong>어떤 사업체도 아닌</strong> 디자인이다.
+    </p>
+
+    <p class="prose">
+      결과는 데이터에 나타난다. Cursor로 손코딩 0%로 SaaS를 만든 한 개발자는 초기에 "AI가 전부 만들었다"며 자축했다. 수 주 만에 랜덤 에러, API 키 유출, 구독 우회, DB 오염이 발생했다. 비개발자였기 때문에 원인 파악조차 불가능했고, 결국 <strong>서비스를 영구 종료</strong>했다. Lovable로 만든 170개 앱은 CVE-2025-48757로 인증 없이 DB 읽기/쓰기가 가능한 상태로 노출되었다. "빠르게 만들었다"는 건 "빠르게 망했다"와 동의어가 된 것이다.
+    </p>
+  </section>
+
+  <!-- PART 3 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part III</span>
+      <h2><strong>자가 진단</strong> 체크리스트</h2>
+    </div>
+
+    <p class="prose">
+      한국의 디자인 에이전시 TOKTOKHAN.DEV의 디자이너가 Cursor로 바이브 코딩을 시도한 후 이렇게 말했다. "핵심 기능은 문제없이 작동했으나, 디자이너의 눈에는 부족한 점과 추가하고 싶은 디테일이 <strong>너무나도 많았다</strong>." Inter 폰트를 Pretendard로 바꾸는 것부터, 반응형 패딩, 뱃지 간격, 전체적인 밀도감까지. 기능이 작동한다는 것과 제품이라는 것 사이에는 거대한 간극이 있었다.
+    </p>
+
+    <p class="prose">
+      pxd의 디자이너는 더 구체적이었다. "바이브 코딩의 특성은 한 번의 명령으로 완벽한 결과를 얻는 것이 아니라, <strong>반복 대화를 통한 점진적 정교화</strong>." 그런데 대부분의 사람은 AI가 한 번에 만들어준 첫 결과물을 그대로 배포한다. 정교화를 위한 반복 대화가 일어나지 않는다.
+    </p>
+
+    <p class="prose">
+      Google Chrome 엔지니어링 리드 <strong>Addy Osmani</strong>의 말이 이 상황을 정확히 요약한다.
+    </p>
+
+    <div class="pull-quote">
+      <p>시각적으로 그럴듯한 UI를 빠르게 만드는 것과<br>의미 있는 사용자 경험을 만드는 것은<br>별개의 문제다.</p>
+      <div class="attr">Addy Osmani, Google</div>
+    </div>
+
+    <p class="prose">
+      아래는 "AI가 만든 티"를 진단하는 체크리스트다. 3개 이상 해당되면 프로젝트의 디자인을 재검토해야 한다.
+    </p>
+
+    <div class="checklist">
+      <li>
+        <span class="chk-icon">01</span>
+        <div class="chk-text"><strong>보라색/인디고 그라디언트</strong>가 헤더나 CTA 버튼에 있다. 그 색상을 선택한 이유를 설명할 수 없다.</div>
+      </li>
+      <li>
+        <span class="chk-icon">02</span>
+        <div class="chk-text">폰트가 <strong>Inter, Roboto, Arial</strong> 중 하나다. 또는 폰트가 3종 이상 혼용되어 있다.</div>
+      </li>
+      <li>
+        <span class="chk-icon">03</span>
+        <div class="chk-text"><strong>3열 카드 그리드</strong>로 기능을 소개하고 있다. 아이콘 + 제목 + 설명 구조가 반복된다.</div>
+      </li>
+      <li>
+        <span class="chk-icon">04</span>
+        <div class="chk-text"><strong>색상에 이름이 없다.</strong> CSS에 <code>#6366f1</code>이 직접 들어가 있고, 변수로 관리되지 않는다.</div>
+      </li>
+      <li>
+        <span class="chk-icon">05</span>
+        <div class="chk-text"><strong>에러/로딩/빈 상태</strong>가 없다. "기본 화면"만 존재하고, 엣지 케이스는 미구현이다.</div>
+      </li>
+      <li>
+        <span class="chk-icon">06</span>
+        <div class="chk-text"><strong>모바일에서 깨진다.</strong> 데스크톱으로 만들었고, 반응형은 사후 대응이거나 미적용이다.</div>
+      </li>
+      <li>
+        <span class="chk-icon">07</span>
+        <div class="chk-text"><strong>접근성이 전무하다.</strong> ARIA 라벨, 키보드 네비게이션, 색상 대비 어느 것도 고려되지 않았다.</div>
+      </li>
+      <li>
+        <span class="chk-icon">08</span>
+        <div class="chk-text"><strong>한글이 답답하다.</strong> 영문 기준 생성된 타이포그래피에 한글만 끼워넣어 자간과 행간이 어색하다.</div>
+      </li>
+    </div>
+
+    <p class="prose">
+      이 시리즈는 위 문제들에 대한 해법을 다룬다. 디자이너를 고용하거나, 디자인을 공부하라는 이야기가 아니다. <strong>AI에게 규칙을 가르치고, 도구를 조합하고, 최소한의 검증을 수행</strong>하는 것만으로 "AI가 만든 티"의 80%는 제거할 수 있다.
+    </p>
+
+    <div class="stat-row stat-2col">
+      <div class="stat-cell">
+        <div class="stat-num">47<span class="stat-unit">억 달러</span></div>
+        <div class="stat-desc">바이브 코딩 글로벌 시장 규모<br>(2025, Market Clarity)</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">63<span class="stat-unit">%</span></div>
+        <div class="stat-desc">비개발자 바이브 코딩 사용자 비율<br>(Second Talent, 2026)</div>
+      </div>
+    </div>
+
+    <p class="prose">
+      47억 달러 규모의 시장에서 사용자의 63%가 비개발자다. 이들에게 "코드를 배워라"는 해법이 아니다. "디자인을 배워라"도 마찬가지다. 해법은 <strong>AI가 이해할 수 있는 디자인 언어를 정의</strong>하는 데 있다. 그 언어의 이름은 디자인 토큰이다. 다음 편에서 다룬다.
+    </p>
+  </section>
+
+  <div class="closing">
+    <h2>기능은 AI가 만든다<br><strong>디자인은 규칙이 만든다</strong></h2>
+    <p class="sub">디자이너 없이도 프로덕션급 디자인을 달성하는 방법론. 다음 편에서 디자인 토큰, AI 규칙 파일, 그리고 Tailwind @theme을 다룬다.</p>
+  </div>
+
+  <footer class="footer">
+    <p>
+      METR. "Early-2025 AI on Experienced Open-Source Developer Productivity." 2025.07.<br>
+      Second Talent. "Top Vibe Coding Statistics & Trends 2026."<br>
+      W3C Design Tokens Community Group. "Design Tokens Specification 2025.10."<br>
+      Jeremy Howard. "Breaking the Spell of Vibe Coding." fast.ai, 2026.01.<br>
+      Addy Osmani. "Vibe coding is not the same as AI-Assisted engineering." Medium, 2025.<br>
+      prg.sh. "Why Your AI Keeps Building the Same Purple Gradient Website." 2025.<br>
+      TOKTOKHAN.DEV. "디자이너의 AI 바이브 코딩 체험기." 2025.<br>
+      pxd. "바이브 코딩으로 간단한 웹사이트 구현해보기." 2025.<br>
+      Superblocks. "Lovable Vulnerability Explained." CVE-2025-48757.<br>
+      Stack Overflow. "2025 Developer Survey — AI Section."
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>

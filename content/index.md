@@ -72,6 +72,41 @@ GitHub 역사상 가장 빠르게 성장한 오픈소스 AI 에이전트 OpenCla
 | 03 | `lineage-classic-bj-stamina` | 올나잇은 20대의 특권이었다 | 유머 — 40대 BJ들의 체력 이슈와 데포로쥬 3파전 | 2026-02-08 |
 | 04 | `lineage-never-ends` | 리니지는 끝나지 않는다 | 결론 — 트럭시위부터 0.0001% 확률까지 28년 유산과 전망 | 2026-02-08 |
 
+### claude-cowork-series — "딸깍이 소프트웨어를 죽인다고?" 시리즈
+
+Claude Cowork 출시 후 7일 만에 1조 달러가 증발한 SaaSpocalypse 사태를 분석하고, AI 에이전트가 기존 소프트웨어를 정말 대체하는지 데이터로 검증하는 시리즈.
+
+| # | 슬러그 | 한글 제목 | 역할 | 생성일 |
+|---|--------|-----------|------|--------|
+| 01 | `saaspocalypse-what-happened` | 7일 만에 1조 달러가 증발했다 | 사건분석 — SaaSpocalypse 전말 재구성 | 2026-02-09 |
+| 02 | `is-software-really-dead` | 소프트웨어는 정말 죽는가 | 팩트분석 — 찬반 데이터 대결 | 2026-02-09 |
+| 03 | `software-survival-playbook` | 소프트웨어 생존 플레이북 | 실전가이드 — 기업/개발자/사무직별 대응 | 2026-02-09 |
+| 04 | `future-of-software-2030` | 2030년, 소프트웨어의 다음 형태 | 전망 — 4가지 시나리오와 타임라인 | 2026-02-09 |
+
+### vibe-design-series — "디자이너 없이 제품 만들기" 시리즈
+
+바이브 코딩의 진짜 병목은 디자인이다. bg-indigo-500의 원죄부터 디자인 토큰, 참조 디자인 워크플로우, shadcn/ui 전략, 배포 전 QA까지.
+
+| # | 슬러그 | 한글 제목 | 역할 | 생성일 |
+|---|--------|-----------|------|--------|
+| 01 | `purple-gradient-syndrome` | 보라색 그라디언트 증후군 | 분석 — AI UI가 다 비슷한 이유와 디자인 드리프트 | 2026-02-09 |
+| 02 | `design-tokens-as-language` | 디자인 토큰이라는 언어 | 가이드 — CSS 변수, Tailwind @theme, AI 규칙 파일 | 2026-02-09 |
+| 03 | `steal-like-a-designer` | 남의 디자인을 훔치는 기술 | 실전 — 참조 디자인, Figma MCP, 워크플로우 | 2026-02-09 |
+| 04 | `shadcn-cheat-code` | shadcn/ui라는 치트키 | 실전 — 컴포넌트 라이브러리와 테마 커스터마이징 | 2026-02-09 |
+| 05 | `before-you-deploy` | 배포 버튼을 누르기 전에 | 실전 — 30분 디자인 QA 체크리스트와 제품화 | 2026-02-09 |
+
+### git-series — "Git, pair 없이 살아남기" 시리즈
+
+개발자 93.87%가 쓰지만 52.2%는 매달 실수한다. 주니어 생존 명령어부터 force push 참사, 숨겨진 기능, 브랜치 전략, 생산성 세팅까지.
+
+| # | 슬러그 | 한글 제목 | 역할 | 생성일 |
+|---|--------|-----------|------|--------|
+| 01 | `git-junior-survival-guide` | commit, push, 기도 — 주니어의 Git | 입문 — 주니어 생존 명령어와 실전 워크플로우 | 2026-02-09 |
+| 02 | `git-disaster-and-recovery` | force push 하나로 팀을 멸망시키는 법 | 사고/복구 — 실제 사고와 복구 매뉴얼 | 2026-02-09 |
+| 03 | `git-hidden-gems` | git bisect를 아는 사람은 1%뿐이다 | 심화 — 숨겨진 고급 기능 해부 | 2026-02-09 |
+| 04 | `git-branching-strategies` | 브랜치 전략은 팀의 거울이다 | 전략 — Git Flow vs GitHub Flow vs Trunk-Based | 2026-02-09 |
+| 05 | `git-productivity-setup` | .gitconfig 하나로 생산성 2배 | 생산성 — 추천 도구, 설정, AI 연동 | 2026-02-09 |
+
 ---
 
 ## 인덱스 관리 규칙

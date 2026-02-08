@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>2030년, 소프트웨어의 다음 형태 — Editorial</title>
+<meta name="description" content="패키지에서 SaaS로, SaaS에서 에이전트 플랫폼으로. 가트너, Bain, 마이크로소프트의 전망을 종합한 소프트웨어 산업의 4가지 시나리오와 2026-2035 타임라인.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/claude-cowork-series/future-of-software-2030.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2030년, 소프트웨어의 다음 형태">
+<meta property="og:description" content="패키지에서 SaaS로, SaaS에서 에이전트 플랫폼으로. 소프트웨어 산업의 4가지 시나리오와 2026-2035 타임라인.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/claude-cowork-series/future-of-software-2030.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-09">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="2030년, 소프트웨어의 다음 형태">
+<meta name="twitter:description" content="패키지에서 SaaS로, SaaS에서 에이전트 플랫폼으로. 소프트웨어 산업의 4가지 시나리오와 2026-2035 타임라인.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"2030년, 소프트웨어의 다음 형태","description":"패키지에서 SaaS로, SaaS에서 에이전트 플랫폼으로. 가트너, Bain, 마이크로소프트의 전망을 종합한 소프트웨어 산업의 4가지 시나리오와 2026-2035 타임라인.","datePublished":"2026-02-09","dateModified":"2026-02-09","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/claude-cowork-series/future-of-software-2030.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead h1 {
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -2px;
+  }
+  .masthead .deck { max-width: 540px; }
+
+  /* SCENARIO GRID */
+  .scenario-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 32px 0 40px;
+  }
+  .scenario-card {
+    background: var(--bg);
+    padding: 28px 24px;
+  }
+  .scenario-card.highlight {
+    background: var(--card-bg);
+  }
+  .scenario-card .sc-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 10px;
+  }
+  .scenario-card .sc-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--fg);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .scenario-card .sc-desc {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+  .scenario-card .sc-prob {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--muted);
+    margin-top: 12px;
+    display: block;
+  }
+
+  /* TIMELINE HORIZONTAL */
+  .h-timeline {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 32px 0 48px;
+  }
+  .h-step {
+    background: var(--bg);
+    padding: 24px 16px;
+    text-align: center;
+  }
+  .h-step .h-year {
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .h-step .h-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .h-step .h-detail {
+    font-size: 0.72rem;
+    color: var(--secondary);
+    line-height: 1.5;
+  }
+
+  /* EVOLUTION FLOW */
+  .evo-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 40px 0 48px;
+    flex-wrap: wrap;
+  }
+  .evo-step {
+    background: var(--card-bg);
+    padding: 20px 28px;
+    text-align: center;
+    border: 1px solid var(--rule);
+  }
+  .evo-step .e-era {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .evo-step .e-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--fg);
+  }
+  .evo-arrow {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding: 0 4px;
+  }
+
+  /* MECHANISM 2COL */
+  .mechanism-2col { grid-template-columns: 1fr 1fr; }
+
+  /* WARNING BOX */
+  .warning-box {
+    border: 1px solid var(--fg);
+    padding: 32px 36px;
+    margin: 40px 0 48px;
+  }
+  .warning-box .w-title {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 20px;
+  }
+  .warning-list {
+    list-style: none;
+    counter-reset: warn;
+    padding: 0;
+    margin: 0;
+  }
+  .warning-list li {
+    padding: 12px 0 12px 40px;
+    position: relative;
+    font-size: 0.92rem;
+    color: var(--prose);
+    line-height: 1.7;
+    border-bottom: 1px solid var(--rule);
+  }
+  .warning-list li:last-child { border-bottom: none; }
+  .warning-list li::before {
+    counter-increment: warn;
+    content: counter(warn, decimal-leading-zero);
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    top: 12px;
+  }
+
+  .closing .sub { max-width: 500px; }
+
+  @media (max-width: 700px) {
+    .scenario-grid { grid-template-columns: 1fr; }
+    .h-timeline { grid-template-columns: 1fr; }
+    .mechanism-2col { grid-template-columns: 1fr; }
+    .evo-flow { flex-direction: column; }
+    .evo-arrow {
+      font-size: 0;
+      text-align: center;
+    }
+    .evo-arrow::after {
+      content: '\2193';
+      font-size: 0.85rem;
+    }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <span class="issue">Series 07 &middot; Part IV</span>
+  <h1>2030년,<br><strong>소프트웨어의 다음 형태</strong></h1>
+  <p class="deck">패키지에서 SaaS로, SaaS에서 에이전트 플랫폼으로. 소프트웨어는 죽지 않는다 — 변태(變態)한다.</p>
+</header>
+
+<main>
+
+<!-- PART I: 4가지 시나리오 -->
+<section>
+<div class="section-head">
+  <span class="num">Part I</span>
+  <h2>4가지 <strong>시나리오</strong></h2>
+</div>
+
+<p class="prose">Bain & Company는 AI 에이전트 시대의 SaaS 산업에 대해 5가지 시나리오를 제시했다. 이를 가트너, 골드만삭스, 맥킨지의 분석과 교차하여 현실적인 4가지로 압축한다.</p>
+
+<div class="scenario-grid">
+  <div class="scenario-card">
+    <span class="sc-num">Scenario A</span>
+    <div class="sc-title">AI가 SaaS를 빛나게 한다</div>
+    <div class="sc-desc">기존 SaaS 기업이 AI를 성공적으로 내장. Salesforce Agentforce, ServiceNow+Moveworks처럼. AI가 기존 플랫폼의 가치를 높이고, 시장은 $780B로 성장한다. <strong>인큠번트가 승리하는 시나리오.</strong></div>
+    <span class="sc-prob">가능성: 높음 &middot; 단기 유력</span>
+  </div>
+  <div class="scenario-card highlight">
+    <span class="sc-num">Scenario B</span>
+    <div class="sc-title">AI가 SaaS를 잡아먹는다</div>
+    <div class="sc-desc">AI 에이전트가 기존 SaaS를 대체. Claude Cowork, OpenAI Frontier 같은 범용 플랫폼이 Per-seat 모델을 붕괴시킨다. <strong>신규 진입자가 승리하는 시나리오.</strong></div>
+    <span class="sc-prob">가능성: 중간 &middot; 장기 위험</span>
+  </div>
+  <div class="scenario-card">
+    <span class="sc-num">Scenario C</span>
+    <div class="sc-title">공존의 시대</div>
+    <div class="sc-desc">AI 에이전트와 기존 SaaS가 각자의 영역에서 공존. 단순 업무는 AI가, 복잡한 협업/규제 업무는 기존 소프트웨어가 담당한다. <strong>시장이 커지면서 파이가 나뉘는 시나리오.</strong></div>
+    <span class="sc-prob">가능성: 높음 &middot; 가장 현실적</span>
+  </div>
+  <div class="scenario-card">
+    <span class="sc-num">Scenario D</span>
+    <div class="sc-title">AI 환멸기</div>
+    <div class="sc-desc">에이전틱 AI 프로젝트 40%+ 취소(가트너). AI 프로젝트 80%+ 실패. 보안 사고 급증. 기대가 현실에 못 미쳐 다시 전통 소프트웨어로 회귀. <strong>과대광고 버블 붕괴 시나리오.</strong></div>
+    <span class="sc-prob">가능성: 낮지만 무시 불가</span>
+  </div>
+</div>
+
+<p class="prose">가장 현실적인 것은 <strong>시나리오 C(공존)</strong>와 <strong>시나리오 A(인큠번트 승리)</strong>의 혼합이다. 단순 반복 업무는 AI가 대체하고, 복잡한 엔터프라이즈 업무는 AI를 내장한 기존 SaaS가 강화되는 형태. 전체 파이가 커지면서 승자와 패자가 동시에 발생한다.</p>
+</section>
+
+<!-- PART II: 타임라인 -->
+<section>
+<div class="section-head">
+  <span class="num">Part II</span>
+  <h2>2026-2035 <strong>타임라인</strong></h2>
+</div>
+
+<p class="prose">가트너는 에이전틱 AI의 기업 침투를 5단계로 예측했다. 골드만삭스, 맥킨지, Bain의 분석을 종합하여 하나의 타임라인으로 정리한다.</p>
+
+<div class="h-timeline">
+  <div class="h-step">
+    <span class="h-year">2026</span>
+    <div class="h-label">결정적 변곡점</div>
+    <div class="h-detail">기업 앱 40%에 에이전트 탑재. 대규모 배포 시작. SaaSpocalypse 발생.</div>
+  </div>
+  <div class="h-step">
+    <span class="h-year">2027</span>
+    <div class="h-label">협력 + 정리</div>
+    <div class="h-detail">에이전트 간 협업 시작. 단, 프로젝트 40%+ 취소. 승자와 패자 구분 시작.</div>
+  </div>
+  <div class="h-step">
+    <span class="h-year">2028</span>
+    <div class="h-label">에이전트 생태계</div>
+    <div class="h-detail">크로스플랫폼 에이전트 생태계. 금융업 에이전트 연간 가치 $450B.</div>
+  </div>
+  <div class="h-step">
+    <span class="h-year">2030</span>
+    <div class="h-label">뉴노멀</div>
+    <div class="h-detail">전통 SaaS = "메인프레임". 소프트웨어 시장 $780B, AI가 60%+ 점유.</div>
+  </div>
+  <div class="h-step">
+    <span class="h-year">2035</span>
+    <div class="h-label">에이전트 경제</div>
+    <div class="h-detail">에이전틱 AI, 기업 SW 매출의 ~30% ($450B+). 지식 노동자 절반이 에이전트 관리.</div>
+  </div>
+</div>
+
+<p class="prose">마이크로소프트 CVP Charles Lamanna의 경고가 이 타임라인의 끝을 요약한다.</p>
+
+<div class="pull-quote">
+  <p>"전통적 비즈니스 애플리케이션은<br><strong>2030년대의 메인프레임</strong>이 될 것이다.<br>여전히 돌아가고, 여전히 예산을 먹지만,<br>지나간 시대의 화석."</p>
+  <div class="attr">Charles Lamanna &middot; Microsoft CVP</div>
+</div>
+</section>
+
+<!-- PART III: 소프트웨어의 진화 -->
+<section>
+<div class="section-head">
+  <span class="num">Part III</span>
+  <h2>소프트웨어는 죽지 않는다, <strong>변태한다</strong></h2>
+</div>
+
+<p class="prose">역사를 돌아보면, 소프트웨어는 한 번도 "죽은" 적이 없다. 형태를 바꿨을 뿐이다.</p>
+
+<div class="evo-flow">
+  <div class="evo-step">
+    <span class="e-era">1980s</span>
+    <span class="e-name">패키지 소프트웨어</span>
+  </div>
+  <span class="evo-arrow">&rarr;</span>
+  <div class="evo-step">
+    <span class="e-era">2000s</span>
+    <span class="e-name">SaaS</span>
+  </div>
+  <span class="evo-arrow">&rarr;</span>
+  <div class="evo-step">
+    <span class="e-era">2010s</span>
+    <span class="e-name">클라우드 네이티브</span>
+  </div>
+  <span class="evo-arrow">&rarr;</span>
+  <div class="evo-step">
+    <span class="e-era">2026~</span>
+    <span class="e-name">에이전트 플랫폼</span>
+  </div>
+</div>
+
+<p class="prose">1990년대 말, Salesforce가 "소프트웨어의 종말(No Software)"을 선언했을 때, 사라진 것은 소프트웨어가 아니라 <strong>CD-ROM으로 배송하는 설치형 패키지</strong>였다. 소프트웨어 자체는 SaaS라는 새로운 형태로 더 커졌다.</p>
+
+<p class="prose">지금 일어나는 일도 같은 패턴이다. 사라지는 것은 "소프트웨어"가 아니라 <strong>"인간이 GUI를 조작하여 소프트웨어를 사용하는 방식"</strong>이다. AI 에이전트가 Salesforce에 로그인하는 미래에서도 Salesforce의 CRM 데이터베이스는 필요하다. 다만 사용자가 인간에서 에이전트로 바뀐다.</p>
+
+<div class="mechanism-row mechanism-2col">
+  <div class="mechanism">
+    <div class="m-label">사라지는 것</div>
+    <h3>인간이 GUI를 조작하는 방식</h3>
+    <p>클릭, 드래그, 스크롤, 입력. Per-seat 과금. 인간이 소프트웨어를 "사용"하는 전통적 방식. 이 레이어가 AI 에이전트로 대체된다.</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">남는 것</div>
+    <h3>데이터, 인프라, API</h3>
+    <p>데이터베이스, 비즈니스 로직, 보안 인증, 통합 인프라. AI 에이전트도 이것들 위에서 작동한다. 젠슨 황: "AI는 도구를 사용하지, 새로 만들지 않는다."</p>
+  </div>
+</div>
+
+<p class="prose">Bain은 이 전환의 타임라인을 이렇게 정리했다. <strong>"3년 내에 많은 루틴 디지털 작업이 '사람 + 앱'에서 'AI 에이전트 + API'로 이동할 것이다."</strong> 소프트웨어의 죽음이 아니라, 소프트웨어 <strong>사용법</strong>의 혁명이다.</p>
+</section>
+
+<!-- PART IV: 한국, 준비되었는가 -->
+<section>
+<div class="section-head">
+  <span class="num">Part IV</span>
+  <h2>한국, <strong>준비되었는가</strong></h2>
+</div>
+
+<p class="prose">한국 개발자 수는 266만 명을 돌파하며 역대 최대 증가폭을 기록했다. 2026년은 에이전틱 소프트웨어 개발이 한국에 뿌리내리는 원년으로 평가된다.</p>
+
+<p class="prose">그러나 대다수 한국 기업이 AI 에이전트 도입의 전제 조건인 <strong>"AI-ready 데이터"</strong>와 <strong>"명확하게 정의된 비즈니스 프로세스"</strong>를 갖추지 못했다. 에이전틱 AI는 정리된 데이터와 표준화된 프로세스 위에서만 작동한다. 데이터가 엑셀 파일에 흩어져 있고, 프로세스가 담당자의 머릿속에만 있는 조직에서는 Claude Cowork를 도입해도 효과가 제한적이다.</p>
+
+<div class="warning-box">
+  <div class="w-title">한국 기업의 AI 에이전트 도입 전제 조건</div>
+  <ol class="warning-list">
+    <li><strong>데이터 정제</strong> — 흩어진 엑셀, 한글 문서, 사내 시스템의 데이터를 구조화하고 중앙화. AI는 정리된 데이터만 활용할 수 있다.</li>
+    <li><strong>프로세스 표준화</strong> — "김 대리가 알아서 하던" 업무를 문서화하고 단계별로 정의. 에이전트는 명확한 규칙이 있어야 작동한다.</li>
+    <li><strong>보안 인프라</strong> — AI 에이전트에 사내 데이터를 넘기기 전에, 접근 권한, 감사 로그, 데이터 유출 방지 체계를 구축.</li>
+    <li><strong>인력 재교육</strong> — 에이전트를 "사용"하는 것이 아니라 "관리"하는 역량. 프롬프트 엔지니어링, 에이전트 모니터링, 결과 검증 교육.</li>
+    <li><strong>파일럿 → 스케일업</strong> — 전사 도입 전에 한 부서에서 시범 운영. AI 프로젝트 80%+ 실패의 교훈 — 작게 시작하고 검증 후 확대.</li>
+  </ol>
+</div>
+
+<p class="prose">삼성SDS가 CES 2026에서 AI 에이전트 기반 AX를 선언한 것은 한국 대기업의 방향성을 보여준다. 하지만 266만 개발자 중 상당수가 소속된 중소/중견 기업은 아직 데이터 정제 단계에도 도달하지 못했다. <strong>양극화</strong>가 가장 큰 위험이다.</p>
+</section>
+
+<!-- PART V: 결론 -->
+<section>
+<div class="section-head">
+  <span class="num">Part V</span>
+  <h2>플러그인 하나가 바꾼 것, <strong>바꾸지 못한 것</strong></h2>
+</div>
+
+<p class="prose">Claude Cowork 플러그인 11개가 바꾼 것: <strong>소프트웨어 산업의 가격 구조와 사용 방식에 대한 시장의 기대.</strong> $285B가 하루에 증발한 것은 이 기대의 크기를 보여준다.</p>
+
+<p class="prose">바꾸지 못한 것: <strong>10년간 축적된 엔터프라이즈 데이터, 규제 준수 인프라, 수천 개의 통합 워크플로우.</strong> 이것들은 플러그인 하나로 대체할 수 없다.</p>
+
+<p class="prose">결국 SaaSpocalypse는 "소프트웨어의 죽음"이 아니라 <strong>"소프트웨어의 변태(metamorphosis)"</strong>를 알리는 신호탄이다. 패키지가 SaaS가 되었듯, SaaS가 에이전트 플랫폼이 되고 있다. 형태가 바뀌지만 본질은 남는다 — <strong>비즈니스 문제를 기술로 해결하는 것</strong>.</p>
+
+<p class="prose">이 시리즈는 MBC 뉴스 영상 하나에서 시작했다. "클로드 코워크가 주식시장을 흔들고 있대." 흔들린 것은 주식시장이다. 소프트웨어 자체는 흔들리지 않았다. 변하고 있을 뿐이다.</p>
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>소프트웨어는 죽지 않는다.<br><strong>다음 형태로 진화한다.</strong></h2>
+  <p class="sub">패키지 → SaaS → 에이전트 플랫폼. 형태는 바뀌지만 본질은 남는다 — 비즈니스 문제를 기술로 해결하는 것.</p>
+</div>
+
+<footer class="footer">
+  <p>Sources: Bain & Company, "Will Agentic AI Disrupt SaaS?" (2025) &middot; Gartner, "40% Enterprise Apps with AI Agents by 2026" (2025.08) &middot; Gartner, "Over 40% of Agentic AI Projects Canceled by 2027" (2025.06) &middot; Goldman Sachs, "AI Agents to Boost Software Market" (2025) &middot; The New Stack, "Microsoft AI Business Agents Will Kill SaaS by 2030" (2025) &middot; McKinsey, "The State of AI" (2025) &middot; 다음, "2026년 AI 에이전트 확산 원년" (2026.01.30) &middot; 서울경제, "삼성SDS AI 에이전트 AX 청사진" (2026) &middot; Yahoo Finance, "Jensen Huang: most illogical thing" (2026.02) &middot; Fortune, "OpenAI launches Frontier" (2026.02.05) &middot; Claude Blog, "Introducing Cowork" (2026.01.12)</p>
+</footer>
+
+</div>
+</article>
+</body>
+</html>

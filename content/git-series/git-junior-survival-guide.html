@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>commit, push, 기도 — Editorial</title>
+<meta name="description" content="Git 명령어 생존 6종 세트부터 GitHub Flow까지. 233만 한국 개발자 중 52%가 매달 Git으로 고생한다. 주니어가 알아야 할 최소한의 것.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/git-series/git-junior-survival-guide.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="commit, push, 기도 — 주니어의 Git">
+<meta property="og:description" content="Git 명령어 생존 6종 세트부터 GitHub Flow까지. 233만 한국 개발자 중 52%가 매달 Git으로 고생한다. 주니어가 알아야 할 최소한의 것.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/git-series/git-junior-survival-guide.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-09">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="commit, push, 기도 — 주니어의 Git">
+<meta name="twitter:description" content="Git 명령어 생존 6종 세트부터 GitHub Flow까지. 233만 한국 개발자 중 52%가 매달 Git으로 고생한다. 주니어가 알아야 할 최소한의 것.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"commit, push, 기도 — 주니어의 Git","description":"Git 명령어 생존 6종 세트부터 GitHub Flow까지. 233만 한국 개발자 중 52%가 매달 Git으로 고생한다.","datePublished":"2026-02-09","dateModified":"2026-02-09","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/git-series/git-junior-survival-guide.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead .deck { max-width: 560px; }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    padding: 20px 24px;
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    line-height: 1.75;
+    overflow-x: auto;
+    white-space: pre;
+    margin: 24px 0;
+    color: var(--prose);
+    border-radius: 0;
+  }
+  .code-block .code-label {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .code-block .code-comment {
+    color: var(--muted);
+  }
+  .code-block .code-key {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* SCENARIO BOX */
+  .scenario-box {
+    border-left: 3px solid var(--accent);
+    background: var(--card-bg);
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+  .scenario-box .s-label {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .scenario-box p {
+    font-size: 0.92rem;
+    line-height: 1.85;
+    color: var(--prose);
+  }
+  .scenario-box p + p {
+    margin-top: 12px;
+  }
+
+  /* BEFORE/AFTER GRID */
+  .ba-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 32px 0;
+  }
+  .ba-col {
+    background: var(--bg);
+    padding: 24px 20px;
+  }
+  .ba-col .ba-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .ba-col .ba-label.bad { color: var(--muted); }
+  .ba-col .ba-label.good { color: var(--accent); }
+  .ba-col .ba-msg {
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    line-height: 1.75;
+    color: var(--prose);
+    white-space: pre-wrap;
+  }
+
+  /* FLOW STEPS */
+  .flow-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+    align-items: center;
+    gap: 0;
+    margin: 32px 0;
+    text-align: center;
+  }
+  .flow-step {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    padding: 20px 16px;
+  }
+  .flow-step .fs-num {
+    font-family: var(--mono);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .flow-step .fs-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--fg);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .flow-step .fs-desc {
+    font-size: 0.72rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .flow-arrow {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding: 0 4px;
+  }
+
+  /* 2-column mechanism-row variant */
+  .mechanism-2col { grid-template-columns: 1fr 1fr; }
+
+  /* PR STRUCTURE */
+  .pr-template {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+  .pr-template .pr-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+  .pr-template h4 {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 6px;
+    margin-top: 14px;
+  }
+  .pr-template h4:first-of-type {
+    margin-top: 0;
+  }
+  .pr-template p {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    line-height: 1.75;
+  }
+
+  /* STAT HIGHLIGHT */
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 32px 0;
+    text-align: center;
+  }
+  .stat-cell {
+    background: var(--bg);
+    padding: 24px 16px;
+  }
+  .stat-cell .stat-num {
+    font-family: var(--mono);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .stat-cell .stat-desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 700px) {
+    .ba-grid { grid-template-columns: 1fr; }
+    .mechanism-2col { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr; }
+    .flow-grid {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .flow-arrow {
+      font-size: 0;
+      text-align: center;
+      padding: 4px 0;
+    }
+    .flow-arrow::after {
+      content: '\2193';
+      font-size: 0.85rem;
+    }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<div class="page">
+<article>
+
+  <header class="masthead">
+    <div class="issue">Series 09 — Git 생존기 &middot; 01</div>
+    <h1>commit, push,<br><strong>기도</strong></h1>
+    <p class="deck">Git 명령어 생존 6종 세트부터 GitHub Flow까지. 233만 한국 개발자 중 52%가 매달 Git으로 고생한다 — 당신이 알아야 할 최소한의 것.</p>
+  </header>
+
+  <main>
+
+  <!-- ==================== PART I ==================== -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part I</span>
+      <h2>일단 이것만 알면 <strong>죽지는 않는다</strong></h2>
+    </div>
+
+    <p class="prose">
+      Git을 처음 마주한 주니어 개발자의 일과는 대략 이렇다. <strong>git add</strong>를 치고, <strong>git commit</strong>을 치고, <strong>git push</strong>를 치고, 그리고 기도한다. 충돌이 나지 않기를. 시니어가 코드 리뷰에서 "이 커밋 왜 이래?"라고 묻지 않기를. Stack Overflow 2024 Developer Survey에 따르면 전 세계 개발자의 <strong>93.6%</strong>가 Git을 사용한다. 그 중 상당수가 아직도 기도에 의존한다.
+    </p>
+
+    <p class="prose">
+      2024년 Hutte의 Git 협업 리서치에서 더 구체적인 수치가 나왔다. 개발자의 <strong>52%</strong>가 매달 Git 관련 문제에 부딪히고, 평균적으로 <strong>주당 3.4시간</strong>을 머지 충돌, 브랜치 혼란, 되돌리기에 소비한다. 대한민국 소프트웨어 개발자 추정 수가 233만 명이라면, 매달 약 120만 명이 Git 때문에 고통받고 있다는 계산이 된다.
+    </p>
+
+    <div class="stat-row">
+      <div class="stat-cell">
+        <span class="stat-num">93.6%</span>
+        <span class="stat-desc">전 세계 개발자의<br>Git 사용률</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">52%</span>
+        <span class="stat-desc">매달 Git 관련 문제에<br>부딪히는 비율</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">3.4h</span>
+        <span class="stat-desc">주당 머지 충돌/브랜치<br>문제 해결 시간</span>
+      </div>
+    </div>
+
+    <p class="prose">
+      문제의 핵심은 Git이 어렵다는 게 아니다. <strong>제대로 배울 기회가 없다</strong>는 것이다. 대학에서 가르치지 않고, 부트캠프에서는 "일단 push 하세요"라고만 말하고, 회사에서는 "알아서 익히세요"가 온보딩의 전부다. Stack Overflow에서 <strong>2번째로 많이 투표된 질문</strong>이 "How do I undo the most recent local commits in Git?" — 커밋을 되돌리는 법이라는 사실이 모든 것을 말해준다. 262만 표. Git의 되돌리기를 262만 명이 검색한 것이다.
+    </p>
+
+    <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px;margin-top:48px">생존 6종 세트</div>
+
+    <p class="prose">
+      Git에는 170개가 넘는 명령어가 있다. 하지만 실무에서 매일 쓰는 것은 6개다. 이 6개만 확실하게 이해하면 <strong>죽지는 않는다</strong>. 나머지는 필요할 때 배우면 된다.
+    </p>
+
+    <div class="code-block"><span class="code-label">생존 6종 세트</span>
+<span class="code-key">git init</span>       <span class="code-comment"># 현재 폴더를 Git 저장소로 만든다. 프로젝트 시작점.</span>
+<span class="code-key">git clone</span>      <span class="code-comment"># 원격 저장소를 내 컴퓨터로 복제한다. git clone &lt;url&gt;</span>
+<span class="code-key">git add</span>        <span class="code-comment"># 변경 사항을 스테이징(대기열)에 올린다.</span>
+<span class="code-key">git commit</span>     <span class="code-comment"># 스테이징된 변경 사항을 히스토리에 기록한다.</span>
+<span class="code-key">git push</span>       <span class="code-comment"># 로컬 커밋을 원격 저장소로 보낸다.</span>
+<span class="code-key">git pull</span>       <span class="code-comment"># 원격 저장소의 변경 사항을 가져와 합친다.</span></div>
+
+    <p class="prose">
+      이 6개의 관계를 한 문장으로 정리하면 이렇다. <strong>init</strong>이나 <strong>clone</strong>으로 시작하고, <strong>add</strong>로 준비하고, <strong>commit</strong>으로 기록하고, <strong>push</strong>로 보내고, <strong>pull</strong>로 받는다. 이것이 Git의 전부는 아니지만, 주니어 1년 차가 아침에 출근해서 퇴근할 때까지 쓰는 명령어의 90%를 차지한다.
+    </p>
+
+    <div class="mechanism-row">
+      <div class="mechanism">
+        <div class="m-label">Command 01</div>
+        <h3>git add</h3>
+        <p>변경 파일을 <strong>스테이징 영역</strong>에 올린다. 커밋에 포함할 파일을 "선택"하는 과정이다. <code>git add .</code>은 모든 파일을 올리고, <code>git add -p</code>는 파일 내부에서 원하는 부분만 골라 올린다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">Command 02</div>
+        <h3>git commit</h3>
+        <p>스테이징된 변경 사항을 <strong>영구 기록</strong>한다. 40자리 SHA-1 해시로 식별되는 스냅샷이 생성된다. 메시지 없는 커밋은 없다. <code>-m "메시지"</code>는 필수다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">Command 03</div>
+        <h3>git push</h3>
+        <p>로컬의 커밋을 <strong>원격 저장소</strong>(GitHub, GitLab)로 전송한다. push 전까지 모든 작업은 내 컴퓨터에만 존재한다. push 하는 순간 팀 전체에 공개된다.</p>
+      </div>
+    </div>
+
+    <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px;margin-top:48px">git status를 습관처럼 쳐야 하는 이유</div>
+
+    <p class="prose">
+      생존 6종 세트에 포함되지 않았지만, 사실상 가장 자주 쳐야 하는 명령어가 있다. <strong>git status</strong>다. 이 명령어는 아무것도 변경하지 않는다. 현재 상태를 보여줄 뿐이다. 어떤 파일이 수정되었는지, 어떤 파일이 스테이징되었는지, 어떤 파일이 추적되지 않는지. 실수의 80%는 현재 상태를 모르는 데서 시작한다.
+    </p>
+
+    <div class="code-block"><span class="code-label">git status 출력 예시</span>
+<span class="code-key">On branch feature/login</span>
+<span class="code-comment">Changes to be committed:</span>
+  <span class="code-comment">(use "git restore --staged &lt;file&gt;..." to unstage)</span>
+        modified:   src/auth/login.js       <span class="code-comment">← 스테이징 완료. 커밋하면 포함된다</span>
+
+<span class="code-comment">Changes not staged for commit:</span>
+  <span class="code-comment">(use "git add &lt;file&gt;..." to update what will be committed)</span>
+        modified:   src/auth/signup.js      <span class="code-comment">← 수정했지만 아직 add 안 한 상태</span>
+
+<span class="code-comment">Untracked files:</span>
+  <span class="code-comment">(use "git add &lt;file&gt;..." to include in what will be committed)</span>
+        src/auth/reset-password.js          <span class="code-comment">← Git이 아직 모르는 새 파일</span></div>
+
+    <p class="prose">
+      프로 개발자와 아마추어의 차이는 여기서 갈린다. 프로는 커밋 전에 반드시 <code>git status</code>를 확인하고, <code>git diff</code>로 변경 내용을 눈으로 본다. 아마추어는 <code>git add .</code>으로 전부 때려넣고 push한 다음, PR에서 <strong>.env 파일이 올라간 것</strong>을 발견한다.
+    </p>
+
+    <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px;margin-top:48px">git add -p: 수술칼로 커밋하기</div>
+
+    <p class="prose">
+      하나의 파일에서 버그 수정과 리팩토링을 동시에 했다고 가정하자. <code>git add 파일명</code>을 하면 두 변경 사항이 하나의 커밋에 묶인다. 나중에 버그 수정만 되돌리고 싶을 때 리팩토링까지 같이 날아간다. <strong>git add -p</strong>는 이 문제를 해결한다. 파일 내부의 변경 사항을 <strong>hunk 단위</strong>로 쪼개서, 하나씩 스테이징 여부를 선택할 수 있다.
+    </p>
+
+    <div class="code-block"><span class="code-label">git add -p 실행 흐름</span>
+<span class="code-key">$ git add -p src/auth/login.js</span>
+
+<span class="code-comment">diff --git a/src/auth/login.js b/src/auth/login.js</span>
+<span class="code-comment">@@ -12,7 +12,7 @@ function validateEmail(email) {</span>
+-  return email.includes('@')
++  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)     <span class="code-comment">← 버그 수정</span>
+
+<span class="code-key">(1/2) Stage this hunk [y,n,q,a,d,j,J,g,/,s,e,?]?</span> y
+
+<span class="code-comment">@@ -28,6 +28,7 @@ function handleLogin(credentials) {</span>
++  const sanitized = sanitizeInput(credentials)          <span class="code-comment">← 리팩토링</span>
+
+<span class="code-key">(2/2) Stage this hunk [y,n,q,a,d,j,J,g,/,s,e,?]?</span> n</div>
+
+    <p class="prose">
+      <strong>y</strong>는 이 변경을 스테이징, <strong>n</strong>은 건너뛰기, <strong>s</strong>는 더 작은 단위로 분할. 이 습관 하나가 커밋 히스토리의 품질을 결정한다. "버그 수정"과 "리팩토링"이 분리된 커밋은, 6개월 뒤 코드를 디버깅할 미래의 동료(혹은 미래의 나)에게 선물이 된다.
+    </p>
+
+    <div class="pull-quote">
+      <p>Stack Overflow에서 2번째로 많이 투표된 질문:<br><strong>"커밋을 되돌리는 법"</strong> — 262만 표.</p>
+      <div class="attr">Stack Overflow, 2024</div>
+    </div>
+  </section>
+
+  <!-- ==================== PART II ==================== -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part II</span>
+      <h2>브랜치는 <strong>무서운 게 아니다</strong></h2>
+    </div>
+
+    <p class="prose">
+      브랜치(branch)는 Git에서 가장 강력하면서 가장 오해받는 개념이다. 많은 주니어가 브랜치를 "뭔가 잘못 건드리면 코드가 날아가는 것"으로 인식한다. 사실은 정반대다. <strong>브랜치는 코드를 보호하기 위해 존재한다.</strong> main 브랜치에서 직접 작업하는 것이야말로 코드를 위험에 노출시키는 행위다.
+    </p>
+
+    <p class="prose">
+      브랜치의 본질은 <strong>포인터</strong>다. 커밋 히스토리의 특정 지점을 가리키는 이름표에 불과하다. 새 브랜치를 만들어도 파일이 복사되지 않는다. 41바이트짜리 포인터 파일 하나가 생성될 뿐이다. 그래서 Git의 브랜치 생성은 거의 0초가 걸린다. SVN에서 브랜치를 만들면 전체 소스를 복사했던 것과는 근본적으로 다르다.
+    </p>
+
+    <div class="code-block"><span class="code-label">브랜치 기본 명령어</span>
+<span class="code-key">git branch</span>                  <span class="code-comment"># 현재 브랜치 목록 확인</span>
+<span class="code-key">git branch feature/login</span>    <span class="code-comment"># 새 브랜치 생성 (이동하지 않음)</span>
+<span class="code-key">git switch feature/login</span>    <span class="code-comment"># 해당 브랜치로 이동</span>
+<span class="code-key">git switch -c feature/login</span> <span class="code-comment"># 생성 + 이동을 한 번에</span>
+<span class="code-key">git merge feature/login</span>     <span class="code-comment"># 현재 브랜치에 feature/login을 합침</span>
+<span class="code-key">git branch -d feature/login</span> <span class="code-comment"># 머지 완료된 브랜치 삭제</span></div>
+
+    <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px;margin-top:48px">git switch vs git checkout</div>
+
+    <p class="prose">
+      2019년 Git 2.23 버전에서 <strong>git checkout</strong>이 두 개의 명령어로 분리되었다. <strong>git switch</strong>(브랜치 이동)와 <strong>git restore</strong>(파일 복원). 이유는 단순하다. checkout이 너무 많은 일을 했기 때문이다. 브랜치 이동, 파일 복원, 커밋 체크아웃 — 하나의 명령어가 세 가지 역할을 맡으면 실수가 발생한다. <code>git checkout -- .</code>을 잘못 쳐서 작업 중인 파일이 전부 날아간 경험, 주니어라면 한 번쯤 있을 것이다.
+    </p>
+
+    <div class="mechanism-row mechanism-2col">
+      <div class="mechanism">
+        <div class="m-label">Before — Git 2.22</div>
+        <h3>git checkout</h3>
+        <p><code>git checkout feature</code> — 브랜치 이동<br><code>git checkout -- file.js</code> — 파일 복원<br><code>git checkout abc123</code> — 커밋 체크아웃<br><br>하나의 명령어, 세 가지 역할. <strong>혼란의 원천</strong>.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">After — Git 2.23+</div>
+        <h3>git switch + git restore</h3>
+        <p><code>git switch feature</code> — 브랜치 이동<br><code>git restore file.js</code> — 파일 복원<br><code>git switch --detach abc123</code> — 커밋<br><br>역할별 분리. <strong>실수할 여지가 줄어든다</strong>.</p>
+      </div>
+    </div>
+
+    <div class="scenario-box">
+      <span class="s-label">시나리오: main에서 직접 개발하다 충돌 지옥에 빠진 신입</span>
+      <p>
+        입사 첫 주. 김 주니어는 main 브랜치에서 직접 로그인 기능을 개발한다. "브랜치 만드는 거 귀찮은데, 나만 작업하니까 괜찮겠지." 3일 후 push를 시도한다. 에러. 다른 팀원 3명이 같은 기간 동안 main에 20개의 커밋을 올려놨다. <strong>git pull</strong>을 치니 충돌(conflict)이 12개 파일에서 터진다.
+      </p>
+      <p>
+        브랜치를 만들었다면 이 상황은 발생하지 않았다. <code>git switch -c feature/login</code>으로 독립된 공간에서 작업하고, 완료 후 PR을 통해 머지했다면, 충돌이 발생해도 <strong>내 브랜치 안에서</strong> 해결할 수 있었다. main은 항상 깨끗하게 유지되고, 충돌 범위도 최소화된다.
+      </p>
+    </div>
+
+    <p class="prose">
+      브랜치 워크플로우의 핵심 원칙은 하나다. <strong>main에서 직접 작업하지 않는다.</strong> 기능이든, 버그 수정이든, 문서 수정이든 — 반드시 브랜치를 만들고, 브랜치에서 작업하고, PR(Pull Request)을 통해 머지한다. 이것만 지켜도 Git 관련 사고의 절반이 사라진다.
+    </p>
+
+    <div class="code-block"><span class="code-label">브랜치 워크플로우 — 기본 패턴</span>
+<span class="code-comment"># 1. main에서 최신 상태로 시작</span>
+<span class="code-key">git switch main</span>
+<span class="code-key">git pull origin main</span>
+
+<span class="code-comment"># 2. 작업용 브랜치 생성</span>
+<span class="code-key">git switch -c feature/user-profile</span>
+
+<span class="code-comment"># 3. 작업, 커밋 (반복)</span>
+<span class="code-key">git add src/profile.js</span>
+<span class="code-key">git commit -m "feat: add user profile page"</span>
+
+<span class="code-comment"># 4. 원격에 push</span>
+<span class="code-key">git push -u origin feature/user-profile</span>
+
+<span class="code-comment"># 5. GitHub에서 PR 생성 → 코드 리뷰 → 머지</span>
+<span class="code-comment"># 6. 로컬 정리</span>
+<span class="code-key">git switch main</span>
+<span class="code-key">git pull origin main</span>
+<span class="code-key">git branch -d feature/user-profile</span></div>
+
+  </section>
+
+  <!-- ==================== PART III ==================== -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part III</span>
+      <h2>커밋 메시지, <strong>미래의 나에게 보내는 편지</strong></h2>
+    </div>
+
+    <p class="prose">
+      커밋 메시지는 코드의 "왜"를 기록하는 유일한 수단이다. 코드는 "무엇"과 "어떻게"를 보여주지만, <strong>"왜 이렇게 바꿨는지"</strong>는 보여주지 못한다. 6개월 뒤, "이 코드 왜 이렇게 짰지?"라는 질문에 답할 수 있는 건 커밋 메시지뿐이다. Git 로그는 팀의 공유 기억(shared memory)이다. 기억이 부정확하면 팀 전체가 같은 실수를 반복한다.
+    </p>
+
+    <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px;margin-top:48px">Conventional Commits</div>
+
+    <p class="prose">
+      Conventional Commits는 커밋 메시지에 일관된 구조를 부여하는 규약이다. Angular 팀에서 시작되어, 현재 대부분의 오픈소스 프로젝트와 기업에서 채택하고 있다. 구조는 단순하다: <strong>type: description</strong>.
+    </p>
+
+    <div class="code-block"><span class="code-label">Conventional Commits — 타입</span>
+<span class="code-key">feat:</span>     <span class="code-comment">새 기능 추가. MINOR 버전 증가에 해당.</span>
+<span class="code-key">fix:</span>      <span class="code-comment">버그 수정. PATCH 버전 증가에 해당.</span>
+<span class="code-key">docs:</span>     <span class="code-comment">문서 변경. README, 주석, JSDoc 등.</span>
+<span class="code-key">refactor:</span> <span class="code-comment">기능 변경 없이 코드 구조 개선.</span>
+<span class="code-key">test:</span>     <span class="code-comment">테스트 추가 또는 수정.</span>
+<span class="code-key">chore:</span>    <span class="code-comment">빌드, CI, 의존성 등 유지보수 작업.</span>
+<span class="code-key">style:</span>    <span class="code-comment">코드 포맷팅. 세미콜론, 공백 등.</span>
+<span class="code-key">perf:</span>     <span class="code-comment">성능 개선.</span></div>
+
+    <p class="prose">
+      타입 뒤에 선택적으로 <strong>스코프</strong>를 추가할 수 있다. <code>feat(auth): add OAuth2 login</code>처럼 괄호 안에 변경 영역을 명시한다. 이렇게 하면 <code>git log --oneline</code>만 봐도 어떤 모듈에서 무슨 변경이 있었는지 한눈에 파악된다. 자동화 도구(semantic-release, standard-version)가 이 규약을 읽어서 <strong>자동으로 버전 넘버를 올리고 CHANGELOG를 생성</strong>한다.
+    </p>
+
+    <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px;margin-top:48px">Before / After</div>
+
+    <div class="ba-grid">
+      <div class="ba-col">
+        <span class="ba-label bad">Bad</span>
+        <span class="ba-msg">fix bug
+updated stuff
+WIP
+asdf
+login 수정
+여러 가지 변경</span>
+      </div>
+      <div class="ba-col">
+        <span class="ba-label good">Good</span>
+        <span class="ba-msg">fix(auth): prevent duplicate login sessions
+feat(cart): add quantity validation on checkout
+docs(api): update rate limit documentation
+refactor(db): extract query builder from repository
+fix(payment): handle timeout in PG callback
+test(auth): add edge cases for token refresh</span>
+      </div>
+    </div>
+
+    <p class="prose">
+      왼쪽의 "fix bug"는 6개월 뒤 아무런 정보도 제공하지 못한다. 어떤 버그인지, 어디에서 발생한 건지, 왜 이렇게 고쳤는지 — 모든 것이 불명확하다. 오른쪽의 <code>fix(auth): prevent duplicate login sessions</code>는 인증 모듈에서 중복 로그인 세션 버그를 방지했다는 사실을 명확하게 전달한다. <strong>커밋 메시지는 미래의 나에게 보내는 편지다.</strong> 구체적이지 않은 편지는 읽을 가치가 없다.
+    </p>
+
+    <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px;margin-top:48px">git commit --amend: 마지막 기회</div>
+
+    <p class="prose">
+      커밋을 하고 나서 오타를 발견했거나, 파일 하나를 빠뜨렸을 때. <strong>git commit --amend</strong>가 마지막 커밋을 수정해준다. 메시지만 바꿀 수도 있고, 빠뜨린 파일을 추가할 수도 있다.
+    </p>
+
+    <div class="code-block"><span class="code-label">git commit --amend 사용법</span>
+<span class="code-comment"># 메시지만 수정</span>
+<span class="code-key">git commit --amend -m "fix(auth): prevent duplicate sessions"</span>
+
+<span class="code-comment"># 파일을 빠뜨렸을 때</span>
+<span class="code-key">git add forgotten-file.js</span>
+<span class="code-key">git commit --amend --no-edit</span>    <span class="code-comment"># 메시지는 그대로, 파일만 추가</span></div>
+
+    <div class="warning-box">
+      <div class="w-title">--amend 사용 시 주의사항</div>
+      <ol class="warning-list">
+        <li><strong>push 전에만 사용한다.</strong> --amend는 기존 커밋을 삭제하고 새 커밋을 만든다. 이미 push한 커밋을 amend하면 히스토리 불일치가 발생하고, force push가 필요해진다</li>
+        <li><strong>force push는 팀의 히스토리를 망가뜨린다.</strong> 공유 브랜치(main, develop)에서 force push는 다른 팀원의 로컬 히스토리와 충돌을 일으킨다. 최악의 경우 다른 사람의 커밋이 사라진다</li>
+        <li>이미 push한 커밋의 실수는 <strong>새 커밋으로 수정한다</strong>. <code>git commit --amend</code> 대신 <code>git commit -m "fix: correct typo in auth module"</code>로 새로 커밋하는 것이 안전하다</li>
+      </ol>
+    </div>
+
+    <div class="pull-quote">
+      <p>"어떤 바보가 이 코드를 이렇게 짰지?" — git blame.<br><strong>그 바보는 3개월 전의 나다.</strong></p>
+    </div>
+  </section>
+
+  <!-- ==================== PART IV ==================== -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part IV</span>
+      <h2>이 워크플로우 하나로 <strong>시작하라</strong></h2>
+    </div>
+
+    <p class="prose">
+      Git 워크플로우에는 여러 가지가 있다. Git Flow, GitHub Flow, GitLab Flow, Trunk-based Development. 주니어에게 가장 먼저 추천하는 것은 <strong>GitHub Flow</strong>다. 이유는 단순하다. 규칙이 적고, 브랜치 전략이 직관적이고, PR 기반이라 코드 리뷰가 자연스럽게 따라온다.
+    </p>
+
+    <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px;margin-top:48px">GitHub Flow — 전체 흐름</div>
+
+    <p class="prose">
+      GitHub Flow의 규칙은 단 <strong>6개</strong>다. main은 항상 배포 가능 상태. 기능 개발은 main에서 브랜치를 만들어서. 로컬에서 커밋하고 원격에 push. PR을 열어서 코드 리뷰를 받는다. 리뷰가 승인되면 main에 머지. 머지하면 즉시 배포. 끝이다.
+    </p>
+
+    <div class="flow-grid">
+      <div class="flow-step">
+        <span class="fs-num">01</span>
+        <span class="fs-name">Branch</span>
+        <span class="fs-desc">main에서<br>브랜치 생성</span>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-step">
+        <span class="fs-num">02</span>
+        <span class="fs-name">Commit</span>
+        <span class="fs-desc">기능 개발<br>커밋 반복</span>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-step">
+        <span class="fs-num">03</span>
+        <span class="fs-name">PR</span>
+        <span class="fs-desc">Pull Request<br>코드 리뷰</span>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-step">
+        <span class="fs-num">04</span>
+        <span class="fs-name">Merge</span>
+        <span class="fs-desc">main 머지<br>배포</span>
+      </div>
+    </div>
+
+    <p class="prose">
+      한국의 주요 테크 기업들이 GitHub Flow를 기반으로 운영한다. <strong>토스</strong>는 Trunk-based Development에 가깝지만 PR 리뷰를 필수로 하고, <strong>당근</strong>은 GitHub Flow를 기본으로 피처 플래그를 결합한다. <strong>배달의민족</strong>은 Git Flow에서 GitHub Flow로 전환한 이력이 있다. 공통점은 하나다. <strong>main 브랜치를 보호한다.</strong> 직접 push를 막고, PR을 통해서만 코드가 합쳐진다.
+    </p>
+
+    <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px;margin-top:48px">PR 작성법 — What / Why / How to test</div>
+
+    <p class="prose">
+      PR(Pull Request)은 코드 변경의 <strong>맥락</strong>을 전달하는 문서다. 코드만 보면 "무엇"이 바뀌었는지 알 수 있지만, "왜" 바꿨는지, "어떻게 테스트했는지"는 알 수 없다. 좋은 PR은 세 가지 질문에 답한다.
+    </p>
+
+    <div class="pr-template">
+      <span class="pr-label">PR Template</span>
+      <h4>What (무엇을 변경했는가)</h4>
+      <p>사용자 프로필 페이지에 프로필 이미지 업로드 기능을 추가했다. AWS S3에 직접 업로드하는 presigned URL 방식을 사용한다. 이미지 리사이징은 클라이언트에서 처리한다.</p>
+      <h4>Why (왜 이 변경이 필요한가)</h4>
+      <p>사용자 피드백에서 프로필 이미지 기능 요청이 월 평균 47건으로 2위를 차지했다. 현재 기본 아바타만 제공되어 사용자 식별이 어렵다는 CS도 지속적으로 접수되었다.</p>
+      <h4>How to test (어떻게 확인하는가)</h4>
+      <p>1. /profile 페이지에서 "이미지 변경" 버튼 클릭<br>2. 5MB 이하의 JPG/PNG 파일 선택<br>3. 크롭 영역 조정 후 "저장" 클릭<br>4. 프로필 이미지가 변경되었는지 확인<br>5. 새로고침 후에도 이미지가 유지되는지 확인</p>
+    </div>
+
+    <p class="prose">
+      Google의 연구에 따르면, 코드 리뷰의 품질은 <strong>변경 사항이 200줄 이하</strong>일 때 최고점에 도달한다. 200줄을 넘어가면 리뷰어의 집중력이 떨어지고, 결함 발견율이 급격히 하락한다. PR을 작게 유지하는 것이 품질의 핵심이다. 하나의 PR에 하나의 목적만 담는다. "로그인 기능 추가 + 버그 3개 수정 + 리팩토링"을 하나의 PR에 넣으면 리뷰가 불가능해진다.
+    </p>
+
+    <div class="mechanism-row">
+      <div class="mechanism">
+        <div class="m-label">Rule 01</div>
+        <h3>200줄 이하</h3>
+        <p>Google 연구에 따르면 <strong>변경 200줄 이하</strong>에서 리뷰 품질이 최고점. 그 이상이면 결함 발견율이 급격히 하락한다. 큰 기능은 여러 PR로 분할한다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">Rule 02</div>
+        <h3>하나의 PR, 하나의 목적</h3>
+        <p>"feat + fix + refactor"를 하나의 PR에 넣으면 리뷰가 불가능하다. 기능, 버그 수정, 리팩토링은 <strong>반드시 분리</strong>한다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">Rule 03</div>
+        <h3>셀프 리뷰 먼저</h3>
+        <p>PR을 올리기 전에 <strong>직접 코드를 한 번 더 읽는다</strong>. console.log, TODO 주석, 하드코딩된 값, 불필요한 파일 — 셀프 리뷰에서 잡히는 것들이다.</p>
+      </div>
+    </div>
+
+    <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px;margin-top:48px">브랜치 네이밍 컨벤션</div>
+
+    <p class="prose">
+      브랜치 이름에도 규칙이 있다. 팀마다 다르지만, 가장 보편적인 패턴은 <strong>type/description</strong> 형식이다. 커밋 메시지의 Conventional Commits와 같은 원리다.
+    </p>
+
+    <div class="code-block"><span class="code-label">브랜치 네이밍 예시</span>
+<span class="code-key">feature/user-profile</span>       <span class="code-comment"># 새 기능 개발</span>
+<span class="code-key">fix/duplicate-login</span>         <span class="code-comment"># 버그 수정</span>
+<span class="code-key">hotfix/payment-timeout</span>      <span class="code-comment"># 긴급 수정 (프로덕션)</span>
+<span class="code-key">refactor/extract-auth-module</span> <span class="code-comment"># 리팩토링</span>
+<span class="code-key">docs/update-api-readme</span>      <span class="code-comment"># 문서 수정</span>
+<span class="code-key">chore/upgrade-dependencies</span>  <span class="code-comment"># 유지보수 작업</span></div>
+
+    <p class="prose">
+      Jira나 Linear 같은 이슈 트래커를 쓴다면, 브랜치 이름에 <strong>이슈 번호</strong>를 포함하는 것이 좋다. <code>feature/PROJ-123-user-profile</code>처럼. 이렇게 하면 브랜치에서 이슈로, 이슈에서 브랜치로 양방향 추적이 가능하다. 6개월 뒤 "이 코드 왜 이렇게 됐지?"라는 질문에 이슈 번호가 답을 준다.
+    </p>
+
+    <div class="warning-box">
+      <div class="w-title">절대 하지 말아야 할 것</div>
+      <ol class="warning-list">
+        <li><strong>main/develop에 force push 금지.</strong> <code>git push --force</code>는 원격 히스토리를 덮어쓴다. 다른 팀원의 작업이 사라질 수 있다. 개인 브랜치에서만 허용</li>
+        <li><strong>공유 브랜치에서 rebase 금지.</strong> rebase는 커밋 히스토리를 재작성한다. 이미 다른 사람이 pull한 커밋을 rebase하면 히스토리 충돌이 발생한다</li>
+        <li><strong>git reset --hard를 이해 없이 사용 금지.</strong> 이 명령어는 커밋과 작업 내용을 모두 삭제한다. 복구가 극히 어렵다. 대신 <code>git revert</code>로 되돌리는 커밋을 새로 만드는 것이 안전하다</li>
+        <li><strong>비밀 정보를 커밋하지 않는다.</strong> .env, API 키, 패스워드, 인증서. 한 번 push하면 히스토리에 영원히 남는다. .gitignore를 먼저 설정한다</li>
+      </ol>
+    </div>
+
+    <div class="pull-quote">
+      <p>코드 리뷰의 품질은<br><strong>변경 200줄 이하</strong>에서 최고점에 도달한다.</p>
+      <div class="attr">Google Engineering Practices</div>
+    </div>
+  </section>
+
+  </main>
+
+  <div class="closing">
+    <h2>Git은 외울 필요가 없다<br><strong>이해하면 된다</strong></h2>
+    <p class="sub">170개의 명령어를 암기하는 것은 불가능하다. 6개의 핵심 명령어가 무엇을 하는지 이해하고, 브랜치가 포인터라는 사실을 알고, 커밋 메시지에 "왜"를 기록하는 습관을 들이면 된다. 나머지는 필요할 때 검색하면 된다.</p>
+  </div>
+
+  <footer class="footer">
+    <p>
+      Git Official Documentation (git-scm.com/doc)<br>
+      Scott Chacon &amp; Ben Straub, Pro Git 2nd Edition (git-scm.com/book)<br>
+      GitHub Flow Guide (docs.github.com/en/get-started/using-github/github-flow)<br>
+      Stack Overflow Developer Survey 2024 (survey.stackoverflow.co/2024)<br>
+      Hutte, The State of Git Collaboration 2024 (hutte.io/trails/state-of-git-collaboration)<br>
+      Google Engineering Practices — Code Review Developer Guide (google.github.io/eng-practices)<br>
+      Conventional Commits Specification (conventionalcommits.org)
+    </p>
+  </footer>
+
+</article>
+</div>
+</body>
+</html>

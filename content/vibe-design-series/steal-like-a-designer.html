@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>남의 디자인을 훔치는 기술 — Editorial</title>
+<meta name="description" content="디자이너도 처음부터 창작하지 않는다. 참조 디자인 수집, screenshot-to-code, Figma MCP Server까지 — 디자이너 없는 디자인 워크플로우 완전 가이드.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/vibe-design-series/steal-like-a-designer.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="남의 디자인을 훔치는 기술">
+<meta property="og:description" content="디자이너도 처음부터 창작하지 않는다. 참조 디자인 수집, screenshot-to-code, Figma MCP Server까지 — 디자이너 없는 디자인 워크플로우 완전 가이드.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/vibe-design-series/steal-like-a-designer.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-09">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="남의 디자인을 훔치는 기술">
+<meta name="twitter:description" content="디자이너도 처음부터 창작하지 않는다. 참조 디자인 수집, screenshot-to-code, Figma MCP Server까지 — 디자이너 없는 디자인 워크플로우 완전 가이드.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"남의 디자인을 훔치는 기술","description":"디자이너도 처음부터 창작하지 않는다. 참조 디자인 수집, screenshot-to-code, Figma MCP Server까지 — 디자이너 없는 디자인 워크플로우 완전 가이드.","datePublished":"2026-02-09","dateModified":"2026-02-09","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/vibe-design-series/steal-like-a-designer.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead .deck { max-width: 520px; }
+
+  /* SOURCE GRID */
+  .source-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .source-cell {
+    background: var(--bg);
+    padding: 28px 24px;
+  }
+  .source-cell .src-name {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 8px;
+  }
+  .source-cell .src-type {
+    font-family: var(--serif);
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .source-cell p {
+    font-size: 0.82rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+
+  /* ACCURACY TABLE */
+  .accuracy-table {
+    margin: 40px 0;
+    border: 1px solid var(--rule);
+  }
+  .accuracy-row {
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .accuracy-row:last-child { border-bottom: none; }
+  .accuracy-row.header {
+    background: var(--card-bg);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 700;
+  }
+  .accuracy-row > div {
+    padding: 16px 20px;
+    font-size: 0.88rem;
+    color: var(--prose);
+  }
+  .accuracy-row .acc-val {
+    text-align: right;
+    font-family: var(--mono);
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  /* FLOW STEPS */
+  .flow-steps {
+    margin: 40px 0 48px;
+    list-style: none;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    display: grid;
+    gap: 1px;
+  }
+  .flow-steps li {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    background: var(--bg);
+  }
+  .flow-steps .fs-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card-bg);
+    font-family: var(--mono);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    padding: 24px 0;
+  }
+  .flow-steps .fs-content {
+    padding: 24px 24px;
+  }
+  .flow-steps .fs-content h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 6px;
+  }
+  .flow-steps .fs-content p {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+
+  /* TOOL COMPARE */
+  .tool-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0;
+  }
+  .tool-cell {
+    background: var(--bg);
+    padding: 32px 28px;
+  }
+  .tool-cell .tool-name {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .tool-cell h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 8px;
+  }
+  .tool-cell p {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .tool-cell .tool-stat {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: var(--fg);
+    color: #e8e6e0;
+    padding: 24px 28px;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    line-height: 1.8;
+    overflow-x: auto;
+    margin: 32px 0;
+  }
+  .code-block .comment { color: #8a8680; }
+
+  @media (max-width: 700px) {
+    .source-grid { grid-template-columns: 1fr; }
+    .tool-compare { grid-template-columns: 1fr; }
+    .accuracy-row { grid-template-columns: 1fr 80px; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="issue">Design Without a Designer — Article 03</div>
+    <h1>남의 디자인을<br><strong>훔치는</strong> 기술</h1>
+    <p class="deck">디자이너가 처음부터 창작하는 경우는 거의 없다.<br>참조를 수집하고, 분석하고, AI에게 맥락으로 주는 것이 핵심이다.</p>
+  </header>
+
+  <!-- PART 1 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part I</span>
+      <h2>참조 수집의 <strong>기술</strong></h2>
+    </div>
+
+    <p class="prose">
+      디자이너에게 "어디서 영감을 얻나요?"라고 물으면, 열에 아홉은 <strong>Dribbble, Behance, Pinterest</strong>를 말한다. 디자이너도 빈 캔버스에서 시작하지 않는다. 참조를 수집하고, 패턴을 분석하고, 자기 프로젝트에 맞게 변형한다. 이것을 "무드보드(moodboard)"라고 부른다.
+    </p>
+
+    <p class="prose">
+      바이브 코딩에서도 원리는 동일하다. 차이가 있다면, 참조의 목적이 <strong>"이렇게 만들어"가 아니라 "이 톤과 구조로"</strong>라는 점이다. 스크린샷을 통째로 복제하는 게 아니라, 색상 팔레트, 타이포그래피 위계, 레이아웃 패턴, 여백 비율을 추출하여 AI에게 맥락으로 전달하는 것이다.
+    </p>
+
+    <div class="source-grid">
+      <div class="source-cell">
+        <div class="src-type">웹사이트</div>
+        <div class="src-name">Dribbble</div>
+        <p>UI/UX 디자인의 최대 커뮤니티. 개별 컴포넌트와 화면 단위 참조에 강하다.</p>
+      </div>
+      <div class="source-cell">
+        <div class="src-type">웹사이트</div>
+        <div class="src-name">Mobbin</div>
+        <p>실제 배포된 앱의 스크린샷 아카이브. "실전에서 작동하는 디자인"을 찾을 때 최적.</p>
+      </div>
+      <div class="source-cell">
+        <div class="src-type">랜딩 페이지</div>
+        <div class="src-name">Land-book</div>
+        <p>랜딩 페이지 전문 갤러리. SaaS, 포트폴리오, 마케팅 페이지 참조에 특화.</p>
+      </div>
+      <div class="source-cell">
+        <div class="src-type">프리미엄</div>
+        <div class="src-name">Godly</div>
+        <p>고급 웹 디자인 큐레이션. 트렌디하고 실험적인 디자인이 많다.</p>
+      </div>
+      <div class="source-cell">
+        <div class="src-type">한국 참조</div>
+        <div class="src-name">토스/당근/카카오</div>
+        <p>한국 사용자의 기대 수준. 간결한 한글 타이포그래피, 넓은 여백, 직관적 계층.</p>
+      </div>
+      <div class="source-cell">
+        <div class="src-type">모바일</div>
+        <div class="src-name">Refero</div>
+        <p>앱/웹 디자인 참조 플랫폼. 기능별, 산업별 필터링이 강점.</p>
+      </div>
+    </div>
+
+    <p class="prose">
+      참조를 수집할 때 가장 중요한 원칙이 있다. <strong>3개 이상, 5개 이하의 참조를 선정</strong>하고, 각 참조에서 무엇을 가져올지 텍스트로 명시하는 것이다. "토스에서 여백 비율을, Stripe에서 타이포그래피를, Linear에서 색상 팔레트를." 이 텍스트가 AI에게 전달되는 <strong>디자인 브리프</strong>가 된다.
+    </p>
+  </section>
+
+  <!-- PART 2 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part II</span>
+      <h2>스크린샷에서 <strong>코드</strong>로</h2>
+    </div>
+
+    <p class="prose">
+      참조를 수집했다. 이제 AI에게 전달해야 한다. 가장 직관적인 방법은 <strong>스크린샷을 보여주고 "이렇게 만들어"라고 하는 것</strong>이다. 이 워크플로우를 자동화한 오픈소스 프로젝트가 있다.
+    </p>
+
+    <p class="prose">
+      <strong>screenshot-to-code</strong>는 GitHub Stars 71,400개를 넘긴 프로젝트로, 스크린샷을 HTML, Tailwind, React, Vue 코드로 변환한다. 하지만 정확도에는 한계가 있다.
+    </p>
+
+    <div class="accuracy-table">
+      <div class="accuracy-row header">
+        <div>모델</div>
+        <div>정확도</div>
+      </div>
+      <div class="accuracy-row">
+        <div>Claude 3 Sonnet</div>
+        <div class="acc-val">70.3%</div>
+      </div>
+      <div class="accuracy-row">
+        <div>GPT-4 Vision</div>
+        <div class="acc-val">65.1%</div>
+      </div>
+    </div>
+
+    <p class="prose">
+      70%의 정확도는 "레이아웃의 대략적인 구조는 잡지만, 세부 간격, 색상 정확도, 인터랙션은 못 잡는다"는 뜻이다. 그래서 올바른 용법은 <strong>전체 복제가 아니라 "구조 참조 + 토큰 적용"</strong>이다. 스크린샷에서 레이아웃 패턴(2컬럼, 카드 그리드, 사이드바 등)을 추출하고, 색상과 폰트는 2편에서 다룬 디자인 토큰으로 교체하는 것이다.
+    </p>
+
+    <div class="pull-quote">
+      <p>스크린샷은 설계도가 아니라 영감이다.<br>구조를 빌리고, 토큰을 입혀라.</p>
+    </div>
+  </section>
+
+  <!-- PART 3 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part III</span>
+      <h2>Figma 없이 <strong>Figma</strong>를 쓰는 법</h2>
+    </div>
+
+    <p class="prose">
+      스크린샷보다 정확한 방법이 있다. <strong>Figma MCP Server</strong>다. 2025년에 출시된 이 도구는 Figma 파일의 구조화된 콘텐츠를 AI 에이전트에 직접 전달한다. 렌더링된 픽셀 대신 <strong>실제 노드 트리, 변형(variant) 정보, 레이아웃 제약, 디자인 토큰</strong>을 전달하므로, 스크린샷 기반 변환과는 차원이 다른 정확도를 보인다.
+    </p>
+
+    <div class="tool-compare">
+      <div class="tool-cell">
+        <div class="tool-name">Screenshot</div>
+        <h4>스크린샷 기반 변환</h4>
+        <p>픽셀을 분석하여 코드를 추측한다. 레이아웃은 잡지만 토큰, 인터랙션, 반응형은 잃는다.</p>
+        <div class="tool-stat">정확도 65-70%</div>
+      </div>
+      <div class="tool-cell">
+        <div class="tool-name">Figma MCP</div>
+        <h4>구조적 데이터 전달</h4>
+        <p>노드 트리, 레이아웃 제약, 디자인 토큰을 직접 전달한다. AI가 추측할 필요가 없다.</p>
+        <div class="tool-stat">개발 시간 50-70% 단축</div>
+      </div>
+    </div>
+
+    <p class="prose">
+      "디자이너가 없는데 Figma를 어떻게 쓰느냐"는 질문이 나올 수 있다. 답은 <strong>Figma Community</strong>다. SaaS Dashboard, Landing Page, E-commerce 등 무료 템플릿이 수천 개 있다. 이 템플릿을 Figma에서 열고, MCP Server로 AI 코딩 에이전트에 연결하면, 디자이너 없이도 구조적 디자인 정보를 AI에게 전달할 수 있다.
+    </p>
+
+    <p class="prose">
+      설정은 간단하다.
+    </p>
+
+    <div class="code-block">
+      <span class="comment"># Claude Code에서 Figma MCP 연결</span><br>
+      claude mcp add --transport http figma-remote-mcp https://mcp.figma.com/mcp<br><br>
+      <span class="comment"># Cursor에서 Figma MCP 연결</span><br>
+      <span class="comment"># Dev Mode &gt; MCP Settings &gt; Add &gt; URL: https://mcp.figma.com/mcp</span>
+    </div>
+
+    <p class="prose">
+      Figma가 제안하는 새로운 패러다임은 더 나아간다. MCP 서버가 프로젝트의 <strong>코드베이스를 스캔</strong>하여 토큰 정의, 컴포넌트 라이브러리, 스타일 계층, 네이밍 규칙을 포함한 <strong>구조화된 규칙 파일을 자동 생성</strong>한다. 2편에서 다룬 AI 규칙 파일을 수동으로 작성할 필요 없이, 기존 디자인 시스템에서 자동으로 추출하는 것이다.
+    </p>
+  </section>
+
+  <!-- PART 4 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part IV</span>
+      <h2>디자인 브리프 + <strong>규칙 파일</strong></h2>
+    </div>
+
+    <p class="prose">
+      지금까지의 도구를 조합하면 완성된 워크플로우가 나온다. <strong>PageAI Starter Kit</strong>이 제안하는 방법론이 현재 가장 효과적으로 평가받는다.
+    </p>
+
+    <div class="flow-steps">
+      <li>
+        <span class="fs-num">01</span>
+        <div class="fs-content">
+          <h4>디자인 목업 1장 준비</h4>
+          <p>Dribbble/Mobbin에서 참조를 선정하거나, 직접 와이어프레임을 스케치하거나, Figma Community 템플릿을 스크린샷한다.</p>
+        </div>
+      </li>
+      <li>
+        <span class="fs-num">02</span>
+        <div class="fs-content">
+          <h4>상세 디자인 브리프 작성</h4>
+          <p>타이포그래피, 색상 팔레트, 간격 규칙, 전체적인 톤을 텍스트로 명시한다. "모던, 미니멀" 같은 모호한 표현 대신 구체적인 값과 규칙.</p>
+        </div>
+      </li>
+      <li>
+        <span class="fs-num">03</span>
+        <div class="fs-content">
+          <h4>스타터 킷 + 규칙 파일 구축</h4>
+          <p>디자인 토큰이 정의된 CSS, AI 규칙 파일(CLAUDE.md 또는 .cursorrules)이 내장된 코드베이스를 준비한다.</p>
+        </div>
+      </li>
+      <li>
+        <span class="fs-num">04</span>
+        <div class="fs-content">
+          <h4>AI 코드 생성 + 자동 검증</h4>
+          <p>Playwright MCP로 자동 스크린샷을 찍어 모바일 뷰, 다크 모드 등을 검증한다. 디자인 브리프와 일치할 때까지 반복.</p>
+        </div>
+      </li>
+    </div>
+
+    <p class="prose">
+      핵심 인사이트는 이것이다.
+    </p>
+
+    <div class="pull-quote">
+      <p>스크린샷 + 모호한 지시 = 보라색 UI<br>좋은 입력 + 견고한 기반 + 규칙 = 프로덕션 수준</p>
+    </div>
+
+    <p class="prose">
+      한국 디자이너들의 체험도 이를 뒷받침한다. TOKTOKHAN.DEV의 디자이너는 "디자이너의 눈에는 디테일이 부족하다"고 했지만, 동시에 "AI의 발전은 무기력보다는 <strong>가능성에 가깝다</strong>"고 결론지었다. pxd의 디자이너는 "한 번의 명령으로 완벽한 결과를 기대하지 말고, <strong>반복 대화를 통한 점진적 정교화</strong>"를 강조했다.
+    </p>
+
+    <p class="prose">
+      단일 도구가 아니라 <strong>도구 체인</strong>이 답이다. 참조 수집(Mobbin/Dribbble) → 구조 추출(Figma MCP) → 코드 생성(Claude/Cursor) → 토큰 적용(CSS 변수/@theme) → 자동 검증(Playwright). 이 체인의 각 단계가 AI의 "기본값 편향"을 한 겹씩 벗겨낸다.
+    </p>
+
+    <p class="prose">
+      다음 편에서는 이 체인의 핵심 요소 중 하나인 <strong>컴포넌트 라이브러리</strong>를 다룬다. shadcn/ui가 왜 바이브 코딩의 사실상 표준이 되었는지, 그리고 "그냥 갖다 쓰기"를 넘어 브랜드를 입히는 방법은 무엇인지.
+    </p>
+  </section>
+
+  <div class="closing">
+    <h2>디자이너도 빈 캔버스에서 시작하지 않는다<br><strong>좋은 참조가 좋은 결과를 만든다</strong></h2>
+    <p class="sub">참조 수집 → 구조 추출 → 토큰 적용 → 자동 검증. 이 체인이 보라색을 벗겨낸다.</p>
+  </div>
+
+  <footer class="footer">
+    <p>
+      abi/screenshot-to-code. GitHub. 71,400+ Stars.<br>
+      Builder.io. "Design to Code with the Figma MCP Server." 2026.<br>
+      Figma. "Guide to the Figma MCP Server." 2025.<br>
+      Figma. "Design Systems And AI: Why MCP Servers Are The Unlock." 2025.<br>
+      PageAI. "Vibe Coding Starter Guide: from Design to Production." 2025.<br>
+      TOKTOKHAN.DEV. "디자이너의 AI 바이브 코딩 체험기." 2025.<br>
+      pxd. "바이브 코딩으로 간단한 웹사이트 구현해보기." 2025.<br>
+      AIMultiple Research. "Figma MCP Server Tested." 2026.
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
