@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>거래소는 왜 장부로 거래하는가 — Editorial</title>
+<meta name="description" content="블록체인이 있는데 왜 거래소는 내부 장부를 쓰는가. 초당 7건 vs 140만 건의 속도 격차, 은행과 같은 구조, 그리고 그 구조가 만드는 위험을 기술적으로 해부한다.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/bithumb-60t-series/why-exchanges-use-ledgers.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="거래소는 왜 장부로 거래하는가">
+<meta property="og:description" content="블록체인이 있는데 왜 거래소는 내부 장부를 쓰는가. 초당 7건 vs 140만 건의 속도 격차, 은행과 같은 구조, 그리고 그 구조가 만드는 위험을 기술적으로 해부한다.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/bithumb-60t-series/why-exchanges-use-ledgers.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-08">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="거래소는 왜 장부로 거래하는가">
+<meta name="twitter:description" content="블록체인이 있는데 왜 거래소는 내부 장부를 쓰는가. 초당 7건 vs 140만 건의 속도 격차, 은행과 같은 구조, 그리고 그 구조가 만드는 위험을 기술적으로 해부한다.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"거래소는 왜 장부로 거래하는가","description":"블록체인이 있는데 왜 거래소는 내부 장부를 쓰는가. 초당 7건 vs 140만 건의 속도 격차, 은행과 같은 구조, 그리고 그 구조가 만드는 위험을 기술적으로 해부한다.","datePublished":"2026-02-08","dateModified":"2026-02-08","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/bithumb-60t-series/why-exchanges-use-ledgers.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead h1 {
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -2px;
+  }
+  .masthead .deck { max-width: 520px; }
+
+  /* DATA TABLE */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 32px 0 40px;
+    font-size: 0.9rem;
+  }
+  .data-table th {
+    font-family: var(--serif);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--muted);
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--fg);
+  }
+  .data-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--prose);
+    line-height: 1.6;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table .num-cell {
+    font-family: var(--mono);
+    font-weight: 600;
+    color: var(--fg);
+    white-space: nowrap;
+  }
+  .data-table .accent-cell {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* COMPARISON ROW */
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .compare-col {
+    background: var(--bg);
+    padding: 32px 28px;
+  }
+  .compare-col .c-label {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .compare-col .c-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .compare-col .c-detail {
+    font-size: 0.88rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+  .compare-col .c-num {
+    font-family: var(--mono);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 4px;
+  }
+
+  /* FLOW DIAGRAM */
+  .flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 36px 0;
+    flex-wrap: wrap;
+  }
+  .flow-step {
+    background: var(--card-bg);
+    padding: 14px 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--fg);
+    text-align: center;
+    line-height: 1.4;
+  }
+  .flow-arrow {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  /* CASE CARD */
+  .case-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .case-card {
+    background: var(--bg);
+    padding: 28px 24px;
+  }
+  .case-card .c-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  .case-card .c-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .case-card .c-amount {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .case-card .c-result {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+  .case-card .c-result strong {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  .closing .sub { max-width: 480px; }
+
+  @media (max-width: 700px) {
+    .compare-row { grid-template-columns: 1fr; }
+    .case-row { grid-template-columns: 1fr; }
+    .flow { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<article>
+<div class="page">
+
+  <header class="masthead">
+    <div class="issue">Technical Analysis — Exchange Architecture</div>
+    <h1>거래소는 왜<br><strong>장부</strong>로 거래하는가</h1>
+    <p class="deck">블록체인이 있는데 왜 실물 코인으로 거래하지 않는가.<br>초당 7건 vs 140만 건의 격차가 만든 구조적 선택을 해부한다.</p>
+  </header>
+
+  <main>
+
+  <!-- PART I: 당신의 비트코인은 어디에 있는가 -->
+  <section>
+  <div class="section-head">
+    <span class="num">Part I</span>
+    <h2>당신의 비트코인은 <strong>어디에</strong> 있는가</h2>
+  </div>
+
+  <p class="prose">거래소 앱을 열면 잔고에 "1.5 BTC"라고 표시된다. 대부분의 이용자는 이것이 자신의 비트코인이라고 생각한다. 블록체인 어딘가에 자신의 이름이 붙은 1.5 BTC가 존재하고, 거래소가 그것을 대신 보관하고 있다고.</p>
+
+  <p class="prose"><strong>틀렸다.</strong> 그 1.5 BTC는 블록체인 위에 존재하지 않는다. 거래소의 내부 데이터베이스에 "이 계정의 비트코인 잔고는 1.5"라는 숫자가 기록되어 있을 뿐이다. 은행 통장에 "잔액 150만 원"이라고 찍혀 있는 것과 정확히 같은 구조다. 은행 금고에 당신 이름이 적힌 150만 원짜리 봉투가 있는 것이 아니듯, 블록체인에 당신 이름이 적힌 비트코인 지갑이 있는 것이 아니다.</p>
+
+  <div class="pull-quote">
+    <p>거래소에서 "비트코인을 산다"는 것은<br>블록체인에 기록되는 행위가 아니다.<br>거래소 장부에 숫자가 바뀌는 것이다.</p>
+  </div>
+
+  <p class="prose">이것을 이해하려면 거래소 내부에서 실제로 무슨 일이 일어나는지를 알아야 한다. 이용자 A가 1 BTC를 팔고, 이용자 B가 그것을 산다고 하자. 비트코인 블록체인에서는 아무 일도 일어나지 않는다. 거래소의 데이터베이스에서 A의 BTC 잔고가 1 줄어들고, B의 BTC 잔고가 1 늘어난다. <strong>장부의 숫자만 변경되는 것이다.</strong></p>
+
+  <div class="flow">
+    <div class="flow-step">이용자 A<br>-1 BTC / +9,700만 원</div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-step">거래소 DB<br>숫자만 변경</div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-step">이용자 B<br>+1 BTC / -9,700만 원</div>
+  </div>
+
+  <p class="prose">블록체인이 관여하는 순간은 딱 두 가지뿐이다. <strong>입금</strong>(외부 지갑에서 거래소로 코인을 보낼 때)과 <strong>출금</strong>(거래소에서 외부 지갑으로 코인을 보낼 때). 이 두 순간에만 실제 온체인 전송이 발생한다. 그 사이에 거래소 안에서 100번을 사고팔아도 블록체인에는 흔적이 남지 않는다.</p>
+
+  <p class="prose">은행에 비유하면 이렇다. 같은 은행의 A 고객이 B 고객에게 100만 원을 이체하면, 한국은행의 결제 시스템을 거치지 않는다. 은행 내부 장부에서 A의 잔고를 100만 원 줄이고 B의 잔고를 100만 원 늘리면 끝이다. <strong>거래소도 정확히 같다.</strong> 블록체인(= 한국은행 결제 시스템)은 거래소 밖으로 나갈 때만 필요하다.</p>
+  </section>
+
+  <!-- PART II: 7 vs 1,400,000 -->
+  <section>
+  <div class="section-head">
+    <span class="num">Part II</span>
+    <h2><strong>7</strong> vs <strong>1,400,000</strong></h2>
+  </div>
+
+  <p class="prose">왜 이런 구조를 선택했는가. 철학의 문제가 아니라 <strong>물리적 한계</strong>의 문제다. 블록체인은 느리다. 안전하지만, 느리다.</p>
+
+  <p class="prose">비트코인 네트워크는 초당 약 7건의 거래를 처리할 수 있다. 이더리움은 초당 15~30건. 반면 바이낸스의 매칭 엔진은 <strong>초당 140만 건</strong>의 주문을 처리한다. 2022년 5월 시장 급변 시에는 <strong>1초에 650만 건</strong>의 거래를 체결한 기록이 있다.</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>시스템</th>
+        <th>초당 처리량 (TPS)</th>
+        <th>확인 시간</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>비트코인</td>
+        <td class="num-cell accent-cell">~7</td>
+        <td>평균 10분 (2025년 평균 19분)</td>
+      </tr>
+      <tr>
+        <td>이더리움 (L1)</td>
+        <td class="num-cell">15~30</td>
+        <td>약 12초</td>
+      </tr>
+      <tr>
+        <td>솔라나</td>
+        <td class="num-cell">1,000~4,000</td>
+        <td>약 0.4초</td>
+      </tr>
+      <tr>
+        <td>Visa</td>
+        <td class="num-cell">~1,700 (최대 24,000)</td>
+        <td>수 초</td>
+      </tr>
+      <tr>
+        <td><strong>바이낸스 매칭 엔진</strong></td>
+        <td class="num-cell accent-cell">1,400,000</td>
+        <td>5ms 미만</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="prose">비트코인 7 TPS와 바이낸스 140만 TPS. 격차는 <strong>20만 배</strong>다. 가장 빠른 블록체인인 솔라나의 실사용 기준 3,200 TPS로 비교해도, 바이낸스보다 <strong>437배</strong> 느리다.</p>
+
+  <p class="prose">2024년 글로벌 상위 15개 거래소의 현물 거래량은 18조 8,300억 달러였다. 하루 평균 약 516억 달러. 건당 500달러로 환산하면 <strong>하루 약 1억 건</strong>의 거래다. 비트코인이 하루에 처리할 수 있는 최대 거래 수는 약 60만 건이다. <strong>시장 수요의 0.6%</strong>에 불과하다.</p>
+
+  <div class="pull-quote">
+    <p>모든 거래를 블록체인에 기록하는 것은<br>서울의 모든 차량을 한 차선 도로에<br>통과시키려는 것과 같다.</p>
+  </div>
+
+  <p class="prose">속도만의 문제가 아니다. <strong>비용</strong>도 감당할 수 없다. 이더리움의 평균 가스 수수료는 건당 0.38~3.78달러 수준(2024~2025년)이다. 만약 바이낸스의 하루 현물 거래(약 1억 건의 일부)를 모두 온체인으로 처리한다면, 수수료만 <strong>하루 수천만~수억 달러</strong>가 발생한다. 거래소가 수수료를 0.1%만 받는 세상에서, 블록체인 수수료가 그것보다 비쌀 수 있다.</p>
+
+  <p class="prose">그리고 <strong>지연시간(latency)</strong>. 트레이더에게 밀리초(1/1,000초)는 돈이다. 전통 주식 거래소(나스닥, NYSE)의 체결 지연은 17~180마이크로초(1/100만 초). 바이낸스의 체결 지연은 5밀리초 미만. 비트코인의 확인 시간은 <strong>10분</strong>. 이더리움은 <strong>12초</strong>. 주문 넣고 12초를 기다리는 사이에 가격은 이미 바뀌어 있다.</p>
+  </section>
+
+  <!-- PART III: 은행도 같은 구조다 -->
+  <section>
+  <div class="section-head">
+    <span class="num">Part III</span>
+    <h2>은행도 <strong>같은 구조</strong>다</h2>
+  </div>
+
+  <p class="prose">"그러니까 거래소가 블록체인을 안 쓴다는 건데, 그게 문제 아닌가?" 결론부터 말하면, 이 구조 자체는 문제가 아니다. <strong>세상의 모든 금융기관이 같은 방식으로 작동한다.</strong></p>
+
+  <p class="prose">은행에 100만 원을 입금하면, 은행 금고에 당신의 100만 원이 별도로 보관되는 것이 아니다. 은행의 데이터베이스에 "이 계좌 잔고 100만 원"이라는 기록이 생길 뿐이다. 은행은 그 돈을 대출에 쓰고, 투자에 쓰고, 다른 고객의 출금 요청에 쓴다. 모든 고객이 동시에 인출하면 은행은 망한다. 이것이 <strong>부분지급준비(fractional reserve)</strong>라는 제도다. 은행은 고객 예금의 일부만 실제로 보유한다.</p>
+
+  <div class="compare-row">
+    <div class="compare-col">
+      <div class="c-label">은행</div>
+      <div class="c-title">당신의 100만 원</div>
+      <div class="c-detail">금고에 봉투가 있는 것이 아니라 <strong>데이터베이스에 숫자</strong>가 있다. 은행은 그 돈을 대출/투자에 사용하고, 고객의 출금 요청이 오면 보유 현금에서 지급한다. 모든 고객이 동시에 인출하면 지급불능(뱅크런).</div>
+    </div>
+    <div class="compare-col">
+      <div class="c-label">거래소</div>
+      <div class="c-title">당신의 1 BTC</div>
+      <div class="c-detail">블록체인에 당신 이름의 지갑이 있는 것이 아니라 <strong>데이터베이스에 숫자</strong>가 있다. 거래소는 고객 자산을 모아 핫월렛/콜드월렛에 보관하고, 출금 요청이 오면 보유분에서 지급한다. 모든 고객이 동시에 출금하면 지급불능.</div>
+    </div>
+  </div>
+
+  <p class="prose">구조가 같으면 차이는 무엇인가. <strong>안전장치의 유무</strong>다.</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>항목</th>
+        <th>은행</th>
+        <th>거래소</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>내부 이체</td>
+        <td>즉시 (장부 기록)</td>
+        <td>즉시 (장부 기록)</td>
+      </tr>
+      <tr>
+        <td>외부 이체</td>
+        <td>1~5영업일 (청산/결제)</td>
+        <td>10분~1시간 (블록체인)</td>
+      </tr>
+      <tr>
+        <td>예금 보호</td>
+        <td class="accent-cell">예금보험공사 5,000만 원 보장</td>
+        <td>없음</td>
+      </tr>
+      <tr>
+        <td>감사/검사</td>
+        <td>금감원 정기 검사 의무</td>
+        <td>자율 (Proof of Reserves)</td>
+      </tr>
+      <tr>
+        <td>지급준비율</td>
+        <td>법정 최소 비율 존재</td>
+        <td>규정 없음 (자율)</td>
+      </tr>
+      <tr>
+        <td>실패 시</td>
+        <td>예금보험으로 5,000만 원까지 보전</td>
+        <td class="accent-cell">전액 손실 가능</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="prose">은행은 200년에 걸쳐 "장부 거래가 안전하려면 무엇이 필요한가"를 뱅크런, 대공황, 금융위기를 거치며 배웠다. 그 결과가 예금보험, 지급준비율, 정기 감사, 자기자본비율 규제다. <strong>가상자산 거래소에는 이 안전장치들이 대부분 없다.</strong> 같은 구조인데 안전장치는 빠져 있는 것이다.</p>
+  </section>
+
+  <!-- PART IV: 실제 거래소는 어떻게 설계되어 있나 -->
+  <section>
+  <div class="section-head">
+    <span class="num">Part IV</span>
+    <h2>실제 거래소는 <strong>어떻게</strong> 설계되어 있나</h2>
+  </div>
+
+  <p class="prose">거래소의 핵심은 <strong>매칭 엔진(Order Matching Engine)</strong>이다. 이용자가 "1 BTC를 9,700만 원에 팔겠다"는 주문을 넣으면, 매칭 엔진이 "9,700만 원에 사겠다"는 주문을 찾아 체결한다. 모든 매수/매도 주문은 가격-시간 우선 순위로 정렬된 <strong>주문장(Order Book)</strong>에 쌓이고, 가장 좋은 가격부터 매칭된다.</p>
+
+  <p class="prose">매칭 엔진 뒤에는 <strong>회계 서비스(Accounting Service)</strong>가 있다. 이것이 바로 내부 장부다. 복식부기 원칙에 따라 모든 거래를 차변/대변으로 기록한다. A가 B에게 1 BTC를 팔면 — A의 BTC 잔고에서 1을 빼고(차변), B의 BTC 잔고에 1을 더한다(대변). 동시에 원화는 반대 방향으로. <strong>이 모든 것이 거래소의 데이터베이스 안에서 완결</strong>된다.</p>
+
+  <p class="prose">그렇다면 실제 암호화폐는 어디에 있는가. 거래소는 고객이 입금한 실물 코인을 두 종류의 지갑에 나눠 보관한다.</p>
+
+  <div class="mechanism-row">
+    <div class="mechanism">
+      <div class="m-label">Layer 01</div>
+      <h3>매칭 엔진</h3>
+      <p>주문장(Order Book) 기반 가격-시간 우선 매칭. 바이낸스 기준 <strong>초당 140만 건</strong> 처리.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Layer 02</div>
+      <h3>내부 장부</h3>
+      <p>복식부기 데이터베이스. 모든 이용자의 잔고를 숫자로 관리. <strong>블록체인 미사용</strong>.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Layer 03</div>
+      <h3>실물 보관</h3>
+      <p>핫월렛(5~10%) + 콜드월렛(90~95%). 고객 입출금 시에만 온체인 전송.</p>
+    </div>
+  </div>
+
+  <p class="prose"><strong>핫월렛(Hot Wallet)</strong>은 인터넷에 연결된 지갑이다. 이용자의 출금 요청을 실시간으로 처리하기 위해 소량의 코인을 보관한다. 전체 보유량의 5~10% 수준. <strong>콜드월렛(Cold Wallet)</strong>은 인터넷과 완전히 분리된 오프라인 저장소다. 나머지 90~95%를 여기에 보관한다. 개인키가 에어갭(air-gapped) 환경에서 생성되고, 이동 시 다중서명이 필요하다.</p>
+
+  <p class="prose">핫월렛은 편리하지만 해킹에 취약하다. 2019년 업비트에서 <strong>342,000 ETH(약 580억 원)</strong>가 핫월렛에서 탈취되었다. 2024년 한국 경찰은 이것이 북한 해커 조직(라자루스, 안다리엘)의 소행임을 확인했다. 2025년 바이비트에서는 <strong>15억 달러(약 2조 원)</strong>가 핫월렛에서 도난당했다. 역사상 최대 규모의 금융 도난 사건이다.</p>
+  </section>
+
+  <!-- PART V: 주요 거래소 비교 -->
+  <section>
+  <div class="section-head">
+    <span class="num">Part V</span>
+    <h2>주요 거래소 <strong>아키텍처</strong> 비교</h2>
+  </div>
+
+  <p class="prose">같은 "내부 장부" 구조라도 설계 수준은 천차만별이다. 글로벌 주요 거래소 4곳과 빗썸을 비교한다.</p>
+
+  <div class="case-row">
+    <div class="case-card">
+      <div class="c-label">Exchange 01</div>
+      <div class="c-title">바이낸스 (Binance)</div>
+      <div class="c-amount">초당 140만 건 / 5ms 미만 체결</div>
+      <div class="c-result">세계 최대 거래소. 2024년 7월 매칭 엔진 업그레이드로 체결 지연을 10ms에서 <strong>5ms로 절반 감축</strong>. 거래 쌍별 샤딩으로 병렬 처리. PoR 리포트 21회 발행(2024년 7월 기준).</div>
+    </div>
+    <div class="case-card">
+      <div class="c-label">Exchange 02</div>
+      <div class="c-title">코인베이스 (Coinbase)</div>
+      <div class="c-amount">초당 10만 메시지 / STARK 리스크 엔진</div>
+      <div class="c-result">나스닥 상장사. <strong>AWS 기반</strong> 아키텍처(Aurora, EC2, Kafka). 서버 수명 최대 30일 정책(Ephemerality). 2024년 3분기 STARK 엔진 도입으로 <strong>데이터 지연 400배 감축</strong>. SEC 감사 재무제표 공개.</div>
+    </div>
+  </div>
+
+  <div class="case-row">
+    <div class="case-card">
+      <div class="c-label">Exchange 03</div>
+      <div class="c-title">빗썸 (Bithumb)</div>
+      <div class="c-amount">2024년 상반기 시스템 장애 39건</div>
+      <div class="c-result"><strong>AWS 인프라</strong> 사용(Transit Gateway, PrivateLink). 한국 빅4 거래소 중 시스템 안정성 최하위. 누적 장애 시간 <strong>38일 21시간</strong>. 2018년 해킹 3,500억 원, 2019년 해킹 2,200억 원 피해. 2026년 오지급 60조 원 사고 발생.</div>
+    </div>
+    <div class="case-card">
+      <div class="c-label">Cautionary Tale</div>
+      <div class="c-title">FTX (파산)</div>
+      <div class="c-amount">고객 자금 80억 달러 소실</div>
+      <div class="c-result">CTO 게리 왕이 직접 작성한 <strong>백도어 코드</strong>로 자매사 알라메다에 650억 달러 마이너스 잔고 허용. 직원이 2022년 5월 백도어를 발견했으나 무시됨. 고객 자금 80억 달러 이상 소실. SBF <strong>징역 25년</strong>(2024년 3월).</div>
+    </div>
+  </div>
+
+  <p class="prose">바이낸스와 코인베이스는 "내부 장부" 위에 정교한 안전장치를 쌓았다. PoR 정기 발행, 외부 감사, 리스크 엔진, 이상거래 탐지. FTX는 정반대로, 안전장치를 의도적으로 제거했다. <strong>빗썸은 그 사이 어딘가에 있다.</strong> 악의적이지는 않았지만, 안전장치가 충분하지 않았다.</p>
+  </section>
+
+  <!-- PART VI: 그래서 어떻게 확인하는가 -->
+  <section>
+  <div class="section-head">
+    <span class="num">Part VI</span>
+    <h2>그래서 어떻게 <strong>확인</strong>하는가</h2>
+  </div>
+
+  <p class="prose">"거래소가 내 코인을 실제로 갖고 있는지 어떻게 아는가?" 이 질문에 대한 업계의 답이 <strong>Proof of Reserves(PoR, 준비자산 증명)</strong>이다. 거래소가 보유한 실제 암호화폐 수량이 이용자 예치금 총액 이상인지를 암호학적으로 증명하는 절차다.</p>
+
+  <p class="prose">작동 원리는 이렇다. 독립 감사인이 거래소의 장부를 스냅샷으로 찍는다. 모든 이용자의 잔고를 해시 트리(Merkle Tree)로 구성하고, 이용자는 자신의 잔고가 그 트리에 포함되어 있는지 검증할 수 있다. 동시에 거래소가 소유한 온체인 지갑 주소의 잔고를 확인하여, 장부 총액 이상의 실물이 존재하는지 대조한다.</p>
+
+  <div class="technique">
+    <div class="technique-header">
+      <span class="t-num">01</span>
+      <h3>PoR이 증명하는 것</h3>
+    </div>
+    <div class="t-sub">특정 시점에 거래소가 보유한 자산의 양</div>
+    <div class="t-body">PoR은 거래소의 온체인 지갑 잔고가 이용자 잔고 합산 이상인지를 확인한다. 바이낸스는 2024년 7월 기준 21번째 PoR 리포트를 발행했고, BTC, ETH, BNB, 스테이블코인을 대상으로 한다. 코인베이스는 나스닥 상장사로서 SEC 감사를 받는 분기 재무제표를 공개한다.</div>
+  </div>
+
+  <div class="technique">
+    <div class="technique-header">
+      <span class="t-num">02</span>
+      <h3>PoR이 증명하지 못하는 것</h3>
+    </div>
+    <div class="t-sub">부채, 실시간 변동, 자산 분리 여부</div>
+    <div class="t-body"><strong>자산 보유 ≠ 지급 능력.</strong> PoR은 자산(Assets)만 보여줄 뿐, 부채(Liabilities)를 포함하지 않는다. 거래소가 100억 원의 비트코인을 보유하면서 200억 원의 빚이 있다면, PoR은 "100억 원 보유"만 보여준다. 또한 대부분의 PoR은 월간/분기별 스냅샷이라 <strong>감사 당일만 자산을 빌려</strong> 채울 수도 있다. 고객 자산과 회사 운영 자금이 분리되어 있는지도 확인하지 않는다.</div>
+  </div>
+
+  <div class="technique">
+    <div class="technique-header">
+      <span class="t-num">03</span>
+      <h3>대안 — 탈중앙화 거래소(DEX)</h3>
+    </div>
+    <div class="t-sub">내부 장부 없이 블록체인 위에서 직접 거래</div>
+    <div class="t-body">DEX(Decentralized Exchange)는 내부 장부를 아예 쓰지 않는다. 모든 거래가 블록체인에 직접 기록되고, 이용자가 자신의 개인키를 직접 관리한다. 2025년 기준 DEX의 시장 점유율은 글로벌 현물 거래량의 약 20%까지 올라왔다(2024년 약 10%에서 급증). 그러나 <strong>속도(초 단위 체결 vs 밀리초 단위), 유동성, 대규모 거래 시 가격 밀림(slippage)</strong> 문제로 아직 CEX를 대체하지는 못한다.</div>
+  </div>
+  </section>
+
+  <!-- PART VII: 핵심 시사점 -->
+  <section>
+  <div class="section-head">
+    <span class="num">Part VII</span>
+    <h2>내부 장부는 <strong>필요악</strong>인가</h2>
+  </div>
+
+  <p class="prose">정리하면 이렇다. 거래소가 장부 거래를 하는 이유는 단순하다. <strong>블록체인이 너무 느리기 때문이다.</strong> 비트코인 7 TPS, 바이낸스 140만 TPS. 이 20만 배의 격차는 현재의 블록체인 기술로는 메울 수 없다. 은행이 모든 이체를 한국은행 결제 시스템으로 처리하지 않는 것과 같은 이유다.</p>
+
+  <p class="prose">문제는 이 구조가 만드는 <strong>신뢰의 공백</strong>이다. 블록체인의 존재 이유는 "제3자를 믿지 않아도 거래를 검증할 수 있다"는 것이었다. 그런데 거래소에 코인을 맡기는 순간, 이용자는 블록체인의 수학적 보증을 포기하고 <strong>거래소의 데이터베이스를 믿어야</strong> 한다.</p>
+
+  <p class="prose">그 신뢰는 반복적으로 배반당해왔다.</p>
+
+  <div class="mechanism-row">
+    <div class="mechanism">
+      <div class="m-label">2014</div>
+      <h3>마운트곡스</h3>
+      <p>비트코인 85만 개 도난. 당시 전 세계 거래량의 <strong>70%</strong>를 처리하던 거래소. 채권자 상환까지 <strong>10년</strong>.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">2022</div>
+      <h3>FTX</h3>
+      <p>고객 자금 <strong>80억 달러 이상</strong> 소실. 내부 장부를 조작하여 자매사에 고객 자금 유용. 창업자 징역 25년.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">2025</div>
+      <h3>바이비트</h3>
+      <p>핫월렛에서 <strong>15억 달러</strong> 탈취. 북한 라자루스 그룹 소행. 역사상 최대 금융 도난 사건.</p>
+    </div>
+  </div>
+
+  <p class="prose">2025년 한 해 동안 암호화폐 업계에서 도난된 금액은 <strong>34억 달러</strong>로 역대 최고치를 기록했다. 북한 해커만 <strong>20.2억 달러</strong>를 훔쳤다. 빗썸의 60조 원 오지급 사고는 해킹이 아니라 내부 실수였지만, 핵심 원인은 같다. <strong>내부 장부에 대한 검증이 부재했다.</strong></p>
+
+  <p class="prose">내부 장부는 "필요악"이다. 없으면 거래가 불가능하고, 있으면 신뢰 문제가 생긴다. 해법은 장부를 없애는 것이 아니라, <strong>장부 위에 은행 수준의 안전장치를 쌓는 것</strong>이다. 실시간 PoR, 자산 분리 의무화, 정기 외부 감사, 예금 보호 제도. 은행이 200년에 걸쳐 만든 것을, 가상자산 업계는 지금 10년 안에 만들어야 한다.</p>
+
+  </section>
+
+  </main>
+
+  <div class="closing">
+    <p class="big"><strong>블록체인</strong>은 신뢰를<br>기술로 대체하겠다고 했다.<br>하지만 거래소에 넣는 순간,<br>다시 <strong>사람</strong>을 믿어야 한다.</p>
+    <p class="sub">거래소의 내부 장부는 기술적 필연이다. 문제는 그 장부를 누가, 어떻게 감시하는가다. 빗썸의 60조 원은 그 감시가 부재할 때 무엇이 일어나는지를 보여주었다.</p>
+  </div>
+
+  <footer class="footer">
+    <p>Source: Binance Academy &middot; Coinbase Engineering Blog &middot; AWS Case Studies &middot; Chainalysis 2025 Crypto Crime Report &middot; FBI IC3 &middot; CoinLaw Exchange Statistics &middot; 2026</p>
+  </footer>
+
+</div>
+</article>
+
+<!-- GoatCounter 수동 추적 -->
+<script>
+(function(){
+  if(location.protocol==='file:'||location.hostname==='localhost')return;
+  var i=new Image();
+  i.src='https://necromman.goatcounter.com/count?p='+encodeURIComponent(location.pathname)
+    +'&r='+encodeURIComponent(document.referrer);
+})();
+</script>
+</body>
+</html>

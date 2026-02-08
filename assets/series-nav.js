@@ -17,7 +17,18 @@
       title: '딸깍 한 번의 60조 원',
       articles: [
         { slug: 'bithumb-60-trillion-incident', title: '딸깍 한 번의 60조 원' },
-        { slug: 'whose-money-is-it', title: '그 돈은 누구의 것인가' }
+        { slug: 'whose-money-is-it', title: '그 돈은 누구의 것인가' },
+        { slug: 'why-exchanges-use-ledgers', title: '거래소는 왜 장부로 거래하는가' }
+      ]
+    },
+    'dev-survival-series': {
+      label: 'Series 03',
+      title: 'AI 시대 개발자 생존 보고서',
+      articles: [
+        { slug: 'ai-replaced-developers-reality', title: 'AI가 개발자를 대체한다는 말, 얼마나 사실인가' },
+        { slug: 'why-developers-wont-disappear', title: '그래도 개발자가 사라지지 않는 이유' },
+        { slug: 'developer-survival-playbook', title: '개발자 생존 플레이북' },
+        { slug: 'developer-identity-in-ai-era', title: 'AI 시대, 개발자라는 정체성' }
       ]
     }
   };

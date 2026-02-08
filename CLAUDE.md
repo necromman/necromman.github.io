@@ -36,15 +36,23 @@ editorial/
 │       │   └── SKILL.md                    # 공통 CSS 디자인 시스템 스킬
 │       ├── common-header/
 │       │   └── SKILL.md                    # 공통 네비게이션 헤더 스킬
-│       └── series-nav/
-│           └── SKILL.md                    # 시리즈 네비게이션 스킬
+│       ├── series-nav/
+│       │   └── SKILL.md                    # 시리즈 네비게이션 스킬
+│       └── series-plan/
+│           └── SKILL.md                    # 시리즈 기획 워크플로우 스킬
 ├── assets/
 │   ├── editorial-base.css                  # 콘텐츠 페이지 공통 CSS (디자인 시스템 베이스)
+│   ├── index.css                           # 랜딩 페이지 전용 CSS (editorial-base.css 상속)
+│   ├── content-data.js                     # 랜딩 페이지 콘텐츠 데이터 (시리즈/글 목록)
+│   ├── index-app.js                        # 랜딩 페이지 렌더링/검색/정렬/펼침접기
 │   ├── fonts/                              # 셀프호스팅 웹폰트 (WOFF2)
 │   │   ├── source-serif-4-latin-wght-normal.woff2   # Source Serif 4 variable
 │   │   └── jetbrains-mono-latin-wght-normal.woff2   # JetBrains Mono variable
 │   ├── nav.js                              # 공통 네비게이션 (전 페이지 자동 삽입)
 │   └── series-nav.js                       # 시리즈 내 이전/다음 글 네비게이션
+├── plans/                                  # 시리즈 기획 문서 (콘텐츠 제작 전 선행)
+│   └── [시리즈-슬러그]/
+│       └── series-plan.md                  # 자료조사 + 시리즈 구성 기획서
 ├── content/                                # 모든 콘텐츠 HTML
 │   ├── index.md                            # 콘텐츠 인덱스 (AI가 자동 관리)
 │   └── wasted-life-series/                 # 시리즈별 폴더 (영문 슬러그)
@@ -72,6 +80,7 @@ editorial/
 | **common-css** | `.claude/skills/common-css/SKILL.md` | 공통 CSS 디자인 시스템 관리 (editorial-base.css) | 공통 스타일 변경 시, 새 콘텐츠 생성 시 |
 | **common-header** | `.claude/skills/common-header/SKILL.md` | 공통 네비게이션 헤더 (nav.js) 관리 | 네비 수정 시, 새 콘텐츠 추가 시 |
 | **series-nav** | `.claude/skills/series-nav/SKILL.md` | 시리즈 이전/다음 글 네비게이션 (series-nav.js) | 시리즈 콘텐츠 추가/수정 시 |
+| **series-plan** | `.claude/skills/series-plan/SKILL.md` | 시리즈 기획 워크플로우 (자료조사 → 기획서) | 새 시리즈 기획 시 |
 
 **스킬 규칙:**
 - HTML 콘텐츠를 생성하거나 수정할 때 **editorial-content-page + seo** 두 스킬을 반드시 참조한다
@@ -81,14 +90,14 @@ editorial/
 
 ## 콘텐츠 관리
 
-### 콘텐츠 인덱스
+### 콘텐츠 데이터 관리
 
-`content/index.md`가 모든 콘텐츠의 목록을 관리한다.
+랜딩 페이지의 콘텐츠 데이터는 `assets/content-data.js`에서 관리한다. `content/index.md`는 사람이 읽는 기록용이다.
 
 **규칙:**
-- 새 콘텐츠를 추가하면 `content/index.md`를 **반드시** 업데이트한다
-- 새 시리즈를 추가하면 인덱스에 시리즈 섹션을 추가한다
-- 이 인덱스는 블로그 랜딩 페이지(index.html) 생성 시 데이터 소스로 사용된다
+- 새 콘텐츠를 추가하면 `assets/content-data.js`와 `content/index.md`를 **둘 다** 업데이트한다
+- `content-data.js`가 랜딩 페이지의 **실제 런타임 데이터 소스**다 (JS로 동적 렌더링)
+- `content/index.md`는 AI/사람이 콘텐츠 현황을 빠르게 파악하기 위한 기록용 인덱스다
 
 ### 시리즈 1: 인생 낭비 (wasted-life-series)
 
@@ -100,15 +109,33 @@ editorial/
 | 04 | `so-what-now.html` | 그래서 어떡하라고 | 실행 매뉴얼 — 자가 진단 + 90일 프로토콜 |
 | 05 | `how-this-was-made.html` | 이 문서는 어떻게 만들어졌는가 | 메타 문서 — 제작 과정과 워크플로우 |
 
+### 시리즈 2: 딸깍 한 번의 60조 원 (bithumb-60t-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `bithumb-60-trillion-incident.html` | 딸깍 한 번의 60조 원 | 사고 분석 — SBS 뉴스 + 자료조사 기반 에디토리얼 |
+| 02 | `whose-money-is-it.html` | 그 돈은 누구의 것인가 | 법적 분석 — 수익화 경로, 판례, 시나리오 검증 |
+| 03 | `why-exchanges-use-ledgers.html` | 거래소는 왜 장부로 거래하는가 | 기술 분석 — 거래소 아키텍처, 블록체인 한계 |
+
+### 시리즈 3: AI 시대, 개발자 생존 보고서 (dev-survival-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `ai-replaced-developers-reality.html` | AI가 개발자를 대체한다는 말, 얼마나 사실인가 | 팩트폭행 — 데이터 기반 현실 직시 |
+| 02 | `why-developers-wont-disappear.html` | 그래도 개발자가 사라지지 않는 이유 | 위로/반박 — 균형 잡힌 반론 |
+| 03 | `developer-survival-playbook.html` | 개발자 생존 플레이북 | 실행 매뉴얼 — 신입/경력별 구체 전략 |
+| 04 | `developer-identity-in-ai-era.html` | AI 시대, 개발자라는 정체성 | 결론 — 마인드셋 전환과 미래 전망 |
+
 ## 콘텐츠 제작 워크플로우
 
+0. **기획**: `plans/[시리즈-슬러그]/series-plan.md`에 자료조사 + 시리즈 구성 기획서 작성 (series-plan 스킬 참조)
 1. **소스 확보**: YouTube 영상 → Gemini로 스크립트 추출
 2. **1차 편집**: 스크립트 → Claude로 에디토리얼 HTML 생성
    - editorial-content-page 스킬 + seo 스킬 동시 적용
    - `<script src="../../assets/nav.js" defer></script>` 반드시 포함
    - `<script src="../../assets/series-nav.js" defer></script>` 시리즈 콘텐츠일 경우 반드시 포함
 3. **확장**: 하나의 주장에서 반박(반대) → 종합(중립) → 실행(실용) → 메타(과정) 시리즈 도출
-4. **등록**: `content/index.md` 인덱스 업데이트 + `index.html`에 시리즈/글 항목 추가
+4. **등록**: `assets/content-data.js`에 시리즈/글 데이터 추가 + `series-nav.js` SERIES 데이터 추가 + `content/index.md` 업데이트
 5. **반복**: 다른 영상/아티클에도 같은 패턴 적용
 
 ## 공통 컴포넌트
@@ -131,6 +158,17 @@ editorial/
 - 시리즈 라벨, 시리즈 제목, 이전/다음 글 제목과 링크를 2컬럼 그리드로 표시
 - **새 콘텐츠 추가 시** `series-nav.js`의 `SERIES` 객체에 해당 시리즈와 글 정보를 추가해야 한다
 - **새 콘텐츠 추가 시** `<script src="../../assets/series-nav.js" defer></script>`를 nav.js 스크립트 바로 다음에 추가한다
+
+### 랜딩 페이지 (`index.html` + `assets/content-data.js` + `assets/index-app.js` + `assets/index.css`)
+- `index.html`은 셸만 담당 (SEO 메타, 마크업 골격, GoatCounter 추적)
+- `content-data.js`에 시리즈/글 데이터를 JS 배열로 관리 → **새 콘텐츠 추가 시 이 파일만 수정**
+- `index-app.js`가 데이터를 읽어 동적 렌더링 + 검색 + 정렬(ASC/DESC) + 모두 펼침/접기 처리
+- `index.css`는 랜딩 페이지 전용 CSS. `editorial-base.css`의 @font-face/변수/리셋을 상속받고, 랜딩 페이지 고유 스타일만 정의
+- **`content-data.js` 데이터 구조:**
+  ```javascript
+  { id: '시리즈-슬러그', seriesNum: 번호, title: '시리즈 제목', description: '설명',
+    articles: [{ num: 1, title: '글 제목', role: '역할', tag: '태그', href: '경로', search: '검색 키워드' }] }
+  ```
 
 ### 네비게이션 (`assets/nav.js`)
 - 모든 콘텐츠 페이지에 자동 삽입되는 상단 네비게이션 바
@@ -179,6 +217,7 @@ editorial/
 - [x] 레포지토리명 editorial로 변경, 모든 URL 반영
 - [x] 공통 CSS 분리 (assets/editorial-base.css)
 - [x] 시리즈 이전/다음 글 네비게이션 (assets/series-nav.js)
+- [x] 랜딩 페이지 리팩토링 (콘텐츠 데이터 분리, 정렬/펼침접기 기능)
 - [ ] OG 이미지 생성 (assets/ 폴더)
 - [ ] Google AdSense 신청 및 광고 코드 삽입
 - [ ] 커스텀 도메인 연결 (선택)
@@ -188,5 +227,11 @@ editorial/
 
 - 콘텐츠 HTML은 `editorial-base.css`(공통) + 인라인 `<style>`(고유) 구조. 공통 디자인 변경 시 CSS 파일만 수정하면 전체 반영
 - 콘텐츠 페이지에 날짜를 화면에 표시하지 않는다 (SEO 메타에만 기록)
-- 새 콘텐츠 추가 시: `content/[시리즈-슬러그]/` 폴더에 넣고, 두 스킬(editorial-content-page + seo) 참조하고, 폰트 preload + Pretendard CDN + `editorial-base.css` 링크 + nav.js + series-nav.js 스크립트 포함하고, `series-nav.js`의 SERIES 데이터에 글 추가하고, `content/index.md` + `index.html` 업데이트. **Google Fonts 외부 링크 사용 금지 (셀프호스팅)**
-- 새 시리즈 추가 시: 이 문서의 콘텐츠 관리 섹션과 `content/index.md` 모두 업데이트
+- 새 콘텐츠 추가 시:
+  1. `content/[시리즈-슬러그]/` 폴더에 HTML 생성 (editorial-content-page + seo 스킬 참조)
+  2. 폰트 preload + Pretendard CDN + `editorial-base.css` 링크 + nav.js + series-nav.js 스크립트 포함
+  3. `series-nav.js`의 SERIES 데이터에 글 추가
+  4. `assets/content-data.js`에 시리즈/글 데이터 추가 (랜딩 페이지 자동 반영)
+  5. `content/index.md` 업데이트 (기록용)
+  6. **Google Fonts 외부 링크 사용 금지 (셀프호스팅)**
+- 새 시리즈 추가 시: 이 문서의 콘텐츠 관리 섹션 + `assets/content-data.js` + `series-nav.js` + `content/index.md` 모두 업데이트

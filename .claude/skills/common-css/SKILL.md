@@ -119,6 +119,15 @@ assets/editorial-base.css
 .closing .sub { max-width: 460px; }
 ```
 
+## 랜딩 페이지 CSS (`assets/index.css`)
+
+랜딩 페이지(`index.html`)는 `editorial-base.css` + `index.css` 두 파일을 로드한다.
+
+- `editorial-base.css`에서 @font-face, `:root` 변수, 리셋, body 스타일을 상속받는다
+- `index.css`에는 랜딩 페이지 고유 스타일만 정의한다 (`.container`, `.toolbar`, `.series-section`, `.article-item`, `.site-footer`, `.control-btn` 등)
+- `.masthead` 스타일은 editorial-base.css와 겹치므로, index.css에서 차이나는 속성만 오버라이드한다
+- **editorial-base.css의 변수를 변경하면 index.css에도 자동 반영된다** (변수 상속)
+
 ## 수정 시 주의사항
 
 - **editorial-base.css를 수정하면 모든 콘텐츠 페이지에 영향을 준다.** 변경 전 전체 페이지에 미치는 영향을 고려한다.
