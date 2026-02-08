@@ -20,243 +20,8 @@
 {"@context":"https://schema.org","@type":"Article","headline":"자기계발이 말하지 않는 것","description":"생존자편향, 구조적 제약, 과학 연구의 한계. 자기계발 산업이 외면하는 팩트 기반 반박.","datePublished":"2026-02-08","dateModified":"2026-02-08","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/wasted-life-series/what-self-help-wont-tell-you.html"}}
 </script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Source+Serif+4:wght@300;400;500;600;700;800;900&display=swap');
-
-  :root {
-    --bg: #faf8f4;
-    --fg: #1a1a18;
-    --muted: #8a8680;
-    --accent: #c43e2a;
-    --rule: #d5d0c8;
-    --card-bg: #f2efe9;
-    --prose: #3a3a36;
-    --secondary: #6a6862;
-    --serif: 'Source Serif 4', 'Pretendard', sans-serif;
-    --mono: 'JetBrains Mono', monospace;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: var(--serif);
-    background: var(--bg);
-    color: var(--fg);
-    line-height: 1.85;
-    -webkit-font-smoothing: antialiased;
-    font-variant-numeric: lining-nums tabular-nums;
-  }
-
-  .page {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 80px 40px 100px;
-  }
-
-  /* MASTHEAD */
-  .masthead {
-    text-align: center;
-    padding-bottom: 56px;
-    border-bottom: 1px solid var(--fg);
-    margin-bottom: 64px;
-  }
-
-  .masthead .issue {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 32px;
-  }
-
-  .masthead h1 {
-    font-size: 3.2rem;
-    font-weight: 400;
-    line-height: 1.2;
-    letter-spacing: -1.5px;
-    color: var(--fg);
-    margin-bottom: 16px;
-  }
-
-  .masthead h1 strong {
-    font-weight: 900;
-    color: var(--accent);
-  }
-
-  .masthead .deck {
-    font-size: 1.1rem;
-    font-weight: 400;
-    color: var(--muted);
-    max-width: 520px;
-    margin: 0 auto;
-    line-height: 1.7;
-  }
-
-  /* SECTION HEADERS */
-  .section-head {
-    margin-top: 72px;
-    margin-bottom: 40px;
-  }
-
-  .section-head .num {
-    font-family: var(--mono);
-    font-size: 0.6rem;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 600;
-    display: block;
-    margin-bottom: 10px;
-  }
-
-  .section-head h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    line-height: 1.3;
-    letter-spacing: -0.5px;
-  }
-
-  .section-head h2 strong {
-    color: var(--accent);
-  }
-
-  /* PROSE */
-  .prose {
-    font-size: 1.05rem;
-    font-weight: 400;
-    line-height: 1.9;
-    color: var(--prose);
-    margin-bottom: 28px;
-  }
-
-  .prose strong {
-    font-weight: 700;
-    color: var(--fg);
-  }
-
-  /* THREE COLUMN */
-  .mechanism-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1px;
-    background: var(--rule);
-    border: 1px solid var(--rule);
-    margin: 40px 0 48px;
-  }
-
-  .mechanism {
-    background: var(--bg);
-    padding: 32px 24px;
-  }
-
-  .mechanism .m-label {
-    font-family: var(--mono);
-    font-size: 0.6rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 500;
-    margin-bottom: 12px;
-  }
-
-  .mechanism h3 {
-    font-size: 1.15rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-    line-height: 1.3;
-  }
-
-  .mechanism p {
-    font-size: 0.88rem;
-    color: var(--secondary);
-    line-height: 1.7;
-  }
-
-  /* PULL QUOTE */
-  .pull-quote {
-    margin: 48px 0;
-    padding: 44px 0;
-    border-top: 1px solid var(--fg);
-    border-bottom: 1px solid var(--fg);
-    text-align: center;
-  }
-
-  .pull-quote p {
-    font-size: 1.5rem;
-    font-weight: 600;
-    line-height: 1.6;
-    color: var(--fg);
-    max-width: 580px;
-    margin: 0 auto;
-  }
-
-  .pull-quote .attr {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 600;
-    margin-top: 20px;
-  }
-
-  /* TECHNIQUE BLOCKS */
-  .technique {
-    margin: 48px 0;
-    padding: 0 0 48px;
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .technique:last-of-type { border-bottom: none; }
-
-  .technique-header {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    margin-bottom: 14px;
-  }
-
-  .technique-header .t-num {
-    font-family: var(--mono);
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--accent);
-    flex-shrink: 0;
-  }
-
-  .technique-header h3 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-  }
-
-  .technique .t-sub {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--muted);
-    margin-bottom: 18px;
-    padding-left: 52px;
-  }
-
-  .technique .t-body {
-    background: var(--card-bg);
-    padding: 24px 28px;
-    font-size: 0.92rem;
-    line-height: 1.85;
-    color: var(--prose);
-  }
-
-  .technique .t-body .formula {
-    font-family: var(--mono);
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--accent);
-    display: block;
-    margin: 10px 0 6px;
-    letter-spacing: 0.5px;
-  }
-
   /* DATA TABLE */
   .data-table {
     width: 100%;
@@ -294,7 +59,7 @@
     font-weight: 700;
   }
 
-  /* TWO COLUMN */
+  /* TWO COLUMN COMPARE */
   .compare-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -332,49 +97,6 @@
     color: var(--fg);
   }
 
-  /* WARNING BOX */
-  .warning-box {
-    margin: 56px 0;
-    border: 1px solid var(--fg);
-    padding: 32px 36px;
-  }
-
-  .warning-box .w-title {
-    font-family: var(--serif);
-    font-size: 0.8rem;
-    letter-spacing: 2px;
-    color: var(--accent);
-    font-weight: 700;
-    margin-bottom: 18px;
-  }
-
-  .warning-list {
-    list-style: none;
-    counter-reset: warn;
-  }
-
-  .warning-list li {
-    font-size: 0.9rem;
-    color: var(--prose);
-    padding: 8px 0 8px 28px;
-    position: relative;
-    border-bottom: 1px solid var(--rule);
-    counter-increment: warn;
-  }
-
-  .warning-list li:last-child { border-bottom: none; }
-
-  .warning-list li::before {
-    content: counter(warn, decimal-leading-zero);
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    font-weight: 700;
-    color: var(--accent);
-    position: absolute;
-    left: 0;
-    top: 10px;
-  }
-
   /* SOURCE NOTE */
   .source-note {
     font-size: 0.78rem;
@@ -388,68 +110,14 @@
     color: var(--secondary);
   }
 
-  /* CLOSING */
-  .closing {
-    margin-top: 72px;
-    padding-top: 48px;
-    border-top: 1px solid var(--fg);
-    text-align: center;
-  }
-
-  .closing .big {
-    font-size: 2.2rem;
-    font-weight: 400;
-    line-height: 1.3;
-    letter-spacing: -0.5px;
-    margin-bottom: 16px;
-  }
-
-  .closing .big strong {
-    font-weight: 900;
-    color: var(--accent);
-  }
-
-  .closing .sub {
-    font-size: 0.95rem;
-    color: var(--muted);
-    max-width: 480px;
-    margin: 0 auto;
-    line-height: 1.8;
-  }
-
-  .footer {
-    margin-top: 64px;
-    padding-top: 20px;
-    border-top: 1px solid var(--rule);
-    text-align: center;
-  }
-
-  .footer p {
-    font-family: var(--mono);
-    font-size: 0.55rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
   @media (max-width: 700px) {
-    .page { padding: 48px 24px 60px; }
-    .masthead h1 { font-size: 2.2rem; }
-    .mechanism-row { grid-template-columns: 1fr; }
     .compare-row { grid-template-columns: 1fr; }
-    .section-head h2 { font-size: 1.5rem; }
-    .pull-quote p { font-size: 1.2rem; }
-    .closing .big { font-size: 1.6rem; }
     .data-table { font-size: 0.8rem; }
     .data-table th, .data-table td { padding: 8px 10px; }
   }
-
-  @media print {
-    body { background: #fff; }
-    .page { padding: 40px 20px; }
-  }
 </style>
 <script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
 </head>
 <body>
 <div class="page">

@@ -39,10 +39,13 @@ description: Use this skill when the user wants to create a single-page HTML doc
 
 이렇게 하면 영문은 Source Serif 4(세리프)로, 한글은 Pretendard(산세리프)로 렌더링된다. 한국 고급 출판물에서 자주 쓰이는 조합이다.
 
-**Pretendard CDN:**
+**Pretendard CDN + 공통 CSS:**
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
 ```
+
+`editorial-base.css`에 변수, 리셋, 타이포그래피, 공통 컴포넌트(masthead, section-head, prose, pull-quote, mechanism-row, technique, warning-box, closing, footer, 반응형, 프린트)가 포함되어 있다. 각 HTML의 `<style>` 태그에는 **해당 페이지 고유 컴포넌트만** 작성한다.
 
 **금지 서체:** Noto Serif KR(한글 세리프 — 무겁고 올드함), Cormorant Garamond(올드스타일 숫자 문제), Inter/Roboto/Arial/system-ui(AI 출력물 느낌).
 

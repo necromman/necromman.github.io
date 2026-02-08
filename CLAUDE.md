@@ -30,10 +30,18 @@ editorial/
 │   └── skills/
 │       ├── editorial-content-page/
 │       │   └── SKILL.md                    # 에디토리얼 HTML 제작 스킬
-│       └── seo/
-│           └── SKILL.md                    # SEO 최적화 스킬
+│       ├── seo/
+│       │   └── SKILL.md                    # SEO 최적화 스킬
+│       ├── common-css/
+│       │   └── SKILL.md                    # 공통 CSS 디자인 시스템 스킬
+│       ├── common-header/
+│       │   └── SKILL.md                    # 공통 네비게이션 헤더 스킬
+│       └── series-nav/
+│           └── SKILL.md                    # 시리즈 네비게이션 스킬
 ├── assets/
-│   └── nav.js                              # 공통 네비게이션 (전 페이지 자동 삽입)
+│   ├── editorial-base.css                  # 콘텐츠 페이지 공통 CSS (디자인 시스템 베이스)
+│   ├── nav.js                              # 공통 네비게이션 (전 페이지 자동 삽입)
+│   └── series-nav.js                       # 시리즈 내 이전/다음 글 네비게이션
 ├── content/                                # 모든 콘텐츠 HTML
 │   ├── index.md                            # 콘텐츠 인덱스 (AI가 자동 관리)
 │   └── wasted-life-series/                 # 시리즈별 폴더 (영문 슬러그)
@@ -58,9 +66,13 @@ editorial/
 |------|------|------|-----------|
 | **editorial-content-page** | `.claude/skills/editorial-content-page/SKILL.md` | 에디토리얼 HTML 제작 규칙 (디자인, 타이포그래피, 레이아웃) | HTML 콘텐츠 생성/수정 시 |
 | **seo** | `.claude/skills/seo/SKILL.md` | SEO 메타 태그, OG 태그, 구조화 데이터, 시맨틱 HTML | HTML 콘텐츠 생성/수정 시 |
+| **common-css** | `.claude/skills/common-css/SKILL.md` | 공통 CSS 디자인 시스템 관리 (editorial-base.css) | 공통 스타일 변경 시, 새 콘텐츠 생성 시 |
+| **common-header** | `.claude/skills/common-header/SKILL.md` | 공통 네비게이션 헤더 (nav.js) 관리 | 네비 수정 시, 새 콘텐츠 추가 시 |
+| **series-nav** | `.claude/skills/series-nav/SKILL.md` | 시리즈 이전/다음 글 네비게이션 (series-nav.js) | 시리즈 콘텐츠 추가/수정 시 |
 
 **스킬 규칙:**
-- HTML 콘텐츠를 생성하거나 수정할 때 **두 스킬 모두** 반드시 참조한다
+- HTML 콘텐츠를 생성하거나 수정할 때 **editorial-content-page + seo** 두 스킬을 반드시 참조한다
+- 공통 CSS나 네비게이션을 수정할 때 **common-css**, **common-header**, **series-nav** 스킬을 참조한다
 - 사용자가 스타일/레이아웃에 불만을 표시하면 editorial-content-page 스킬도 함께 개선한다
 - 스킬은 피드백을 반영하여 지속적으로 업데이트해야 하는 살아있는 문서다
 
@@ -91,11 +103,26 @@ editorial/
 2. **1차 편집**: 스크립트 → Claude로 에디토리얼 HTML 생성
    - editorial-content-page 스킬 + seo 스킬 동시 적용
    - `<script src="../../assets/nav.js" defer></script>` 반드시 포함
+   - `<script src="../../assets/series-nav.js" defer></script>` 시리즈 콘텐츠일 경우 반드시 포함
 3. **확장**: 하나의 주장에서 반박(반대) → 종합(중립) → 실행(실용) → 메타(과정) 시리즈 도출
 4. **등록**: `content/index.md` 인덱스 업데이트 + `index.html`에 시리즈/글 항목 추가
 5. **반복**: 다른 영상/아티클에도 같은 패턴 적용
 
 ## 공통 컴포넌트
+
+### 공통 CSS (`assets/editorial-base.css`)
+- 콘텐츠 페이지의 공통 디자인 시스템 CSS (변수, 리셋, 타이포그래피, 레이아웃 컴포넌트)
+- `:root` 변수, body, `.page`, `.masthead`, `.section-head`, `.prose`, `.pull-quote`, `.mechanism-row`, `.technique`, `.warning-box`, `.closing`, `.footer`, 반응형, 프린트 스타일 포함
+- **새 콘텐츠 추가 시** `<link rel="stylesheet" href="../../assets/editorial-base.css">`를 Pretendard CDN 링크 바로 다음에 추가한다
+- 각 HTML의 `<style>` 태그에는 해당 페이지 **고유 컴포넌트 CSS만** 남긴다 (masthead 오버라이드, 페이지 전용 레이아웃 등)
+- 공통 CSS를 수정하면 모든 콘텐츠 페이지에 일괄 반영된다
+
+### 시리즈 네비게이션 (`assets/series-nav.js`)
+- 콘텐츠 페이지 하단에 같은 시리즈의 이전/다음 글 링크를 표시하는 네비게이션
+- `.footer` 요소 바로 앞에 자동 삽입
+- 시리즈 라벨, 시리즈 제목, 이전/다음 글 제목과 링크를 2컬럼 그리드로 표시
+- **새 콘텐츠 추가 시** `series-nav.js`의 `SERIES` 객체에 해당 시리즈와 글 정보를 추가해야 한다
+- **새 콘텐츠 추가 시** `<script src="../../assets/series-nav.js" defer></script>`를 nav.js 스크립트 바로 다음에 추가한다
 
 ### 네비게이션 (`assets/nav.js`)
 - 모든 콘텐츠 페이지에 자동 삽입되는 상단 네비게이션 바
@@ -142,6 +169,8 @@ editorial/
 - [x] sitemap.xml + robots.txt 생성
 - [x] 공통 네비게이션 헤더 (assets/nav.js)
 - [x] 레포지토리명 editorial로 변경, 모든 URL 반영
+- [x] 공통 CSS 분리 (assets/editorial-base.css)
+- [x] 시리즈 이전/다음 글 네비게이션 (assets/series-nav.js)
 - [ ] OG 이미지 생성 (assets/ 폴더)
 - [ ] Google AdSense 신청 및 광고 코드 삽입
 - [ ] 커스텀 도메인 연결 (선택)
@@ -149,7 +178,7 @@ editorial/
 
 ## 주의사항
 
-- 모든 HTML은 단일 파일 (CSS 인라인, 폰트 CDN 의존) + 공통 nav.js만 외부 참조
+- 콘텐츠 HTML은 `editorial-base.css`(공통) + 인라인 `<style>`(고유) 구조. 공통 디자인 변경 시 CSS 파일만 수정하면 전체 반영
 - 콘텐츠 페이지에 날짜를 화면에 표시하지 않는다 (SEO 메타에만 기록)
-- 새 콘텐츠 추가 시: `content/[시리즈-슬러그]/` 폴더에 넣고, 두 스킬(editorial-content-page + seo) 참조하고, nav.js 스크립트 포함하고, `content/index.md` + `index.html` 업데이트
+- 새 콘텐츠 추가 시: `content/[시리즈-슬러그]/` 폴더에 넣고, 두 스킬(editorial-content-page + seo) 참조하고, `editorial-base.css` 링크 + nav.js + series-nav.js 스크립트 포함하고, `series-nav.js`의 SERIES 데이터에 글 추가하고, `content/index.md` + `index.html` 업데이트
 - 새 시리즈 추가 시: 이 문서의 콘텐츠 관리 섹션과 `content/index.md` 모두 업데이트

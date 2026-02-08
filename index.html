@@ -230,7 +230,7 @@
   }
 
   .article-item:first-child {
-    border-top: 1px solid var(--rule);
+    border-top: none;
   }
 
   .article-item:hover {
@@ -291,6 +291,19 @@
     letter-spacing: 2px;
     color: var(--muted);
     text-transform: uppercase;
+  }
+
+  .visitor-count {
+    display: inline-block;
+    min-width: 120px;
+    padding: 8px 20px;
+    margin-bottom: 12px;
+    border: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: var(--muted);
+    text-align: center;
   }
 
   /* Responsive */
@@ -389,6 +402,9 @@
   </section>
 
   <footer class="site-footer">
+    <div class="visitor-count" id="visitorCount">
+      <span id="visitorNum" style="font-size:1.1rem;font-weight:600;color:var(--fg);letter-spacing:0">0</span>
+    </div>
     <p>Editorial &middot; 2026</p>
   </footer>
 
@@ -461,6 +477,31 @@ function toggleSeries(header) {
   body.classList.toggle('collapsed');
   toggle.classList.toggle('collapsed');
 }
+
+// GoatCounter 누적 방문자 수 표시
+(function() {
+  var numEl = document.getElementById('visitorNum');
+  if (!numEl) return;
+
+  var timer = setInterval(function() {
+    if (window.goatcounter && window.goatcounter.visit_count) {
+      clearInterval(timer);
+      var tmp = document.createElement('span');
+      tmp.setAttribute('data-goatcounter-visits', 'TOTAL');
+      tmp.style.display = 'none';
+      document.body.appendChild(tmp);
+      window.goatcounter.visit_count({
+        append: function() {
+          var count = parseInt(tmp.textContent, 10);
+          if (count > 0) numEl.textContent = count.toLocaleString();
+          tmp.remove();
+        }
+      });
+    }
+  }, 200);
+
+  setTimeout(function() { clearInterval(timer); }, 5000);
+})();
 </script>
 </body>
 </html>
