@@ -2,7 +2,6 @@
   // 시리즈 데이터 — 새 콘텐츠 추가 시 여기에 항목을 추가한다
   var SERIES = {
     'wasted-life-series': {
-      label: 'Series 01',
       title: '99%가 인생을 낭비하는 이유',
       articles: [
         { slug: '99-percent-wasted-life-guide', title: '99퍼센트 인생낭비 적용가이드' },
@@ -13,7 +12,6 @@
       ]
     },
     'bithumb-60t-series': {
-      label: 'Series 02',
       title: '딸깍 한 번의 60조 원',
       articles: [
         { slug: 'bithumb-60-trillion-incident', title: '딸깍 한 번의 60조 원' },
@@ -22,7 +20,6 @@
       ]
     },
     'dev-survival-series': {
-      label: 'Series 03',
       title: 'AI 시대 개발자 생존 보고서',
       articles: [
         { slug: 'ai-replaced-developers-reality', title: 'AI가 개발자를 대체한다는 말, 얼마나 사실인가' },
@@ -32,7 +29,6 @@
       ]
     },
     'vibe-coding-series': {
-      label: 'Series 04',
       title: '그래서 바이브 코딩은 뭘로 해야 되는데?',
       articles: [
         { slug: 'what-is-vibe-coding', title: '코드를 잊어버려라' },
@@ -44,7 +40,6 @@
       ]
     },
     'openclaw-series': {
-      label: 'Series 05',
       title: 'OpenClaw 해부',
       articles: [
         { slug: 'what-is-openclaw', title: '이름 다섯 개, 스타 18만 — OpenClaw은 대체 뭔가' },
@@ -53,7 +48,6 @@
       ]
     },
     'lineage-classic-series': {
-      label: 'Series 06',
       title: '린저씨의 귀환',
       articles: [
         { slug: 'lineage-classic-history', title: '1998년, 아덴의 탄생' },
@@ -63,7 +57,6 @@
       ]
     },
     'claude-cowork-series': {
-      label: 'Series 07',
       title: '딸깍이 소프트웨어를 죽인다고?',
       articles: [
         { slug: 'saaspocalypse-what-happened', title: '7일 만에 1조 달러가 증발했다' },
@@ -73,7 +66,6 @@
       ]
     },
     'vibe-design-series': {
-      label: 'Series 08',
       title: '디자이너 없이 제품 만들기',
       articles: [
         { slug: 'purple-gradient-syndrome', title: '보라색 그라디언트 증후군' },
@@ -84,7 +76,6 @@
       ]
     },
     'git-series': {
-      label: 'Series 09',
       title: 'Git, pair 없이 살아남기',
       articles: [
         { slug: 'git-junior-survival-guide', title: 'commit, push, 기도 — 주니어의 Git' },
@@ -95,7 +86,6 @@
       ]
     },
     'gitlab-migration-series': {
-      label: 'Series 10',
       title: 'CTO의 깃랩 이사 공지가 불안한 이유',
       articles: [
         { slug: 'gitlab-migration-notice-anatomy', title: '내일 GitLab 주소 바뀝니다' },
@@ -104,7 +94,6 @@
       ]
     },
     'server-infra-guide-series': {
-      label: 'Series 11',
       title: '192.168.0.x의 규칙',
       articles: [
         { slug: 'server-infra-overview', title: '같은 네트워크, 제각각의 역할' },
@@ -114,7 +103,6 @@
       ]
     },
     'innobiz-guide-series': {
-      label: 'Series 12',
       title: '이노비즈 인증, 서류가 기술을 이긴다',
       articles: [
         { slug: 'innobiz-certification-guide', title: '서류가 기술을 증명한다' }
@@ -126,6 +114,7 @@
   var path = window.location.pathname;
   var filename = path.split('/').pop().replace('.html', '');
   var currentSeries = null;
+  var currentSeriesKey = null;
   var currentIndex = -1;
 
   for (var seriesKey in SERIES) {
@@ -133,6 +122,7 @@
     for (var i = 0; i < series.articles.length; i++) {
       if (series.articles[i].slug === filename) {
         currentSeries = series;
+        currentSeriesKey = seriesKey;
         currentIndex = i;
         break;
       }
@@ -142,6 +132,11 @@
 
   if (!currentSeries || currentIndex === -1) return;
 
+  // 시리즈 번호를 객체 순서에서 자동 계산
+  var seriesKeys = Object.keys(SERIES);
+  var seriesNum = seriesKeys.indexOf(currentSeriesKey) + 1;
+  var label = 'Series ' + (seriesNum < 10 ? '0' + seriesNum : String(seriesNum));
+
   var prev = currentIndex > 0 ? currentSeries.articles[currentIndex - 1] : null;
   var next = currentIndex < currentSeries.articles.length - 1 ? currentSeries.articles[currentIndex + 1] : null;
 
@@ -150,7 +145,7 @@
   // 네비게이션 HTML 생성
   var html = '<div style="border-top:1px solid #1a1a18;padding-top:12px;margin-bottom:8px">' +
     '<span style="font-family:\'JetBrains Mono\',monospace;font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:#c43e2a;font-weight:600">' +
-    currentSeries.label + '</span>' +
+    label + '</span>' +
     '<span style="font-family:\'Source Serif 4\',Pretendard,sans-serif;font-size:0.85rem;color:#8a8680;margin-left:12px">' +
     currentSeries.title + '</span>' +
     '</div>';

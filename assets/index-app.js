@@ -24,9 +24,7 @@
   function getSortedData() {
     var data = window.CONTENT_DATA.slice();
     if (sortOrder === 'desc') {
-      data.sort(function (a, b) { return b.seriesNum - a.seriesNum; });
-    } else {
-      data.sort(function (a, b) { return a.seriesNum - b.seriesNum; });
+      data.reverse();
     }
     return data;
   }
@@ -36,10 +34,11 @@
     var html = '';
 
     data.forEach(function (series) {
+      var seriesNum = window.CONTENT_DATA.indexOf(series) + 1;
       var isCollapsed = !!collapsed[series.id];
       html += '<section class="series-section" data-series="' + series.id + '">'
         + '<div class="series-header" data-sid="' + series.id + '">'
-        + '<span class="series-label">Series ' + pad(series.seriesNum) + '</span>'
+        + '<span class="series-label">Series ' + pad(seriesNum) + '</span>'
         + '<h2 class="series-title">' + esc(series.title) + '</h2>'
         + '<span class="series-toggle' + (isCollapsed ? ' collapsed' : '') + '">&#9660;</span>'
         + '</div>'
@@ -50,10 +49,10 @@
         + '</div>'
         + '<nav><ul class="article-list">';
 
-      series.articles.forEach(function (a) {
+      series.articles.forEach(function (a, aIdx) {
         html += '<li>'
           + '<a class="article-item" href="' + a.href + '" data-search="' + esc(a.search) + '">'
-          + '<span class="article-num">' + pad(a.num) + '</span>'
+          + '<span class="article-num">' + pad(aIdx + 1) + '</span>'
           + '<div class="article-info">'
           + '<div class="article-title">' + esc(a.title) + '</div>'
           + '<div class="article-role">' + esc(a.role) + '</div>'
