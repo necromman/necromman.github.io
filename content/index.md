@@ -107,6 +107,16 @@ Claude Cowork 출시 후 7일 만에 1조 달러가 증발한 SaaSpocalypse 사�
 | 04 | `git-branching-strategies` | 브랜치 전략은 팀의 거울이다 | 전략 — Git Flow vs GitHub Flow vs Trunk-Based | 2026-02-09 |
 | 05 | `git-productivity-setup` | .gitconfig 하나로 생산성 2배 | 생산성 — 추천 도구, 설정, AI 연동 | 2026-02-09 |
 
+### gitlab-migration-series — "CTO의 깃랩 이사 공지가 불안한 이유" 시리즈
+
+CTO가 "내일 깃랩 도메인 바꿉니다"라고 했을 때. NAS에서 전용 서버로의 GitLab 마이그레이션 — 공지문 해부, 정석 가이드, 개발자 생존 스크립트까지.
+
+| # | 슬러그 | 한글 제목 | 역할 | 생성일 |
+|---|--------|-----------|------|--------|
+| 01 | `gitlab-migration-notice-anatomy` | 내일 GitLab 주소 바뀝니다 | 분석 — CTO 공지문 해부, 도메인 변경 시 깨지는 7가지 | 2026-02-09 |
+| 02 | `gitlab-migration-the-right-way` | GitLab 서버 이사 — 정석은 이렇다 | 가이드 — NAS → 전용 서버 마이그레이션 정석 + 도메인 전략 | 2026-02-09 |
+| 03 | `gitlab-migration-developer-survival` | 월요일 아침, git push가 안 될 때 | 실전 — 개발자 생존 스크립트, 체크리스트, CTO 제안법 | 2026-02-09 |
+
 ---
 
 ## 인덱스 관리 규칙

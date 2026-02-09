@@ -386,5 +386,37 @@ window.CONTENT_DATA = [
         search: 'gitconfig alias delta lazygit gh CLI Git 생산성 AI 커밋 도구 추천 설정 Rust'
       }
     ]
+  },
+  {
+    id: 'gitlab-migration',
+    seriesNum: 10,
+    title: 'CTO의 깃랩 이사 공지가 불안한 이유',
+    description: 'CTO가 "내일 깃랩 도메인 바꿉니다"라고 했을 때. NAS에서 전용 서버로의 GitLab 마이그레이션 — 공지문 해부, 정석 가이드, 개발자 생존 스크립트까지.',
+    articles: [
+      {
+        num: 1,
+        title: '내일 GitLab 주소 바뀝니다',
+        role: 'CTO 공지문 해부 — 도메인 변경 시 깨지는 7가지',
+        tag: '분석',
+        href: 'content/gitlab-migration-series/gitlab-migration-notice-anatomy.html',
+        search: 'GitLab 마이그레이션 도메인 변경 CTO 공지 remote CI/CD webhook ITIL 변경관리 서버 이전'
+      },
+      {
+        num: 2,
+        title: 'GitLab 서버 이사 — 정석은 이렇다',
+        role: 'NAS → 전용 서버 마이그레이션 정석 가이드 + 도메인 전략',
+        tag: '가이드',
+        href: 'content/gitlab-migration-series/gitlab-migration-the-right-way.html',
+        search: 'GitLab 백업 복원 gitlab-backup Docker 볼륨 DNS A레코드 NAS 시놀로지 마이그레이션 4주 플랜'
+      },
+      {
+        num: 3,
+        title: '월요일 아침, git push가 안 될 때',
+        role: '개발자 생존 가이드 — 스크립트, 체크리스트, CTO 제안법',
+        tag: '실전',
+        href: 'content/gitlab-migration-series/gitlab-migration-developer-survival.html',
+        search: 'git remote set-url 스크립트 자동화 SSH 키 gitmodules 서브모듈 체크리스트 개발자 마이그레이션 생존'
+      }
+    ]
   }
 ];

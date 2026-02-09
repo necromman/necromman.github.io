@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>월요일 아침, git push가 안 될 때 — Editorial</title>
+<meta name="description" content="GitLab 도메인이 바뀌었을 때 개발자가 해야 할 일. remote URL 일괄 변경 스크립트, SSH 키 설정, 서브모듈 동기화, 그리고 CTO에게 제안하는 더 나은 방법.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/gitlab-migration-series/gitlab-migration-developer-survival.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="월요일 아침, git push가 안 될 때">
+<meta property="og:description" content="GitLab 도메인이 바뀌었을 때 개발자가 해야 할 일. remote URL 일괄 변경 스크립트, SSH 키 설정, 서브모듈 동기화, 그리고 CTO에게 제안하는 더 나은 방법.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/gitlab-migration-series/gitlab-migration-developer-survival.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-09">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="월요일 아침, git push가 안 될 때">
+<meta name="twitter:description" content="GitLab 도메인이 바뀌었을 때 개발자가 해야 할 일. remote URL 일괄 변경 스크립트, SSH 키 설정, 서브모듈 동기화, 그리고 CTO에게 제안하는 더 나은 방법.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"월요일 아침, git push가 안 될 때","description":"GitLab 도메인이 바뀌었을 때 개발자가 해야 할 일. remote URL 일괄 변경 스크립트, SSH 키 설정, 서브모듈 동기화, 그리고 CTO에게 제안하는 더 나은 방법.","datePublished":"2026-02-09","dateModified":"2026-02-09","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/gitlab-migration-series/gitlab-migration-developer-survival.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead .deck { max-width: 560px; }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    padding: 20px 24px;
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    line-height: 1.75;
+    overflow-x: auto;
+    white-space: pre;
+    margin: 24px 0;
+    color: var(--prose);
+    border-radius: 0;
+  }
+  .code-block .code-label {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .code-block .code-comment {
+    color: var(--muted);
+  }
+  .code-block .code-key {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* SCENARIO BOX */
+  .scenario-box {
+    border-left: 3px solid var(--accent);
+    background: var(--card-bg);
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+  .scenario-box .s-label {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .scenario-box p {
+    font-size: 0.92rem;
+    line-height: 1.85;
+    color: var(--prose);
+  }
+  .scenario-box p + p {
+    margin-top: 12px;
+  }
+
+  /* 2-COLUMN MECHANISM */
+  .mechanism-2col {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* COMPARISON COLUMNS */
+  .compare-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .compare-col {
+    background: var(--bg);
+    padding: 32px 28px;
+  }
+  .compare-col .col-label {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--fg);
+  }
+  .compare-col .col-item {
+    font-size: 0.88rem;
+    color: var(--secondary);
+    line-height: 1.75;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .compare-col .col-item:last-child {
+    border-bottom: none;
+  }
+  .compare-col .col-item strong {
+    color: var(--fg);
+    font-weight: 700;
+  }
+
+  @media (max-width: 700px) {
+    .mechanism-2col { grid-template-columns: 1fr; }
+    .compare-cols { grid-template-columns: 1fr; }
+    .scenario-box { padding: 20px 20px; }
+    .code-block { padding: 16px 18px; font-size: 0.7rem; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="issue">gitlab migration series — article 03</div>
+    <h1>월요일 아침,<br><strong>git push</strong>가 안 될 때</h1>
+    <p class="deck">도메인이 바뀌든 서버가 옮겨지든, 개발자에게 중요한 건 딱 하나다 — 내 코드가 안전한가. 원커맨드 스크립트부터 CTO에게 보내는 제안서까지.</p>
+  </header>
+
+  <!-- PART I -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part I — Monday Morning</span>
+      <h2>출근하면 <strong>벌어지는 일</strong></h2>
+    </div>
+
+    <p class="prose">
+      월요일 아침 9시. 터미널을 열고 습관적으로 <strong>git pull</strong>을 입력한다. "fatal: Could not resolve host: git.prost.team". 어제 저녁 CTO가 올린 공지를 뒤늦게 확인한다. git.prost.team은 이제 없다. git.prost.kr이 새 주소다.
+    </p>
+
+    <div class="scenario-box">
+      <span class="s-label">당황하지 말 것</span>
+      <p>가장 먼저 해야 할 일은 당황하지 않는 것이다. 로컬에 클론된 코드는 안전하다. Git은 분산 버전 관리 시스템이고, 로컬 저장소에 전체 히스토리가 있다. <strong>remote URL만 바꿔주면 된다.</strong></p>
+    </div>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">01</span>
+        <h3>remote URL 변경</h3>
+      </div>
+      <div class="t-sub">가장 먼저 해야 할 것</div>
+      <div class="t-body">
+        현재 설정된 remote URL을 확인하고, 구 도메인을 새 도메인으로 변경한다. HTTPS와 SSH 중 자신이 사용하는 방식에 맞게 설정한다.
+      </div>
+    </div>
+
+    <div class="code-block"><span class="code-label">remote url 변경</span>
+<span class="code-comment"># 현재 remote 확인</span>
+<span class="code-key">git remote -v</span>
+
+<span class="code-comment"># origin URL 변경</span>
+<span class="code-key">git remote set-url origin</span> https://git.prost.kr/group/project.git
+
+<span class="code-comment"># 변경 확인</span>
+<span class="code-key">git remote -v</span>
+
+<span class="code-comment"># SSH를 사용하는 경우</span>
+<span class="code-key">git remote set-url origin</span> git@git.prost.kr:group/project.git</div>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">02</span>
+        <h3>SSH 키 확인</h3>
+      </div>
+      <div class="t-sub">SSH 사용자라면 반드시 확인</div>
+      <div class="t-body">
+        SSH로 GitLab에 접속하고 있었다면 새 도메인에 대한 SSH 접속을 확인해야 한다. known_hosts에 새 호스트가 등록되어 있지 않으면 첫 접속 시 경고가 뜬다. <strong>~/.ssh/config</strong>에 호스트 별칭을 사용하고 있었다면 새 호스트를 추가한다.
+      </div>
+    </div>
+
+    <div class="code-block"><span class="code-label">ssh 설정</span>
+<span class="code-comment"># SSH 접속 테스트</span>
+<span class="code-key">ssh -T</span> git@git.prost.kr
+
+<span class="code-comment"># ~/.ssh/config에 새 호스트 추가 (필요 시)</span>
+<span class="code-key">Host</span> git.prost.kr
+    <span class="code-key">HostName</span> git.prost.kr
+    <span class="code-key">User</span> git
+    <span class="code-key">IdentityFile</span> ~/.ssh/id_ed25519
+    <span class="code-key">PreferredAuthentications</span> publickey</div>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">03</span>
+        <h3>.gitmodules 확인</h3>
+      </div>
+      <div class="t-sub">서브모듈을 사용하는 프로젝트</div>
+      <div class="t-body">
+        서브모듈을 사용하는 프로젝트라면 <strong>.gitmodules</strong> 파일에 구 도메인이 하드코딩되어 있다. URL을 수정한 후 반드시 <strong>git submodule sync</strong>를 실행해야 실제 설정에 반영된다.
+      </div>
+    </div>
+
+    <div class="code-block"><span class="code-label">submodule 동기화</span>
+<span class="code-comment"># .gitmodules 파일에서 구 도메인 찾기</span>
+<span class="code-key">grep -r</span> "git.prost.team" .gitmodules
+
+<span class="code-comment"># URL 수정 후 동기화</span>
+<span class="code-key">git submodule sync</span> --recursive
+<span class="code-key">git submodule update</span> --init --recursive</div>
+  </section>
+
+  <!-- PART II -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part II — Automation</span>
+      <h2>한 방에 해결하는 <strong>자동화 스크립트</strong></h2>
+    </div>
+
+    <p class="prose">
+      리포지토리가 1~2개면 수동으로 해도 된다. 하지만 10개, 20개라면 스크립트가 필요하다.
+    </p>
+
+    <p class="prose">
+      <strong>스크립트 1</strong> — 현재 디렉토리의 단일 리포지토리에서 remote URL을 한 줄로 변경한다.
+    </p>
+
+    <div class="code-block"><span class="code-label">one-liner</span>
+<span class="code-key">git remote set-url origin</span> $(git remote get-url origin | <span class="code-key">sed</span> 's/git.prost.team/git.prost.kr/g')</div>
+
+    <p class="prose">
+      <strong>스크립트 2</strong> — 워크스페이스 전체를 순회하며 모든 리포지토리의 remote URL을 일괄 변경한다.
+    </p>
+
+    <div class="code-block"><span class="code-label">update-all-remotes.sh</span>
+<span class="code-comment">#!/bin/bash</span>
+<span class="code-comment"># 사용법: ./update-all-remotes.sh ~/workspace</span>
+
+<span class="code-key">OLD_DOMAIN</span>="git.prost.team"
+<span class="code-key">NEW_DOMAIN</span>="git.prost.kr"
+<span class="code-key">WORKSPACE</span>="${1:-.}"
+<span class="code-key">COUNT</span>=0
+
+<span class="code-key">find</span> "$WORKSPACE" -name ".git" -type d | <span class="code-key">while read</span> gitdir; <span class="code-key">do</span>
+    repo=$(<span class="code-key">dirname</span> "$gitdir")
+    <span class="code-key">cd</span> "$repo"
+
+    <span class="code-key">for</span> remote <span class="code-key">in</span> $(git remote); <span class="code-key">do</span>
+        old_url=$(git remote get-url "$remote")
+        <span class="code-key">if</span> echo "$old_url" | grep -q "$OLD_DOMAIN"; <span class="code-key">then</span>
+            new_url=$(echo "$old_url" | <span class="code-key">sed</span> "s|$OLD_DOMAIN|$NEW_DOMAIN|g")
+            git remote set-url "$remote" "$new_url"
+            echo "[OK] $repo ($remote): $new_url"
+            COUNT=$((COUNT + 1))
+        <span class="code-key">fi</span>
+    <span class="code-key">done</span>
+
+    <span class="code-key">cd</span> - > /dev/null
+<span class="code-key">done</span>
+
+echo ""
+echo "총 ${COUNT}개 remote URL 변경 완료"</div>
+
+    <p class="prose">
+      <strong>스크립트 3</strong> — 변경이 제대로 되었는지 검증한다. 구 도메인이 남아있으면 경고를 출력한다.
+    </p>
+
+    <div class="code-block"><span class="code-label">verify-remotes.sh</span>
+<span class="code-comment">#!/bin/bash</span>
+<span class="code-comment"># 변경 후 검증 — 구 도메인이 남아있으면 경고</span>
+
+<span class="code-key">OLD_DOMAIN</span>="git.prost.team"
+<span class="code-key">WORKSPACE</span>="${1:-.}"
+<span class="code-key">FOUND</span>=0
+
+<span class="code-key">find</span> "$WORKSPACE" -name ".git" -type d | <span class="code-key">while read</span> gitdir; <span class="code-key">do</span>
+    repo=$(<span class="code-key">dirname</span> "$gitdir")
+    <span class="code-key">cd</span> "$repo"
+
+    <span class="code-key">for</span> remote <span class="code-key">in</span> $(git remote); <span class="code-key">do</span>
+        url=$(git remote get-url "$remote")
+        <span class="code-key">if</span> echo "$url" | grep -q "$OLD_DOMAIN"; <span class="code-key">then</span>
+            echo "[WARNING] $repo ($remote): $url"
+            FOUND=$((FOUND + 1))
+        <span class="code-key">fi</span>
+    <span class="code-key">done</span>
+
+    <span class="code-key">cd</span> - > /dev/null
+<span class="code-key">done</span>
+
+<span class="code-key">if</span> [ "$FOUND" -eq 0 ]; <span class="code-key">then</span>
+    echo "모든 remote URL이 정상 변경되었습니다."
+<span class="code-key">fi</span></div>
+  </section>
+
+  <!-- PART III -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part III — A Better Way</span>
+      <h2>CTO에게 제안하는 <strong>한 가지</strong></h2>
+    </div>
+
+    <p class="prose">
+      아직 마이그레이션이 시작되지 않았다면, 혹은 비슷한 상황을 앞두고 있다면, CTO에게 이렇게 제안할 수 있다.
+    </p>
+
+    <div class="scenario-box">
+      <span class="s-label">CTO에게 보내는 메시지</span>
+      <p>"서버 이전은 찬성합니다. 한 가지 제안이 있는데, 도메인은 기존 git.prost.team을 유지하고 <strong>DNS A 레코드만 새 서버 IP로 변경</strong>하면 어떨까요? 이렇게 하면 모든 개발자의 remote URL, CI/CD 파이프라인, Slack webhook이 그대로 작동합니다. 개발자 전원이 수동으로 remote를 바꾸는 것보다 DNS 설정 한 줄 바꾸는 게 리스크가 훨씬 적습니다."</p>
+    </div>
+
+    <div class="compare-cols">
+      <div class="compare-col">
+        <div class="col-label">도메인 변경</div>
+        <div class="col-item">개발자 전원 <strong>remote 변경 필요</strong></div>
+        <div class="col-item">CI/CD 파이프라인 <strong>수정</strong></div>
+        <div class="col-item">webhook <strong>재설정</strong></div>
+        <div class="col-item">Container Registry 이미지 <strong>retag</strong></div>
+        <div class="col-item">최소 <strong>2주</strong> 소요</div>
+        <div class="col-item">롤백 <strong>복잡</strong></div>
+      </div>
+      <div class="compare-col">
+        <div class="col-label">DNS만 변경</div>
+        <div class="col-item">개발자 작업 <strong>0건</strong></div>
+        <div class="col-item">CI/CD <strong>그대로 작동</strong></div>
+        <div class="col-item">webhook <strong>그대로 작동</strong></div>
+        <div class="col-item">Registry <strong>그대로 작동</strong></div>
+        <div class="col-item">DNS 전파 <strong>5~30분</strong></div>
+        <div class="col-item">롤백은 <strong>DNS 원복</strong></div>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      <p>좋은 인프라 변경은<br><strong>개발자가 눈치채지 못하는 변경이다.</strong></p>
+    </div>
+
+    <p class="prose">
+      물론 도메인 변경이 불가피한 상황도 있다. prost.team 도메인의 소유권/갱신 문제, 회사 리브랜딩, 보안 정책 등. 그럴 때는 1편에서 분석한 문제점을 인지하고, 2편의 4주 타임라인을 따르는 것이 정석이다.
+    </p>
+  </section>
+
+  <!-- PART IV -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part IV — Checklist</span>
+      <h2>마이그레이션 <strong>생존 체크리스트</strong></h2>
+    </div>
+
+    <div class="warning-box">
+      <div class="w-title">마이그레이션 전 (Before)</div>
+      <ol class="warning-list">
+        <li>모든 로컬 변경사항을 commit + push 했는가</li>
+        <li>중요 브랜치가 remote에 전부 올라가 있는가 (<strong>git branch -a</strong>로 확인)</li>
+        <li>stash에 남겨둔 작업이 있는가 (<strong>git stash list</strong>)</li>
+        <li>서브모듈을 사용하는 프로젝트가 있는가</li>
+        <li>CI/CD 파이프라인에서 구 도메인을 하드코딩한 곳이 있는가</li>
+      </ol>
+    </div>
+
+    <div class="warning-box">
+      <div class="w-title">마이그레이션 중 (During)</div>
+      <ol class="warning-list">
+        <li>CTO/인프라팀에 마이그레이션 완료 확인을 받았는가</li>
+        <li>새 도메인으로 SSH/HTTPS 접속이 되는가</li>
+        <li><strong>update-all-remotes.sh</strong> 스크립트를 실행했는가</li>
+        <li><strong>verify-remotes.sh</strong>로 구 도메인 잔존 여부를 확인했는가</li>
+        <li>git pull이 정상 작동하는가</li>
+      </ol>
+    </div>
+
+    <div class="warning-box">
+      <div class="w-title">마이그레이션 후 (After)</div>
+      <ol class="warning-list">
+        <li>IDE(VS Code, IntelliJ)의 Git 설정이 새 URL을 가리키는가</li>
+        <li>.gitmodules가 있다면 업데이트 + <strong>git submodule sync</strong> 했는가</li>
+        <li>Docker 이미지를 빌드하는 프로젝트의 레지스트리 URL을 변경했는가</li>
+        <li>로컬 CI/CD 설정(.gitlab-ci.yml)에 구 도메인 참조가 남아있지 않은가</li>
+        <li>브라우저 북마크를 업데이트했는가</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="closing">
+    <h2>좋은 인프라 변경은<br><strong>개발자가 눈치채지 못하는 변경이다</strong></h2>
+    <p class="sub">서버가 바뀌든 도메인이 바뀌든, 개발자에게 중요한 건 코드가 안전하고 워크플로우가 끊기지 않는 것이다. 스크립트를 준비하고, 더 나은 방법을 제안하자.</p>
+  </div>
+
+  <footer class="footer">
+    <p>Sources: GitLab Docs &mdash; Update Git Remote URL &middot; GitLab Docs &mdash; Submodules &middot; Git SCM &mdash; Submodules &middot; Atlassian &mdash; Git Submodule Tutorial</p>
+    <p>Research assisted by Claude &middot; 2026</p>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>내일 GitLab 주소 바뀝니다 — Editorial</title>
+<meta name="description" content="CTO가 '내일 깃랩 도메인 바꿉니다'라고 했을 때, 그 한 줄 공지 뒤에 숨어있는 7가지 문제. 도메인 변경이 단순한 URL 교체가 아닌 이유.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/gitlab-migration-series/gitlab-migration-notice-anatomy.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="내일 GitLab 주소 바뀝니다">
+<meta property="og:description" content="CTO가 '내일 깃랩 도메인 바꿉니다'라고 했을 때, 그 한 줄 공지 뒤에 숨어있는 7가지 문제. 도메인 변경이 단순한 URL 교체가 아닌 이유.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/gitlab-migration-series/gitlab-migration-notice-anatomy.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-09">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="내일 GitLab 주소 바뀝니다">
+<meta name="twitter:description" content="CTO가 '내일 깃랩 도메인 바꿉니다'라고 했을 때, 그 한 줄 공지 뒤에 숨어있는 7가지 문제. 도메인 변경이 단순한 URL 교체가 아닌 이유.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"내일 GitLab 주소 바뀝니다","description":"CTO가 '내일 깃랩 도메인 바꿉니다'라고 했을 때, 그 한 줄 공지 뒤에 숨어있는 7가지 문제. 도메인 변경이 단순한 URL 교체가 아닌 이유.","datePublished":"2026-02-09","dateModified":"2026-02-09","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/gitlab-migration-series/gitlab-migration-notice-anatomy.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  /* NOTICE QUOTE BOX */
+  .notice-box {
+    border-left: 4px solid var(--accent);
+    background: var(--card-bg);
+    padding: 32px 36px;
+    margin: 40px 0 48px;
+  }
+  .notice-box .notice-from {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .notice-box p {
+    font-size: 0.92rem;
+    color: var(--prose);
+    line-height: 1.85;
+    margin-bottom: 12px;
+  }
+  .notice-box p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* 2-COLUMN MECHANISM */
+  .mechanism-2col {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* COMPARISON COLUMNS */
+  .compare-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .compare-col {
+    background: var(--bg);
+    padding: 32px 28px;
+  }
+  .compare-col .col-label {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--fg);
+  }
+  .compare-col .col-item {
+    font-size: 0.88rem;
+    color: var(--secondary);
+    line-height: 1.75;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .compare-col .col-item:last-child {
+    border-bottom: none;
+  }
+  .compare-col .col-item strong {
+    color: var(--fg);
+    font-weight: 700;
+  }
+
+  @media (max-width: 700px) {
+    .mechanism-2col { grid-template-columns: 1fr; }
+    .compare-cols { grid-template-columns: 1fr; }
+    .notice-box { padding: 24px 20px; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="issue">gitlab migration series — article 01</div>
+    <h1>내일 <strong>GitLab 주소</strong><br>바뀝니다</h1>
+    <p class="deck">CTO의 한 줄 공지가 개발팀 전체의 월요일을 바꿔놓을 수 있다. 도메인 변경이 왜 단순한 URL 교체가 아닌지, 하나씩 뜯어본다.</p>
+  </header>
+
+  <!-- PART I -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part I — The Notice</span>
+      <h2>토요일 저녁, 단체방에 올라온 <strong>공지</strong></h2>
+    </div>
+
+    <div class="notice-box">
+      <div class="notice-from">CTO — Saturday 18:45</div>
+      <p>git.prost.team 쓰시는 분 에게 안내말씀</p>
+      <p>내일 git.prost.kr 로 옮길 예정입니다.<br>부탁 드릴 내용이 있는데 아래에 해당 하시는 분들 확인 하셔서 말씀 부탁드립니다</p>
+      <p>토요일 18시 45분 이후에 git.prost.team 에 commit &amp; push 하신 분들 추후에 git.prost.kr 로 한번 더 부탁드립니다.<br>git.prost.kr 설정 완료하고 모든 프로젝트의 remote를 git.prost.kr로 옮겨주세요.<br>prost.kr 에 올라온 프로젝트들 사내 별도 VM에 옮겨주세요. 필요하신 사양, VM 대수 말씀 해주시면 서버 만들어 드리겠습니다. ( VM 당 4 Core, RAM 16 GB 제한 )<br>그 서버에 필요하신 세팅 후 말씀 부탁드립니다.<br>내일 18시 이후에는 prost.kr 에 연결 되어있는 내부 IP 설정 없애고 서버 PC로 옮길 예정입니다.<br>다들 바쁘시겠지만 협조 부탁드립니다.</p>
+    </div>
+
+    <p class="prose">
+      NAS에서 git.prost.team으로 GitLab을 서빙하고 있었다. 자사 서버 구매를 계기로 prost.kr 도메인으로 깃랩을 이전하는 작업이다. <strong>서버 이전 자체는 올바른 판단이다.</strong> NAS의 성능 한계, 디스크 I/O 병목, 백업 제약 — 전용 서버로 옮기면 해결되는 문제들이다.
+    </p>
+
+    <p class="prose">
+      하지만 이 공지에는 몇 가지 중요한 문제가 숨어 있다. 서버를 옮기는 것과 <strong>도메인을 바꾸는 것</strong>은 전혀 다른 차원의 작업이다. 서버 이전은 하드웨어의 문제다. 도메인 변경은 그 서버에 의존하는 <strong>모든 시스템, 모든 설정, 모든 링크</strong>의 문제다.
+    </p>
+  </section>
+
+  <!-- PART II -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part II — The Blast Radius</span>
+      <h2>도메인 하나 바꾸면 <strong>깨지는 것들</strong></h2>
+    </div>
+
+    <p class="prose">
+      git.prost.team이 git.prost.kr로 바뀌는 순간 영향을 받는 범위를 나열한다. "URL 하나 바꾸면 되지 않나?"라는 질문에 대한 답이다.
+    </p>
+
+    <div class="mechanism-row">
+      <div class="mechanism">
+        <div class="m-label">01 — Git Remote</div>
+        <h3>로컬 클론 전체</h3>
+        <p>모든 개발자의 모든 로컬 클론에 하드코딩된 remote URL이 깨진다. 개발자 N명 x 리포지토리 M개 = <strong>N x M번의 수동 변경.</strong> 한 명이라도 누락하면 push가 실패한다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">02 — CI/CD Pipeline</div>
+        <h3>파이프라인 전체</h3>
+        <p>.gitlab-ci.yml의 include 지시자, trigger URL, 환경 URL, 아티팩트 다운로드 경로, <strong>Runner 등록 토큰</strong>이 전부 구 도메인을 가리킨다. 파이프라인이 침묵 속에 실패한다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">03 — Webhook</div>
+        <h3>외부 연동 전체</h3>
+        <p>Slack 알림, Jira 연동, 배포 후 알림 등 프로젝트별로 설정된 webhook URL이 전부 무효화된다. <strong>프로젝트가 100개면 webhook 설정도 100개.</strong></p>
+      </div>
+    </div>
+
+    <div class="mechanism-row">
+      <div class="mechanism">
+        <div class="m-label">04 — Container Registry</div>
+        <h3>Docker 이미지 전체</h3>
+        <p>Docker 이미지 태그에 호스트명이 포함된다. <strong>git.prost.team:5050/group/project:tag</strong> — 모든 이미지를 pull, retag, push 해야 한다. Dockerfile과 docker-compose.yml의 레지스트리 URL도 전부 수정.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">05 — GitLab Pages</div>
+        <h3>사내 문서 링크</h3>
+        <p>기존 URL이 404를 반환한다. 사내 문서에 공유된 Pages 링크가 <strong>전부 사망한다.</strong> 위키, 컨플루언스, 슬랙 메시지에 붙여넣은 모든 링크가 죽은 링크가 된다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">06 — DB Internal URLs</div>
+        <h3>이슈, MR, 위키</h3>
+        <p>이슈, MR 설명, 위키, 릴리스 노트에 하드코딩된 전체 URL은 자동으로 갱신되지 않는다. <strong>수천 개의 데드 링크</strong>가 DB에 남는다.</p>
+      </div>
+    </div>
+
+    <div class="warning-box">
+      <div class="w-title">그 외에도 깨지는 것들</div>
+      <ol class="warning-list">
+        <li>브라우저 북마크 — 개발자마다 수십 개씩 저장해둔 프로젝트, 이슈, MR 링크</li>
+        <li>IDE 설정 — VS Code, IntelliJ의 저장된 Git remote URL, 프로젝트 설정 파일</li>
+        <li>셸 스크립트 — 배포 스크립트, 자동화 스크립트에 하드코딩된 호스트명</li>
+        <li>SSH config — ~/.ssh/config에 설정된 호스트 별칭과 키 매핑</li>
+        <li>.gitmodules — 서브모듈을 사용하는 프로젝트의 모든 참조 URL</li>
+        <li>사내 위키/컨플루언스 — 기술 문서, 온보딩 가이드에 공유된 모든 GitLab 링크</li>
+      </ol>
+    </div>
+
+    <div class="pull-quote">
+      <p>서버를 옮기는 건 하드웨어의 문제다.<br><strong>도메인을 바꾸는 건 생태계 전체의 문제다.</strong></p>
+    </div>
+  </section>
+
+  <!-- PART III -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part III — What Went Wrong</span>
+      <h2>ITIL이 말하는 변경관리,<br>이 공지가 <strong>어긴 것들</strong></h2>
+    </div>
+
+    <p class="prose">
+      ITIL(Information Technology Infrastructure Library)은 IT 서비스 관리의 국제 표준 프레임워크다. 변경관리(Change Management) 프로세스는 인프라 변경의 위험을 최소화하기 위한 체계로, 전 세계 대부분의 IT 조직이 참조한다. 이 공지를 ITIL의 기준으로 대조하면, 거의 모든 항목에서 벗어나 있다.
+    </p>
+
+    <div class="compare-cols">
+      <div class="compare-col">
+        <div class="col-label">이 공지</div>
+        <div class="col-item"><strong>사전 공지:</strong> 약 24시간</div>
+        <div class="col-item"><strong>작업 시점:</strong> 주말 (토요일 저녁 ~ 일요일)</div>
+        <div class="col-item"><strong>데이터 이전:</strong> 개발자에게 re-push 요청</div>
+        <div class="col-item"><strong>롤백 계획:</strong> 구 서버 접근 경로 차단 예고</div>
+        <div class="col-item"><strong>전환 방식:</strong> 구 도메인 즉시 중단 (hard cutoff)</div>
+      </div>
+      <div class="compare-col">
+        <div class="col-label">업계 권장</div>
+        <div class="col-item"><strong>사전 공지:</strong> 최소 2주 (Normal Change)</div>
+        <div class="col-item"><strong>작업 시점:</strong> 평일 업무시간, 모니터링 가능 시점</div>
+        <div class="col-item"><strong>데이터 이전:</strong> backup/restore로 완전 이전</div>
+        <div class="col-item"><strong>롤백 계획:</strong> 구 서버 최소 2주 병행 운영</div>
+        <div class="col-item"><strong>전환 방식:</strong> DNS 리디렉트 + 병행 운영 후 전환</div>
+      </div>
+    </div>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">01</span>
+        <h3>사전 공지 기간: 24시간</h3>
+      </div>
+      <div class="t-sub">ITIL Normal Change 최소 기준의 1/14</div>
+      <div class="t-body">
+        ITIL은 서버 마이그레이션을 <strong>Normal Change</strong>(계획된 고위험 변경)로 분류한다. Normal Change의 최소 사전 공지 기간은 <strong>2주</strong>다. 24시간은 Emergency Change(보안 사고, 서비스 장애 등 긴급 상황) 수준이다. 도메인 변경은 긴급 상황이 아니다. 다음 주에 해도, 다음 달에 해도 되는 작업이다. 24시간 공지는 준비할 시간을 주지 않겠다는 것과 같다.
+      </div>
+    </div>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">02</span>
+        <h3>타임라인: 토요일 저녁 컷오프</h3>
+      </div>
+      <div class="t-sub">월요일 아침에 발견되는 재앙</div>
+      <div class="t-body">
+        토요일 18:45 공지 → 일요일 이전 작업 → <strong>월요일 출근하면 전부 깨져 있다.</strong> 개발자가 주말에 메시지를 확인하지 않으면, 월요일 아침에 git pull이 실패하는 것으로 하루가 시작된다. CI/CD가 멈추고, 배포가 막히고, webhook 알림이 사라진다. 한 사람이 아니라 <strong>팀 전체가 동시에</strong> 이 상황에 직면한다.
+      </div>
+    </div>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">03</span>
+        <h3>"다시 push 해달라"</h3>
+      </div>
+      <div class="t-sub">backup/restore가 아닌 수동 re-push의 위험</div>
+      <div class="t-body">
+        GitLab 서버 마이그레이션의 정석은 <strong>gitlab-backup create</strong>로 전체 백업을 생성하고, 신규 서버에서 <strong>gitlab-backup restore</strong>로 복원하는 것이다. 이 방법은 리포지토리, 이슈, MR, 위키, CI/CD 설정을 <strong>완전히</strong> 이전한다. 개발자에게 re-push를 요청하면 다음의 위험이 발생한다: unpushed 로컬 브랜치 누락, <strong>git push --all --tags</strong> 미사용으로 인한 태그/브랜치 유실, 이슈/MR/위키 데이터의 완전 소실. 데이터 이전을 개발자 개인의 책임으로 전가하는 구조다.
+      </div>
+    </div>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">04</span>
+        <h3>롤백 불가</h3>
+      </div>
+      <div class="t-sub">되돌아갈 곳이 없다</div>
+      <div class="t-body">
+        "내일 18시 이후에는 prost.kr에 연결되어 있는 내부 IP 설정 없애고 서버 PC로 옮길 예정입니다." 이 문장의 의미는 명확하다. <strong>구 서버의 접근 경로를 차단하겠다는 것이다.</strong> 신규 서버에 문제가 생기면 되돌아갈 곳이 없다. 변경관리의 가장 기본적인 원칙 — <strong>"언제든 이전 상태로 복구할 수 있어야 한다"</strong> — 이 부재하다.
+      </div>
+    </div>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">05</span>
+        <h3>DNS 리디렉트/병행 운영 없음</h3>
+      </div>
+      <div class="t-sub">hard cutoff의 대가</div>
+      <div class="t-body">
+        도메인 변경의 업계 표준은 <strong>구 도메인에서 신 도메인으로의 리디렉트</strong>를 설정하는 것이다. git.prost.team으로 들어오는 요청을 git.prost.kr로 자동 전달하면, 모든 기존 링크와 설정이 당장은 깨지지 않는다. 병행 운영 기간(보통 2주 이상) 동안 개발자들이 순차적으로 설정을 변경할 시간을 확보한다. 이 공지에는 리디렉트도, 병행 운영 기간도 없다. <strong>즉시 전환(hard cutoff)</strong>이다. 하루 뒤 구 도메인은 소멸한다.
+      </div>
+    </div>
+  </section>
+
+  <div class="closing">
+    <h2>서버를 옮기는 건 맞다<br><strong>도메인까지 바꾸는 건 다른 문제다</strong></h2>
+    <p class="sub">NAS의 한계를 벗어나 전용 서버로 이전하는 판단은 올바르다. 하지만 도메인 변경과 서버 이전은 분리해야 할 두 개의 작업이다.</p>
+  </div>
+
+  <footer class="footer">
+    <p>Sources: GitLab Docs &mdash; Migrate to New Server &middot; GitLab Forum &mdash; Changing External URL &middot; ITIL Change Management Framework &middot; Atlassian Migration Playbook</p>
+    <p>Research assisted by Claude &middot; 2026</p>
+  </footer>
+
+</div>
+</body>
+</html>

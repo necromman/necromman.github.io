@@ -183,6 +183,14 @@ editorial/
 | 04 | `git-branching-strategies.html` | 브랜치 전략은 팀의 거울이다 | 전략 — Git Flow vs GitHub Flow vs Trunk-Based |
 | 05 | `git-productivity-setup.html` | .gitconfig 하나로 생산성 2배 | 생산성 — 추천 도구, 설정, AI 연동 |
 
+### 시리즈 10: CTO의 깃랩 이사 공지가 불안한 이유 (gitlab-migration-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `gitlab-migration-notice-anatomy.html` | 내일 GitLab 주소 바뀝니다 | 분석 — CTO 공지문 해부, 도메인 변경 시 깨지는 7가지 |
+| 02 | `gitlab-migration-the-right-way.html` | GitLab 서버 이사 — 정석은 이렇다 | 가이드 — NAS → 전용 서버 마이그레이션 정석 + 도메인 전략 |
+| 03 | `gitlab-migration-developer-survival.html` | 월요일 아침, git push가 안 될 때 | 실전 — 개발자 생존 스크립트, 체크리스트, CTO 제안법 |
+
 ## 콘텐츠 제작 워크플로우
 
 0. **기획**: `plans/[시리즈-슬러그]/series-plan.md`에 자료조사 + 시리즈 구성 기획서 작성 (series-plan 스킬 참조)

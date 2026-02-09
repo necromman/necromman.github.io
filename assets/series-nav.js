@@ -93,6 +93,15 @@
         { slug: 'git-branching-strategies', title: '브랜치 전략은 팀의 거울이다' },
         { slug: 'git-productivity-setup', title: '.gitconfig 하나로 생산성 2배' }
       ]
+    },
+    'gitlab-migration-series': {
+      label: 'Series 10',
+      title: 'CTO의 깃랩 이사 공지가 불안한 이유',
+      articles: [
+        { slug: 'gitlab-migration-notice-anatomy', title: '내일 GitLab 주소 바뀝니다' },
+        { slug: 'gitlab-migration-the-right-way', title: 'GitLab 서버 이사 — 정석은 이렇다' },
+        { slug: 'gitlab-migration-developer-survival', title: '월요일 아침, git push가 안 될 때' }
+      ]
     }
   };
 
