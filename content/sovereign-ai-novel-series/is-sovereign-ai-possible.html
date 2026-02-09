@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>소버린 AI는 가능한가 — Editorial</title>
+<meta name="description" content="소설 속 소버린 배당, AI 국가 경쟁, 디지털 식민주의는 허구인가. 젠슨 황, 맥킨지, IMF, UNDP의 데이터로 팩트 체크한다.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/sovereign-ai-novel-series/is-sovereign-ai-possible.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="소버린 AI는 가능한가">
+<meta property="og:description" content="소설 속 소버린 배당, AI 국가 경쟁, 디지털 식민주의는 허구인가. 젠슨 황, 맥킨지, IMF, UNDP의 데이터로 팩트 체크한다.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/sovereign-ai-novel-series/is-sovereign-ai-possible.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-09">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="소버린 AI는 가능한가">
+<meta name="twitter:description" content="소설 속 소버린 배당, AI 국가 경쟁, 디지털 식민주의는 허구인가. 젠슨 황, 맥킨지, IMF, UNDP의 데이터로 팩트 체크한다.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"소버린 AI는 가능한가","description":"소설 속 소버린 배당, AI 국가 경쟁, 디지털 식민주의는 허구인가. 젠슨 황, 맥킨지, IMF, UNDP의 데이터로 팩트 체크한다.","datePublished":"2026-02-09","dateModified":"2026-02-09","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/sovereign-ai-novel-series/is-sovereign-ai-possible.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 540px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* DATA TABLE */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 32px 0 40px;
+    font-size: 0.9rem;
+  }
+  .data-table th {
+    font-family: var(--serif);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--muted);
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--fg);
+  }
+  .data-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--prose);
+    line-height: 1.6;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table .num-cell {
+    font-family: var(--mono);
+    font-weight: 600;
+    color: var(--fg);
+    white-space: nowrap;
+  }
+  .data-table .accent-cell {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .data-table .label-cell {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* VERDICT TABLE */
+  .verdict-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 32px 0 40px;
+    font-size: 0.88rem;
+  }
+  .verdict-table th {
+    font-family: var(--serif);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--muted);
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--fg);
+  }
+  .verdict-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--prose);
+    line-height: 1.6;
+    vertical-align: top;
+  }
+  .verdict-table tr:last-child td { border-bottom: none; }
+  .verdict-table .v-possible {
+    font-family: var(--serif);
+    font-weight: 700;
+    color: #2a7c43;
+  }
+  .verdict-table .v-partial {
+    font-family: var(--serif);
+    font-weight: 700;
+    color: var(--muted);
+  }
+  .verdict-table .v-impossible {
+    font-family: var(--serif);
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .verdict-table .setting-cell {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* TWO COLUMN COMPARE */
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .compare-col {
+    background: var(--bg);
+    padding: 32px 28px;
+  }
+  .compare-col .col-label {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .compare-col p {
+    font-size: 0.88rem;
+    color: var(--secondary);
+    line-height: 1.75;
+    margin-bottom: 12px;
+  }
+  .compare-col p strong {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* STAT HIGHLIGHT */
+  .stat-highlight {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .stat-highlight .sh {
+    background: var(--bg);
+    padding: 28px 24px;
+    text-align: center;
+  }
+  .stat-highlight .sh-num {
+    font-family: var(--mono);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -1px;
+  }
+  .stat-highlight .sh-label {
+    font-size: 0.78rem;
+    color: var(--secondary);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* TIMELINE MARKER */
+  .timeline-grid {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .timeline-grid .tg-year {
+    background: var(--card-bg);
+    padding: 16px 12px;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-align: right;
+  }
+  .timeline-grid .tg-desc {
+    background: var(--bg);
+    padding: 16px 20px;
+    font-size: 0.88rem;
+    color: var(--prose);
+    line-height: 1.7;
+  }
+  .timeline-grid .tg-desc strong {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.4rem; }
+    .compare-row { grid-template-columns: 1fr; }
+    .stat-highlight { grid-template-columns: 1fr; }
+    .timeline-grid { grid-template-columns: 60px 1fr; }
+    .data-table { font-size: 0.8rem; }
+    .data-table th, .data-table td { padding: 10px 10px; }
+    .verdict-table { font-size: 0.8rem; }
+    .verdict-table th, .verdict-table td { padding: 10px 10px; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">sovereign — fact check 03</p>
+  <h1>소버린 AI는<br><strong>가능한가</strong></h1>
+  <p class="deck">소설 속 소버린 배당, AI 국가 경쟁, 디지털 식민주의는 허구인가.<br>젠슨 황, 맥킨지, IMF, UNDP의 데이터로 팩트 체크한다.</p>
+</header>
+
+<main>
+
+<p class="prose">앞선 두 편의 소설에서 우리는 2032년의 세계를 그렸다. 국가가 소유한 AI가 글로벌 시장에서 수익을 올리고, 그 돈이 전 국민에게 매달 입금되는 세계. 사우디 AI "나킬"이 48시간 만에 $340B를 벌고, 한국 AI "아리랑"이 국민 1인당 $3,847를 배당하고, 나이지리아 국민은 $94를 받는 세계.</p>
+
+<p class="prose">흥미로운 SF였을 수 있다. 하지만 질문이 남는다. <strong>이 설정은 얼마나 현실적인가.</strong> 소설의 세계관을 데이터로 대조해본다. 답부터 말하면, 생각보다 많은 것이 이미 진행 중이다.</p>
+
+<!-- PART I -->
+<div class="section-head">
+  <span class="num">Part I &mdash; The Race Has Begun</span>
+  <h2>소버린 AI는 <strong>이미 시작됐다</strong></h2>
+</div>
+
+<p class="prose">2025년 1월, 다보스 세계경제포럼. NVIDIA CEO 젠슨 황이 단상에 올라 말했다.</p>
+
+<div class="pull-quote">
+  <p>"Every country needs to own<br>the production of their own intelligence.<br>AI is the encoding of a nation's culture,<br>language, history, and knowledge."</p>
+  <p class="attr">Jensen Huang &middot; Davos 2025</p>
+</div>
+
+<p class="prose">이 발언은 선언이 아니라 현실의 요약이었다. 젠슨 황이 이 말을 한 시점에 이미 수십 개 국가가 "소버린 AI" 전략을 가동하고 있었다. 소설에서 "소버린 AI"라는 개념을 허구로 설정한 것이 아니다. <strong>현실에서 가져온 개념이다.</strong></p>
+
+<p class="prose">숫자를 보자. 글로벌 데이터센터 인프라 투자는 2024년 기준 약 $1T 규모에 도달했고, Goldman Sachs는 2029년까지 $2T를 돌파할 것으로 전망한다. McKinsey의 2025년 글로벌 서베이에서 기업 경영진의 71%가 AI를 "생존 위협이거나 전략적 필수요소"로 규정했다. 이것은 기업 차원의 이야기다. 국가 차원은 더 크다.</p>
+
+<div class="mechanism-row">
+  <div class="mechanism">
+    <p class="m-label">investment scale</p>
+    <h3>$1T &rarr; $2T</h3>
+    <p>글로벌 데이터센터 투자 규모. 2024년 $1T에서 2029년 $2T 돌파 전망 (Goldman Sachs)</p>
+  </div>
+  <div class="mechanism">
+    <p class="m-label">executive consensus</p>
+    <h3>71%</h3>
+    <p>"AI는 생존 위협이거나 전략적 필수" 기업 경영진 응답 비율 (McKinsey, 2025)</p>
+  </div>
+  <div class="mechanism">
+    <p class="m-label">nation-state race</p>
+    <h3>40+</h3>
+    <p>국가 단위 AI 전략을 공식 발표한 나라 수. 2023년 대비 2배 이상 증가</p>
+  </div>
+</div>
+
+<p class="prose">각국의 투자 규모를 나열하면 소설의 배경이 과장이 아니라는 것을 알 수 있다.</p>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>국가</th>
+      <th>프로젝트/정책</th>
+      <th>규모</th>
+      <th>핵심 전략</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="label-cell">사우디아라비아</td>
+      <td>HumAIn 프로젝트</td>
+      <td class="num-cell">$77B</td>
+      <td>비전 2030 핵심 축. 탈석유 AI 국가 전환</td>
+    </tr>
+    <tr>
+      <td class="label-cell">프랑스</td>
+      <td>국가 AI 전략 2.0</td>
+      <td class="num-cell">EUR 109B</td>
+      <td>Mistral AI 국방 계약. 유럽 AI 주권 선언</td>
+    </tr>
+    <tr>
+      <td class="label-cell">일본</td>
+      <td>AI 국가 전략</td>
+      <td class="num-cell">1조 엔+</td>
+      <td>Rapidus 반도체 + AI 데이터센터 연계</td>
+    </tr>
+    <tr>
+      <td class="label-cell">한국</td>
+      <td>AI 반도체 전략</td>
+      <td class="num-cell">GPU 26만+</td>
+      <td>삼성/SK + NAVER/카카오 AI 인프라 확충</td>
+    </tr>
+    <tr>
+      <td class="label-cell">인도</td>
+      <td>IndiaAI Mission</td>
+      <td class="num-cell">GPU 3.4만+</td>
+      <td>공공 AI 인프라, 다국어 LLM 개발</td>
+    </tr>
+    <tr>
+      <td class="label-cell">캐나다</td>
+      <td>국가 AI 전략</td>
+      <td class="num-cell">CAD $2B</td>
+      <td>CIFAR 연구 + 인재 유치 프로그램</td>
+    </tr>
+    <tr>
+      <td class="label-cell">영국</td>
+      <td>AI Opportunities Plan</td>
+      <td class="num-cell">GBP 1B+</td>
+      <td>공공 컴퓨트 인프라 + AI Safety Institute</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="prose">사우디아라비아의 $77B는 특히 주목할 만하다. "HumAIn"이라는 이름의 이 프로젝트는 비전 2030의 핵심 축으로, <strong>석유 이후의 국부를 AI로 대체하겠다는 전략</strong>이다. 소설에서 사우디 AI "나킬"이 에너지 시장에서 $340B를 벌어들이는 설정은 이 현실에서 출발했다. 석유로 번 돈을 AI 인프라에 쏟아붓고, AI가 석유보다 더 많은 돈을 벌게 만든다. 순환의 논리는 이미 사우디 정부의 공식 전략이다.</p>
+
+<p class="prose">프랑스도 마찬가지다. 마크롱 대통령은 2025년에 "유럽은 AI 주권 없이 주권 국가가 될 수 없다"고 선언했다. Mistral AI에 국방 계약을 부여한 것은 소설에서 프랑스 AI "마리안느"가 군사 모듈을 운영하는 설정과 정확히 겹친다. 허구가 현실을 모방한 것이 아니라, <strong>현실이 소설의 설정을 이미 넘어서고 있다.</strong></p>
+
+<div class="compare-row">
+  <div class="compare-col">
+    <div class="col-label">소설: 아리랑</div>
+    <p>삼성 + SK하이닉스가 공동 개발한 한국 소버린 AI. 양자-AI 하이브리드 칩 "아리랑-Q"로 차세대 도약을 준비 중.</p>
+    <p><strong>국민 1인당 $3,847 월 배당.</strong></p>
+    <p>NAVER, 카카오의 한국어 데이터로 훈련. 교통, 전력, 의료, 금융 전 영역 운영.</p>
+  </div>
+  <div class="compare-col">
+    <div class="col-label">현실: 한국 AI 전략</div>
+    <p>삼성전자 + SK하이닉스의 AI 반도체 투자. GPU 26만 기 이상 확보 계획. HBM 메모리 세계 1위.</p>
+    <p><strong>배당은 없다. 아직.</strong></p>
+    <p>NAVER HyperCLOVA X, 카카오 KoGPT. 정부 AI 반도체 이니셔티브로 컴퓨트 자립 추진.</p>
+  </div>
+</div>
+
+<p class="prose">차이는 명확하다. 소설의 "아리랑"은 하나의 통합 AI가 국가 경제 전체를 운영하고 수익을 배당하는 시스템이다. 현실의 한국은 민간 기업 각각이 자체 AI를 개발하고, 정부가 인프라를 지원하는 분산 구조다. 통합 소버린 AI는 없다. 하지만 인프라 수준에서 보면, <strong>한국이 소버린 AI를 만들 수 있는 기반 요소 대부분을 이미 보유하고 있다</strong>는 점은 사실이다. 세계 1위 HBM 메모리, 파운드리 인프라, 한국어 특화 LLM, 세계 최고 수준의 인터넷 인프라. 빠진 것은 기술이 아니라 의지와 설계다.</p>
+
+<!-- PART II -->
+<div class="section-head">
+  <span class="num">Part II &mdash; Show Me The Money</span>
+  <h2>AI 기본소득, <strong>숫자가 맞는가</strong></h2>
+</div>
+
+<p class="prose">소설의 핵심 설정은 "AI가 번 돈을 국민에게 나눠준다"는 것이다. 이것이 경제적으로 가능한가. 숫자부터 확인한다.</p>
+
+<p class="prose">Sam Altman은 2021년 에세이 "Moore's Law for Everything"에서 이렇게 주장했다.</p>
+
+<div class="pull-quote">
+  <p>"AI will generate enough wealth<br>that every adult could be paid<br>$13,500 per year."</p>
+  <p class="attr">Sam Altman &middot; Moore's Law for Everything, 2021</p>
+</div>
+
+<p class="prose">Altman의 제안은 구체적이었다. AI와 토지에서 발생하는 초과 수익에 대해 "미국 주식회사 기금(American Equity Fund)"을 만들고, 모든 성인에게 연 $13,500를 지급한다. 이 구상의 전제는 AI가 충분한 경제적 가치를 창출한다는 것이다.</p>
+
+<p class="prose">IDC는 AI가 2030년까지 글로벌 경제에 <strong>$19.9T</strong>의 가치를 추가할 것으로 전망한다. 이것은 글로벌 GDP의 약 3.5%에 해당한다. McKinsey의 추정치는 더 높아서, 연간 $13~22T의 경제적 가치를 전망한다.</p>
+
+<div class="stat-highlight">
+  <div class="sh">
+    <div class="sh-num">$19.9T</div>
+    <div class="sh-label">IDC 전망: AI 경제 기여<br>2030년까지 누적</div>
+  </div>
+  <div class="sh">
+    <div class="sh-num">$13~22T</div>
+    <div class="sh-label">McKinsey 전망: AI 연간<br>경제적 가치 (2030)</div>
+  </div>
+</div>
+
+<p class="prose">이제 비용을 보자. 전 세계 성인 약 55억 명에게 연 $13,500를 지급하면 연간 비용은 약 <strong>$74T</strong>다. 현재 글로벌 GDP가 약 $110T인 점을 감안하면, 전 세계 GDP의 67%를 재분배해야 한다. 당연히 불가능하다.</p>
+
+<p class="prose">범위를 좁혀보자. 한국만 놓고 계산하면 어떤가.</p>
+
+<div class="warning-box">
+  <div class="w-title">한국 소버린 배당 시뮬레이션</div>
+  <ul class="warning-list">
+    <li>소설 속 배당: 월 $3,847 = 연 $46,164 / 1인</li>
+    <li>한국 인구 약 5,100만 명 기준: 연간 총비용 약 $2.35T</li>
+    <li>2025년 한국 GDP: 약 $1.8T</li>
+    <li>배당 총비용이 한국 GDP의 130%를 초과</li>
+    <li>"아리랑"이 한국 GDP보다 더 많은 수익을 글로벌 시장에서 벌어야 가능</li>
+    <li>Altman 기준($13,500/년)으로 낮추면: 연간 $689B = GDP의 약 38%</li>
+    <li>결론: 소설 수준은 불가능. 축소된 버전은 2030년대 후반 이론적으로 논의 가능</li>
+  </ul>
+</div>
+
+<p class="prose">소설의 월 $3,847는 과장이다. 이 금액을 유지하려면 "아리랑"이 매년 한국 GDP를 초과하는 수익을 글로벌 시장에서 벌어와야 한다. <strong>단일 국가 AI가 그 나라 GDP보다 큰 수익을 올리는 것은 현재의 어떤 경제 모델로도 설명되지 않는다.</strong></p>
+
+<p class="prose">그러나 축소된 버전은 다르다. Altman이 제안한 연 $13,500 수준, 즉 월 $1,125 정도라면, AI가 글로벌 GDP의 3~5%를 추가 창출한다는 전제 하에 특정 국가에서 부분적 시행이 가능할 수 있다. 문제는 "AI가 번 돈"을 어떻게 국가 재원으로 전환하느냐는 제도 설계다.</p>
+
+<p class="prose">UBI(보편적 기본소득) 실험의 결과도 참고할 만하다. 케냐에서 GiveDirectly가 진행한 12년짜리 장기 실험은 가장 대규모이자 가장 엄밀한 UBI 연구다. 결과는 세 가지로 요약된다.</p>
+
+<div class="mechanism-row">
+  <div class="mechanism">
+    <p class="m-label">kenya givedirectly</p>
+    <h3>나태해지지 않았다</h3>
+    <p>수급자들의 노동 시간은 줄지 않았다. 오히려 자영업 창업률이 높아졌다. "공짜 돈은 게으름을 부른다"는 통념은 데이터로 부정됐다.</p>
+  </div>
+  <div class="mechanism">
+    <p class="m-label">consumption shift</p>
+    <h3>소비 구조가 바뀌었다</h3>
+    <p>알코올/도박 지출은 증가하지 않았다. 교육비, 의료비, 식비 비중이 상승. 주거 환경 개선에 투자한 가구가 많았다.</p>
+  </div>
+  <div class="mechanism">
+    <p class="m-label">mental health</p>
+    <h3>정신건강이 개선됐다</h3>
+    <p>우울증 지표가 유의미하게 감소. "미래에 대한 불확실성 해소"가 핵심 요인으로 분석됐다.</p>
+  </div>
+</div>
+
+<p class="prose">2026년 2월, 영국 AI 담당 장관 Lord Stockwood는 "AI로 인한 일자리 상실에 대비해 UBI를 검토해야 한다"고 공식 발언했다. G7 국가의 현직 장관이 AI-UBI 연결을 공식 언급한 것은 이것이 처음이다. 소설의 "소버린 배당"은 UBI의 AI 확장판이다. 재원이 세금이 아니라 AI 수익이라는 점만 다르다. 방향성 자체는 이미 논의 테이블 위에 올라와 있다.</p>
+
+<div class="pull-quote">
+  <p>"We need to seriously consider<br>universal basic income<br>as AI transforms the labour market."</p>
+  <p class="attr">Lord Stockwood &middot; UK AI Minister, Feb 2026</p>
+</div>
+
+<p class="prose">Altman의 구상과 소설의 차이를 정리하면 이렇다. Altman은 AI 기업에 대한 과세를 통해 기금을 조성하자고 했다. 소설은 국가가 AI를 직접 소유하고 운영해서 수익을 올린다. 전자는 재분배 모델이고, 후자는 <strong>국가 자본주의 모델</strong>이다. 싱가포르의 테마섹이나 노르웨이의 국부펀드가 국가 자산으로 수익을 올려 국민에게 환원하는 구조와 유사하다. 차이는 운용 자산이 주식이나 부동산이 아니라 AI라는 것이다.</p>
+
+<!-- PART III -->
+<div class="section-head">
+  <span class="num">Part III &mdash; The Great Divergence</span>
+  <h2>국가별 AI 격차는 <strong>진짜다</strong></h2>
+</div>
+
+<p class="prose">소설에서 가장 불편한 설정은 배당 격차였다. 한국 $3,847, 사우디 $4,200, 나이지리아 $94. 같은 "소버린 배당"이라는 이름이지만 금액은 45배 차이가 난다. 나이지리아 대표 응고지 오콘조가 제네바에서 한 말을 기억한다면: "당신들은 이것을 소버린 배당이라 부른다. 우리는 디지털 소작료라 부른다."</p>
+
+<p class="prose">이 격차는 허구가 아니다. Foreign Affairs가 2025년에 게재한 기고문의 제목이 이 현실을 압축한다.</p>
+
+<div class="pull-quote">
+  <p>"Compute is the new oil."</p>
+  <p class="attr">Foreign Affairs &middot; 2025</p>
+</div>
+
+<p class="prose">컴퓨팅 파워가 석유를 대체했다. 석유 시대에 산유국과 비산유국의 경제 격차가 벌어졌듯이, AI 시대에는 컴퓨트 보유국과 비보유국의 격차가 벌어진다. 데이터를 보면 이것이 은유가 아니라 <strong>구조적 현실</strong>이라는 것을 알 수 있다.</p>
+
+<div class="stat-highlight">
+  <div class="sh">
+    <div class="sh-num">18%</div>
+    <div class="sh-label">아프리카가 세계 인구에서<br>차지하는 비율</div>
+  </div>
+  <div class="sh">
+    <div class="sh-num">&lt;1%</div>
+    <div class="sh-label">아프리카에 위치한 글로벌<br>데이터센터 비율</div>
+  </div>
+</div>
+
+<p class="prose">세계 인구의 18%가 사는 대륙에 전 세계 데이터센터의 1%도 없다. 이 숫자 하나가 소설의 배당 격차를 설명한다. AI를 훈련시키고 운영하려면 데이터센터가 필요하고, 데이터센터를 짓으려면 안정적 전력, 냉각 인프라, 고속 네트워크, 숙련 인력이 필요하다. <strong>이 모든 것이 없는 곳에서 소버린 AI는 불가능하다.</strong></p>
+
+<p class="prose">미국의 GPU 수출통제 정책이 이 격차를 제도적으로 고착시킨다. 2025년 기준 미국 상무부의 AI 칩 수출통제는 사실상 3단계 체제로 운영된다.</p>
+
+<div class="mechanism-row">
+  <div class="mechanism">
+    <p class="m-label">tier 1 — unrestricted</p>
+    <h3>제한 없음</h3>
+    <p>미국, 영국, 일본, 한국, 호주, EU 주요국 등 약 20개국. 최신 GPU 무제한 구매 가능. AI 군비경쟁의 참가 자격.</p>
+  </div>
+  <div class="mechanism">
+    <p class="m-label">tier 2 — capped</p>
+    <h3>수량 제한</h3>
+    <p>사우디, UAE, 인도, 싱가포르 등. 연간 총 컴퓨팅 파워 상한선 적용. 조건부 구매 가능.</p>
+  </div>
+  <div class="mechanism">
+    <p class="m-label">tier 3 — banned</p>
+    <h3>수출 금지</h3>
+    <p>중국, 러시아, 이란, 북한 등. 최첨단 AI 칩 수출 전면 차단. 자체 개발 외 경로 없음.</p>
+  </div>
+</div>
+
+<p class="prose">소설에서 제네바 협상의 의제 중 하나가 "GPU 수출통제 다자간 완화 합의"였다. 이것은 허구가 아니라, <strong>현재 진행형인 지정학적 갈등</strong>이다. 미국이 누구에게 GPU를 팔 것인가를 결정하는 것은, 누가 AI를 가질 수 있는가를 결정하는 것이다. 누가 AI를 가지느냐는, 누가 경제적 미래를 가지느냐와 같은 질문이다.</p>
+
+<p class="prose">UNDP(유엔개발계획)는 2025년 보고서에서 이 상황을 "새로운 대분기(Great Divergence)"라고 명명했다. 18세기 산업혁명이 서구와 비서구의 경제 격차를 만들었듯이, AI 혁명이 21세기의 새로운 분기점을 만들고 있다는 분석이다.</p>
+
+<div class="compare-row">
+  <div class="compare-col">
+    <div class="col-label">소설: 나이지리아 $94</div>
+    <p>나이지리아의 소버린 AI는 자체 인프라가 없어 <strong>다른 나라의 클라우드를 빌려서</strong> 운영된다.</p>
+    <p>데이터 제공국이자 컴퓨트 임차국. 수익의 대부분은 인프라 보유국에 임대료로 지불된다.</p>
+    <p>"디지털 소작" 구조.</p>
+  </div>
+  <div class="compare-col">
+    <div class="col-label">현실: 아프리카 AI 환경</div>
+    <p>아프리카 전체 데이터센터 용량이 남아공에 편중. 나이지리아는 <strong>안정적 전력 공급조차 미해결</strong>.</p>
+    <p>AI 훈련 데이터는 서구 빅테크에 의해 수집. 아프리카 언어 LLM은 거의 없음.</p>
+    <p>"데이터 추출주의" 비판 대두.</p>
+  </div>
+</div>
+
+<p class="prose">소설의 나이지리아 대표가 했던 비유 "석유 때도 이랬다. 지금은 석유 대신 데이터다"는 학술적 근거가 있다. "데이터 식민주의(Data Colonialism)"라는 개념은 Nick Couldry와 Ulises Mejias가 2019년에 체계화했다. 핵심 주장은 이렇다: 글로벌 사우스의 데이터가 글로벌 노스의 플랫폼에 의해 추출되고, 그 데이터로 훈련된 AI의 경제적 가치는 추출한 쪽이 독점한다. 석유 시대의 자원 저주(Resource Curse)가 데이터 시대에 반복된다.</p>
+
+<p class="prose">한 가지 반론이 있다. AI는 석유와 달리 "비경합재"라는 것이다. 석유는 누가 쓰면 없어지지만, AI 모델은 복제 가능하다. 이론적으로는 하나의 강력한 AI를 만들면 전 세계가 동시에 사용할 수 있다. 하지만 <strong>AI를 만드는 데 필요한 컴퓨트는 경합재</strong>다. GPU는 한정되어 있고, 전력은 한정되어 있고, 데이터센터 부지는 한정되어 있다. 비경합재인 AI의 혜택을 누리려면 경합재인 인프라를 먼저 확보해야 한다. 이것이 격차의 본질이다.</p>
+
+<p class="prose">소설에서 아프리카 연합이 연간 $500B의 "컴퓨트 원조 기금"을 요구하는 장면이 있었다. 현실의 숫자를 대입하면, 아프리카 전체에 최소 10~15개의 대규모 데이터센터를 짓고 운영하는 데 연간 $50~80B가 필요하다. $500B는 과장이지만, $50B도 현재 글로벌 ODA(공적개발원조) 총액 $200B의 25%에 해당하는 규모다. <strong>아무도 이 돈을 낼 준비가 되어 있지 않다.</strong></p>
+
+<!-- PART IV -->
+<div class="section-head">
+  <span class="num">Part IV &mdash; Fiction vs Reality</span>
+  <h2>소설 vs 현실 <strong>대조표</strong></h2>
+</div>
+
+<p class="prose">4개 파트에 걸쳐 확인한 데이터를 바탕으로, 소설의 7가지 핵심 설정을 현실과 대조한다. 판정 기준은 세 가지다: "가능(Possible)" "부분적(Partial)" "불가능(Impossible)".</p>
+
+<table class="verdict-table">
+  <thead>
+    <tr>
+      <th>소설 설정</th>
+      <th>현실 근거</th>
+      <th>판정</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="setting-cell">국가가 소버린 AI를 소유하고 운영한다</td>
+      <td>40개국 이상이 국가 AI 전략 발표. 사우디 HumAIn $77B, 프랑스 Mistral 국방 계약 등 국가 주도 AI 이미 진행 중</td>
+      <td class="v-possible">가능</td>
+    </tr>
+    <tr>
+      <td class="setting-cell">AI 수익을 전 국민에게 배당한다</td>
+      <td>Altman "Moore's Law for Everything" 제안, 영국 장관 UBI 공식 언급, 케냐 GiveDirectly 실험 성공. 단, 재원 확보 메커니즘 미정립</td>
+      <td class="v-partial">부분적</td>
+    </tr>
+    <tr>
+      <td class="setting-cell">한국 1인당 월 $3,847 배당</td>
+      <td>연간 $2.35T 필요 = 한국 GDP의 130%. AI 수익만으로 이 규모를 달성할 경제 모델 부재</td>
+      <td class="v-impossible">불가능</td>
+    </tr>
+    <tr>
+      <td class="setting-cell">사우디 AI가 48시간 만에 $340B를 번다</td>
+      <td>알고리즘 트레이딩은 이미 시장의 60~70%. 단, 단일 AI가 이 규모의 수익을 올리면 시장 자체가 붕괴. 규제 개입 불가피</td>
+      <td class="v-impossible">불가능</td>
+    </tr>
+    <tr>
+      <td class="setting-cell">컴퓨트가 석유를 대체한 전략자원이 된다</td>
+      <td>Foreign Affairs "Compute is the new oil". 미국 GPU 수출통제 3단계 체제. 데이터센터 투자 $1T&rarr;$2T. 지정학적 무기로 작동 중</td>
+      <td class="v-possible">가능</td>
+    </tr>
+    <tr>
+      <td class="setting-cell">아프리카가 "디지털 소작국"이 된다</td>
+      <td>18% 인구 vs &lt;1% 데이터센터. UNDP "새로운 대분기" 경고. 데이터 식민주의 학술 논의 확대</td>
+      <td class="v-possible">가능</td>
+    </tr>
+    <tr>
+      <td class="setting-cell">AI 초과수익에 대한 국제 거버넌스 협약</td>
+      <td>EU AI Act 시행, G7 히로시마 AI 원칙, UN AI 자문기구 설립. 국제 과세 프레임워크는 논의 초기 단계</td>
+      <td class="v-partial">부분적</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="prose">7개 설정 중 <strong>3개가 "가능", 2개가 "부분적", 2개가 "불가능"</strong>으로 판정된다. 불가능 판정을 받은 두 항목에 공통점이 있다. 둘 다 <strong>금액의 스케일</strong>이 문제다. 소버린 AI의 존재 자체는 가능하지만, 소설 속 수익 규모와 배당 금액은 현재의 경제 구조로는 설명되지 않는다.</p>
+
+<p class="prose">다르게 말하면, 소설의 세계관은 <strong>"무엇이 일어나는가"에서는 현실적이고, "얼마나 빠르게, 얼마나 크게"에서는 과장</strong>이다. 국가가 AI를 소유하고, 그 수익을 배분하고, 국가 간 격차가 벌어지고, 국제 질서가 재편되는 것 -- 이 모든 방향성은 이미 현실이 확인하고 있다. 소설이 과장한 것은 속도와 규모다.</p>
+
+<p class="prose">그렇다면 현실적 타임라인은 어떤가.</p>
+
+<div class="timeline-grid">
+  <div class="tg-year">2025</div>
+  <div class="tg-desc"><strong>현재 위치.</strong> 40개국 이상 국가 AI 전략 발표. GPU 수출통제 본격화. EU AI Act 시행. 소버린 AI 개념이 정책 담론에 등장.</div>
+
+  <div class="tg-year">2027</div>
+  <div class="tg-desc"><strong>초기 소버린 AI 등장.</strong> 사우디, 프랑스 등이 국가 주도 AI를 특정 산업에 시범 투입. 에너지, 금융, 의료 분야 한정 운영. 수익은 국가 재정에 편입되나 배당은 없음.</div>
+
+  <div class="tg-year">2029</div>
+  <div class="tg-desc"><strong>AI 수익 과세 논의 본격화.</strong> OECD가 AI 초과수익에 대한 과세 프레임워크 초안 제시. 글로벌 최저세율 논의의 AI 확장판. 일부 국가에서 "AI 기금" 시범 운영.</div>
+
+  <div class="tg-year">2032</div>
+  <div class="tg-desc"><strong>소설의 시점.</strong> 현실에서는 소버린 AI 운영국 10개국 내외, 배당은 소규모 시범(월 $200~500 수준), 격차 문제가 UN 핵심 의제로 부상. 소설 수준의 전면적 배당은 미달성.</div>
+
+  <div class="tg-year">2035+</div>
+  <div class="tg-desc"><strong>가능성의 지평.</strong> AGI 수준 AI 등장 시 경제 구조 자체가 변동. 소설의 설정이 현실화될 수 있는 가장 빠른 시점. 단, AGI 자체의 실현 여부가 불확실.</div>
+</div>
+
+<p class="prose">2032년은 소설의 시점이자, 현실에서 "아직 소설의 수준에는 도달하지 못한 시점"이 될 가능성이 높다. 하지만 방향성 자체가 현실에서 이탈하지는 않는다. 국가 AI, AI 수익 배분, 디지털 격차 -- 이 세 축은 이미 움직이고 있다.</p>
+
+<p class="prose">소설이 틀린 것은 규모다. 소설이 맞춘 것은 방향이다. <strong>그리고 방향이 맞으면 규모는 시간의 문제일 수 있다.</strong></p>
+
+<p class="prose">한 가지 더. 이 팩트 체크에서 의도적으로 다루지 않은 주제가 있다. "AI가 인간의 일자리를 대체하면 배당의 필요성이 생기는가"라는 노동시장 질문이다. 이것은 소설의 설정이 아니라 현실의 긴급한 정책 과제이며, 별도의 분석이 필요한 주제다. 소설은 이 질문에 답하지 않았고, 이 팩트 체크도 답하지 않는다. 다만 한 가지는 확인할 수 있다. 영국 장관이 AI-UBI 연결을 공식 발언한 2026년 2월, <strong>이 질문은 더 이상 학술적 가정이 아니라 정책적 현실이 되었다.</strong></p>
+
+</main>
+
+<div class="closing">
+  <h2>소설이 과장한 것은 규모다<br><strong>방향은 이미 현실이다</strong></h2>
+  <p class="sub">7개 설정 중 5개가 "가능" 또는 "부분적". 소버린 AI는 SF가 아니라 진행 중인 지정학이다.</p>
+</div>
+
+<footer class="footer">
+  <p>Jensen Huang, Davos 2025 &middot; McKinsey Global AI Survey 2025 &middot; Goldman Sachs Data Center Report 2024</p>
+  <p>Sam Altman, "Moore's Law for Everything" (2021) &middot; IDC AI Economic Impact (2025) &middot; GiveDirectly Kenya UBI Study</p>
+  <p>Foreign Affairs "Compute is the New Oil" (2025) &middot; UNDP AI and the Great Divergence (2025) &middot; US BIS GPU Export Controls</p>
+</footer>
+
+</div>
+</article>
+</body>
+</html>

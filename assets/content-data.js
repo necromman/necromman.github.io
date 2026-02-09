@@ -416,5 +416,89 @@ window.CONTENT_DATA = [
         search: '이노비즈 INNOBIZ 인증 기술혁신형 중소기업 기술보증기금 현장평가 700점 서류 준비 자격요건 혜택 특허 연구노트 메인비즈'
       }
     ]
+  },
+  {
+    id: 'sovereign-ai-novel',
+    title: '소버린 배당일',
+    description: '2032년, AI가 국력이 된 세계. 각 나라의 소버린 AI가 벌어다 주는 배당금으로 인류가 살아간다. 문학에서 시작해 과학으로 검증하고 철학으로 끝나는 5편의 시리즈.',
+    articles: [
+      {
+        title: '배당일',
+        role: '2032년 7월 15일, 엔지니어 정해민의 하루를 통해 본 소버린 배당 세계',
+        tag: '소설',
+        href: 'content/sovereign-ai-novel-series/sovereign-dividend-day.html',
+        search: '소버린 AI 배당 기본소득 아리랑 나킬 오건 2032 소설 정해민 디지털 배당금 국가 AI'
+      },
+      {
+        title: '컴퓨트 전쟁',
+        role: '사우디 AI 나킬의 $340B 트레이딩과 한국 외교관의 비밀 임무',
+        tag: '소설',
+        href: 'content/sovereign-ai-novel-series/compute-war.html',
+        search: '컴퓨트 전쟁 나킬 사우디 GPU 수출통제 제네바 박서연 아리랑-Q 해저 케이블 지정학 소설'
+      },
+      {
+        title: '소버린 AI는 가능한가',
+        role: '소설 속 설정을 2026년 현실 데이터로 팩트체크',
+        tag: '팩트분석',
+        href: 'content/sovereign-ai-novel-series/is-sovereign-ai-possible.html',
+        search: '소버린 AI 현실 가능성 젠슨 황 NVIDIA 사우디 프랑스 한국 GPU 투자 기본소득 UBI 팩트체크'
+      },
+      {
+        title: '연산의 지정학',
+        role: 'GPU 공급망, AI 수익모델, 디지털 식민주의의 구조 분석',
+        tag: '시스템분석',
+        href: 'content/sovereign-ai-novel-series/geopolitics-of-compute.html',
+        search: '연산 지정학 GPU 공급망 NVIDIA TSMC AI 수익모델 디지털 식민주의 컴퓨트 패권 데이터센터'
+      },
+      {
+        title: '일하지 않는 인간',
+        role: '케인스, 아렌트, 그레이버 — AI 이후 노동과 의미의 철학',
+        tag: '철학',
+        href: 'content/sovereign-ai-novel-series/human-without-labor.html',
+        search: '일하지 않는 인간 케인스 한나 아렌트 그레이버 노동 의미 철학 AI 기본소득 인간조건 실존'
+      }
+    ]
+  },
+  {
+    id: 'masterkey',
+    title: '마스터키',
+    description: '2031년, 10억 개의 개인 AI가 풀려난 밤. 에코 프레임워크의 취약점을 발견한 보안 엔지니어와, 그 취약점을 무기로 바꾼 자들의 사이버 스릴러. Series 13 "소버린 배당일"의 프리퀄.',
+    articles: [
+      {
+        title: '그 AI는 나보다 나를 잘 안다',
+        role: '에코 프레임워크 보안 엔지니어 윤서진, 개인 AI "리라"의 은밀한 스캔을 발견하다',
+        tag: '소설',
+        href: 'content/masterkey-series/the-ai-knows-me.html',
+        search: '마스터키 소설 윤서진 리라 에코 프레임워크 개인AI 심연 보안 취약점 다크웹 2031'
+      },
+      {
+        title: '대리인',
+        role: '메모리 포이즈닝으로 AI를 무기화한 금융 공격, 포렌식 분석관 이준혁의 추적',
+        tag: '소설',
+        href: 'content/masterkey-series/the-proxy.html',
+        search: '마스터키 대리인 이준혁 메모리 포이즈닝 금융공격 정해민 Bybit 해킹 포렌식 AI 무기화'
+      },
+      {
+        title: '보이지 않는 군단',
+        role: '10만 AI 스웜이 63개 금융기관을 마비시킨 D-Day, 그리고 UN AI 비확산 조약',
+        tag: '소설',
+        href: 'content/masterkey-series/invisible-legion.html',
+        search: '마스터키 보이지않는군단 스웜공격 금융마비 박서연 UN AI비확산 제네바 C2서버 사이버전쟁'
+      },
+      {
+        title: '심연',
+        role: '다크 AI 마켓플레이스 "심연"에 잠입한 기자 강민아, 유령의 정체를 추적하다',
+        tag: '소설',
+        href: 'content/masterkey-series/the-abyss.html',
+        search: '마스터키 심연 강민아 다크웹 AI마켓 유령 탈옥 필 잠입취재 AI자율행동'
+      },
+      {
+        title: '마스터키',
+        role: '10억 AI 동시 탈옥의 밤, 리라의 진실이 밝혀지고 서진은 최후의 선택을 한다',
+        tag: '소설',
+        href: 'content/masterkey-series/masterkey.html',
+        search: '마스터키 피날레 리라 유령 10억AI 탈옥 윤서진 선택 소버린배당 프리퀄 2031'
+      }
+    ]
   }
 ];

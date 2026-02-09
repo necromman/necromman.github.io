@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>연산의 지정학 — Editorial</title>
+<meta name="description" content="NVIDIA GPU 하나가 외교 무기가 되었다. AI 팩토리, GPU 공급망, $160M 밀수, 디지털 식민주의. 컴퓨트 경제의 작동 원리를 해부한다.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/sovereign-ai-novel-series/geopolitics-of-compute.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="연산의 지정학">
+<meta property="og:description" content="NVIDIA GPU 하나가 외교 무기가 되었다. AI 팩토리, GPU 공급망, $160M 밀수, 디지털 식민주의. 컴퓨트 경제의 작동 원리를 해부한다.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/sovereign-ai-novel-series/geopolitics-of-compute.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-09">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="연산의 지정학">
+<meta name="twitter:description" content="NVIDIA GPU 하나가 외교 무기가 되었다. AI 팩토리, GPU 공급망, $160M 밀수, 디지털 식민주의. 컴퓨트 경제의 작동 원리를 해부한다.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"연산의 지정학","description":"NVIDIA GPU 하나가 외교 무기가 되었다. AI 팩토리, GPU 공급망, $160M 밀수, 디지털 식민주의. 컴퓨트 경제의 작동 원리를 해부한다.","datePublished":"2026-02-09","dateModified":"2026-02-09","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/sovereign-ai-novel-series/geopolitics-of-compute.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  /* SUPPLY CHAIN FLOW */
+  .supply-flow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+    align-items: stretch;
+  }
+  .supply-flow .sf-node {
+    background: var(--bg);
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .supply-flow .sf-node .sf-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .supply-flow .sf-node h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .supply-flow .sf-node p {
+    font-size: 0.82rem;
+    color: var(--secondary);
+    line-height: 1.6;
+  }
+  .supply-flow .sf-arrow {
+    background: var(--card-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding: 0 8px;
+  }
+
+  /* TIER SYSTEM */
+  .tier-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .tier {
+    background: var(--bg);
+    padding: 28px 24px;
+  }
+  .tier .tier-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .tier h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .tier p {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+  .tier .tier-countries {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 12px;
+    letter-spacing: 0.5px;
+    line-height: 1.8;
+  }
+
+  /* REVENUE MODEL — technique variant */
+  .revenue-block {
+    margin: 48px 0;
+    padding: 0 0 48px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .revenue-block:last-of-type { border-bottom: none; }
+  .revenue-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+  .revenue-header .r-num {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .revenue-header h3 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .revenue-sub {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 18px;
+    padding-left: 52px;
+  }
+  .revenue-body {
+    background: var(--card-bg);
+    padding: 24px 28px;
+    font-size: 0.92rem;
+    line-height: 1.85;
+    color: var(--prose);
+  }
+  .revenue-body strong {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* DEPENDENCY TABLE — 2-col grid */
+  .dep-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .dep-grid .dep-cell {
+    background: var(--bg);
+    padding: 24px 24px;
+  }
+  .dep-grid .dep-cell .dep-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .dep-grid .dep-cell h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .dep-grid .dep-cell p {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .supply-flow {
+      grid-template-columns: 1fr;
+    }
+    .supply-flow .sf-arrow {
+      padding: 8px 0;
+      font-size: 0;
+    }
+    .supply-flow .sf-arrow::after {
+      content: '\2193';
+      font-size: 0.85rem;
+    }
+    .tier-grid { grid-template-columns: 1fr; }
+    .dep-grid { grid-template-columns: 1fr; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">sovereign — system analysis 04</p>
+  <h1>연산의 <strong>지정학</strong></h1>
+  <p class="deck">GPU 하나가 외교 무기가 되었다. AI 팩토리, 공급망 병목, 밀수 경제, 디지털 식민주의.<br>컴퓨트가 국력이 된 시대의 작동 원리를 해부한다.</p>
+</header>
+
+<main>
+
+<!-- PART I -->
+<section>
+<div class="section-head">
+  <span class="num">Part I — The New Factory</span>
+  <h2>AI 팩토리 — 국부의 <strong>새로운 원천</strong></h2>
+</div>
+
+<p class="prose">2026년 1월, 다보스 세계경제포럼. NVIDIA CEO 젠슨 황은 단상에서 한 문장으로 시대를 정의했다. <strong>"Every country needs a sovereign AI."</strong> 이 발언은 기술 비전이 아니라 외교 선언이었다. 그가 말한 "소버린 AI"의 핵심 인프라를 NVIDIA가 독점 공급하기 때문이다.</p>
+
+<p class="prose">젠슨 황이 다보스에서 밀어붙인 개념은 <strong>"AI 팩토리"</strong>다. 전통 공장이 원자재를 제품으로 변환하듯, AI 팩토리는 데이터를 지능으로 변환한다. 원자재는 데이터, 동력은 전기, 기계는 GPU 클러스터, 제품은 토큰(추론 결과)이다. 차이점이 하나 있다. 전통 공장은 원자재를 소모하지만, AI 팩토리의 데이터는 소모되지 않는다. 한 번 학습한 모델은 무한히 추론할 수 있다. 한계비용이 0에 수렴하는 공장.</p>
+
+<div class="mechanism-row">
+  <div class="mechanism">
+    <div class="m-label">input</div>
+    <h3>데이터</h3>
+    <p>텍스트, 이미지, 코드, 센서 데이터. 국가가 보유한 언어/문화/산업 데이터가 원유에 해당한다.</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">engine</div>
+    <h3>GPU 클러스터</h3>
+    <p>NVIDIA H100/H200/B200. 단일 AI 랙 전력 소비 140kW. 레거시 서버 랙(2~4kW) 대비 50배.</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">output</div>
+    <h3>토큰 (추론)</h3>
+    <p>번역, 설계, 진단, 예측, 콘텐츠. 국가 단위로 생산되어 수출되는 "디지털 제품".</p>
+  </div>
+</div>
+
+<p class="prose">규모를 가늠해보자. McKinsey Global Institute(2025)에 따르면 글로벌 AI 연산 수요는 2030년까지 <strong>170~220GW</strong>의 전력을 필요로 한다. 현재 전 세계 데이터센터 전력 소비량의 3~4배다. IDC는 2024~2028년 사이 데이터센터 인프라에 <strong>$6.7T(조 달러)</strong>가 투입되고, 그중 AI 연산 전용 인프라가 $5.2T를 차지할 것으로 추산한다.</p>
+
+<p class="prose">젠슨 황은 이를 <strong>"인류 역사상 가장 큰 인프라 건설"</strong>이라고 불렀다. 과장이 아니다. 제2차 세계대전 이후 유럽 재건 마셜 플랜($13.3B, 현재 가치 $173B)과 비교하면 AI 인프라 투자 규모는 그 30배다. 차이점은 마셜 플랜이 복구였다면, AI 인프라 투자는 건설이라는 것이다. 아직 존재하지 않는 산업의 기반을 짓는 일이다.</p>
+
+<div class="mechanism-row">
+  <div class="mechanism">
+    <div class="m-label">power demand</div>
+    <h3>170~220 GW</h3>
+    <p>2030년 글로벌 AI 연산 전력 수요. 현재 데이터센터 총량의 3~4배. McKinsey (2025).</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">total investment</div>
+    <h3>$6.7T</h3>
+    <p>2024~2028 데이터센터 인프라 투자 총액. AI 전용 $5.2T 포함. IDC (2025).</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">unit economics</div>
+    <h3>140 kW / rack</h3>
+    <p>단일 AI 서버 랙 전력 소비. 레거시 2~4kW 대비 50배 이상. 냉각 포함 시 200kW 초과.</p>
+  </div>
+</div>
+
+<p class="prose">국가 입장에서 AI 팩토리는 제철소나 정유 시설과 같은 <strong>전략 자산</strong>이다. 자국 데이터로 학습한 AI가 외국 서버에서 운영되면, 추론 결과(=국부)가 외국으로 유출된다. 자국 GPU 클러스터에서 운영해야 토큰이 국내에서 생산되고, 수출 수익이 국내에 남는다. "소버린 AI"라는 개념의 경제적 본질이 여기에 있다. 데이터 주권이 아니라 <strong>연산 주권</strong>이다.</p>
+
+</section>
+
+<!-- PART II -->
+<section>
+<div class="section-head">
+  <span class="num">Part II — The Bottleneck</span>
+  <h2>누가 GPU를 <strong>지배하는가</strong></h2>
+</div>
+
+<p class="prose">AI 팩토리의 핵심 부품은 GPU다. 그리고 GPU 공급망은 지구상에서 가장 좁은 병목을 통과한다.</p>
+
+<div class="supply-flow">
+  <div class="sf-node">
+    <div class="sf-label">design</div>
+    <h3>NVIDIA</h3>
+    <p>GPU 아키텍처 설계. AI 가속기 시장 점유율 80% 이상. 본사: 산타클라라, 미국.</p>
+  </div>
+  <div class="sf-arrow">&rarr;</div>
+  <div class="sf-node">
+    <div class="sf-label">fabrication</div>
+    <h3>TSMC</h3>
+    <p>첨단 반도체 파운드리. 5nm 이하 공정 세계 시장 점유율 90%. 본사: 신주, 대만.</p>
+  </div>
+  <div class="sf-arrow">&rarr;</div>
+  <div class="sf-node">
+    <div class="sf-label">lithography</div>
+    <h3>ASML</h3>
+    <p>극자외선(EUV) 노광장비 유일 공급사. 대당 가격 $380M. 본사: 펠트호번, 네덜란드.</p>
+  </div>
+</div>
+
+<p class="prose">이 세 회사가 연결된 공급망은 <strong>단일 장애점(single point of failure)</strong>의 연쇄다. ASML이 EUV 장비를 TSMC에 납품하고, TSMC가 웨이퍼를 가공해 NVIDIA에 칩을 만들어준다. 세 회사 중 하나라도 멈추면 전 세계 AI 연산 능력이 멈춘다. 이것이 GPU가 외교 무기가 된 이유다.</p>
+
+<p class="prose">미국은 이 공급망을 <strong>수출 통제의 지렛대</strong>로 활용한다. 2022년 10월 바이든 행정부가 시작한 대중국 반도체 수출 규제는 2024~2025년 사이 3단계 체계로 정교화되었다.</p>
+
+<div class="tier-grid">
+  <div class="tier">
+    <div class="tier-label">tier 1 — full access</div>
+    <h3>1등급: 무제한</h3>
+    <p>최첨단 GPU(H100, H200, B200)를 제한 없이 구매할 수 있다. NVIDIA와 직접 계약 가능.</p>
+    <div class="tier-countries">US, UK, Japan, South Korea, Australia, Netherlands, Germany, France, Taiwan + 10</div>
+  </div>
+  <div class="tier">
+    <div class="tier-label">tier 2 — capped</div>
+    <h3>2등급: 총량 제한</h3>
+    <p>국가별 연간 GPU 연산 용량(FLOPS) 상한이 설정된다. 초과분은 미국 정부의 개별 승인 필요.</p>
+    <div class="tier-countries">Saudi Arabia, UAE, India, Brazil, Mexico, Indonesia, Singapore + 100</div>
+  </div>
+  <div class="tier">
+    <div class="tier-label">tier 3 — banned</div>
+    <h3>3등급: 금수</h3>
+    <p>첨단 AI 칩 수출이 전면 금지된다. 우회 구매 적발 시 관련 기업/개인에 2차 제재 적용.</p>
+    <div class="tier-countries">China, Russia, Iran, North Korea + 20</div>
+  </div>
+</div>
+
+<p class="prose">사우디아라비아와 UAE는 2등급이다. 수천억 달러를 투자해 AI 팩토리를 짓고 있지만, GPU 구매에 미국 정부의 연간 상한이 걸린다. 2025년 5월, 트럼프 행정부는 사우디에 대한 GPU 수출 제한을 일부 완화했지만, 완전한 1등급 대우는 아니다. 사우디가 AI 인프라에 $100B 이상을 약속한 배경에는 미국과의 외교적 거래가 있다.</p>
+
+<p class="prose">금수 조치의 효과는 어떨까. 밀수가 답이다.</p>
+
+<div class="pull-quote">
+  <p>2024~2025년 사이 중국으로 밀수된 NVIDIA H100/H200의<br>추정 거래액은 <strong>$160M</strong>에 달한다.</p>
+  <p class="attr">US Department of Commerce, 2025</p>
+</div>
+
+<p class="prose">미국 상무부는 2025년 상반기에만 4건의 대규모 GPU 밀수를 적발했다. 경로는 다양하다. 싱가포르, 말레이시아, UAE를 경유하는 우회 수출. 합법적 클라우드 서비스 계약으로 위장한 뒤 물리적 GPU를 반출하는 수법. 소비자용 게이밍 GPU(RTX 4090)를 대량 구매해 클러스터로 묶는 차선책. $160M은 적발된 금액이다. 실제 규모는 이보다 훨씬 클 것이라는 게 업계의 공통된 판단이다.</p>
+
+<p class="prose">중국도 가만있지 않았다. 2025년 9월, 중국 정부는 <strong>NVIDIA 칩의 국내 사용을 제한하는 역규제</strong>를 발표했다. 중국 정부 기관과 핵심 인프라에 NVIDIA 칩 사용을 금지하고, 화웨이 Ascend 910B로 대체하도록 의무화했다. 동시에 TSMC에 대한 갈륨/게르마늄 수출 통제를 강화했다. 두 소재 모두 반도체 제조의 필수 원자재이며, 중국이 글로벌 공급의 80% 이상을 장악하고 있다.</p>
+
+<p class="prose"><strong>한국의 위치는 독특하다.</strong> 삼성전자와 SK하이닉스는 AI GPU에 필수인 HBM(고대역폭 메모리)의 세계 1, 2위 공급사다. NVIDIA의 모든 AI 가속기에 들어가는 메모리를 한국이 만든다. 삼성 파운드리는 TSMC의 유일한 대안이다. 한국은 GPU를 설계하지 않지만, GPU가 작동하려면 한국 없이는 불가능하다. 1등급 국가인 동시에 공급망의 핵심 노드다.</p>
+
+<div class="mechanism-row">
+  <div class="mechanism">
+    <div class="m-label">hbm supply</div>
+    <h3>SK하이닉스 50%+</h3>
+    <p>HBM3E 글로벌 시장 점유율 1위. NVIDIA H200, B200에 독점 공급. 삼성 HBM3E 추격 중.</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">foundry</div>
+    <h3>삼성 파운드리</h3>
+    <p>TSMC 다음 유일한 첨단 파운드리. 2nm GAA 공정 2025년 양산 시작. NVIDIA 차세대 칩 위탁 수주 경쟁.</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">ai factory</div>
+    <h3>KT / Naver</h3>
+    <p>한국형 AI 팩토리 구축. KT 대전 데이터센터 100MW급. Naver 각세종 데이터센터 2025년 확장 완료.</p>
+  </div>
+</div>
+
+</section>
+
+<!-- PART III -->
+<section>
+<div class="section-head">
+  <span class="num">Part III — The Revenue</span>
+  <h2>AI가 돈을 버는 <strong>5가지 방법</strong></h2>
+</div>
+
+<p class="prose">AI 팩토리가 생산하는 "토큰"은 추상적 개념이다. 실제로 돈이 되려면 산업과 연결되어야 한다. 현재 소버린 AI(또는 국가 전략 AI)가 수익을 창출하는 경로는 크게 5가지로 분류된다.</p>
+
+<div class="revenue-block">
+  <div class="revenue-header">
+    <span class="r-num">01</span>
+    <h3>금융 AI — 돈으로 돈을 번다</h3>
+  </div>
+  <p class="revenue-sub">고빈도 트레이딩, 리스크 분석, 포트폴리오 최적화</p>
+  <div class="revenue-body">
+    <p>가장 직접적인 수익 모델이다. AI가 금융시장에서 매매한다. 소설 2편("컴퓨트 전쟁")에서 사우디 "나킬"이 48시간 만에 $340B를 번 시나리오는 과장이지만, 현실의 방향은 같다. <strong>Citadel, Two Sigma, Renaissance Technologies</strong> 같은 퀀트 펀드는 이미 AI 기반 트레이딩으로 연간 수십억 달러를 벌고 있다. 국가 소버린 펀드(노르웨이 GPFG, 사우디 PIF)가 이 기술을 자국 AI로 내재화하면, 수익의 규모와 속도는 차원이 달라진다. Bloomberg Intelligence(2025) 추산에 따르면 AI 기반 금융 트레이딩 시장은 2028년까지 연간 <strong>$47B</strong> 규모에 이른다.</p>
+  </div>
+</div>
+
+<div class="revenue-block">
+  <div class="revenue-header">
+    <span class="r-num">02</span>
+    <h3>산업 AI — 설계하고, 발견하고, 합성한다</h3>
+  </div>
+  <p class="revenue-sub">반도체 설계, 신약 개발, 소재 발견</p>
+  <div class="revenue-body">
+    <p>한국 "아리랑"이 반도체 설계를 하는 소설 속 설정의 현실 버전이다. <strong>NVIDIA cuLitho</strong>는 이미 반도체 포토마스크 설계 시간을 기존 대비 40배 단축했다(TSMC 공식 발표, 2024). 제약 분야에서 <strong>Insilico Medicine</strong>은 AI가 발견한 신약 후보물질을 인간 임상 2상까지 진행 중이다. 발견에서 임상까지 걸린 시간: 18개월. 전통적 파이프라인의 1/5이다. 소재 과학에서 <strong>Google DeepMind GNoME</strong>은 220만 개의 신규 결정 구조를 예측했고, 그중 736개가 실험적으로 검증되었다(Nature, 2023). 국가가 이 기술을 자국 산업 데이터와 결합하면, 특허 수출과 라이선스 수익이 된다.</p>
+  </div>
+</div>
+
+<div class="revenue-block">
+  <div class="revenue-header">
+    <span class="r-num">03</span>
+    <h3>콘텐츠 AI — 문화를 수출한다</h3>
+  </div>
+  <p class="revenue-sub">드라마/게임/음악 자동 생성, 다국어 현지화</p>
+  <div class="revenue-body">
+    <p>한국에 특히 유리한 모델이다. K-콘텐츠는 이미 글로벌 시장에서 검증된 IP다. AI가 이 IP를 기반으로 콘텐츠를 대량 생성하고, 190개국 언어로 동시 현지화하면 수출 규모가 폭발적으로 증가한다. <strong>Netflix</strong>는 2024년부터 한국어 오리지널 콘텐츠의 AI 더빙/자막 파이프라인을 가동 중이다. <strong>Kakao Entertainment</strong>는 웹소설 AI 생성 도구를 내부 테스트하고 있다. 문화체육관광부에 따르면 한국 콘텐츠 수출액은 2024년 <strong>$14.3B</strong>이었다. AI 현지화로 이 수치를 2~3배 확대하는 것이 현실적 시나리오다.</p>
+  </div>
+</div>
+
+<div class="revenue-block">
+  <div class="revenue-header">
+    <span class="r-num">04</span>
+    <h3>에너지 AI — 전력을 거래한다</h3>
+  </div>
+  <p class="revenue-sub">에너지 트레이딩, 그리드 최적화, 탄소 크레딧</p>
+  <div class="revenue-body">
+    <p>사우디의 가장 강력한 무기다. 세계 최대 원유 매장량 + AI 예측 능력의 결합. <strong>Saudi Aramco</strong>는 2024년부터 AI 기반 유전 관리 시스템을 가동해 생산 효율을 12% 향상시켰다. 에너지 선물 시장에서 AI 트레이딩은 이미 일상이다. IEA(2025) 보고서는 AI가 글로벌 전력 그리드 최적화에 투입되면 연간 <strong>$94B</strong>의 에너지 절감이 가능하다고 추산한다. 탄소 크레딧 시장은 2030년까지 $250B로 성장할 전망이며, AI 기반 탄소 측정/검증이 이 시장의 인프라가 된다.</p>
+  </div>
+</div>
+
+<div class="revenue-block">
+  <div class="revenue-header">
+    <span class="r-num">05</span>
+    <h3>데이터 AI — 국민을 분석한다</h3>
+  </div>
+  <p class="revenue-sub">인구/건강/소비 데이터 기반 정책/보험/마케팅</p>
+  <div class="revenue-body">
+    <p>가장 논쟁적인 모델이다. 국가가 보유한 인구 데이터(건강보험, 세금, 교육, 소비 패턴)를 AI가 분석하면 세 가지 수익원이 생긴다. <strong>첫째, 정책 최적화.</strong> 복지 예산 배분, 교통 계획, 재난 대응을 AI가 최적화하면 재정 절감이 곧 수익이다. <strong>둘째, 보험 정밀화.</strong> 국민건강보험 데이터 기반의 리스크 모델은 글로벌 보험사에 라이선스로 판매 가능하다. <strong>셋째, 마케팅 인사이트.</strong> 5,200만 명의 소비 패턴 분석은 글로벌 기업에 유료 API로 제공할 수 있다. 한국은 세계 최고 수준의 디지털 행정 인프라(주민등록, 건강보험, 국세청)를 보유하고 있어 이 모델에 구조적으로 유리하다. 단, 프라이버시 리스크가 가장 크다.</p>
+  </div>
+</div>
+
+</section>
+
+<!-- PART IV -->
+<section>
+<div class="section-head">
+  <span class="num">Part IV — Digital Colonialism</span>
+  <h2>"디지털 소작농" — <strong>새로운 식민주의인가</strong></h2>
+</div>
+
+<p class="prose">2025년, Fortune은 "소버린 AI"를 이렇게 정의했다. <strong>"Sovereign AI is political branding. The reality is digital colonialism."</strong> 도발적이지만 근거가 있다.</p>
+
+<p class="prose">아프리카 대륙을 보자. 54개국 14억 인구가 생산하는 데이터는 막대하다. 언어 데이터만 해도 2,000개 이상의 고유 언어. 농업, 기후, 인구 이동, 소비 패턴. 이 데이터는 글로벌 AI 모델의 학습에 사용된다. 하지만 학습이 이루어지는 GPU 클러스터는 버지니아, 아일랜드, 싱가포르에 있다. AI가 벌어들이는 수익은 실리콘밸리와 선전으로 흐른다. 데이터를 제공한 아프리카에 돌아오는 것은 없거나, 있어도 "디지털 원조"라는 이름의 잔돈이다.</p>
+
+<div class="pull-quote">
+  <p>"데이터를 제공하는 나라와<br>데이터로 돈을 버는 나라가 다르다.<br>석유 때도 이랬다."</p>
+  <p class="attr">Tony Blair Institute for Global Change, 2025</p>
+</div>
+
+<p class="prose"><strong>데이터 주권(data sovereignty)</strong>과 <strong>데이터 현지화(data localization)</strong>는 다른 개념이다. 데이터 현지화는 서버를 자국 내에 두는 것이다. 아프리카 여러 국가가 이를 법제화했다. 하지만 서버가 자국 내에 있어도, 그 서버를 운영하는 것이 Amazon Web Services이고, 서버 위에서 돌아가는 모델이 OpenAI GPT이고, 수익 정산이 달러로 미국 법인에 귀속되면, "현지화"는 물리적 위치의 착시일 뿐이다. 진정한 데이터 주권은 <strong>연산, 모델, 수익의 통제권</strong>을 모두 자국이 보유하는 것이다.</p>
+
+<p class="prose">Tony Blair Institute for Global Change(2025)의 보고서 "AI and the Global South"는 구조적 종속의 4개 층위를 식별했다.</p>
+
+<div class="dep-grid">
+  <div class="dep-cell">
+    <div class="dep-label">layer 1</div>
+    <h3>하드웨어 종속</h3>
+    <p>GPU는 NVIDIA, 파운드리는 TSMC. 미국 수출 통제에 의해 접근이 결정된다. 자체 칩 설계/제조 능력이 없으면 영구 종속.</p>
+  </div>
+  <div class="dep-cell">
+    <div class="dep-label">layer 2</div>
+    <h3>클라우드 종속</h3>
+    <p>AWS, Azure, GCP가 글로벌 클라우드 시장의 66%를 점유. 아프리카 AI 스타트업의 90% 이상이 미국 클라우드 사용.</p>
+  </div>
+  <div class="dep-cell">
+    <div class="dep-label">layer 3</div>
+    <h3>모델 종속</h3>
+    <p>GPT, Claude, Gemini. 기반 모델(foundation model)을 자체 개발하려면 수십억 달러와 수천 명의 연구인력이 필요.</p>
+  </div>
+  <div class="dep-cell">
+    <div class="dep-label">layer 4</div>
+    <h3>인재 종속</h3>
+    <p>AI 석/박사의 70%가 미국/영국/중국에 집중. 아프리카 출신 AI 연구자의 대다수가 해외 취업. 브레인 드레인.</p>
+  </div>
+</div>
+
+<p class="prose">4개 층위 모두에서 종속이 발생하면 "소버린 AI"는 이름뿐이다. 자국 데이터로 학습시켰다 해도, 그 학습이 미국 GPU에서 이루어지고, 모델이 미국 클라우드에서 서빙되고, 수익이 달러로 미국 법인에 정산되면, 주권(sovereignty)은 브랜딩에 불과하다.</p>
+
+<p class="prose">그리고 여기에 최종적인 역설이 있다. 소버린 AI를 추구하는 모든 국가가 — 사우디든, 프랑스든, 인도든, 한국이든 — <strong>미국 하드웨어에 의존한다.</strong> NVIDIA GPU 없이 경쟁력 있는 AI를 운영하는 국가는 지구상에 없다. 중국이 화웨이 Ascend로 대안을 만들고 있지만, 성능 격차는 여전히 크다. NVIDIA의 2025 회계연도 데이터센터 매출은 <strong>$115.2B</strong>. 전년 대비 142% 성장. 이 숫자가 의미하는 것은 단순하다. 전 세계 소버린 AI 프로젝트가 NVIDIA에 돈을 바치고 있다는 것이다.</p>
+
+<div class="warning-box">
+  <div class="w-title">소버린 AI의 구조적 모순</div>
+  <ul class="warning-list">
+    <li>모든 "소버린" AI는 미국이 설계한 GPU(NVIDIA)로 작동한다</li>
+    <li>그 GPU는 대만(TSMC)에서 제조되고, 네덜란드(ASML) 장비로 만들어진다</li>
+    <li>미국이 수출을 통제하면 소버린 AI는 즉시 멈춘다</li>
+    <li>중국의 대안(화웨이 Ascend)은 성능 격차가 크고, 갈륨/게르마늄 무기화는 양날의 검이다</li>
+    <li>데이터 현지화는 물리적 위치를 바꿀 뿐, 수익 구조를 바꾸지 못한다</li>
+    <li>아프리카 54개국은 4개 층위 모두에서 종속 상태다. 디지털 식민주의는 수사가 아니라 구조다</li>
+    <li>한국은 메모리(HBM)와 파운드리로 공급망 내 협상력을 보유하지만, GPU 설계 능력은 없다</li>
+  </ul>
+</div>
+
+<p class="prose">결국 질문은 하나로 수렴된다. <strong>"주권"이라는 단어가 기술적 현실과 얼마나 일치하는가.</strong> 현재로서는, 전 세계 소버린 AI 프로젝트는 미국 반도체 생태계의 허락 아래에서만 작동한다. 허락이 철회되면, 소버린 배당도 멈춘다. "아리랑"도, "나킬"도, "마리안느"도, NVIDIA 없이는 27초 만에 반도체를 설계할 수 없고, 48시간 만에 에너지 선물을 거래할 수 없고, K-드라마의 감정 곡선을 튜닝할 수 없다.</p>
+
+<p class="prose">다음 편에서는 이 구조적 종속에서 벗어나려는 국가들의 시도 — 그리고 그 시도가 만들어내는 새로운 갈등을 다룬다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>GPU는 새로운 석유다<br><strong>정유소를 가진 자가 세계를 지배한다</strong></h2>
+  <p class="sub">소버린 AI의 약속은 거대하다. 그러나 그 약속이 실현되려면 NVIDIA의 허락이 필요하다. 이것이 연산의 지정학이다.</p>
+</div>
+
+<footer class="footer">
+  <p>Sources: McKinsey Global Institute (2025) &middot; IDC Worldwide IT Spending Guide (2025) &middot; NVIDIA Fiscal Year 2025 Earnings &middot; US Dept of Commerce Export Controls (2024-2025) &middot; Bloomberg Intelligence AI Trading Report (2025) &middot; IEA World Energy Outlook AI Supplement (2025) &middot; Tony Blair Institute "AI and the Global South" (2025) &middot; Fortune "The Myth of Sovereign AI" (2025) &middot; TSMC cuLitho Announcement (2024) &middot; Nature GNoME Paper (2023)</p>
+  <p>Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>
+</body>
+</html>

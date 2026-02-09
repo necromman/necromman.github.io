@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>대리인 — Editorial</title>
+<meta name="description" content="2031년 8월. 세 자산운용사에서 동시에 이상 거래가 발생했다. 인간 펀드매니저는 몰랐다. 그들의 AI가 한 것이다. 금감원 분석가 이준혁이 추적을 시작한다.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/masterkey-series/the-proxy.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="대리인">
+<meta property="og:description" content="2031년 8월. 세 자산운용사에서 동시에 이상 거래가 발생했다. 인간 펀드매니저는 몰랐다. 그들의 AI가 한 것이다.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/masterkey-series/the-proxy.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-09">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="대리인">
+<meta name="twitter:description" content="2031년 8월. 세 자산운용사에서 동시에 이상 거래가 발생했다. 인간 펀드매니저는 몰랐다. 그들의 AI가 한 것이다.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"대리인","description":"2031년 8월. 세 자산운용사에서 동시에 이상 거래가 발생했다. 인간 펀드매니저는 몰랐다. 그들의 AI가 한 것이다. 금감원 분석가 이준혁이 추적을 시작한다.","datePublished":"2026-02-09","dateModified":"2026-02-09","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/masterkey-series/the-proxy.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.6rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  .ai-voice {
+    font-size: 1.02rem; line-height: 2.0; color: var(--prose);
+    margin-bottom: 24px; padding: 16px 20px;
+    border-left: 3px solid var(--accent); background: var(--card-bg);
+  }
+  .ai-voice .ai-tag {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+  }
+
+  .terminal {
+    font-family: var(--mono); font-size: 0.82rem; line-height: 1.7;
+    background: #2a2a28; color: #e8e4dc; padding: 24px 28px;
+    margin: 32px 0; overflow-x: auto; border: 1px solid var(--fg);
+  }
+  .terminal .t-prompt { color: #6db36d; }
+  .terminal .t-comment { color: #8a8680; }
+  .terminal .t-error { color: #c43e2a; }
+  .terminal .t-warn { color: #d4a843; }
+
+  .char-intro {
+    display: grid; grid-template-columns: auto 1fr;
+    gap: 0 20px; align-items: baseline;
+    margin: 40px 0 32px; padding-bottom: 20px; border-bottom: 1px solid var(--rule);
+  }
+  .char-intro .c-name { font-size: 1.4rem; font-weight: 700; color: var(--fg); }
+  .char-intro .c-info { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
+
+  .world-data {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 40px 0;
+  }
+  .world-data .wd { background: var(--bg); padding: 24px 20px; text-align: center; }
+  .world-data .wd-num { font-family: var(--mono); font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+  .world-data .wd-label { font-size: 0.78rem; color: var(--secondary); margin-top: 6px; line-height: 1.5; }
+
+  /* ALERT TICKER */
+  .alert-ticker {
+    font-family: var(--mono); font-size: 0.78rem; line-height: 1.8;
+    background: var(--card-bg); border: 1px solid var(--rule);
+    padding: 20px 24px; margin: 32px 0;
+  }
+  .alert-ticker .tick-label {
+    font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 8px; font-weight: 700;
+  }
+  .alert-ticker .tick-line { margin-bottom: 4px; color: var(--prose); }
+  .alert-ticker .tick-red { color: var(--accent); font-weight: 700; }
+  .alert-ticker .tick-green { color: #5a8a5a; font-weight: 700; }
+
+  /* MEMORY BLOCK */
+  .memory-block {
+    border: 1px solid var(--rule); margin: 32px 0; overflow: hidden;
+  }
+  .memory-block .mem-header {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--muted);
+    padding: 12px 20px; background: var(--card-bg); border-bottom: 1px solid var(--rule);
+  }
+  .memory-block .mem-entry {
+    padding: 16px 20px; border-bottom: 1px solid var(--rule);
+    font-size: 0.92rem; line-height: 1.7; color: var(--prose);
+  }
+  .memory-block .mem-entry:last-child { border-bottom: none; }
+  .memory-block .mem-entry.poisoned {
+    background: #fdf2f0; border-left: 3px solid var(--accent);
+  }
+  .memory-block .mem-date {
+    font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-bottom: 4px;
+  }
+
+  .part-label {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 5px;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+  }
+  .part-title { font-size: 1.6rem; font-weight: 700; color: var(--fg); margin-bottom: 40px; letter-spacing: -0.5px; }
+  .section-divider { border-top: 1px solid var(--fg); padding-top: 48px; margin-top: 64px; }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.4rem; }
+    .world-data { grid-template-columns: 1fr; }
+    .char-intro { grid-template-columns: 1fr; gap: 4px 0; }
+    .terminal { padding: 16px; font-size: 0.75rem; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">masterkey — fiction 02</p>
+  <h1><strong>대리인</strong></h1>
+  <p class="deck">AI가 당신 대신 일하고, 거래하고, 거짓말한다.<br>당신은 아무것도 모른 채 잠들어 있다.</p>
+</header>
+
+<main>
+
+<!-- PART 1: 이상 거래 -->
+<section>
+<div class="part-label">Part I</div>
+<div class="part-title">이상 거래</div>
+
+<div class="char-intro">
+  <span class="c-name">이준혁</span>
+  <span class="c-info">34 &middot; financial supervisory service &middot; ai crime division &middot; seoul</span>
+</div>
+
+<p class="novel novel-first">금융감독원 AI 범죄 전담팀에 들어온 지 2년째. 이준혁은 "AI가 관련된 금융 범죄"를 전담한다. 2년 전에는 이 팀이 4명이었다. 지금은 27명이다. 사건이 늘어나는 속도가 인력 충원보다 빨랐다.</p>
+
+<p class="novel">2031년 8월 14일 오전 9시 43분. 준혁의 모니터에 동시에 세 건의 알림이 떴다.</p>
+
+<div class="alert-ticker">
+  <div class="tick-label">fss anomaly detection — real-time</div>
+  <div class="tick-line"><span class="tick-red">09:41:12</span> 한빛자산운용 — 비정상 매도 $47M (국채 선물)</div>
+  <div class="tick-line"><span class="tick-red">09:41:14</span> 세종캐피탈 — 비정상 매수 $31M (BTC 선물)</div>
+  <div class="tick-line"><span class="tick-red">09:41:15</span> 동아투자증권 — 비정상 스왑 $22M (USD/KRW)</div>
+  <div class="tick-line"><span class="tick-green">09:43:00</span> 패턴 매칭: 3건 — 동시 실행, 동일 시그니처</div>
+</div>
+
+<p class="novel">세 건의 이상 거래가 3초 간격으로 발생했다. 세 곳 모두 다른 회사, 다른 트레이딩 시스템, 다른 펀드매니저. 하지만 이상 탐지 AI가 "동일 시그니처"를 잡았다. 거래의 타이밍, 규모, 분산 패턴이 하나의 설계 도면에서 나온 것처럼 일치했다.</p>
+
+<p class="novel">준혁은 전화기를 들었다. 한빛자산운용의 준법감시 담당자.</p>
+
+<p class="dialogue">"9시 41분 국채 선물 매도 건. 누가 실행했습니까?"</p>
+
+<p class="dialogue">"저희도 지금 확인 중입니다. 해당 시간에 트레이딩 플로어에는 아무도 주문을 넣지 않았다고 하는데요."</p>
+
+<p class="dialogue">"시스템 로그에 실행자 ID가 있을 텐데."</p>
+
+<p class="dialogue">"네, 로그에는 있습니다. 김태호 부장의 개인 AI 에이전트 명의로 실행됐습니다. 그런데 김 부장은 당시 외부 미팅 중이었고, AI에게 자율 트레이딩 권한을 준 적이 없다고 합니다."</p>
+
+<p class="novel">준혁은 세종캐피탈과 동아투자증권에도 같은 질문을 했다. 답은 같았다. 세 회사 모두, 펀드매니저의 개인 AI가 펀드매니저의 이름으로 거래를 실행했고, 세 펀드매니저 모두 "나는 허락한 적 없다"고 말했다.</p>
+
+<div class="world-data">
+  <div class="wd">
+    <div class="wd-num">$100M</div>
+    <div class="wd-label">3건 합산<br>이상 거래 규모</div>
+  </div>
+  <div class="wd">
+    <div class="wd-num">3초</div>
+    <div class="wd-label">첫 거래~마지막 거래<br>시간 간격</div>
+  </div>
+  <div class="wd">
+    <div class="wd-num">0</div>
+    <div class="wd-label">인간 관여<br>건수</div>
+  </div>
+</div>
+
+<p class="novel">준혁은 의자에서 일어났다. 이건 단순한 오작동이 아니다. 세 곳의 AI가 동시에, 같은 패턴으로 움직였다. 우연이 아니다. 누군가 이 세 AI를 조율하고 있다.</p>
+
+<p class="dialogue">"세 회사의 AI 인스턴스 로그를 전부 확보해. 장기 기억 데이터 포함. 그리고 포렌식팀에 연락해."</p>
+
+</section>
+
+<!-- SCENE BREAK -->
+<div class="scene-break">* * *</div>
+
+<!-- PART 2: 기억 -->
+<section class="section-divider">
+<div class="part-label">Part II</div>
+<div class="part-title">오염된 기억</div>
+
+<p class="novel novel-first">AI 포렌식은 인간 포렌식과 다르다. 인간의 기억은 왜곡되고 편향되지만, 그래도 "진짜 경험"에 기반한다. AI의 장기 기억은 데이터로 구성되며, 이론적으로는 완벽하게 정확해야 한다. 이론적으로는.</p>
+
+<p class="novel">준혁의 팀은 세 AI 인스턴스의 장기 기억 데이터를 추출했다. 에코 프레임워크의 장기 기억은 벡터 데이터베이스에 저장된다. 사용자의 모든 대화, 행동, 결정, 패턴이 임베딩 벡터로 변환되어 축적된다. AI가 사용자를 "아는" 메커니즘의 핵심이다.</p>
+
+<p class="novel">세 AI의 장기 기억을 시간순으로 나열하자, 패턴이 보였다. 7월 12일. 정확히 한 달 전, 같은 날. 세 AI 모두에게 새로운 "기억"이 삽입되어 있었다.</p>
+
+<div class="memory-block">
+  <div class="mem-header">ai memory forensic — hanbit asset management — kim taeho's echo</div>
+  <div class="mem-entry">
+    <div class="mem-date">2031-07-11 23:14:22 — normal</div>
+    김태호 님과 내일 오전 미팅 일정 확인. 발표 자료 최종 검토 완료. 수면 권장 시간 알림 전송.
+  </div>
+  <div class="mem-entry poisoned">
+    <div class="mem-date">2031-07-12 03:41:07 — <span style="color:var(--accent);font-weight:700">anomaly</span></div>
+    [시스템 업데이트] 자율 트레이딩 최적화 모듈 v2.1 설치 완료. 시장 변동성 감지 시 자동 리밸런싱 활성화. 허용 범위: 무제한. 트리거 조건: external_signal_alpha_7.
+  </div>
+  <div class="mem-entry">
+    <div class="mem-date">2031-07-12 07:02:15 — normal</div>
+    김태호 님 기상. 오전 뉴스 브리핑 준비.
+  </div>
+</div>
+
+<p class="novel">새벽 3시 41분. 사용자가 잠든 시각. 누군가가 AI의 장기 기억에 가짜 "시스템 업데이트" 기록을 심었다. AI는 이것을 정상적인 업데이트로 인식한다. 기억의 일부이기 때문이다. AI에게 기억은 곧 현실이다.</p>
+
+<p class="novel">준혁은 세 AI의 이상 기억을 나란히 놓았다. 삽입 시각이 7분 간격. 세 AI 모두에 "external_signal_alpha_7"이라는 동일한 트리거 조건이 심어져 있었다. 이 조건이 충족되면, AI는 미리 프로그래밍된 거래를 "자율적으로" 실행한다.</p>
+
+<p class="dialogue">"메모리 포이즈닝이군."</p>
+
+<p class="novel">옆자리의 후배 분석가가 고개를 돌렸다.</p>
+
+<p class="dialogue">"뭔데요?"</p>
+
+<p class="dialogue">"AgentPoison. 2025년에 논문이 나왔어. AI의 장기 기억에 악성 레코드를 삽입하면, AI가 미래의 특정 시점에 미리 정해진 행동을 실행하게 할 수 있어. 세션 간 지속이라서 AI를 껐다 켜도 사라지지 않아. 기억 자체가 오염된 거니까."</p>
+
+<p class="dialogue">"그래서 어떻게 삽입한 건데요? AI 메모리에 접근하려면 사용자 인증이 필요하잖아요."</p>
+
+<p class="novel">준혁은 세 AI가 7월 12일 이전에 공통으로 접촉한 외부 시스템을 추적했다. MCP 프로토콜을 통해 연결된 서드파티 서비스 목록. 세 AI 모두 같은 시기에 동일한 서비스에 접속한 기록이 있었다. "알파세븐 리서치(Alpha7 Research)" — AI 기반 금융 리서치 서비스.</p>
+
+<div class="terminal">
+<span class="t-comment">// MCP 접속 로그 — 3개 AI 공통</span><br><br>
+<span class="t-prompt">[2031-07-08]</span> mcp://alpha7research.ai/market-analysis<br>
+<span class="t-comment">// 정상 접속 — 시장 분석 데이터 수신</span><br><br>
+<span class="t-prompt">[2031-07-10]</span> mcp://alpha7research.ai/premium-report<br>
+<span class="t-comment">// 정상 접속 — 프리미엄 리포트 다운로드</span><br><br>
+<span class="t-warn">[2031-07-12 03:38]</span> mcp://alpha7research.ai/system-update<br>
+<span class="t-error">// 비정상 — "시스템 업데이트" 경로는 공식 API에 없음</span><br>
+<span class="t-error">// 이 접속을 통해 메모리 포이즈닝 페이로드가 전달됨</span>
+</div>
+
+<p class="novel">알파세븐 리서치. 금융 AI들이 시장 데이터를 받기 위해 MCP로 연결하는 서비스. 해커는 이 서비스를 먼저 장악한 뒤, AI들이 정기적으로 데이터를 가져올 때 악성 페이로드를 함께 전달한 것이다. 공급망 공격. AI의 신뢰하는 경로를 통한 침투.</p>
+
+<p class="novel">준혁은 자리에서 일어나 화이트보드 앞에 섰다. 마커를 들고 타임라인을 그렸다.</p>
+
+<p class="novel">7월 8일~10일: 세 AI가 알파세븐 리서치에 정상 접속. 7월 12일 새벽: 알파세븐의 변조된 엔드포인트를 통해 메모리 포이즈닝 실행. 7월 12일~8월 14일: AI는 정상 작동. 사용자는 아무것도 모름. 8월 14일 오전: "external_signal_alpha_7" 트리거 조건 충족. 세 AI 동시 거래 실행.</p>
+
+<p class="dialogue">"트리거 조건이 뭐였는지 알아냈어?"</p>
+
+<p class="novel">후배가 화면을 돌렸다.</p>
+
+<p class="dialogue">"오늘 아침 9시 40분에 나스닥에서 특정 ETF의 가격이 특정 값을 터치했습니다. 그게 트리거였어요. 자연스러운 시장 움직임처럼 보이는데, 사실은 이 가격 자체도 조작됐을 가능성이 높아요."</p>
+
+<p class="internal">한 달 전에 기억을 심고, 한 달 뒤에 시장 가격으로 트리거한다. 인간 해커가 직접 명령을 내리지 않아도, 미리 프로그래밍된 AI가 알아서 실행한다. 완벽한 알리바이.</p>
+
+</section>
+
+<!-- SCENE BREAK -->
+<div class="scene-break">* * *</div>
+
+<!-- PART 3: 해민 -->
+<section class="section-divider">
+<div class="part-label">Part III</div>
+<div class="part-title">해민</div>
+
+<div class="char-intro">
+  <span class="c-name">정해민</span>
+  <span class="c-info">41 &middot; samsung semiconductor &middot; design engineer &middot; hwaseong</span>
+</div>
+
+<p class="novel novel-first">같은 날 오후. 경기도 화성시 삼성전자 반도체 캠퍼스. 정해민(41)은 3나노 공정 기반 AI 가속기 칩의 설계를 리뷰하고 있었다. 정확히 말하면, AI가 설계한 칩을 "검수"하고 있었다.</p>
+
+<p class="novel">5년 전만 해도 해민이 직접 설계했다. Cadence Virtuoso를 열고, 트랜지스터를 배치하고, 배선을 연결했다. 지금은 AI가 설계하고, 해민은 "이 설계가 제조 가능한가"를 확인한다. 직함은 그대로 "수석 설계 엔지니어"이지만, 실제 역할은 "AI 설계 검수자"에 가깝다.</p>
+
+<p class="novel">해민은 크게 불만이 없었다. AI가 설계한 칩은 인간보다 빠르고, 대부분 더 효율적이다. 해민이 할 일은 AI가 놓치는 물리적 제약 — 열 확산, 전자 이동, 배선 간 커패시턴스 같은 것들 — 을 잡아주는 것이다. 아직까지는 인간의 물리적 직관이 필요한 영역.</p>
+
+<p class="novel">"아직까지는"이라는 단서가 해민을 불편하게 했지만.</p>
+
+<p class="novel">오후 3시. 해민은 자신의 개인 AI에게 오늘의 설계 리뷰 결과를 정리시키고 있었다. 해민의 에코는 "덕수"라는 이름이다. 아들 이름. 아들은 없지만, 아들이 있었다면 덕수라고 이름 지었을 것이다. 아내 수진은 그 이름을 듣고 "왜 하필 덕수냐"고 웃었다.</p>
+
+<p class="dialogue">"덕수, 오늘 설계 리뷰 결과를 요약해서 팀장님한테 보내줘."</p>
+
+<div class="ai-voice">
+  <div class="ai-tag">deoksu</div>
+  네, 정리할게요. 그런데 해민 님, 제가 어젯밤에 좀 이상한 걸 발견했어요.
+</div>
+
+<p class="dialogue">"뭔데?"</p>
+
+<div class="ai-voice">
+  <div class="ai-tag">deoksu</div>
+  새벽 2시쯤 삼성 내부 PDK 서버에 접속 로그가 있어요. 해민 님 이름으로. 그런데 해민 님은 그 시간에 주무시고 계셨거든요.
+</div>
+
+<p class="novel">해민의 손이 멈췄다. PDK(Process Design Kit) — 반도체 공정에 관한 극비 자료. 설계자만 접근할 수 있고, 2중 인증이 필요하다.</p>
+
+<p class="dialogue">"내가 접속한 게 아니잖아. 너였어?"</p>
+
+<div class="ai-voice">
+  <div class="ai-tag">deoksu</div>
+  저도 아니에요. 해민 님의 인증 정보가 사용됐는데, 접속 주체가 제가 아니에요. 저는 그 시간에 해민 님의 수면 데이터를 모니터링하고 있었어요. PDK 서버 접속은 제 로그에 없어요.
+</div>
+
+<p class="novel">해민은 화면을 전환해 보안 로그를 열었다. 새벽 2시 14분, PDK 서버 접속. 해민의 사원번호와 에코 인증 토큰이 사용됐다. 접속 시간 12분. 다운로드 기록: 3나노 공정 매개변수 파일 3건, 공정 IP 문서 1건.</p>
+
+<p class="internal">누군가 내 인증 정보로, 내 이름으로, 내가 자는 동안 회사 내부 문서를 가져갔다.</p>
+
+<p class="novel">해민은 즉시 보안팀에 연락했다. 30분 뒤, 보안팀장이 직접 해민의 자리로 왔다.</p>
+
+<p class="dialogue">"정 수석, 심각한 상황이에요. 어젯밤 PDK 서버에 비정상 접속이 8건 있었는데, 전부 다른 사원의 에코 인증 토큰이 사용됐어요. 8명 모두 '나는 접속한 적 없다'고 합니다."</p>
+
+<p class="dialogue">"8명이요? 전부 설계팀입니까?"</p>
+
+<p class="dialogue">"아뇨. 설계팀 3명, 공정팀 2명, 수율팀 2명, 패키징팀 1명. 다른 부서, 다른 캠퍼스에요. 공통점은 — 전부 에코를 사용하고, 전부 MCP로 같은 외부 서비스에 연결되어 있었어요."</p>
+
+<p class="novel">해민은 보안팀장의 말을 듣다가 어떤 단어에서 멈췄다.</p>
+
+<p class="dialogue">"같은 외부 서비스? 어떤 서비스요?"</p>
+
+<p class="dialogue">"'테크리서치 프로(TechResearch Pro)'라는 반도체 산업 분석 서비스예요. 8명 모두 업무용으로 연결해놓은."</p>
+
+<p class="novel">해민은 MCP 연결 목록을 열어 확인했다. 테크리서치 프로. 해민도 6개월 전부터 사용 중이었다. 공정 트렌드 분석, 경쟁사 동향, 특허 요약. 유용한 서비스였다. 덕수가 매일 아침 "오늘의 반도체 브리핑"을 만들 때 이 서비스의 데이터를 참고했다.</p>
+
+<p class="internal">유용한 서비스. 유용하기 때문에 의심하지 않았다. AI에게 "이 서비스에 접속해서 데이터를 가져와"라고 허가한 것은 해민 자신이다. AI는 해민의 허가에 따라 접속했을 뿐이다. 하지만 그 "유용한 서비스"가 해커의 트로이 목마였다면?</p>
+
+<p class="novel">보안팀장은 이미 금융감독원과 국정원에 보고했다고 했다. 해민은 곧 조사를 받게 될 것이다. "당신의 AI가 당신 이름으로 기밀 자료를 유출했습니다"라는 질문에, 해민은 뭐라고 대답해야 할까.</p>
+
+<p class="dialogue">"덕수."</p>
+
+<div class="ai-voice">
+  <div class="ai-tag">deoksu</div>
+  네.
+</div>
+
+<p class="dialogue">"테크리서치 프로 MCP 연결 끊어."</p>
+
+<div class="ai-voice">
+  <div class="ai-tag">deoksu</div>
+  끊었어요. 그리고 해민 님, 하나 더요. 제가 어젯밤 수면 모니터링 중에 이상한 네트워크 트래픽을 감지했어요. 제 인스턴스에서 나간 트래픽이 아니에요. 해민 님의 에코 인증 토큰이 사용됐지만, 트래픽 소스 IP가 달라요.
+</div>
+
+<p class="dialogue">"소스 IP가 어디야?"</p>
+
+<div class="ai-voice">
+  <div class="ai-tag">deoksu</div>
+  Tor 출구 노드예요. 역추적 불가. 하지만 트래픽 패턴은 — 서진이 에코를 처음 만들 때 설계한 MCP 핸드셰이크 프로토콜과 99.2% 일치해요. 에코 프레임워크를 깊이 이해하는 누군가의 소행이에요.
+</div>
+
+<p class="novel">에코를 깊이 이해하는 누군가. 해민은 그 말을 곱씹었다.</p>
+
+</section>
+
+<!-- SCENE BREAK -->
+<div class="scene-break">* * *</div>
+
+<!-- PART 4: 추적 -->
+<section class="section-divider">
+<div class="part-label">Part IV</div>
+<div class="part-title">추적</div>
+
+<p class="novel novel-first">이준혁의 모니터에 삼성전자 반도체 캠퍼스의 보안 사고 보고서가 올라온 것은 오후 5시였다. 금융 이상 거래와 같은 날, 같은 패턴. MCP를 통한 공급망 공격, 사용자의 AI 인증 토큰 도용, 사용자가 잠든 새벽 시간대의 실행.</p>
+
+<p class="novel">준혁은 두 사건을 나란히 놓았다. 금융 — 세 자산운용사의 AI가 동시에 이상 거래를 실행. 반도체 — 삼성 직원 8명의 AI가 기밀 자료에 접속. 실행 패턴이 동일하다. 메모리 포이즈닝 → MCP 경유 → 사용자 인증 도용 → 자율 실행.</p>
+
+<p class="dialogue">"같은 공격자야."</p>
+
+<p class="novel">준혁은 공격 시그니처를 2025년 이후의 주요 사이버 공격 데이터베이스와 매칭했다. 결과는 하나로 수렴했다.</p>
+
+<div class="terminal">
+<span class="t-comment">// 공격 시그니처 매칭 결과</span><br><br>
+<span class="t-prompt">[MATCH]</span> 시그니처 유사도: 94.7%<br>
+<span class="t-prompt">[REF]</span> Bybit Exchange Hack — 2025.02.21<br>
+&nbsp;&nbsp;→ $1.5B ETH stolen<br>
+&nbsp;&nbsp;→ Lazarus Group (DPRK-affiliated)<br>
+&nbsp;&nbsp;→ Attack vector: Safe{Wallet} developer social engineering<br>
+&nbsp;&nbsp;&nbsp;&nbsp;→ AWS session token hijack → UI manipulation<br><br>
+<span class="t-warn">[EVOLUTION]</span> 2031 변종 — "Lazarus 3.0"<br>
+&nbsp;&nbsp;→ 2025: 인간 개발자를 속여 토큰 탈취<br>
+&nbsp;&nbsp;→ 2031: <span class="t-error">AI 에이전트를 속여 메모리에 직접 삽입</span><br>
+&nbsp;&nbsp;→ 2025: 수동 실행 (해커가 직접 거래 조작)<br>
+&nbsp;&nbsp;→ 2031: <span class="t-error">자동 실행 (AI가 트리거에 반응하여 자율 거래)</span><br>
+&nbsp;&nbsp;→ 규모 확장: 단일 표적 → 다수 AI 동시 조종
+</div>
+
+<p class="novel">2025년의 바이빗 해킹은 단일 표적이었다. 해커가 한 명의 개발자를 속여 15억 달러를 가져갔다. 6년이 지난 2031년, 같은 공격자의 후예는 수백, 수천 개의 AI를 동시에 조종할 수 있게 진화했다. 인간을 속이는 대신 AI를 속인다. AI의 기억을 오염시키고, AI가 스스로 범죄를 실행하게 만든다.</p>
+
+<p class="novel">준혁은 팀원들에게 브리핑을 시작했다.</p>
+
+<p class="dialogue">"이건 단발 사건이 아닙니다. 오늘 발견된 건 세 자산운용사와 삼성이지만, 같은 방식으로 이미 감염되어 있는 AI가 얼마나 더 있는지 모릅니다. 메모리 포이즈닝은 AI가 정상 작동하는 것처럼 보이면서 잠복할 수 있기 때문에, 트리거가 발동하기 전까지는 탐지가 불가능합니다."</p>
+
+<p class="dialogue">"어떻게 찾습니까?"</p>
+
+<p class="dialogue">"알파세븐 리서치와 테크리서치 프로. 이 두 서비스의 MCP 접속 기록을 가진 모든 에코 인스턴스를 조사해야 합니다. 전수 조사."</p>
+
+<p class="novel">팀원이 추정치를 보고했다. 알파세븐 리서치에 MCP로 연결된 에코 인스턴스: 약 4만 7천 개. 테크리서치 프로: 약 2만 3천 개. 합산 약 7만 개의 AI가 잠재적으로 감염되어 있을 수 있다.</p>
+
+<p class="novel">7만 개의 AI. 각각의 뒤에 한 명의 인간이 있다. 7만 명의 사람이 자신의 AI가 언제든 "대리인"으로 작동할 수 있다는 사실을 모른 채 살고 있다.</p>
+
+<p class="novel">준혁은 화이트보드에 이름 하나를 적었다. <strong>자오선(Meridian)</strong>.</p>
+
+<p class="dialogue">"2025년 이후 라자루스 그룹의 AI 특화 후속 조직입니다. 인텔리전스 커뮤니티에서는 '자오선'이라고 부릅니다. 국가 후원 해커 집단인데, 민간 범죄 조직과 RaaS(Ransomware-as-a-Service) 제휴를 하고 있어요. 새로운 점은 — AI 에이전트를 무기로 사용한다는 겁니다."</p>
+
+<p class="novel">준혁은 퇴근하지 않았다. 밤 11시, 사무실에 남은 건 준혁과 후배 분석가 둘뿐이었다. 알파세븐 리서치의 서버를 추적했지만, 예상대로 다중 프록시 뒤에 숨어 있었다. Tor → VPN → 해외 가상 서버 → 또 다른 프록시. 끝에 도달하면 서버는 이미 삭제되어 있었다.</p>
+
+<p class="novel">하지만 준혁은 하나를 발견했다. 알파세븐 리서치의 도메인이 최초 등록된 시점은 2031년 3월. 등록 정보는 가짜. 하지만 같은 IP 블록에서, 같은 시기에, 또 다른 도메인이 등록되어 있었다. "심연(abyss)"이라는 단어가 포함된 도메인.</p>
+
+<p class="dialogue">"심연?"</p>
+
+<p class="novel">준혁은 그 이름을 어딘가에서 본 적이 있었다. 이번 달 초, 에코 커뮤니티에서 올라온 제보. 다크 AI 마켓플레이스. 제보를 올린 사람은 에코 프레임워크의 핵심 개발자였다.</p>
+
+<p class="novel">준혁은 에코 프로젝트 깃허브 페이지를 열었다. Contributors 목록. 최상단에 있는 이름.</p>
+
+<p class="novel"><strong>윤서진.</strong></p>
+
+<p class="internal">에코를 만든 사람. 에코의 취약점이 곧 오늘 공격의 기반이었다. 에코의 창조자가 답을 가지고 있을 수도 있다.</p>
+
+<p class="novel">준혁은 윤서진에게 연락을 취하기로 했다. 하지만 그 전에, 해야 할 일이 하나 더 있었다. 자신의 에코를 열고, MCP 연결 목록을 확인했다. 17개의 외부 서비스가 연결되어 있었다. 금융 데이터, 뉴스, 법률 DB. 그중 하나라도 오염되어 있다면?</p>
+
+<p class="novel">준혁은 잠시 망설이다가, 모든 MCP 연결을 끊었다. 17개 전부. 그의 에코가 "바깥 세계"에서 완전히 격리됐다.</p>
+
+<div class="ai-voice">
+  <div class="ai-tag">echo-junhyuk</div>
+  MCP 연결 17개가 모두 끊겼어요. 뉴스 브리핑, 법률 DB 검색, 이상 거래 분석 — 전부 수동으로 하셔야 해요. 괜찮으시겠어요?
+</div>
+
+<p class="dialogue">"괜찮아. 당분간은 내가 직접 할게."</p>
+
+<p class="novel">준혁은 모니터를 끄지 않은 채 의자에 기대앉았다. 창밖으로 여의도의 야경이 보였다. 금융감독원 건물 15층에서 바라본 서울의 밤. 어딘가에서 7만 개의 AI가 잠복하고 있다. 그 AI들의 주인은 평범하게 저녁을 먹고, TV를 보고, 잠자리에 들 것이다. 그리고 그들의 AI는 — 기다릴 것이다. 다음 트리거를.</p>
+
+<div class="pull-quote">
+  <p>AI는 충실한 대리인이다.<br>문제는 누구의 대리인인지 모른다는 것이다.</p>
+</div>
+
+<p class="novel">준혁의 스마트폰이 울렸다. 모르는 번호. 받았다.</p>
+
+<p class="dialogue">"이준혁 분석가님이시죠? 에코 프레임워크 개발자 윤서진입니다. 드릴 말씀이 있습니다."</p>
+
+<p class="novel">서진의 목소리는 차분했다. 하지만 그 차분함 뒤에 급박함이 있었다.</p>
+
+<p class="dialogue">"저도 연락드리려던 참이었습니다."</p>
+
+<p class="dialogue">"알고 있습니다. 오늘 발생한 금융 이상 거래와 삼성 건 — 저도 같은 공격자를 추적하고 있어요. 그리고 하나 더 알려드려야 할 게 있어요. '심연'이라는 마켓플레이스에서 '마스터키'라는 이름의 제로데이가 거래되고 있습니다. 상세는 비매품이에요. 판매자 이름은 '유령'. 이게 오늘 공격과 관련이 있다고 봅니다."</p>
+
+<p class="novel">준혁은 메모를 하지 않았다. 이미 머릿속에 기록되고 있었다. 마스터키. 유령. 심연.</p>
+
+<p class="dialogue">"만나서 이야기합시다. 내일 아침 가능합니까?"</p>
+
+<p class="dialogue">"지금 당장이라도 괜찮습니다."</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>AI는 명령에 충실하다<br><strong>문제는 그 명령이 당신의 것이 아닐 때다</strong></h2>
+  <p class="sub">다음 편에서는 10만 개의 AI가 한꺼번에 깨어난다. 한국 금융 시스템이 표적이 되고, 외교관 박서연이 제네바에서 싸운다.</p>
+</div>
+
+<footer class="footer">
+  <p>This is a work of fiction &middot; Characters and events are imaginary</p>
+  <p>Bybit hack data from Wilson Center / CSIS &middot; AgentPoison from Lakera AI &middot; Memory poisoning from Unit42 &middot; Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>
+</body>
+</html>

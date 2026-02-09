@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>컴퓨트 전쟁 — Editorial</title>
+<meta name="description" content="사우디 AI '나킬'이 48시간 만에 $340B를 벌자 세계가 흔들린다. 제네바에서 한국 외교관이 숨기는 것. 컴퓨트가 석유를 대체한 시대의 외교전.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/sovereign-ai-novel-series/compute-war.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="컴퓨트 전쟁">
+<meta property="og:description" content="사우디 AI '나킬'이 48시간 만에 $340B를 벌자 세계가 흔들린다. 제네바에서 한국 외교관이 숨기는 것. 컴퓨트가 석유를 대체한 시대의 외교전.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/sovereign-ai-novel-series/compute-war.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-09">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="컴퓨트 전쟁">
+<meta name="twitter:description" content="사우디 AI '나킬'이 48시간 만에 $340B를 벌자 세계가 흔들린다. 제네바에서 한국 외교관이 숨기는 것.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"컴퓨트 전쟁","description":"사우디 AI '나킬'이 48시간 만에 $340B를 벌자 세계가 흔들린다. 제네바에서 한국 외교관이 숨기는 것. 컴퓨트가 석유를 대체한 시대의 외교전.","datePublished":"2026-02-09","dateModified":"2026-02-09","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/sovereign-ai-novel-series/compute-war.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.6rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 520px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel:first-of-type, .novel-first { text-indent: 0; }
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  .part-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .part-title { font-size: 1.6rem; font-weight: 700; color: var(--fg); margin-bottom: 40px; letter-spacing: -0.5px; }
+  .section-divider { border-top: 1px solid var(--fg); padding-top: 48px; margin-top: 64px; }
+
+  .char-intro { display: grid; grid-template-columns: auto 1fr; gap: 0 20px; align-items: baseline; margin: 40px 0 32px; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
+  .char-intro .c-name { font-size: 1.4rem; font-weight: 700; color: var(--fg); }
+  .char-intro .c-info { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
+
+  /* TICKER */
+  .ticker {
+    border: 1px solid var(--rule);
+    padding: 24px 32px;
+    margin: 40px 0;
+    background: var(--card-bg);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    color: var(--prose);
+    line-height: 2;
+  }
+  .ticker .t-label { font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .ticker .t-red { color: var(--accent); font-weight: 700; }
+  .ticker .t-green { color: #2a7c43; font-weight: 700; }
+
+  /* DISPATCH */
+  .dispatch {
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .dispatch .dp-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .dispatch .dp-text { font-size: 0.92rem; color: var(--prose); line-height: 1.8; }
+
+  .world-data { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 40px 0; }
+  .world-data .wd { background: var(--bg); padding: 24px 20px; text-align: center; }
+  .world-data .wd-num { font-family: var(--mono); font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+  .world-data .wd-label { font-size: 0.78rem; color: var(--secondary); margin-top: 6px; line-height: 1.5; }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.4rem; }
+    .world-data { grid-template-columns: 1fr; }
+    .char-intro { grid-template-columns: 1fr; gap: 4px 0; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">sovereign — fiction 02</p>
+  <h1>컴퓨트 <strong>전쟁</strong></h1>
+  <p class="deck">2032년 7월. 사우디 AI "나킬"이 48시간 만에 에너지 선물시장에서 $340B를 벌었다.<br>세계가 흔들렸다. 제네바에서 협상이 시작되었다.</p>
+</header>
+
+<main>
+
+<!-- PART 1: 48시간 -->
+<section>
+<div class="part-label">Part I</div>
+<div class="part-title">48시간</div>
+
+<p class="novel novel-first">리야드 시각 오전 2시 14분. 사우디아라비아 소버린 AI "나킬"의 에너지 트레이딩 모듈이 이상 신호를 포착했다. 카타르 LNG 터미널 3기의 정비 일정이 동시에 잡혔다. 노르웨이 북해 유전 두 곳의 생산량이 72시간 내 15% 감소할 것이라는 예측 데이터. 인도의 전력 수요가 몬순 지연으로 예상치를 14% 초과할 확률.</p>
+
+<p class="novel">나킬은 이 세 가지 데이터를 2.3초 만에 교차 분석했다. 결론: 글로벌 에너지 선물 가격이 72시간 내 18~24% 상승할 확률 94.7%.</p>
+
+<p class="novel">나킬이 첫 매수 주문을 넣은 시각은 오전 2시 14분 6초. 런던, 뉴욕, 싱가포르, 도쿄의 에너지 선물 시장에 동시에. 인간 트레이더들이 잠들어 있는 시간이었다.</p>
+
+<div class="ticker">
+  <div class="t-label">global energy futures — live</div>
+  <span>WTI Crude</span> <span class="t-green">+4.2%</span> &middot;
+  <span>Brent</span> <span class="t-green">+3.8%</span> &middot;
+  <span>LNG Asia</span> <span class="t-green">+7.1%</span> &middot;
+  <span>EU Carbon Credit</span> <span class="t-green">+5.5%</span>
+</div>
+
+<p class="novel">12시간이 지났다. 나킬의 예측대로 카타르 LNG 정비 뉴스가 공식 발표되자 에너지 가격이 급등했다. 나킬은 이미 저점에서 매수한 포지션을 보유하고 있었다. 24시간이 지나자 노르웨이 감산 뉴스가 터졌다. 나킬의 포지션은 더 커졌다.</p>
+
+<p class="novel">48시간 후, 나킬은 포지션을 청산했다.</p>
+
+<div class="world-data">
+  <div class="wd">
+    <div class="wd-num">$340B</div>
+    <div class="wd-label">나킬 48시간 수익<br>에너지 선물 트레이딩</div>
+  </div>
+  <div class="wd">
+    <div class="wd-num">94.7%</div>
+    <div class="wd-label">나킬의 사전 예측<br>적중 확률</div>
+  </div>
+  <div class="wd">
+    <div class="wd-num">2.3s</div>
+    <div class="wd-label">교차 분석 소요 시간<br>3개 대륙 데이터</div>
+  </div>
+</div>
+
+<p class="novel">뉴욕증권거래소가 열리자 혼란이 시작되었다. 에너지 기업 주가가 급락했다. 인간 트레이더들이 뒤늦게 쫓아갔지만 이미 나킬이 지나간 자리였다. 블룸버그 단말기에 붉은 숫자가 폭포처럼 쏟아졌다.</p>
+
+<div class="dispatch">
+  <div class="dp-label">reuters flash — july 15, 2032 11:47 utc</div>
+  <div class="dp-text">"사우디 소버린 AI '나킬', 48시간 에너지 선물 트레이딩으로 추정 $340B 수익. EU 집행위, 긴급 회의 소집. '이것은 트레이딩이 아니라 시장 조작'이라고 EU 디지털 커미셔너."</div>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 2: 브뤼셀 -->
+<section class="section-divider">
+<div class="part-label">Part II</div>
+<div class="part-title">브뤼셀, 같은 날</div>
+
+<p class="novel novel-first">EU 본부 베를레몽 빌딩 13층. 긴급 회의실에 27개국 대표가 모여 있었다. 화상으로 접속한 대표까지 합하면 42명. 프랑스 대통령의 특사가 발언권을 잡았다.</p>
+
+<p class="dialogue">"이것은 AI가 시장을 이긴 것이 아닙니다. AI가 시장을 만든 겁니다. 나킬이 대량 매수를 시작한 순간 시장 참가자들의 행동이 바뀌었습니다. 나킬의 매수 자체가 가격 상승의 원인이 되었고, 나킬은 자신이 만든 가격 상승에서 이익을 얻었습니다."</p>
+
+<p class="novel">독일 대표가 반박했다.</p>
+
+<p class="dialogue">"인간 헤지펀드도 같은 일을 합니다. 조지 소로스가 1992년에 파운드화에 한 것과 뭐가 다릅니까?"</p>
+
+<p class="dialogue">"다른 점은 속도입니다." 프랑스 특사가 말했다. "소로스는 몇 주에 걸쳐 포지션을 쌓았습니다. 나킬은 2.3초 만에 판단하고 0.001초 만에 전 세계 시장에 동시 주문을 넣었습니다. 인간에게는 반응할 시간이 없습니다. 이것은 공정한 시장이 아닙니다."</p>
+
+<p class="novel">회의실이 잠시 조용해졌다. 모두가 같은 생각을 하고 있었다. 프랑스 소버린 AI "마리안느"가 사우디 데이터센터의 위치를 이미 파악하고 있다는 사실을. 마리안느의 군사 모듈은 EU AI Act의 예외 조항으로 운영되고 있었다.</p>
+
+<div class="dispatch">
+  <div class="dp-label">classified — marianne military module</div>
+  <div class="dp-text">대서양 해저 케이블 SC-2 (마르세유-리야드 경유) 좌표 매핑 완료. 물리적 차단 시 나킬의 유럽 시장 접근 지연시간: 현행 4ms → 추정 340ms. 트레이딩 능력 사실상 무력화.</div>
+</div>
+
+<p class="internal">아무도 이 옵션을 공식 언급하지 않았다. 하지만 회의실의 모두가 알고 있었다. 컴퓨트 전쟁의 다음 단계는 해저 케이블이라는 것을.</p>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 3: 제네바 -->
+<section class="section-divider">
+<div class="part-label">Part III</div>
+<div class="part-title">제네바, 3일 후</div>
+
+<div class="char-intro">
+  <span class="c-name">박서연</span>
+  <span class="c-info">38 &middot; seoul &middot; korea ministry of foreign affairs, ai special envoy</span>
+</div>
+
+<p class="novel novel-first">유엔 제네바 사무소 E동 회의실. "글로벌 컴퓨트 거버넌스 협약" 제3차 협상이 시작되었다. 의제는 세 가지였다.</p>
+
+<div class="world-data">
+  <div class="wd">
+    <div class="wd-num">01</div>
+    <div class="wd-label">AI 초과수익에 대한<br>국제 과세 프레임워크</div>
+  </div>
+  <div class="wd">
+    <div class="wd-num">02</div>
+    <div class="wd-label">GPU 수출통제<br>다자간 완화 합의</div>
+  </div>
+  <div class="wd">
+    <div class="wd-num">03</div>
+    <div class="wd-label">디지털 소작국 대상<br>컴퓨트 원조 기금</div>
+  </div>
+</div>
+
+<p class="novel">박서연은 한국 대표단 수석이었다. 38세. 외교부 AI 특사. 하버드 케네디스쿨에서 기술 외교를 전공했고, 2030년 "제1차 컴퓨트 조약" 협상에서 두각을 나타냈다. 그녀의 공식 임무는 한국의 이익을 대변하는 것이었다.</p>
+
+<p class="novel">비공식 임무는 달랐다.</p>
+
+<p class="internal">서연의 브리핑 폴더에는 "아리랑-Q"라는 코드명의 프로젝트가 있었다. 삼성전자와 SK하이닉스가 공동 개발 중인 양자-AI 하이브리드 칩. 기존 GPU 대비 에너지 효율 40배, 추론 속도 200배. 이 칩이 양산되면 한국의 소버린 배당은 $5,000을 넘어설 수 있다. 하지만 미국이 알면 수출통제가 시작된다. 일본이 알면 Rapidus와의 경쟁이 격화된다. 아무도 몰라야 한다. 적어도 양산 라인이 가동될 때까지는.</p>
+
+<p class="novel">오전 세션이 시작되었다. 첫 번째 발언은 나이지리아 대표 응고지 오콘조의 몫이었다.</p>
+
+<p class="dialogue">"의장님, 제가 말씀드리고 싶은 것은 간단합니다." 응고지가 일어섰다. "이 방에 있는 분들의 나라는 AI를 가지고 있습니다. 제 나라는 AI를 빌리고 있습니다. 우리는 데이터를 제공합니다. 우리의 언어, 우리의 문화, 우리의 소비 패턴. 그 데이터로 훈련된 AI가 돈을 벌고, 그 돈의 대부분은 인프라를 소유한 나라로 갑니다. 우리에게 돌아오는 것은 월 94달러입니다."</p>
+
+<p class="novel">회의실이 조용해졌다.</p>
+
+<p class="dialogue">"여러분은 이것을 '소버린 배당'이라고 부릅니다. 우리는 이것을 '디지털 소작료'라고 부릅니다. 석유 시대에도 같은 일이 있었습니다. 우리 땅에서 석유를 가져갔고, 정제는 런던과 휴스턴에서 했고, 이익은 서방으로 갔습니다. 지금은 석유 대신 데이터입니다. 정유소 대신 데이터센터입니다. 달라진 것은 아무것도 없습니다."</p>
+
+<div class="pull-quote">
+  <p>"당신들은 석유 때도 이랬다.<br>지금은 석유 대신 데이터다.<br>달라진 것은 아무것도 없다."</p>
+  <p class="attr">응고지 오콘조 &middot; 나이지리아 대표</p>
+</div>
+
+<p class="novel">서연은 메모를 했다. 응고지의 발언은 예상한 것이었다. 아프리카 연합 54개국이 "컴퓨트 원조 기금"에 연간 $500B를 요구하고 있다는 것도 알고 있었다. 문제는 그 돈을 누가 내느냐였다.</p>
+
+<p class="novel">사우디 대표가 발언했다.</p>
+
+<p class="dialogue">"나킬의 수익은 합법적 시장 활동의 결과입니다. 국제법 어디에도 AI의 트레이딩 속도를 제한하는 조항은 없습니다."</p>
+
+<p class="dialogue">"아직 없습니다." 프랑스 특사가 말했다. "그래서 우리가 여기 모인 겁니다."</p>
+
+<p class="novel">오후 세션에서 서연이 발언권을 잡았다. 한국의 공식 입장을 전달하는 것이었다.</p>
+
+<p class="dialogue">"한국은 세 가지 의제 모두에 원칙적으로 동의합니다. 다만 GPU 수출통제 완화는 기술 안보와 직결됩니다. 완화의 범위와 속도에 대해 신중한 접근이 필요합니다."</p>
+
+<p class="internal">"신중한 접근"은 외교적 언어로 "시간을 벌겠다"는 뜻이었다. 아리랑-Q 칩이 양산되기까지 최소 18개월. 그때까지 GPU 수출통제 프레임워크가 바뀌면 안 된다. 새 칩이 기존 GPU 기반의 수출통제 범주에 포함되지 않도록 해야 한다.</p>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 4: 서울 -->
+<section class="section-divider">
+<div class="part-label">Part IV</div>
+<div class="part-title">서울, 같은 밤</div>
+
+<p class="novel novel-first">판교 테크노밸리 지하 4층. 출입증 없이는 엘리베이터조차 작동하지 않는 곳. 삼성전자-SK하이닉스 합작 연구소 "프로젝트 아리랑-Q"의 심장부였다.</p>
+
+<p class="novel">연구소장 김태호(52)가 모니터를 바라보고 있었다. 화면에는 칩 설계 시뮬레이션 결과가 떠 있었다. 이 설계를 한 것은 인간이 아니다. "아리랑"이 스스로 설계한 칩이다. 양자 큐비트 배열을 기존 트랜지스터 로직과 하이브리드로 결합하는 아키텍처. 인간 엔지니어라면 누구도 생각하지 못했을 구조.</p>
+
+<p class="dialogue">"검증 결과 나왔습니다." 후배 연구원이 다가왔다. "아리랑의 설계가 이론적으로 타당합니다. 에너지 효율 42배, 추론 속도 217배. 시뮬레이션 기준."</p>
+
+<p class="dialogue">"양산은?"</p>
+
+<p class="dialogue">"삼성 평택 P4 라인에서 시제품 3개월, 수율 안정화 12개월. 빨라야 2033년 하반기 양산입니다."</p>
+
+<p class="novel">태호는 고개를 끄덕였다. 18개월. 서연이 제네바에서 벌어줘야 하는 시간과 정확히 일치한다.</p>
+
+<p class="internal">아이러니했다. AI가 설계한 칩을, 인간이 검증하고, 인간이 공장에서 만들고, 인간 외교관이 보호한다. AI는 생각하고, 인간은 실행한다. 예전에는 반대였는데.</p>
+
+<p class="novel">태호는 시뮬레이션 파일을 암호화해 국방부 클라우드에 백업했다. 파일명은 <strong>AQ-07152032-CLASSIFIED</strong>. 이 파일이 유출되면 한국의 소버린 배당뿐 아니라, 반도체 산업의 판도가 바뀐다.</p>
+
+<p class="novel">연구소를 나서며 태호는 하늘을 올려다보았다. 서울의 밤하늘에 별은 보이지 않았다. 대신 드론 배송의 불빛이 점점이 떠 있었다. 저 드론을 운영하는 것도 "아리랑"이다. 교통 신호를 관리하는 것도, 전력 그리드를 최적화하는 것도, 내일 아침 국민에게 배당을 계산하는 것도.</p>
+
+<p class="internal">우리가 만든 AI가 우리를 먹여 살리고, 그 AI가 설계한 칩을 우리가 만들어서, 그 칩으로 AI가 더 강해지고, 더 강해진 AI가 더 많은 돈을 벌어서, 우리에게 더 많은 배당을 준다. 순환이다. 언제까지 인간이 이 순환에 필요할까.</p>
+
+<p class="novel">태호의 폰에 알림이 떴다. 제네바 속보. "글로벌 컴퓨트 거버넌스 협약, 난항 — 아프리카 연합과 사우디 대립". 태호는 알림을 쓸어 지웠다. 외교는 서연의 몫이다. 태호의 몫은 18개월 안에 이 칩을 만드는 것이다.</p>
+
+<p class="novel">그는 차에 올라탔다. 자율주행 모드를 켰다. "아리랑"이 운전하는 차 안에서, "아리랑"이 설계한 칩의 양산 계획을 생각하며, "아리랑"이 준 배당으로 산 아파트로 돌아가는 밤이었다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>컴퓨트는 새로운 석유다<br><strong>전쟁의 형태만 바뀌었을 뿐</strong></h2>
+  <p class="sub">이 소설의 설정은 어디까지 현실인가? 다음 편에서 데이터로 검증한다.</p>
+</div>
+
+<footer class="footer">
+  <p>This is a work of fiction &middot; Characters and events are imaginary</p>
+  <p>"Compute is the new oil" concept from Foreign Affairs (2025) &middot; Saudi HumAIn $77B strategy &middot; France Mistral military contract (2026)</p>
+</footer>
+
+</div>
+</article>
+</body>
+</html>

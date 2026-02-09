@@ -107,6 +107,26 @@
       articles: [
         { slug: 'innobiz-certification-guide', title: '서류가 기술을 증명한다' }
       ]
+    },
+    'sovereign-ai-novel-series': {
+      title: '소버린 배당일',
+      articles: [
+        { slug: 'sovereign-dividend-day', title: '배당일' },
+        { slug: 'compute-war', title: '컴퓨트 전쟁' },
+        { slug: 'is-sovereign-ai-possible', title: '소버린 AI는 가능한가' },
+        { slug: 'geopolitics-of-compute', title: '연산의 지정학' },
+        { slug: 'human-without-labor', title: '일하지 않는 인간' }
+      ]
+    },
+    'masterkey-series': {
+      title: '마스터키',
+      articles: [
+        { slug: 'the-ai-knows-me', title: '그 AI는 나보다 나를 잘 안다' },
+        { slug: 'the-proxy', title: '대리인' },
+        { slug: 'invisible-legion', title: '보이지 않는 군단' },
+        { slug: 'the-abyss', title: '심연' },
+        { slug: 'masterkey', title: '마스터키' }
+      ]
     }
   };
 
