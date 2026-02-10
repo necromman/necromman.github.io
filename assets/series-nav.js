@@ -136,6 +136,15 @@
         { slug: 'no-ai-friday', title: '금요일은 날코딩' },
         { slug: 'the-centaur-developer', title: '센타우르' }
       ]
+    },
+    'illusion-of-knowing-series': {
+      title: '안다는 착각',
+      articles: [
+        { slug: 'forty-five-percent-vulnerable', title: '45%는 취약하다' },
+        { slug: 'four-point-illusion', title: '4점의 착각' },
+        { slug: 'the-floor-rose', title: '바닥이 올라왔을 뿐이다' },
+        { slug: 'the-map-and-the-terrain', title: '지도와 지형' }
+      ]
     }
   };
 

@@ -535,5 +535,40 @@ window.CONTENT_DATA = [
         search: '센타우르 카스파로프 Advanced Chess 인간AI협업 개발자정체성 크리에이티브디렉터 HBS 센타우르모델 소설'
       }
     ]
+  },
+  {
+    id: 'illusion-of-knowing',
+    title: '안다는 착각',
+    description: 'AI가 지식을 민주화했다. 하지만 능력의 격차는 줄지 않았다. 바이브 코딩 보안 참사, 역 던닝-크루거 효과, 법정의 격차 — 네 편의 소설로 읽는 AI 시대의 착각.',
+    articles: [
+      {
+        title: '45%는 취약하다',
+        role: '바이브 코딩으로 만든 스타트업의 보안 참사',
+        tag: '소설',
+        href: 'content/illusion-of-knowing-series/forty-five-percent-vulnerable.html',
+        search: '45% 취약 바이브코딩 보안 감사 스타트업 Veracode AI코드 취약점 Cursor MVP 소설'
+      },
+      {
+        title: '4점의 착각',
+        role: 'AI를 잘 쓸수록 커지는 과신, 역 던닝-크루거 효과',
+        tag: '소설',
+        href: 'content/illusion-of-knowing-series/four-point-illusion.html',
+        search: '4점의 착각 역 던닝크루거 AI리터러시 과신 메타인지 Aalto METR 블라인드테스트 소설'
+      },
+      {
+        title: '바닥이 올라왔을 뿐이다',
+        role: 'AI가 만든 평준화의 환상, 법정에서 드러나는 진짜 격차',
+        tag: '소설',
+        href: 'content/illusion-of-knowing-series/the-floor-rose.html',
+        search: '바닥이 올라왔을 뿐이다 로펌 법정 반대심문 주니어 시니어 격차 HBS BCG 70% Problem 소설'
+      },
+      {
+        title: '지도와 지형',
+        role: '세 이야기가 하나로 수렴하는 시리즈 결론',
+        tag: '소설',
+        href: 'content/illusion-of-knowing-series/the-map-and-the-terrain.html',
+        search: '지도와 지형 지식격차 능력격차 인지디스킬링 아세모글루 WEF 스킬트라이어드 결론 소설'
+      }
+    ]
   }
 ];

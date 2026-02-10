@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>바닥이 올라왔을 뿐이다 — Editorial</title>
+<meta name="description" content="2026년 5월, AI로 시니어급 문서를 쓰는 '기적의 신인' 최민지. 법정 반대심문에서 자기가 쓴 서면의 논리를 설명하지 못한다. 바닥이 올라왔을 뿐이다. 천장은 그대로다.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/illusion-of-knowing-series/the-floor-rose.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="바닥이 올라왔을 뿐이다">
+<meta property="og:description" content="AI로 시니어급 문서를 쓰는 주니어 변호사. 법정 반대심문에서 자기가 쓴 서면의 논리를 설명하지 못한다. 바닥이 올라왔을 뿐이다.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/illusion-of-knowing-series/the-floor-rose.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-10">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="바닥이 올라왔을 뿐이다">
+<meta name="twitter:description" content="AI로 시니어급 문서를 쓰는 주니어 변호사. 법정 반대심문에서 자기가 쓴 서면의 논리를 설명하지 못한다. 바닥이 올라왔을 뿐이다.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"바닥이 올라왔을 뿐이다","description":"2026년 5월, AI로 시니어급 문서를 쓰는 '기적의 신인' 최민지. 법정 반대심문에서 자기가 쓴 서면의 논리를 설명하지 못한다. 바닥이 올라왔을 뿐이다. 천장은 그대로다.","datePublished":"2026-02-10","dateModified":"2026-02-10","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/illusion-of-knowing-series/the-floor-rose.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<script>(function(){var t=localStorage.getItem('editorial-theme');if(!t)t=window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})()</script>
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* NOVEL PROSE */
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+
+  /* SCENE BREAK */
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+
+  /* DIALOGUE */
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+
+  /* INTERNAL MONOLOGUE */
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  /* CHARACTER INTRO */
+  .char-intro {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 20px;
+    align-items: baseline;
+    margin: 40px 0 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .char-intro .c-name { font-size: 1.4rem; font-weight: 700; color: var(--fg); }
+  .char-intro .c-info { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
+
+  /* SECTION DIVIDER */
+  .part-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .part-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+  }
+  .section-divider {
+    margin-top: 64px;
+    margin-bottom: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* COURTROOM Q&A */
+  .courtroom {
+    margin: 32px 0;
+    padding: 0;
+  }
+  .courtroom .ct-exchange {
+    margin-bottom: 24px;
+    padding-left: 20px;
+    border-left: 2px solid var(--rule);
+  }
+  .courtroom .ct-q {
+    font-size: 1.02rem;
+    line-height: 2.0;
+    color: var(--fg);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .courtroom .ct-q .ct-speaker {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .courtroom .ct-a {
+    font-size: 1.02rem;
+    line-height: 2.0;
+    color: var(--secondary);
+    margin-bottom: 8px;
+  }
+  .courtroom .ct-a .ct-speaker {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .courtroom .ct-silence {
+    font-size: 0.9rem;
+    color: var(--muted);
+    padding: 8px 0;
+  }
+
+  /* DOCUMENT ANALYSIS */
+  .doc-analysis {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0;
+  }
+  .doc-analysis .da-cell {
+    background: var(--bg);
+    padding: 24px 20px;
+  }
+  .doc-analysis .da-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .doc-analysis .da-pct {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--fg);
+    margin-bottom: 8px;
+  }
+  .doc-analysis .da-desc {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+
+  /* DOC EXCERPT */
+  .doc-excerpt {
+    border-left: 3px solid var(--rule);
+    background: var(--card-bg);
+    padding: 20px 24px;
+    margin: 32px 0;
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: var(--secondary);
+  }
+  .doc-excerpt .doc-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  /* MEETING MEMO */
+  .meeting-memo {
+    border: 1px solid var(--rule);
+    padding: 24px 28px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .meeting-memo .mm-header {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .meeting-memo .mm-speaker {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 4px;
+  }
+  .meeting-memo .mm-body {
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: var(--prose);
+    margin-bottom: 16px;
+  }
+
+  /* BRIEF EXCERPT */
+  .brief-excerpt {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    background: var(--card-bg);
+    color: var(--prose);
+    padding: 24px 28px;
+    margin: 32px 0;
+    overflow-x: auto;
+    border: 1px solid var(--rule);
+  }
+  .brief-excerpt .be-label {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .brief-excerpt .be-good { color: var(--fg); font-weight: 600; }
+  .brief-excerpt .be-weak { color: var(--accent); }
+  .brief-excerpt .be-comment { color: var(--muted); }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .char-intro { grid-template-columns: 1fr; }
+    .doc-analysis { grid-template-columns: 1fr; }
+    .courtroom .ct-exchange { padding-left: 12px; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+<script src="../../assets/theme-toggle.js" defer></script>
+</head>
+<body>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">illusion of knowing — fiction 03</p>
+  <h1>바닥이 올라왔을 <strong>뿐이다</strong></h1>
+  <p class="deck">주니어의 문서가 시니어와 구별되지 않는다.<br>경영진은 격차가 사라졌다고 기뻐한다. 법정이 시작되기 전까지.</p>
+</header>
+
+<main>
+
+<!-- ───────── PART I ───────── -->
+
+<section>
+<div class="section-divider" style="border-top:none;margin-top:0;padding-top:0">
+  <p class="part-label">Part I</p>
+  <p class="part-title">"격차가 사라진 날"</p>
+</div>
+
+<div class="char-intro">
+  <span class="c-name">김태준</span>
+  <span class="c-info">52 · senior partner · hanyul law · seoul</span>
+</div>
+
+<p class="novel novel-first">2026년 5월 12일 월요일 오전 10시. 서울 서초동.</p>
+
+<p class="novel">한율법률사무소 19층 대회의실. 유리벽 너머로 대법원 지붕이 보였다. 태준은 자리에 앉아 노트북을 열었다. 30년 동안 이 동네에서 법을 했다. 첫 10년은 판례집을 외웠고, 다음 10년은 판례를 만들었고, 마지막 10년은 후배에게 판례를 가르쳤다. 그런데 지금 경영진 회의에서 들리는 말은 판례도, 법리도 아니었다.</p>
+
+<div class="meeting-memo">
+  <div class="mm-header">partners meeting — may 2026</div>
+  <div class="mm-speaker">오승환 대표변호사</div>
+  <div class="mm-body">"3개월 전 전사적으로 AI 법률 도구를 도입했습니다. 결과가 나왔습니다. 주니어 변호사의 법률 문서 품질이 시니어의 90% 수준까지 올라왔습니다. 외부 블라인드 평가 기준입니다."</div>
+  <div class="mm-speaker">오승환 대표변호사</div>
+  <div class="mm-body">"이것은 기회입니다. AI가 경험의 격차를 사실상 없앴습니다. 인건비 구조를 재편할 때입니다."</div>
+</div>
+
+<p class="novel">태준은 볼펜을 돌렸다. 90%. 이 숫자가 의미하는 것은 간단하다. 2년차 변호사가 쓴 준비서면과 15년차 변호사가 쓴 준비서면을 블라인드로 놓으면, 평가자 10명 중 9명이 구별하지 못한다는 뜻이다.</p>
+
+<p class="internal">30년의 경험이 3개월 만에 따라잡힌다. 그게 가능한 건가?</p>
+
+<p class="novel">회의실 끝자리에서 한 변호사의 이름이 거론되었다.</p>
+
+<div class="char-intro">
+  <span class="c-name">최민지</span>
+  <span class="c-info">28 · junior associate · hanyul law · seoul</span>
+</div>
+
+<p class="novel">최민지. 2년차. 올해 상반기 업무 평가에서 시니어급 점수를 받은 유일한 주니어다. 입사 6개월 만에 지적재산권 소송의 준비서면을 단독으로 완성했고, 파트너 3명이 독립적으로 "수정할 곳이 없다"고 평가했다. 사무소 내부에서 "기적의 신인"이라는 별명이 붙었다.</p>
+
+<p class="novel">태준은 민지의 서면을 본 적이 있었다. 깔끔했다. 판례 인용이 정확했고, 논리 구조가 탄탄했고, 법률 용어의 사용이 세련되었다. 15년차가 쓴 것 같았다. 15년차가 쓴 것이 아니라, AI가 쓰고 2년차가 승인한 것이지만.</p>
+
+<div class="doc-excerpt">
+  <div class="doc-title">hbs/bcg "navigating the jagged frontier" (2023)</div>
+  주니어 컨설턴트의 성과가 43% 향상된 반면, 시니어 컨설턴트의 향상은 17%에 그쳤다. AI는 하위 그룹의 성과를 상위 그룹에 근접시키는 "레벨링 이펙트"를 보여주었다.
+</div>
+
+<p class="novel">태준은 이 연구를 읽었다. 하버드 경영대학원과 BCG의 공동 연구. 758명의 컨설턴트를 대상으로 한 무작위 대조시험. 결론은 명확했다. AI는 바닥을 올린다. 하위 수행자의 성과를 급격히 끌어올린다. 상위 수행자의 변화는 미미하다.</p>
+
+<div class="doc-excerpt">
+  <div class="doc-title">stanford/mit customer support rct (2023)</div>
+  AI 도구를 사용한 고객지원 상담원 5,179명 분석. 하위 25%의 생산성이 35% 향상되었다. 상위 25%의 변화는 통계적으로 유의하지 않았다. 2개월 경력자가 6개월 경력자 수준으로 수렴했다.
+</div>
+
+<p class="novel">수렴. 태준은 그 단어를 마음에 담았다. 경영진은 "격차가 사라졌다"고 말한다. 연구는 "하위가 상위에 수렴했다"고 말한다. 같은 현상이다. 하지만 같은 의미는 아니다.</p>
+
+<p class="internal">수렴은 바닥이 올라간 것이지, 천장이 내려온 것이 아니다. 하지만 그 차이를 경영진에게 어떻게 설명하지? 숫자는 90%라고 말하고 있다.</p>
+
+<p class="novel">회의가 끝났다. 태준은 복도에서 혼자 걸었다. 창밖으로 서초동의 로펌 건물들이 빽빽이 늘어서 있었다. 저 건물들 안에서도 같은 회의가 열리고 있을 것이다. "AI가 격차를 없앴다." "인건비를 줄이자." "주니어가 시니어를 대체할 수 있다."</p>
+
+<p class="novel">다음 주에 대형 지적재산권 소송의 변론기일이 잡혀 있었다. 민지가 준비서면을 완성했다. 태준은 감독 파트너로 배정되어 있었다. 서면은 이미 제출된 상태였다.</p>
+
+<p class="novel">태준은 민지에게 물었다.</p>
+
+<p class="dialogue">"서면 37페이지에서 대법원 2019다258017 판결을 인용했는데, 이 판결의 다수 의견과 반대 의견의 핵심 차이가 뭐야?"</p>
+
+<p class="novel">민지가 잠시 멈칫했다.</p>
+
+<p class="dialogue">"그건... 준비서면에 정리해뒀습니다. 37페이지 하단에."</p>
+
+<p class="dialogue">"서면에 뭐라고 썼는지 말고. 네 말로 설명해봐."</p>
+
+<p class="novel">3초의 침묵. 5초. 민지가 입을 열었다.</p>
+
+<p class="dialogue">"다수 의견은... 특허의 진보성 판단에서 사후적 고찰을 배제해야 한다는 입장이고... 반대 의견은..."</p>
+
+<p class="novel">태준은 민지의 눈을 보았다. 답을 찾고 있었다. 머릿속의 서면을 읽고 있었다. 서면에 적힌 문장을 기억에서 끄집어내려 하고 있었다. 자기의 말로 설명하는 것이 아니었다.</p>
+
+<p class="dialogue">"됐어. 다음 주 변론 전에 한 번 더 이야기하자."</p>
+
+<p class="novel">태준은 자기 사무실로 돌아가며 생각했다. 서면은 완벽하다. 서면을 쓴 사람은 완벽하지 않다. 하지만 법정에 서는 것은 서면이 아니라 사람이다.</p>
+
+</section>
+
+<!-- ───────── PART II ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part II</p>
+  <p class="part-title">법정</p>
+</div>
+
+<p class="novel novel-first">2026년 5월 19일 화요일 오전 10시 30분. 서울중앙지방법원 제312호 법정.</p>
+
+<div class="char-intro">
+  <span class="c-name">서동훈</span>
+  <span class="c-info">35 · associate · daeryun law · seoul</span>
+</div>
+
+<p class="novel">상대 로펌 대련법률사무소의 서동훈 변호사가 증인석 맞은편에 앉아 있었다. 동훈은 법정 반대심문으로 이름이 알려진 사람이었다. 서면에서 이기는 것은 쉽다. 법정에서 이기는 것은 다르다. 서면은 준비된 무기이고, 법정은 실시간 전투다. 동훈은 실시간 전투를 즐기는 사람이었다.</p>
+
+<p class="novel">민지가 원고 측 법률 대리인 석에 앉았다. 태준이 뒤에서 지원했다. 특허 침해 소송. 원고 측 전문가 증인에 대한 반대심문이 끝나고, 동훈이 원고 측 준비서면의 논리를 공격하기 시작했다.</p>
+
+<p class="novel">동훈이 서면 사본을 들어올렸다.</p>
+
+<div class="courtroom">
+  <div class="ct-exchange">
+    <div class="ct-q">
+      <span class="ct-speaker">opposing counsel — seo</span>
+      "원고 측 준비서면 12페이지에서 '균등론'을 적용하셨는데요. 이 사건에서 균등론 적용의 구체적 요건 중, 치환 가능성을 어떤 기준으로 판단하셨습니까?"
+    </div>
+    <div class="ct-a">
+      <span class="ct-speaker">plaintiff counsel — choi</span>
+      "준비서면에 기재한 바와 같이, 대법원 2019다258017 판결의 기준에 따라... 해당 기술의 치환 가능성은... 서면 14페이지에 상세히 기술되어 있습니다."
+    </div>
+  </div>
+
+  <div class="ct-exchange">
+    <div class="ct-q">
+      <span class="ct-speaker">opposing counsel — seo</span>
+      "서면에 뭐라고 쓰셨는지를 묻는 게 아닙니다. 변호인의 법률적 견해를 묻고 있습니다. 균등론의 5요건 중, 이 사건에서 가장 다투어지는 요건이 무엇이라고 보십니까?"
+    </div>
+    <div class="ct-a">
+      <span class="ct-speaker">plaintiff counsel — choi</span>
+      "... 치환 가능성과... 치환 용이성이... 주요 쟁점이라고..."
+    </div>
+  </div>
+
+  <div class="ct-exchange">
+    <div class="ct-q">
+      <span class="ct-speaker">opposing counsel — seo</span>
+      "치환 용이성을 말씀하셨습니다. 그렇다면 피고 측 기술이 출원일 당시의 기술 수준에서 치환 용이했다는 근거를 서면 외에 추가로 설명해주실 수 있습니까? 특히 피고 측이 제출한 선행기술 3건과의 관계에서요."
+    </div>
+    <div class="ct-silence">4초의 침묵.</div>
+    <div class="ct-a">
+      <span class="ct-speaker">plaintiff counsel — choi</span>
+      "선행기술과의 관계에 대해서는... 준비서면 24페이지에서..."
+    </div>
+  </div>
+
+  <div class="ct-exchange">
+    <div class="ct-q">
+      <span class="ct-speaker">opposing counsel — seo</span>
+      "변호인. 제가 묻고 있는 것은 서면의 내용이 아닙니다. 이 법정에서 변호인이 직접 원고의 입장을 논증해주시기 바랍니다. 서면 24페이지의 논리 — 특허법 제97조의 손해액 추정과 균등론의 적용 범위를 연결한 부분입니다 — 이 논리의 전제가 되는 대법원 2022다301576 판결의 다수 의견을 반대 해석하면 원고에게 불리해지는데, 이 점에 대한 법률적 견해는 무엇입니까?"
+    </div>
+    <div class="ct-silence">7초의 침묵.</div>
+    <div class="ct-a">
+      <span class="ct-speaker">plaintiff counsel — choi</span>
+      "... 재판장님, 해당 쟁점에 대해서는 추가 서면으로 답변을 제출하겠습니다."
+    </div>
+  </div>
+</div>
+
+<p class="novel">태준은 벤치 뒤에서 이마를 짚었다. 동훈의 질문은 예측 가능한 것이었다. 준비서면의 논리적 허점을 찌르는 것은 반대심문의 기본이다. 서면에 인용된 판례의 반대 해석, 선행기술과의 정합성, 입법 취지와의 충돌. 서면을 <strong>쓴 사람</strong>이라면 준비되어 있어야 하는 질문들이다.</p>
+
+<p class="novel">하지만 민지는 서면을 쓴 사람이 아니었다. AI가 썼고, 민지가 승인했다.</p>
+
+<div class="doc-excerpt">
+  <div class="doc-title">stanford codelawbench / ai hallucination in legal practice (2024-2025)</div>
+  미국 법원에 제출된 AI 생성 법률 서면에서 가짜 판례 인용이 600건 이상 발견되었다. 하루 평균 2~3건. 판사들이 AI 사용 공개 의무를 요구하기 시작했다.
+</div>
+
+<p class="novel">민지의 서면에는 가짜 판례가 없었다. AI의 출력은 정확했다. 판례 인용은 실재했고, 법조문은 맞았고, 논리 구조는 탄탄했다. 문제는 정확성이 아니었다. 문제는 이해였다. 서면의 글자를 쓴 것과 서면의 논리를 이해하는 것은 같은 행위가 아니다.</p>
+
+<p class="novel">휴정 시간. 법정 밖 복도에서 태준이 민지에게 물었다.</p>
+
+<p class="dialogue">"서면 24페이지의 논리 흐름, 네가 직접 구성한 거야?"</p>
+
+<p class="novel">민지가 고개를 숙였다.</p>
+
+<p class="dialogue">"Claude에게 균등론 적용 논증을 요청했습니다. 판례 인용도 AI가 추천한 것을 확인하고 넣었습니다. 확인은 했습니다."</p>
+
+<p class="dialogue">"확인은 뭘 확인한 거야?"</p>
+
+<p class="dialogue">"판례가 실재하는지. 법조문이 맞는지."</p>
+
+<p class="dialogue">"논리가 맞는지는?"</p>
+
+<p class="novel">민지가 대답하지 못했다.</p>
+
+</section>
+
+<!-- ───────── PART III ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part III</p>
+  <p class="part-title">95%와 5%</p>
+</div>
+
+<p class="novel novel-first">법정이 끝난 후. 태준은 사무실로 돌아와 민지의 준비서면 전체를 처음부터 다시 읽었다. 78페이지. 한 줄씩. 30년차 변호사의 눈으로.</p>
+
+<p class="novel">서면은 잘 쓰여 있었다. 아니, 훌륭하게 쓰여 있었다. 법률 용어의 정확성, 판례 인용의 적절성, 논리 구조의 명확성. 문장 하나하나가 법률 문서의 표준에 부합했다. 블라인드 평가에서 시니어급 점수가 나온 것은 당연했다.</p>
+
+<p class="novel">하지만 태준은 빈 곳을 보았다. 서면에 <strong>쓰여 있지 않은</strong> 것들이 보였다.</p>
+
+<div class="doc-analysis">
+  <div class="da-cell">
+    <div class="da-label">ai-generated 95%</div>
+    <div class="da-pct">95%</div>
+    <div class="da-desc">판례 인용 정확. 법조문 맞음. 논리 구조 탄탄. 법률 용어 완벽. 형식 요건 충족. 블라인드 평가를 통과하는 데 충분한 품질.</div>
+  </div>
+  <div class="da-cell">
+    <div class="da-label">missing 5%</div>
+    <div class="da-pct">5%</div>
+    <div class="da-desc">판례 간 논리적 긴장 관계. 상대 주장의 허점 공격 전략. 판사의 성향에 맞춘 논증 전개. 반대심문 예상 질문 대비. 승소 전략의 우선순위.</div>
+  </div>
+</div>
+
+<p class="novel">95%는 AI가 채웠다. 나머지 5%는 비어 있었다. 그리고 법정에서 동훈이 공격한 것은 정확히 그 5%였다.</p>
+
+<p class="novel">태준은 노트에 적었다.</p>
+
+<p class="internal">서면의 95%가 완벽하다는 것은, 서면이 완벽하다는 뜻이 아니다. 건물의 95%가 완공되었다고 해서 입주할 수 있는 것이 아닌 것처럼. 빠진 5%가 배관이면 물이 안 나오고, 빠진 5%가 소방 설비면 건물이 탄다. 민지의 서면에서 빠진 5%는 소방 설비였다. 법정에서 불이 붙었을 때 대응할 수 없는 서면.</p>
+
+<p class="novel">태준은 경영진이 보여준 "90% 수렴" 데이터를 다시 떠올렸다. 문서 품질이 수렴한 것이다. 법률적 사고력이 수렴한 것이 아니다.</p>
+
+<div class="pull-quote">
+  <p>바닥이 올라온 거지<br><strong>천장이 내려온 게 아니다</strong></p>
+</div>
+
+<p class="novel">민지의 서면이 시니어 수준에 도달한 것은 사실이다. 하지만 민지의 법률적 사고가 시니어 수준에 도달한 것은 아니다. AI가 민지의 <strong>출력</strong>을 시니어 수준으로 끌어올렸다. 민지의 <strong>능력</strong>을 끌어올린 것이 아니다.</p>
+
+<div class="doc-excerpt">
+  <div class="doc-title">addy osmani — "the 70% problem" (2025)</div>
+  AI 코딩 도구는 프로젝트 뼈대의 70%를 매우 빠르게 만들어낸다. 하지만 제품을 완성하는 나머지 30%가 진짜 엔지니어링 가치가 있는 부분이다. 이 30%에는 통합, 엣지 케이스 처리, 성능 최적화, 보안, 사용자 경험 세부 조정이 포함된다.
+</div>
+
+<p class="novel">법률에서도 마찬가지였다. AI가 서면의 70%를 만들어준다. 아니, 95%를 만들어준다. 하지만 법정에서 승패를 가르는 것은 나머지 5%다. 판례의 행간을 읽는 능력. 상대방의 논리에서 모순을 즉석으로 짚어내는 감각. 판사의 표정에서 심증의 방향을 읽는 직관. 이것들은 AI가 생성하지 못하는 것이 아니라, 생성할 필요가 없는 것이다. 왜냐하면 이것들은 <strong>문서</strong>에 담기지 않기 때문이다.</p>
+
+<div class="doc-excerpt">
+  <div class="doc-title">anthropic economic index (2025)</div>
+  고숙련 업무에서 AI 도구는 기존 대비 12배의 작업 가속을 보여주었다. 초보자가 AI를 써서 전문가 수준의 출력을 내는 것이 아니라, 전문가가 AI를 써서 12배 빨라지는 것이다. AI는 전문가에게 더 유용하다.
+</div>
+
+<p class="novel">태준은 Anthropic의 보고서를 다시 읽었다. 12배 가속. 이것은 HBS/BCG 연구와 모순되는 것처럼 보이지만, 모순이 아니다. 주니어의 출력이 43% 향상되었다는 것은 사실이다. 하지만 고숙련 업무에서 전문가가 12배 빨라졌다는 것도 사실이다. 바닥이 올라갔지만, 천장도 함께 올라갔다. 격차는 줄어들지 않았다. 측정 기준이 바뀌었을 뿐이다.</p>
+
+<p class="novel">태준은 민지의 서면 37페이지를 펼쳤다. 대법원 2019다258017 판결 인용 부분. AI가 이 판결을 인용한 이유는 명확했다. 균등론의 5요건을 체계적으로 정리한 판결이기 때문이다. 하지만 태준이 보기에, 이 판결은 양날의 검이었다. 다수 의견의 논리를 반대 해석하면 피고 측에 유리한 논거가 된다. 동훈이 정확히 그것을 찔렀다.</p>
+
+<p class="novel">AI는 이 판결을 인용했다. 정확하게. 하지만 이 판결의 반대 해석 가능성을 사전에 차단하는 논증은 넣지 않았다. 왜냐하면 AI는 "어떤 판례를 인용할 것인가"에는 강하지만, "상대가 이 판례를 어떻게 뒤집을 것인가"에는 약하기 때문이다. 공격은 잘하지만, 상대의 반격을 예측하지 못한다.</p>
+
+<p class="internal">95%의 서면을 쓸 수 있는 AI 도구를 가진 주니어가, 95%의 서면을 쓸 수 있는 시니어와 같은 가치인가. 경영진은 같다고 말한다. 문서 품질 평가가 90%로 수렴했으니까. 하지만 법정에서 동훈이 증명한 것은 다른 것이다. 문서를 만든 사람과 문서의 논리를 아는 사람은 다르다.</p>
+
+</section>
+
+<!-- ───────── PART IV ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part IV</p>
+  <p class="part-title">법리의 무게</p>
+</div>
+
+<p class="novel novel-first">2026년 5월 26일 화요일. 다음 심리기일.</p>
+
+<p class="novel">태준이 직접 법정에 나갔다. 민지는 보조석에 앉았다.</p>
+
+<p class="novel">동훈이 같은 전략으로 접근했다. 준비서면의 논리적 허점을 찌르는 질문. 하지만 이번에는 상대가 달랐다.</p>
+
+<div class="courtroom">
+  <div class="ct-exchange">
+    <div class="ct-q">
+      <span class="ct-speaker">opposing counsel — seo</span>
+      "원고 측이 균등론을 적용하면서도 출원 경과 금반언의 적용을 배제한 근거가 무엇입니까? 출원 과정에서 보정한 이력이 있는데, 이것은 금반언의 전형적인 적용 사례 아닙니까?"
+    </div>
+    <div class="ct-a">
+      <span class="ct-speaker">plaintiff counsel — kim</span>
+      "좋은 지적입니다. 출원 경과 금반언은 보정 내용이 특허 청구범위를 의식적으로 한정한 경우에 적용됩니다. 이 사건의 보정은 명세서의 기재 불비를 바로잡기 위한 것이었지, 청구범위를 한정하려는 의도가 아니었습니다. 대법원 2017후2819 판결이 이 구별을 명확히 합니다. 해당 판결은 보정의 목적이 청구범위 한정이 아닌 경우 금반언을 적용하지 않는다고 판시했습니다."
+    </div>
+  </div>
+
+  <div class="ct-exchange">
+    <div class="ct-q">
+      <span class="ct-speaker">opposing counsel — seo</span>
+      "그렇다면 원고 측 서면 37페이지의 대법원 2019다258017 판결 인용에 대해 묻겠습니다. 이 판결의 다수 의견을 반대 해석하면 피고 측 기술의 치환 용이성을 부정하는 근거가 됩니다. 이 점은 어떻게 보십니까?"
+    </div>
+    <div class="ct-a">
+      <span class="ct-speaker">plaintiff counsel — kim</span>
+      "반대 해석의 가능성은 인정합니다. 하지만 반대 해석이 성립하려면 해당 판결의 사실 관계가 이 사건과 유사해야 합니다. 2019다258017 사건은 화학 물질의 조성비 치환이 쟁점이었고, 이 사건은 소프트웨어 알고리즘의 구조적 치환이 쟁점입니다. 기술 분야가 다르면 치환 용이성의 판단 기준도 달라집니다. 대법원 2020후10535 판결이 기술 분야별 치환 용이성의 판단 기준이 다를 수 있음을 인정했습니다. 따라서 2019다258017의 반대 해석을 이 사건에 직접 적용하는 것은 논리적 비약입니다."
+    </div>
+  </div>
+
+  <div class="ct-exchange">
+    <div class="ct-q">
+      <span class="ct-speaker">opposing counsel — seo</span>
+      "... 추가 질문 없습니다."
+    </div>
+  </div>
+</div>
+
+<p class="novel">동훈이 질문을 멈췄다. 태준의 대답은 서면에 없는 내용이었다. 서면은 2019다258017을 인용했지만, 반대 해석의 차단 논증은 포함하지 않았다. 태준이 법정에서 즉석으로 구성한 것이다. 30년 동안 축적된 판례 지식, 기술 분야별 법리의 차이에 대한 경험, 상대의 공격 방향을 읽는 감각. 이것들이 3분 안에 조합되었다.</p>
+
+<p class="novel">민지가 보조석에서 지켜보았다. 같은 판례다. 같은 사건이다. 같은 서면이다. 하지만 태준이 법정에서 만들어내는 논증은 서면과 전혀 다른 차원이었다.</p>
+
+<p class="internal">서면은 전장에 나가기 전에 만드는 작전 계획이다. 법정은 전장이다. 작전 계획이 아무리 정교해도, 전장에서 적의 움직임에 실시간으로 대응하지 못하면 소용없다. AI는 최고의 작전 계획을 만들어줄 수 있다. 하지만 전장에 AI는 서지 않는다.</p>
+
+<p class="novel">법정이 끝난 후. 사무소 회의실에서 태준과 민지가 마주앉았다.</p>
+
+<p class="dialogue">"오늘 차이가 보였어?"</p>
+
+<p class="dialogue">"네. 보였습니다."</p>
+
+<p class="dialogue">"뭐가 달랐는지 말해봐."</p>
+
+<p class="novel">민지가 잠시 생각했다.</p>
+
+<p class="dialogue">"저는 서면에 있는 것만 말할 수 있었습니다. 파트너님은 서면에 없는 것을 만들어내셨습니다."</p>
+
+<p class="dialogue">"맞아." 태준이 고개를 끄덕였다. "서면은 무기를 만드는 거고, 법정은 무기를 쓰는 거야. AI가 무기를 만들어줄 수는 있어. 꽤 좋은 무기를. 하지만 쓰는 법은 네가 배워야 해."</p>
+
+<p class="novel">민지가 물었다.</p>
+
+<p class="dialogue">"어떻게 배우죠?"</p>
+
+<p class="dialogue">"판례를 읽어. AI 요약 말고, 원문을. 판결문 전문을."</p>
+
+<p class="dialogue">"판결문은 길고, 법률 용어가 어렵고..."</p>
+
+<p class="dialogue">"그래서 읽는 거야." 태준이 말했다. "AI한테 요약을 시키면 AI가 중요하다고 판단한 부분만 남아. 하지만 법정에서는 AI가 중요하지 않다고 빠뜨린 부분이 쟁점이 될 수 있어. 2019다258017의 반대 해석 가능성은 AI 요약에 없었잖아. 원문을 읽은 사람만 알 수 있는 거야."</p>
+
+<p class="novel">민지가 고개를 숙였다.</p>
+
+<p class="dialogue">"파트너님은... AI 도입에 대해 어떻게 생각하세요? 솔직히."</p>
+
+<p class="novel">태준이 잠시 창밖을 보았다. 서초동의 저녁. 로펌 건물들에 하나둘 불이 켜지고 있었다.</p>
+
+<p class="dialogue">"AI가 좋은 도구인 것은 인정해. 내 업무 속도도 빨라졌어. 판례 검색에 3시간 걸리던 것이 10분이면 돼. 하지만 경영진이 말하는 것처럼 격차가 사라졌다고는 생각 안 해."</p>
+
+<p class="dialogue">"왜요?"</p>
+
+<p class="dialogue">"바닥이 올라온 거지, 천장이 내려온 게 아니니까."</p>
+
+<p class="novel">태준은 책상 위의 펜을 집어 들었다.</p>
+
+<p class="dialogue">"네가 AI로 시니어급 서면을 쓸 수 있게 된 것은 사실이야. 하지만 그건 네가 시니어가 된 게 아니라, AI가 네 출력을 시니어 수준으로 올려준 거야. 출력과 능력은 다른 거야, 민지."</p>
+
+<div class="doc-excerpt">
+  <div class="doc-title">daron acemoglu — "the simple macroeconomics of ai" (2024)</div>
+  우리는 AI를 자동화에 너무 많이, 근로자에게 새로운 전문성을 제공하는 데에는 너무 적게 쓰고 있다. AI가 인간의 업무를 대체하는 데 초점을 맞추면, 생산성 이득은 미미하고 불평등만 심화된다.
+</div>
+
+<p class="novel">태준은 아세모글루의 논문을 인용하지는 않았다. 하지만 같은 말을 하고 있었다. AI로 주니어의 출력을 시니어 수준으로 올리는 것은 자동화다. 주니어에게 진짜 법률적 사고를 가르치는 것은 전문성 제공이다. 경영진은 자동화에 열광하고 있었다. 인건비가 줄어들 테니까. 하지만 법정에서는 자동화된 서면이 아니라 전문성이 승패를 가른다.</p>
+
+<p class="novel">다음 주부터 민지의 일과가 바뀌었다.</p>
+
+<p class="novel">매일 오전 7시. 민지는 사무실에 가장 먼저 출근했다. 노트북을 열지 않았다. AI를 켜지 않았다. 대신 종이에 인쇄된 판결문 원문을 꺼냈다. 대법원 판결. 한 건에 40페이지에서 80페이지. 다수 의견. 별개 의견. 반대 의견. 보충 의견.</p>
+
+<p class="novel">민지는 노란 형광펜으로 다수 의견의 핵심 법리를 표시했다. 빨간 펜으로 반대 의견의 논거를 적었다. 파란 펜으로 두 의견의 교차점을 연결했다. 그리고 흰 종이에 자기 말로 요약했다. AI 없이. 40페이지를 읽는 데 2시간이 걸렸다. AI 요약은 30초다. 하지만 2시간 동안 민지의 머릿속에는 판결의 논리 구조가 쌓였다.</p>
+
+<p class="novel">처음에는 느렸다. 법률 용어가 어렵고, 판결의 논리 흐름이 복잡하고, 한 문장이 10줄인 경우도 있었다. AI에게 물어보고 싶은 충동이 10분마다 찾아왔다. 하지만 민지는 참았다. 모르는 용어는 법률 사전을 찾았다. 논리 흐름이 이해되지 않으면 다시 읽었다. 세 번째 읽으면 보이기 시작했다.</p>
+
+<p class="novel">2주 후. 민지는 태준의 사무실에 찾아갔다.</p>
+
+<p class="dialogue">"파트너님. 2019다258017 판결 다시 읽었습니다."</p>
+
+<p class="dialogue">"어떻게 보여?"</p>
+
+<p class="dialogue">"반대 해석의 여지가 확실히 있습니다. 특히 다수 의견의 치환 용이성 판단 기준이... AI가 서면에 인용한 것은 결론 부분이었는데, 판시 이유의 전개 과정에서 피고 측에 유리한 전제를 깔고 있습니다. 이 부분을 미리 차단하지 않으면 상대가 반드시 쓸 카드입니다."</p>
+
+<p class="novel">태준이 미소를 지었다.</p>
+
+<p class="dialogue">"그 분석, AI가 해준 거야?"</p>
+
+<p class="dialogue">"아닙니다. 원문을 세 번 읽고 제가 정리한 겁니다."</p>
+
+<p class="dialogue">"그게 5%야, 민지. AI가 못 채우는 5%."</p>
+
+<p class="novel">민지가 사무실을 나갔다. 태준은 혼자 창밖을 보았다. 서초동의 아침. 로펌의 불빛들이 하나둘 켜지고 있었다. 저 건물들 안에서 수백 명의 주니어 변호사들이 AI로 시니어급 서면을 쓰고 있을 것이다. 경영진은 기뻐할 것이다. 격차가 사라졌다고.</p>
+
+<p class="novel">하지만 법정은 거짓말을 허용하지 않는다. 서면의 품질이 아무리 높아도, 변호인석에 앉은 사람이 서면의 논리를 이해하지 못하면 반대심문 3분 안에 드러난다. AI는 바닥을 올렸다. 하지만 법정은 바닥이 아니라 천장에서 승부가 갈린다.</p>
+
+<p class="novel">민지는 앞으로 3년이 필요할 것이다. 아니, 5년. 어쩌면 10년. AI 없이 판례를 읽고, 법리를 씹고, 법정에서 부딪히고, 지고, 배우고, 다시 법정에 서는 과정. 그 과정을 단축하는 AI 도구는 없다. 왜냐하면 그 과정 자체가 전문성이기 때문이다.</p>
+
+<p class="novel">태준은 컴퓨터를 켰다. AI 법률 도구를 열었다. 다음 사건의 판례를 검색했다. 10분 만에 관련 판례 30건이 정리되었다. 예전에는 3시간이 걸렸다. 태준은 30건의 판례 목록을 보며 3건을 골랐다. 어떤 판례가 이 사건에 가장 효과적인 무기가 되는지, 어떤 판례가 상대에게 역이용될 수 있는지, 30년의 경험이 판단했다.</p>
+
+<p class="novel">AI가 10분 만에 찾아준 30건. 태준이 30초 만에 고른 3건. AI의 속도와 태준의 판단이 결합된 것이다. 이것이 AI를 <strong>도구로</strong> 쓰는 것이다. AI에게 서면을 맡기는 것이 아니라, AI가 가져온 재료로 자기가 서면을 쓰는 것.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>바닥이 올라왔을 뿐이다<br><strong>천장은 그대로다</strong></h2>
+  <p class="sub">AI가 주니어의 출력을 시니어 수준으로 올렸다. 하지만 출력의 수렴이 능력의 수렴은 아니다. 바닥이 올라왔을 뿐, 천장은 내려오지 않았다.</p>
+</div>
+
+<footer class="footer">
+  <p>This is a work of fiction &middot; Characters and events are imaginary</p>
+  <p>HBS/BCG "Jagged Frontier" Study (2023) &middot; Addy Osmani "The 70% Problem" &middot; Anthropic Economic Index &middot; Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>
+</body>
+</html>

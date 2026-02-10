@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>4점의 착각 — Editorial</title>
+<meta name="description" content="2026년 4월, 전사 AI 교육의 성과를 자축하던 인재개발팀장 박소현. 블라인드 테스트 결과, AI를 가장 잘 쓰는 직원이 가장 많이 착각하고 있었다. 역 던닝-크루거 효과가 사무실에서 벌어지고 있다.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/illusion-of-knowing-series/four-point-illusion.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4점의 착각">
+<meta property="og:description" content="전사 AI 교육이 끝났다. 점수는 올랐다. 실력은? AI를 가장 잘 쓰는 직원이 가장 많이 착각하고 있었다.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/illusion-of-knowing-series/four-point-illusion.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-10">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="4점의 착각">
+<meta name="twitter:description" content="전사 AI 교육이 끝났다. 점수는 올랐다. 실력은? AI를 가장 잘 쓰는 직원이 가장 많이 착각하고 있었다.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"4점의 착각","description":"2026년 4월, 전사 AI 교육의 성과를 자축하던 인재개발팀장 박소현. 블라인드 테스트 결과, AI를 가장 잘 쓰는 직원이 가장 많이 착각하고 있었다. 역 던닝-크루거 효과가 사무실에서 벌어지고 있다.","datePublished":"2026-02-10","dateModified":"2026-02-10","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/illusion-of-knowing-series/four-point-illusion.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<script>(function(){var t=localStorage.getItem('editorial-theme');if(!t)t=window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})()</script>
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* NOVEL PROSE */
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+
+  /* SCENE BREAK */
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+
+  /* DIALOGUE */
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+
+  /* INTERNAL MONOLOGUE */
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  /* TERMINAL BLOCK */
+  .terminal {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    background: #2a2a28;
+    color: #e8e4dc;
+    padding: 24px 28px;
+    margin: 32px 0;
+    overflow-x: auto;
+    border: 1px solid var(--fg);
+  }
+  .terminal .t-prompt { color: #6db36d; }
+  .terminal .t-comment { color: #8a8680; }
+  .terminal .t-error { color: #c43e2a; }
+  .terminal .t-warn { color: #d4a843; }
+  .terminal .t-key { color: #7cafc2; }
+  .terminal .t-str { color: #c9b97a; }
+
+  /* CHARACTER INTRO */
+  .char-intro {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 20px;
+    align-items: baseline;
+    margin: 40px 0 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .char-intro .c-name { font-size: 1.4rem; font-weight: 700; color: var(--fg); }
+  .char-intro .c-info { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
+
+  /* SECTION DIVIDER */
+  .part-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .part-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+  }
+  .section-divider {
+    margin-top: 64px;
+    margin-bottom: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* SLACK MESSAGE */
+  .slack-msg {
+    border: 1px solid var(--rule);
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .slack-msg .s-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .slack-msg .s-name { font-size: 0.9rem; font-weight: 700; color: var(--fg); }
+  .slack-msg .s-time { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
+  .slack-msg .s-body { font-size: 0.95rem; line-height: 1.8; color: var(--prose); }
+  .slack-msg .s-channel { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 2px; color: var(--accent); margin-bottom: 12px; }
+
+  /* SOURCE CODE */
+  .source-code {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.65;
+    background: var(--card-bg);
+    color: var(--prose);
+    padding: 24px 28px;
+    margin: 32px 0;
+    overflow-x: auto;
+    border: 1px solid var(--rule);
+  }
+  .source-code .sc-comment { color: var(--muted); }
+  .source-code .sc-key { color: #5a7a9a; }
+  .source-code .sc-str { color: #8a6a4a; }
+  .source-code .sc-fn { color: var(--fg); font-weight: 600; }
+  .source-code .sc-accent { color: var(--accent); font-weight: 600; }
+
+  /* DOC EXCERPT */
+  .doc-excerpt {
+    border-left: 3px solid var(--rule);
+    background: var(--card-bg);
+    padding: 20px 24px;
+    margin: 32px 0;
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: var(--secondary);
+  }
+  .doc-excerpt .doc-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  /* SELF-ASSESSMENT COMPARISON */
+  .assessment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0;
+  }
+  .assessment-cell {
+    background: var(--bg);
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .assessment-cell .as-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .assessment-cell .as-score {
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--fg);
+  }
+  .assessment-cell .as-score.as-high { color: var(--accent); }
+  .assessment-cell .as-sub {
+    font-size: 0.8rem;
+    color: var(--secondary);
+    margin-top: 4px;
+  }
+
+  /* BLIND TEST RESULT */
+  .test-result {
+    border: 1px solid var(--rule);
+    padding: 24px 28px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .test-result .tr-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .test-result table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+  .test-result th {
+    text-align: left;
+    font-weight: 700;
+    color: var(--fg);
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--rule);
+  }
+  .test-result td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--prose);
+  }
+  .test-result td.tr-highlight { color: var(--accent); font-weight: 700; }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .char-intro { grid-template-columns: 1fr; }
+    .assessment-grid { grid-template-columns: 1fr; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+<script src="../../assets/theme-toggle.js" defer></script>
+</head>
+<body>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">illusion of knowing — fiction 02</p>
+  <h1>4점의 <strong>착각</strong></h1>
+  <p class="deck">전사 AI 교육이 끝났다. 점수는 올랐다. 실력은?<br>AI를 가장 잘 쓰는 사람이 가장 많이 착각하고 있었다.</p>
+</header>
+
+<main>
+
+<!-- ───────── PART I ───────── -->
+
+<section>
+<div class="section-divider" style="border-top:none;margin-top:0;padding-top:0">
+  <p class="part-label">Part I</p>
+  <p class="part-title">"점수의 민주화"</p>
+</div>
+
+<div class="char-intro">
+  <span class="c-name">박소현</span>
+  <span class="c-info">38 · hr development lead · it corp · seoul</span>
+</div>
+
+<p class="novel novel-first">2026년 4월 7일 월요일 오전 10시. 서울 강남구.</p>
+
+<p class="novel">박소현은 프레젠테이션 슬라이드의 마지막 페이지를 응시했다. 슬라이드 제목: "2026 Q1 AI 리터러시 교육 성과 보고." 1,200명 규모의 IT기업에서 인재개발팀장을 맡은 지 3년째. 그 3년 중 가장 뿌듯한 보고서였다.</p>
+
+<p class="novel">전사 AI 리터러시 교육을 기획한 것은 소현이었다. 6주 커리큘럼. ChatGPT 프롬프트 엔지니어링부터 사내 AI 도구 활용법, 데이터 분석 자동화까지. 경영진을 설득하는 데 석 달이 걸렸다. "AI 교육에 투자하지 않으면 경쟁사에 뒤처진다." 데이터를 들이밀었다. 한국 근로자 63.5%가 AI를 경험했고, 70.9%가 효율이 향상됐다고 응답한 설문 조사. 경영진이 고개를 끄덕인 것은 숫자의 힘이었다.</p>
+
+<div class="doc-excerpt">
+  <div class="doc-title">2025 ai workplace adoption survey — korea</div>
+  한국 근로자 63.5%가 업무에 AI를 활용한 경험이 있으며, 이 중 70.9%가 업무 효율이 향상됐다고 응답. 그러나 "AI를 활용한 결과물의 정확성을 직접 검증한다"고 답한 비율은 23.1%에 그침.
+</div>
+
+<p class="novel">소현은 23.1%라는 숫자를 슬라이드에 넣지 않았다. 필요하지 않았다. 보고서의 핵심은 교육 전후 자기평가 점수의 변화였다.</p>
+
+<div class="assessment-grid">
+  <div class="assessment-cell">
+    <div class="as-label">before training</div>
+    <div class="as-score">32</div>
+    <div class="as-sub">전사 평균 자기평가</div>
+  </div>
+  <div class="assessment-cell">
+    <div class="as-label">after training</div>
+    <div class="as-score as-high">71</div>
+    <div class="as-sub">전사 평균 자기평가</div>
+  </div>
+</div>
+
+<p class="novel">32점에서 71점. 6주 만에 39점 상승. 경영진이 기뻐했다. CHRO가 소현의 어깨를 두드리며 "다음 분기에 중간관리자 대상으로 심화 과정도 열자"고 했다. 소현은 웃으며 고개를 숙였다. AI 역량 격차 해소. 그 문장이 보고서 결론에 굵은 글씨로 박혀 있었다.</p>
+
+<p class="novel">교육 후 자기평가 상위권 명단을 열었다. 사내 1위는 데이터분석팀의 임하은이었다.</p>
+
+<div class="char-intro">
+  <span class="c-name">임하은</span>
+  <span class="c-info">27 · data analyst · ai native · seoul</span>
+</div>
+
+<p class="novel">자기평가 92점. 사내 AI 활용도 1위. 프롬프트를 영어로 쓰고, 체인 오브 쏘트 기법을 적용하고, 사내 데이터를 AI에 먹여 보고서를 자동 생성한다. 교육 기간 중 하은이 만든 "AI 프롬프트 템플릿 모음"은 사내 위키 조회수 1위를 기록했다. 소현이 교육 성공 사례로 경영진에게 보고한 인물이었다.</p>
+
+<p class="novel">명단 하단에 윤재호의 이름이 있었다.</p>
+
+<div class="char-intro">
+  <span class="c-name">윤재호</span>
+  <span class="c-info">45 · senior data analyst · 15yr experience · seoul</span>
+</div>
+
+<p class="novel">자기평가 58점. 데이터분석팀 시니어. 15년차. Excel과 SQL을 손으로 쓰는 사람. AI를 "적당히" 쓴다. ChatGPT로 초안을 뽑되, 결과물을 반드시 Excel에서 재검증하는 사람. 교육 평가지에 이렇게 적었다. "AI를 쓸 줄은 알게 됐다. 잘 쓰는지는 모르겠다."</p>
+
+<p class="novel">소현은 재호의 점수를 보며 살짝 아쉬웠다. 시니어가 이 정도면 교육 효과가 충분히 전달되지 않은 것일 수 있다. 팀장급 보완 교육을 기획해야 하나.</p>
+
+<p class="novel">보고서를 마무리하고 CHRO에게 메일을 보낸 직후, 재호가 소현의 자리로 왔다.</p>
+
+<p class="dialogue">"소현 씨, 잠깐 시간 돼요?"</p>
+
+<p class="dialogue">"네, 재호 님. 앉으세요."</p>
+
+<p class="novel">재호가 의자에 앉으며 물었다. 표정이 단정했다. 적대적이지도, 비꼬는 것도 아니었다. 진심으로 궁금한 얼굴이었다.</p>
+
+<p class="dialogue">"자기평가 점수가 올랐다는 게, 실력이 올랐다는 뜻인가요?"</p>
+
+<p class="novel">소현은 1초 동안 멈췄다. 그리고 대답했다.</p>
+
+<p class="dialogue">"자기평가는 역량 인지의 지표예요. 본인이 AI를 활용할 수 있다고 느끼는 정도가 올랐다는 건 교육이 효과적이었다는 의미죠."</p>
+
+<p class="dialogue">"그건 '느낌'이 올랐다는 거잖아요. '실력'이 올랐다는 건 어떻게 아는 거예요?"</p>
+
+<p class="novel">소현은 대답을 준비했다. 교육 수료율 94%, 과제 제출률 87%, 만족도 4.6/5.0. 숫자들이 머릿속에 줄지어 있었다. 하지만 재호의 질문은 다른 것이었다. 수료율이 아니라 수행 능력. 제출률이 아니라 결과물의 정확성.</p>
+
+<p class="internal">실력이 올랐다는 증거. 그런 데이터가 있나? 자기평가 점수. 수료율. 만족도. 전부 주관적 지표다.</p>
+
+<p class="dialogue">"좋은 질문이에요. 제가 좀 더 들여다볼게요."</p>
+
+<p class="novel">재호가 고개를 끄덕이고 돌아갔다. 소현은 보고서를 다시 열었다. "AI 역량 격차 해소에 성공했습니다." 그 문장이 갑자기 불안해 보였다.</p>
+
+</section>
+
+<!-- ───────── PART II ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part II</p>
+  <p class="part-title">"블라인드 테스트"</p>
+</div>
+
+<p class="novel novel-first">2주 뒤. 소현은 블라인드 테스트를 설계했다.</p>
+
+<p class="novel">재호의 질문이 머릿속에서 사라지지 않았다. "점수가 올랐다고 실력이 올랐다는 뜻인가요?" 소현은 HR 전문가다. 교육 효과를 측정하는 방법론은 알고 있다. 커크패트릭 모델 4단계 중 3단계 — 행동 변화 — 를 측정하지 않았다는 것을 깨달았다. 자기평가는 1단계(반응)에 불과하다.</p>
+
+<p class="novel">테스트 설계. 실제 업무 과제를 주고, AI 사용 그룹과 비사용 그룹의 결과물을 비교한다. 과제는 데이터분석팀에 맞춤 설계했다.</p>
+
+<div class="slack-msg">
+  <div class="s-channel">#data-analytics</div>
+  <div class="s-header">
+    <span class="s-name">박소현</span>
+    <span class="s-time">09:00</span>
+  </div>
+  <div class="s-body">데이터분석팀 전원 대상 역량 평가를 실시합니다. 과제: "지난 분기 매출 데이터에서 이상 징후를 찾고, 원인을 분석하시오." A그룹(15명)은 AI 도구 사용 가능, B그룹(15명)은 AI 도구 사용 불가. 제출 기한: 금요일 오후 6시.</div>
+</div>
+
+<p class="novel">하은은 A그룹에 배정됐다. 재호는 B그룹을 자청했다.</p>
+
+<p class="novel">금요일 오후 5시 47분. 하은이 보고서를 제출했다. 10페이지. 4개의 시각화 차트. 3개의 이상 징후 식별. 원인 분석 섹션에 외부 경제지표 상관관계 분석까지 포함. 형식은 완벽했다.</p>
+
+<p class="novel">하은의 보고서 결론: "Q4 매출은 전년 동기 대비 12.3% 하락했으며, 이는 경기 둔화와 환율 변동의 복합 요인으로 분석됩니다."</p>
+
+<p class="novel">재호의 보고서. 5페이지. 투박한 Excel 차트 2개. 결론에 도달하기까지의 과정이 상세하게 적혀 있었다.</p>
+
+<p class="novel">재호의 보고서 첫 줄: "이 데이터를 전년 동기와 직접 비교하면 안 됩니다. 계절 보정을 먼저 해야 합니다."</p>
+
+<p class="novel">소현은 두 보고서를 나란히 놓았다. 하은은 Q4 매출을 전년 Q4와 비교했다. 12.3% 하락. 그런데 이 회사의 Q4는 매년 연말 프로모션 시기와 겹치고, 작년 Q4에는 대규모 할인 행사가 있었다. 올해는 행사 규모를 축소했다. 12.3% 하락의 상당 부분은 프로모션 축소 효과다. 이상 징후가 아니라 정상 변동이다.</p>
+
+<p class="novel">재호는 이것을 잡았다. "계절 보정 후 실질 하락폭은 3.8%이며, 이는 정상 범위 내입니다. 진짜 이상 징후는 B2B 채널의 Q4 재구매율이 전 분기 대비 22% 급락한 점입니다."</p>
+
+<p class="novel">B2B 채널 재구매율 급락. 하은의 보고서에는 이 항목이 없었다. AI가 "전년 동기 대비"라는 가장 일반적인 비교 프레임을 제안했고, 하은은 그 프레임을 의심하지 않았다.</p>
+
+<p class="novel">블라인드 채점이 끝났다. 외부 데이터 분석가 2명이 이름을 가린 채 채점했다. 결과:</p>
+
+<div class="test-result">
+  <div class="tr-title">blind test results — data analytics team</div>
+  <table>
+    <tr>
+      <th>항목</th>
+      <th>A그룹 (AI 사용)</th>
+      <th>B그룹 (비사용)</th>
+    </tr>
+    <tr>
+      <td>평균 분량</td>
+      <td>8.2페이지</td>
+      <td>4.7페이지</td>
+    </tr>
+    <tr>
+      <td>시각화 수</td>
+      <td>평균 3.4개</td>
+      <td>평균 1.8개</td>
+    </tr>
+    <tr>
+      <td>논리적 오류율</td>
+      <td class="tr-highlight">34%</td>
+      <td>15%</td>
+    </tr>
+    <tr>
+      <td>핵심 이상 징후 식별</td>
+      <td>2.1건 (비핵심 포함)</td>
+      <td class="tr-highlight">1.4건 (정확)</td>
+    </tr>
+    <tr>
+      <td>전제 조건 검증</td>
+      <td class="tr-highlight">20%</td>
+      <td>73%</td>
+    </tr>
+  </table>
+</div>
+
+<p class="novel">AI 그룹의 산출물이 더 많고, 더 화려하고, 더 길었다. 동시에 논리적 오류율이 비사용 그룹의 2.3배였다. 가장 큰 차이는 "전제 조건 검증" 항목이었다. A그룹 15명 중 3명만이 분석의 전제(비교 기준, 보정 여부, 데이터 범위)를 확인했다. B그룹은 11명이 전제를 먼저 확인한 후 분석에 들어갔다.</p>
+
+<p class="novel">소현은 노트북 화면 앞에서 손을 모았다. 하은의 자기평가 92점. 블라인드 테스트에서 전제 조건 미검증. 재호의 자기평가 58점. 핵심 이상 징후를 유일하게 정확히 식별.</p>
+
+<p class="internal">점수가 높은 사람이 틀리고, 점수가 낮은 사람이 맞았다. 자기평가와 실제 수행 능력 사이에 무언가가 뒤집혀 있다.</p>
+
+<p class="novel">소현은 그날 밤 논문 데이터베이스를 뒤졌다. "AI" "self-assessment" "overconfidence"를 검색어로 넣었다. Aalto 대학 연구가 나왔다.</p>
+
+<div class="doc-excerpt">
+  <div class="doc-title">aalto university — "ai makes people feel smarter than they are"</div>
+  AI 도구가 사용자의 과제 수행 능력을 실질적으로 3점 향상시킨 반면, 자기평가는 4점 상승했다. 즉, 실제 능력 향상보다 자기 인식이 더 크게 상승한다. 연구진은 이를 <strong>"역 던닝-크루거 효과"</strong>라고 명명했다 — AI가 무능력에 대한 자각을 제거한다.
+</div>
+
+<p class="novel">3점 향상, 4점 과대평가. 소현은 그 숫자를 세 번 읽었다. 자사 데이터를 떠올렸다. 자기평가 평균이 32점에서 71점으로 올랐다. 39점 상승. 실제 수행 능력은 얼마나 올랐을까. 블라인드 테스트 결과를 보면 — 논리적 오류율이 오히려 AI 그룹에서 높았다.</p>
+
+<p class="novel">소현은 보고서 파일을 닫지 못했다. "AI 역량 격차 해소에 성공했습니다." 그 문장 위에 커서가 멈춰 있었다.</p>
+
+</section>
+
+<!-- ───────── PART III ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part III</p>
+  <p class="part-title">"착각의 구조"</p>
+</div>
+
+<p class="novel novel-first">다음 주 월요일. 소현은 자사 데이터를 다시 열었다.</p>
+
+<p class="novel">Aalto 대학 연구를 자사에 대입하기 시작했다. AI 리터러시 자기평가 상위 20%(72명). 이 72명의 블라인드 테스트 정확도를 추출했다. 하위 20%(72명)의 정확도와 비교했다.</p>
+
+<div class="assessment-grid">
+  <div class="assessment-cell">
+    <div class="as-label">top 20% self-assessment</div>
+    <div class="as-score">86</div>
+    <div class="as-sub">자기평가 평균</div>
+  </div>
+  <div class="assessment-cell">
+    <div class="as-label">top 20% actual accuracy</div>
+    <div class="as-score as-high">61</div>
+    <div class="as-sub">블라인드 테스트 정확도</div>
+  </div>
+  <div class="assessment-cell">
+    <div class="as-label">bottom 20% self-assessment</div>
+    <div class="as-score">44</div>
+    <div class="as-sub">자기평가 평균</div>
+  </div>
+  <div class="assessment-cell">
+    <div class="as-label">bottom 20% actual accuracy</div>
+    <div class="as-score as-high">67</div>
+    <div class="as-sub">블라인드 테스트 정확도</div>
+  </div>
+</div>
+
+<p class="novel">상위 20%: 자기평가 86점, 실제 정확도 61점. 25점의 과대평가. 하위 20%: 자기평가 44점, 실제 정확도 67점. 23점의 과소평가. 곡선이 교차하고 있었다. AI를 잘 쓴다고 믿는 사람일수록 실제 정확도가 낮았다.</p>
+
+<p class="novel">소현은 패턴을 이해하기 시작했다. AI를 적극적으로 활용하는 사람들은 산출물의 양과 속도에서 자신감을 얻는다. 10페이지 보고서를 30분 만에 만든다. 화려한 차트가 3개 붙는다. 형식이 완벽하다. "나는 AI를 잘 쓴다"는 감각이 강화된다. 하지만 그 10페이지 안에 전제 오류가 숨어 있다. AI는 전제의 적절성을 판단하지 않는다. 사용자가 "전년 동기 대비"라고 요청하면, 계절 보정이 필요한지 묻지 않고 비교 결과를 내놓는다.</p>
+
+<p class="novel">반대로, AI를 덜 쓰는 사람들은 결과물에 자신이 없다. 속도가 느리고, 시각화가 투박하다. "나는 AI를 못 쓴다"고 느낀다. 하지만 그들은 분석의 전제를 손으로 확인한다. 데이터를 직접 만지기 때문에 데이터의 결을 안다. 계절성을 체감한다.</p>
+
+<p class="internal">AI 리터러시가 높을수록 메타인지 정확성이 떨어진다. AI가 산출물의 품질을 높여주니까, 사용자는 그 품질이 자기 능력이라고 착각한다. AI가 만든 화려한 차트를 보면서 "내가 이걸 만들었다"고 느낀다. 하지만 차트의 전제가 맞는지 확인한 것은 AI가 아니라 나여야 한다.</p>
+
+<p class="novel">소현은 자기 보고서를 다시 열었다. "AI 역량 격차 해소에 성공했습니다." 이 문장. 이 보고서의 초안도 AI가 썼다. 소현이 교육 결과 데이터를 ChatGPT에 넣고 "성과 보고서 초안을 작성해줘"라고 요청한 결과물이다. AI가 "역량 격차 해소"라는 표현을 제안했다. 소현은 그 표현이 마음에 들어서 그대로 썼다.</p>
+
+<p class="novel">이제 그 표현을 다시 본다. "역량 격차 해소." 실제로 해소된 것은 역량이 아니라 자기평가 점수의 격차다. 점수의 민주화. 모두가 자기는 AI를 잘 쓴다고 느끼게 된 것이다. 소현은 AI가 만든 문장을 자기 것으로 착각하고 있었다. 자기가 만든 보고서에서 자기가 쓴 문장이 얼마나 되는지 세어보았다. 제목 빼고 전부 AI였다.</p>
+
+<div class="doc-excerpt">
+  <div class="doc-title">metr study — ai tools and developer productivity (2025)</div>
+  숙련된 소프트웨어 개발자를 대상으로 한 무작위 대조 실험에서, AI 코딩 도구를 사용한 그룹의 작업 완료 시간이 <strong>19% 더 느렸다</strong>. 그러나 같은 그룹은 사후 설문에서 AI 사용으로 <strong>약 20% 더 빨라졌다고 체감</strong>한 것으로 나타남. 주관적 인식과 객관적 성과 사이의 극단적 괴리.
+</div>
+
+<p class="novel">19% 느려졌는데 20% 빨라졌다고 착각. METR 연구의 이 숫자가 소현의 데이터와 겹쳤다. AI를 쓰면 결과물이 빨리 나온다. 빨리 나오니까 잘 한 것 같다. 잘 한 것 같으니까 자기평가 점수가 올라간다. 하지만 "빨리 나온 결과물"과 "정확한 결과물"은 같지 않다.</p>
+
+<div class="pull-quote">
+  <p>AI가 대답을 줬다<br><strong>이해는 주지 않았다</strong></p>
+</div>
+
+<p class="novel">소현은 재호를 찾아갔다.</p>
+
+<p class="dialogue">"재호 님, 그때 질문 기억나세요? 점수가 올랐다고 실력이 올랐냐는."</p>
+
+<p class="dialogue">"네."</p>
+
+<p class="dialogue">"맞아요. 올라간 건 점수였어요. 실력이 아니라."</p>
+
+<p class="novel">재호가 커피를 한 모금 마시며 말했다.</p>
+
+<p class="dialogue">"저도 AI 씁니다, 소현 씨. ChatGPT한테 초안 뽑으라고 시키죠. 근데 뽑고 나면 반드시 Excel에서 숫자를 직접 돌려봐요. AI가 '전년 대비 12% 하락'이라고 쓰면, 진짜 12%인지 직접 나눠보는 거예요. 대부분 맞아요. 그런데 가끔 안 맞아요. 가끔이 문제죠."</p>
+
+<p class="dialogue">"그 '가끔'을 잡는 게 실력인 거네요."</p>
+
+<p class="dialogue">"실력이라기보다... 습관이에요. 15년 동안 손으로 해왔으니까. 체질인 거죠. 하은이 같은 친구는 손으로 해본 적이 없으니까 뭘 확인해야 하는지 모르는 거예요. AI가 틀릴 수 있다는 감각 자체가 없는 거죠."</p>
+
+<p class="novel">소현은 사무실로 돌아오면서 생각했다. 하은에게 없는 것은 AI 활용 능력이 아니다. 하은은 AI를 누구보다 잘 쓴다. 하은에게 없는 것은 AI가 틀렸을 때 그것을 알아챌 수 있는 기저 역량이다. 계절 보정이라는 개념을 몸으로 아는 것. 데이터의 전제를 의심하는 습관. 15년치 Excel 경험이 만들어낸 감각.</p>
+
+<p class="internal">지식의 격차가 줄어든 거지. 능력의 격차가 줄어든 건 아니다.</p>
+
+</section>
+
+<!-- ───────── PART IV ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part IV</p>
+  <p class="part-title">"안다는 것의 재정의"</p>
+</div>
+
+<p class="novel novel-first">5월 첫째 주. 소현은 AI 교육 프로그램 개편안을 경영진에게 올렸다.</p>
+
+<p class="novel">기존 프로그램의 평가 기준은 "AI를 얼마나 잘 쓰는가"였다. 프롬프트 품질, 도구 활용 범위, 산출물 완성도. 개편안의 평가 기준은 달랐다.</p>
+
+<div class="slack-msg">
+  <div class="s-channel">#hr-development</div>
+  <div class="s-header">
+    <span class="s-name">박소현</span>
+    <span class="s-time">14:00</span>
+  </div>
+  <div class="s-body">AI 리터러시 교육 평가 기준 변경 안내입니다. 기존: "AI를 활용하여 과제를 수행하시오." 개편: "AI를 활용하여 보고서를 작성한 후, AI 없이 구두로 논리를 설명하시오." 설명하지 못하면 불합격입니다.</div>
+</div>
+
+<p class="novel">"AI 없이 설명할 수 있는가." 소현이 새 평가의 핵심으로 잡은 기준이었다. AI로 10페이지 보고서를 만든 뒤, 그 보고서의 논리적 흐름을 AI 없이 화이트보드 앞에서 설명한다. 왜 전년 동기 대비를 선택했는지, 계절 보정은 했는지, 이상 징후의 기준선은 무엇인지. 설명하지 못하면 보고서의 내용을 이해하지 못한 것이다. AI의 결과물을 자기 것으로 착각한 것이다.</p>
+
+<p class="novel">재호의 방식을 벤치마크로 삼았다. AI를 쓰되, 결과를 자기 언어로 검증하는 프로세스. 소현은 이것을 "이중 검증 워크플로우"라고 이름 붙였다.</p>
+
+<div class="source-code">
+<span class="sc-comment"># 이중 검증 워크플로우</span><br>
+<br>
+<span class="sc-key">Step 1.</span> AI에게 분석 초안을 요청한다<br>
+<span class="sc-key">Step 2.</span> AI의 결과물에서 <span class="sc-accent">전제 조건</span>을 추출한다<br>
+<span class="sc-key">Step 3.</span> 전제 조건을 <span class="sc-accent">AI 없이</span> 수동 검증한다<br>
+<span class="sc-key">Step 4.</span> 전제가 맞으면 결과를 수용, 틀리면 재분석<br>
+<span class="sc-key">Step 5.</span> 최종 결과를 <span class="sc-accent">자기 언어</span>로 다시 쓴다
+</div>
+
+<p class="novel">5월 둘째 주. 개편된 교육의 첫 번째 실습 세션. 하은이 참여했다.</p>
+
+<p class="novel">과제: "이번 달 신규 고객 유입 채널별 전환율을 분석하시오." 하은은 30분 만에 AI를 활용하여 보고서를 완성했다. 채널별 전환율 차트, 상위 3개 채널 분석, 개선 제안까지 포함된 8페이지 문서.</p>
+
+<p class="novel">구두 설명 시간. 소현이 물었다.</p>
+
+<p class="dialogue">"하은 씨, 전환율 계산에 사용한 기준 시점이 언제예요?"</p>
+
+<p class="novel">하은이 멈췄다. 보고서를 내려다보았다.</p>
+
+<p class="dialogue">"AI가... 최근 30일 기준으로 계산했을 거예요."</p>
+
+<p class="dialogue">"'거예요'가 아니라, 확인했어요?"</p>
+
+<p class="dialogue">"..."</p>
+
+<p class="dialogue">"이 데이터에 최근 30일이면 연휴가 포함돼요. 영업일 기준인지 역일 기준인지에 따라 전환율이 최대 15%까지 차이 나요. 어느 쪽이에요?"</p>
+
+<p class="novel">하은이 대답하지 못했다. AI는 이 구분을 알려주지 않았다. 하은도 묻지 않았다.</p>
+
+<p class="novel">실습이 끝난 뒤, 하은이 자리에서 Excel을 열었다. 소현이 지나가다 하은의 모니터를 보았다. 하은이 셀에 수식을 직접 치고 있었다.</p>
+
+<p class="dialogue">"뭐 하고 있어요?"</p>
+
+<p class="dialogue">"아까 전환율... 직접 계산해보려고요. 영업일 기준이랑 역일 기준 차이가 진짜 나는지."</p>
+
+<p class="novel">소현이 고개를 끄덕였다. 하은의 모니터에는 NETWORKDAYS 함수가 보였다. Excel 공식 문서 탭이 열려 있었다. ChatGPT 탭은 닫혀 있었다.</p>
+
+<p class="novel">30분 뒤. 하은이 소현을 불렀다.</p>
+
+<p class="dialogue">"소현 님, 영업일 기준이랑 역일 기준 전환율 차이가 11.2%예요. 제 보고서에서 3위였던 채널이 영업일 기준으로 다시 계산하면 1위가 돼요."</p>
+
+<p class="novel">소현이 미소 지었다. 하은이 처음으로 AI의 결과물을 의심하고, 자기 손으로 검증한 순간이었다.</p>
+
+<p class="novel">하은이 자리로 돌아가며 혼잣말을 했다.</p>
+
+<p class="dialogue">"이게 맞는지 확인하려면... AI한테 물어보면 안 되나요?"</p>
+
+<p class="novel">옆자리의 재호가 모니터에서 눈을 떼지 않은 채 말했다.</p>
+
+<p class="dialogue">"물어봐. 대신 AI가 틀렸을 때 네가 알 수 있는 상태에서."</p>
+
+<p class="novel">하은이 멈췄다. 재호의 말을 곱씹었다. "AI가 틀렸을 때 네가 알 수 있는 상태." 오늘 아침까지 하은은 AI가 틀릴 수 있다는 것을 몰랐다. 정확히는, 알고는 있었지만 자기 업무에서 일어날 거라고 생각하지 않았다. AI 활용도 사내 1위. 자기평가 92점. 그 점수가 만들어준 확신이 AI의 오류에 대한 경계심을 삼켰다.</p>
+
+<p class="novel">하은은 Excel 파일을 저장하고 ChatGPT를 다시 열었다. 이번에는 이전과 다른 프롬프트를 쳤다.</p>
+
+<div class="terminal">
+<span class="t-prompt">></span> 이 분석에서 내가 확인해야 할 전제 조건을 나열해줘.<br>
+<span class="t-prompt">></span> 그리고 각 전제가 틀렸을 때 결과가 어떻게 달라지는지 알려줘.
+</div>
+
+<p class="novel">이전에 하은이 AI에게 했던 질문: "이 데이터를 분석해줘." 오늘의 질문: "내가 뭘 확인해야 하는지 알려줘." 같은 도구, 다른 질문. 전자는 AI에게 답을 구하는 것이고, 후자는 AI에게 질문을 구하는 것이다.</p>
+
+<p class="novel">6월. 2차 블라인드 테스트가 진행됐다. 이중 검증 워크플로우를 적용한 그룹의 논리적 오류율이 1차 대비 절반으로 줄었다. 자기평가 점수는 평균 7점 하락했다. 소현은 이 7점 하락이 성공의 지표라는 것을 알았다. 자기가 모르는 것을 자각하기 시작했다는 의미다.</p>
+
+<p class="novel">소현은 새 보고서를 썼다. 이번에는 AI 초안 없이 직접 썼다. 두 시간이 걸렸다. AI를 쓰면 30분이면 됐을 것이다. 하지만 두 시간 동안 쓴 문장은 전부 소현의 것이었다. "역량 격차 해소"라는 표현 대신 이렇게 썼다:</p>
+
+<p class="novel">"교육 전, 자기평가 격차는 60점이었습니다. 교육 후, 자기평가 격차는 20점으로 줄었습니다. 그러나 실제 수행 격차는 줄지 않았습니다. 우리가 해소한 것은 격차가 아니라 격차에 대한 인식이었습니다."</p>
+
+<p class="novel">재호가 퇴근길에 소현과 엘리베이터에서 마주쳤다.</p>
+
+<p class="dialogue">"소현 씨, 새 교육 프로그램 좋더라고요. 구두 설명 평가. 하은이 많이 달라졌어요."</p>
+
+<p class="dialogue">"재호 님 덕분이에요. 그 질문이 아니었으면 저도 점수만 보고 끝냈을 거예요."</p>
+
+<p class="dialogue">"저도 배운 게 있어요. AI 프롬프트는 하은이한테 배워야 해요. 그 친구가 쓰는 프롬프트 구조는 진짜 좋아요. 저는 아직도 '이거 분석해줘'밖에 못 치거든요."</p>
+
+<p class="novel">소현이 웃었다. 재호는 AI를 더 잘 쓰게 되고, 하은은 AI 없이도 할 수 있게 된다. 둘의 차이가 줄어드는 방향은 서로를 향하고 있었다.</p>
+
+<p class="novel">엘리베이터가 1층에 도착했다. 강남역 방향의 저녁 거리. 소현은 스마트폰을 꺼내 ChatGPT를 열었다. 오늘 저녁 메뉴를 물어보려다 멈췄다. 냉장고에 뭐가 있는지 먼저 확인해야 한다. AI에게 물어보기 전에, 자기가 가진 재료를 아는 것이 먼저다.</p>
+
+<p class="novel">소현은 폰을 주머니에 넣고 지하철역으로 걸어갔다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>AI가 대답을 줬다<br><strong>이해는 주지 않았다</strong></h2>
+  <p class="sub">AI 리터러시가 높을수록 메타인지 정확성은 떨어진다. 수행 능력이 3점 올랐을 때, 자기평가는 4점 올라간다.</p>
+</div>
+
+<footer class="footer">
+  <p>This is a work of fiction &middot; Characters and events are imaginary</p>
+  <p>Aalto University "AI makes you smarter but none the wiser" (2026) &middot; METR Study (2025) &middot; Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>
+</body>
+</html>

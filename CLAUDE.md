@@ -236,6 +236,15 @@ editorial/
 | 03 | `no-ai-friday.html` | 금요일은 날코딩 | 소설 — 팀 전체가 "No AI Day"를 시도하는 블랙 코미디 |
 | 04 | `the-centaur-developer.html` | 센타우르 | 소설 — 카스파로프 Advanced Chess 은유, AI와의 관계를 재정의하는 시리즈 결론 |
 
+### 시리즈 16: 안다는 착각 (illusion-of-knowing-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `forty-five-percent-vulnerable.html` | 45%는 취약하다 | 소설 — 바이브 코딩으로 만든 스타트업의 보안 참사 |
+| 02 | `four-point-illusion.html` | 4점의 착각 | 소설 — AI를 잘 쓸수록 커지는 과신, 역 던닝-크루거 효과 |
+| 03 | `the-floor-rose.html` | 바닥이 올라왔을 뿐이다 | 소설 — AI가 만든 평준화의 환상, 법정에서 드러나는 진짜 격차 |
+| 04 | `the-map-and-the-terrain.html` | 지도와 지형 | 소설 — 세 이야기가 하나로 수렴하는 시리즈 결론 |
+
 ## 콘텐츠 제작 워크플로우
 
 0. **기획**: `plans/[시리즈-슬러그]/series-plan.md`에 자료조사 + 시리즈 구성 기획서 작성 (series-plan 스킬 참조)
@@ -252,7 +261,7 @@ editorial/
 
 ### 공통 CSS (`assets/editorial-base.css`)
 - 콘텐츠 페이지의 공통 디자인 시스템 CSS (셀프호스팅 폰트 @font-face, 변수, 리셋, 타이포그래피, 레이아웃 컴포넌트)
-- 셀프호스팅 폰트: Source Serif 4 + JetBrains Mono (variable woff2, `font-display: optional`) + 메트릭 보정 폴백 (fontpie 계산)
+- 셀프호스팅 폰트: Source Serif 4 + JetBrains Mono (variable woff2, `font-display: swap`) + 메트릭 보정 폴백 (fontpie 계산, CLS 제로)
 - `:root` 변수, body, `.page`, `.masthead`, `.section-head`, `.prose`, `.pull-quote`, `.mechanism-row`, `.technique`, `.warning-box`, `.closing`, `.footer`, 반응형, 프린트 스타일 포함
 - **새 콘텐츠 추가 시** 아래 순서로 `<head>`에 추가한다:
   1. `<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>` (CLS 방지)
@@ -290,7 +299,7 @@ editorial/
 ## 디자인 시스템
 
 ### 핵심 디자인 규칙
-- **서체**: 영문 Source Serif 4(세리프, 셀프호스팅) + 한글 Pretendard Variable(산세리프, CDN 다이나믹 서브셋). Noto Serif KR 사용 금지 (한글에서 올드함). Google Fonts 외부 로드 금지 (셀프호스팅 필수, `font-display: optional`로 CLS 제로)
+- **서체**: 영문 Source Serif 4(세리프, 셀프호스팅) + 한글 Pretendard Variable(산세리프, CDN 다이나믹 서브셋). Noto Serif KR 사용 금지 (한글에서 올드함). Google Fonts 외부 로드 금지 (셀프호스팅 필수, `font-display: swap` + fontpie 메트릭 폴백으로 CLS 제로)
 - **색상**: 모든 색상은 CSS 변수로 관리. 하드코딩 금지
   - `--bg`, `--fg`, `--muted`, `--accent`, `--rule`, `--card-bg`, `--prose`, `--secondary`
 - **한글 라벨**: 한글 포함 라벨은 모노스페이스 금지. 본문 서체 0.8rem 이상, letter-spacing 2px 이하

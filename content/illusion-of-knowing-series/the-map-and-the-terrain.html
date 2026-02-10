@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>지도와 지형 — Editorial</title>
+<meta name="description" content="2026년 6월, 테크 저널리스트 한서율이 세 사람을 인터뷰한다. 바이브 코딩의 보안 참사, 역 던닝-크루거 효과, 법정의 격차. 세 이야기가 하나로 수렴한다. 지식의 격차가 줄어든 거지, 능력의 격차가 줄어든 건 아니다.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/illusion-of-knowing-series/the-map-and-the-terrain.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="지도와 지형">
+<meta property="og:description" content="테크 저널리스트 한서율이 세 사람을 인터뷰한다. 바이브 코딩 보안 참사, 역 던닝-크루거 효과, 법정의 격차. 세 이야기가 하나로 수렴한다.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/illusion-of-knowing-series/the-map-and-the-terrain.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-10">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="지도와 지형">
+<meta name="twitter:description" content="테크 저널리스트 한서율이 세 사람을 인터뷰한다. 바이브 코딩 보안 참사, 역 던닝-크루거 효과, 법정의 격차. 세 이야기가 하나로 수렴한다.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"지도와 지형","description":"2026년 6월, 테크 저널리스트 한서율이 세 사람을 인터뷰한다. 바이브 코딩의 보안 참사, 역 던닝-크루거 효과, 법정의 격차. 세 이야기가 하나로 수렴한다. 지식의 격차가 줄어든 거지, 능력의 격차가 줄어든 건 아니다.","datePublished":"2026-02-10","dateModified":"2026-02-10","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/illusion-of-knowing-series/the-map-and-the-terrain.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<script>(function(){var t=localStorage.getItem('editorial-theme');if(!t)t=window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})()</script>
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* NOVEL PROSE */
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+
+  /* SCENE BREAK */
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+
+  /* DIALOGUE */
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+
+  /* INTERNAL MONOLOGUE */
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  /* CHARACTER INTRO */
+  .char-intro {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 20px;
+    align-items: baseline;
+    margin: 40px 0 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .char-intro .c-name { font-size: 1.4rem; font-weight: 700; color: var(--fg); }
+  .char-intro .c-info { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
+
+  /* SECTION DIVIDER */
+  .part-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .part-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+  }
+  .section-divider {
+    margin-top: 64px;
+    margin-bottom: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* INTERVIEW */
+  .interview {
+    margin: 40px 0;
+    padding: 28px 32px;
+    border: 1px solid var(--rule);
+  }
+  .interview .iv-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .interview .iv-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg);
+  }
+  .interview .iv-info {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+  }
+  .interview .iv-q {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .interview .iv-a {
+    font-size: 1.02rem;
+    line-height: 2.0;
+    color: var(--prose);
+    margin-bottom: 20px;
+  }
+
+  /* ARTICLE DRAFT */
+  .article-draft {
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .article-draft .ad-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .article-draft .ad-text {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--prose);
+  }
+
+  /* RESEARCH CARD */
+  .research-card {
+    border: 1px solid var(--rule);
+    padding: 20px 24px;
+    margin: 24px 0;
+    background: var(--card-bg);
+  }
+  .research-card .rc-source {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .research-card .rc-stat {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--fg);
+    margin-bottom: 4px;
+  }
+  .research-card .rc-desc {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+
+  /* EDITOR NOTE */
+  .editor-note {
+    border: 1px solid var(--rule);
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .editor-note .en-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .editor-note .en-name { font-size: 0.9rem; font-weight: 700; color: var(--fg); }
+  .editor-note .en-role { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
+  .editor-note .en-body { font-size: 0.95rem; line-height: 1.8; color: var(--prose); }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .char-intro { grid-template-columns: 1fr; }
+    .interview { padding: 20px 16px; }
+    .interview .iv-header { flex-direction: column; gap: 4px; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+<script src="../../assets/theme-toggle.js" defer></script>
+</head>
+<body>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">illusion of knowing — fiction 04</p>
+  <h1>지도와 <strong>지형</strong></h1>
+  <p class="deck">세 개의 착각이 하나로 수렴한다.<br>지식의 격차가 줄어든 거지, 능력의 격차가 줄어든 건 아니다.</p>
+</header>
+
+<main>
+
+<!-- ───────── PART I ───────── -->
+
+<section>
+<div class="section-divider" style="border-top:none;margin-top:0;padding-top:0">
+  <p class="part-label">Part I</p>
+  <p class="part-title">지도의 시대</p>
+</div>
+
+<div class="char-intro">
+  <span class="c-name">한서율</span>
+  <span class="c-info">41 · tech journalist · seoul</span>
+</div>
+
+<p class="novel novel-first">2026년 6월 9일 월요일 오전 10시. 서울 종로구 한 미디어 빌딩 5층.</p>
+
+<p class="novel">서율은 편집장실 앞에서 기획안을 다시 한번 읽었다. A4 두 장. 제목은 빨간 펜으로 밑줄이 그어져 있었다.</p>
+
+<div class="article-draft">
+  <div class="ad-title">feature proposal — draft</div>
+  <div class="ad-text"><strong>지식의 격차가 줄어든 거지, 능력의 격차가 줄어든 건 아니다</strong><br><br>2026년, 지식은 무료가 됐다. 누구나 질문하면 답을 얻는다. 코드가 나오고, 법률 문서가 나오고, 사업 계획서가 나온다. 지식의 민주화. 그런데 민주화된 것은 정말 지식인가, 아니면 지식처럼 보이는 무엇인가.</div>
+</div>
+
+<p class="novel">서율은 문을 두드렸다. 편집장 윤정이 안경 너머로 기획안을 훑어보았다.</p>
+
+<p class="dialogue">"인터뷰이는?"</p>
+
+<p class="dialogue">"세 명. 스타트업 대표, 대기업 인재개발팀장, 로펌 시니어 파트너. 세 사람 모두 AI가 만든 '평등'을 직접 경험하고, 그 평등이 착각이었다는 것을 알게 된 사람들입니다."</p>
+
+<p class="dialogue">"각도가 뭐야?"</p>
+
+<p class="dialogue">"만들 수 있다는 착각, 안다는 착각, 같다는 착각. 세 가지 착각이 같은 결론으로 수렴합니다. AI는 최고의 지도를 줬지만, 지형을 걷는 건 여전히 사람의 다리입니다."</p>
+
+<p class="novel">윤정이 기획안의 두 번째 장을 넘겼다. 데이터 요약 페이지였다.</p>
+
+<div class="research-card">
+  <div class="rc-source">openai — 2026</div>
+  <div class="rc-stat">8억</div>
+  <div class="rc-desc">ChatGPT 주간 활성 사용자 수. Fortune 500 기업의 92%가 AI를 도입했고, 한국 근로자의 63.5%가 생성형 AI를 경험했다.</div>
+</div>
+
+<p class="novel">서율은 그 아래에 빨간 펜으로 적어놓은 숫자를 가리켰다.</p>
+
+<div class="research-card">
+  <div class="rc-source">daron acemoglu, mit — 2024 nobel laureate</div>
+  <div class="rc-stat">GDP +1.1%</div>
+  <div class="rc-desc">아세모글루의 AI 경제 효과 추정치. 골드만삭스가 예측한 7%의 6분의 1. 모두가 AI를 쓰고 있는데, 왜 숫자는 기대에 미치지 못하는가.</div>
+</div>
+
+<div class="research-card">
+  <div class="rc-source">california management review — 2025</div>
+  <div class="rc-stat">7가지 미신</div>
+  <div class="rc-desc">"AI 생산성 7가지 미신" — 메타분석 결과, AI 도입과 총생산성 향상 사이에 견고한 관계가 발견되지 않았다. 개인 단위의 효율은 올랐지만, 조직 단위의 생산성은 정체.</div>
+</div>
+
+<p class="novel">윤정이 안경을 벗었다.</p>
+
+<p class="dialogue">"숫자는 흥미로운데. 그래서 네 답은 뭐야?"</p>
+
+<p class="dialogue">"아직 없습니다. 세 사람을 만나고 나서 쓰려고요."</p>
+
+<p class="dialogue">"좋아. 3주 줄게."</p>
+
+<p class="internal">숫자는 맞지 않았다. 모두가 AI를 쓰고 있는데, 왜 결과는 기대만큼 달라지지 않는가. 8억 명이 같은 지도를 들고 있는데, 왜 같은 곳에 도착하지 않는가.</p>
+
+<p class="novel">서율은 편집장실을 나와 첫 번째 인터뷰 대상에게 전화를 걸었다.</p>
+
+</section>
+
+<!-- ───────── PART II ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part II</p>
+  <p class="part-title">세 개의 착각</p>
+</div>
+
+<p class="novel novel-first">서율은 세 사람을 각각 다른 날 만났다. 세 사람 모두 녹음을 허락했다. 세 사람 모두, 자기 이야기를 누군가 써주길 원했다.</p>
+
+<!-- INTERVIEW 1: 현우 -->
+
+<div class="interview">
+  <div class="iv-header">
+    <span class="iv-name">강현우</span>
+    <span class="iv-info">34 · startup ceo · episode 01</span>
+  </div>
+
+  <p class="iv-q">바이브 코딩으로 서비스를 만드셨다고요. 당시 어떤 기분이었습니까?</p>
+  <p class="iv-a">4주 만에 2만 줄의 서비스를 만들었어요. 회원가입, 결제, 대시보드, API 연동. 코드를 한 줄도 쓰지 않았는데 모든 게 작동했습니다. 내가 만들었다고 진심으로 믿었습니다.</p>
+
+  <p class="iv-q">믿었다고요. 과거형을 쓰셨는데.</p>
+  <p class="iv-a">보안 감사 결과를 받아들고 알았어요. 인증 토큰이 평문으로 저장되어 있었고, SQL 인젝션 취약점이 11개 있었고, 관리자 API에 접근 제어가 없었습니다. 나는 프롬프트를 쓴 거지, 소프트웨어를 만든 게 아니었습니다.</p>
+
+  <p class="iv-q">지금은 어떻게 하고 계십니까?</p>
+  <p class="iv-a">CTO를 영입했어요. 기술을 이해하는 사람에게 기술을 맡겼습니다. 나는 제품을 정의하고, 시장을 읽고, 고객을 만납니다. AI가 코드를 짜주니까 나도 코드를 짤 수 있다고 생각했던 게 착각이었어요. 코드를 짜는 것과 소프트웨어를 만드는 것은 다른 능력입니다.</p>
+
+  <p class="iv-q">그 차이를 한 문장으로 말씀해주실 수 있습니까?</p>
+  <p class="iv-a">코드는 텍스트고, 소프트웨어는 결정의 집합입니다. AI는 텍스트를 잘 만들어요. 결정은 못 합니다.</p>
+</div>
+
+<p class="internal">서율은 현우의 마지막 문장에 밑줄을 그었다. 코드는 텍스트고, 소프트웨어는 결정의 집합이다. AI는 텍스트를 생산하지만, 결정을 내리지 않는다. 만들 수 있다는 착각. 첫 번째 착각.</p>
+
+<!-- INTERVIEW 2: 소현 -->
+
+<div class="interview">
+  <div class="iv-header">
+    <span class="iv-name">박소현</span>
+    <span class="iv-info">38 · talent development lead · episode 02</span>
+  </div>
+
+  <p class="iv-q">AI 리터러시 교육 프로그램을 설계하셨다고요. 처음에는 성공적이었다고 들었습니다.</p>
+  <p class="iv-a">교육 후 평가 점수가 평균 34% 올랐어요. 보고서에 '교육 효과 검증 완료'라고 썼습니다. 경영진이 좋아했고, 우리 팀도 보람을 느꼈어요. 3개월 후에 블라인드 테스트를 했습니다.</p>
+
+  <p class="iv-q">블라인드 테스트요?</p>
+  <p class="iv-a">AI 없이 같은 업무를 수행하게 한 거예요. 기획서 작성, 데이터 분석, 프레젠테이션 구성. AI 교육을 받은 그룹의 성과가 교육 전보다 오히려 떨어졌습니다. AI와 함께할 때 올라간 점수가, AI 없이는 이전보다 낮아진 거예요.</p>
+
+  <p class="iv-q">왜 그랬다고 보십니까?</p>
+  <p class="iv-a">AI 리터러시가 높을수록 메타인지가 떨어지더라고요. 아이러니하게도, AI를 가장 잘 쓰는 사람이 가장 많이 착각합니다. AI가 만든 초안을 보면서 "이 정도면 됐지"라고 생각하는 횟수가 늘어나요. 자기가 안다고 느끼지만, 실제로는 AI가 알고 자기는 수긍한 겁니다.</p>
+
+  <p class="iv-q">교육 방식을 바꾸셨다고요.</p>
+  <p class="iv-a">지금은 평가 방식을 바꿨어요. "AI로 만들어라, 그리고 AI 없이 설명해라." 설명하지 못하면 불합격입니다. AI가 만든 결과물의 퀄리티가 아니라, 그 결과물을 이해하고 있는지를 봅니다.</p>
+</div>
+
+<p class="internal">안다는 착각. 두 번째 착각. AI가 답을 주고, 사람이 그 답을 이해했다고 느끼지만, 실제로는 수긍했을 뿐이다. 서율은 3년 전 심리학 교수에게 들은 말을 떠올렸다. "정보를 접한 것과 이해한 것은 다르다. 하지만 뇌는 그 둘을 구별하지 못한다."</p>
+
+<!-- INTERVIEW 3: 태준 -->
+
+<div class="interview">
+  <div class="iv-header">
+    <span class="iv-name">김태준</span>
+    <span class="iv-info">52 · senior partner, law firm · episode 03</span>
+  </div>
+
+  <p class="iv-q">AI가 법률 서비스의 격차를 줄였다는 평가가 있습니다. 동의하십니까?</p>
+  <p class="iv-a">서면의 격차는 줄었습니다. 주니어 변호사가 AI로 작성한 서면이 시니어와 거의 구별이 안 됐어요. 경영진은 격차가 사라졌다고 좋아했죠. 인건비를 줄일 수 있다고 봤을 겁니다.</p>
+
+  <p class="iv-q">"격차가 사라졌다"는 평가가 맞습니까?</p>
+  <p class="iv-a">법정에서 5분 만에 차이가 드러났습니다. 상대측 변호사가 예상 밖의 판례를 꺼냈을 때, AI로 서면을 쓴 주니어는 대응하지 못했어요. 자기가 쓴 서면의 논리 구조를 이해하지 못하니까, 그 논리가 공격받았을 때 방어할 수 없었습니다. 문서를 만드는 것과 법정에서 싸우는 것은 전혀 다른 능력이에요.</p>
+
+  <p class="iv-q">그러면 AI가 줄인 격차는 뭡니까?</p>
+  <p class="iv-a">바닥이 올라온 겁니다. 천장이 내려온 게 아니에요. 최저 수준의 서면 품질이 올라갔지만, 최고 수준의 능력은 그대로입니다. 오히려 격차가 더 선명해졌어요. AI 이전에는 서면 품질이 곧 능력이었거든요. 지금은 서면이 평준화됐으니, 서면 너머의 능력 — 법정 대응, 전략 수립, 예외 처리 — 이 격차를 만듭니다.</p>
+</div>
+
+<p class="internal">같다는 착각. 세 번째 착각. 출력물이 비슷해지니 능력이 같아졌다고 착각한다. 바닥이 올라온 것이지, 천장이 내려온 것이 아니다.</p>
+
+<p class="novel">서율은 세 번의 인터뷰 녹음을 풀 텍스트로 옮기는 데 이틀을 보냈다. 7만 자 분량의 녹취록을 읽고 또 읽었다. 세 사람의 직업은 달랐고, 맥락은 달랐고, 디테일은 달랐다. 하지만 구조가 같았다.</p>
+
+<p class="novel">AI가 결과물을 만들어줬다. 사람은 그 결과물을 보고 자기 능력이라고 착각했다. 결과물이 실제 상황에서 시험받는 순간, 착각은 깨졌다.</p>
+
+</section>
+
+<!-- ───────── PART III ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part III</p>
+  <p class="part-title">지형은 여전히 실재한다</p>
+</div>
+
+<p class="novel novel-first">6월 셋째 주. 서율은 카페 창가 자리에 노트북을 펼치고 기사를 쓰기 시작했다. 인터뷰를 끝냈으니 이제 연결할 차례다. 세 개의 이야기를 하나의 논리로 엮어야 한다.</p>
+
+<p class="novel">서율은 자료 폴더를 열었다. 인터뷰를 준비하면서 모아둔 논문과 리포트들. 세 사람의 이야기를 뒷받침하는 과학적 근거가 필요했다.</p>
+
+<div class="article-draft">
+  <div class="ad-title">draft — section 3: cognitive deskilling</div>
+  <div class="ad-text">세 사람의 이야기를 관통하는 학술적 개념이 있다. 인지 디스킬링(cognitive deskilling). 외부 도구에 인지 기능을 위임할수록, 해당 인지 기능이 약화되는 현상이다.</div>
+</div>
+
+<p class="novel">서율은 The Lancet 논문을 먼저 인용했다.</p>
+
+<div class="research-card">
+  <div class="rc-source">the lancet — 2025</div>
+  <div class="rc-stat">28.4% → 22.4%</div>
+  <div class="rc-desc">대장내시경 AI 보조 시스템을 사용하던 의사들에게서 AI를 제거했을 때, 용종 발견율이 28.4%에서 22.4%로 하락했다. AI 도입 이전 수치보다 낮아진 것이다. 도구가 능력을 대체한 것이 아니라, 능력 자체를 약화시켰다.</div>
+</div>
+
+<p class="novel">그다음은 인지 오프로딩에 관한 연구들이었다.</p>
+
+<div class="article-draft">
+  <div class="ad-title">draft — cognitive offloading</div>
+  <div class="ad-text">2011년, 컬럼비아 대학교 연구팀은 'Google 효과'를 발견했다. 검색 엔진으로 찾을 수 있다고 알게 된 정보는 기억에 저장되지 않는다. 뇌가 외부 저장소를 인식하면, 내부 저장을 생략한다.<br><br>2026년, 같은 패턴이 AI에서 반복되고 있다. 검색 엔진은 정보 저장을 대체했고, 생성형 AI는 사고 자체를 대체하고 있다. 정보를 기억하지 않는 것에서, 판단을 내리지 않는 것으로 확장된 것이다.</div>
+</div>
+
+<p class="novel">서율은 기사 초안에 소현의 인터뷰를 끼워넣었다. "AI 리터러시가 높을수록 메타인지가 떨어진다." 소현의 발견은 Google 효과의 확장판이었다. 정보를 기억하지 않는 것에서, 자기가 모른다는 사실조차 인식하지 못하는 것으로.</p>
+
+<p class="novel">그리고 개발자 세계의 데이터.</p>
+
+<div class="research-card">
+  <div class="rc-source">stack overflow developer survey — 2025</div>
+  <div class="rc-stat">84% / 29%</div>
+  <div class="rc-desc">개발자의 84%가 AI 코딩 도구를 사용한다. 그러나 AI의 정확성을 신뢰하는 비율은 29%에 그치며, 46%는 적극적으로 불신한다. 가장 많이 쓰면서 가장 적게 신뢰하는 도구.</div>
+</div>
+
+<p class="novel">서율은 이 숫자에 밑줄을 그었다. 84%가 쓰고, 46%가 불신한다. 두 집합은 겹친다. 불신하면서도 쓴다. 불신하면서도 의존한다. 현우도, 소현의 교육생도, 태준의 주니어 변호사도 그랬다.</p>
+
+<p class="internal">왜 불신하면서 의존하는가. 답은 간단하다. 불신하지만 대안이 없으니까. AI 없이 하면 너무 느리니까. 느린 것을 감당할 수 없으니까. 그래서 쓴다. 쓰면서 불안하다. 불안하지만 멈출 수 없다.</p>
+
+<p class="novel">서율은 기사의 핵심 메타포를 적었다.</p>
+
+<div class="pull-quote">
+  <p>지도가 좋아질수록 사람들은 지형을 보지 않게 된다<br><strong>지형을 보지 않는 사람은 지도가 틀릴 때 길을 잃는다</strong></p>
+</div>
+
+<p class="novel">서율은 커피를 마시며 이 문장을 다시 읽었다. 현우에게 지도는 AI가 만든 코드였다. 지형은 보안, 아키텍처, 운영. 소현의 교육생에게 지도는 AI가 만든 기획서였다. 지형은 기획의 논리, 가정, 한계. 태준의 주니어에게 지도는 AI가 만든 서면이었다. 지형은 법정, 반박, 즉흥.</p>
+
+<p class="novel">세 사람 모두 지도를 받았다. 세 사람 모두 지도를 믿었다. 세 사람 모두 지형에서 넘어졌다.</p>
+
+<p class="novel">서율은 노트북 옆에 놓인 취재 노트를 펼쳤다. Stack Overflow 설문의 또 다른 항목이 메모되어 있었다. 개발자의 45%가 AI 코딩 도구에 대해 가장 불만인 점으로 꼽은 것.</p>
+
+<div class="article-draft">
+  <div class="ad-title">draft — almost right</div>
+  <div class="ad-text">"거의 맞지만 완전히 맞지는 않은 코드." 45%의 개발자가 AI 도구의 가장 큰 문제로 꼽은 답이다. 거의 맞다는 것은 틀렸다는 것보다 위험하다. 틀린 코드는 에러를 내고, 에러는 감지된다. 거의 맞는 코드는 실행되고, 실행되기 때문에 검증되지 않는다.</div>
+</div>
+
+<p class="novel">서율은 "거의 맞다"에 동그라미를 쳤다. 이것이 세 인터뷰의 공통분모였다. 현우의 코드는 "거의 맞았다." 테스트를 통과했고 5개월 동안 작동했다. 소현의 교육생이 만든 기획서는 "거의 맞았다." 형식이 완벽했고 데이터가 정확해 보였다. 태준의 주니어가 쓴 서면은 "거의 맞았다." 판례 인용이 정확했고 논리 구조가 탄탄해 보였다.</p>
+
+<p class="novel">"거의"가 깨지는 순간은 항상 실전에서 왔다. 보안 감사, 블라인드 테스트, 법정. 지도가 아닌 지형에서.</p>
+
+</section>
+
+<!-- ───────── PART IV ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part IV</p>
+  <p class="part-title">능력은 복사되지 않는다</p>
+</div>
+
+<p class="novel novel-first">6월 마지막 주. 마감 이틀 전. 서율은 기사의 마지막 섹션을 쓰고 있었다.</p>
+
+<p class="novel">서율은 WEF의 보고서를 펼쳤다.</p>
+
+<div class="research-card">
+  <div class="rc-source">world economic forum — future of jobs 2025</div>
+  <div class="rc-stat">3가지 스킬</div>
+  <div class="rc-desc">WEF가 제시한 새로운 스킬 트라이어드. 첫째, 기술적 AI 스킬 — AI 도구를 사용하는 능력. 둘째, 인간 중심 스킬 — 창의성, 비판적 사고, 공감. 셋째, 메타 스킬 — 적응력, 학습 민첩성, 자기 인식. AI가 대체하는 것은 첫째뿐이다. 둘째와 셋째는 인간에게 남는다.</div>
+</div>
+
+<div class="research-card">
+  <div class="rc-source">mckinsey global institute — 2025</div>
+  <div class="rc-stat">66% 더 빠름</div>
+  <div class="rc-desc">AI에 높은 노출을 보이는 직업에서 스킬 수요 변화 속도가 다른 직업 대비 66% 더 빠르다. 맥킨지는 이를 "두뇌 자본(brain capital)"이라고 불렀다. 지식은 감가상각된다. 능력은 복리로 쌓인다.</div>
+</div>
+
+<p class="novel">서율은 기사의 결론 부분에 커서를 놓았다. 세 인터뷰, 다섯 편의 연구, 하나의 메타포. 이 모든 것을 한 단락으로 수렴시켜야 한다.</p>
+
+<p class="internal">지식과 능력의 차이. 지식은 정보다. 정보는 복사할 수 있다. AI는 정보를 복사하는 최고의 도구다. 하지만 능력은 정보가 아니다. 능력은 정보를 처리하는 방식이다. 정보를 의심하는 방식이다. 정보가 틀렸을 때 대처하는 방식이다.</p>
+
+<p class="internal">현우가 배운 것. 코드를 짜는 것은 지식이고, 소프트웨어를 만드는 것은 능력이다. 소현이 발견한 것. 답을 아는 것은 지식이고, 답이 맞는지 판단하는 것은 능력이다. 태준이 목격한 것. 서면을 쓰는 것은 지식이고, 법정에서 싸우는 것은 능력이다.</p>
+
+<p class="novel">서율은 타이핑을 시작했다.</p>
+
+<div class="article-draft">
+  <div class="ad-title">draft — final paragraph</div>
+  <div class="ad-text">검색하면 답이 나온다. 프롬프트를 쓰면 코드가 나온다. 법률 문서가 나온다. 데이터 분석이 나온다. 기획서가 나온다. 2026년의 지식은 무료이고, 즉각적이고, 풍부하다.<br><br>하지만 답이 틀렸을 때 알 수 있는가. 코드가 취약할 때 찾을 수 있는가. 논증이 무너질 때 다시 세울 수 있는가. 데이터가 편향되었을 때 감지할 수 있는가.<br><br>지식의 격차가 줄어든 거지, 능력의 격차가 줄어든 건 아니다.<br><br>AI는 최고의 지도다. 인류 역사상 가장 정밀하고, 가장 빠르고, 가장 저렴한 지도. 하지만 지형을 걷는 건 다리 근육이다. 그리고 다리 근육은 걸어야 만들어진다. 지도를 보는 것만으로는 다리가 강해지지 않는다.<br><br>능력은 복사되지 않는다.</div>
+</div>
+
+<p class="novel">서율은 마지막 문장을 치고 엔터를 눌렀다. 능력은 복사되지 않는다. 다섯 글자. 기사 전체가 이 다섯 글자를 향해 달려왔다.</p>
+
+<p class="novel">서율은 초안을 저장하고 편집장에게 메일을 보냈다. 제목: "기획 기사 초안 송부 — 지도와 지형."</p>
+
+<p class="novel">다음 날 아침. 편집장 윤정에게서 답장이 왔다.</p>
+
+<div class="editor-note">
+  <div class="en-header">
+    <span class="en-name">편집장 윤정</span>
+    <span class="en-role">reply</span>
+  </div>
+  <div class="en-body">읽었어. 제목 좋은데. 온라인판 헤드라인 이걸로 가자. "지식의 격차가 줄어든 거지, 능력의 격차가 줄어든 건 아니다." 한 가지만 — 마지막 문단에서 "능력은 복사되지 않는다"가 너무 건조해. 독자가 자기 이야기로 느끼게 해줘. 네가 잘하는 거잖아.</div>
+</div>
+
+<p class="novel">서율은 마지막 문단을 다시 열었다. 편집장의 말이 맞았다. 기사는 데이터로 시작했지만, 끝은 사람이어야 한다. 서율은 세 인터뷰이를 떠올렸다. 현우는 CTO를 영입하고 자기 역할을 재정의했다. 소현은 평가 방식을 바꿨다. 태준은 주니어에게 법정 실습을 늘렸다.</p>
+
+<p class="novel">세 사람 모두 AI를 버리지 않았다. AI를 쓰는 방식을 바꿨다. 지도를 버린 것이 아니라, 지형을 다시 걷기 시작한 것이다.</p>
+
+<p class="novel">서율은 마지막 줄을 고쳐 썼다.</p>
+
+<div class="article-draft">
+  <div class="ad-title">draft — revised closing</div>
+  <div class="ad-text">능력은 복사되지 않는다. 하지만 만들어진다. 걸으면 다리가 강해지고, 읽으면 눈이 밝아지고, 의심하면 판단이 날카로워진다. AI가 준 시간을 지도를 보는 데 쓸 것인가, 지형을 걷는 데 쓸 것인가. 그 선택이 격차를 만든다.</div>
+</div>
+
+<p class="novel">서율은 저장 버튼을 눌렀다. 기사가 완성되었다.</p>
+
+<p class="novel">종로의 저녁. 카페 유리창 너머로 퇴근길 사람들이 지나가고 있었다. 서율은 노트북을 접고 잠시 밖을 바라보았다. 8억 명이 같은 도구를 쓰고 있다. 같은 지도를 들고 있다. 하지만 길은 각자 다르다. 도착하는 곳도 각자 다르다. 지도가 같아졌을 뿐, 다리는 여전히 각자의 것이다.</p>
+
+<p class="novel">서율은 가방을 챙기고 자리에서 일어났다. 오늘 저녁에는 오래 걸어서 집에 가기로 했다. 종로에서 광화문까지. 지도 없이.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>지식의 격차가 줄어든 거지<br><strong>능력의 격차가 줄어든 건 아니다</strong></h2>
+  <p class="sub">AI는 최고의 지도다. 하지만 지형을 걷는 건 다리 근육이다. 그리고 다리 근육은 걸어야 만들어진다.</p>
+</div>
+
+<footer class="footer">
+  <p>This is a work of fiction &middot; Characters and events are imaginary</p>
+  <p>Daron Acemoglu (MIT, 2024 Nobel) &middot; WEF Future of Jobs Report &middot; The Lancet &middot; Stack Overflow 2025 Survey &middot; California Management Review &middot; McKinsey Global Institute &middot; Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>
+</body>
+</html>

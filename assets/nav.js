@@ -27,7 +27,7 @@
   // 스타일시트 삽입 (CSS 변수 사용 — 다크모드 자동 대응)
   var style = document.createElement('style');
   style.textContent =
-    '#site-nav{border-bottom:1px solid var(--rule);background:var(--bg);position:sticky;top:0;z-index:100}' +
+    '#site-nav{border-bottom:1px solid var(--rule);background:var(--bg);position:sticky;top:0;z-index:100;will-change:transform}' +
     '#site-nav .nav-inner{max-width:780px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between}' +
     '#site-nav .nav-logo{font-family:var(--serif);font-size:0.95rem;font-weight:700;color:var(--fg);text-decoration:none;letter-spacing:-0.5px}' +
     '#site-nav .nav-right{display:flex;align-items:center;gap:16px}' +
