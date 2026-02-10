@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://necromman.github.io/editorial/sitemap.xml
+Sitemap: https://necromman.github.io/sitemap.xml
