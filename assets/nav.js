@@ -41,9 +41,10 @@
   document.body.insertBefore(nav, document.body.firstChild);
 
   // GoatCounter 수동 추적 (count.js 없이 — CSP 충돌 방지)
-  if (location.protocol !== 'file:' && location.hostname !== 'localhost') {
+  if (location.protocol !== 'file:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1' && location.hostname !== '::1') {
     var img = new Image();
     img.src = 'https://necromman.goatcounter.com/count?p=' + encodeURIComponent(location.pathname)
+      + '&t=' + encodeURIComponent(document.title)
       + '&r=' + encodeURIComponent(document.referrer);
   }
 })();
