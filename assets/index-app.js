@@ -2,12 +2,42 @@
  * index-app.js
  * 랜딩 페이지 렌더링, 검색, 정렬(ASC/DESC), 모두 펼침/접기 로직
  * content-data.js가 먼저 로드되어야 합니다.
+ *
+ * localStorage 키:
+ *   editorial-sort    — 'asc' | 'desc' (기본: desc)
+ *   editorial-collapsed — JSON 객체 { seriesId: true/false }
  */
 (function () {
   'use strict';
 
-  var sortOrder = 'asc';
-  var collapsed = {};
+  /* ---------- localStorage 헬퍼 ---------- */
+
+  function loadSort() {
+    var v = localStorage.getItem('editorial-sort');
+    return v === 'asc' ? 'asc' : 'desc';
+  }
+
+  function saveSort(order) {
+    localStorage.setItem('editorial-sort', order);
+  }
+
+  function loadCollapsed() {
+    try {
+      var v = localStorage.getItem('editorial-collapsed');
+      return v ? JSON.parse(v) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveCollapsed(obj) {
+    localStorage.setItem('editorial-collapsed', JSON.stringify(obj));
+  }
+
+  /* ---------- 상태 ---------- */
+
+  var sortOrder = loadSort();
+  var collapsed = loadCollapsed();
 
   var contentArea, searchInput, searchCount, noResults, sortBtn, toggleAllBtn;
 
@@ -86,6 +116,7 @@
     body.classList.toggle('collapsed');
     toggle.classList.toggle('collapsed');
     collapsed[id] = body.classList.contains('collapsed');
+    saveCollapsed(collapsed);
     syncToggleAllBtn();
   }
 
@@ -93,6 +124,7 @@
 
   function handleSort() {
     sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+    saveSort(sortOrder);
     syncSortBtn();
     render();
   }
@@ -136,6 +168,7 @@
     for (var j = 0; j < sections.length; j++) {
       collapsed[sections[j].getAttribute('data-series')] = !expand;
     }
+    saveCollapsed(collapsed);
     syncToggleAllBtn();
   }
 

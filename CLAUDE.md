@@ -48,7 +48,8 @@ editorial/
 │   ├── fonts/                              # 셀프호스팅 웹폰트 (WOFF2)
 │   │   ├── source-serif-4-latin-wght-normal.woff2   # Source Serif 4 variable
 │   │   └── jetbrains-mono-latin-wght-normal.woff2   # JetBrains Mono variable
-│   ├── nav.js                              # 공통 네비게이션 (전 페이지 자동 삽입)
+│   ├── nav.js                              # 공통 네비게이션 (전 페이지 자동 삽입, 테마 토글 포함)
+│   ├── theme-toggle.js                     # 다크/라이트 테마 토글 로직 (localStorage + OS 감지)
 │   └── series-nav.js                       # 시리즈 내 이전/다음 글 네비게이션
 ├── plans/                                  # 시리즈 기획 문서 (콘텐츠 제작 전 선행)
 │   └── [시리즈-슬러그]/
@@ -294,7 +295,8 @@ editorial/
   - `--bg`, `--fg`, `--muted`, `--accent`, `--rule`, `--card-bg`, `--prose`, `--secondary`
 - **한글 라벨**: 한글 포함 라벨은 모노스페이스 금지. 본문 서체 0.8rem 이상, letter-spacing 2px 이하
 - **날짜 비표시**: 콘텐츠 페이지에 작성일/수정일을 화면에 표시하지 않는다. SEO 메타 태그(article:published_time, JSON-LD)에만 기록한다
-- **금지 항목**: 이모지, 이탤릭, 그라디언트, 다크 테마, 산세리프 전용 디자인
+- **다크모드**: `[data-theme="dark"]` CSS 변수로 자동 전환. `assets/theme-toggle.js`가 토글 처리, localStorage에 저장. FOUC 방지 인라인 스크립트 필수
+- **금지 항목**: 이모지, 이탤릭, 그라디언트, 산세리프 전용 디자인
 
 ## 블로그 & 수익화 전략
 
@@ -338,7 +340,7 @@ editorial/
 - 콘텐츠 페이지에 날짜를 화면에 표시하지 않는다 (SEO 메타에만 기록)
 - 새 콘텐츠 추가 시:
   1. `content/[시리즈-슬러그]/` 폴더에 HTML 생성 (editorial-content-page + seo 스킬 참조)
-  2. 폰트 preload + Pretendard CDN + `editorial-base.css` 링크 + nav.js + series-nav.js 스크립트 포함
+  2. 폰트 preload + Pretendard CDN + `editorial-base.css` 링크 + FOUC 방지 인라인 스크립트 + nav.js + series-nav.js + theme-toggle.js 스크립트 포함
   3. `series-nav.js`의 SERIES 데이터에 글 추가
   4. `assets/content-data.js`에 시리즈/글 데이터 추가 (랜딩 페이지 자동 반영)
   5. `content/index.md` 업데이트 (기록용)

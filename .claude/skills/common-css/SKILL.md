@@ -40,7 +40,8 @@ assets/editorial-base.css
 |------|------|
 | `@font-face` 셀프호스팅 폰트 | Source Serif 4 (variable, woff2, `font-display: optional`), JetBrains Mono (variable, woff2, `font-display: optional`) |
 | `@font-face` 메트릭 보정 폴백 | Source Serif 4 Fallback (Times New Roman 기반, fontpie 계산값), JetBrains Mono Fallback (Courier New 기반) |
-| `:root` 변수 | `--bg`, `--fg`, `--muted`, `--accent`, `--rule`, `--card-bg`, `--prose`, `--secondary`, `--serif`, `--mono` |
+| `:root` 변수 | `--bg`, `--fg`, `--muted`, `--accent`, `--rule`, `--card-bg`, `--prose`, `--secondary`, `--serif`, `--mono` + `color-scheme: light` |
+| `[data-theme="dark"]` 다크모드 | 라이트 변수를 따뜻한 다크 톤으로 오버라이드. `color-scheme: dark` |
 | `*` 리셋 | margin, padding, box-sizing |
 | `body` | 서체, 배경, 색상, line-height, antialiasing, font-variant-numeric |
 
@@ -135,4 +136,21 @@ assets/editorial-base.css
 - **폰트는 셀프호스팅한다.** Google Fonts `@import`나 외부 `<link>`를 사용하지 않는다. 새 폰트를 추가하려면 `assets/fonts/`에 WOFF2 파일을 넣고 `@font-face`를 editorial-base.css에 선언한다.
 - **폰트 메트릭 보정 폴백을 반드시 함께 선언한다.** `npx fontpie [font.woff2] --fallback serif` 또는 `--fallback mono`로 정확한 `size-adjust`, `ascent-override`, `descent-override` 값을 계산하여 CLS를 방지한다.
 - 새 공통 컴포넌트를 추가할 때는 3개 이상의 페이지에서 동일하게 사용되는 경우에만 base에 넣는다. 1-2개 페이지에서만 쓰이면 인라인 `<style>`에 둔다.
-- `nav.js`의 인라인 스타일(`border-bottom`, `background`, `sticky`)도 이 디자인 시스템의 변수 값을 사용한다. nav.js 수정 시 변수값과 동기화한다.
+- `nav.js`와 `series-nav.js`는 CSS 변수 기반 스타일시트를 `<style>` 태그로 삽입한다. 하드코딩 색상이 아닌 `var(--*)` 변수를 사용하므로 다크모드가 자동 적용된다.
+
+### 다크모드 시스템
+
+`editorial-base.css`에 `[data-theme="dark"]` 셀렉터로 다크모드 변수가 정의되어 있다:
+
+| 변수 | 라이트 | 다크 | 설명 |
+|------|--------|------|------|
+| `--bg` | `#faf8f4` | `#1c1b18` | 배경 (따뜻한 차콜) |
+| `--fg` | `#1a1a18` | `#e2ded6` | 전경 (따뜻한 오프화이트) |
+| `--muted` | `#8a8680` | `#8a8680` | 보조 텍스트 (동일) |
+| `--accent` | `#c43e2a` | `#e0604e` | 포인트 (밝기 보정) |
+| `--rule` | `#d5d0c8` | `#3a3632` | 구분선 |
+| `--card-bg` | `#f2efe9` | `#26241f` | 카드 배경 |
+| `--prose` | `#3a3a36` | `#c4bfb6` | 본문 |
+| `--secondary` | `#6a6862` | `#9a9690` | 부가 설명 |
+
+테마 전환은 `assets/theme-toggle.js`가 처리하며, `localStorage('editorial-theme')`에 사용자 선택을 저장한다. FOUC 방지를 위해 `<head>`에 인라인 스크립트로 즉시 `data-theme`을 적용한다.

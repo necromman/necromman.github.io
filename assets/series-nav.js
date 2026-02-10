@@ -171,38 +171,46 @@
 
   if (!prev && !next) return;
 
+  // CSS 변수 기반 스타일 삽입 (다크모드 자동 대응)
+  var style = document.createElement('style');
+  style.textContent =
+    '#series-nav{margin-top:64px}' +
+    '#series-nav .sn-header{border-top:1px solid var(--fg);padding-top:12px;margin-bottom:8px}' +
+    '#series-nav .sn-label{font-family:var(--mono);font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:600}' +
+    '#series-nav .sn-title{font-family:var(--serif);font-size:0.85rem;color:var(--muted);margin-left:12px}' +
+    '#series-nav .sn-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule)}' +
+    '#series-nav .sn-link{background:var(--bg);padding:24px 20px;text-decoration:none;color:inherit;display:block;transition:background 0.2s}' +
+    '#series-nav .sn-link:hover{background:var(--card-bg)}' +
+    '#series-nav .sn-empty{background:var(--bg);padding:24px 20px}' +
+    '#series-nav .sn-dir{font-family:var(--mono);font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px}' +
+    '#series-nav .sn-name{font-family:var(--serif);font-size:0.95rem;font-weight:600;line-height:1.4;color:var(--fg)}' +
+    '#series-nav .sn-next{text-align:right}';
+  document.head.appendChild(style);
+
   // 네비게이션 HTML 생성
-  var html = '<div style="border-top:1px solid #1a1a18;padding-top:12px;margin-bottom:8px">' +
-    '<span style="font-family:\'JetBrains Mono\',monospace;font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:#c43e2a;font-weight:600">' +
-    label + '</span>' +
-    '<span style="font-family:\'Source Serif 4\',Pretendard,sans-serif;font-size:0.85rem;color:#8a8680;margin-left:12px">' +
-    currentSeries.title + '</span>' +
+  var html = '<div class="sn-header">' +
+    '<span class="sn-label">' + label + '</span>' +
+    '<span class="sn-title">' + currentSeries.title + '</span>' +
     '</div>';
 
-  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#d5d0c8;border:1px solid #d5d0c8">';
+  html += '<div class="sn-grid">';
 
   // 이전 글
   if (prev) {
-    html += '<a href="' + prev.slug + '.html" style="background:#faf8f4;padding:24px 20px;text-decoration:none;color:inherit;display:block;transition:background 0.2s"' +
-      ' onmouseover="this.style.background=\'#f2efe9\'" onmouseout="this.style.background=\'#faf8f4\'">' +
-      '<span style="font-family:\'JetBrains Mono\',monospace;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:#8a8680;display:block;margin-bottom:8px">' +
-      '\u2190 이전 글</span>' +
-      '<span style="font-family:\'Source Serif 4\',Pretendard,sans-serif;font-size:0.95rem;font-weight:600;line-height:1.4;color:#1a1a18">' +
-      prev.title + '</span></a>';
+    html += '<a href="' + prev.slug + '.html" class="sn-link">' +
+      '<span class="sn-dir">\u2190 이전 글</span>' +
+      '<span class="sn-name">' + prev.title + '</span></a>';
   } else {
-    html += '<div style="background:#faf8f4;padding:24px 20px"></div>';
+    html += '<div class="sn-empty"></div>';
   }
 
   // 다음 글
   if (next) {
-    html += '<a href="' + next.slug + '.html" style="background:#faf8f4;padding:24px 20px;text-decoration:none;color:inherit;display:block;text-align:right;transition:background 0.2s"' +
-      ' onmouseover="this.style.background=\'#f2efe9\'" onmouseout="this.style.background=\'#faf8f4\'">' +
-      '<span style="font-family:\'JetBrains Mono\',monospace;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:#8a8680;display:block;margin-bottom:8px">' +
-      '다음 글 \u2192</span>' +
-      '<span style="font-family:\'Source Serif 4\',Pretendard,sans-serif;font-size:0.95rem;font-weight:600;line-height:1.4;color:#1a1a18">' +
-      next.title + '</span></a>';
+    html += '<a href="' + next.slug + '.html" class="sn-link sn-next">' +
+      '<span class="sn-dir">다음 글 \u2192</span>' +
+      '<span class="sn-name">' + next.title + '</span></a>';
   } else {
-    html += '<div style="background:#faf8f4;padding:24px 20px"></div>';
+    html += '<div class="sn-empty"></div>';
   }
 
   html += '</div>';
@@ -210,7 +218,6 @@
   // .footer 앞에 삽입
   var container = document.createElement('nav');
   container.setAttribute('id', 'series-nav');
-  container.style.cssText = 'margin-top:64px';
   container.innerHTML = html;
 
   var footer = document.querySelector('.footer');

@@ -55,32 +55,34 @@ src="../../assets/nav.js"
 ## 네비게이션 바 구성
 
 ```
-┌─────────────────────────────────────────────┐
-│  Editorial                    ← 목록으로     │
-└─────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────┐
+│  Editorial                    [Dark]  ← 목록으로         │
+└─────────────────────────────────────────────────────────┘
 ```
 
 | 요소 | 동작 |
 |------|------|
 | **Editorial** (좌) | 홈(index.html)으로 이동. Source Serif 4, 0.95rem, weight 700 |
+| **[Dark/Light]** (우) | 다크/라이트 테마 토글 버튼. 모노스페이스, 0.65rem |
 | **← 목록으로** (우) | 홈(index.html)으로 이동. 0.8rem, muted 색상 |
 
 ## 스타일 규칙
 
-nav.js의 인라인 스타일은 editorial-base.css의 디자인 시스템 변수 값과 동기화되어야 한다:
+nav.js는 `<style>` 태그를 `<head>`에 삽입하여 CSS 변수(`var(--*)`)를 사용한다. **하드코딩 색상값을 사용하지 않으므로** editorial-base.css의 변수를 변경하면 자동 반영되고, 다크모드도 자동 대응된다.
 
-| 속성 | 값 | 대응 CSS 변수 |
-|------|-----|--------------|
-| `background` | `#faf8f4` | `--bg` |
-| `border-bottom` | `1px solid #d5d0c8` | `--rule` |
-| `color` (← 목록으로) | `#8a8680` | `--muted` |
-| `font-family` | `'Source Serif 4', 'Source Serif 4 Fallback', 'Pretendard Variable', 'Pretendard', serif` | `--serif` |
-| `position` | `sticky` | — |
-| `top` | `0` | — |
-| `z-index` | `100` | — |
-| `max-width` | `780px` | `.page`와 동일 |
+| 속성 | CSS 변수 |
+|------|----------|
+| `background` | `var(--bg)` |
+| `border-bottom` | `var(--rule)` |
+| `color` (← 목록으로) | `var(--muted)` |
+| `color` (Editorial) | `var(--fg)` |
+| `font-family` | `var(--serif)`, `var(--mono)` |
+| `position` | `sticky` |
+| `z-index` | `100` |
 
-**주의:** nav.js는 CSS 파일보다 먼저 실행될 수 있으므로 CSS 변수(`var(--bg)`)를 사용하지 않고 하드코딩 값을 사용한다. editorial-base.css의 변수 값을 변경하면 nav.js의 인라인 스타일도 함께 수정해야 한다.
+## 테마 토글 버튼
+
+nav.js는 `.theme-toggle-btn` 클래스의 버튼을 자동 삽입한다. 실제 토글 로직은 `assets/theme-toggle.js`가 담당한다. theme-toggle.js는 `.theme-toggle-btn` 클래스를 가진 모든 버튼에 이벤트를 바인딩하고, 텍스트를 현재 테마에 따라 "Dark"/"Light"로 업데이트한다.
 
 ## 수정 시 체크리스트
 
@@ -94,8 +96,9 @@ nav.js의 인라인 스타일은 editorial-base.css의 디자인 시스템 변�
 ## 새 콘텐츠 페이지 추가 시
 
 1. `<script src="../../assets/nav.js" defer></script>`를 `</head>` 직전에 추가
-2. `src` 경로의 `../../`가 프로젝트 루트를 가리키는지 확인
-3. 별도의 HTML 마크업이나 CSS 추가는 불필요 (nav.js가 자동 생성)
+2. `<script src="../../assets/theme-toggle.js" defer></script>`를 nav.js 뒤에 추가 (series-nav.js가 있으면 그 뒤에)
+3. `src` 경로의 `../../`가 프로젝트 루트를 가리키는지 확인
+4. 별도의 HTML 마크업이나 CSS 추가는 불필요 (nav.js가 자동 생성)
 
 ## 확장 시 고려사항
 

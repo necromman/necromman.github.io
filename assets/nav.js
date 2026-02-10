@@ -24,19 +24,28 @@
 
   var homeUrl = basePath + 'index.html';
 
+  // 스타일시트 삽입 (CSS 변수 사용 — 다크모드 자동 대응)
+  var style = document.createElement('style');
+  style.textContent =
+    '#site-nav{border-bottom:1px solid var(--rule);background:var(--bg);position:sticky;top:0;z-index:100}' +
+    '#site-nav .nav-inner{max-width:780px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between}' +
+    '#site-nav .nav-logo{font-family:var(--serif);font-size:0.95rem;font-weight:700;color:var(--fg);text-decoration:none;letter-spacing:-0.5px}' +
+    '#site-nav .nav-right{display:flex;align-items:center;gap:16px}' +
+    '#site-nav .nav-back{font-family:var(--serif);font-size:0.8rem;color:var(--muted);text-decoration:none}' +
+    '#site-nav .theme-toggle-btn{font-family:var(--mono);font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);background:none;border:1px solid var(--rule);padding:4px 12px;cursor:pointer;transition:border-color 0.2s,color 0.2s}' +
+    '#site-nav .theme-toggle-btn:hover{border-color:var(--fg);color:var(--fg)}';
+  document.head.appendChild(style);
+
   var nav = document.createElement('nav');
   nav.setAttribute('id', 'site-nav');
   nav.innerHTML =
-    '<div style="max-width:780px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between">' +
-      '<a href="' + homeUrl + '" style="font-family:\'Source Serif 4\',\'Source Serif 4 Fallback\',\'Pretendard Variable\',Pretendard,serif;font-size:0.95rem;font-weight:700;color:inherit;text-decoration:none;letter-spacing:-0.5px">' +
-        'Editorial' +
-      '</a>' +
-      '<a href="' + homeUrl + '" style="font-family:\'Source Serif 4\',\'Source Serif 4 Fallback\',\'Pretendard Variable\',Pretendard,serif;font-size:0.8rem;color:#8a8680;text-decoration:none">' +
-        '\u2190 \ubaa9\ub85d\uc73c\ub85c' +
-      '</a>' +
+    '<div class="nav-inner">' +
+      '<a href="' + homeUrl + '" class="nav-logo">Editorial</a>' +
+      '<div class="nav-right">' +
+        '<button type="button" class="theme-toggle-btn" aria-label="테마 전환">Dark</button>' +
+        '<a href="' + homeUrl + '" class="nav-back">\u2190 \ubaa9\ub85d\uc73c\ub85c</a>' +
+      '</div>' +
     '</div>';
-
-  nav.style.cssText = 'border-bottom:1px solid #d5d0c8;background:#faf8f4;position:sticky;top:0;z-index:100';
 
   document.body.insertBefore(nav, document.body.firstChild);
 

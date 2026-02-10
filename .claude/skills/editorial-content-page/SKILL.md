@@ -62,6 +62,15 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
 - 메트릭 보정 폴백 — fontpie로 계산된 정확한 `size-adjust`, `ascent-override` 값으로, 만약 폴백이 보여도 레이아웃이 동일.
 - 다이나믹 서브셋 — Pretendard의 92개 유니코드 슬라이스 중 페이지에 필요한 것만 다운로드.
 
+### 다크모드 FOUC 방지 스크립트 (필수)
+
+`editorial-base.css` 링크 **직후**에 아래 인라인 스크립트를 반드시 추가한다. 이 스크립트는 CSS가 로드되기 전에 저장된 테마를 `<html>` 요소에 즉시 적용하여, 페이지 로드 시 흰 화면 번쩍임(FOUC)을 방지한다.
+
+```html
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<script>(function(){var t=localStorage.getItem('editorial-theme');if(!t)t=window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})()</script>
+```
+
 **금지 서체:** Noto Serif KR(한글 세리프 — 무겁고 올드함), Cormorant Garamond(올드스타일 숫자 문제), Inter/Roboto/Arial/system-ui(AI 출력물 느낌).
 
 **중요:** `font-variant-numeric: lining-nums tabular-nums`를 body에 반드시 적용한다. 올드스타일 숫자가 한국어 콘텐츠에서 어색하게 보이는 문제를 방지한다.
@@ -91,7 +100,7 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
 }
 ```
 
-다크 테마를 기본으로 하지 않는다. 인쇄물 느낌의 라이트 크림 톤이 정보 전달 문서에 더 적합하다. accent color는 한 가지만 사용하고, 그라디언트는 쓰지 않는다.
+기본 테마는 라이트(인쇄물 느낌의 크림 톤)이며, 다크모드는 `[data-theme="dark"]`로 자동 전환된다. `editorial-base.css`에 다크모드 변수가 정의되어 있으므로, **CSS 변수만 사용하면 다크모드가 자동 적용된다.** accent color는 한 가지만 사용하고, 그라디언트는 쓰지 않는다.
 
 ### 6. 한글 타이포그래피 주의사항
 
@@ -558,6 +567,9 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
 - [ ] **`.closing h2`에 `<strong>` accent color가 적용되어 있는가 (전반부 일반체 + 후반부 accent)**
 - [ ] **`.closing` 직전에 pull-quote가 없는가 (둘 다 결론처럼 보여 시각적으로 겹침)**
 - [ ] **`.footer` 안에 별도 라벨 요소(`<div class="source-label">` 등)를 만들지 않았는가 ("Sources:"는 `<p>` 안에 인라인 텍스트로)**
+- [ ] **FOUC 방지 인라인 스크립트가 editorial-base.css 직후에 있는가**
+- [ ] **`<script src="../../assets/theme-toggle.js" defer></script>`가 series-nav.js 뒤에 있는가**
+- [ ] **페이지 고유 `<style>`에서 하드코딩 색상 대신 CSS 변수를 사용하는가 (다크모드 호환)**
 
 ## 이 스킬이 만들어진 배경
 
