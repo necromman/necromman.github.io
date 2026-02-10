@@ -1,29 +1,10 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
-<title>모든 트래픽은 여기를 지난다 — Editorial</title>
-<meta name="description" content="Traefik은 사내 인프라의 관문이다. 도메인 기반 라우팅, 자동 SSL 인증서, Consul 연동 서비스 디스커버리, 로드 밸런싱, 미들웨어까지. 리버스 프록시의 5가지 핵심 기능 해부.">
-<link rel="canonical" href="https://necromman.github.io/editorial/content/server-infra-guide-series/traefik-the-gatekeeper.html">
-<meta property="og:type" content="article">
-<meta property="og:title" content="모든 트래픽은 여기를 지난다">
-<meta property="og:description" content="Traefik은 사내 인프라의 관문이다. 도메인 기반 라우팅, 자동 SSL 인증서, Consul 연동 서비스 디스커버리, 로드 밸런싱, 미들웨어까지.">
-<meta property="og:url" content="https://necromman.github.io/editorial/content/server-infra-guide-series/traefik-the-gatekeeper.html">
-<meta property="og:locale" content="ko_KR">
-<meta property="og:site_name" content="Editorial">
-<meta property="article:published_time" content="2026-02-09">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="모든 트래픽은 여기를 지난다">
-<meta name="twitter:description" content="Traefik은 사내 인프라의 관문이다. 도메인 기반 라우팅, 자동 SSL 인증서, Consul 연동 서비스 디스커버리, 로드 밸런싱, 미들웨어까지.">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"모든 트래픽은 여기를 지난다","description":"Traefik은 사내 인프라의 관문이다. 도메인 기반 라우팅, 자동 SSL 인증서, Consul 연동 서비스 디스커버리, 로드 밸런싱, 미들웨어까지. 리버스 프록시의 5가지 핵심 기능 해부.","datePublished":"2026-02-09","dateModified":"2026-02-09","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/server-infra-guide-series/traefik-the-gatekeeper.html"}}
-</script>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="stylesheet" href="../../assets/editorial-base.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<script>(function(){var t=localStorage.getItem('editorial-theme');if(!t)t=window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})()</script>
+---
+layout: layouts/article.njk
+pageTitle: "모든 트래픽은 여기를 지난다"
+description: "Traefik은 사내 인프라의 관문이다. 도메인 기반 라우팅, 자동 SSL 인증서, Consul 연동 서비스 디스커버리, 로드 밸런싱, 미들웨어까지. 리버스 프록시의 5가지 핵심 기능 해부."
+ogDescription: "Traefik은 사내 인프라의 관문이다. 도메인 기반 라우팅, 자동 SSL 인증서, Consul 연동 서비스 디스커버리, 로드 밸런싱, 미들웨어까지."
+datePublished: "2026-02-09"
+---
 <style>
   .masthead .deck { max-width: 560px; }
 
@@ -184,11 +165,6 @@
     .feature-card { padding: 20px 20px; }
   }
 </style>
-<script src="../../assets/nav.js" defer></script>
-<script src="../../assets/series-nav.js" defer></script>
-<script src="../../assets/theme-toggle.js" defer></script>
-</head>
-<body>
 <div class="page">
 
   <header class="masthead">
@@ -353,5 +329,3 @@ evan-app.yourdomain.com  →  192.168.0.204:8080
   </footer>
 
 </div>
-</body>
-</html>

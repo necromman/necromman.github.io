@@ -1,38 +1,10 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-site-verification" content="kAqrh5ZOHV8HzJRVBXeFuKSymzJKs_H9H4mdilIw168">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<title>Editorial — 에디토리얼 블로그</title>
-<meta name="description" content="유튜브 영상과 아티클을 에디토리얼 매거진 스타일로 재구성하는 블로그. AI 워크플로우로 제작된 깊이 있는 콘텐츠 시리즈.">
-<link rel="canonical" href="https://necromman.github.io/editorial/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Editorial — 에디토리얼 블로그">
-<meta property="og:description" content="유튜브 영상과 아티클을 에디토리얼 매거진 스타일로 재구성하는 블로그.">
-<meta property="og:url" content="https://necromman.github.io/editorial/">
-<meta property="og:locale" content="ko_KR">
-<meta property="og:site_name" content="Editorial">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Editorial — 에디토리얼 블로그">
-<meta name="twitter:description" content="유튜브 영상과 아티클을 에디토리얼 매거진 스타일로 재구성하는 블로그.">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","name":"Editorial","url":"https://necromman.github.io/editorial/","description":"유튜브 영상과 아티클을 에디토리얼 매거진 스타일로 재구성하는 블로그."}
-</script>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="stylesheet" href="assets/editorial-base.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="assets/index.css">
-<script>
-// FOUC 방지: CSS 로드 전에 저장된 테마를 즉시 적용
-(function(){var t=localStorage.getItem('editorial-theme');if(!t)t=window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})();
-</script>
-<script src="assets/content-data.js?v=14" defer></script>
-<script src="assets/index-app.js?v=14" defer></script>
-<script src="assets/theme-toggle.js" defer></script>
-</head>
-<body>
+---
+layout: layouts/landing.njk
+pageTitle: "Editorial — 에디토리얼 블로그"
+description: "유튜브 영상과 아티클을 에디토리얼 매거진 스타일로 재구성하는 블로그. AI 워크플로우로 제작된 깊이 있는 콘텐츠 시리즈."
+ogDescription: "유튜브 영상과 아티클을 에디토리얼 매거진 스타일로 재구성하는 블로그."
+googleVerification: "kAqrh5ZOHV8HzJRVBXeFuKSymzJKs_H9H4mdilIw168"
+---
 <div class="container">
 
   <header class="masthead">
@@ -90,5 +62,3 @@
     .catch(function() {});
 })();
 </script>
-</body>
-</html>

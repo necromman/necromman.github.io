@@ -7,82 +7,42 @@ description: Use this skill whenever creating or modifying HTML content pages fo
 
 블로그에 배포되는 모든 HTML 콘텐츠에 검색 엔진 최적화(SEO)를 적용하는 스킬. editorial-content-page 스킬과 반드시 함께 사용한다.
 
-## 필수 적용 항목
+## 11ty 기반 SEO 적용
 
-### 1. HTML 기본 구조
+**SEO 태그(title, description, OG, Twitter, JSON-LD, canonical)는 `article.njk` 레이아웃 템플릿이 자동 생성한다.** 콘텐츠 HTML에 직접 작성하지 않는다.
 
-```html
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{페이지 제목} — {사이트명}</title>
-  <meta name="description" content="{150자 이내 요약}">
-  <link rel="canonical" href="{정규 URL}">
-  <!-- Open Graph -->
-  <!-- Structured Data -->
-  <!-- Fonts & Styles -->
-</head>
+콘텐츠 작성 시 front matter만 정확히 기입하면 SEO가 자동 적용된다:
+
+```yaml
+---
+layout: layouts/article.njk
+pageTitle: "99%가 인생을 낭비하는 이유"     # <title> + OG title (60자 이내)
+description: "뇌의 기본 설정과 인지 편향이..." # meta description (150자 이내)
+datePublished: "2026-02-08"                    # ISO 8601 날짜
+ogTitle: "OG 전용 제목"                        # pageTitle과 다를 때만 (선택)
+ogDescription: "OG 전용 설명"                  # description과 다를 때만 (선택)
+dateModified: "2026-02-09"                     # 수정일이 다를 때만 (선택)
+---
 ```
 
-- `lang="ko"` 필수
-- `<title>`은 60자 이내, `{페이지 제목} — {사이트명}` 형식
-- `<meta name="description">`은 150자 이내, 핵심 내용 요약
+## SEO 참고 기준
 
-### 2. Open Graph 태그
+### 1. 제목과 설명
 
-```html
-<meta property="og:type" content="article">
-<meta property="og:title" content="{페이지 제목}">
-<meta property="og:description" content="{150자 이내 요약}">
-<meta property="og:url" content="{정규 URL}">
-<meta property="og:image" content="{OG 이미지 URL}">
-<meta property="og:locale" content="ko_KR">
-<meta property="og:site_name" content="{사이트명}">
-<meta property="article:published_time" content="{ISO 8601 날짜}">
-```
+- `pageTitle`은 60자 이내, 핵심 키워드 포함
+- `description`은 150자 이내, 콘텐츠 핵심 요약
+- 템플릿이 `{pageTitle} — Editorial` 형식으로 `<title>` 자동 생성
 
-- `og:image`는 1200x630px 권장. 없으면 기본 이미지 사용
-- `og:type`은 콘텐츠 페이지에서 `article`, 랜딩 페이지에서 `website`
+### 2. Open Graph / Twitter Card / JSON-LD
 
-### 3. Twitter Card 태그
+`article.njk` 템플릿이 front matter 데이터로 자동 생성:
+- OG: type(article), title, description, url, locale, site_name, published_time
+- Twitter: card(summary_large_image), title, description
+- JSON-LD: Article 타입, headline, description, datePublished, dateModified, publisher, mainEntityOfPage
 
-```html
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{페이지 제목}">
-<meta name="twitter:description" content="{150자 이내 요약}">
-<meta name="twitter:image" content="{OG 이미지 URL}">
-```
+`ogTitle`, `ogDescription`이 설정되면 OG/Twitter에 해당 값을 사용하고, 없으면 `pageTitle`/`description`을 사용한다.
 
-### 4. 구조화된 데이터 (JSON-LD)
-
-```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "{페이지 제목}",
-  "description": "{요약}",
-  "datePublished": "{ISO 8601}",
-  "dateModified": "{ISO 8601}",
-  "author": {
-    "@type": "Person",
-    "name": "{저자명}"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "{사이트명}"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "{정규 URL}"
-  }
-}
-</script>
-```
-
-### 5. 시맨틱 HTML
+### 3. 시맨틱 HTML
 
 콘텐츠 영역에 시맨틱 태그를 사용한다:
 
@@ -106,7 +66,7 @@ description: Use this skill whenever creating or modifying HTML content pages fo
 - 각 Part는 `<section>` 태그로 감싼다
 - 제목 태그 위계: `<h1>` 1개(페이지 제목), `<h2>`(Part 제목), `<h3>`(소항목)
 
-### 6. 이미지 최적화 (해당 시)
+### 4. 이미지 최적화 (해당 시)
 
 ```html
 <img src="..." alt="{이미지 설명}" width="..." height="..." loading="lazy">
@@ -149,21 +109,25 @@ description: Use this skill whenever creating or modifying HTML content pages fo
 
 콘텐츠 생성 후 아래 항목을 확인한다:
 
-- [ ] `<title>` 태그가 있고 60자 이내인가
-- [ ] `<meta name="description">`이 있고 150자 이내인가
-- [ ] `lang="ko"` 속성이 있는가
-- [ ] Open Graph 태그 6종이 모두 있는가 (type, title, description, url, image, locale)
-- [ ] Twitter Card 태그가 있는가
-- [ ] JSON-LD 구조화 데이터가 있는가
+**Front matter 검수:**
+- [ ] `layout: layouts/article.njk`가 설정되어 있는가
+- [ ] `pageTitle`이 60자 이내이고 핵심 키워드를 포함하는가
+- [ ] `description`이 150자 이내인가
+- [ ] `datePublished`가 ISO 8601 형식이고 정확한 날짜인가
+- [ ] OG 전용 제목/설명이 필요한 경우 `ogTitle`/`ogDescription`이 설정되어 있는가
+
+**콘텐츠 영역 검수:**
 - [ ] `<h1>` 태그가 정확히 1개인가
 - [ ] 제목 위계가 순서대로인가 (h1 → h2 → h3, 건너뛰기 없음)
 - [ ] `<article>`, `<section>` 시맨틱 태그를 사용하는가
-- [ ] canonical URL이 설정되어 있는가
 - [ ] 파일명이 영문 슬러그인가
+
+**등록 검수:**
 - [ ] **`sitemap.xml`에 새 URL이 추가되었는가**
+- [ ] `assets/content-data.js`에 데이터가 추가되었는가
 
 ## 이 스킬의 적용 시점
 
-- **새 HTML 콘텐츠 작성 시**: editorial-content-page 스킬과 함께 반드시 적용
-- **기존 HTML 수정 시**: SEO 태그가 빠져 있으면 추가
+- **새 HTML 콘텐츠 작성 시**: editorial-content-page 스킬과 함께 반드시 적용. front matter 필드를 정확히 기입
+- **기존 HTML 수정 시**: front matter의 SEO 필드가 빠져 있으면 추가
 - **content/index.md 업데이트 시**: 새 콘텐츠의 슬러그와 메타 정보 반영

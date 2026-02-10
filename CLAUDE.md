@@ -19,52 +19,85 @@
 
 유튜브 영상("99%가 인생을 낭비하는 이유")을 보고, Gemini로 스크립트를 뽑아 Claude로 에디토리얼 HTML을 만들어봤더니 결과물이 괜찮았다. 그래서 반박/종합/실행/메타 문서까지 시리즈로 확장했고, 이걸 블로그로 올려서 운영해보려는 프로젝트. 앞으로 다른 영상/아티클에도 같은 패턴을 적용해서 콘텐츠를 늘려갈 계획.
 
+## 빌드 시스템 (11ty)
+
+11ty(Eleventy) SSG로 빌드한다. 공통 head/SEO/scripts는 레이아웃 템플릿 1개에서 관리하고, 콘텐츠 HTML은 **front matter + body만** 작성한다.
+
+- **빌드 명령**: `npx eleventy` (결과물: `_site/`)
+- **로컬 개발**: `npx eleventy --serve`
+- **URL 보존**: `content/[series]/[file].html` 구조 그대로 유지 (`content.11tydata.js`가 pretty URL 방지)
+- **HtmlBasePlugin**: 템플릿의 `/assets/nav.js` → 출력에서 `/editorial/assets/nav.js`로 자동 변환
+
+### 콘텐츠 HTML 파일 형식 (front matter)
+
+```html
+---
+layout: layouts/article.njk
+pageTitle: "99%가 인생을 낭비하는 이유"
+description: "뇌의 기본 설정과 인지 편향이..."
+datePublished: "2026-02-08"
+---
+<style>
+  .masthead .deck { max-width: 460px; }
+</style>
+<div class="page">
+  ...body content...
+</div>
+```
+
+**front matter 필드:**
+| 필드 | 필수 | 설명 |
+|------|------|------|
+| `layout` | O | `layouts/article.njk` (콘텐츠) 또는 `layouts/landing.njk` (랜딩) |
+| `pageTitle` | O | 페이지 제목 (article 템플릿이 " — Editorial" 자동 추가) |
+| `description` | O | meta description |
+| `datePublished` | O | ISO 날짜 (예: "2026-02-08") |
+| `ogTitle` | - | OG 제목이 pageTitle과 다를 때만 |
+| `ogDescription` | - | OG 설명이 description과 다를 때만 |
+| `dateModified` | - | 수정일이 발행일과 다를 때만 |
+
+**Nunjucks 주의:** 콘텐츠 body에 `{{`, `{%`, `{#` 문법이 포함되면 Nunjucks가 처리를 시도한다. 코드 예시 등에서 이런 문법이 나오면 `{% raw %}...{% endraw %}`로 감싸야 한다.
+
+### 레이아웃 템플릿
+
+- **`_includes/layouts/article.njk`** — 콘텐츠 페이지 공통: charset, viewport, favicon, SEO 메타, OG, JSON-LD, CSS, FOUC 방지, nav.js, series-nav.js, theme-toggle.js. `extractStyles` 필터로 `<style>` 블록을 head에, `stripStyles`로 body에 분리 배치
+- **`_includes/layouts/landing.njk`** — 랜딩 페이지: index.css, content-data.js, index-app.js 로드. nav.js/series-nav.js 미포함
+
 ## 폴더 구조
 
 ```
 editorial/
-├── index.html                              # 블로그 랜딩 페이지 (검색/필터 포함)
+├── .eleventy.js                            # 11ty 설정 (ESM, HtmlBasePlugin, 커스텀 필터)
+├── package.json                            # Node 의존성 (@11ty/eleventy)
+├── .eleventyignore                         # 11ty 처리 제외 (CLAUDE.md, plans/, .claude/ 등)
+├── .gitignore                              # _site/, node_modules/
+├── _includes/layouts/                      # 11ty 레이아웃 템플릿
+│   ├── article.njk                         # 콘텐츠 페이지 공통 래퍼 (SEO/head/scripts)
+│   └── landing.njk                         # 랜딩 페이지 래퍼
+├── index.html                              # 블로그 랜딩 페이지 (front matter + body)
 ├── CLAUDE.md                               # 프로젝트 규칙서
 ├── .claude/
 │   ├── settings.json
-│   └── skills/
-│       ├── editorial-content-page/
-│       │   └── SKILL.md                    # 에디토리얼 HTML 제작 스킬
-│       ├── seo/
-│       │   └── SKILL.md                    # SEO 최적화 스킬
-│       ├── common-css/
-│       │   └── SKILL.md                    # 공통 CSS 디자인 시스템 스킬
-│       ├── common-header/
-│       │   └── SKILL.md                    # 공통 네비게이션 헤더 스킬
-│       ├── series-nav/
-│       │   └── SKILL.md                    # 시리즈 네비게이션 스킬
-│       └── series-plan/
-│           └── SKILL.md                    # 시리즈 기획 워크플로우 스킬
+│   └── skills/                             # (기존과 동일)
 ├── assets/
 │   ├── editorial-base.css                  # 콘텐츠 페이지 공통 CSS (디자인 시스템 베이스)
-│   ├── index.css                           # 랜딩 페이지 전용 CSS (editorial-base.css 상속)
+│   ├── index.css                           # 랜딩 페이지 전용 CSS
 │   ├── content-data.js                     # 랜딩 페이지 콘텐츠 데이터 (시리즈/글 목록)
 │   ├── index-app.js                        # 랜딩 페이지 렌더링/검색/정렬/펼침접기
 │   ├── fonts/                              # 셀프호스팅 웹폰트 (WOFF2)
-│   │   ├── source-serif-4-latin-wght-normal.woff2   # Source Serif 4 variable
-│   │   └── jetbrains-mono-latin-wght-normal.woff2   # JetBrains Mono variable
-│   ├── nav.js                              # 공통 네비게이션 (전 페이지 자동 삽입, 테마 토글 포함)
-│   ├── theme-toggle.js                     # 다크/라이트 테마 토글 로직 (localStorage + OS 감지)
-│   └── series-nav.js                       # 시리즈 내 이전/다음 글 네비게이션
-├── plans/                                  # 시리즈 기획 문서 (콘텐츠 제작 전 선행)
-│   └── [시리즈-슬러그]/
-│       └── series-plan.md                  # 자료조사 + 시리즈 구성 기획서
-├── content/                                # 모든 콘텐츠 HTML
-│   ├── index.md                            # 콘텐츠 인덱스 (AI가 자동 관리)
-│   └── wasted-life-series/                 # 시리즈별 폴더 (영문 슬러그)
-│       ├── 99-percent-wasted-life-guide.html
-│       ├── what-self-help-wont-tell-you.html
-│       ├── conditions-for-change.html
-│       ├── so-what-now.html
-│       └── how-this-was-made.html
+│   ├── nav.js                              # 공통 네비게이션 (런타임 삽입)
+│   ├── theme-toggle.js                     # 다크/라이트 테마 토글
+│   └── series-nav.js                       # 시리즈 이전/다음 글 네비게이션
+├── content/                                # 모든 콘텐츠 HTML (front matter + body)
+│   ├── content.11tydata.js                 # permalink 설정 (.html 확장자 보존)
+│   ├── index.md                            # 콘텐츠 인덱스 (AI가 자동 관리, 빌드 제외)
+│   └── [시리즈-슬러그]/                     # 시리즈별 폴더 (영문 슬러그)
+│       └── [글-슬러그].html                 # front matter + <style> + body
+├── plans/                                  # 시리즈 기획 문서 (빌드 제외)
+├── _site/                                  # 빌드 결과물 (gitignored)
 ├── sitemap.xml
 ├── robots.txt
-└── .github/workflows/deploy.yml            # GitHub Pages 자동 배포
+└── .github/workflows/deploy.yml            # Node + 11ty 빌드 → GitHub Pages 배포
 ```
 
 **폴더 규칙:**
@@ -251,11 +284,13 @@ editorial/
 1. **소스 확보**: YouTube 영상 → Gemini로 스크립트 추출
 2. **1차 편집**: 스크립트 → Claude로 에디토리얼 HTML 생성
    - editorial-content-page 스킬 + seo 스킬 동시 적용
-   - `<script src="../../assets/nav.js" defer></script>` 반드시 포함
-   - `<script src="../../assets/series-nav.js" defer></script>` 시리즈 콘텐츠일 경우 반드시 포함
+   - **front matter** 작성: `layout: layouts/article.njk`, `pageTitle`, `description`, `datePublished` 필수
+   - head/scripts/SEO 메타는 **작성 불요** — 레이아웃 템플릿이 자동 생성
+   - `<style>` 블록(페이지 고유 CSS)과 `<div class="page">` body만 작성
 3. **확장**: 하나의 주장에서 반박(반대) → 종합(중립) → 실행(실용) → 메타(과정) 시리즈 도출
 4. **등록**: `assets/content-data.js`에 시리즈/글 데이터 추가 + `series-nav.js` SERIES 데이터 추가 + `content/index.md` 업데이트 + **`sitemap.xml`에 URL 추가**
-5. **반복**: 다른 영상/아티클에도 같은 패턴 적용
+5. **빌드 확인**: `npx eleventy`로 빌드 후 `_site/` 결과물 확인
+6. **반복**: 다른 영상/아티클에도 같은 패턴 적용
 
 ## 공통 컴포넌트
 
@@ -263,11 +298,8 @@ editorial/
 - 콘텐츠 페이지의 공통 디자인 시스템 CSS (셀프호스팅 폰트 @font-face, 변수, 리셋, 타이포그래피, 레이아웃 컴포넌트)
 - 셀프호스팅 폰트: Source Serif 4 + JetBrains Mono (variable woff2, `font-display: swap`) + 메트릭 보정 폴백 (fontpie 계산, CLS 제로)
 - `:root` 변수, body, `.page`, `.masthead`, `.section-head`, `.prose`, `.pull-quote`, `.mechanism-row`, `.technique`, `.warning-box`, `.closing`, `.footer`, 반응형, 프린트 스타일 포함
-- **새 콘텐츠 추가 시** 아래 순서로 `<head>`에 추가한다 (폰트 preload 사용 금지 — `font-display: swap` + fontpie 폴백이 CLS를 제로로 유지):
-  1. `<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>`
-  2. `<link rel="stylesheet" href="../../assets/editorial-base.css">` (@font-face 포함, 먼저 로드)
-  3. `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">`
-- 각 HTML의 `<style>` 태그에는 해당 페이지 **고유 컴포넌트 CSS만** 남긴다 (masthead 오버라이드, 페이지 전용 레이아웃 등)
+- **새 콘텐츠 추가 시** CSS 링크 수동 추가 불요 — `article.njk` 레이아웃이 preconnect, editorial-base.css, Pretendard CDN을 자동 포함
+- 각 HTML의 `<style>` 태그에는 해당 페이지 **고유 컴포넌트 CSS만** 남긴다 (masthead 오버라이드, 페이지 전용 레이아웃 등). `extractStyles` 필터가 `<head>`로 자동 이동
 - 공통 CSS를 수정하면 모든 콘텐츠 페이지에 일괄 반영된다
 
 ### 시리즈 네비게이션 (`assets/series-nav.js`)
@@ -275,10 +307,10 @@ editorial/
 - `.footer` 요소 바로 앞에 자동 삽입
 - 시리즈 라벨, 시리즈 제목, 이전/다음 글 제목과 링크를 2컬럼 그리드로 표시
 - **새 콘텐츠 추가 시** `series-nav.js`의 `SERIES` 객체에 해당 시리즈와 글 정보를 추가해야 한다
-- **새 콘텐츠 추가 시** `<script src="../../assets/series-nav.js" defer></script>`를 nav.js 스크립트 바로 다음에 추가한다
+- script 태그 수동 추가 불요 — `article.njk` 레이아웃이 자동 포함
 
 ### 랜딩 페이지 (`index.html` + `assets/content-data.js` + `assets/index-app.js` + `assets/index.css`)
-- `index.html`은 셸만 담당 (SEO 메타, 마크업 골격, GoatCounter 추적)
+- `index.html`은 front matter + body만 담당 (SEO/head는 `landing.njk` 레이아웃이 처리, GoatCounter 추적 코드는 body에 유지)
 - `content-data.js`에 시리즈/글 데이터를 JS 배열로 관리 → **새 콘텐츠 추가 시 이 파일만 수정**
 - `index-app.js`가 데이터를 읽어 동적 렌더링 + 검색 + 정렬(ASC/DESC) + 모두 펼침/접기 처리
 - `index.css`는 랜딩 페이지 전용 CSS. `editorial-base.css`의 @font-face/변수/리셋을 상속받고, 랜딩 페이지 고유 스타일만 정의
@@ -292,8 +324,8 @@ editorial/
 - 모든 콘텐츠 페이지에 자동 삽입되는 상단 네비게이션 바
 - "Editorial" 로고 + "목록으로" 뒤로가기 링크
 - sticky 포지션, 에디토리얼 디자인 시스템과 동일한 스타일
-- **새 콘텐츠 추가 시** `<script src="../../assets/nav.js" defer></script>`를 `</head>` 직전에 추가한다
-- 경로의 `../../`는 `content/[시리즈]/` 기준. 깊이가 다르면 상대경로 조정
+- script 태그 수동 추가 불요 — `article.njk` 레이아웃이 자동 포함
+- HtmlBasePlugin이 `/assets/nav.js` → `/editorial/assets/nav.js`로 변환. nav.js의 basePath 역산 로직이 정상 동작
 
 ## 디자인 시스템
 
@@ -337,6 +369,7 @@ editorial/
 - [x] 공통 CSS 분리 (assets/editorial-base.css)
 - [x] 시리즈 이전/다음 글 네비게이션 (assets/series-nav.js)
 - [x] 랜딩 페이지 리팩토링 (콘텐츠 데이터 분리, 정렬/펼침접기 기능)
+- [x] 11ty SSG 마이그레이션 (레이아웃 템플릿, front matter, 자동 빌드)
 - [ ] OG 이미지 생성 (assets/ 폴더)
 - [ ] Google AdSense 신청 및 광고 코드 삽입
 - [ ] 커스텀 도메인 연결 (선택)
@@ -344,14 +377,17 @@ editorial/
 
 ## 주의사항
 
-- 콘텐츠 HTML은 `editorial-base.css`(공통) + 인라인 `<style>`(고유) 구조. 공통 디자인 변경 시 CSS 파일만 수정하면 전체 반영
-- 콘텐츠 페이지에 날짜를 화면에 표시하지 않는다 (SEO 메타에만 기록)
+- 콘텐츠 HTML은 **front matter + `<style>` + body** 구조. `<head>`, SEO, scripts는 레이아웃 템플릿(`article.njk`)이 자동 생성
+- 공통 디자인 변경 시: `editorial-base.css` 수정 → 전체 반영. head/SEO 변경 시: `article.njk` 수정 → 전체 반영
+- 콘텐츠 페이지에 날짜를 화면에 표시하지 않는다 (front matter의 datePublished → SEO 메타에만 기록)
 - 새 콘텐츠 추가 시:
-  1. `content/[시리즈-슬러그]/` 폴더에 HTML 생성 (editorial-content-page + seo 스킬 참조)
-  2. preconnect + `editorial-base.css`(먼저) + Pretendard CDN 링크 + FOUC 방지 인라인 스크립트 + nav.js + series-nav.js + theme-toggle.js 스크립트 포함 (폰트 preload 사용 금지)
+  1. `content/[시리즈-슬러그]/` 폴더에 HTML 생성 — **front matter + `<style>` + body만 작성** (editorial-content-page + seo 스킬 참조)
+  2. front matter 필수 필드: `layout`, `pageTitle`, `description`, `datePublished`
   3. `series-nav.js`의 SERIES 데이터에 글 추가
   4. `assets/content-data.js`에 시리즈/글 데이터 추가 (랜딩 페이지 자동 반영)
   5. `content/index.md` 업데이트 (기록용)
   6. **`sitemap.xml`에 새 URL 추가** (lastmod 날짜 포함)
-  7. **Google Fonts 외부 링크 사용 금지 (셀프호스팅)**
+  7. `npx eleventy`로 빌드 확인
 - 새 시리즈 추가 시: 이 문서의 콘텐츠 관리 섹션 + `assets/content-data.js` + `series-nav.js` + `content/index.md` + **`sitemap.xml`** 모두 업데이트
+- **Nunjucks 주의**: 콘텐츠 body에 `{{`, `{%`, `{#` 포함 시 `{% raw %}...{% endraw %}`로 감싸야 함
+- **Google Fonts 외부 링크 사용 금지** (셀프호스팅 필수)

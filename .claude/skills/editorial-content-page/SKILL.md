@@ -26,9 +26,9 @@ description: Use this skill when the user wants to create a single-page HTML doc
 **핵심:** 영문은 세리프, 한글은 모던 산세리프를 조합한다. 한국어 세리프(Noto Serif KR 등)는 획이 두껍고 올드한 인상을 주므로 사용하지 않는다.
 
 ```
-영문 세리프:    'Source Serif 4' (제목/본문의 라틴 글리프) — 셀프호스팅, font-display: optional
+영문 세리프:    'Source Serif 4' (제목/본문의 라틴 글리프) — 셀프호스팅, font-display: swap
 한글 산세리프:  'Pretendard Variable' (제목/본문의 한글 글리프) — jsDelivr CDN, 다이나믹 서브셋
-라벨/넘버링:   'JetBrains Mono' (monospace) — 셀프호스팅, font-display: optional
+라벨/넘버링:   'JetBrains Mono' (monospace) — 셀프호스팅, font-display: swap
 ```
 
 **CSS font-family 작성법:** 한 스택 안에 라틴 서체를 먼저, 메트릭 보정 폴백을 그 다음, 한글 서체를 뒤에 배치한다. 브라우저는 글리프가 없는 문자에 대해 다음 서체로 fallback한다.
@@ -44,16 +44,11 @@ description: Use this skill when the user wants to create a single-page HTML doc
 
 Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `editorial-base.css`에서 `@font-face`로 선언한다 (`font-display: swap`). Pretendard는 jsDelivr CDN의 변수 다이나믹 서브셋을 사용한다. **폰트 preload는 사용하지 않는다** — `swap` + fontpie 메트릭 폴백 조합으로 CLS 제로를 달성하며, preload와 CDN CSS 로딩 순서 충돌로 인한 경고를 방지한다.
 
-```html
-<!-- Pretendard CDN preconnect -->
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<!-- 공통 CSS 먼저 (셀프호스팅 @font-face 즉시 등록) -->
-<link rel="stylesheet" href="../../assets/editorial-base.css">
-<!-- Pretendard CDN (다이나믹 서브셋, @font-face 등록 후 로드) -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-```
+**11ty 레이아웃 템플릿(`article.njk`)이 CSS 링크를 자동 포함한다.** 콘텐츠 HTML에 `<link>` 태그를 직접 작성할 필요 없음:
+- preconnect → editorial-base.css → Pretendard CDN 순서로 자동 로드
+- HtmlBasePlugin이 `/assets/editorial-base.css` → `/editorial/assets/editorial-base.css`로 변환
 
-`editorial-base.css`에 셀프호스팅 폰트 `@font-face`(Source Serif 4, JetBrains Mono, 메트릭 보정 폴백), 변수, 리셋, 타이포그래피, 공통 컴포넌트(masthead, section-head, prose, pull-quote, mechanism-row, technique, warning-box, closing, footer, 반응형, 프린트), 스크롤 성능 격리(`contain: layout style`)가 포함되어 있다. 각 HTML의 `<style>` 태그에는 **해당 페이지 고유 컴포넌트만** 작성한다.
+`editorial-base.css`에 셀프호스팅 폰트 `@font-face`(Source Serif 4, JetBrains Mono, 메트릭 보정 폴백), 변수, 리셋, 타이포그래피, 공통 컴포넌트(masthead, section-head, prose, pull-quote, mechanism-row, technique, warning-box, closing, footer, 반응형, 프린트), 스크롤 성능 격리(`contain: layout style`)가 포함되어 있다. 각 HTML의 `<style>` 태그에는 **해당 페이지 고유 컴포넌트만** 작성한다. `extractStyles` 필터가 `<style>` 블록을 자동으로 `<head>`에 배치한다.
 
 **왜 이렇게 하는가:**
 - `font-display: swap` — 폴백을 즉시 보여주고, 폰트 로드 완료 시 교체. fontpie 메트릭 폴백 덕분에 **교체 시에도 CLS 제로.**
@@ -62,14 +57,9 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
 - 다이나믹 서브셋 — Pretendard의 92개 유니코드 슬라이스 중 페이지에 필요한 것만 다운로드.
 - `contain: layout style` — 섹션별 레이아웃 격리로 스크롤 시 리플로우 범위를 제한.
 
-### 다크모드 FOUC 방지 스크립트 (필수)
+### 다크모드 FOUC 방지 스크립트
 
-`editorial-base.css` 링크 **직후**에 아래 인라인 스크립트를 반드시 추가한다. 이 스크립트는 CSS가 로드되기 전에 저장된 테마를 `<html>` 요소에 즉시 적용하여, 페이지 로드 시 흰 화면 번쩍임(FOUC)을 방지한다.
-
-```html
-<link rel="stylesheet" href="../../assets/editorial-base.css">
-<script>(function(){var t=localStorage.getItem('editorial-theme');if(!t)t=window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})()</script>
-```
+FOUC 방지 인라인 스크립트는 `article.njk` 레이아웃 템플릿에 이미 포함되어 있다. 콘텐츠 HTML에 별도로 추가할 필요 없음.
 
 **금지 서체:** Noto Serif KR(한글 세리프 — 무겁고 올드함), Cormorant Garamond(올드스타일 숫자 문제), Inter/Roboto/Arial/system-ui(AI 출력물 느낌).
 
@@ -560,16 +550,15 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
 - [ ] 본문 line-height가 1.85 이상인가
 - [ ] **모든 색상이 CSS 변수로 정의되어 있는가 (하드코딩 없음)**
 - [ ] **한글 서체가 Pretendard Variable로 렌더링되는가 (Noto Serif KR 아님)**
-- [ ] **폰트 preload 태그가 `<head>`에 있는가 (source-serif-4 woff2)**
-- [ ] **Google Fonts `@import`나 외부 `<link>`를 사용하지 않는가 (셀프호스팅 필수)**
+- [ ] **Google Fonts `@import`나 외부 `<link>`를 사용하지 않는가 (셀프호스팅 필수, 템플릿이 자동 처리)**
 - [ ] **한글 font-weight가 라틴 대비 적절한가 (너무 무겁지 않은가)**
 - [ ] **`.closing`에 `<h2>` + `<p class="sub">` 구조인가**
 - [ ] **`.closing h2`에 `<strong>` accent color가 적용되어 있는가 (전반부 일반체 + 후반부 accent)**
 - [ ] **`.closing` 직전에 pull-quote가 없는가 (둘 다 결론처럼 보여 시각적으로 겹침)**
 - [ ] **`.footer` 안에 별도 라벨 요소(`<div class="source-label">` 등)를 만들지 않았는가 ("Sources:"는 `<p>` 안에 인라인 텍스트로)**
-- [ ] **FOUC 방지 인라인 스크립트가 editorial-base.css 직후에 있는가**
-- [ ] **`<script src="../../assets/theme-toggle.js" defer></script>`가 series-nav.js 뒤에 있는가**
+- [ ] **front matter에 layout, pageTitle, description, datePublished가 있는가**
 - [ ] **페이지 고유 `<style>`에서 하드코딩 색상 대신 CSS 변수를 사용하는가 (다크모드 호환)**
+- [ ] **콘텐츠 body에 `{{`, `{%` 등 Nunjucks 문법이 있으면 `{% raw %}...{% endraw %}`로 감쌌는가**
 
 ## 이 스킬이 만들어진 배경
 
