@@ -1,388 +1,388 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://necromman.github.io/editorial/</loc>
+    <loc>https://necromman.github.io/</loc>
     <lastmod>2026-02-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <!-- Series 01: 99%가 인생을 낭비하는 이유 -->
   <url>
-    <loc>https://necromman.github.io/editorial/content/wasted-life-series/99-percent-wasted-life-guide.html</loc>
+    <loc>https://necromman.github.io/content/wasted-life-series/99-percent-wasted-life-guide.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/wasted-life-series/what-self-help-wont-tell-you.html</loc>
+    <loc>https://necromman.github.io/content/wasted-life-series/what-self-help-wont-tell-you.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/wasted-life-series/conditions-for-change.html</loc>
+    <loc>https://necromman.github.io/content/wasted-life-series/conditions-for-change.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/wasted-life-series/so-what-now.html</loc>
+    <loc>https://necromman.github.io/content/wasted-life-series/so-what-now.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/wasted-life-series/how-this-was-made.html</loc>
+    <loc>https://necromman.github.io/content/wasted-life-series/how-this-was-made.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Series 02: 딸깍 한 번의 60조 원 -->
   <url>
-    <loc>https://necromman.github.io/editorial/content/bithumb-60t-series/bithumb-60-trillion-incident.html</loc>
+    <loc>https://necromman.github.io/content/bithumb-60t-series/bithumb-60-trillion-incident.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/bithumb-60t-series/whose-money-is-it.html</loc>
+    <loc>https://necromman.github.io/content/bithumb-60t-series/whose-money-is-it.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/bithumb-60t-series/why-exchanges-use-ledgers.html</loc>
+    <loc>https://necromman.github.io/content/bithumb-60t-series/why-exchanges-use-ledgers.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Series 03: AI 시대 개발자 생존 보고서 -->
   <url>
-    <loc>https://necromman.github.io/editorial/content/dev-survival-series/ai-replaced-developers-reality.html</loc>
+    <loc>https://necromman.github.io/content/dev-survival-series/ai-replaced-developers-reality.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/dev-survival-series/why-developers-wont-disappear.html</loc>
+    <loc>https://necromman.github.io/content/dev-survival-series/why-developers-wont-disappear.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/dev-survival-series/developer-survival-playbook.html</loc>
+    <loc>https://necromman.github.io/content/dev-survival-series/developer-survival-playbook.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/dev-survival-series/developer-identity-in-ai-era.html</loc>
+    <loc>https://necromman.github.io/content/dev-survival-series/developer-identity-in-ai-era.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Series 04: 그래서 바이브 코딩은 뭘로 해야 되는데? -->
   <url>
-    <loc>https://necromman.github.io/editorial/content/vibe-coding-series/what-is-vibe-coding.html</loc>
+    <loc>https://necromman.github.io/content/vibe-coding-series/what-is-vibe-coding.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/vibe-coding-series/vibe-coding-tools-compared.html</loc>
+    <loc>https://necromman.github.io/content/vibe-coding-series/vibe-coding-tools-compared.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/vibe-coding-series/vibe-coding-survival-guide.html</loc>
+    <loc>https://necromman.github.io/content/vibe-coding-series/vibe-coding-survival-guide.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/vibe-coding-series/vibe-coding-prompt-playbook.html</loc>
+    <loc>https://necromman.github.io/content/vibe-coding-series/vibe-coding-prompt-playbook.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/vibe-coding-series/vibe-coding-future.html</loc>
+    <loc>https://necromman.github.io/content/vibe-coding-series/vibe-coding-future.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/vibe-coding-series/claude-code-in-practice.html</loc>
+    <loc>https://necromman.github.io/content/vibe-coding-series/claude-code-in-practice.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Series 05: OpenClaw 해부 -->
   <url>
-    <loc>https://necromman.github.io/editorial/content/openclaw-series/what-is-openclaw.html</loc>
+    <loc>https://necromman.github.io/content/openclaw-series/what-is-openclaw.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/openclaw-series/openclaw-setup-and-reality.html</loc>
+    <loc>https://necromman.github.io/content/openclaw-series/openclaw-setup-and-reality.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/openclaw-series/openclaw-security-and-alternatives.html</loc>
+    <loc>https://necromman.github.io/content/openclaw-series/openclaw-security-and-alternatives.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Series 06: 린저씨의 귀환 -->
   <url>
-    <loc>https://necromman.github.io/editorial/content/lineage-classic-series/lineage-classic-history.html</loc>
+    <loc>https://necromman.github.io/content/lineage-classic-series/lineage-classic-history.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/lineage-classic-series/lineage-classic-return-of-linjerssi.html</loc>
+    <loc>https://necromman.github.io/content/lineage-classic-series/lineage-classic-return-of-linjerssi.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/lineage-classic-series/lineage-classic-bj-stamina.html</loc>
+    <loc>https://necromman.github.io/content/lineage-classic-series/lineage-classic-bj-stamina.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/lineage-classic-series/lineage-never-ends.html</loc>
+    <loc>https://necromman.github.io/content/lineage-classic-series/lineage-never-ends.html</loc>
     <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Series 07: 딸깍이 소프트웨어를 죽인다고? -->
   <url>
-    <loc>https://necromman.github.io/editorial/content/claude-cowork-series/saaspocalypse-what-happened.html</loc>
+    <loc>https://necromman.github.io/content/claude-cowork-series/saaspocalypse-what-happened.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/claude-cowork-series/is-software-really-dead.html</loc>
+    <loc>https://necromman.github.io/content/claude-cowork-series/is-software-really-dead.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/claude-cowork-series/software-survival-playbook.html</loc>
+    <loc>https://necromman.github.io/content/claude-cowork-series/software-survival-playbook.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/claude-cowork-series/future-of-software-2030.html</loc>
+    <loc>https://necromman.github.io/content/claude-cowork-series/future-of-software-2030.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Series 08: 디자이너 없이 제품 만들기 -->
   <url>
-    <loc>https://necromman.github.io/editorial/content/vibe-design-series/purple-gradient-syndrome.html</loc>
+    <loc>https://necromman.github.io/content/vibe-design-series/purple-gradient-syndrome.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/vibe-design-series/design-tokens-as-language.html</loc>
+    <loc>https://necromman.github.io/content/vibe-design-series/design-tokens-as-language.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/vibe-design-series/steal-like-a-designer.html</loc>
+    <loc>https://necromman.github.io/content/vibe-design-series/steal-like-a-designer.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/vibe-design-series/shadcn-cheat-code.html</loc>
+    <loc>https://necromman.github.io/content/vibe-design-series/shadcn-cheat-code.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/vibe-design-series/before-you-deploy.html</loc>
+    <loc>https://necromman.github.io/content/vibe-design-series/before-you-deploy.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Series 09: Git, pair 없이 살아남기 -->
   <url>
-    <loc>https://necromman.github.io/editorial/content/git-series/git-junior-survival-guide.html</loc>
+    <loc>https://necromman.github.io/content/git-series/git-junior-survival-guide.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/git-series/git-disaster-and-recovery.html</loc>
+    <loc>https://necromman.github.io/content/git-series/git-disaster-and-recovery.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/git-series/git-hidden-gems.html</loc>
+    <loc>https://necromman.github.io/content/git-series/git-hidden-gems.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/git-series/git-branching-strategies.html</loc>
+    <loc>https://necromman.github.io/content/git-series/git-branching-strategies.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/git-series/git-productivity-setup.html</loc>
+    <loc>https://necromman.github.io/content/git-series/git-productivity-setup.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Series 10: CTO의 깃랩 이사 공지가 불안한 이유 -->
   <url>
-    <loc>https://necromman.github.io/editorial/content/gitlab-migration-series/gitlab-migration-notice-anatomy.html</loc>
+    <loc>https://necromman.github.io/content/gitlab-migration-series/gitlab-migration-notice-anatomy.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/gitlab-migration-series/gitlab-migration-the-right-way.html</loc>
+    <loc>https://necromman.github.io/content/gitlab-migration-series/gitlab-migration-the-right-way.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/gitlab-migration-series/gitlab-migration-developer-survival.html</loc>
+    <loc>https://necromman.github.io/content/gitlab-migration-series/gitlab-migration-developer-survival.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Series 11: 192.168.0.x의 규칙 -->
   <url>
-    <loc>https://necromman.github.io/editorial/content/server-infra-guide-series/server-infra-overview.html</loc>
+    <loc>https://necromman.github.io/content/server-infra-guide-series/server-infra-overview.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/server-infra-guide-series/traefik-the-gatekeeper.html</loc>
+    <loc>https://necromman.github.io/content/server-infra-guide-series/traefik-the-gatekeeper.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/server-infra-guide-series/developer-server-survival-guide.html</loc>
+    <loc>https://necromman.github.io/content/server-infra-guide-series/developer-server-survival-guide.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/server-infra-guide-series/traefik-routing-guide.html</loc>
+    <loc>https://necromman.github.io/content/server-infra-guide-series/traefik-routing-guide.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Series 12: 이노비즈 인증, 서류가 기술을 이긴다 -->
   <url>
-    <loc>https://necromman.github.io/editorial/content/innobiz-guide-series/innobiz-certification-guide.html</loc>
+    <loc>https://necromman.github.io/content/innobiz-guide-series/innobiz-certification-guide.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Series 13: 소버린 배당일 -->
   <url>
-    <loc>https://necromman.github.io/editorial/content/sovereign-ai-novel-series/sovereign-dividend-day.html</loc>
+    <loc>https://necromman.github.io/content/sovereign-ai-novel-series/sovereign-dividend-day.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/sovereign-ai-novel-series/compute-war.html</loc>
+    <loc>https://necromman.github.io/content/sovereign-ai-novel-series/compute-war.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/sovereign-ai-novel-series/is-sovereign-ai-possible.html</loc>
+    <loc>https://necromman.github.io/content/sovereign-ai-novel-series/is-sovereign-ai-possible.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/sovereign-ai-novel-series/geopolitics-of-compute.html</loc>
+    <loc>https://necromman.github.io/content/sovereign-ai-novel-series/geopolitics-of-compute.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/sovereign-ai-novel-series/human-without-labor.html</loc>
+    <loc>https://necromman.github.io/content/sovereign-ai-novel-series/human-without-labor.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Series 14: 마스터키 -->
   <url>
-    <loc>https://necromman.github.io/editorial/content/masterkey-series/the-ai-knows-me.html</loc>
+    <loc>https://necromman.github.io/content/masterkey-series/the-ai-knows-me.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/masterkey-series/the-proxy.html</loc>
+    <loc>https://necromman.github.io/content/masterkey-series/the-proxy.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/masterkey-series/invisible-legion.html</loc>
+    <loc>https://necromman.github.io/content/masterkey-series/invisible-legion.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/masterkey-series/the-abyss.html</loc>
+    <loc>https://necromman.github.io/content/masterkey-series/the-abyss.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/masterkey-series/masterkey.html</loc>
+    <loc>https://necromman.github.io/content/masterkey-series/masterkey.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Series 15: 금단의 코드 — AI 없는 48시간 -->
   <url>
-    <loc>https://necromman.github.io/editorial/content/ai-withdrawal-series/forbidden-code.html</loc>
+    <loc>https://necromman.github.io/content/ai-withdrawal-series/forbidden-code.html</loc>
     <lastmod>2026-02-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/ai-withdrawal-series/born-with-copilot.html</loc>
+    <loc>https://necromman.github.io/content/ai-withdrawal-series/born-with-copilot.html</loc>
     <lastmod>2026-02-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/ai-withdrawal-series/no-ai-friday.html</loc>
+    <loc>https://necromman.github.io/content/ai-withdrawal-series/no-ai-friday.html</loc>
     <lastmod>2026-02-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/editorial/content/ai-withdrawal-series/the-centaur-developer.html</loc>
+    <loc>https://necromman.github.io/content/ai-withdrawal-series/the-centaur-developer.html</loc>
     <lastmod>2026-02-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
