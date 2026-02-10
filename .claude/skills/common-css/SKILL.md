@@ -15,16 +15,15 @@ assets/editorial-base.css
 
 ## HTML에서 로드하는 방법
 
-폰트 preload → Pretendard CDN → editorial-base.css → 인라인 `<style>` 순서로 배치한다:
+preconnect → editorial-base.css → Pretendard CDN → 인라인 `<style>` 순서로 배치한다. **폰트 preload는 사용하지 않는다** (`font-display: swap` + fontpie 폴백으로 CLS 제로 달성):
 
 ```html
-<!-- 1. 본문 폰트 preload (셀프호스팅, CLS 제거용) -->
-<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<!-- 2. Pretendard CDN (변수 다이나믹 서브셋) -->
+<!-- 1. Pretendard CDN preconnect -->
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<!-- 3. 공통 CSS (셀프호스팅 @font-face + 디자인 시스템) -->
+<!-- 2. 공통 CSS 먼저 (셀프호스팅 @font-face 즉시 등록) -->
 <link rel="stylesheet" href="../../assets/editorial-base.css">
+<!-- 3. Pretendard CDN (다이나믹 서브셋) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
   /* 이 페이지 고유 스타일만 여기에 작성 */
 </style>

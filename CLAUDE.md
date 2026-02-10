@@ -263,11 +263,10 @@ editorial/
 - 콘텐츠 페이지의 공통 디자인 시스템 CSS (셀프호스팅 폰트 @font-face, 변수, 리셋, 타이포그래피, 레이아웃 컴포넌트)
 - 셀프호스팅 폰트: Source Serif 4 + JetBrains Mono (variable woff2, `font-display: swap`) + 메트릭 보정 폴백 (fontpie 계산, CLS 제로)
 - `:root` 변수, body, `.page`, `.masthead`, `.section-head`, `.prose`, `.pull-quote`, `.mechanism-row`, `.technique`, `.warning-box`, `.closing`, `.footer`, 반응형, 프린트 스타일 포함
-- **새 콘텐츠 추가 시** 아래 순서로 `<head>`에 추가한다:
-  1. `<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>` (CLS 방지)
-  2. `<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>`
+- **새 콘텐츠 추가 시** 아래 순서로 `<head>`에 추가한다 (폰트 preload 사용 금지 — `font-display: swap` + fontpie 폴백이 CLS를 제로로 유지):
+  1. `<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>`
+  2. `<link rel="stylesheet" href="../../assets/editorial-base.css">` (@font-face 포함, 먼저 로드)
   3. `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">`
-  4. `<link rel="stylesheet" href="../../assets/editorial-base.css">`
 - 각 HTML의 `<style>` 태그에는 해당 페이지 **고유 컴포넌트 CSS만** 남긴다 (masthead 오버라이드, 페이지 전용 레이아웃 등)
 - 공통 CSS를 수정하면 모든 콘텐츠 페이지에 일괄 반영된다
 
@@ -349,7 +348,7 @@ editorial/
 - 콘텐츠 페이지에 날짜를 화면에 표시하지 않는다 (SEO 메타에만 기록)
 - 새 콘텐츠 추가 시:
   1. `content/[시리즈-슬러그]/` 폴더에 HTML 생성 (editorial-content-page + seo 스킬 참조)
-  2. 폰트 preload + Pretendard CDN + `editorial-base.css` 링크 + FOUC 방지 인라인 스크립트 + nav.js + series-nav.js + theme-toggle.js 스크립트 포함
+  2. preconnect + `editorial-base.css`(먼저) + Pretendard CDN 링크 + FOUC 방지 인라인 스크립트 + nav.js + series-nav.js + theme-toggle.js 스크립트 포함 (폰트 preload 사용 금지)
   3. `series-nav.js`의 SERIES 데이터에 글 추가
   4. `assets/content-data.js`에 시리즈/글 데이터 추가 (랜딩 페이지 자동 반영)
   5. `content/index.md` 업데이트 (기록용)

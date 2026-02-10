@@ -42,25 +42,25 @@ description: Use this skill when the user wants to create a single-page HTML doc
 
 **폰트 로딩 (Zero CLS 전략):**
 
-Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `editorial-base.css`에서 `@font-face`로 선언한다 (`font-display: optional`). Pretendard는 jsDelivr CDN의 변수 다이나믹 서브셋을 사용한다.
+Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `editorial-base.css`에서 `@font-face`로 선언한다 (`font-display: swap`). Pretendard는 jsDelivr CDN의 변수 다이나믹 서브셋을 사용한다. **폰트 preload는 사용하지 않는다** — `swap` + fontpie 메트릭 폴백 조합으로 CLS 제로를 달성하며, preload와 CDN CSS 로딩 순서 충돌로 인한 경고를 방지한다.
 
 ```html
-<!-- 폰트 preload (Source Serif 4만 — 본문 폰트이므로 최우선) -->
-<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<!-- Pretendard CDN preconnect + 다이나믹 서브셋 -->
+<!-- Pretendard CDN preconnect -->
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<!-- 공통 CSS (셀프호스팅 @font-face 포함) -->
+<!-- 공통 CSS 먼저 (셀프호스팅 @font-face 즉시 등록) -->
 <link rel="stylesheet" href="../../assets/editorial-base.css">
+<!-- Pretendard CDN (다이나믹 서브셋, @font-face 등록 후 로드) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 ```
 
-`editorial-base.css`에 셀프호스팅 폰트 `@font-face`(Source Serif 4, JetBrains Mono, 메트릭 보정 폴백), 변수, 리셋, 타이포그래피, 공통 컴포넌트(masthead, section-head, prose, pull-quote, mechanism-row, technique, warning-box, closing, footer, 반응형, 프린트)가 포함되어 있다. 각 HTML의 `<style>` 태그에는 **해당 페이지 고유 컴포넌트만** 작성한다.
+`editorial-base.css`에 셀프호스팅 폰트 `@font-face`(Source Serif 4, JetBrains Mono, 메트릭 보정 폴백), 변수, 리셋, 타이포그래피, 공통 컴포넌트(masthead, section-head, prose, pull-quote, mechanism-row, technique, warning-box, closing, footer, 반응형, 프린트), 스크롤 성능 격리(`contain: layout style`)가 포함되어 있다. 각 HTML의 `<style>` 태그에는 **해당 페이지 고유 컴포넌트만** 작성한다.
 
 **왜 이렇게 하는가:**
-- `font-display: optional` — 폰트가 ~100ms 내 로드되면 사용, 아니면 폴백 유지. **스왑이 발생하지 않아 CLS 제로.**
-- `preload` — 셀프호스팅 폰트를 HTML 파싱과 동시에 다운로드 시작. optional의 100ms 윈도우 내 거의 항상 도착.
-- 메트릭 보정 폴백 — fontpie로 계산된 정확한 `size-adjust`, `ascent-override` 값으로, 만약 폴백이 보여도 레이아웃이 동일.
+- `font-display: swap` — 폴백을 즉시 보여주고, 폰트 로드 완료 시 교체. fontpie 메트릭 폴백 덕분에 **교체 시에도 CLS 제로.**
+- editorial-base.css 먼저 로드 — @font-face가 즉시 등록되어 폰트 다운로드가 빠르게 시작.
+- 메트릭 보정 폴백 — fontpie로 계산된 정확한 `size-adjust`, `ascent-override` 값으로, 폴백 → 웹폰트 전환 시 레이아웃 동일.
 - 다이나믹 서브셋 — Pretendard의 92개 유니코드 슬라이스 중 페이지에 필요한 것만 다운로드.
+- `contain: layout style` — 섹션별 레이아웃 격리로 스크롤 시 리플로우 범위를 제한.
 
 ### 다크모드 FOUC 방지 스크립트 (필수)
 
