@@ -570,5 +570,47 @@ window.CONTENT_DATA = [
         search: '지도와 지형 지식격차 능력격차 인지디스킬링 아세모글루 WEF 스킬트라이어드 결론 소설'
       }
     ]
+  },
+  {
+    id: 'future-cashcow',
+    title: '대표님의 미래먹거리',
+    description: '월급 268만원, 겸직 5개, AI 예산 0원. 중소기업 개발자 한도현이 무료 도구로 MVP를 만들고 투자 직전까지 가는 이야기.',
+    articles: [
+      {
+        title: '대표님, 그건 ChatGPT가 아닙니다',
+        role: '개발팀장(팀원 0명)의 일상과 대표의 AI 선언',
+        tag: '소설',
+        href: 'content/future-cashcow-series/boss-wants-ai.html',
+        search: '대표님 ChatGPT AI 중소기업 개발자 겸직 미래먹거리 좋좋소 소설'
+      },
+      {
+        title: '월급의 1.2%',
+        role: 'AI 도구 비용 현실과 무료 도구 탐색',
+        tag: '소설',
+        href: 'content/future-cashcow-series/one-point-two-percent.html',
+        search: '월급 1.2% Claude Pro Cursor Copilot 무료 AI도구 유튜브 대리만족 소설'
+      },
+      {
+        title: 'Supabase 무료 티어의 500MB',
+        role: '0원 스택으로 AI 견적 자동화 MVP 개발',
+        tag: '소설',
+        href: 'content/future-cashcow-series/five-hundred-megabytes.html',
+        search: 'Supabase 500MB Next.js OpenRouter DeepSeek MVP 새벽코딩 무료스택 소설'
+      },
+      {
+        title: '데모가 터진 날',
+        role: 'Supabase 일시정지, API 에러, 라이브 디버깅',
+        tag: '소설',
+        href: 'content/future-cashcow-series/demo-day-disaster.html',
+        search: '데모 투자자 Supabase 일시정지 rate limit 라이브디버깅 엔젤투자 소설'
+      },
+      {
+        title: '사업계획서를 쓰는 밤',
+        role: '투자 직전의 밤, 대표의 진심, 열린 결말',
+        tag: '소설',
+        href: 'content/future-cashcow-series/the-business-plan.html',
+        search: '사업계획서 투자 죽음의계곡 대기업격차 열린결말 29000원 1.2% 소설'
+      }
+    ]
   }
 ];

@@ -1,0 +1,807 @@
+---
+layout: layouts/article.njk
+pageTitle: "사업계획서를 쓰는 밤"
+description: "투자 요청 금액 3억원. TAM, SAM, SOM. 새벽 4시, 중소기업 개발자 한도현이 29,000원으로 시작한 여정의 마지막 밤."
+datePublished: "2026-02-10"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* NOVEL PROSE */
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+
+  /* SCENE BREAK */
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+
+  /* DIALOGUE */
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+
+  /* INTERNAL MONOLOGUE */
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  /* CHARACTER INTRO */
+  .char-intro {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 20px;
+    align-items: baseline;
+    margin: 40px 0 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .char-intro .c-name { font-size: 1.4rem; font-weight: 700; color: var(--fg); }
+  .char-intro .c-info { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
+
+  /* SECTION DIVIDER */
+  .part-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .part-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+  }
+  .section-divider {
+    margin-top: 64px;
+    margin-bottom: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* TERMINAL BLOCK */
+  .terminal {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    background: #2a2a28;
+    color: #e8e4dc;
+    padding: 24px 28px;
+    margin: 32px 0;
+    overflow-x: auto;
+    border: 1px solid var(--fg);
+  }
+  .terminal .t-prompt { color: #6db36d; }
+  .terminal .t-comment { color: #8a8680; }
+  .terminal .t-error { color: #c43e2a; }
+  .terminal .t-warn { color: #d4a843; }
+  .terminal .t-key { color: #7cafc2; }
+  .terminal .t-str { color: #c9b97a; }
+
+  /* SOURCE CODE */
+  .source-code {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.65;
+    background: var(--card-bg);
+    color: var(--prose);
+    padding: 24px 28px;
+    margin: 32px 0;
+    overflow-x: auto;
+    border: 1px solid var(--rule);
+  }
+  .source-code .sc-comment { color: var(--muted); }
+  .source-code .sc-key { color: #5a7a9a; }
+  .source-code .sc-str { color: #8a6a4a; }
+  .source-code .sc-fn { color: var(--fg); font-weight: 600; }
+  .source-code .sc-accent { color: var(--accent); font-weight: 600; }
+
+  /* AI VOICE */
+  .ai-voice {
+    font-size: 1.02rem;
+    line-height: 2.0;
+    color: var(--prose);
+    margin-bottom: 24px;
+    padding: 16px 20px;
+    border-left: 3px solid var(--accent);
+    background: var(--card-bg);
+  }
+  .ai-voice .ai-tag {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  /* SLACK MESSAGE */
+  .slack-msg {
+    border: 1px solid var(--rule);
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .slack-msg .s-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .slack-msg .s-name { font-size: 0.9rem; font-weight: 700; color: var(--fg); }
+  .slack-msg .s-time { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
+  .slack-msg .s-body { font-size: 0.95rem; line-height: 1.8; color: var(--prose); }
+
+  /* DOC EXCERPT */
+  .doc-excerpt {
+    border-left: 3px solid var(--rule);
+    background: var(--card-bg);
+    padding: 20px 24px;
+    margin: 32px 0;
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: var(--secondary);
+  }
+  .doc-excerpt .doc-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  /* BUSINESS PLAN EXCERPT */
+  .bp-excerpt {
+    border: 1px solid var(--rule);
+    padding: 32px 36px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .bp-excerpt .bp-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .bp-excerpt .bp-section {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin: 20px 0 8px;
+  }
+  .bp-excerpt .bp-content {
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: var(--prose);
+  }
+  .bp-excerpt .bp-number {
+    font-family: var(--mono);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  /* COST GROWTH TABLE */
+  .growth-table {
+    border: 1px solid var(--rule);
+    margin: 32px 0;
+    background: var(--rule);
+    display: grid;
+    gap: 1px;
+  }
+  .growth-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background: var(--bg);
+    padding: 16px 20px;
+  }
+  .growth-row.header {
+    background: var(--card-bg);
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .growth-row .g-label { font-size: 0.88rem; color: var(--fg); }
+  .growth-row .g-value { font-family: var(--mono); font-size: 0.85rem; color: var(--prose); text-align: right; }
+  .growth-row .g-accent { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); text-align: right; font-weight: 600; }
+
+  /* EMAIL COMPOSE */
+  .email-compose {
+    border: 1px solid var(--fg);
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+  .email-compose .em-field {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .email-compose .em-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding-top: 2px;
+  }
+  .email-compose .em-value { color: var(--fg); font-size: 0.88rem; }
+  .email-compose .em-subject { font-weight: 700; }
+  .email-compose .em-btn {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 10px 32px;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border: none;
+  }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .char-intro { grid-template-columns: 1fr; }
+    .growth-row { grid-template-columns: 1fr; }
+    .growth-row .g-value,
+    .growth-row .g-accent { text-align: left; }
+    .email-compose .em-field { grid-template-columns: 1fr; }
+  }
+</style>
+
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">future cashcow &mdash; fiction 05</p>
+  <h1>사업계획서를 쓰는 <strong>밤</strong></h1>
+  <p class="deck">투자 요청 금액 3억원.<br>새벽 4시, 29,000원으로 시작한 여정의 마지막 페이지.</p>
+</header>
+
+<main>
+
+<!-- ==================== PART I ==================== -->
+<section>
+<div class="part-label">Part I</div>
+<div class="part-title">숫자의 무게</div>
+
+<div class="char-intro">
+  <span class="c-name">한도현</span>
+  <span class="c-info">34 / dev lead (team: 0) / nextvision inc.</span>
+</div>
+
+<p class="novel novel-first">노트북 화면에 흰 페이지가 떠 있었다. 커서가 깜빡이고 있었다. 오후 9시 47분. 사무실에는 도현밖에 없었다. 아니, 대표도 있었다. 대표 방에서 새어나오는 형광등 불빛이 복도 바닥을 길게 물들이고 있었다.</p>
+
+<p class="novel">투자자 이정민이 명함을 건네며 말했던 문장이 계속 머릿속을 맴돌았다. "사업계획서 보내주세요." 일주일 전이었다. 데모가 한 번 터지고, 한 번 살아난 그 수요일 오후. 도현은 그날 이후 매일 밤 이 화면 앞에 앉았다. 그리고 매일 밤 한 글자도 쓰지 못하고 집에 갔다.</p>
+
+<p class="novel">코드는 쓸 수 있었다. API 엔드포인트, 데이터베이스 스키마, 에러 핸들링. 그런 건 손이 알아서 움직였다. 하지만 사업계획서는 달랐다. 숫자를 써야 했다. 코드의 숫자가 아니라, 돈의 숫자.</p>
+
+<p class="internal">TAM. Total Addressable Market. 전체 시장 규모. 이걸 어떻게 추정하지?</p>
+
+<p class="novel">도현은 Claude에게 물었다.</p>
+
+<div class="ai-voice">
+<div class="ai-tag">Claude</div>
+한국 SI/IT 서비스 시장 규모는 2025년 기준 약 18조 원입니다. 이 중 견적/제안서 자동화와 관련된 세그먼트는 전체의 약 8~12%로 추산할 수 있습니다. TAM은 약 1.8~2.2조 원 범위로 설정하는 것이 합리적입니다.
+</div>
+
+<p class="novel">1.8조 원. 도현은 그 숫자를 타이핑했다가 지웠다. 다시 타이핑했다가 또 지웠다. 1.8조 원짜리 시장에 월급 268만 원짜리 개발자가 뛰어든다. 뭔가 우스웠다.</p>
+
+<div class="bp-excerpt">
+<div class="bp-title">QuoteMate Business Plan &mdash; Draft v0.3</div>
+<div class="bp-section">1. Market Size</div>
+<div class="bp-content">
+TAM (전체 시장) &mdash; <span class="bp-number">1.8</span>조 원<br>
+한국 IT 서비스/SI 시장 내 견적 자동화 세그먼트
+</div>
+<div class="bp-section">2. SAM (유효 시장)</div>
+<div class="bp-content">
+SAM &mdash; <span class="bp-number">2,400</span>억 원<br>
+직원 10~100명 규모 IT 기업 중 견적서를 월 10건 이상 작성하는 기업
+</div>
+<div class="bp-section">3. SOM (초기 목표 시장)</div>
+<div class="bp-content">
+SOM &mdash; <span class="bp-number">36</span>억 원<br>
+수도권 중소 IT 기업 300개사, 월 구독 10만 원 기준
+</div>
+</div>
+
+<p class="novel">Claude가 만들어준 숫자들은 그럴듯했다. 하지만 도현은 알고 있었다. 이 숫자들이 진짜인지 가짜인지 자기가 판단할 능력이 없다는 것을. SAM 2,400억 원이 현실적인 숫자인지, AI가 그럴듯하게 만들어낸 허상인지. 도현은 숫자를 검증할 방법을 몰랐다. 검증할 방법을 모른다는 사실조차 불안했다.</p>
+
+<p class="dialogue">"경쟁사 분석도 넣어야 되나."</p>
+
+<p class="novel">혼잣말이었다. 도현은 구글에 '견적서 자동화 SaaS'를 검색했다. 결과가 쏟아졌다. 비드잇, 코스트메이트, 오토견적, 그리고 이름도 못 들어본 서비스 열두 개. 대부분 시리즈A 이상의 투자를 받은 곳들이었다. 팀 규모 10~30명. 데이터 센터 자체 운영. 엔터프라이즈 영업팀 보유.</p>
+
+<p class="internal">나는 혼자다. 팀원 0명. 서버는 Supabase 무료 티어. 차별점이 뭐지?</p>
+
+<p class="novel">도현은 다시 Claude에게 물었다. Claude는 "비용 효율성"과 "AI 네이티브 아키텍처"를 차별점으로 제안했다. 맞는 말이었다. 투자자 이정민도 그 부분에 관심을 보였다. "월 운영비가 $6이라고요?" 그때 이정민의 눈이 반짝였던 건 분명했다.</p>
+
+<p class="novel">하지만 그 $6이 문제였다.</p>
+
+<div class="scene-break">&middot;&middot;&middot;</div>
+
+<p class="novel novel-first">재무 추정 시트를 열었다. 도현이 제일 두려워하던 페이지였다.</p>
+
+<p class="novel">지금까지 QuoteMate의 월 운영 비용은 사실상 0원이었다. Supabase Free, Vercel Free, OpenRouter 무료 모델. 개인 비용으로 Claude Pro $20만 내고 있었다. 하지만 투자를 받고 실제 고객을 받기 시작하면 이야기가 완전히 달라진다.</p>
+
+<div class="growth-table">
+<div class="growth-row header">
+  <span>단계</span>
+  <span>인프라 비용</span>
+  <span>월 합계</span>
+</div>
+<div class="growth-row">
+  <span class="g-label">현재 (MVP)</span>
+  <span class="g-value">Supabase Free + Vercel Free</span>
+  <span class="g-accent">$0/월</span>
+</div>
+<div class="growth-row">
+  <span class="g-label">고객 10명</span>
+  <span class="g-value">Supabase Pro $25 + Vercel Pro $20</span>
+  <span class="g-accent">$45/월</span>
+</div>
+<div class="growth-row">
+  <span class="g-label">고객 50명</span>
+  <span class="g-value">+ AI API $80 + 도메인 $1</span>
+  <span class="g-accent">$126/월</span>
+</div>
+<div class="growth-row">
+  <span class="g-label">고객 100명</span>
+  <span class="g-value">+ AI API $200 + 모니터링 $20</span>
+  <span class="g-accent">$265/월</span>
+</div>
+<div class="growth-row">
+  <span class="g-label">고객 500명</span>
+  <span class="g-value">Supabase Team + 전용 AI + CDN</span>
+  <span class="g-accent">$1,200+/월</span>
+</div>
+</div>
+
+<p class="novel">$0에서 $45. 45달러. 한화로 약 6만 5천 원. 고객이 10명만 생겨도 무료 티어로는 불가능했다. Supabase Free의 500MB는 데모용이었지, 서비스용이 아니었다. 7일 미사용 시 일시정지되는 데이터베이스 위에 고객의 견적 데이터를 올릴 수는 없었다.</p>
+
+<p class="internal">성공하면 월 $45부터 시작이다. 실패하면 $0이고.</p>
+
+<p class="novel">도현은 Claude에게 3년 재무 추정을 요청했다.</p>
+
+{% raw %}
+<div class="source-code">
+<span class="sc-comment">// financial_projection.js — Claude가 도와준 3년 재무 추정 로직</span><br><br>
+<span class="sc-key">const</span> <span class="sc-fn">projection</span> = {<br>
+&nbsp;&nbsp;year1: {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;customers: { m1: <span class="sc-accent">5</span>, m6: <span class="sc-accent">30</span>, m12: <span class="sc-accent">80</span> },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mrr: { m1: <span class="sc-str">'50만 원'</span>, m6: <span class="sc-str">'300만 원'</span>, m12: <span class="sc-str">'800만 원'</span> },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cost: { infra: <span class="sc-str">'월 ~$265'</span>, salary: <span class="sc-str">'0 (겸직)'</span> },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-accent">bep</span>: <span class="sc-str">'M8~M10'</span>  <span class="sc-comment">// 손익분기: 8~10개월</span><br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;year2: {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;customers: { m12: <span class="sc-accent">300</span> },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;arr: <span class="sc-str">'3.6억 원'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;team: <span class="sc-str">'개발 1 + 영업 1'</span><br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;year3: {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;customers: { m12: <span class="sc-accent">800</span> },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;arr: <span class="sc-str">'9.6억 원'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;team: <span class="sc-str">'개발 3 + 영업 2 + CS 1'</span><br>
+&nbsp;&nbsp;}<br>
+};
+</div>
+{% endraw %}
+
+<p class="novel">3년 뒤 연매출 9.6억. 고객 800명. 팀 6명. 숫자가 화면에 떠 있었다. 도현은 한참을 바라보았다.</p>
+
+<p class="novel">월 유료 고객 100명 확보. 그게 1년차 목표였다. 현실적인가? 한국에 직원 10~100명 규모의 IT 기업이 몇 개나 되는지 도현은 정확히 몰랐다. Claude는 약 12,000개라고 했다. 그중 0.7%만 쓰면 80명이다. 0.7%.</p>
+
+<p class="internal">0.7%라. 3%도 아니고 0.7%. 이걸 '현실적'이라고 쓸 수 있나?</p>
+
+<p class="novel">도현은 "현실적"이라고 타이핑했다. 손가락이 약간 떨렸는지는 알 수 없다.</p>
+
+</section>
+
+<!-- ==================== PART II ==================== -->
+<section>
+<div class="section-divider"></div>
+<div class="part-label">Part II</div>
+<div class="part-title">대표와의 대화</div>
+
+<p class="novel novel-first">밤 9시 30분. 화장실을 가려고 일어섰다가 복도에서 대표와 마주쳤다. 김영수 대표. 55세. 넥스트비전의 창업자이자 유일한 주주. 양복 상의는 이미 벗어놓았고, 반팔 와이셔츠 소매를 팔꿈치까지 걷어 올린 모습이었다.</p>
+
+<p class="dialogue">"도현아, 너 아직 있었어?"</p>
+
+<p class="dialogue">"네. 사업계획서 쓰고 있습니다."</p>
+
+<p class="dialogue">"아. 그거."</p>
+
+<p class="novel">대표가 멈칫했다. 평소 같으면 "좋아! 잘 해봐!"라고 어깨를 두드렸을 것이다. 대표는 그런 사람이었다. 하지만 오늘은 달랐다. 대표가 잠시 도현을 바라보더니 말했다.</p>
+
+<p class="dialogue">"커피 한잔 할까?"</p>
+
+<p class="novel">대표 방은 넓었다. 넓다기보다 다른 공간에 비해 상대적으로 넓었다. 12명짜리 회사에서 대표 방이 가장 넓다는 건 어디나 마찬가지일 것이다. 벽에는 정보통신 관련 상장 세 개와 중소기업 기술혁신상 패가 걸려 있었다. 2019년 것이 마지막이었다.</p>
+
+<p class="novel">대표가 인스턴트 커피를 탔다. 두 잔. 설탕 두 스푼. 도현은 블랙을 마셨지만 말하지 않았다. 받았다.</p>
+
+<p class="dialogue">"다 써졌어?"</p>
+
+<p class="dialogue">"아뇨. 재무 추정에서 막혔습니다."</p>
+
+<p class="dialogue">"재무 추정이 뭔데?"</p>
+
+<p class="dialogue">"3년 뒤에 얼마 벌겠다, 뭐 그런 겁니다."</p>
+
+<p class="dialogue">"아. 그거 대충 써. 어차피 아무도 안 믿어."</p>
+
+<p class="novel">도현은 커피를 한 모금 마셨다. 달았다.</p>
+
+<p class="dialogue">"대표님도 써보셨어요? 사업계획서."</p>
+
+<p class="novel">김영수가 웃었다. 입꼬리가 약간 올라간 정도의, 거의 웃음이 아닌 웃음.</p>
+
+<p class="dialogue">"2008년에 넥스트비전 만들 때 썼지. 은행 대출 받으려고. 그때는 워드로 썼다. 한글 97이었나. A4 열다섯 장. 시장 규모니 뭐니 다 넣었는데, 은행 담당자가 한마디 하더라고."</p>
+
+<p class="dialogue">"뭐라고요?"</p>
+
+<p class="dialogue">"담보가 뭡니까."</p>
+
+<p class="novel">둘 다 웃었다. 도현은 진짜로 웃었고, 대표도 진짜로 웃은 것 같았다.</p>
+
+<p class="scene-break">&middot;&middot;&middot;</p>
+
+<p class="novel novel-first">침묵이 길었다. 대표가 커피를 내려놓았다. 책상 위에는 견적서 서류 뭉치와 세금계산서 폴더가 쌓여 있었다. 그 옆에 종이 메모가 붙어 있었는데, "11월 인건비" 옆에 빨간 볼펜으로 동그라미가 쳐져 있었다.</p>
+
+<p class="dialogue">"도현아."</p>
+
+<p class="dialogue">"네."</p>
+
+<p class="dialogue">"나도 안다."</p>
+
+<p class="novel">대표의 목소리가 달라졌다. 평소의 에너지 넘치는 톤이 아니었다. 조용하고, 낮고, 약간 거칠었다.</p>
+
+<p class="dialogue">"매날 허무맹랑한 소리 한다는 거. AI니 플랫폼이니 메타버스니. 직원들이 뒤에서 뭐라 하는지 내가 모를 것 같아? 대표가 또 유튜브 보고 왔다. 이번 달 미래먹거리가 뭔지 보자. 그런 거."</p>
+
+<p class="novel">도현은 아무 말도 하지 않았다. 사실이었기 때문이다. 개발팀 슬랙에서 &mdash; 팀원이 없으니 사실상 전사 슬랙에서 &mdash; "대표님의 미래먹거리" 밈은 이미 정착해 있었다.</p>
+
+<p class="dialogue">"근데 말이야."</p>
+
+<p class="novel">대표가 창밖을 보았다. 금천구 가산디지털단지의 야경이랄 것도 없는 야경. 맞은편 건물의 형광등이 몇 개 켜져 있었다. 다른 회사도 야근 중이다.</p>
+
+<p class="dialogue">"이대로 SI만 하다가는 진짜 끝이야."</p>
+
+<p class="novel">도현은 커피잔을 내려놓았다.</p>
+
+<p class="dialogue">"SI 단가가 해마다 내려가. 알지? 5년 전에 인월 800 받던 거 지금 550이야. 근데 월급은 올려줘야 돼. 4대 보험은 올라가지. 사무실 임대료도 올라가지. 매년 쥐어짜는데 한계가 있어."</p>
+
+<p class="novel">대표는 설탕 커피를 다 마셨다. 종이컵을 손으로 구겼다가 다시 폈다.</p>
+
+<p class="dialogue">"직원이 열두 명이야. 열두 명이 각자 가족이 있고, 대출이 있고, 애가 있어. 내가 매달 그 무게를 지고 있어. SI 들어오면 사람 투입하고, 빠지면 대기 타고. 대기 타는 동안에도 월급은 나가야 돼."</p>
+
+<p class="novel">도현은 그 말을 들으며 처음으로 대표의 책상 위 숫자들이 보였다. 인건비, 임대료, 보험료, 세금. 매달 나가는 돈. 매출이 아무리 8억이라도 순이익은 거의 없다는 걸 도현은 알고 있었다. 하지만 아는 것과 느끼는 것은 달랐다.</p>
+
+<p class="dialogue">"그래서 미래먹거리를 찾는 거야. 허무맹랑한 거 맞아. 메타버스는 좀 그랬지."</p>
+
+<p class="novel">둘 다 웃었다. 이번에는 쓴웃음이었다. 2022년에 대표가 '넥스트비전 메타버스 사업부'를 만들겠다고 했던 날, 도현은 사직서를 쓸 뻔했다.</p>
+
+<p class="dialogue">"근데 AI는 달라. 이건 진짜야. 나는 기술은 모르지만, 시장이 움직이는 건 30년 동안 봐왔어. 지금 안 움직이면 3년 뒤에는 없어져."</p>
+
+<p class="novel">대표가 도현을 바라보았다.</p>
+
+<p class="dialogue">"네가 만든 그 견적 프로그램. 이름이 뭐였지."</p>
+
+<p class="dialogue">"QuoteMate입니다."</p>
+
+<p class="dialogue">"그래, 쿼트메이트. 저번에 투자자한테 보여줬을 때 나 사실 좀 떨렸어."</p>
+
+<p class="novel">도현은 놀랐다. 대표가 떨렸다는 말을 들은 건 처음이었다.</p>
+
+<p class="dialogue">"내가 18년 동안 못 한 걸 네가 한 달 만에 한 거잖아. 우리 자체 서비스. 우리 이름으로 된 프로그램. SI 하청이 아니라, 진짜 우리 거."</p>
+
+<p class="novel">대표의 눈이 약간 붉었다. 형광등 탓인지 아닌지 도현은 판단하지 않기로 했다.</p>
+
+<p class="dialogue">"잘 써. 사업계획서. 내가 도울 건 없지만. 숫자 부분은 경리 이 과장한테 물어봐. 재무제표 있으면 좀 더 그럴듯하다고, 예전에 은행에서 그러더라."</p>
+
+<p class="dialogue">"네. 감사합니다."</p>
+
+<p class="dialogue">"커피 더 줄까?"</p>
+
+<p class="dialogue">"아뇨. 괜찮습니다."</p>
+
+<p class="novel">도현은 대표 방을 나왔다. 복도가 어두웠다. 센서등이 늦게 켜졌다. 도현은 자기 자리로 돌아가면서, 3,800만 원짜리 연봉의 무게가 조금 달라졌다는 것을 느꼈다. 아니, 정확히 말하면, 무게가 달라진 게 아니라 무게를 느끼는 방식이 달라졌다. 자기만 무거운 줄 알았는데, 대표도 무거웠다. 55세의 무게와 34세의 무게는 종류가 달랐다.</p>
+
+</section>
+
+<!-- ==================== PART III ==================== -->
+<section>
+<div class="section-divider"></div>
+<div class="part-label">Part III</div>
+<div class="part-title">죽음의 계곡</div>
+
+<p class="novel novel-first">금요일 밤. 강남역 근처 호프집. 대학 동기 박성준이 맥주를 따르고 있었다.</p>
+
+<div class="char-intro">
+  <span class="c-name">박성준</span>
+  <span class="c-info">34 / backend dev / enterprise corp. / 5yr</span>
+</div>
+
+<p class="novel">성준은 직원 3,000명짜리 IT 대기업에 다녔다. 같은 과를 졸업하고, 같은 해에 취업했다. 성준은 대기업에, 도현은 넥스트비전에 갔다. 그때는 별 차이 없을 줄 알았다.</p>
+
+<p class="dialogue">"야, 너 아직도 거기 있어?"</p>
+
+<p class="novel">성준의 첫 마디는 늘 이거였다. 만날 때마다.</p>
+
+<p class="dialogue">"응. 아직."</p>
+
+<p class="dialogue">"대단하다, 진심으로."</p>
+
+<p class="novel">비꼬는 게 아니었다. 성준은 진심으로 대단하다고 생각하는 것 같았다. 그게 더 불편했다.</p>
+
+<p class="dialogue">"우리 회사 Copilot Business 깔아줬어."</p>
+
+<p class="dialogue">"아. 좋겠다."</p>
+
+<p class="dialogue">"$19짜리. 유저당 $19. 우리 팀 20명이니까 회사가 매달 $380 내는 거지. 그리고 있잖아, 옆 팀 김 선임은 Claude Max 쓰더라. $200짜리."</p>
+
+<p class="dialogue">"회사에서 대줘?"</p>
+
+<p class="dialogue">"아니, 개인 돈. 근데 그 사람 연봉이 8천이니까 $200이 뭐. 2%도 안 되잖아."</p>
+
+<p class="internal">나는 월급의 1.2%로 Claude Pro를 쓴다. 개인 카드로. $200은 월급의 11.6%다.</p>
+
+<p class="novel">도현은 맥주를 마셨다. 쓴맛이 좋았다.</p>
+
+<p class="dialogue">"성준아, 나 사업계획서 쓰고 있어."</p>
+
+<p class="novel">성준이 잔을 내려놓았다.</p>
+
+<p class="dialogue">"뭐? 이직이야?"</p>
+
+<p class="dialogue">"아니. 사이드 프로젝트. 투자자가 관심 보여서."</p>
+
+<p class="dialogue">"미쳤어? 스타트업 하려고?"</p>
+
+<p class="novel">성준의 표정이 진지해졌다. 성준은 스타트업 출신이 아니었지만, 스타트업에서 온 동기들의 이야기를 많이 들었다. 시리즈B 직전에 대표가 야반도주한 이야기. 시드 투자 받고 6개월 만에 피봇 세 번 한 이야기. 월급이 3개월째 밀린 이야기.</p>
+
+<p class="dialogue">"투자 받으면 회사 나올 거야?"</p>
+
+<p class="dialogue">"아직 모르겠어. 투자가 될지도 모르고."</p>
+
+<p class="dialogue">"안 되면?"</p>
+
+<p class="dialogue">"안 되면 원래대로지. 넥스트비전 개발팀장. 팀원 0명."</p>
+
+<p class="novel">성준이 웃었다. 도현도 웃었다.</p>
+
+<p class="dialogue">"근데 야. 회사에서 나와서 창업하는 거랑, 회사 안에서 하는 거랑, 완전 다르다? 우리 회사 사내벤처도 한 팀 있었는데, 1년 만에 접었거든."</p>
+
+<p class="dialogue">"그건 대기업이라 가능한 거잖아. 우리 회사에 사내벤처 같은 거 있을 리가."</p>
+
+<p class="dialogue">"그러니까 문제지. 너 지금 개인 돈 써서 회사 프로젝트 하는 거잖아. 투자 받으면 그게 네 거야 회사 거야?"</p>
+
+<p class="novel">도현은 맥주를 마시다 멈췄다. 그 문제를 생각해본 적이 없었다. QuoteMate의 코드는 도현이 전부 작성했다. 퇴근 후에, 개인 노트북으로, 개인이 결제한 Claude Pro로. 하지만 아이디어의 시작점은 대표의 '미래먹거리'였고, 고객 타겟은 넥스트비전 같은 SI 기업이었다.</p>
+
+<p class="dialogue">"모르겠다. 근데 대표님이랑 어제 얘기했는데... 그 사람도 진심이더라."</p>
+
+<p class="dialogue">"55세에 직원 12명이면, 뭐. 진심이겠지."</p>
+
+<p class="scene-break">&middot;&middot;&middot;</p>
+
+<p class="novel novel-first">집에 돌아와서 도현은 노트북을 열었다. 새벽 1시. 맥주 세 잔의 알코올이 판단력을 흐리게 하는 대신, 이상하게 타이핑 속도를 올려주었다.</p>
+
+<p class="novel">'스타트업 투자 현실'을 검색했다.</p>
+
+<div class="doc-excerpt">
+<div class="doc-title">THE VC &mdash; 2025 Korea Startup Report</div>
+2025년 한국 스타트업 투자 건수: <strong>1,155건</strong>. 전년 대비 <strong>-33%</strong>.<br>
+시드 투자 규모: 1~5억 원. 기업가치: 수억~십수억 원.<br>
+시리즈A 투자 규모: 5~50억 원.<br>
+시드에서 시리즈A까지 평균 소요 기간: 18~24개월.
+</div>
+
+<div class="doc-excerpt">
+<div class="doc-title">Death Valley &mdash; Startup Mortality</div>
+일반 신생기업 5년 생존율: <strong>34.7%</strong> (중기부, 2024).<br>
+AI 스타트업 3년 생존율: <strong>56.2%</strong> (한국경제, 2025).<br>
+시드에서 시리즈A로 진행하는 비율: 약 <strong>20~30%</strong>.<br>
+나머지 70~80%는 시드와 시리즈A 사이의 "죽음의 계곡"에서 사라진다.
+</div>
+
+<p class="novel">5년 뒤 3명 중 1명만 살아남는다. AI 스타트업이라고 크게 다르지 않았다. 56.2%가 3년을 버티지만, 그건 투자를 받은 기업의 이야기다. 투자를 받지 못한 기업은 통계에 잡히지도 않는다.</p>
+
+<p class="internal">투자가 안 되면, 나는 통계에 잡히지도 않는 쪽이 된다.</p>
+
+<p class="novel">도현은 사업계획서의 리스크 분석 페이지를 열었다. Claude가 작성을 도와주고 있었다.</p>
+
+<div class="ai-voice">
+<div class="ai-tag">Claude</div>
+주요 리스크 요인:<br>
+1) 시장 리스크 &mdash; 견적 자동화 SaaS의 PMF 미검증<br>
+2) 기술 리스크 &mdash; 1인 개발 체제의 확장성 한계<br>
+3) 자금 리스크 &mdash; 시드 이후 후속 투자 확보 불확실<br>
+4) 경쟁 리스크 &mdash; 기존 플레이어 대비 브랜드 인지도 부재
+</div>
+
+<p class="novel">전부 맞는 말이었다. 도현은 리스크 항목을 읽으며 하나씩 고개를 끄덕였다. PMF 미검증. 맞다. 실제 유료 고객이 단 한 명도 없다. 1인 개발. 맞다. 도현이 버스에 치이면 QuoteMate도 끝난다. 후속 투자 불확실. 맞다. 시드를 받아도 18개월 안에 시리즈A를 못 만들면 죽는다.</p>
+
+<p class="novel">그리고 가장 무서운 다섯 번째 리스크를 Claude는 쓰지 않았다.</p>
+
+<p class="internal">나는 회사를 나올 수 있는가?</p>
+
+<p class="novel">넥스트비전에서 나가면 연봉 3,800만 원이 사라진다. 서울에서 월 268만 원은 많지 않지만, 없으면 큰일나는 돈이다. 월세, 통신비, 식비, 국민연금, 건강보험. 퇴직하면 지역가입자로 전환되니까 건강보험료가 올라간다. 실업급여? 자발적 퇴직이니까 나올지 모른다.</p>
+
+<p class="novel">그렇다고 회사에 남으면서 사이드로 계속할 수 있을까. 지금도 퇴근 후 자정~새벽 코딩이다. 고객이 생기면 낮에 문의가 올 것이다. 회의 중에 고객 이메일에 답장할 수는 없다.</p>
+
+<p class="novel">두 개의 세계 사이에 도현이 서 있었다. 한쪽은 3,800만 원의 안정. 다른 쪽은 3억 원의 가능성. 그리고 그 사이에 죽음의 계곡이 있었다.</p>
+
+</section>
+
+<!-- ==================== PART IV ==================== -->
+<section>
+<div class="section-divider"></div>
+<div class="part-label">Part IV</div>
+<div class="part-title">보내기</div>
+
+<p class="novel novel-first">토요일 밤. 아니, 정확히는 일요일 새벽. 시계는 2시 14분을 가리키고 있었다. 도현의 원룸 책상 위에 캔커피 세 개가 비어 있었다.</p>
+
+<p class="novel">사업계획서는 42페이지가 되었다. 처음 계획은 20페이지였지만, Claude와 주고받으며 내용이 불어났다. 시장 분석 8페이지. 제품 소개 6페이지. 기술 아키텍처 4페이지. 비즈니스 모델 4페이지. 경쟁 분석 5페이지. 재무 추정 6페이지. 팀 소개 3페이지. 리스크 분석과 대응 전략 4페이지. 투자 요청과 사용 계획 2페이지.</p>
+
+<p class="novel">팀 소개 페이지가 가장 얇았다. 쓸 수 있는 게 별로 없었다.</p>
+
+<div class="bp-excerpt">
+<div class="bp-title">Section 7 &mdash; Team</div>
+<div class="bp-section">CTO / 한도현</div>
+<div class="bp-content">
+풀스택 개발자. (주)넥스트비전 4년, SI 프로젝트 12건 리드.<br>
+Next.js, Supabase, Python, OpenAI API, LangChain 활용 가능.<br>
+QuoteMate의 전체 아키텍처 설계, 개발, 운영을 1인 수행.
+</div>
+<div class="bp-section">CEO / 김영수</div>
+<div class="bp-content">
+(주)넥스트비전 대표이사. IT 서비스 업계 30년.<br>
+SI 프로젝트 200건+ 수행. 중소 IT 기업 시장에 대한 깊은 이해.<br>
+견적/제안서 자동화 서비스의 타겟 고객과 동일한 네트워크 보유.
+</div>
+</div>
+
+<p class="novel">CEO 김영수. 도현은 그 이름을 타이핑할 때 잠시 손을 멈췄다. 대표에게 말한 적이 없었다. 사업계획서에 대표를 CEO로 넣었다는 것을. 투자자 이정민이 "대표님도 참여하시는 건가요?"라고 물었을 때, 도현은 "아직 논의 중입니다"라고 답했다. 논의한 적이 없었다.</p>
+
+<p class="internal">대표님이 OK 하면 넥스트비전 안에서 하는 거고. 안 하면 나 혼자 나가는 거다.</p>
+
+<p class="novel">도현은 그 문제를 나중으로 미뤘다. 사업계획서를 보내는 게 먼저였다.</p>
+
+<p class="scene-break">&middot;&middot;&middot;</p>
+
+<p class="novel novel-first">새벽 3시. 투자 요청 페이지.</p>
+
+<div class="bp-excerpt">
+<div class="bp-title">Section 9 &mdash; Funding Request</div>
+<div class="bp-section">투자 요청 금액</div>
+<div class="bp-content"><span class="bp-number">3</span>억 원 (시드 라운드)</div>
+<div class="bp-section">사용 계획</div>
+<div class="bp-content">
+제품 개발 고도화: 40% (1.2억 원)<br>
+인건비 (개발자 1명 채용): 30% (9,000만 원)<br>
+마케팅/영업: 20% (6,000만 원)<br>
+인프라/운영: 10% (3,000만 원)
+</div>
+<div class="bp-section">기대 성과</div>
+<div class="bp-content">
+투자 후 12개월: 유료 고객 100개사, MRR 1,000만 원<br>
+투자 후 24개월: 유료 고객 300개사, ARR 3.6억 원, 시리즈A 준비
+</div>
+</div>
+
+<p class="novel">3억 원. 도현은 그 숫자를 한참 바라보았다. 월급의 112배. 넥스트비전 연 매출의 37.5%. 대표가 은행에서 대출받으려고 열다섯 장짜리 사업계획서를 썼던 2008년, 그때도 이런 기분이었을까.</p>
+
+<p class="novel">숫자들이 머릿속에서 정렬되었다. 시리즈의 처음부터 도현을 따라다녔던 숫자들.</p>
+
+<p class="novel">268만 원. 세후 월급.</p>
+
+<p class="novel">1.2%. Claude Pro가 월급에서 차지하는 비율.</p>
+
+<p class="novel">500MB. Supabase 무료 티어의 용량 한도.</p>
+
+<p class="novel">32분. 데모 당일 Supabase가 일시정지에서 복구되기까지 걸린 시간.</p>
+
+<p class="novel">3%. 시스코가 말한 AI 준비 완료 한국 기업의 비율.</p>
+
+<p class="novel">29,000원. 모든 것이 시작된 금액.</p>
+
+<p class="scene-break">&middot;&middot;&middot;</p>
+
+<p class="novel novel-first">새벽 3시 40분. 도현은 사업계획서를 PDF로 변환했다. 42페이지. 파일 크기 4.2MB. 첨부 파일 용량 제한에 걸리지 않는 크기인지 확인했다. Gmail은 25MB까지다. 괜찮다.</p>
+
+<p class="novel">이메일을 열었다.</p>
+
+<div class="email-compose">
+<div class="em-field">
+  <span class="em-label">To</span>
+  <span class="em-value">jm.lee@bluebridge.vc</span>
+</div>
+<div class="em-field">
+  <span class="em-label">From</span>
+  <span class="em-value">dohyun.han@nextvision.co.kr</span>
+</div>
+<div class="em-field">
+  <span class="em-label">Subject</span>
+  <span class="em-value em-subject">[넥스트비전] AI 견적 자동화 서비스 QuoteMate 사업계획서</span>
+</div>
+<div class="em-field">
+  <span class="em-label">Attach</span>
+  <span class="em-value">QuoteMate_BusinessPlan_v1.0.pdf (4.2MB)</span>
+</div>
+<span class="em-btn">보내기</span>
+</div>
+
+<p class="novel">도현은 이메일 본문을 세 번 고쳐 썼다. 첫 번째는 너무 격식이 차려져서 지웠다. 두 번째는 너무 캐주얼해서 지웠다. 세 번째는 그냥 뒀다.</p>
+
+<div class="doc-excerpt">
+<div class="doc-title">Email Body</div>
+이정민 대표님,<br><br>
+지난 수요일 데모에서 관심 가져주셔서 감사합니다.<br>
+말씀하신 사업계획서를 첨부해 드립니다.<br><br>
+제품, 시장, 재무 추정을 포함한 42페이지 분량이며,<br>
+추가 질문이 있으시면 언제든 연락 주시면 감사하겠습니다.<br><br>
+한도현 드림
+</div>
+
+<p class="novel">간결했다. Claude는 더 길게 쓰라고 했지만 도현은 그대로 뒀다. 42페이지에 할 말은 다 했다.</p>
+
+<p class="scene-break">&middot;&middot;&middot;</p>
+
+<p class="novel novel-first">새벽 4시 2분.</p>
+
+<p class="novel">커서가 보내기 버튼 위에 있었다. 도현의 손이 트랙패드 위에 얹혀 있었다. 움직이지 않았다.</p>
+
+<p class="novel">원룸이 조용했다. 냉장고 모터 소리만 낮게 울렸다. 노트북 화면의 밝기가 방 전체를 밝히고 있었다.</p>
+
+<p class="novel">도현은 사업계획서의 파일명을 다시 보았다. QuoteMate_BusinessPlan_v1.0.pdf. v1.0이라고 썼지만 실제로는 v0.3에서 시작해서 스물네 번을 고쳤다. Claude가 열여덟 번 도와줬고, 도현이 여섯 번 혼자 고쳤다. 새벽마다. 퇴근 후마다. 점심시간에 샌드위치를 먹으면서 한 번.</p>
+
+<p class="internal">29,000원으로 시작했다.</p>
+
+<p class="novel">한 달 전, Claude Pro를 결제하던 날이 떠올랐다. 개인 카드. 회사에서 쓸 도구를 개인 돈으로 사면서 느꼈던 자괴감. 하지만 그 29,000원이 레거시 코드 리팩토링 30분을 만들었고, 30분이 QuoteMate의 첫 번째 커밋을 만들었고, 첫 번째 커밋이 데모를 만들었고, 데모가 이 이메일을 만들었다.</p>
+
+<p class="internal">월급의 1.2%.</p>
+
+<p class="novel">도현의 손가락이 트랙패드를 눌렀다.</p>
+
+<p class="novel">화면이 바뀌었다. "메일이 전송되었습니다."</p>
+
+<p class="novel">도현은 노트북을 닫지 않았다. 화면을 바라보았다. 전송 완료 메시지가 떠 있었다. 4시 3분.</p>
+
+<p class="novel">투자가 될지는 몰랐다. 이정민이 42페이지를 전부 읽을지도 몰랐다. 다음 주에 "죄송하지만 저희와는 맞지 않는 것 같습니다"라는 메일이 올 수도 있었다. 죽음의 계곡의 70%에 속할 수도 있었다. 5년 뒤 34.7%의 바깥에 있을 수도 있었다.</p>
+
+<p class="novel">하지만 보냈다.</p>
+
+<p class="novel">도현은 노트북을 닫았다. 원룸이 어두워졌다. 냉장고 모터가 멈춘 뒤 다시 돌아가는 소리가 났다. 창밖으로 새벽 하늘이 아주 약간, 진짜 아주 약간 밝아지기 시작하고 있었다.</p>
+
+<p class="novel">빈 캔커피 세 개를 정리하고, 이를 닦고, 이불을 덮었다.</p>
+
+<p class="novel">잠들기 직전, 도현은 내일 할 일을 떠올렸다. 일요일이었다. 넥스트비전은 쉬는 날이다. ERP 서버 점검도 없고, 대표의 카톡 폭격도 &mdash; 아마 &mdash; 없을 것이다.</p>
+
+<p class="novel">그냥 자기로 했다.</p>
+
+<p class="novel">내일 일은 내일의 도현이 할 것이다. 3억 원짜리 이메일을 보낸 도현이 아니라, 월급 268만 원짜리 넥스트비전 개발팀장 한도현이.</p>
+
+<p class="novel">팀원은 여전히 0명이다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>29,000원으로 시작했다<br><strong>월급의 1.2%</strong></h2>
+  <p class="sub">투자가 될지는 모른다. 하지만 보냈다. 그것으로 충분한 밤이 있다.</p>
+</div>
+
+<footer class="footer">
+  <p>This is a work of fiction &middot; Characters and events are imaginary</p>
+  <p>THE VC Korea Startup Report &middot; Supabase Pricing &middot; Claude Pricing &middot; Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

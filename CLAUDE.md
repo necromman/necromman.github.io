@@ -2,8 +2,8 @@
 
 에디토리얼/매거진 스타일의 단일 HTML 콘텐츠를 제작하고, 이를 블로그로 서비스하는 프로젝트.
 
-- **레포지토리**: `editorial`
-- **배포 URL**: `https://necromman.github.io/editorial/`
+- **레포지토리**: `necromman.github.io`
+- **배포 URL**: `https://necromman.github.io`
 
 ## AI 작업 원칙
 
@@ -277,6 +277,16 @@ editorial/
 | 02 | `four-point-illusion.html` | 4점의 착각 | 소설 — AI를 잘 쓸수록 커지는 과신, 역 던닝-크루거 효과 |
 | 03 | `the-floor-rose.html` | 바닥이 올라왔을 뿐이다 | 소설 — AI가 만든 평준화의 환상, 법정에서 드러나는 진짜 격차 |
 | 04 | `the-map-and-the-terrain.html` | 지도와 지형 | 소설 — 세 이야기가 하나로 수렴하는 시리즈 결론 |
+
+### 시리즈 17: 대표님의 미래먹거리 (future-cashcow-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `boss-wants-ai.html` | 대표님, 그건 ChatGPT가 아닙니다 | 소설 — 개발팀장(팀원 0명)의 일상과 대표의 AI 선언 |
+| 02 | `one-point-two-percent.html` | 월급의 1.2% | 소설 — AI 도구 비용 현실과 무료 도구 탐색 |
+| 03 | `five-hundred-megabytes.html` | Supabase 무료 티어의 500MB | 소설 — 0원 스택으로 AI 견적 자동화 MVP 개발 |
+| 04 | `demo-day-disaster.html` | 데모가 터진 날 | 소설 — Supabase 일시정지, API 에러, 라이브 디버깅 |
+| 05 | `the-business-plan.html` | 사업계획서를 쓰는 밤 | 소설 — 투자 직전의 밤, 대표의 진심, 열린 결말 |
 
 ## 콘텐츠 제작 워크플로우
 

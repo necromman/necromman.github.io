@@ -145,6 +145,16 @@
         { slug: 'the-floor-rose', title: '바닥이 올라왔을 뿐이다' },
         { slug: 'the-map-and-the-terrain', title: '지도와 지형' }
       ]
+    },
+    'future-cashcow-series': {
+      title: '대표님의 미래먹거리',
+      articles: [
+        { slug: 'boss-wants-ai', title: '대표님, 그건 ChatGPT가 아닙니다' },
+        { slug: 'one-point-two-percent', title: '월급의 1.2%' },
+        { slug: 'five-hundred-megabytes', title: 'Supabase 무료 티어의 500MB' },
+        { slug: 'demo-day-disaster', title: '데모가 터진 날' },
+        { slug: 'the-business-plan', title: '사업계획서를 쓰는 밤' }
+      ]
     }
   };
 

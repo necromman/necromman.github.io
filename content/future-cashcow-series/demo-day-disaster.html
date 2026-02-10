@@ -1,0 +1,853 @@
+---
+layout: layouts/article.njk
+pageTitle: "데모가 터진 날"
+description: "투자자가 온다. 3일 뒤. 그런데 Supabase가 잠들었다. 데모 32분 전, 500 Internal Server Error. 중소기업 개발자 한도현의 가장 긴 오후."
+datePublished: "2026-02-10"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* NOVEL PROSE */
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+
+  /* SCENE BREAK */
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+
+  /* DIALOGUE */
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+
+  /* INTERNAL MONOLOGUE */
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  /* CHARACTER INTRO */
+  .char-intro {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 20px;
+    align-items: baseline;
+    margin: 40px 0 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .char-intro .c-name { font-size: 1.4rem; font-weight: 700; color: var(--fg); }
+  .char-intro .c-info { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
+
+  /* SECTION DIVIDER */
+  .part-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .part-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+  }
+  .section-divider {
+    margin-top: 64px;
+    margin-bottom: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* TERMINAL BLOCK */
+  .terminal {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    background: #2a2a28;
+    color: #e8e4dc;
+    padding: 24px 28px;
+    margin: 32px 0;
+    overflow-x: auto;
+    border: 1px solid var(--fg);
+  }
+  .terminal .t-prompt { color: #6db36d; }
+  .terminal .t-comment { color: #8a8680; }
+  .terminal .t-error { color: #c43e2a; }
+  .terminal .t-warn { color: #d4a843; }
+  .terminal .t-key { color: #7cafc2; }
+  .terminal .t-str { color: #c9b97a; }
+
+  /* SOURCE CODE BLOCK */
+  .source-code {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.65;
+    background: var(--card-bg);
+    color: var(--prose);
+    padding: 24px 28px;
+    margin: 32px 0;
+    overflow-x: auto;
+    border: 1px solid var(--rule);
+  }
+  .source-code .sc-comment { color: var(--muted); }
+  .source-code .sc-key { color: #5a7a9a; }
+  .source-code .sc-str { color: #8a6a4a; }
+  .source-code .sc-fn { color: var(--fg); font-weight: 600; }
+  .source-code .sc-accent { color: var(--accent); font-weight: 600; }
+
+  /* AI VOICE */
+  .ai-voice {
+    font-size: 1.02rem;
+    line-height: 2.0;
+    color: var(--prose);
+    margin-bottom: 24px;
+    padding: 16px 20px;
+    border-left: 3px solid var(--accent);
+    background: var(--card-bg);
+  }
+  .ai-voice .ai-tag {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  /* SLACK MESSAGE */
+  .slack-msg {
+    border: 1px solid var(--rule);
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .slack-msg .s-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .slack-msg .s-name { font-size: 0.9rem; font-weight: 700; color: var(--fg); }
+  .slack-msg .s-time { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
+  .slack-msg .s-body { font-size: 0.95rem; line-height: 1.8; color: var(--prose); }
+  .slack-msg .s-channel { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 2px; color: var(--accent); margin-bottom: 12px; }
+
+  /* ERROR SCREEN */
+  .error-screen {
+    border: 2px solid var(--accent);
+    padding: 40px;
+    margin: 32px 0;
+    text-align: center;
+    background: var(--bg);
+  }
+  .error-screen .err-code {
+    font-family: var(--mono);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .error-screen .err-msg {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  /* TIMER */
+  .timer {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 3px;
+    margin: 24px 0;
+    text-align: center;
+  }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .char-intro { grid-template-columns: 1fr; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">future cashcow — fiction 04</p>
+  <h1>데모가 <strong>터진</strong> 날</h1>
+  <p class="deck">투자자가 온다. 3일 뒤.<br>그런데 Supabase가 잠들었다. 데모 32분 전, 500 Internal Server Error.<br>중소기업 개발자 한도현의 가장 긴 오후.</p>
+</header>
+
+<main>
+
+<!-- ───────── PART I ───────── -->
+
+<section>
+<div class="section-divider" style="border-top:none;margin-top:0;padding-top:0">
+  <p class="part-label">Part I</p>
+  <p class="part-title">"투자자가 온다"</p>
+</div>
+
+<div class="char-intro">
+  <span class="c-name">한도현</span>
+  <span class="c-info">34 · dev team lead (solo) · nextvision · 12 employees</span>
+</div>
+
+<p class="novel novel-first">2026년 2월 어느 월요일 오후 4시 12분. (주)넥스트비전 사무실.</p>
+
+<p class="novel">도현은 코드 에디터를 닫고 기지개를 켰다. 2주간의 새벽 코딩이 끝났다. AI 견적 자동화 MVP. Next.js 프론트엔드, Supabase Free 백엔드, OpenRouter를 통한 DeepSeek V3.2 API, Netlify Free 배포. 월 운영비 약 5달러. 지난 금요일 대표에게 데모를 보여줬고, 대표가 만족하면서 "근데 앱은?"이라고 물은 것까지가 지난주 이야기다.</p>
+
+<p class="novel">슬랙 알림이 울렸다. 대표 김영수.</p>
+
+<div class="slack-msg">
+  <div class="s-channel">#general</div>
+  <div class="s-header">
+    <span class="s-name">김영수 대표</span>
+    <span class="s-time">16:14</span>
+  </div>
+  <div class="s-body">도현아 내가 사람 하나 만났는데 우리 AI 견적 시스템 관심 있대. 수요일 오후 2시에 온다고. 데모 보여줄 수 있지?</div>
+</div>
+
+<p class="novel">도현은 메시지를 두 번 읽었다. 수요일. 3일 뒤. "사람 하나"가 누구인지는 안 써 있었다. 로타리클럽인지 동문회인지 모를 대표의 인맥 네트워크에서 건져 올린 사람일 것이다.</p>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">한도현</span>
+    <span class="s-time">16:16</span>
+  </div>
+  <div class="s-body">네 가능합니다. 어떤 분이세요?</div>
+</div>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">김영수 대표</span>
+    <span class="s-time">16:18</span>
+  </div>
+  <div class="s-body">투자 쪽 하는 사람이야. 자세한 건 나도 잘 모르겠고. 잘 보여주면 돼</div>
+</div>
+
+<p class="internal">투자 쪽 하는 사람. 대표 특유의 모호한 설명이다. 벤처캐피탈인지 엔젤인지 지인의 지인인지. 어쨌든 데모를 보여줘야 한다. 3일.</p>
+
+<p class="novel">도현은 현재 MVP의 상태를 점검했다. 견적서 자동 생성은 된다. 고객사 정보를 입력하면 DeepSeek이 업종별 맞춤 견적 문구를 생성하고, PDF로 뽑을 수 있다. 그런데 데모용으로는 부족했다. 투자자에게 보여주려면 숫자가 필요하다. 차트가 필요하다. "이 시스템을 쓰면 견적 처리 시간이 이만큼 줄고, 승인율이 이만큼 오른다"는 이야기를 데이터로 보여줘야 한다.</p>
+
+<p class="novel">도현은 3일 안에 해야 할 일을 메모했다.</p>
+
+<div class="terminal">
+<span class="t-comment"># 데모 준비 TODO</span><br>
+<br>
+<span class="t-prompt">1.</span> 대시보드 차트 3개<br>
+&nbsp;&nbsp;&nbsp;- 월별 견적 현황 (bar chart)<br>
+&nbsp;&nbsp;&nbsp;- 승인율 추이 (line chart)<br>
+&nbsp;&nbsp;&nbsp;- 고객사별 통계 (pie chart)<br>
+<br>
+<span class="t-prompt">2.</span> 더미 데이터 seeding<br>
+&nbsp;&nbsp;&nbsp;- 6개월치 견적 데이터 200건<br>
+&nbsp;&nbsp;&nbsp;- 고객사 15개 (업종별 분포)<br>
+&nbsp;&nbsp;&nbsp;- 승인/반려/대기 상태 분포<br>
+<br>
+<span class="t-prompt">3.</span> 데모 시나리오 스크립트<br>
+&nbsp;&nbsp;&nbsp;- 도입 (2분): 현재 견적 프로세스의 문제<br>
+&nbsp;&nbsp;&nbsp;- 시연 (5분): 견적 자동 생성 → 대시보드<br>
+&nbsp;&nbsp;&nbsp;- 비용 (2분): 월 $5 운영비 구조<br>
+&nbsp;&nbsp;&nbsp;- Q&A (5분)
+</div>
+
+<p class="novel">차트 라이브러리는 Recharts를 쓰기로 했다. Next.js와 궁합이 좋고, 무료다. 도현은 터미널을 열었다.</p>
+
+<div class="terminal">
+<span class="t-prompt">$</span> npm install recharts<br>
+<span class="t-str">added 1 package in 4s</span>
+</div>
+
+<p class="novel">월요일 밤 11시. 차트 컴포넌트 3개 완성. 더미 데이터 시딩 스크립트 작성 중. DeepSeek API를 호출해서 업종별 가상 견적 데이터를 생성하게 했다. AI가 AI를 위한 더미 데이터를 만드는 아이러니.</p>
+
+<p class="novel">화요일 오전. 출근하자마자 대시보드 레이아웃을 잡았다. 바 차트는 상단 좌측, 라인 차트는 상단 우측, 파이 차트는 하단 중앙. 차트 위에 핵심 KPI 4개를 카드로 배치했다. 총 견적 건수, 평균 처리 시간, 월 승인율, 예상 절감 비용.</p>
+
+<div class="source-code">
+<span class="sc-comment">// components/Dashboard.tsx</span><br>
+<span class="sc-key">const</span> <span class="sc-fn">KPICard</span> = ({ <span class="sc-key">label</span>, <span class="sc-key">value</span>, <span class="sc-key">delta</span> }: KPIProps) => (<br>
+&nbsp;&nbsp;&lt;<span class="sc-fn">div</span> className=<span class="sc-str">"rounded-lg border p-4"</span>&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="sc-fn">p</span> className=<span class="sc-str">"text-sm text-muted-foreground"</span>&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{label}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="sc-fn">p</span>&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="sc-fn">p</span> className=<span class="sc-str">"text-2xl font-bold"</span>&gt;{value}&lt;/<span class="sc-fn">p</span>&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="sc-fn">span</span> className=<span class="sc-str">"text-xs text-green-600"</span>&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{delta}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="sc-fn">span</span>&gt;<br>
+&nbsp;&nbsp;&lt;/<span class="sc-fn">div</span>&gt;<br>
+);
+</div>
+
+<p class="novel">화요일 밤 9시. 더미 데이터 시딩 완료. 대시보드에 숫자가 채워졌다. 월별 견적 현황 차트가 우상향하고, 승인율이 72%에서 89%로 올라가는 그래프가 그려졌다. 물론 전부 가짜 데이터다. 하지만 그래프가 올라가는 모양새는 진짜처럼 보였다.</p>
+
+<p class="novel">화요일 밤 11시. 데모 시나리오 스크립트를 작성했다. A4 한 장 반. 도현은 혼잣말로 리허설을 세 번 했다. 시연 중 클릭 순서, 화면 전환 타이밍, 말할 멘트. 투자 관련 데모는 처음이라 긴장되었지만, 기술 데모 자체는 어렵지 않았다. 2주 동안 매일 만져온 시스템이니까.</p>
+
+<p class="novel">수요일 아침. 도현은 출근하면서 대표에게 데모 순서를 설명했다.</p>
+
+<p class="dialogue">"대표님, 데모 순서 말씀드릴게요. 먼저 제가 현재 견적 프로세스의 문제점을 설명하고, 그다음 AI 자동 생성을 시연합니다. 그리고 대시보드를 보여주면서 비용 구조를 말씀드리면 됩니다."</p>
+
+<p class="dialogue">"얼마나 걸려?"</p>
+
+<p class="dialogue">"시연 포함 10분이면 충분합니다. Q&A 5분."</p>
+
+<p class="dialogue">"좋아. 회의실 예약해놨어. 프로젝터 되지?"</p>
+
+<p class="dialogue">"노트북 HDMI로 연결하면 됩니다."</p>
+
+<p class="novel">대표가 고개를 끄덕였다. 도현은 자리에 앉아 마지막 점검을 시작했다. 로컬에서 한 번, Netlify 배포 버전에서 한 번. 데모는 배포 버전으로 하기로 했다. 로컬보다 안정적이고, URL을 직접 보여줄 수 있으니까.</p>
+
+<p class="novel">오전 11시 42분. 배포 버전 접속. 랜딩 페이지 정상. 로그인 정상. 견적 생성 페이지 접속.</p>
+
+<p class="novel">흰 화면. 그리고 빨간 글씨.</p>
+
+</section>
+
+<!-- ───────── PART II ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part II</p>
+  <p class="part-title">"Supabase가 잠들다"</p>
+</div>
+
+<div class="error-screen">
+  <div class="err-code">500</div>
+  <div class="err-msg">Internal Server Error — Failed to fetch data from database</div>
+</div>
+
+<p class="novel novel-first">도현의 손가락이 트랙패드 위에서 멈췄다. 500. Internal Server Error. DB 연결 실패.</p>
+
+<p class="novel">브라우저 개발자 도구를 열었다. 네트워크 탭. Supabase REST API 호출이 전부 실패하고 있었다. 응답 코드 500. 응답 본문은 비어 있었다.</p>
+
+<p class="novel">Supabase 대시보드에 접속했다. 프로젝트 목록. "nextvision-quote-ai". 프로젝트 상태.</p>
+
+<div class="terminal">
+<span class="t-error">Project paused</span><br>
+<br>
+<span class="t-comment">Your project has been paused due to inactivity.</span><br>
+<span class="t-comment">Free Plan projects are paused after 7 days of inactivity.</span><br>
+<span class="t-comment">You can restore your project at any time.</span><br>
+<br>
+<span class="t-key">[Restore project]</span>
+</div>
+
+<p class="internal">7일 비활성. Supabase Free 티어는 7일 동안 API 호출이 없으면 프로젝트를 일시정지한다. 지난주 금요일에 대표한테 데모 보여준 뒤로 주말 내내 코딩을 안 했다. 월요일부터는 프론트엔드 차트 작업만 했고, 로컬 개발 서버에서 하드코딩된 더미 데이터로 테스트했다. Supabase API를 호출한 적이 없다. 정확히 7일.</p>
+
+<p class="novel">도현은 시계를 보았다.</p>
+
+<div class="timer">11:46 AM — 데모까지 2시간 14분</div>
+
+<p class="novel">"Restore project" 버튼을 눌렀다. 확인 팝업. "Are you sure you want to restore this project? This may take a few minutes." 도현은 "Confirm"을 눌렀다.</p>
+
+<div class="terminal">
+<span class="t-warn">Restoring project...</span><br>
+<span class="t-comment">This process can take up to several minutes.</span><br>
+<span class="t-comment">Please do not close this page.</span>
+</div>
+
+<p class="novel">"수 분이 걸릴 수 있습니다." 수 분. 5분일 수도 있고, 30분일 수도 있다. Supabase 공식 문서에는 "일반적으로 몇 분"이라고 되어 있지만, 커뮤니티 포럼에서는 "20분 걸렸다", "40분 걸렸다"는 글도 있었다. 도현은 그 포럼 글을 읽은 적이 있었다. 2주 전 MVP를 만들 때 무료 티어 제약사항을 조사하면서. 그때는 "7일 안에 한 번은 접속하면 되니까 괜찮겠지"라고 생각했다.</p>
+
+<p class="novel">괜찮지 않았다.</p>
+
+<p class="novel">도현은 커피를 마시러 냉수기 앞으로 갔다. 종이컵에 커피를 따르는 손이 떨렸다. 커피의 반이 바닥에 쏟아졌다. 옆에 있던 경리 박 과장이 쳐다보았다.</p>
+
+<p class="dialogue">"도현 씨 괜찮아요?"</p>
+
+<p class="dialogue">"네, 괜찮습니다."</p>
+
+<p class="novel">괜찮지 않았다. 도현은 자리로 돌아와 Supabase 대시보드를 새로고침했다.</p>
+
+<div class="terminal">
+<span class="t-warn">Restoring project... (3 minutes elapsed)</span>
+</div>
+
+<div class="timer">11:52 AM — 데모까지 2시간 8분</div>
+
+<p class="novel">3분. 아직 복구 중이다. 도현은 최악의 시나리오를 생각하기 시작했다. 30분 안에 복구되지 않으면? 데모에서 DB 연동 기능을 빼고 프론트엔드만 보여줄 수 있나? 차트는 더미 데이터로 돌아가니까 괜찮다. 하지만 핵심인 견적 자동 생성은 Supabase에서 고객사 데이터를 불러와야 한다. DB 없이는 빈 폼만 보여줄 수 있다.</p>
+
+<p class="internal">플랜 B. 로컬에서 Supabase 대신 하드코딩 데이터로 견적 생성을 시연한다. 하지만 그러면 "실제 작동하는 시스템"이 아니라 "화면 데모"가 된다. 투자자한테 보여줄 건 프로토타입이 아니라 동작하는 서비스여야 한다.</p>
+
+<p class="novel">12시 5분. 점심시간이 시작되었다. 사무실 사람들이 하나둘 자리를 뜨기 시작했다. 대표도 일어섰다.</p>
+
+<p class="dialogue">"도현아, 밥 먹으러 가자."</p>
+
+<p class="dialogue">"저는 좀 있다 먹겠습니다. 데모 마지막 점검 중이에요."</p>
+
+<p class="dialogue">"준비 잘 되고 있지?"</p>
+
+<p class="dialogue">"네. 문제없습니다."</p>
+
+<p class="novel">대표가 나갔다. 도현은 Supabase 대시보드를 새로고침했다.</p>
+
+<div class="terminal">
+<span class="t-warn">Restoring project... (23 minutes elapsed)</span>
+</div>
+
+<div class="timer">12:09 PM — 데모까지 1시간 51분</div>
+
+<p class="novel">23분째 복구 중. 도현의 이마에 땀이 맺히기 시작했다. 2월인데 덥다. 사무실 난방 때문인지 긴장 때문인지 구분이 안 됐다.</p>
+
+<p class="novel">12시 30분. 도현은 점심을 건너뛰고 플랜 B를 준비하기 시작했다. 로컬 환경에서 Supabase 대신 인메모리 데이터로 동작하는 fallback 모드를 만들었다. 15분 만에 코드를 짰다. 환경변수 <code>DEMO_MODE=true</code>이면 하드코딩된 고객사 3개와 견적 데이터 10건을 사용하는 방식.</p>
+
+<div class="source-code">
+<span class="sc-comment">// lib/data-source.ts</span><br>
+<span class="sc-key">export const</span> <span class="sc-fn">getQuotes</span> = <span class="sc-key">async</span> () =&gt; {<br>
+&nbsp;&nbsp;<span class="sc-key">if</span> (process.env.<span class="sc-accent">DEMO_MODE</span> === <span class="sc-str">'true'</span>) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">return</span> DEMO_QUOTES; <span class="sc-comment">// 하드코딩 10건</span><br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<span class="sc-key">return await</span> supabase<br>
+&nbsp;&nbsp;&nbsp;&nbsp;.from(<span class="sc-str">'quotes'</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;.select(<span class="sc-str">'*'</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;.order(<span class="sc-str">'created_at'</span>, { ascending: <span class="sc-key">false</span> });<br>
+};
+</div>
+
+<p class="novel">12시 48분. 플랜 B 준비 완료. Netlify에 배포 트리거. 빌드 1분 30초. 그 사이에 Supabase를 다시 확인했다.</p>
+
+<div class="terminal">
+<span class="t-warn">Restoring project... (66 minutes elapsed)</span>
+</div>
+
+<div class="timer">12:52 PM — 데모까지 1시간 8분</div>
+
+<p class="novel">66분. 한 시간이 넘었다. 도현은 Supabase 상태 페이지를 열었다. "All Systems Operational." 시스템 장애는 아니다. 그냥 복구가 느린 것이다. 무료 티어니까.</p>
+
+<p class="internal">월 5달러짜리 시스템의 대가다. Supabase Free는 500MB 스토리지, 1GB 전송량, 7일 비활성 일시정지. 유료로 올리면 월 $25. 그 $25를 아끼려고 지금 이 상황을 맞고 있다.</p>
+
+<p class="novel">1시. 사무실 사람들이 점심을 먹고 돌아왔다. 대표도 돌아왔다. 도현의 자리를 지나가며 말했다.</p>
+
+<p class="dialogue">"밥 먹었어?"</p>
+
+<p class="dialogue">"네."</p>
+
+<p class="novel">안 먹었다.</p>
+
+<p class="novel">1시 15분. Supabase 대시보드를 새로고침했다. 상태가 바뀌었다.</p>
+
+<div class="terminal">
+<span class="t-warn">Restoring project... Rebuilding database...</span>
+</div>
+
+<p class="novel">"Rebuilding database." 새로운 메시지. 진행되고 있다는 뜻인지, 더 오래 걸린다는 뜻인지 알 수 없었다. 도현은 두 손으로 얼굴을 문질렀다.</p>
+
+<p class="novel">1시 28분.</p>
+
+<div class="timer">1:28 PM — 데모까지 32분</div>
+
+<p class="novel">카카오톡 알림. 대표.</p>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">김영수 대표</span>
+    <span class="s-time">13:28</span>
+  </div>
+  <div class="s-body">도현아 이 대표님 1시 50분쯤 도착하신다고 연락 왔다. 회의실 셋팅 부탁</div>
+</div>
+
+<p class="novel">1시 50분. 22분 뒤. 도현은 회의실로 가서 프로젝터를 켜고, HDMI 케이블을 연결하고, 노트북을 열었다. Supabase 대시보드. 여전히 "Rebuilding database..."</p>
+
+<p class="novel">1시 35분. 도현은 회의실 의자에 앉아서 두 가지 시나리오를 머릿속에서 돌렸다. 플랜 A: Supabase 복구 성공. 실제 DB 연동 시연. 플랜 B: 복구 실패. DEMO_MODE로 시연. 투자자가 "이거 더미 데이터 아닌가"라고 물으면? "현재 데모 환경입니다"라고 답한다. 거짓말은 아니다. 데모 환경이니까.</p>
+
+<p class="novel">1시 42분. Supabase 대시보드 새로고침.</p>
+
+<div class="terminal">
+<span class="t-warn">Restoring project... Rebuilding database...</span>
+</div>
+
+<p class="novel">변화 없다. 도현은 Netlify 배포 사이트에서 DEMO_MODE 버전을 확인했다. 정상 동작. 차트 로딩 됨. 견적 생성 됨. 하드코딩 데이터지만 화면상으로는 구분할 수 없다. 플랜 B로 갈 준비는 되어 있다.</p>
+
+<p class="novel">1시 48분. 두 번의 새로고침.</p>
+
+<div class="timer">1:48 PM — 데모까지 12분</div>
+
+<div class="terminal">
+<span class="t-warn">Restoring project... Rebuilding database...</span>
+</div>
+
+<p class="novel">변화 없다. 도현은 플랜 B URL을 브라우저 탭에 열어놓았다. 노트북 화면 왼쪽에 플랜 B, 오른쪽에 Supabase 대시보드.</p>
+
+<p class="novel">1시 50분. 로비에서 대표의 목소리가 들렸다. "어서 오십시오, 이 대표님." 도현의 심장이 빨라졌다.</p>
+
+<p class="novel">1시 51분. Supabase 새로고침. 손가락이 F5를 누르는 것조차 떨렸다.</p>
+
+<div class="terminal">
+<span class="t-str">Project active</span><br>
+<br>
+<span class="t-comment">Status: Running</span><br>
+<span class="t-comment">Database: Ready</span><br>
+<span class="t-comment">Storage: Ready</span><br>
+<span class="t-comment">Auth: Ready</span>
+</div>
+
+<p class="novel">Active. Running. Ready.</p>
+
+<div class="timer">1:52 PM — 데모까지 8분</div>
+
+<p class="novel">도현은 배포 사이트의 원래 URL — Supabase 연동 버전 — 을 열었다. 랜딩 페이지 로딩. 로그인. 견적 목록 로딩. 더미 데이터 200건이 표시되었다. 차트 렌더링. 바 차트, 라인 차트, 파이 차트. 전부 정상.</p>
+
+<p class="novel">도현은 숨을 내쉬었다. 길게. 천천히. 손등으로 이마의 땀을 닦았다.</p>
+
+<p class="novel">회의실 문이 열렸다. 대표가 먼저 들어왔고, 그 뒤에 낯선 사람이 따라 들어왔다.</p>
+
+</section>
+
+<!-- ───────── PART III ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part III</p>
+  <p class="part-title">"피벗"</p>
+</div>
+
+<div class="char-intro">
+  <span class="c-name">이정민</span>
+  <span class="c-info">42 · angel investor · ex-developer · seoul</span>
+</div>
+
+<p class="novel novel-first">이정민은 회의실에 들어서며 프로젝터 화면을 먼저 보았다. 대시보드가 떠 있었다. 차트 3개, KPI 카드 4개. 화면 오른쪽 상단에 "NextVision AI Quote System" 로고.</p>
+
+<p class="dialogue">"이쪽은 저희 개발팀장 한도현입니다." 대표가 소개했다.</p>
+
+<p class="dialogue">"안녕하세요." 도현이 일어서며 인사했다. 손을 내밀었다. 떨리지 않기를 바랐다.</p>
+
+<p class="dialogue">"이정민입니다. 반갑습니다." 정민의 악수는 단단했다. 명함을 건넸다. "티엔젤파트너스 이정민". 엔젤투자사.</p>
+
+<p class="novel">정민은 자리에 앉으며 노트북을 꺼내지 않았다. 메모장도 꺼내지 않았다. 팔짱을 끼고 화면을 바라보았다. 관찰하는 눈이었다.</p>
+
+<p class="dialogue">"그럼 시작하겠습니다." 도현은 리허설대로 시작했다. "현재 중소기업의 견적 작성 프로세스는 평균 2시간이 걸립니다. 담당자가 엑셀 템플릿을 열고, 고객사 정보를 채우고, 단가를 계산하고, 문구를 다듬고, PDF로 변환합니다. 이 과정을 AI로 5분 안에 끝낼 수 있습니다."</p>
+
+<p class="novel">도현은 견적 생성 페이지로 이동했다. 고객사 선택 드롭다운. "삼일테크(제조업)"을 선택. 품목 3개 입력. "생성" 버튼 클릭.</p>
+
+<p class="novel">로딩 스피너가 3초 돌았다. DeepSeek API가 호출되고, 업종 맞춤 견적 문구가 생성되었다. "귀사의 제조 공정에 최적화된 솔루션을 제안드립니다. 아래 견적은 월간 생산량 기준으로 산정되었으며..." 깔끔한 한국어. 표로 정리된 단가. PDF 다운로드 버튼.</p>
+
+<p class="novel">정민이 고개를 끄덕였다. 표정은 읽을 수 없었다.</p>
+
+<p class="dialogue">"대시보드를 보여드리겠습니다."</p>
+
+<p class="novel">도현은 대시보드 탭을 클릭했다. 차트 3개가 로딩을 시작했다. 바 차트가 먼저 렌더링되었다. 1월부터 6월까지 견적 건수가 우상향하는 그래프. 라인 차트도 올라왔다. 승인율 추이. 72%에서 89%로.</p>
+
+<p class="novel">파이 차트가 로딩 중이었다. 스피너가 돌고 있었다. 3초. 5초. 8초.</p>
+
+<p class="novel">그리고 빨간 토스트 메시지가 화면 하단에 떴다.</p>
+
+<div class="terminal">
+<span class="t-error">Error: API rate limit exceeded. Please try again later.</span><br>
+<span class="t-comment">OpenRouter API — 429 Too Many Requests</span>
+</div>
+
+<p class="internal">OpenRouter rate limit. 무료 모델의 분당 요청 제한에 걸렸다. 아까 견적 생성 시연에서 API를 3번 호출했고, 대시보드 로딩에서 AI 요약 기능이 추가로 2번 호출했다. 합계 5번. 무료 모델의 분당 제한이 5회다.</p>
+
+<p class="novel">도현의 시선이 화면의 에러 메시지와 정민의 얼굴을 빠르게 오갔다. 정민은 에러 메시지를 보고 있었다. 표정 변화 없이.</p>
+
+<p class="dialogue">"잠시만요." 도현은 침착하게 말했다. 또는 침착하게 들리기를 바라며 말했다.</p>
+
+<p class="novel">도현은 프로젝터 연결을 끊지 않았다. 노트북 화면이 그대로 투사되고 있었다. 도현은 터미널을 열었다. 투자자 앞에서. 대표 앞에서.</p>
+
+<div class="terminal">
+<span class="t-prompt">$</span> cd nextvision-quote-ai<br>
+<span class="t-prompt">$</span> cat .env.local<br>
+<br>
+<span class="t-key">NEXT_PUBLIC_SUPABASE_URL</span>=<span class="t-str">https://xxxxx.supabase.co</span><br>
+<span class="t-key">NEXT_PUBLIC_SUPABASE_ANON_KEY</span>=<span class="t-str">eyJhbG...</span><br>
+<span class="t-key">OPENROUTER_API_KEY</span>=<span class="t-str">sk-or-v1-free-xxxxx</span><br>
+<span class="t-key">OPENROUTER_MODEL</span>=<span class="t-str">deepseek/deepseek-chat:free</span>
+</div>
+
+<p class="novel">도현은 <code>.env.local</code> 파일을 열어 <code>OPENROUTER_MODEL</code> 값을 수정했다. 무료 모델에서 유료 모델로. 2주 전에 혹시 몰라서 $5를 충전해둔 OpenRouter 계정.</p>
+
+<div class="terminal">
+<span class="t-comment"># 모델 변경</span><br>
+<span class="t-key">OPENROUTER_MODEL</span>=<span class="t-warn">deepseek/deepseek-chat</span> <span class="t-comment"># :free 제거 → 유료</span>
+</div>
+
+<p class="novel">저장. 로컬 서버 재시작.</p>
+
+<div class="terminal">
+<span class="t-prompt">$</span> npm run dev<br>
+<br>
+<span class="t-str">ready - started server on 0.0.0.0:3000</span>
+</div>
+
+<p class="novel">도현은 브라우저에서 <code>localhost:3000</code>으로 접속했다. 대시보드 로딩. 바 차트. 라인 차트. 파이 차트. 3개 모두 정상 렌더링. AI 요약 텍스트도 정상 출력.</p>
+
+<p class="novel">전체 과정 — 에러 발생부터 복구까지 — 약 90초.</p>
+
+<p class="novel">도현은 프로젝터를 로컬 서버 화면으로 전환했다.</p>
+
+<p class="dialogue">"죄송합니다. 무료 API 모델의 요청 제한에 걸렸습니다. 유료 모델로 전환했습니다. 이어서 설명드리겠습니다."</p>
+
+<p class="novel">정민이 처음으로 입을 열었다.</p>
+
+<p class="dialogue">"지금 뭘 한 건지 설명해주실 수 있나요?"</p>
+
+<p class="novel">도현은 잠시 멈췄다. 투자자가 에러 상황의 기술적 설명을 요구하고 있다. 보통 투자자가 할 질문은 아니다.</p>
+
+<p class="dialogue">"네. OpenRouter라는 API 게이트웨이를 통해 DeepSeek AI 모델을 사용하고 있는데, 무료 티어에 분당 요청 제한이 있습니다. 데모 시연에서 여러 번 호출하다 보니 제한에 걸렸고, 환경변수에서 모델 ID를 유료 버전으로 변경해서 제한을 우회했습니다."</p>
+
+<p class="dialogue">"환경변수 하나 바꿔서 모델을 전환할 수 있다는 건가요?"</p>
+
+<p class="dialogue">"네. API 호출 코드는 동일하고, 모델 ID만 바뀝니다. OpenRouter가 라우팅을 해주니까요."</p>
+
+<p class="novel">정민이 고개를 끄덕였다. 그리고 도현이 예상하지 못한 말을 했다.</p>
+
+<p class="dialogue">"터미널에서 <code>cat .env.local</code> 치는 개발자를 투자 미팅에서 처음 봅니다. 좋은 뜻으로요."</p>
+
+<p class="novel">대표가 옆에서 어색하게 웃었다. 대표는 <code>cat</code>이 뭔지 모른다.</p>
+
+<p class="novel">도현은 데모를 이어갔다. 대시보드 차트 설명. 월별 견적 현황, 승인율 추이, 고객사별 분포. 그리고 마지막으로 비용 구조를 설명했다.</p>
+
+<p class="dialogue">"현재 운영 비용입니다. Supabase Free — 데이터베이스, 0원. Netlify Free — 프론트엔드 호스팅, 0원. OpenRouter — AI 모델 호출, 월 약 3달러에서 5달러. 도메인 비용 제외하면 월 총 운영비가 약 5달러, 한화로 7천 원 정도입니다."</p>
+
+<p class="novel">정민의 눈이 움직였다. 화면의 비용 표를 읽고 있었다.</p>
+
+<p class="dialogue">"월 5달러요?"</p>
+
+<p class="dialogue">"네. 물론 사용자가 늘면 Supabase Pro로 올려야 하고, 그러면 월 25달러. AI 호출량도 늘어나겠지만, 100명 규모까지는 월 50달러 이내로 운영 가능합니다."</p>
+
+<p class="novel">정민이 팔짱을 풀었다. 메모장을 꺼냈다. 처음이었다.</p>
+
+<p class="dialogue">"한 대표님." 정민이 대표를 보았다. "기술 스택 좀 더 자세히 들을 수 있을까요?"</p>
+
+<p class="novel">대표가 도현을 보았다. "기술 스택"이라는 단어에 반응하지 못하는 표정. 도현이 이어받았다.</p>
+
+<p class="dialogue">"Next.js 14 App Router, Supabase — PostgreSQL + Auth + Storage, OpenRouter를 통한 DeepSeek V3.2, Netlify로 CI/CD 자동 배포입니다. 전부 무료 티어 또는 저비용 구간에서 운영 중입니다."</p>
+
+<p class="dialogue">"개발자가 몇 명이죠?"</p>
+
+<p class="novel">대표가 대답했다. "도현이 혼자입니다."</p>
+
+<p class="novel">정민이 도현을 보았다. 3초. 그리고 펜으로 메모장에 무언가를 적었다.</p>
+
+</section>
+
+<!-- ───────── PART IV ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part IV</p>
+  <p class="part-title">"관심 있습니다"</p>
+</div>
+
+<p class="novel novel-first">데모가 끝났다. Q&A 시간. 도현은 질문에 대비하고 있었다. "시장 규모는?" "경쟁사는?" "수익 모델은?" 투자 미팅에서 나올 법한 질문들.</p>
+
+<p class="novel">정민의 첫 질문은 달랐다.</p>
+
+<p class="dialogue">"아까 Supabase Free 티어를 쓴다고 했는데, 무료 플랜의 제약이 뭐가 있죠?"</p>
+
+<p class="novel">도현은 솔직하게 대답했다. 솔직하게밖에 대답할 수 없었다. 30분 전에 그 제약에 당했으니까.</p>
+
+<p class="dialogue">"500MB 스토리지, 1GB 전송량, 그리고 — 7일 비활성 시 프로젝트가 일시정지됩니다."</p>
+
+<p class="dialogue">"오늘 데모 전에 일시정지됐었나요?"</p>
+
+<p class="novel">3초의 침묵. 도현은 대표를 힐끗 보았다. 대표는 "일시정지"가 뭔지 이해하지 못하는 표정이었다.</p>
+
+<p class="dialogue">"네. 지난주에 DB API 호출을 하지 않아서 자동으로 정지됐고, 오늘 오전에 복구했습니다. 복구에 거의 2시간 걸렸습니다."</p>
+
+<p class="novel">도현은 거짓말을 하지 않기로 결정했다. 투자자 앞에서 기술적 문제를 숨기는 것은 나중에 더 큰 문제가 된다. 그리고 정민은 — 터미널에서 <code>cat</code> 명령어를 알아보는 사람은 — 거짓말을 알아챌 것이다.</p>
+
+<p class="novel">정민이 웃었다. 처음이었다.</p>
+
+<p class="dialogue">"정직하시네요. 좋습니다."</p>
+
+<p class="novel">정민은 메모장을 펼쳤다. 도현이 보기에 — 코드 같은 것이 적혀 있었다. 약어와 화살표.</p>
+
+<p class="dialogue">"제가 관심 있는 건 AI 기술 자체가 아닙니다. DeepSeek이든 GPT든, 모델은 계속 바뀔 거예요. 제가 본 건 이 비용 구조입니다."</p>
+
+<p class="novel">정민이 계속했다.</p>
+
+<p class="dialogue">"B2B SaaS의 평균 고객 획득 비용(CAC)이 얼마인지 아시죠? 월 운영비 5달러에서 50달러 사이로 100명까지 서비스할 수 있다면, 단가를 고객당 월 3만 원만 잡아도 마진 구조가 성립합니다. 인프라 비용이 사실상 제로에 가깝다는 건, 고객 확보에 집중할 수 있다는 뜻이에요."</p>
+
+<p class="novel">도현은 투자자의 관점이 자신과 다르다는 것을 느꼈다. 도현이 만든 것은 AI 견적 시스템이다. 정민이 본 것은 거의 0원에 가까운 운영비로 돌아가는 SaaS 모델이다. 같은 제품, 다른 해석.</p>
+
+<p class="dialogue">"한 가지 더 여쭤볼게요. 이 시스템을 혼자 만드셨는데, 기간이 얼마나 걸렸습니까?"</p>
+
+<p class="dialogue">"2주입니다. 야근 포함."</p>
+
+<p class="dialogue">"2주에 월 5달러. 보통 이 규모 MVP를 외주 주면 2천만 원에 3개월입니다. 거기에 서버 비용 월 30만 원에서 50만 원."</p>
+
+<p class="novel">정민이 명함을 꺼냈다. 한 장을 도현에게, 한 장을 대표에게.</p>
+
+<p class="dialogue">"사업계획서 보내주시겠어요? 기술 스택, 비용 구조, 타겟 시장, 수익 모델 포함해서. 저희가 시드 단계 투자를 검토하고 있는데, 이 정도 비용 효율이면 검토할 가치가 있다고 봅니다."</p>
+
+<p class="novel">대표의 표정이 변했다. "사업계획서"와 "투자"라는 단어를 동시에 들은 사람의 표정이었다.</p>
+
+<p class="dialogue">"보내드리겠습니다. 감사합니다." 대표가 대답했다. 목소리에 힘이 들어가 있었다.</p>
+
+<p class="novel">정민이 일어서면서 도현에게 말했다.</p>
+
+<p class="dialogue">"한 팀장님, 아까 에러 터졌을 때 터미널 여는 거 인상적이었어요. 투자 미팅에서 개발자가 라이브로 디버깅하는 건 — 보통은 마이너스인데, 이 경우는 플러스입니다. 문제를 숨기지 않고, 90초 만에 해결하는 모습을 보여줬으니까."</p>
+
+<p class="novel">정민이 나갔다. 회의실 문이 닫혔다.</p>
+
+<p class="novel">3초의 침묵.</p>
+
+<p class="dialogue">"도현아."</p>
+
+<p class="dialogue">"네."</p>
+
+<p class="dialogue">"사업계획서가 뭐야?"</p>
+
+<p class="novel">도현은 웃을 뻔했다. 참았다.</p>
+
+<p class="dialogue">"제가 만들겠습니다, 대표님."</p>
+
+<p class="dialogue">"좋아, 잘 만들어. 근데 아까 화면에 빨간 글씨 나온 거 — 그건 뭐였어?"</p>
+
+<p class="dialogue">"API 호출 제한입니다. 무료 모델이라 분당 요청 수에 한계가 있어요."</p>
+
+<p class="dialogue">"그거 돈 내면 안 나와?"</p>
+
+<p class="dialogue">"네. 유료 모델로 전환하면 됩니다."</p>
+
+<p class="dialogue">"그럼 전환해."</p>
+
+<p class="dialogue">"이미 했습니다. 아까 데모 중에."</p>
+
+<p class="novel">대표가 고개를 끄덕였다. 이해하지 못하는 것을 이해한 것처럼 고개를 끄덕이는 대표 특유의 동작이었다.</p>
+
+<p class="dialogue">"근데 그 이 대표가 개발자 출신이래. 그래서 기술적인 거 물어본 것 같아."</p>
+
+<p class="dialogue">"아, 그래서..."</p>
+
+<p class="novel">도현은 이해했다. 정민이 <code>cat .env.local</code>을 알아본 이유. 모델 전환 과정을 기술적으로 질문한 이유. 에러 상황에서 당황하지 않고 코드를 고치는 장면에 플러스 점수를 준 이유. 전직 개발자. 코드를 읽는 눈이 있는 투자자.</p>
+
+<p class="novel">대표가 회의실을 나갔다. 도현은 혼자 남았다. 프로젝터의 불빛이 빈 스크린을 비추고 있었다. 화면에는 대시보드가 떠 있었다. 차트 3개. KPI 4개. 2시간 전에는 500 에러가 떠 있던 화면.</p>
+
+<p class="novel">도현은 의자에 등을 기대고 천장을 보았다. 2주 전에 이 시스템을 만들기 시작했을 때, 투자자 미팅까지는 생각하지 못했다. 대표가 "미래 먹거리"라고 부르는 것에 대해 도현은 절반은 회의적이었다. 직원 12명짜리 회사에서 AI 사업이라니. 하지만 정민은 — 전직 개발자 출신 엔젤투자자는 — 기술이 아니라 비용 구조를 보았다. 월 5달러. 개발자 1명. 2주.</p>
+
+<p class="internal">시드 투자. 보통 1억에서 5억 원. AI 스타트업의 3년 생존율은 56.2%. 일반 신생기업의 5년 생존율은 34.7%. 숫자만 보면 도박이다. 하지만 월 5달러로 돌아가는 시스템이라면 — 실패하더라도 태울 돈이 적다. 그게 정민이 본 것일까.</p>
+
+<p class="novel">도현은 노트북을 열었다. 사업계획서를 쓰기 시작해야 했다. 하지만 먼저 할 일이 있었다.</p>
+
+<div class="terminal">
+<span class="t-comment"># Supabase 무료 티어 일시정지 방지</span><br>
+<span class="t-comment"># 매일 자정에 ping 보내는 cron job</span><br>
+<br>
+<span class="t-prompt">$</span> cat supabase-keepalive.ts<br>
+<br>
+<span class="t-key">import</span> { createClient } <span class="t-key">from</span> <span class="t-str">'@supabase/supabase-js'</span><br>
+<br>
+<span class="t-key">const</span> supabase = createClient(<br>
+&nbsp;&nbsp;process.env.SUPABASE_URL!,<br>
+&nbsp;&nbsp;process.env.SUPABASE_ANON_KEY!<br>
+)<br>
+<br>
+<span class="t-key">export default async function</span> handler() {<br>
+&nbsp;&nbsp;<span class="t-key">const</span> { count } = <span class="t-key">await</span> supabase<br>
+&nbsp;&nbsp;&nbsp;&nbsp;.from(<span class="t-str">'quotes'</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;.select(<span class="t-str">'*'</span>, { count: <span class="t-str">'exact'</span>, head: <span class="t-key">true</span> })<br>
+&nbsp;&nbsp;<span class="t-key">return</span> { status: <span class="t-str">'alive'</span>, quotes: count }<br>
+}
+</div>
+
+<p class="novel">Netlify Scheduled Function. 매일 자정에 Supabase를 한 번 찔러서 7일 비활성 카운터를 리셋한다. 다시는 데모 전에 DB가 잠드는 일이 없도록.</p>
+
+<p class="novel">그리고 OpenRouter 설정도 변경했다.</p>
+
+<div class="terminal">
+<span class="t-comment"># .env.local — 운영 환경 설정 업데이트</span><br>
+<br>
+<span class="t-key">OPENROUTER_MODEL</span>=<span class="t-str">deepseek/deepseek-chat</span><br>
+<span class="t-key">OPENROUTER_FALLBACK_MODEL</span>=<span class="t-str">deepseek/deepseek-chat:free</span><br>
+<span class="t-key">OPENROUTER_RATE_LIMIT_RETRY</span>=<span class="t-str">true</span>
+</div>
+
+<p class="novel">유료 모델을 기본으로, 무료 모델을 폴백으로. Rate limit에 걸리면 자동 재시도. $5 충전분이 떨어지면 무료로 전환. 월 5달러가 월 8달러쯤 되겠지만, 데모 중에 에러가 터지는 것보다 낫다.</p>
+
+<p class="novel">오후 4시. 도현은 사업계획서 초안을 쓰기 시작했다. 제목을 뭘로 하지. "AI 견적 자동화 솔루션 사업계획서". 너무 딱딱하다. "(주)넥스트비전 AI 사업 전략". 뭔가 대기업 같다. 직원 12명인데.</p>
+
+<p class="novel">결국 터미널을 열었다.</p>
+
+<div class="terminal">
+<span class="t-prompt">$</span> claude<br>
+<br>
+<span class="t-prompt">></span> 시드 투자 유치를 위한 사업계획서 구조를 잡아줘.<br>
+&nbsp;&nbsp;B2B SaaS, AI 견적 자동화, 월 운영비 $5,<br>
+&nbsp;&nbsp;개발자 1명, MVP 개발 기간 2주. 중소기업 타겟.
+</div>
+
+<div class="ai-voice">
+  <div class="ai-tag">claude</div>
+  사업계획서 구조를 제안합니다. 1. Executive Summary — 핵심 가치 제안과 투자 요청 금액. 2. Problem — 중소기업 견적 프로세스의 비효율성 (평균 2시간, 인적 오류율). 3. Solution — AI 기반 자동화와 비용 절감 효과. 4. Business Model — 고객당 월 구독료, 티어별 가격. 5. Market Size — 국내 중소기업 수와 견적 소프트웨어 시장 규모. 6. Traction — MVP 완성, 데모 진행, 투자자 관심. 7. Team — 기술 역량과 도메인 경험. 8. Financial Projection — 월 운영비 $5~$50 구간별 BEP 분석. 9. Use of Funds — 투자금 사용 계획.
+</div>
+
+<p class="novel">도현은 AI의 구조안을 보며 하나씩 채워 나가기 시작했다. 섹션 3의 비용 구조 부분에서 멈췄다. 오늘 정민이 한 말이 떠올랐다.</p>
+
+<p class="internal">"기술보다 이 비용 구조가 인상적이네요."</p>
+
+<p class="novel">도현은 비용 비교 표를 만들었다.</p>
+
+<div class="terminal">
+<span class="t-comment"># 비용 비교: 전통 방식 vs AI 자동화</span><br>
+<br>
+<span class="t-prompt">전통 외주 개발:</span><br>
+&nbsp;&nbsp;초기 개발비 &nbsp;&nbsp;&nbsp;&nbsp;2,000만 원<br>
+&nbsp;&nbsp;개발 기간 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3개월<br>
+&nbsp;&nbsp;서버 비용 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;월 30~50만 원<br>
+&nbsp;&nbsp;유지보수 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;월 100~200만 원<br>
+<br>
+<span class="t-prompt">AI 자동화 MVP:</span><br>
+&nbsp;&nbsp;초기 개발비 &nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">0원 (내부 개발)</span><br>
+&nbsp;&nbsp;개발 기간 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">2주</span><br>
+&nbsp;&nbsp;서버 비용 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">월 ~7,000원</span><br>
+&nbsp;&nbsp;유지보수 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">내부 (개발자 1명)</span>
+</div>
+
+<p class="novel">숫자로 보면 명확했다. 2,000만 원 vs 0원. 3개월 vs 2주. 월 50만 원 vs 월 7,000원. 물론 "개발자 1명"이라는 항목에 도현의 연봉 3,800만 원이 숨어 있다. 하지만 도현은 원래 개발팀장이고, 견적 시스템은 기존 업무에 추가로 만든 것이다. 한계 비용이 거의 0에 가깝다.</p>
+
+<p class="novel">저녁 7시. 대표가 퇴근하면서 말했다.</p>
+
+<p class="dialogue">"도현아, 사업계획서 급하지 않아. 잘 만들어."</p>
+
+<p class="dialogue">"내일까지 초안 만들겠습니다."</p>
+
+<p class="dialogue">"오, 그래? 좋아."</p>
+
+<p class="novel">대표가 나가고. 사무실에 도현 혼자 남았다. 모니터 불빛만 도현의 얼굴을 비추고 있었다. 오늘 하루 동안 벌어진 일을 되짚었다.</p>
+
+<p class="novel">아침에 출근해서 데모 최종 점검. Supabase 일시정지 발견. 2시간의 복구 대기. 점심 거르고 플랜 B 준비. 데모 8분 전 복구 성공. 데모 시작. 견적 생성 시연 성공. 대시보드에서 API rate limit 에러. 투자자 앞에서 라이브 디버깅. 90초 만에 복구. 데모 재개. 투자자의 관심. 명함 교환. "사업계획서 보내주세요."</p>
+
+<p class="internal">500 에러, rate limit, 라이브 디버깅. 최악의 데모였다. 그런데 최악의 데모에서 최선의 결과가 나왔다. 정민은 에러를 보고 도망가지 않았다. 오히려 에러를 고치는 과정을 보고 관심을 가졌다. 완벽한 데모보다 문제를 해결하는 모습이 더 설득력 있었다는 건가.</p>
+
+<p class="novel">도현은 Supabase 대시보드를 마지막으로 확인했다. "Project active." keepalive 함수가 자정에 첫 ping을 보낼 것이다. 다시는 잠들지 않도록.</p>
+
+<p class="novel">사업계획서 9페이지를 마무리하고, 노트북을 닫았다. 밤 10시.</p>
+
+<p class="novel">사무실을 나서며 생각했다. 2주 전에 대표가 "미래 먹거리를 찾아야 한다"고 했을 때, 도현은 그것이 자기 일이라고 생각하지 않았다. 개발팀장 — 팀원 0명의 — 이 할 일은 코드를 짜는 것이지, 사업을 구상하는 것이 아니었다. 하지만 2주 동안 새벽 코딩을 하고, 더미 데이터를 만들고, 데모 시나리오를 쓰고, Supabase가 잠드는 것을 지켜보고, 투자자 앞에서 터미널을 여는 동안 — 도현은 어느새 코드를 짜는 사람에서 제품을 만드는 사람으로 바뀌고 있었다.</p>
+
+<p class="novel">월 5달러짜리 시스템. $5 충전한 OpenRouter 계정. 연봉 3,800만 원의 개발자. 직원 12명의 회사. 그리고 투자자의 명함 한 장.</p>
+
+<p class="novel">숫자만 보면 초라하다. 하지만 이것이 시작이라면 — 어쩌면 충분한 시작이다.</p>
+
+<p class="novel">2월의 밤공기가 차가웠다. 도현은 주머니에서 정민의 명함을 꺼내 다시 보았다. "티엔젤파트너스 이정민." 뒷면에 손글씨가 적혀 있었다. 데모 중에 적은 것이다.</p>
+
+<p class="internal">"$5/mo SaaS — watch this one."</p>
+
+<p class="novel">도현은 명함을 주머니에 넣고 걸음을 옮겼다. 내일은 사업계획서를 마무리하고, 대표에게 보여주고, 정민에게 보내야 한다. 그리고 OpenRouter $5 잔액을 확인해야 한다. 벌써 $2는 썼을 것이다.</p>
+
+<p class="novel">월 5달러의 미래 먹거리. 웃기지만 진지한 이야기다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>500 에러, 90초의 디버깅, 명함 한 장<br><strong>월 5달러의 시작</strong></h2>
+  <p class="sub">완벽한 데모는 없었다. 잠든 데이터베이스와 터진 API 사이에서 남은 것은 문제를 해결하는 90초와 그것을 지켜본 투자자의 메모 한 줄뿐이었다.</p>
+</div>
+
+<footer class="footer">
+  <p>This is a work of fiction &middot; Characters and events are imaginary</p>
+  <p>Supabase Free Tier Limits &middot; OpenRouter Rate Limits &middot; THE VC 2025 &middot; Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>
