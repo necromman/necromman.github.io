@@ -116,23 +116,33 @@ datePublished: "2026-02-10"
     margin-bottom: 6px;
   }
 
-  /* SLACK MESSAGE */
-  .slack-msg {
+  /* KAKAO MESSAGE — editorial style */
+  .kakao-msg {
     border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
     padding: 20px 24px;
     margin: 32px 0;
     background: var(--card-bg);
   }
-  .slack-msg .s-header {
+  .kakao-msg .k-header {
     display: flex;
     align-items: baseline;
     gap: 8px;
     margin-bottom: 8px;
   }
-  .slack-msg .s-name { font-size: 0.9rem; font-weight: 700; color: var(--fg); }
-  .slack-msg .s-time { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
-  .slack-msg .s-body { font-size: 0.95rem; line-height: 1.8; color: var(--prose); }
-  .slack-msg .s-channel { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 2px; color: var(--accent); margin-bottom: 12px; }
+  .kakao-msg .k-name { font-size: 0.9rem; font-weight: 700; color: var(--fg); }
+  .kakao-msg .k-time { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
+  .kakao-msg .k-body { font-size: 0.95rem; line-height: 1.8; color: var(--prose); }
+  .kakao-msg .k-room {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .kakao-msg + .kakao-msg {
+    margin-top: -16px;
+  }
 
   /* ERROR SCREEN */
   .error-screen {
@@ -198,33 +208,33 @@ datePublished: "2026-02-10"
 
 <p class="novel">도현은 코드 에디터를 닫고 기지개를 켰다. 2주간의 새벽 코딩이 끝났다. AI 견적 자동화 MVP. Next.js 프론트엔드, Supabase Free 백엔드, OpenRouter를 통한 DeepSeek V3.2 API, Netlify Free 배포. 월 운영비 약 5달러. 지난 금요일 대표에게 데모를 보여줬고, 대표가 만족하면서 "근데 앱은?"이라고 물은 것까지가 지난주 이야기다.</p>
 
-<p class="novel">슬랙 알림이 울렸다. 대표 김영수.</p>
+<p class="novel">카카오톡 알림이 울렸다. 대표 김영수.</p>
 
-<div class="slack-msg">
-  <div class="s-channel">#general</div>
-  <div class="s-header">
-    <span class="s-name">김영수 대표</span>
-    <span class="s-time">16:14</span>
+<div class="kakao-msg">
+  <div class="k-room">단톡 — 넥스트비전 전체</div>
+  <div class="k-header">
+    <span class="k-name">김영수 대표</span>
+    <span class="k-time">16:14</span>
   </div>
-  <div class="s-body">도현아 내가 사람 하나 만났는데 우리 AI 견적 시스템 관심 있대. 수요일 오후 2시에 온다고. 데모 보여줄 수 있지?</div>
+  <div class="k-body">도현아 내가 사람 하나 만났는데 우리 AI 견적 시스템 관심 있대. 수요일 오후 2시에 온다고. 데모 보여줄 수 있지?</div>
 </div>
 
 <p class="novel">도현은 메시지를 두 번 읽었다. 수요일. 3일 뒤. "사람 하나"가 누구인지는 안 써 있었다. 로타리클럽인지 동문회인지 모를 대표의 인맥 네트워크에서 건져 올린 사람일 것이다.</p>
 
-<div class="slack-msg">
-  <div class="s-header">
-    <span class="s-name">한도현</span>
-    <span class="s-time">16:16</span>
+<div class="kakao-msg">
+  <div class="k-header">
+    <span class="k-name">한도현</span>
+    <span class="k-time">16:16</span>
   </div>
-  <div class="s-body">네 가능합니다. 어떤 분이세요?</div>
+  <div class="k-body">네 가능합니다. 어떤 분이세요?</div>
 </div>
 
-<div class="slack-msg">
-  <div class="s-header">
-    <span class="s-name">김영수 대표</span>
-    <span class="s-time">16:18</span>
+<div class="kakao-msg">
+  <div class="k-header">
+    <span class="k-name">김영수 대표</span>
+    <span class="k-time">16:18</span>
   </div>
-  <div class="s-body">투자 쪽 하는 사람이야. 자세한 건 나도 잘 모르겠고. 잘 보여주면 돼</div>
+  <div class="k-body">투자 쪽 하는 사람이야. 자세한 건 나도 잘 모르겠고. 잘 보여주면 돼</div>
 </div>
 
 <p class="internal">투자 쪽 하는 사람. 대표 특유의 모호한 설명이다. 벤처캐피탈인지 엔젤인지 지인의 지인인지. 어쨌든 데모를 보여줘야 한다. 3일.</p>
@@ -263,21 +273,6 @@ datePublished: "2026-02-10"
 <p class="novel">월요일 밤 11시. 차트 컴포넌트 3개 완성. 더미 데이터 시딩 스크립트 작성 중. DeepSeek API를 호출해서 업종별 가상 견적 데이터를 생성하게 했다. AI가 AI를 위한 더미 데이터를 만드는 아이러니.</p>
 
 <p class="novel">화요일 오전. 출근하자마자 대시보드 레이아웃을 잡았다. 바 차트는 상단 좌측, 라인 차트는 상단 우측, 파이 차트는 하단 중앙. 차트 위에 핵심 KPI 4개를 카드로 배치했다. 총 견적 건수, 평균 처리 시간, 월 승인율, 예상 절감 비용.</p>
-
-<div class="source-code">
-<span class="sc-comment">// components/Dashboard.tsx</span><br>
-<span class="sc-key">const</span> <span class="sc-fn">KPICard</span> = ({ <span class="sc-key">label</span>, <span class="sc-key">value</span>, <span class="sc-key">delta</span> }: KPIProps) => (<br>
-&nbsp;&nbsp;&lt;<span class="sc-fn">div</span> className=<span class="sc-str">"rounded-lg border p-4"</span>&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="sc-fn">p</span> className=<span class="sc-str">"text-sm text-muted-foreground"</span>&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{label}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="sc-fn">p</span>&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="sc-fn">p</span> className=<span class="sc-str">"text-2xl font-bold"</span>&gt;{value}&lt;/<span class="sc-fn">p</span>&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="sc-fn">span</span> className=<span class="sc-str">"text-xs text-green-600"</span>&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{delta}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="sc-fn">span</span>&gt;<br>
-&nbsp;&nbsp;&lt;/<span class="sc-fn">div</span>&gt;<br>
-);
-</div>
 
 <p class="novel">화요일 밤 9시. 더미 데이터 시딩 완료. 대시보드에 숫자가 채워졌다. 월별 견적 현황 차트가 우상향하고, 승인율이 72%에서 89%로 올라가는 그래프가 그려졌다. 물론 전부 가짜 데이터다. 하지만 그래프가 올라가는 모양새는 진짜처럼 보였다.</p>
 
@@ -393,16 +388,10 @@ datePublished: "2026-02-10"
 <p class="novel">12시 30분. 도현은 점심을 건너뛰고 플랜 B를 준비하기 시작했다. 로컬 환경에서 Supabase 대신 인메모리 데이터로 동작하는 fallback 모드를 만들었다. 15분 만에 코드를 짰다. 환경변수 <code>DEMO_MODE=true</code>이면 하드코딩된 고객사 3개와 견적 데이터 10건을 사용하는 방식.</p>
 
 <div class="source-code">
-<span class="sc-comment">// lib/data-source.ts</span><br>
-<span class="sc-key">export const</span> <span class="sc-fn">getQuotes</span> = <span class="sc-key">async</span> () =&gt; {<br>
-&nbsp;&nbsp;<span class="sc-key">if</span> (process.env.<span class="sc-accent">DEMO_MODE</span> === <span class="sc-str">'true'</span>) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">return</span> DEMO_QUOTES; <span class="sc-comment">// 하드코딩 10건</span><br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;<span class="sc-key">return await</span> supabase<br>
-&nbsp;&nbsp;&nbsp;&nbsp;.from(<span class="sc-str">'quotes'</span>)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;.select(<span class="sc-str">'*'</span>)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;.order(<span class="sc-str">'created_at'</span>, { ascending: <span class="sc-key">false</span> });<br>
-};
+<span class="sc-comment">// lib/data-source.ts — 플랜 B</span><br>
+<span class="sc-key">if</span> (process.env.<span class="sc-accent">DEMO_MODE</span> === <span class="sc-str">'true'</span>) {<br>
+&nbsp;&nbsp;<span class="sc-key">return</span> DEMO_QUOTES; <span class="sc-comment">// 하드코딩 10건</span><br>
+}
 </div>
 
 <p class="novel">12시 48분. 플랜 B 준비 완료. Netlify에 배포 트리거. 빌드 1분 30초. 그 사이에 Supabase를 다시 확인했다.</p>
@@ -417,7 +406,7 @@ datePublished: "2026-02-10"
 
 <p class="internal">월 5달러짜리 시스템의 대가다. Supabase Free는 500MB 스토리지, 1GB 전송량, 7일 비활성 일시정지. 유료로 올리면 월 $25. 그 $25를 아끼려고 지금 이 상황을 맞고 있다.</p>
 
-<p class="novel">1시. 사무실 사람들이 점심을 먹고 돌아왔다. 대표도 돌아왔다. 도현의 자리를 지나가며 말했다.</p>
+<p class="novel">1시. 사무실 사람들이 점심을 먹고 돌아왔다. 경리 박 과장이 "오늘 감자탕 국물이 끝내줬어"라고 말하며 이쑤시개를 꺼냈다. 영업부 최 대리가 "거기 2인분에 만 삼천 원이야, 요즘 다 올랐어"라고 받았다. 평범한 점심 대화. 도현은 모니터에서 눈을 떼지 못한 채 그 소리를 들었다. 배가 고팠다. 대표도 돌아왔다. 도현의 자리를 지나가며 말했다.</p>
 
 <p class="dialogue">"밥 먹었어?"</p>
 
@@ -439,12 +428,12 @@ datePublished: "2026-02-10"
 
 <p class="novel">카카오톡 알림. 대표.</p>
 
-<div class="slack-msg">
-  <div class="s-header">
-    <span class="s-name">김영수 대표</span>
-    <span class="s-time">13:28</span>
+<div class="kakao-msg">
+  <div class="k-header">
+    <span class="k-name">김영수 대표</span>
+    <span class="k-time">13:28</span>
   </div>
-  <div class="s-body">도현아 이 대표님 1시 50분쯤 도착하신다고 연락 왔다. 회의실 셋팅 부탁</div>
+  <div class="k-body">도현아 이 대표님 1시 50분쯤 도착하신다고 연락 왔다. 회의실 셋팅 부탁</div>
 </div>
 
 <p class="novel">1시 50분. 22분 뒤. 도현은 회의실로 가서 프로젝터를 켜고, HDMI 케이블을 연결하고, 노트북을 열었다. Supabase 대시보드. 여전히 "Rebuilding database..."</p>
@@ -549,12 +538,8 @@ datePublished: "2026-02-10"
 <p class="novel">도현은 프로젝터 연결을 끊지 않았다. 노트북 화면이 그대로 투사되고 있었다. 도현은 터미널을 열었다. 투자자 앞에서. 대표 앞에서.</p>
 
 <div class="terminal">
-<span class="t-prompt">$</span> cd nextvision-quote-ai<br>
 <span class="t-prompt">$</span> cat .env.local<br>
-<br>
-<span class="t-key">NEXT_PUBLIC_SUPABASE_URL</span>=<span class="t-str">https://xxxxx.supabase.co</span><br>
-<span class="t-key">NEXT_PUBLIC_SUPABASE_ANON_KEY</span>=<span class="t-str">eyJhbG...</span><br>
-<span class="t-key">OPENROUTER_API_KEY</span>=<span class="t-str">sk-or-v1-free-xxxxx</span><br>
+<span class="t-comment">...</span><br>
 <span class="t-key">OPENROUTER_MODEL</span>=<span class="t-str">deepseek/deepseek-chat:free</span>
 </div>
 
@@ -725,42 +710,9 @@ datePublished: "2026-02-10"
 
 <p class="internal">시드 투자. 보통 1억에서 5억 원. AI 스타트업의 3년 생존율은 56.2%. 일반 신생기업의 5년 생존율은 34.7%. 숫자만 보면 도박이다. 하지만 월 5달러로 돌아가는 시스템이라면 — 실패하더라도 태울 돈이 적다. 그게 정민이 본 것일까.</p>
 
-<p class="novel">도현은 노트북을 열었다. 사업계획서를 쓰기 시작해야 했다. 하지만 먼저 할 일이 있었다.</p>
+<p class="novel">도현은 노트북을 열었다. 사업계획서를 쓰기 시작해야 했다. 하지만 먼저 할 일이 있었다. Netlify Scheduled Function을 하나 만들었다. 매일 자정에 Supabase에 쿼리 하나를 보내서 7일 비활성 카운터를 리셋하는 코드. 열다섯 줄짜리. 다시는 데모 전에 DB가 잠드는 일이 없도록.</p>
 
-<div class="terminal">
-<span class="t-comment"># Supabase 무료 티어 일시정지 방지</span><br>
-<span class="t-comment"># 매일 자정에 ping 보내는 cron job</span><br>
-<br>
-<span class="t-prompt">$</span> cat supabase-keepalive.ts<br>
-<br>
-<span class="t-key">import</span> { createClient } <span class="t-key">from</span> <span class="t-str">'@supabase/supabase-js'</span><br>
-<br>
-<span class="t-key">const</span> supabase = createClient(<br>
-&nbsp;&nbsp;process.env.SUPABASE_URL!,<br>
-&nbsp;&nbsp;process.env.SUPABASE_ANON_KEY!<br>
-)<br>
-<br>
-<span class="t-key">export default async function</span> handler() {<br>
-&nbsp;&nbsp;<span class="t-key">const</span> { count } = <span class="t-key">await</span> supabase<br>
-&nbsp;&nbsp;&nbsp;&nbsp;.from(<span class="t-str">'quotes'</span>)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;.select(<span class="t-str">'*'</span>, { count: <span class="t-str">'exact'</span>, head: <span class="t-key">true</span> })<br>
-&nbsp;&nbsp;<span class="t-key">return</span> { status: <span class="t-str">'alive'</span>, quotes: count }<br>
-}
-</div>
-
-<p class="novel">Netlify Scheduled Function. 매일 자정에 Supabase를 한 번 찔러서 7일 비활성 카운터를 리셋한다. 다시는 데모 전에 DB가 잠드는 일이 없도록.</p>
-
-<p class="novel">그리고 OpenRouter 설정도 변경했다.</p>
-
-<div class="terminal">
-<span class="t-comment"># .env.local — 운영 환경 설정 업데이트</span><br>
-<br>
-<span class="t-key">OPENROUTER_MODEL</span>=<span class="t-str">deepseek/deepseek-chat</span><br>
-<span class="t-key">OPENROUTER_FALLBACK_MODEL</span>=<span class="t-str">deepseek/deepseek-chat:free</span><br>
-<span class="t-key">OPENROUTER_RATE_LIMIT_RETRY</span>=<span class="t-str">true</span>
-</div>
-
-<p class="novel">유료 모델을 기본으로, 무료 모델을 폴백으로. Rate limit에 걸리면 자동 재시도. $5 충전분이 떨어지면 무료로 전환. 월 5달러가 월 8달러쯤 되겠지만, 데모 중에 에러가 터지는 것보다 낫다.</p>
+<p class="novel">OpenRouter 설정도 바꿨다. 유료 모델을 기본으로, 무료 모델을 폴백으로. Rate limit에 걸리면 자동 재시도. $5 충전분이 떨어지면 무료로 전환. 월 5달러가 월 8달러쯤 되겠지만, 데모 중에 에러가 터지는 것보다 낫다.</p>
 
 <p class="novel">오후 4시. 도현은 사업계획서 초안을 쓰기 시작했다. 제목을 뭘로 하지. "AI 견적 자동화 솔루션 사업계획서". 너무 딱딱하다. "(주)넥스트비전 AI 사업 전략". 뭔가 대기업 같다. 직원 12명인데.</p>
 
@@ -783,25 +735,7 @@ datePublished: "2026-02-10"
 
 <p class="internal">"기술보다 이 비용 구조가 인상적이네요."</p>
 
-<p class="novel">도현은 비용 비교 표를 만들었다.</p>
-
-<div class="terminal">
-<span class="t-comment"># 비용 비교: 전통 방식 vs AI 자동화</span><br>
-<br>
-<span class="t-prompt">전통 외주 개발:</span><br>
-&nbsp;&nbsp;초기 개발비 &nbsp;&nbsp;&nbsp;&nbsp;2,000만 원<br>
-&nbsp;&nbsp;개발 기간 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3개월<br>
-&nbsp;&nbsp;서버 비용 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;월 30~50만 원<br>
-&nbsp;&nbsp;유지보수 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;월 100~200만 원<br>
-<br>
-<span class="t-prompt">AI 자동화 MVP:</span><br>
-&nbsp;&nbsp;초기 개발비 &nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">0원 (내부 개발)</span><br>
-&nbsp;&nbsp;개발 기간 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">2주</span><br>
-&nbsp;&nbsp;서버 비용 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">월 ~7,000원</span><br>
-&nbsp;&nbsp;유지보수 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">내부 (개발자 1명)</span>
-</div>
-
-<p class="novel">숫자로 보면 명확했다. 2,000만 원 vs 0원. 3개월 vs 2주. 월 50만 원 vs 월 7,000원. 물론 "개발자 1명"이라는 항목에 도현의 연봉 3,800만 원이 숨어 있다. 하지만 도현은 원래 개발팀장이고, 견적 시스템은 기존 업무에 추가로 만든 것이다. 한계 비용이 거의 0에 가깝다.</p>
+<p class="novel">도현은 비용 비교를 정리했다. 같은 규모의 MVP를 외주로 만들면 초기 개발비 2,000만 원에 3개월, 서버 비용만 월 30~50만 원이다. 도현이 만든 것은 0원에 2주, 월 7,000원. 물론 "개발자 1명"이라는 항목에 도현의 연봉 3,800만 원이 숨어 있다. 하지만 도현은 원래 개발팀장이고, 견적 시스템은 기존 업무에 추가로 만든 것이다. 한계 비용이 거의 0에 가깝다.</p>
 
 <p class="novel">저녁 7시. 대표가 퇴근하면서 말했다.</p>
 

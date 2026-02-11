@@ -125,23 +125,33 @@ datePublished: "2026-02-10"
   .cost-row .c-price { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); text-align: right; font-weight: 600; }
   .cost-row.total { border-top: 2px solid var(--fg); background: var(--card-bg); }
 
-  /* SLACK MESSAGE */
-  .slack-msg {
+  /* KAKAO MESSAGE — editorial style */
+  .kakao-msg {
     border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
     padding: 20px 24px;
     margin: 32px 0;
     background: var(--card-bg);
   }
-  .slack-msg .s-header {
+  .kakao-msg .k-header {
     display: flex;
     align-items: baseline;
     gap: 8px;
     margin-bottom: 8px;
   }
-  .slack-msg .s-name { font-size: 0.9rem; font-weight: 700; color: var(--fg); }
-  .slack-msg .s-time { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
-  .slack-msg .s-body { font-size: 0.95rem; line-height: 1.8; color: var(--prose); }
-  .slack-msg .s-channel { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 2px; color: var(--accent); margin-bottom: 12px; }
+  .kakao-msg .k-name { font-size: 0.9rem; font-weight: 700; color: var(--fg); }
+  .kakao-msg .k-time { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
+  .kakao-msg .k-body { font-size: 0.95rem; line-height: 1.8; color: var(--prose); }
+  .kakao-msg .k-room {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .kakao-msg + .kakao-msg {
+    margin-top: -16px;
+  }
 
   /* DOC EXCERPT */
   .doc-excerpt {
@@ -228,15 +238,15 @@ datePublished: "2026-02-10"
 
 <p class="novel novel-first">2026년 2월 월요일 아침 9시. (주)넥스트비전 3층 사무실. 직원 12명. 도현은 자기 자리에 앉았다. 개발팀장이라는 직함이 있다. 팀원은 0명이다.</p>
 
-<p class="novel">슬랙에 대표 김영수의 메시지가 올라와 있었다. 일요일 밤 11시 32분에 보낸 것이다.</p>
+<p class="novel">카카오톡에 대표 김영수의 메시지가 올라와 있었다. 일요일 밤 11시 32분에 보낸 것이다.</p>
 
-<div class="slack-msg">
-  <div class="s-channel">#general</div>
-  <div class="s-header">
-    <span class="s-name">김영수 대표</span>
-    <span class="s-time">23:32</span>
+<div class="kakao-msg">
+  <div class="k-room">단톡 — 넥스트비전 전체</div>
+  <div class="k-header">
+    <span class="k-name">김영수 대표</span>
+    <span class="k-time">일 23:32</span>
   </div>
-  <div class="s-body">도현아 내일 아침에 미팅 하자. 아이디어가 있어. AI로 뭔가 만들어보면 좋겠다. 내가 주말에 유튜브 봤는데 요즘 AI로 앱 하나 뚝딱 만든다고 하더라고. 우리도 뭔가 만들어보자.</div>
+  <div class="k-body">도현아 내일 아침에 미팅 하자. 아이디어가 있어. AI로 뭔가 만들어보면 좋겠다. 내가 주말에 유튜브 봤는데 요즘 AI로 앱 하나 뚝딱 만든다고 하더라고. 우리도 뭔가 만들어보자.</div>
 </div>
 
 <p class="novel">"AI로 뭔가 만들어보자." 도현은 그 문장을 세 번 읽었다. "뭔가"가 문제다. 뭔가는 아무것도 아니면서 동시에 모든 것이다. 대표의 "뭔가"는 대개 유튜브 알고리즘이 그날 밤 추천해준 것에 의해 결정된다.</p>
@@ -1035,14 +1045,14 @@ datePublished: "2026-02-10"
 
 <p class="novel">버스가 왔다. 도현은 탔다. 창밖으로 도시의 저녁이 지나갔다. 다음 주에는 견적서 수정/삭제 기능을 만들어야 한다. 그다음 주에는 승인 워크플로우. 매일 밤 3시간씩. 월급과 별개로.</p>
 
-<p class="novel">도현의 폰에 슬랙 알림이 울렸다.</p>
+<p class="novel">도현의 폰에 카카오톡 알림이 울렸다.</p>
 
-<div class="slack-msg">
-  <div class="s-header">
-    <span class="s-name">김영수 대표</span>
-    <span class="s-time">18:23</span>
+<div class="kakao-msg">
+  <div class="k-header">
+    <span class="k-name">김영수 대표</span>
+    <span class="k-time">18:23</span>
   </div>
-  <div class="s-body">도현아 오늘 데모 잘 봤다. 고생했어. 근데 하나만 더 물어볼게 — 이거 거래처가 직접 견적 요청하는 기능도 넣을 수 있어? 포털 같은 거.</div>
+  <div class="k-body">도현아 오늘 데모 잘 봤다. 고생했어. 근데 하나만 더 물어볼게 — 이거 거래처가 직접 견적 요청하는 기능도 넣을 수 있어? 포털 같은 거.</div>
 </div>
 
 <p class="novel">도현은 메시지를 읽고 폰을 주머니에 넣었다. 답장은 하지 않았다. 거래처 포털. 새로운 요구사항. A4 메모에 다섯 번째 항목이 추가된 것이다.</p>
