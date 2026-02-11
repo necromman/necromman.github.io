@@ -78,30 +78,33 @@ datePublished: "2026-02-11"
   .game-screen .gs-alert { color: #c43e2a; font-weight: 700; }
   .game-screen .gs-resource { color: #6db36d; }
   .game-screen .gs-map { color: #d4a843; }
-  .game-screen .gs-divider { color: #4a4a48; }
+  .game-screen .gs-divider { color: #4a4a48; display: block; overflow: hidden; }
 
   /* APM COUNTER */
   .apm-counter {
-    display: inline-block;
-    border: 2px solid var(--fg);
-    padding: 16px 28px;
-    margin: 32px 0;
+    display: block;
+    width: fit-content;
+    margin: 40px auto;
+    padding: 24px 48px;
     text-align: center;
+    background: #1a1a18;
+    border: 1px solid rgba(200, 196, 184, 0.15);
+    border-top: 3px solid var(--accent);
   }
+  [data-theme="dark"] .apm-counter { background: #0a0a08; }
   .apm-counter .apm-label {
-    font-family: var(--mono);
-    font-size: 0.55rem;
-    letter-spacing: 5px;
-    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
     color: var(--muted);
-    margin-bottom: 4px;
+    margin-bottom: 8px;
   }
   .apm-counter .apm-value {
     font-family: var(--mono);
-    font-size: 2.4rem;
+    font-size: 3rem;
     font-weight: 700;
     color: var(--accent);
     letter-spacing: -1px;
+    line-height: 1;
   }
 
   /* COMMENTARY — broadcast style */
@@ -290,22 +293,22 @@ datePublished: "2026-02-11"
 
 <p class="novel">손가락이 키보드 위에 올라갔다. 커맨드센터를 선택하고 SCV 생산. 여기까지는 자동이다. 하지만 다음 순서에서 우혁은 멈칫했다.</p>
 
-<p class="internal">2001년. 이 시점에서 테란의 표준 빌드오더는 뭐였지? 아니, 표준이라는 개념 자체가 아직 없었다. iloveoov가 '원마린 더블 커맨드센터'를 정립하는 건 2003년이다. 지금은 대부분 배럭 하나 올리고 감으로 하는 시대. 2 Rax FE? 이건 2003-2004년에 정립된다. 1/1/1 빌드? 이것도 2003년. 지금 이 시점에서, 2년 뒤에 정립될 빌드를 내가 쓸 수 있다.</p>
+<p class="internal">2001년. 이 시점에서 테란의 표준 빌드오더는 뭐였지? 아니, 표준이라는 개념 자체가 아직 없었다. iloveoov가 '원마린 더블 커맨드센터'를 정립하는 건 2003년이다. 지금은 대부분 배럭 하나 올리고 감으로 하는 시대. 배럭 2개 앞마당 확장? 이건 2003-2004년에 정립된다. 배럭·팩토리·스타포트 하나씩 올리는 1/1/1 빌드? 이것도 2003년. 지금 이 시점에서, 2년 뒤에 정립될 빌드를 내가 쓸 수 있다.</p>
 
 <p class="novel">우혁은 컴퓨터 상대에게 테란 vs 저그를 걸었다. 맵은 로스트 템플.</p>
 
-<p class="novel">오픈을 2 Rax FE로 시작했다. 배럭 두 개를 올리고, 마린을 다섯 기 뽑은 뒤, 앞마당에 커맨드센터를 내렸다. 2003년 iloveoov가 체계화할 그 빌드. 마린으로 초반 수비를 하면서 빠르게 경제를 확장하는 전략. 이 시대의 테란 유저는 대부분 배럭 하나에서 마린을 모아 러시하거나, 팩토리를 빠르게 올려 벌처를 뽑았다. 경제를 먼저 키우겠다는 발상 자체가 드문 시기.</p>
+<p class="novel">배럭 2개 앞마당 확장 빌드로 시작했다. 배럭 두 개를 올리고, 마린을 다섯 기 뽑은 뒤, 앞마당에 커맨드센터를 내렸다. 2003년 iloveoov가 체계화할 그 빌드. 마린으로 초반 수비를 하면서 빠르게 경제를 확장하는 전략. 이 시대의 테란 유저는 대부분 배럭 하나에서 마린을 모아 러시하거나, 팩토리를 빠르게 올려 벌처를 뽑았다. 경제를 먼저 키우겠다는 발상 자체가 드문 시기.</p>
 
 <p class="novel">컴퓨터 상대라 대단할 것은 없었다. 하지만 우혁은 자신의 손가락을 관찰하고 있었다.</p>
 
 <p class="novel">느렸다.</p>
 
-<p class="novel">머리는 다음 순서를 알고 있었다. 벌처 세 기로 저그의 앞마당을 견제하면서 시즈 탱크 생산을 시작하고, 터렛을 올려 뮤탈 대비를 하고, 이후 미디안으로 바이오닉 조합을 완성하는 — 2003년형 표준 TvZ 운영. 머리는 완벽했다.</p>
+<p class="novel">머리는 다음 순서를 알고 있었다. 벌처 세 기로 저그의 앞마당을 견제하면서 시즈 탱크 생산을 시작하고, 터렛을 올려 뮤탈 대비를 하고, 이후 미디안으로 바이오닉 조합을 완성하는 — 2003년형 표준 테란 vs 저그 운영. 머리는 완벽했다.</p>
 
 <p class="novel">손가락이 못 따라갔다.</p>
 
 <div class="apm-counter">
-  <div class="apm-label">current apm</div>
+  <div class="apm-label">현재 APM</div>
   <div class="apm-value">87</div>
 </div>
 
@@ -337,19 +340,19 @@ datePublished: "2026-02-11"
 <p class="novel">맵은 로스트 템플.</p>
 
 <div class="game-screen">
-<span class="gs-map">Map: Lost Temple</span><br>
+<span class="gs-map">맵: Lost Temple</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-player">Player 1: WooHyuk</span> <span class="gs-race">[Terran]</span><br>
-<span class="gs-player">Player 2: MinSu</span> <span class="gs-race">[Protoss]</span><br>
+<span class="gs-player">플레이어 1: 우혁</span> <span class="gs-race">[테란]</span><br>
+<span class="gs-player">플레이어 2: 민수</span> <span class="gs-race">[프로토스]</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-action">Game Start</span>
+<span class="gs-action">게임 시작</span>
 </div>
 
 <p class="novel">민수의 오프닝은 전형적인 2001년형 프로토스였다. 게이트웨이 하나 올리고 질럿 두 기를 뽑아 정찰 겸 견제. 이후 어시밀레이터를 짓고 사이버네틱스 코어를 올려 드라군 생산. 2001년의 프로토스 유저 대부분이 이렇게 했다.</p>
 
 <p class="novel">우혁은 다르게 시작했다.</p>
 
-<p class="novel">1 Rax FE. 배럭 하나를 올리고, 마린 한 기만 뽑은 뒤, 바로 앞마당에 커맨드센터를 내렸다. 2001년의 테란 유저가 보면 미친 짓이었다. 상대가 질럿 러시를 오면 마린 한 기로 앞마당을 어떻게 지키겠다는 것인가.</p>
+<p class="novel">배럭 1개 앞마당 확장. 배럭 하나를 올리고, 마린 한 기만 뽑은 뒤, 바로 앞마당에 커맨드센터를 내렸다. 2001년의 테란 유저가 보면 미친 짓이었다. 상대가 질럿 러시를 오면 마린 한 기로 앞마당을 어떻게 지키겠다는 것인가.</p>
 
 <p class="novel">하지만 우혁은 알고 있었다. 민수의 프로토스가 질럿 러시를 오려면 게이트웨이 두 개 이상이 필요하고, 민수는 게이트웨이를 하나만 올렸다. 2001년의 대부분의 프로토스가 그랬다. 투게이트 질럿 러시가 표준 전략으로 자리잡는 것은 좀 더 뒤의 일이다.</p>
 
@@ -415,7 +418,7 @@ datePublished: "2026-02-11"
 <p class="novel">SCV를 선택한다. 미네랄 패치에 보낸다. 배럭을 짓는다. 서플라이를 짓는다. 마린을 뽑는다. 벌처를 뽑는다. 시즈 탱크를 뽑는다. 같은 순서를 반복한다. 빌드오더를 손에 새기는 것이다. 머리가 아니라 손가락이 기억할 때까지.</p>
 
 <div class="apm-counter">
-  <div class="apm-label">target apm</div>
+  <div class="apm-label">목표 APM</div>
   <div class="apm-value">300+</div>
 </div>
 

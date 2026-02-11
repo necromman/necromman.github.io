@@ -78,30 +78,33 @@ datePublished: "2026-02-11"
   .game-screen .gs-alert { color: #c43e2a; font-weight: 700; }
   .game-screen .gs-resource { color: #6db36d; }
   .game-screen .gs-map { color: #d4a843; }
-  .game-screen .gs-divider { color: #4a4a48; }
+  .game-screen .gs-divider { color: #4a4a48; display: block; overflow: hidden; }
 
   /* APM COUNTER */
   .apm-counter {
-    display: inline-block;
-    border: 2px solid var(--fg);
-    padding: 16px 28px;
-    margin: 32px 0;
+    display: block;
+    width: fit-content;
+    margin: 40px auto;
+    padding: 24px 48px;
     text-align: center;
+    background: #1a1a18;
+    border: 1px solid rgba(200, 196, 184, 0.15);
+    border-top: 3px solid var(--accent);
   }
+  [data-theme="dark"] .apm-counter { background: #0a0a08; }
   .apm-counter .apm-label {
-    font-family: var(--mono);
-    font-size: 0.55rem;
-    letter-spacing: 5px;
-    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
     color: var(--muted);
-    margin-bottom: 4px;
+    margin-bottom: 8px;
   }
   .apm-counter .apm-value {
     font-family: var(--mono);
-    font-size: 2.4rem;
+    font-size: 3rem;
     font-weight: 700;
     color: var(--accent);
     letter-spacing: -1px;
+    line-height: 1;
   }
 
   /* COMMENTARY — broadcast style */
@@ -227,21 +230,21 @@ datePublished: "2026-02-11"
 <p class="novel">첫 번째 상대가 맞은편에 앉았다. 이름표가 붙은 의자 뒤에 '연습생 3번 — 박진형'이라고 적혀 있었다. 열여섯. 우혁보다 한 살 어렸다. 종족은 저그.</p>
 
 <div class="game-screen">
-<span class="gs-map">Map: Lost Temple</span><br>
+<span class="gs-map">맵: Lost Temple</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-player">Player 1: WooHyuk</span> <span class="gs-race">[Terran]</span> — <span class="gs-action">12 o'clock</span><br>
-<span class="gs-player">Player 2: JinHyung</span> <span class="gs-race">[Zerg]</span> — <span class="gs-action">6 o'clock</span><br>
+<span class="gs-player">플레이어 1: 우혁</span> <span class="gs-race">[테란]</span> — <span class="gs-action">12시</span><br>
+<span class="gs-player">플레이어 2: 진형</span> <span class="gs-race">[저그]</span> — <span class="gs-action">6시</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
 <br>
-<span class="gs-action">03:20</span> WooHyuk — <span class="gs-action">2 Rax FE at natural</span><br>
-<span class="gs-action">04:10</span> JinHyung — <span class="gs-alert">6 Zergling rush incoming</span><br>
-<span class="gs-action">04:35</span> WooHyuk — <span class="gs-action">4 Marines hold natural ramp</span><br>
-<span class="gs-action">05:50</span> WooHyuk — <span class="gs-resource">CC complete. Economy +40%</span><br>
-<span class="gs-action">08:30</span> WooHyuk — <span class="gs-action">Siege Tank + Vulture push mid</span><br>
-<span class="gs-action">10:15</span> JinHyung — <span class="gs-alert">GG</span>
+<span class="gs-action">03:20</span> 우혁 — <span class="gs-action">배럭 2개 앞마당 확장</span><br>
+<span class="gs-action">04:10</span> 진형 — <span class="gs-alert">저글링 6기 러시</span><br>
+<span class="gs-action">04:35</span> 우혁 — <span class="gs-action">마린 4기 앞마당 입구 방어</span><br>
+<span class="gs-action">05:50</span> 우혁 — <span class="gs-resource">커맨드센터 완성. 경제력 +40%</span><br>
+<span class="gs-action">08:30</span> 우혁 — <span class="gs-action">시즈 탱크 + 벌처 중앙 푸시</span><br>
+<span class="gs-action">10:15</span> 진형 — <span class="gs-alert">GG</span>
 </div>
 
-<p class="novel">10분. 진형의 저글링 러시를 네 기의 마린으로 간신히 막고, 앞마당 경제를 살린 뒤, 시즈 탱크와 벌처를 조합해 중앙을 장악했다. 진형은 2해처리 뮤탈을 준비하고 있었지만, 뮤탈이 나오기 전에 우혁의 푸시가 도착했다. 타이밍이 정확했다. 2003년에 정립될 TvZ 시즈 푸시 타이밍. 2001년의 연습생이 알 리 없는 타이밍.</p>
+<p class="novel">10분. 진형의 저글링 러시를 네 기의 마린으로 간신히 막고, 앞마당 경제를 살린 뒤, 시즈 탱크와 벌처를 조합해 중앙을 장악했다. 진형은 2해처리 뮤탈을 준비하고 있었지만, 뮤탈이 나오기 전에 우혁의 푸시가 도착했다. 타이밍이 정확했다. 2003년에 정립될 테란 vs 저그 시즈 푸시 타이밍. 2001년의 연습생이 알 리 없는 타이밍.</p>
 
 <p class="novel">두 번째 상대. 연습생 5번, 김도윤. 열다섯. 프로토스. 이 경기는 더 어려웠다.</p>
 
@@ -396,7 +399,7 @@ datePublished: "2026-02-11"
 <p class="dialogue">"APM이 얼마나 되냐?"</p>
 
 <div class="apm-counter">
-  <div class="apm-label">current apm — week 3</div>
+  <div class="apm-label">현재 APM — 3주차</div>
   <div class="apm-value">193</div>
 </div>
 
@@ -540,7 +543,7 @@ datePublished: "2026-02-11"
 <p class="novel">그 와중에도 우혁의 APM은 올라가고 있었다.</p>
 
 <div class="apm-counter">
-  <div class="apm-label">current apm — week 6</div>
+  <div class="apm-label">현재 APM — 6주차</div>
   <div class="apm-value">218</div>
 </div>
 
@@ -574,23 +577,23 @@ datePublished: "2026-02-11"
 <p class="novel">연습실 전체가 잠시 조용해졌다. 다른 조의 경기가 진행 중이었지만, 연습생 몇 명이 우혁의 등 뒤로 몰려왔다. 1군 에이스 vs 연습생. 누구도 우혁이 이길 것이라고 생각하지 않았다.</p>
 
 <div class="game-screen">
-<span class="gs-map">Map: Benzene</span><br>
+<span class="gs-map">맵: Benzene</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-player">Player 1: WooHyuk</span> <span class="gs-race">[Terran]</span> — <span class="gs-action">11 o'clock</span><br>
-<span class="gs-player">Player 2: TaeHo</span> <span class="gs-race">[Terran]</span> — <span class="gs-action">5 o'clock</span><br>
+<span class="gs-player">플레이어 1: 우혁</span> <span class="gs-race">[테란]</span> — <span class="gs-action">11시</span><br>
+<span class="gs-player">플레이어 2: 태호</span> <span class="gs-race">[테란]</span> — <span class="gs-action">5시</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-action">Terran vs Terran — Mirror Match</span><br>
+<span class="gs-action">테란 vs 테란 — 동족전</span><br>
 <br>
-<span class="gs-action">02:40</span> WooHyuk — <span class="gs-action">1 Rax FE → Fast Factory</span><br>
-<span class="gs-action">02:55</span> TaeHo — <span class="gs-action">2 Rax Pressure Build</span><br>
-<span class="gs-action">04:10</span> TaeHo — <span class="gs-alert">Marine push to WooHyuk's natural</span><br>
-<span class="gs-action">04:25</span> WooHyuk — <span class="gs-action">Bunker + 3 Marines hold</span><br>
-<span class="gs-action">05:50</span> WooHyuk — <span class="gs-resource">Vulture x2 produced. Eco lead established</span><br>
-<span class="gs-action">07:30</span> TaeHo — <span class="gs-action">Siege Tank x2 + Vulture x3 mid-map control</span><br>
-<span class="gs-action">07:45</span> WooHyuk — <span class="gs-action">Spider mine field at 3 o'clock path</span><br>
-<span class="gs-action">08:20</span> TaeHo — <span class="gs-alert">2 Vultures lost to mines</span><br>
-<span class="gs-action">09:00</span> WooHyuk — <span class="gs-action">Siege leapfrog push initiated</span><br>
-<span class="gs-action">09:40</span> TaeHo — <span class="gs-action">Counter push from 7 o'clock</span>
+<span class="gs-action">02:40</span> 우혁 — <span class="gs-action">배럭 1개 앞마당 확장 → 팩토리 속공</span><br>
+<span class="gs-action">02:55</span> 태호 — <span class="gs-action">2배럭 압박 빌드</span><br>
+<span class="gs-action">04:10</span> 태호 — <span class="gs-alert">마린 푸시, 우혁 앞마당 공격</span><br>
+<span class="gs-action">04:25</span> 우혁 — <span class="gs-action">벙커 + 마린 3기 방어</span><br>
+<span class="gs-action">05:50</span> 우혁 — <span class="gs-resource">벌처 2기 생산. 경제 우위 확보</span><br>
+<span class="gs-action">07:30</span> 태호 — <span class="gs-action">시즈 탱크 2기 + 벌처 3기 중앙 장악</span><br>
+<span class="gs-action">07:45</span> 우혁 — <span class="gs-action">3시 방향 길목 스파이더 마인 매설</span><br>
+<span class="gs-action">08:20</span> 태호 — <span class="gs-alert">벌처 2기 마인에 격파</span><br>
+<span class="gs-action">09:00</span> 우혁 — <span class="gs-action">시즈 리프팅 푸시 개시</span><br>
+<span class="gs-action">09:40</span> 태호 — <span class="gs-action">7시 방향 역습</span>
 </div>
 
 <p class="novel">테란 미러전은 시즈 탱크의 싸움이다. 먼저 시즈 모드를 펼쳐 사거리를 확보한 쪽이 유리하다. 하지만 시즈 모드 중에는 이동이 불가능하므로, 상대가 다른 경로로 우회하면 무방비가 된다. 이 모순을 해결하는 것이 '시즈 리프팅(Siege Leapfrog)' — 탱크 두 그룹을 교대로 전진시키며, 하나가 시즈 모드를 풀고 이동하는 동안 다른 하나가 시즈 모드로 엄호하는 전술. 2003년 이후에 체계화될 기술이었다.</p>

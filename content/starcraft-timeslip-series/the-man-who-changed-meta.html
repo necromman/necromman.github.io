@@ -78,30 +78,33 @@ datePublished: "2026-02-11"
   .game-screen .gs-alert { color: #c43e2a; font-weight: 700; }
   .game-screen .gs-resource { color: #6db36d; }
   .game-screen .gs-map { color: #d4a843; }
-  .game-screen .gs-divider { color: #4a4a48; }
+  .game-screen .gs-divider { color: #4a4a48; display: block; overflow: hidden; }
 
   /* APM COUNTER */
   .apm-counter {
-    display: inline-block;
-    border: 2px solid var(--fg);
-    padding: 16px 28px;
-    margin: 32px 0;
+    display: block;
+    width: fit-content;
+    margin: 40px auto;
+    padding: 24px 48px;
     text-align: center;
+    background: #1a1a18;
+    border: 1px solid rgba(200, 196, 184, 0.15);
+    border-top: 3px solid var(--accent);
   }
+  [data-theme="dark"] .apm-counter { background: #0a0a08; }
   .apm-counter .apm-label {
-    font-family: var(--mono);
-    font-size: 0.55rem;
-    letter-spacing: 5px;
-    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
     color: var(--muted);
-    margin-bottom: 4px;
+    margin-bottom: 8px;
   }
   .apm-counter .apm-value {
     font-family: var(--mono);
-    font-size: 2.4rem;
+    font-size: 3rem;
     font-weight: 700;
     color: var(--accent);
     letter-spacing: -1px;
+    line-height: 1;
   }
 
   /* COMMENTARY — broadcast style */
@@ -253,7 +256,7 @@ datePublished: "2026-02-11"
 <p class="novel">침대에 누웠다. 천장의 형광등 커버에 먼지가 쌓여 있었다. 이 천장을 매일 밤 보면서 지난 14개월을 보냈다. 2001년 3월, PC방에서 다시 시작한 이후. 하루 열네 시간의 연습. APM 87에서 시작해서, 130의 벽을 부수고, 200을 넘기고. 지금은 —</p>
 
 <div class="apm-counter">
-  <div class="apm-label">current apm — may 2002</div>
+  <div class="apm-label">현재 APM — 2002년 5월</div>
   <div class="apm-value">248</div>
 </div>
 
@@ -273,7 +276,7 @@ datePublished: "2026-02-11"
 
 <p class="novel">1세트. 맵은 아카디아 II.</p>
 
-<p class="novel">우혁은 오프닝부터 성재가 본 적 없는 빌드를 꺼냈다. 14 CC — 배럭보다 커맨드센터를 먼저 짓는 초고속 확장. 2003년 중반에나 등장할 극한의 경제 오프닝이었다. 성재의 벌처 견제가 도착했을 때, 우혁은 이미 벙커 두 개를 완성하고 마린으로 수비를 하고 있었다. 타이밍을 정확히 알고 있었기 때문이다.</p>
+<p class="novel">우혁은 오프닝부터 성재가 본 적 없는 빌드를 꺼냈다. 14인구 선커맨드 — 배럭보다 커맨드센터를 먼저 짓는 초고속 확장. 2003년 중반에나 등장할 극한의 경제 오프닝이었다. 성재의 벌처 견제가 도착했을 때, 우혁은 이미 벙커 두 개를 완성하고 마린으로 수비를 하고 있었다. 타이밍을 정확히 알고 있었기 때문이다.</p>
 
 <p class="novel">10분 후, 경제력 차이가 유닛 수로 변환되었다. 우혁의 시즈 탱크 라인이 맵 중앙을 장악했고, 성재는 GG를 쳤다.</p>
 
@@ -343,13 +346,13 @@ datePublished: "2026-02-11"
 <p class="novel">화면에 로딩이 시작되었다. 아카디아 II. 우혁은 11시, 동민은 5시에 배치되었다.</p>
 
 <div class="game-screen">
-<span class="gs-map">Map: Arcadia II</span><br>
+<span class="gs-map">맵: Arcadia II</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-player">Player 1: Spirit)WooHyuk</span> <span class="gs-race">[Terran]</span> — 11 o'clock<br>
-<span class="gs-player">Player 2: LW)DongMin</span> <span class="gs-race">[Zerg]</span> — 5 o'clock<br>
+<span class="gs-player">플레이어 1: Spirit)WooHyuk</span> <span class="gs-race">[테란]</span> — 11시<br>
+<span class="gs-player">플레이어 2: LW)DongMin</span> <span class="gs-race">[저그]</span> — 5시<br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-action">Proleague 2002 · Set 4</span><br>
-<span class="gs-action">Game Start</span>
+<span class="gs-action">프로리그 2002 · 4세트</span><br>
+<span class="gs-action">게임 시작</span>
 </div>
 
 <p class="novel">게임이 시작되었다.</p>
@@ -387,16 +390,16 @@ datePublished: "2026-02-11"
 <div class="game-screen">
 <span class="gs-divider">────────── 07:42 ──────────</span><br>
 <span class="gs-player">Spirit)WooHyuk</span><br>
-<span class="gs-resource">Minerals: 1,240 / Gas: 380</span><br>
-<span class="gs-action">Units: Marine x10 · Medic x2 · Vulture x3 · Siege Tank x2</span><br>
-<span class="gs-action">Expansion: Natural — ACTIVE</span><br>
+<span class="gs-resource">미네랄: 1,240 / 가스: 380</span><br>
+<span class="gs-action">유닛: 마린 x10 · 메딕 x2 · 벌처 x3 · 시즈 탱크 x2</span><br>
+<span class="gs-action">확장: 앞마당 — 가동 중</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
 <span class="gs-player">LW)DongMin</span><br>
-<span class="gs-resource">Minerals: 880 / Gas: 310</span><br>
-<span class="gs-action">Units: Zergling x12 (6 lost to mines) · Hydralisk x4</span><br>
-<span class="gs-alert">Zergling rush FAILED — siege line held</span><br>
+<span class="gs-resource">미네랄: 880 / 가스: 310</span><br>
+<span class="gs-action">유닛: 저글링 x12 (마인에 6기 손실) · 히드라리스크 x4</span><br>
+<span class="gs-alert">저글링 러시 실패 — 시즈 라인 방어 성공</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-action">Economy gap: +360 minerals in WooHyuk's favor</span>
+<span class="gs-action">자원 격차: 미네랄 +360, 우혁 우세</span>
 </div>
 
 <p class="novel">경제력 차이가 벌어지기 시작했다. 우혁의 앞마당이 7분 전부터 돌아가고 있었기 때문이다. 동민의 앞마당도 있었지만, 저글링 손실과 방어 실패로 드론 생산이 밀려 있었다. 360 미네랄의 차이. 작아 보이지만, 이 격차는 시간이 갈수록 유닛 수의 차이로 복리처럼 불어난다.</p>
@@ -432,8 +435,8 @@ datePublished: "2026-02-11"
 <span class="gs-player">LW)DongMin</span><br>
 <span class="gs-alert">gg</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-action">Spirit)WooHyuk WINS</span><br>
-<span class="gs-action">Debut match: VICTORY</span>
+<span class="gs-action">Spirit)WooHyuk 승리</span><br>
+<span class="gs-action">데뷔전: 승리</span>
 </div>
 
 <p class="novel">GG.</p>
@@ -502,15 +505,15 @@ datePublished: "2026-02-11"
 
 <p class="novel">상대는 팀 오리온의 프로토스 선수 강현우. 통산 전적 15승 20패. 프로토스의 전형적인 캐리어 전환을 즐기는 선수. 우혁은 이번에도 다른 빌드를 꺼냈다.</p>
 
-<p class="novel">TvP에서 SKT 테란으로 불리게 될, 2005년형 2-base 메카닉 올인. 팩토리 두 개에서 시즈 탱크를 끊임없이 생산하면서, 골리앗을 섞어 프로토스의 공중 유닛에 대응하는 전략. 이 시대의 프로토스는 테란의 탱크 푸시에 대한 정립된 대응이 없었다. 강현우는 속수무책으로 당했다.</p>
+<p class="novel">테란 vs 프로토스에서 'SKT 테란'으로 불리게 될, 2005년형 2-base 메카닉 올인. 팩토리 두 개에서 시즈 탱크를 끊임없이 생산하면서, 골리앗을 섞어 프로토스의 공중 유닛에 대응하는 전략. 이 시대의 프로토스는 테란의 탱크 푸시에 대한 정립된 대응이 없었다. 강현우는 속수무책으로 당했다.</p>
 
 <p class="novel">17분. GG.</p>
 
-<p class="novel">그 다음 주. 세 번째 경기. 상대는 팀 피닉스의 테란 선수 오진수. TvT 미러 매치. 우혁은 이번에는 완전히 다른 접근을 했다. 발키리 + 드랍십 조합으로 적 본진에 시즈 탱크를 투하하는, 2004년에나 유행할 공중 수송 전략.</p>
+<p class="novel">그 다음 주. 세 번째 경기. 상대는 팀 피닉스의 테란 선수 오진수. 테란 동족전. 우혁은 이번에는 완전히 다른 접근을 했다. 발키리 + 드랍십 조합으로 적 본진에 시즈 탱크를 투하하는, 2004년에나 유행할 공중 수송 전략.</p>
 
 <p class="novel">오진수는 대응하지 못했다. 12분. GG.</p>
 
-<p class="novel">네 번째 경기. 우혁은 또 다른 시대의 빌드를 꺼냈다. TvZ에서 2006년형 3-base 바이오닉 웨이브. 마린, 메딕, 사이언스 베슬의 대규모 물량을 끝없이 밀어넣는 전략.</p>
+<p class="novel">네 번째 경기. 우혁은 또 다른 시대의 빌드를 꺼냈다. 테란 vs 저그에서 2006년형 3-base 바이오닉 웨이브. 마린, 메딕, 사이언스 베슬의 대규모 물량을 끝없이 밀어넣는 전략.</p>
 
 <p class="novel">14분. GG.</p>
 
@@ -606,11 +609,11 @@ datePublished: "2026-02-11"
 
 <p class="novel">6번째 경기. 상대 팀의 저그가 우혁의 데뷔전 빌드를 예상하고, 12풀 대신 9풀 스피드링 올인으로 나왔다. 벌처 두 기로 마인을 심기 전에 저글링 여덟 기가 앞마당에 들이닥쳤다. 우혁은 다른 빌드로 전환해서 겨우 이겼지만, '한 방'으로 끝내는 것은 불가능해졌다.</p>
 
-<p class="novel">7번째 경기. 우혁은 2004년형 TvP 빌드를 꺼냈지만, 상대 프로토스가 2경기 전에 우혁이 쓴 드랍 전략을 경계하고 옵저버를 일찍 뽑았다. 빌드의 핵심인 기습이 무력화되었다. 우혁은 이겼지만, 20분이 넘는 고전이었다.</p>
+<p class="novel">7번째 경기. 우혁은 2004년형 테란 vs 프로토스 빌드를 꺼냈지만, 상대 프로토스가 2경기 전에 우혁이 쓴 드랍 전략을 경계하고 옵저버를 일찍 뽑았다. 빌드의 핵심인 기습이 무력화되었다. 우혁은 이겼지만, 20분이 넘는 고전이었다.</p>
 
 <p class="novel">8번째 경기. 우혁은 처음으로 졌다.</p>
 
-<p class="novel">상대는 중상위 팀의 테란. TvT 미러에서 우혁이 3경기 전에 보여준 발키리 + 드랍 전략을 완벽하게 대비하고 있었다. 우혁은 다른 빌드로 전환했지만, 상대의 준비가 더 빨랐다.</p>
+<p class="novel">상대는 중상위 팀의 테란. 테란 동족전에서 우혁이 3경기 전에 보여준 발키리 + 드랍 전략을 완벽하게 대비하고 있었다. 우혁은 다른 빌드로 전환했지만, 상대의 준비가 더 빨랐다.</p>
 
 <p class="novel">8전 7승 1패. 여전히 뛰어난 전적이었지만, 우혁은 패턴을 읽었다.</p>
 
@@ -699,7 +702,7 @@ datePublished: "2026-02-11"
 
 <p class="internal">이 아이한테는 소용없다. 내가 새로운 빌드를 꺼내도, 이 아이는 게임 중에 적응한다. 1세트를 통째로 분석해서 2세트에 적용하는 수준의 적응력. 이건 빌드의 문제가 아니다. 재능의 문제다. 나는 미래를 알고 있지만, 이 아이는 미래를 만드는 사람이다.</p>
 
-<p class="novel">3세트. 우혁은 미래 빌드가 아니라, 2002년의 표준 테란 빌드를 선택했다. 배럭 두 개에서 마린을 모으고, 팩토리에서 벌처와 탱크를 생산하는, 이 시대의 평범한 TvZ 오프닝. 미래 지식 대신 14개월간 갈아온 기본기로 싸우기로 했다.</p>
+<p class="novel">3세트. 우혁은 미래 빌드가 아니라, 2002년의 표준 테란 빌드를 선택했다. 배럭 두 개에서 마린을 모으고, 팩토리에서 벌처와 탱크를 생산하는, 이 시대의 평범한 테란 vs 저그 오프닝. 미래 지식 대신 14개월간 갈아온 기본기로 싸우기로 했다.</p>
 
 <p class="novel">이서준은 3세트에서 다시 변했다. 이번에는 표준 3해처리 뮤탈. 2세트의 공격적 빌드가 아니라, 안정적인 운영 체계. 우혁의 변화를 예측한 것인지, 아니면 자기만의 리듬을 찾은 것인지.</p>
 

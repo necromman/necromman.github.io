@@ -78,30 +78,33 @@ datePublished: "2026-02-11"
   .game-screen .gs-alert { color: #c43e2a; font-weight: 700; }
   .game-screen .gs-resource { color: #6db36d; }
   .game-screen .gs-map { color: #d4a843; }
-  .game-screen .gs-divider { color: #4a4a48; }
+  .game-screen .gs-divider { color: #4a4a48; display: block; overflow: hidden; }
 
   /* APM COUNTER */
   .apm-counter {
-    display: inline-block;
-    border: 2px solid var(--fg);
-    padding: 16px 28px;
-    margin: 32px 0;
+    display: block;
+    width: fit-content;
+    margin: 40px auto;
+    padding: 24px 48px;
     text-align: center;
+    background: #1a1a18;
+    border: 1px solid rgba(200, 196, 184, 0.15);
+    border-top: 3px solid var(--accent);
   }
+  [data-theme="dark"] .apm-counter { background: #0a0a08; }
   .apm-counter .apm-label {
-    font-family: var(--mono);
-    font-size: 0.55rem;
-    letter-spacing: 5px;
-    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
     color: var(--muted);
-    margin-bottom: 4px;
+    margin-bottom: 8px;
   }
   .apm-counter .apm-value {
     font-family: var(--mono);
-    font-size: 2.4rem;
+    font-size: 3rem;
     font-weight: 700;
     color: var(--accent);
     letter-spacing: -1px;
+    line-height: 1;
   }
 
   /* COMMENTARY — broadcast style */
@@ -192,9 +195,9 @@ datePublished: "2026-02-11"
     <span class="ed-label">관중</span>
     <span class="ed-value ed-highlight">10,000명 (매진)</span>
     <span class="ed-label">형식</span>
-    <span class="ed-value">Best of 5</span>
+    <span class="ed-value">5전 3선승제</span>
     <span class="ed-label">결승 진출자</span>
-    <span class="ed-value"><strong>진우혁</strong> (Terran) vs <strong>이서준</strong> (Zerg)</span>
+    <span class="ed-value"><strong>진우혁</strong> (테란) vs <strong>이서준</strong> (저그)</span>
     <span class="ed-label">온라인 시청</span>
     <span class="ed-value">동시접속 120,000+</span>
   </div>
@@ -258,18 +261,18 @@ datePublished: "2026-02-11"
 </div>
 
 <div class="game-screen">
-<span class="gs-map">Map: Lost Temple</span><br>
+<span class="gs-map">맵: Lost Temple</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-player">Player 1: WooHyuk [Jin]</span> <span class="gs-race">[Terran]</span> — <span class="gs-resource">12 o'clock</span><br>
-<span class="gs-player">Player 2: SeoJun [Lee]</span> <span class="gs-race">[Zerg]</span> — <span class="gs-resource">6 o'clock</span><br>
+<span class="gs-player">플레이어 1: WooHyuk [진]</span> <span class="gs-race">[테란]</span> — <span class="gs-resource">12시</span><br>
+<span class="gs-player">플레이어 2: SeoJun [이]</span> <span class="gs-race">[저그]</span> — <span class="gs-resource">6시</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-action">OnGameNet Starleague Finals — Game 1</span><br>
-<span class="gs-action">Best of 5</span>
+<span class="gs-action">OnGameNet 스타리그 결승 — 1세트</span><br>
+<span class="gs-action">5전 3선승제</span>
 </div>
 
 <p class="novel novel-first">제1국. 우혁은 숨을 내쉬고 키보드에 손을 올렸다.</p>
 
-<p class="novel">오프닝은 2003년형 1 Rax FE. 배럭 하나를 올리고 마린 한 기만 뽑은 뒤 앞마당에 커맨드센터를 내리는 빌드. 이 시대의 관점에서는 여전히 급진적인 경제 오프닝이었지만, 우혁이 프로리그에서 수차례 선보인 뒤로 다른 테란 선수들도 변형을 시도하기 시작한 빌드였다. 하지만 우혁만큼 정제된 형태는 아직 아무도 구현하지 못했다.</p>
+<p class="novel">오프닝은 2003년형 배럭 1개 앞마당 확장. 배럭 하나를 올리고 마린 한 기만 뽑은 뒤 앞마당에 커맨드센터를 내리는 빌드. 이 시대의 관점에서는 여전히 급진적인 경제 오프닝이었지만, 우혁이 프로리그에서 수차례 선보인 뒤로 다른 테란 선수들도 변형을 시도하기 시작한 빌드였다. 하지만 우혁만큼 정제된 형태는 아직 아무도 구현하지 못했다.</p>
 
 <p class="novel">서준의 오프닝은 12 해처리. 저글링 스피드 업그레이드를 빠르게 올리는 표준 저그 빌드. 이 빌드에 대한 대응법을 우혁은 너무나 잘 알고 있었다. 2004년에 정립될 '마린-메딕 더블 커맨드 시즈 푸시'의 원형. 5분 30초에 벌처 세 기로 견제하면서, 7분에 시즈 탱크 두 기를 확보하고, 8분 30초에 앞마당에 터렛 세 개를 완성하여 뮤탈 러시를 원천 봉쇄하는 타이밍.</p>
 
@@ -296,8 +299,8 @@ datePublished: "2026-02-11"
 <span class="gs-divider">────────────────────────────</span><br>
 <span class="gs-player">SeoJun [Lee]</span>: <span class="gs-action">GG</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-alert">WooHyuk [Jin] wins Game 1</span><br>
-<span class="gs-resource">Game Time: 14:07</span>
+<span class="gs-alert">WooHyuk [진] 1세트 승리</span><br>
+<span class="gs-resource">게임 시간: 14:07</span>
 </div>
 
 <p class="novel">관중이 폭발했다. 만 명의 함성이 부스 방음을 뚫고 울렸다. 우혁은 키보드에서 손을 떼고 의자에 기대앉았다. 14분 07초. 완벽한 게임이었다. 1년 8개월의 훈련이 압축된, 시간 여행자의 가장 날카로운 무기.</p>
@@ -326,15 +329,15 @@ datePublished: "2026-02-11"
 <p class="novel novel-first">제2국. 맵은 파이팅 스피릿.</p>
 
 <div class="game-screen">
-<span class="gs-map">Map: Fighting Spirit</span><br>
+<span class="gs-map">맵: Fighting Spirit</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-player">Player 1: WooHyuk [Jin]</span> <span class="gs-race">[Terran]</span> — <span class="gs-resource">7 o'clock</span><br>
-<span class="gs-player">Player 2: SeoJun [Lee]</span> <span class="gs-race">[Zerg]</span> — <span class="gs-resource">1 o'clock</span><br>
+<span class="gs-player">플레이어 1: WooHyuk [진]</span> <span class="gs-race">[테란]</span> — <span class="gs-resource">7시</span><br>
+<span class="gs-player">플레이어 2: SeoJun [이]</span> <span class="gs-race">[저그]</span> — <span class="gs-resource">1시</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-action">OnGameNet Starleague Finals — Game 2</span>
+<span class="gs-action">OnGameNet 스타리그 결승 — 2세트</span>
 </div>
 
-<p class="novel">우혁은 빌드를 바꿨다. 1세트에서 사용한 1 Rax FE 기반의 시즈 푸시가 아니라, 2005년형 2 Rax 메딕 드롭. 수송선에 마린과 메딕을 태워 저그의 본진 뒤쪽으로 투하하는 전략. 이 시대의 메타에서는 아직 체계화되지 않은 전술이었다.</p>
+<p class="novel">우혁은 빌드를 바꿨다. 1세트에서 사용한 배럭 1개 앞마당 확장 기반의 시즈 푸시가 아니라, 배럭 2개 메딕 드롭. 수송선에 마린과 메딕을 태워 저그의 본진 뒤쪽으로 투하하는 전략. 이 시대의 메타에서는 아직 체계화되지 않은 전술이었다.</p>
 
 <p class="novel">3분 20초. 배럭 두 개에서 마린 생산 시작. 4분 40초. 스타포트 건설 착수. 5분 50초. 수송선 생산. 7분 10초. 마린 여덟 기와 메딕 두 기가 수송선에 탑승.</p>
 
@@ -365,8 +368,8 @@ datePublished: "2026-02-11"
 <span class="gs-divider">────────────────────────────</span><br>
 <span class="gs-player">WooHyuk [Jin]</span>: <span class="gs-action">GG</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-alert">SeoJun [Lee] wins Game 2</span><br>
-<span class="gs-resource">Game Time: 16:32</span>
+<span class="gs-alert">SeoJun [이] 2세트 승리</span><br>
+<span class="gs-resource">게임 시간: 16:32</span>
 </div>
 
 <p class="novel">스코어 1-1.</p>
@@ -379,7 +382,7 @@ datePublished: "2026-02-11"
 
 <p class="novel">남은 카드가 줄어들고 있었다.</p>
 
-<p class="novel">우혁은 2004년 후반에 등장하는 '5 Rax 마린-메딕' 올인을 선택했다. 배럭 다섯 개에서 마린과 메딕을 대량 생산하여 저그의 세 번째 해처리가 올라가기 전에 밀어버리는 전략. 타이밍이 정확해야 하고, 실패하면 돌아올 수 없는 올인 빌드.</p>
+<p class="novel">우혁은 2004년 후반에 등장하는 배럭 5개 마린-메딕 올인을 선택했다. 배럭 다섯 개에서 마린과 메딕을 대량 생산하여 저그의 세 번째 해처리가 올라가기 전에 밀어버리는 전략. 타이밍이 정확해야 하고, 실패하면 돌아올 수 없는 올인 빌드.</p>
 
 <p class="novel">마린 스물네 기. 메딕 여덟 기. 7분 30초에 올인 타이밍을 맞췄다. 완벽한 타이밍이었다. 서준의 세 번째 해처리가 건설 중이었고, 방어 유닛이 분산되어 있었다.</p>
 
@@ -412,7 +415,7 @@ datePublished: "2026-02-11"
 <p class="novel">우혁은 화면을 바라보았다. 텅 빈 본진. 쓰러진 마린들. 그리고 체력 3으로 살아남은 해처리.</p>
 
 <div class="apm-counter">
-  <div class="apm-label">woohyuk peak apm — game 3</div>
+  <div class="apm-label">우혁 최고 APM — 3세트</div>
   <div class="apm-value">267</div>
 </div>
 
@@ -426,9 +429,9 @@ datePublished: "2026-02-11"
 <span class="gs-divider">────────────────────────────</span><br>
 <span class="gs-player">WooHyuk [Jin]</span>: <span class="gs-action">GG</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-alert">SeoJun [Lee] wins Game 3</span><br>
-<span class="gs-resource">Game Time: 09:14</span><br>
-<span class="gs-resource">Remaining HP: Hatchery 3/1250</span>
+<span class="gs-alert">SeoJun [이] 3세트 승리</span><br>
+<span class="gs-resource">게임 시간: 09:14</span><br>
+<span class="gs-resource">잔여 체력: 해처리 3/1250</span>
 </div>
 
 <p class="novel">스코어 1-2. 우혁은 매치 포인트에 몰렸다.</p>
@@ -442,7 +445,7 @@ datePublished: "2026-02-11"
 
 <p class="novel">인터벌. 우혁은 부스 안에서 눈을 감았다.</p>
 
-<p class="internal">미래가 바닥났다. 1세트의 시즈 푸시. 2세트의 메딕 드롭. 3세트의 5 Rax 올인. 세 개의 미래 빌드를 모두 소진했다. 서준은 한 게임 만에 적응한다. 같은 카테고리의 빌드를 다시 쓰면, 그는 대응할 것이다. 남은 카드가 없다.</p>
+<p class="internal">미래가 바닥났다. 1세트의 시즈 푸시. 2세트의 메딕 드롭. 3세트의 배럭 5개 올인. 세 개의 미래 빌드를 모두 소진했다. 서준은 한 게임 만에 적응한다. 같은 카테고리의 빌드를 다시 쓰면, 그는 대응할 것이다. 남은 카드가 없다.</p>
 
 <p class="internal">아니. 카드가 없는 것이 아니다. 미래의 카드가 없는 것이다. 2003년의 빌드, 2004년의 빌드, 2005년의 빌드. 그것들은 다른 사람의 혁신이었다. iloveoov의 경제 혁명. sAviOr의 뮤탈 운영. Flash의 완전 테란. 내가 만든 것은 하나도 없었다. 나는 그것을 가져다 쓴 것뿐이다.</p>
 
@@ -468,13 +471,13 @@ datePublished: "2026-02-11"
 <p class="novel novel-first">제4국. 맵은 개마고원.</p>
 
 <div class="game-screen">
-<span class="gs-map">Map: Gaema Gowon</span><br>
+<span class="gs-map">맵: 개마고원</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-player">Player 1: WooHyuk [Jin]</span> <span class="gs-race">[Terran]</span> — <span class="gs-resource">11 o'clock</span><br>
-<span class="gs-player">Player 2: SeoJun [Lee]</span> <span class="gs-race">[Zerg]</span> — <span class="gs-resource">5 o'clock</span><br>
+<span class="gs-player">플레이어 1: WooHyuk [진]</span> <span class="gs-race">[테란]</span> — <span class="gs-resource">11시</span><br>
+<span class="gs-player">플레이어 2: SeoJun [이]</span> <span class="gs-race">[저그]</span> — <span class="gs-resource">5시</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-action">OnGameNet Starleague Finals — Game 4</span><br>
-<span class="gs-action">Match Point: SeoJun leads 2-1</span>
+<span class="gs-action">OnGameNet 스타리그 결승 — 4세트</span><br>
+<span class="gs-action">매치 포인트: SeoJun 2-1 리드</span>
 </div>
 
 <p class="novel">게임이 시작되었다. 우혁의 손이 키보드 위에서 움직이기 시작했다.</p>
@@ -489,9 +492,9 @@ datePublished: "2026-02-11"
 
 <p class="novel">지금 꺼내기로 했다.</p>
 
-<p class="novel">오프닝은 1 Rax FE. 여기까지는 같았다. 하지만 이후의 진행이 달랐다. 팩토리를 올린 뒤, 벌처를 생산하지 않았다. 대신 시즈 탱크 한 기를 뽑고, 즉시 두 번째 팩토리를 짓지 않고 스타포트를 올렸다. 사이언스 베슬을 생산했다.</p>
+<p class="novel">오프닝은 배럭 1개 앞마당 확장. 여기까지는 같았다. 하지만 이후의 진행이 달랐다. 팩토리를 올린 뒤, 벌처를 생산하지 않았다. 대신 시즈 탱크 한 기를 뽑고, 즉시 두 번째 팩토리를 짓지 않고 스타포트를 올렸다. 사이언스 베슬을 생산했다.</p>
 
-<p class="novel">해설진이 당혹했다. 1 Rax FE에서 사이언스 베슬? 이 조합은 어떤 교과서에도 없었다. 2001년에도 없었고, 우혁이 가져온 미래에도 이런 조합은 표준으로 자리잡은 적이 없었다. 왜냐하면 비효율적이니까. 경제 오프닝에서 사이언스 베슬은 가스 투자가 과도하고, 전투력 전환이 느리다.</p>
+<p class="novel">해설진이 당혹했다. 배럭 1개 앞마당 확장에서 사이언스 베슬? 이 조합은 어떤 교과서에도 없었다. 2001년에도 없었고, 우혁이 가져온 미래에도 이런 조합은 표준으로 자리잡은 적이 없었다. 왜냐하면 비효율적이니까. 경제 오프닝에서 사이언스 베슬은 가스 투자가 과도하고, 전투력 전환이 느리다.</p>
 
 <p class="novel">하지만 우혁에게는 의도가 있었다.</p>
 
@@ -538,7 +541,7 @@ datePublished: "2026-02-11"
 <p class="novel">경제가 무너졌다. 우혁의 미네랄이 0으로 떨어졌다. SCV가 남아 있지 않은 세 번째 확장의 잔해 위에 저글링이 달려다니고 있었다.</p>
 
 <div class="apm-counter">
-  <div class="apm-label">woohyuk sustained apm — game 4</div>
+  <div class="apm-label">우혁 유지 APM — 4세트</div>
   <div class="apm-value">258</div>
 </div>
 
@@ -570,9 +573,9 @@ datePublished: "2026-02-11"
 <span class="gs-divider">────────────────────────────</span><br>
 <span class="gs-player">WooHyuk [Jin]</span>: <span class="gs-action">GG</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-alert">SeoJun [Lee] wins Game 4</span><br>
-<span class="gs-alert">SeoJun [Lee] wins the series 3-1</span><br>
-<span class="gs-resource">Game Time: 20:14</span>
+<span class="gs-alert">SeoJun [이] 4세트 승리</span><br>
+<span class="gs-alert">SeoJun [이] 시리즈 3대1 우승</span><br>
+<span class="gs-resource">게임 시간: 20:14</span>
 </div>
 
 <p class="novel">관중석이 조용해졌다. 아주 잠깐. 숨을 멈춘 것 같은 정적. 그리고 박수가 시작되었다. 산발적으로, 그리고 점점 커지면서, 만 명의 박수가 하나로 합쳐졌다.</p>

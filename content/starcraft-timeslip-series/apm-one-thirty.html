@@ -78,30 +78,33 @@ datePublished: "2026-02-11"
   .game-screen .gs-alert { color: #c43e2a; font-weight: 700; }
   .game-screen .gs-resource { color: #6db36d; }
   .game-screen .gs-map { color: #d4a843; }
-  .game-screen .gs-divider { color: #4a4a48; }
+  .game-screen .gs-divider { color: #4a4a48; display: block; overflow: hidden; }
 
   /* APM COUNTER */
   .apm-counter {
-    display: inline-block;
-    border: 2px solid var(--fg);
-    padding: 16px 28px;
-    margin: 32px 0;
+    display: block;
+    width: fit-content;
+    margin: 40px auto;
+    padding: 24px 48px;
     text-align: center;
+    background: #1a1a18;
+    border: 1px solid rgba(200, 196, 184, 0.15);
+    border-top: 3px solid var(--accent);
   }
+  [data-theme="dark"] .apm-counter { background: #0a0a08; }
   .apm-counter .apm-label {
-    font-family: var(--mono);
-    font-size: 0.55rem;
-    letter-spacing: 5px;
-    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
     color: var(--muted);
-    margin-bottom: 4px;
+    margin-bottom: 8px;
   }
   .apm-counter .apm-value {
     font-family: var(--mono);
-    font-size: 2.4rem;
+    font-size: 3rem;
     font-weight: 700;
     color: var(--accent);
     letter-spacing: -1px;
+    line-height: 1;
   }
 
   /* COMMENTARY — broadcast style */
@@ -201,7 +204,7 @@ datePublished: "2026-02-11"
 <p class="novel">4월 첫째 주, 우혁은 처음으로 APM 100을 넘겼다.</p>
 
 <div class="apm-counter">
-  <div class="apm-label">april — week 1</div>
+  <div class="apm-label">4월 — 1주차</div>
   <div class="apm-value">103</div>
 </div>
 
@@ -236,7 +239,7 @@ datePublished: "2026-02-11"
 <p class="novel novel-first">5월. 중간고사가 끝나고, 우혁의 APM은 115를 넘었다.</p>
 
 <div class="apm-counter">
-  <div class="apm-label">may — week 2</div>
+  <div class="apm-label">5월 — 2주차</div>
   <div class="apm-value">118</div>
 </div>
 
@@ -282,14 +285,14 @@ datePublished: "2026-02-11"
 <p class="novel">우혁은 4번 시드를 받았다. 8강 첫 상대는 근처 고등학교의 3학년이었다. 종족은 저그.</p>
 
 <div class="game-screen">
-<span class="gs-map">Map: Lost Temple</span><br>
+<span class="gs-map">맵: Lost Temple</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-player">Player 1: 진우혁</span> <span class="gs-race">[Terran]</span> — <span class="gs-resource">12시</span><br>
-<span class="gs-player">Player 2: 참가자 #5</span> <span class="gs-race">[Zerg]</span> — <span class="gs-resource">6시</span><br>
+<span class="gs-player">Player 1: 진우혁</span> <span class="gs-race">[테란]</span> — <span class="gs-resource">12시</span><br>
+<span class="gs-player">Player 2: 참가자 #5</span> <span class="gs-race">[저그]</span> — <span class="gs-resource">6시</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
 <span class="gs-action">8강 1경기 · 단판</span><br>
 <br>
-<span class="gs-action">[02:40]</span> 진우혁 — 2 Rax FE 오프닝. 앞마당 커맨드센터 착공<br>
+<span class="gs-action">[02:40]</span> 진우혁 — 배럭 2개 앞마당 확장 오프닝. 커맨드센터 착공<br>
 <span class="gs-action">[03:15]</span> 참가자 #5 — 12 해처리. 저글링 6기 생산 시작<br>
 <span class="gs-action">[04:50]</span> 진우혁 — 마린 8기 + 메딕 2기. 앞마당 완성<br>
 <span class="gs-action">[05:20]</span> 참가자 #5 — 저글링 12기로 앞마당 공격<br>
@@ -297,14 +300,14 @@ datePublished: "2026-02-11"
 <span class="gs-action">[07:40]</span> 진우혁 — 시즈 탱크 3기 + 벌처 4기. 중앙 진출<br>
 <span class="gs-action">[09:10]</span> 참가자 #5 — 뮤탈리스크 5기 생산. 본진 방어 시도<br>
 <span class="gs-action">[10:30]</span> 진우혁 — 미디안 + 터렛 + 시즈 라인 완성<br>
-<span class="gs-alert">[11:45]</span> <span class="gs-player">참가자 #5</span> has left the game.
+<span class="gs-alert">[11:45]</span> <span class="gs-player">참가자 #5</span> 님이 게임에서 나갔습니다.
 </div>
 
-<p class="novel">12분도 안 걸렸다. 2001년의 아마추어 저그 유저가 2003년형 표준 TvZ 운영을 상대할 방법은 없었다. 상대는 초반 저글링 러시가 실패한 뒤 뮤탈리스크로 전환했지만, 우혁은 이미 터렛을 완성한 상태였다. 뮤탈리스크의 이동 경로를 예측하고 터렛을 배치한 것이다. 2001년의 테란 유저는 뮤탈 타이밍에 맞춰 터렛을 올린다는 개념 자체가 희박했다.</p>
+<p class="novel">12분도 안 걸렸다. 2001년의 아마추어 저그 유저가 2003년형 표준 테란 vs 저그 운영을 상대할 방법은 없었다. 상대는 초반 저글링 러시가 실패한 뒤 뮤탈리스크로 전환했지만, 우혁은 이미 터렛을 완성한 상태였다. 뮤탈리스크의 이동 경로를 예측하고 터렛을 배치한 것이다. 2001년의 테란 유저는 뮤탈 타이밍에 맞춰 터렛을 올린다는 개념 자체가 희박했다.</p>
 
 <p class="novel">4강. 상대는 프로토스. 대학생이었고, PC방에서 제법 유명한 편이었다. 민수가 8강에서 이 사람에게 졌다.</p>
 
-<p class="novel">우혁은 1 Rax FE를 깔았다. 상대의 질럿 두 기가 정찰 겸 견제로 왔지만, 벙커 하나로 막았다. 이후 벌처 세 기를 뽑아 상대 앞마당에 스파이더 마인을 심고, 시즈 탱크로 수비 라인을 구축했다. 상대의 드라군 + 리버 조합이 올라왔을 때, 우혁은 시즈 탱크 네 기가 반원을 그리며 배치된 "아크 포메이션"을 완성하고 있었다.</p>
+<p class="novel">우혁은 배럭 1개 앞마당 확장 빌드를 깔았다. 상대의 질럿 두 기가 정찰 겸 견제로 왔지만, 벙커 하나로 막았다. 이후 벌처 세 기를 뽑아 상대 앞마당에 스파이더 마인을 심고, 시즈 탱크로 수비 라인을 구축했다. 상대의 드라군 + 리버 조합이 올라왔을 때, 우혁은 시즈 탱크 네 기가 반원을 그리며 배치된 "아크 포메이션"을 완성하고 있었다.</p>
 
 <p class="internal">이 아크 포메이션은 2004년에 프로 경기에서 표준이 되는 배치법이다. 시즈 탱크를 일렬이 아닌 반원형으로 배치하면, 스플래시 데미지가 아군에게 튀는 것을 최소화하면서 화력 범위가 넓어진다. 2001년에 이것을 쓰는 테란 유저는 없다.</p>
 
@@ -314,7 +317,7 @@ datePublished: "2026-02-11"
 
 <p class="novel">결승. 우혁의 상대는 키가 크고 마른 남자였다. 나이는 스물 둘쯤으로 보였다. 묘하게 익숙한 인상이었지만, 기억이 나지 않았다. 종족은 테란.</p>
 
-<p class="novel">TvT. 같은 종족 간의 전투. 이 매치업은 다른 매치업과 성격이 완전히 달랐다. TvZ나 TvP에서는 종족 간 비대칭이 전략의 축이지만, TvT는 거울 대결이다. 같은 유닛, 같은 기술, 같은 가능성. 순수하게 운영과 판단, 그리고 실행 속도가 승부를 가른다.</p>
+<p class="novel">TvT. 같은 종족 간의 전투. 이 매치업은 다른 매치업과 성격이 완전히 달랐다. 테란 vs 저그나 테란 vs 프로토스에서는 종족 간 비대칭이 전략의 축이지만, 동족전은 거울 대결이다. 같은 유닛, 같은 기술, 같은 가능성. 순수하게 운영과 판단, 그리고 실행 속도가 승부를 가른다.</p>
 
 <p class="novel">우혁은 긴장했다. 이 사람의 오프닝이 2001년 수준이 아니었기 때문이다.</p>
 
@@ -399,18 +402,18 @@ datePublished: "2026-02-11"
 <p class="dialogue">"로스트 템플요."</p>
 
 <div class="game-screen">
-<span class="gs-map">Map: Lost Temple</span><br>
+<span class="gs-map">맵: Lost Temple</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-player">Player 1: Tempest_WooHyuk</span> <span class="gs-race">[Terran]</span> — <span class="gs-resource">11시</span><br>
-<span class="gs-player">Player 2: storm_of_terran</span> <span class="gs-race">[Terran]</span> — <span class="gs-resource">5시</span><br>
+<span class="gs-player">Player 1: Tempest_WooHyuk</span> <span class="gs-race">[테란]</span> — <span class="gs-resource">11시</span><br>
+<span class="gs-player">Player 2: storm_of_terran</span> <span class="gs-race">[테란]</span> — <span class="gs-resource">5시</span><br>
 <span class="gs-divider">────────────────────────────</span><br>
-<span class="gs-action">Clan Practice Match · TvT</span><br>
+<span class="gs-action">클랜 연습 경기 · TvT</span><br>
 <br>
-<span class="gs-action">[01:30]</span> WooHyuk — 14 CC 오프닝<br>
-<span class="gs-action">[01:35]</span> storm — 1 Rax FE 오프닝<br>
+<span class="gs-action">[01:30]</span> WooHyuk — 14인구 선커맨드 오프닝<br>
+<span class="gs-action">[01:35]</span> storm — 배럭 1개 앞마당 확장 오프닝<br>
 <span class="gs-action">[04:20]</span> WooHyuk — 벌처 4기 중앙 진출. 마인 매설<br>
 <span class="gs-action">[04:25]</span> storm — 벌처 6기 이미 중앙 장악. 마인 해제 후 재매설<br>
-<span class="gs-action">[06:10]</span> WooHyuk — 시즈 탱크 3기 전진 배치. 아크 포메이션<br>
+<span class="gs-action">[06:10]</span> WooHyuk — 시즈 탱크 3기 전진 배치. 반원형 진형<br>
 <span class="gs-action">[06:15]</span> storm — 시즈 탱크 5기 + 골리앗 2기. 상위 언덕 선점<br>
 <span class="gs-alert">[06:40]</span> 고지대 차이. WooHyuk 탱크 2기 파괴<br>
 <span class="gs-action">[08:30]</span> WooHyuk — 드랍십 2기 생산. 우회 기동 시도<br>
@@ -420,7 +423,7 @@ datePublished: "2026-02-11"
 <span class="gs-action">[12:05]</span> storm — 탱크 8기 + 골리앗 6기 + 벌처 견제<br>
 <span class="gs-alert">[12:45]</span> WooHyuk 본진 벌처 4기 난입. SCV 8기 손실<br>
 <span class="gs-action">[13:20]</span> 정면 교전. storm 탱크 화력 우세<br>
-<span class="gs-alert">[14:10]</span> <span class="gs-player">Tempest_WooHyuk</span> has left the game.
+<span class="gs-alert">[14:10]</span> <span class="gs-player">Tempest_WooHyuk</span> 님이 게임에서 나갔습니다.
 </div>
 
 <p class="novel">완패였다.</p>
@@ -505,7 +508,7 @@ datePublished: "2026-02-11"
 <p class="novel">APM은 여전히 130 언저리에서 머물렀다.</p>
 
 <div class="apm-counter">
-  <div class="apm-label">july — week 3</div>
+  <div class="apm-label">7월 — 3주차</div>
   <div class="apm-value">132</div>
 </div>
 
