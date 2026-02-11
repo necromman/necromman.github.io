@@ -298,6 +298,16 @@ editorial/
 | 04 | `interstellar-travel-reality.html` | 별까지 가는 현실적인 방법 | 우주공학 — 보이저부터 반물질까지 성간여행 기술 스펙트럼 |
 | 05 | `fermis-question.html` | 페르미의 질문 | 우주론 — 드레이크 방정식, 대여과기, 우주의 침묵 |
 
+### 시리즈 19: GG (starcraft-timeslip-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `one-thousand-won.html` | 다시, 천 원짜리 한 장 | 소설 — 38세 QA 엔지니어가 2001년으로 회귀, 미래 빌드오더 발견 |
+| 02 | `apm-one-thirty.html` | APM 130의 벽 | 소설 — 미래 전략은 알지만 손이 안 따라주는 현실, 극한 연습 |
+| 03 | `trainee-number-seven.html` | 연습생 번호 7번 | 소설 — 프로팀 입단 테스트, 합숙소 생활, 1군 첫 승리 |
+| 04 | `the-man-who-changed-meta.html` | 메타를 바꾼 남자 | 소설 — 프로리그 데뷔, 미래 빌드로 메타를 뒤흔든 예언자 |
+| 05 | `gg.html` | GG | 소설 — 개인리그 결승, 미래 지식 vs 천재의 본능, GG의 의미 |
+
 ## 콘텐츠 제작 워크플로우
 
 0. **기획**: `plans/[시리즈-슬러그]/series-plan.md`에 자료조사 + 시리즈 구성 기획서 작성 (series-plan 스킬 참조)

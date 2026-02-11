@@ -1,0 +1,710 @@
+---
+layout: layouts/article.njk
+pageTitle: "연습생 번호 7번"
+description: "겨우 합격한 입단 테스트, 7번 사물함, 월급 30만원. 하루 14시간의 연습 끝에 새벽 3시 CRT 앞에 혼자 남는다. 머리는 1군인데 손은 2군이라는 평가를 뒤집기 위해."
+datePublished: "2026-02-11"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* NOVEL PROSE */
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+
+  /* SCENE BREAK */
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+
+  /* DIALOGUE */
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+
+  /* INTERNAL MONOLOGUE */
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  /* CHARACTER INTRO */
+  .char-intro {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 20px;
+    align-items: baseline;
+    margin: 40px 0 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .char-intro .c-name { font-size: 1.4rem; font-weight: 700; color: var(--fg); }
+  .char-intro .c-info { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
+
+  /* SECTION DIVIDER */
+  .part-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .part-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+  }
+  .section-divider {
+    margin-top: 64px;
+    margin-bottom: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* GAME SCREEN — StarCraft match display */
+  .game-screen {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    background: #1a1a18;
+    color: #c8c4b8;
+    padding: 24px 28px;
+    margin: 32px 0;
+    border: 1px solid var(--fg);
+  }
+  [data-theme="dark"] .game-screen { background: #0a0a08; border-color: var(--rule); }
+  .game-screen .gs-player { color: #7cafc2; font-weight: 700; }
+  .game-screen .gs-race { color: #8a8680; }
+  .game-screen .gs-action { color: #c9b97a; }
+  .game-screen .gs-alert { color: #c43e2a; font-weight: 700; }
+  .game-screen .gs-resource { color: #6db36d; }
+  .game-screen .gs-map { color: #d4a843; }
+  .game-screen .gs-divider { color: #4a4a48; }
+
+  /* APM COUNTER */
+  .apm-counter {
+    display: inline-block;
+    border: 2px solid var(--fg);
+    padding: 16px 28px;
+    margin: 32px 0;
+    text-align: center;
+  }
+  .apm-counter .apm-label {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .apm-counter .apm-value {
+    font-family: var(--mono);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -1px;
+  }
+
+  /* COMMENTARY — broadcast style */
+  .commentary {
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .commentary .cm-header {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .commentary .cm-line { font-size: 0.95rem; line-height: 1.8; color: var(--fg); margin-bottom: 8px; }
+  .commentary .cm-caster { font-weight: 700; color: var(--fg); }
+
+  /* ERA DETAIL */
+  .era-detail {
+    border: 1px solid var(--rule);
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+  .era-detail .ed-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .era-detail .ed-stat {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 16px;
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+  .era-detail .ed-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .era-detail .ed-value { color: var(--fg); }
+  .era-detail .ed-highlight { color: var(--accent); font-weight: 700; }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .char-intro { grid-template-columns: 1fr; }
+    .era-detail .ed-stat { grid-template-columns: 1fr; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">gg — fiction 03</p>
+  <h1>연습생 번호 <strong>7번</strong></h1>
+  <p class="deck">겨우 합격한 입단 테스트. 7번 사물함. 월급 30만원.<br>하루 14시간의 연습 끝에 새벽 3시 CRT 앞에 혼자 남는다.<br>"머리는 1군, 손은 2군." 그 평가를 뒤집기 위해.</p>
+</header>
+
+<main>
+
+<!-- PART I -->
+
+<section>
+<div class="section-divider" style="border-top:none;margin-top:0;padding-top:0">
+  <p class="part-label">Part I</p>
+  <p class="part-title">"입단 테스트"</p>
+</div>
+
+<p class="novel novel-first">2001년 11월 17일 토요일. 서울 마포구 합정동.</p>
+
+<p class="novel">3층짜리 상가건물 꼭대기 층에 간판도 없는 사무실이 있었다. 엘리베이터 없이 계단을 올라야 했고, 계단 벽에는 금이 가 있었다. 우혁은 계단 앞에서 잠시 멈췄다. 검은 패딩 주머니에 넣은 손이 떨렸다. 11월의 찬 공기 때문이 아니었다.</p>
+
+<p class="novel">한 달 전, 온라인 클랜 대항전에서 7전 전승을 기록한 뒤였다. 클랜 마스터가 쪽지를 보내왔다. '입단 테스트 한번 볼 생각 없냐. 아는 형이 프로팀 코치다.' 팀 이름은 제닉스 스톰(Xenics Storm). 2001년에 막 창단한 신생팀. 이 시점에서 프로게이밍 씬은 아직 KT, SK텔레콤 같은 대기업이 참여하기 전이었다. 대부분의 팀이 중소기업 스폰서나 PC방 업주가 운영하는 규모였다.</p>
+
+<p class="internal">제닉스 스톰. 2026년의 기억에는 없는 이름이다. 2001년에 생겼다가 2003년쯤에 해체된 팀일 가능성이 높다. 프로리그 초기에 수십 개의 팀이 생기고 사라졌으니까. 하지만 지금 나에게 선택지는 없다. 삼성전자 칸이나 SK텔레콤 T1에서 입단 테스트를 볼 수 있는 상황이 아니다. 아마추어 대회 입상 몇 번과 클랜전 전적만으로는 탑 티어 팀의 문을 두드릴 수 없다.</p>
+
+<p class="novel">계단을 올라갔다. 3층 문을 열자 담배 연기가 밀려왔다. 60평 남짓한 공간에 CRT 모니터 스무 대가 줄지어 있었다. PC방과 비슷했지만, 좌석 간격이 더 좁았고, 의자가 전부 낡은 사무용 회전의자였다. 벽에 화이트보드가 걸려 있었다. 빼곡한 글씨 — 연습 스케줄, 대회 일정, 래더 순위. 이것이 2001년의 프로게이밍 팀 연습실이었다.</p>
+
+<div class="era-detail">
+  <div class="ed-title">era snapshot — november 2001</div>
+  <div class="ed-stat">
+    <span class="ed-label">KeSPA 등록 팀</span>
+    <span class="ed-value">약 15개 (신생팀 포함)</span>
+    <span class="ed-label">기업팀 수준</span>
+    <span class="ed-value ed-highlight">대기업 참여 전. 중소기업/PC방 업주 운영이 대다수</span>
+    <span class="ed-label">연습생 월급</span>
+    <span class="ed-value">20~50만원 (팀마다 상이)</span>
+    <span class="ed-label">합숙소</span>
+    <span class="ed-value">원룸/오피스텔 개조. 연습실 겸용인 경우 흔함</span>
+    <span class="ed-label">입단 경로</span>
+    <span class="ed-value">래더 성적 + 아마추어 대회 입상 + 클랜 추천</span>
+    <span class="ed-label">OSL 상황</span>
+    <span class="ed-value">임요환 2연속 우승 직후. 프로게이밍 대중 인지도 급상승</span>
+  </div>
+</div>
+
+<p class="novel">사무실 안쪽에 40대 중반으로 보이는 남자가 앉아 있었다. 짧은 머리, 검은 점퍼, 턱에 수염. 손에 캔커피를 들고 있었다. 이 사람이 코치였다.</p>
+
+<p class="dialogue">"진우혁?"</p>
+
+<p class="dialogue">"네."</p>
+
+<p class="dialogue">"고2라며?"</p>
+
+<p class="dialogue">"네. 내년에 고3입니다."</p>
+
+<p class="novel">코치가 우혁을 위아래로 훑었다. 키 173, 마른 체형, 교복 대신 청바지와 검은 패딩. 17세에 입단 테스트를 보러 온 아이. 특별할 것 없는 외모였다.</p>
+
+<p class="dialogue">"종족은?"</p>
+
+<p class="dialogue">"테란입니다."</p>
+
+<p class="dialogue">"테란. 좋아, 저기 빈자리 앉아. 오늘 테스트는 간단해. 우리 2군 선수 세 명이랑 한 판씩 해. 세 판 중 두 판 이상 이기면 합격이야."</p>
+
+<p class="novel">우혁은 빈자리에 앉았다. 의자가 삐걱거렸다. 모니터는 17인치 삼성 싱크마스터. 키보드는 쌍둥이 콩나물 — 삼성전자 기본형 멤브레인. 마우스는 로지텍 휠마우스. 볼마우스가 아니라 광마우스라는 점이 PC방보다 나았다. 그래도 2026년 기준으로는 유물이었다.</p>
+
+<p class="novel">첫 번째 상대가 맞은편에 앉았다. 이름표가 붙은 의자 뒤에 '연습생 3번 — 박진형'이라고 적혀 있었다. 열여섯. 우혁보다 한 살 어렸다. 종족은 저그.</p>
+
+<div class="game-screen">
+<span class="gs-map">Map: Lost Temple</span><br>
+<span class="gs-divider">────────────────────────────</span><br>
+<span class="gs-player">Player 1: WooHyuk</span> <span class="gs-race">[Terran]</span> — <span class="gs-action">12 o'clock</span><br>
+<span class="gs-player">Player 2: JinHyung</span> <span class="gs-race">[Zerg]</span> — <span class="gs-action">6 o'clock</span><br>
+<span class="gs-divider">────────────────────────────</span><br>
+<br>
+<span class="gs-action">03:20</span> WooHyuk — <span class="gs-action">2 Rax FE at natural</span><br>
+<span class="gs-action">04:10</span> JinHyung — <span class="gs-alert">6 Zergling rush incoming</span><br>
+<span class="gs-action">04:35</span> WooHyuk — <span class="gs-action">4 Marines hold natural ramp</span><br>
+<span class="gs-action">05:50</span> WooHyuk — <span class="gs-resource">CC complete. Economy +40%</span><br>
+<span class="gs-action">08:30</span> WooHyuk — <span class="gs-action">Siege Tank + Vulture push mid</span><br>
+<span class="gs-action">10:15</span> JinHyung — <span class="gs-alert">GG</span>
+</div>
+
+<p class="novel">10분. 진형의 저글링 러시를 네 기의 마린으로 간신히 막고, 앞마당 경제를 살린 뒤, 시즈 탱크와 벌처를 조합해 중앙을 장악했다. 진형은 2해처리 뮤탈을 준비하고 있었지만, 뮤탈이 나오기 전에 우혁의 푸시가 도착했다. 타이밍이 정확했다. 2003년에 정립될 TvZ 시즈 푸시 타이밍. 2001년의 연습생이 알 리 없는 타이밍.</p>
+
+<p class="novel">두 번째 상대. 연습생 5번, 김도윤. 열다섯. 프로토스. 이 경기는 더 어려웠다.</p>
+
+<p class="novel">도윤은 빨랐다. 손이 빨랐다. 프로브를 미네랄에 보내면서 동시에 파일런을 찍고, 게이트웨이를 올리면서 스카우팅 프로브를 보내는 — 그 모든 동작이 물 흐르듯 이어졌다. APM이 체감으로 250은 넘어 보였다. 열다섯 살.</p>
+
+<p class="internal">이것이 재능이다. 훈련이 아니라 타고난 것. 15세에 저 속도를 낸다는 건, 20대에 300을 넘긴다는 것이고, 그것은 프로의 영역이다. 나는 8개월을 죽어라 연습해서 180까지 올렸다. 저 아이는 아마 특별한 훈련 없이 저 수준일 것이다.</p>
+
+<p class="novel">도윤의 2게이트 드라군 압박이 들어왔다. 우혁은 벙커를 두 개 세우고 마린으로 버텼다. 손이 말렸다. 벙커 수리를 하면서 팩토리를 올려야 했는데, 벙커 수리에 SCV를 넣는 동작과 팩토리 건설 명령을 번갈아 하는 멀티태스킹에서 0.5초씩 늦었다. 0.5초. 프로의 세계에서 그것은 유닛 세 기의 생사를 가르는 시간이었다.</p>
+
+<p class="novel">하지만 우혁은 이겼다. 도윤의 드라군 압박이 실패한 뒤, 도윤이 빠르게 3넥서스를 가는 사이에 우혁이 벌처 다섯 기로 프로브 라인을 급습했다. 벌처 마이크로. 2026년에 수천 번 본 프로게이머의 벌처 운영. 드라군 사이를 파고들며 프로브를 잡는 경로, 스파이더 마인을 드라군 진입로에 심는 타이밍. 이것은 APM의 싸움이 아니라 동선의 싸움이었다. 머리가 손을 이긴 순간.</p>
+
+<p class="novel">세 번째 상대. 연습생 2번, 최승준. 열여섯. 테란. 같은 종족 미러전. 이 경기에서 우혁은 졌다.</p>
+
+<p class="novel">승준의 벌처 마이크로가 우혁보다 한 단계 위였다. 같은 전략을 알아도 손이 빠른 쪽이 이기는 것이 미러전이다. 시즈 탱크 배치 위치, 확장 타이밍, 아머리 업그레이드 순서 — 모든 전략적 판단에서 우혁이 앞섰지만, 중반 벌처 교전에서 승준의 조작 속도에 밀리면서 벌처 4기를 허무하게 잃었다. 그 손실이 끝까지 따라왔다.</p>
+
+<p class="novel">2승 1패. 합격선.</p>
+
+<p class="novel">코치가 캔커피를 비우고 다가왔다.</p>
+
+<p class="dialogue">"합격이야."</p>
+
+<p class="novel">담담한 목소리였다. 축하의 뉘앙스는 없었다.</p>
+
+<p class="dialogue">"근데 하나만 물어보자. 너 빌드오더를 어디서 배웠냐?"</p>
+
+<p class="dialogue">"외국 리플레이를 많이 봤습니다."</p>
+
+<p class="dialogue">"외국 리플레이."</p>
+
+<p class="novel">코치가 고개를 갸웃했다. 믿는 눈치가 아니었다. 하지만 더 캐묻지는 않았다.</p>
+
+<p class="dialogue">"운영은 나쁘지 않아. 근데 손은 좀 느려. 세 번째 경기 봤지? 미러전에서 조작 속도에 밀리면 끝이야. 프로는."</p>
+
+<p class="dialogue">"알고 있습니다."</p>
+
+<p class="dialogue">"합숙은 가능하냐? 학교는?"</p>
+
+<p class="dialogue">"자퇴할 생각입니다."</p>
+
+<p class="novel">코치의 눈이 약간 넓어졌다. 17세가 학교를 그만두겠다는 말을 이렇게 차분하게 하는 것이 이상했을 것이다. 하지만 이 시기의 프로게이밍 지망생 절반이 그랬다. 자퇴하고 팀에 들어오는 것. 2001년에는 그것이 드문 일이 아니었다.</p>
+
+<p class="internal">부모님을 설득해야 한다. 이것이 가장 어려운 부분이다. 38세의 기억으로도 아버지의 반대를 넘는 방법을 모르겠다. 하지만 어떻게든 해야 한다.</p>
+</section>
+
+<!-- PART II -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part II</p>
+  <p class="part-title">"7번 사물함"</p>
+</div>
+
+<p class="novel novel-first">2001년 12월 3일. 합숙소 입소 첫날.</p>
+
+<p class="novel">합숙소는 합정동 연습실에서 도보 5분 거리의 빌라 반지하였다. 계단을 내려가면 철문이 있고, 문을 열면 20평짜리 공간이 나왔다. 방 두 개, 화장실 하나, 부엌 아닌 부엌. 부엌이라고 부르기엔 가스레인지 하나와 싱크대, 그리고 전자레인지가 전부였다. 냉장고 위에 컵라면 박스가 쌓여 있었다.</p>
+
+<p class="novel">방 하나에 이층침대 두 개. 4명이 한 방을 쓴다. 우혁은 오른쪽 이층침대의 위칸을 배정받았다. 아래칸에는 연습생 5번 김도윤이 있었다. 입단 테스트에서 우혁에게 졌던 열다섯 살 프로토스. 맞은편 이층침대에는 연습생 3번 박진형과 연습생 8번 한영재가 있었다. 진형은 입단 테스트 첫 번째 상대였던 저그 소년. 영재는 우혁보다 일주일 먼저 합류한 열여섯 살 프로토스 연습생이었다.</p>
+
+<p class="novel">사물함은 현관 옆 복도에 일렬로 놓여 있었다. 철제 사물함 10개. 그 중 7번에 우혁의 이름이 매직펜으로 적혀 있었다.</p>
+
+<p class="dialogue">"형, 위 침대 이불 좀 털어요. 먼지 많아요."</p>
+
+<p class="novel">도윤이 아래에서 올려다보며 말했다. 우혁에게 형이라고 부르는 것이 어색했다. 38세의 머릿속에서 자신은 도윤의 아버지뻘이었다. 하지만 밖으로 보이는 것은 17세의 마른 소년이었고, 도윤보다 두 살 위인 '형'일 뿐이었다.</p>
+
+<p class="novel">이불을 펴고 짐을 정리했다. 짐이라고 할 것도 없었다. 옷 몇 벌, 세면도구, 그리고 엄마가 넣어준 김 세 봉지와 참치캔 네 개. 아버지는 끝까지 반대했다. '게임으로 밥을 먹겠다고? 정신이 있냐?' 결국 어머니가 중재했다. '1년만 해보게 해주세요. 1년 안에 안 되면 그만두고 검정고시 보겠습니다.' 38세의 어른이 17세의 소년 역할을 하며 부모님 앞에서 고개를 숙이는 것은 기묘한 경험이었다.</p>
+
+<p class="novel">저녁 7시. 연습실로 올라갔다. 팀 전원이 모여 있었다. 1군 선수 다섯 명, 2군 선수 네 명, 연습생 여덟 명. 총 열일곱 명. 코치가 화이트보드 앞에 섰다.</p>
+
+<p class="dialogue">"새로 온 연습생 7번, 진우혁. 테란. 고2 자퇴. 앞으로 같이 생활한다."</p>
+
+<p class="novel">고개를 숙였다. 열일곱 개의 시선이 우혁을 훑었다. 대부분 10대였다. 가장 나이가 많은 1군 선수가 스물둘. 연습생 중에서는 우혁이 최연장이었다. 17세가 연습생 중 최연장이라는 사실이 이 세계의 현실이었다. 대부분의 연습생은 15세에서 16세. 고등학교도 가지 않은 아이들이 절반이었다.</p>
+
+<p class="novel">첫날 밤, 우혁은 이층침대 위칸에 누워 천장을 바라보았다. 천장이 가까웠다. 팔을 뻗으면 닿을 것 같았다. 아래에서 도윤의 고른 숨소리가 들렸다. 맞은편에서 진형이 뒤척이는 소리가 들렸다. 반지하 특유의 눅눅한 공기. 보일러 배관이 벽을 타고 올라가는 소리.</p>
+
+<p class="internal">월급 30만원. 아침 10시 기상, 연습 시작 11시, 점심 1시, 오후 연습 2시부터 7시, 저녁 8시, 야간 연습 9시부터 새벽 2시. 하루 14시간. 일주일에 쉬는 날은 격주 일요일 하나. 이것이 계약 조건이다. 2026년의 최저시급으로 환산하면 시급 600원도 안 되는 돈을 받고 하루 14시간을 앉아서 게임을 한다. 이것이 프로게이머 연습생의 현실이다.</p>
+
+<p class="internal">2026년에 기사로 읽었을 때와 직접 겪는 것은 달랐다. '프로게이머 지망생의 고된 현실'이라는 제목의 기사를 읽으며 '힘들었겠네'라고 생각한 것과, 20평짜리 반지하에서 15세 소년 옆에서 잠을 자는 것은 완전히 다른 경험이었다.</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel novel-first">합숙 생활은 시간표대로 흘러갔다.</p>
+
+<p class="novel">아침 10시. 알람이 울린다. 8명의 연습생이 화장실 하나를 나눠 쓴다. 순서가 있다. 번호 순이다. 1번부터 8번까지. 우혁은 7번이니까 늘 뒤쪽이었다. 화장실 앞에서 5분, 10분을 서서 기다리는 시간이 매일 반복됐다. 샤워는 3분 제한. 8명이 한 시간 안에 끝내야 했다.</p>
+
+<p class="novel">아침은 각자 해결이었다. 대부분 편의점 삼각김밥이나 컵라면. 우혁은 참치캔을 밥에 얹어 먹었다. 밥은 전기밥솥에 누군가가 새벽에 해놓은 것이었다. 누가 했는지 물어보면 '알아서 돌아가는 것'이라는 대답이 돌아왔다. 신입 연습생이 하는 것이 관례였다. 우혁은 곧 전기밥솥 당번에 들어갔다. 매일 새벽, 연습이 끝난 뒤에 쌀을 씻고 예약 취사를 누르는 일.</p>
+
+<p class="novel">11시. 연습실로 올라간다. 자리에 앉아 스타크래프트를 켠다. 오전은 자율 연습. 래더를 돌리거나, 리플레이를 보거나, 빌드를 연습한다. 코치가 뒤에서 돌아다니며 화면을 본다. 가끔 의자를 끌어다 앉아 화면을 30초쯤 보다가, 한마디 하고 간다.</p>
+
+<p class="dialogue">"서플 늦어. 32 서플에서 30초 밀렸어."</p>
+
+<p class="novel">코치의 피드백은 짧고 건조했다. 칭찬은 없었다. 피드백 자체가 칭찬이었다. 아무 말도 안 하고 지나간다는 것은 봐줄 것이 없다는 뜻이었다.</p>
+
+<p class="novel">점심은 도시락 배달. 5,000원짜리 도시락. 팀에서 제공했다. 반찬은 매일 비슷했다. 김치, 멸치볶음, 계란말이, 불고기 아니면 제육볶음. 연습생 여덟 명이 좁은 연습실 구석에 앉아 도시락을 먹었다. 1군 선수들은 별도의 방에서 먹었다. 같은 팀인데 밥을 따로 먹는 것. 2001년의 프로게이밍 팀에서 1군과 연습생의 거리는 그랬다.</p>
+
+<p class="novel">오후 2시부터 7시까지는 팀 내부 스크림(연습 경기). 코치가 대진을 짜준다. 연습생끼리, 또는 2군 선수와 연습생이 붙는다. 1군과 연습생이 직접 붙는 일은 거의 없었다. 1군 선수들의 시간이 아까웠기 때문이다. 1군은 1군끼리, 또는 외부 팀과 스크림을 돌렸다.</p>
+
+<p class="novel">저녁 8시. 다시 도시락. 야간 연습은 9시부터 새벽 2시. 이 시간은 비교적 자유로웠다. 래더를 돌리거나, 약점을 보완하는 개인 연습. 새벽 2시에 연습실 불이 꺼지면, 연습생들은 반지하 합숙소로 내려갔다.</p>
+
+<p class="novel">샤워. 이층침대. 잠. 그리고 다시 아침 10시.</p>
+
+<p class="novel">매일이 이렇게 흘러갔다. 그리고 매일 밤, 새벽 2시에 연습실 불이 꺼진 뒤에도, 우혁은 자지 않았다.</p>
+</section>
+
+<!-- PART III -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part III</p>
+  <p class="part-title">"코치의 눈"</p>
+</div>
+
+<p class="novel novel-first">입소 3주차. 코치는 우혁을 알게 모르게 관찰하고 있었다.</p>
+
+<p class="novel">코치의 이름은 오정수. 30대 후반. 전직 프로게이머 출신은 아니었다. 1998년부터 PC방을 운영하다가 프로게이밍 쪽으로 넘어온 사람이었다. 선수 경험은 없었지만, 눈은 있었다. 수천 판의 경기를 보면서 기른 눈. 선수의 잠재력을 평가하는 것은 직접 플레이하는 것과 다른 능력이다. 오정수는 그 능력이 있는 사람이었다.</p>
+
+<p class="novel">첫 번째 의문은 빌드오더에서 시작되었다.</p>
+
+<p class="novel">스크림에서 우혁이 TvP(테란 vs 프로토스) 경기를 할 때, 오정수는 뒤에서 화면을 지켜보았다. 우혁의 오프닝은 1/1/1 빌드였다. 배럭 하나, 팩토리 하나, 스타포트 하나를 순서대로 올리는 구성. 2001년에도 이 빌드 자체는 존재했다. 하지만 우혁의 1/1/1은 달랐다.</p>
+
+<p class="novel">타이밍이 정확했다. 서플라이 디팟을 9에서 짓고, 배럭을 11에서 올리고, 가스를 12에서 찍고, 마린을 하나 뽑고, 팩토리를 15에서 올리는 — 이 숫자 하나하나가 자원 효율의 최적해에 가까웠다. 1의 낭비도 없었다. 마치 누군가가 미리 계산해놓은 답안지를 보고 치는 것처럼.</p>
+
+<p class="novel">실제로 그랬다. 이것은 2003년 iloveoov가 수백 판의 실전 경험을 통해 정립할 최적 빌드오더였다. 우혁은 그 답안지를 이미 알고 있었다.</p>
+
+<p class="novel">두 번째 의문은 상황 판단에서 나왔다.</p>
+
+<p class="novel">TvZ 스크림. 상대 저그가 3해처리를 가는 것을 스캔으로 확인한 우혁이 즉시 벌처 세 기를 생산하고, 정확히 상대의 세 번째 해처리가 완성되는 타이밍에 벌처를 도착시켰다. 해처리가 막 완성되어 드론이 미네랄 패치로 흩어지는 그 순간, 벌처가 진입해서 드론 여섯 기를 잡았다. 오정수는 의자에서 몸을 일으켰다.</p>
+
+<p class="dialogue">"잠깐."</p>
+
+<p class="novel">스크림이 끝난 뒤, 코치가 우혁의 옆에 의자를 끌고 왔다.</p>
+
+<p class="dialogue">"아까 그 벌처 타이밍. 어떻게 맞췄냐?"</p>
+
+<p class="dialogue">"스캔으로 3해처리 확인하고 계산했습니다."</p>
+
+<p class="dialogue">"계산? 해처리 완성 시간을 계산했다고?"</p>
+
+<p class="dialogue">"네. 해처리 건설 시간이 1,800 프레임이니까, 스캔 시점에서 건설 진행률을 보고 역산하면 완성 타이밍이 나옵니다."</p>
+
+<p class="novel">오정수의 표정이 미묘하게 바뀌었다. 2001년. 이 시점에서 게임 내 프레임 수를 외우고 타이밍을 역산하는 플레이어가 프로 중에도 몇 명이나 될까. 대부분은 감으로 한다. '이쯤이면 뮤탈이 나올 것이다', '이쯤이면 해처리가 완성될 것이다' — 그 정도의 경험적 감각. 프레임 단위의 정밀 계산은 2004년 이후, 전략 연구가 본격화된 시대의 산물이었다.</p>
+
+<p class="dialogue">"너 외국 리플레이를 많이 봤다고 했지?"</p>
+
+<p class="dialogue">"네."</p>
+
+<p class="dialogue">"어디서 봤냐? 어떤 선수의 리플레이?"</p>
+
+<p class="dialogue">"이름은 잘 모르겠습니다. 외국 커뮤니티에서 구한 리플레이인데, 그냥 여러 개를 봤습니다."</p>
+
+<p class="novel">거짓말이었다. 하지만 더 이상 캐물으면 거짓말의 구멍이 드러날 수 있었다. 오정수도 그것을 느꼈는지, 화제를 바꿨다.</p>
+
+<p class="dialogue">"APM이 얼마나 되냐?"</p>
+
+<div class="apm-counter">
+  <div class="apm-label">current apm — week 3</div>
+  <div class="apm-value">193</div>
+</div>
+
+<p class="dialogue">"최근 평균 193 정도 됩니다."</p>
+
+<p class="dialogue">"193."</p>
+
+<p class="novel">오정수가 천장을 한번 보았다. 193이면 프로 기준으로 낮은 편이었다. 이 팀의 1군 에이스가 평균 APM 320을 찍었다. 2군 하위가 230 정도. 193은 2군 하위에도 못 미치는 수치였다.</p>
+
+<p class="dialogue">"솔직히 말해줄게."</p>
+
+<p class="novel">오정수가 의자를 돌려 우혁을 정면으로 바라보았다.</p>
+
+<p class="dialogue">"너 운영은 우리 팀에서 최상위급이야. 1군 포함해서. 빌드 이해도, 상황 판단, 타이밍 계산. 이건 프로 중에서도 상위 10%에 들어."</p>
+
+<p class="novel">잠시 멈추었다.</p>
+
+<p class="dialogue">"근데 손이 못 따라가. 오늘 TvP 봤지? 중반에 메딕 마린으로 밀 때, 메딕이 마린 뒤에 안 붙어 있었어. 마린이 먼저 전진하고 메딕이 2초 늦게 따라갔어. 그 2초 동안 마린 세 기가 녹았어. 알았냐?"</p>
+
+<p class="dialogue">"네. 알고 있습니다."</p>
+
+<p class="dialogue">"알고 있는데 못 한다는 거지."</p>
+
+<p class="novel">정확한 지적이었다. 38세의 의식이 17세의 손가락에 명령을 내리는 데는 언제나 찰나의 지연이 있었다. 전략적 판단은 즉시 내려지지만, 그것을 키보드와 마우스로 변환하는 과정에서 병목이 생겼다.</p>
+
+<p class="dialogue">"내 평가를 알려줄게. 솔직하게."</p>
+
+<p class="novel">오정수가 손가락으로 머리를 가리켰다.</p>
+
+<p class="dialogue">"머리는 1군이야."</p>
+
+<p class="novel">손가락이 내려와 우혁의 손등을 가리켰다.</p>
+
+<p class="dialogue">"손은 2군이야."</p>
+
+<p class="novel">우혁은 자신의 손을 내려다보았다. 17세의 가는 손가락. 8개월간의 훈련으로 87에서 193까지 끌어올린 손. 하지만 아직 부족한 손.</p>
+
+<p class="dialogue">"공부형 선수라는 거지. 나쁜 건 아니야. 근데 이 세계에서 살아남으려면 결국 손이 따라와야 해. 천재형은 머리로 이해하기 전에 손이 먼저 움직여. 너는 반대야. 머리가 먼저 이해하고, 손이 뒤따르려고 해. 그 갭을 못 좁히면 2군에서 못 올라가."</p>
+
+<p class="novel">우혁은 알고 있었다. 자신이 '공부형 선수'라는 것을. 25년의 지식이 만든 이론적 완벽함. 하지만 이론과 실행 사이에 있는 몇 밀리초의 간극. 그것이 1군과 2군을 가르는 벽이라는 것을.</p>
+
+<p class="dialogue">"코치님."</p>
+
+<p class="dialogue">"응."</p>
+
+<p class="dialogue">"시간을 주십시오."</p>
+
+<p class="novel">오정수가 잠깐 우혁을 보았다. 17세의 입에서 '시간을 주십시오'라는 말투가 나오는 것이 어색했을 것이다. 또래 연습생이라면 '더 열심히 할게요' 정도의 대답을 했을 것이다.</p>
+
+<p class="dialogue">"시간은 있어. 성적으로 보여. 그게 프로야."</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel novel-first">코치의 평가 이후, 우혁은 연습 방식을 바꿨다.</p>
+
+<p class="novel">오전 자율 연습 시간. 다른 연습생들이 래더를 돌리는 동안, 우혁은 커스텀 게임을 열어 특정 상황만 반복했다. 마린 열두 기와 메딕 네 기를 선택한 뒤, 화면을 전환해 벌처 세 기를 다른 방향으로 보내고, 다시 돌아와서 마린-메딕 볼을 움직이는 — 이 멀티태스킹 루틴을 30분 동안 반복했다.</p>
+
+<p class="novel">도윤이 옆에서 힐끔 보다가 물었다.</p>
+
+<p class="dialogue">"형, 래더 안 돌려요?"</p>
+
+<p class="dialogue">"이거 끝나면 돌릴게."</p>
+
+<p class="dialogue">"그거 뭐예요? 유즈맵이에요?"</p>
+
+<p class="dialogue">"마이크로 연습."</p>
+
+<p class="novel">도윤이 고개를 갸웃하며 돌아갔다. 2001년에는 '마이크로 연습'이라는 개념 자체가 체계화되지 않았다. 특정 유닛의 조작만 뽑아서 반복 연습하는 것은 2004년 이후에나 일반화된 훈련법이었다. 대부분의 연습생은 래더를 많이 돌리거나, 팀 내부 스크림을 하거나, 리플레이를 보는 것이 훈련의 전부였다.</p>
+
+<p class="novel">우혁은 2026년의 훈련법을 2001년에 적용하고 있었다. 구체적으로, ASL 프로게이머들이 유튜브에 공개했던 '마이크로 드릴' 영상을 기억에서 끄집어냈다. Flash가 시즈 탱크 리프팅(메딕벌처 도주 + 탱크 사이드스텝)을 연습하는 장면. 짜장의 벌처 마인 박기 루틴. 이들이 은퇴 후에 공개한 연습법의 구조를 우혁은 알고 있었다.</p>
+
+<p class="novel">첫째, 특정 유닛 조합의 교전 상황만 분리한다.</p>
+
+<p class="novel">둘째, 같은 상황을 100번 반복한다.</p>
+
+<p class="novel">셋째, 반복 중에 핫키 전환 속도를 측정한다.</p>
+
+<p class="novel">넷째, 가장 느린 구간을 찾아 그 구간만 다시 100번 반복한다.</p>
+
+<p class="novel">이것이 '의도적 연습(Deliberate Practice)'이었다. 2026년의 스포츠 과학에서는 상식이지만, 2001년의 프로게이밍에서는 아무도 이런 방식으로 훈련하지 않았다.</p>
+</section>
+
+<!-- PART IV -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part IV</p>
+  <p class="part-title">"새벽 3시의 CRT"</p>
+</div>
+
+<p class="novel novel-first">새벽 2시. 연습실의 형광등이 꺼졌다. 연습생들이 하나둘 의자에서 일어나 계단을 내려갔다. 슬리퍼 끌리는 소리, 하품, 누군가의 투덜거림. 일상적인 퇴근 풍경이었다.</p>
+
+<p class="novel">우혁은 일어나지 않았다.</p>
+
+<p class="dialogue">"형, 안 내려가요?"</p>
+
+<p class="novel">도윤이 출입문 앞에서 돌아보았다.</p>
+
+<p class="dialogue">"조금만 더 하고 내려갈게."</p>
+
+<p class="dialogue">"매일 그러면 몸 상해요."</p>
+
+<p class="dialogue">"걱정 마."</p>
+
+<p class="novel">도윤이 문을 닫고 나갔다. 연습실에 우혁 혼자 남았다. CRT 모니터 스무 대 중 하나만 켜져 있었다. 푸르스름한 빛이 우혁의 얼굴을 비추었다. 나머지 열아홉 대는 꺼져 있었고, 스탠바이 LED의 주황색 점만 어둠 속에서 깜박였다.</p>
+
+<p class="novel">새벽 연습의 목적은 명확했다. 낮에 못 하는 것을 밤에 한다.</p>
+
+<p class="novel">벌처 마이크로. 우혁은 커스텀 게임을 열고, 벌처 세 기와 드라군 네 기를 맞세웠다. 벌처가 드라군을 이기려면 패트롤 마이크로가 필요하다. 벌처를 한 기씩 분리해서 원을 그리며 움직이면, 드라군의 느린 포탄을 피하면서 연사를 먹일 수 있다. 이론은 간단하다. 실행은 지옥이다.</p>
+
+<p class="novel">벌처 1번을 위로, 2번을 좌측으로, 3번을 우측으로 보내면서, 각각의 벌처가 드라군의 사거리 밖에서 안으로 들어오는 타이밍에 공격 명령을 내리고, 포탄이 발사되기 전에 다시 빠져나가게 하는 — 세 유닛의 동시 조작. 한 기당 초당 2~3회의 명령이 필요했다. 세 기를 동시에 돌리려면 초당 6~9회의 명령. 분당으로 환산하면 360~540 APM.</p>
+
+<p class="novel">불가능한 숫자였다. 우혁의 현재 APM은 193이었다. 하지만 벌처 마이크로는 순간 APM이 필요한 것이지 평균 APM이 아니었다. 5초 동안 집중적으로 300 이상의 APM을 내는 것이 핵심이었다. 버스트 APM.</p>
+
+<p class="novel">첫 번째 시도. 벌처 세 기가 드라군에게 달려들었다. 1번 벌처가 패트롤 경로를 잘못 잡아 드라군 포탄을 정통으로 맞았다. 체력 절반이 날아갔다. 2번 벌처는 제대로 빠졌지만, 3번 벌처에 명령을 내리는 사이에 1번이 멈춰 서서 두 번째 포탄을 맞았다. 터졌다.</p>
+
+<p class="novel">두 번째 시도. 이번에는 1번과 2번을 동시에 움직이는 데 집중했다. 3번은 포기했다. 두 기만이라도 제대로 돌려보자. 1번을 위로 보내고 즉시 2번을 선택해 좌측으로 보낸다. 다시 1번을 선택해 공격. 2번을 선택해 공격. 이 루틴을 3초 동안 반복하는 데 성공했다. 4초째에 손가락이 꼬였다. 1번을 선택하려다 2번을 선택했고, 2번이 드라군 쪽으로 돌진해서 터졌다.</p>
+
+<p class="novel">세 번째. 네 번째. 다섯 번째.</p>
+
+<p class="novel">열 번째 시도에서 드라군 네 기 중 두 기를 잡는 데 성공했다. 벌처 손실 1기. 남은 벌처 두 기로 남은 드라군 두 기를 상대했다. 마이크로가 흐트러졌다. 두 기를 동시에 돌리는 것이 손에 익지 않았다. 결국 비겼다. 벌처 두 기와 드라군 두 기가 모두 사라졌다.</p>
+
+<p class="novel">시계를 보았다. 2시 47분.</p>
+
+<p class="novel">우혁은 다시 커스텀 게임을 열었다.</p>
+
+<p class="internal">Flash는 이것을 열네 살에 했다. 하루에 16시간씩 연습하며, 벌처 마이크로를 수만 번 반복했다. 그리고 결국 역사상 가장 완벽한 테란이 되었다. 나는 Flash가 아니다. 그 재능이 없다. 하지만 Flash가 어떤 연습을 했는지는 안다. 그리고 지금 나는 Flash보다 3살이 많고, Flash가 프로에 입문하기 5년 전이다. 5년 동안 Flash의 훈련법으로 연습하면, Flash의 70%는 될 수 있지 않을까.</p>
+
+<p class="internal">70%. 그것이면 프로의 중위권이다. 역대 최고가 될 수는 없지만, 프로의 무대에 설 수는 있다.</p>
+
+<p class="novel">스물두 번째 시도. 드라군 네 기를 벌처 세 기로 전멸시키는 데 성공했다. 벌처 손실 0기. 패트롤 마이크로가 5초 동안 깨지지 않고 유지되었다. 손가락이 경로를 기억하기 시작한 것이다.</p>
+
+<p class="novel">시계를 보았다. 3시 24분.</p>
+
+<p class="novel">반지하로 내려가야 했다. 내일 — 아니 오늘 — 10시에 다시 일어나야 했다. 하지만 우혁은 모니터를 끄지 않았다. 한 번 더. 한 번만 더.</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel novel-first">입소 6주차. 12월의 끝. 연말이었지만 합숙소에 연말 분위기 같은 것은 없었다. 연습실에 크리스마스 트리도 없었고, 누가 연말 파티를 하자는 말도 없었다. 12월 25일에도 연습 스케줄은 동일했다. 11시부터 새벽 2시. 크리스마스 특별 식사로 치킨 두 마리가 나온 것이 유일한 변화였다. 연습생 여덟 명이 치킨 두 마리를 나눠 먹었다. 1인당 닭다리 하나 분량도 안 됐다.</p>
+
+<p class="novel">그 와중에도 우혁의 APM은 올라가고 있었다.</p>
+
+<div class="apm-counter">
+  <div class="apm-label">current apm — week 6</div>
+  <div class="apm-value">218</div>
+</div>
+
+<p class="novel">193에서 218. 3주 동안 25가 올랐다. 새벽 연습의 결과였다. 벌처 마이크로, 마린 스플릿, 시즈 탱크 리프팅. 특정 상황의 조작을 수천 번 반복한 결과, 버스트 APM이 260까지 치솟는 순간이 생기기 시작했다. 평균은 아직 218이지만, 교전의 결정적 순간에 260을 찍을 수 있다면 — 프로의 하위권과 겨룰 수 있는 수치였다.</p>
+
+<p class="novel">하지만 체감은 달랐다. 연습실에서 1군 선수들의 키보드 소리를 들으면, 우혁은 여전히 자신이 멀었다는 것을 느꼈다. 1군 에이스 김태호의 키보드에서 나는 소리는 빗소리 같았다. 끊김이 없었다. 타다다다다닥 타다다다다닥. 일정한 리듬으로 분당 300회 이상의 타건이 물 흐르듯 이어졌다. 그에 비하면 우혁의 키보드 소리는 아직 불규칙했다. 탁 탁탁 탁 탁탁탁 — 빠른 구간과 느린 구간의 차이가 들렸다.</p>
+
+<div class="char-intro">
+  <span class="c-name">김태호</span>
+  <span class="c-info">22 · 1st team · terran · xenics storm ace · 2yr veteran</span>
+</div>
+
+<p class="novel">김태호는 팀의 1군 에이스였다. 22세. 같은 테란. 2년 차 프로. 개인리그 본선 16강 경험 한 번. 대단한 전적은 아니었지만, 이 작은 팀에서는 최강이었다. APM 평균 320, 실전 승률 60% 이상. 연습생 입장에서 태호는 넘을 수 없는 벽이었다. 스크림에서 태호를 이긴 연습생은 단 한 명도 없었다.</p>
+
+<p class="novel">우혁은 태호의 경기를 주의 깊게 관찰했다. 태호의 플레이 스타일은 전형적인 2001년형 테란이었다. 빠른 손, 강한 마이크로, 하지만 빌드오더의 정밀도는 높지 않았다. 서플라이 타이밍이 1~2초씩 밀리는 경우가 잦았고, 앞마당 확장 시점이 불규칙했다. 운영보다는 교전 능력에 의존하는 스타일. 이것이 2001년 프로게이밍의 평균이었다. 전략적 체계가 아직 정립되지 않은 시대.</p>
+
+<p class="internal">태호 선배의 플레이에는 빈틈이 있다. 7분에서 9분 사이, 테크 전환 구간에서 가스 운용 효율이 떨어진다. 가스를 200 이상 비축해놓고 한꺼번에 쓰는 패턴. 저 구간에서 압박을 넣으면 테크 전환이 30초 이상 밀린다. 30초면 시즈 탱크 한 기 차이. 그 차이로 게임이 뒤집힐 수 있다.</p>
+
+<p class="novel">하지만 관찰하는 것과 실행하는 것은 달랐다. 태호와 직접 붙을 기회가 없었다. 1군과 연습생은 스크림 대진에서 만나지 않았다. 코치가 짜는 대진표에 1군 vs 연습생 매칭은 없었다.</p>
+
+<p class="novel">2002년 1월 둘째 주. 기회가 왔다.</p>
+
+<p class="novel">코치가 새해 첫 팀 내부 평가전을 열었다. 1군, 2군, 연습생 전원이 참가하는 리그전. 12명이 4조로 나뉘어 조별 리그를 하고, 각 조 1위가 토너먼트. 우혁은 B조에 배정되었다. 같은 조에 태호가 있었다.</p>
+
+<p class="novel">B조 첫 경기. 우혁 vs 2군 저그 선수. 우혁이 이겼다. 타이밍 벌처 견제로 경제를 무너뜨리고 시즈 탱크 푸시로 마무리. 7분 만에 끝났다.</p>
+
+<p class="novel">B조 둘째 경기. 태호 vs 2군 프로토스 선수. 태호가 이겼다. 마린-메딕 볼로 정면 돌파. 순수한 마이크로 파워. 상대 프로토스가 드라군 여섯 기로 방어했지만, 태호의 마린 스플릿이 스톰을 피하면서 드라군을 한 기씩 녹였다. 프로의 손이었다.</p>
+
+<p class="novel">B조 셋째 경기. 우혁 vs 김태호.</p>
+
+<p class="novel">연습실 전체가 잠시 조용해졌다. 다른 조의 경기가 진행 중이었지만, 연습생 몇 명이 우혁의 등 뒤로 몰려왔다. 1군 에이스 vs 연습생. 누구도 우혁이 이길 것이라고 생각하지 않았다.</p>
+
+<div class="game-screen">
+<span class="gs-map">Map: Benzene</span><br>
+<span class="gs-divider">────────────────────────────</span><br>
+<span class="gs-player">Player 1: WooHyuk</span> <span class="gs-race">[Terran]</span> — <span class="gs-action">11 o'clock</span><br>
+<span class="gs-player">Player 2: TaeHo</span> <span class="gs-race">[Terran]</span> — <span class="gs-action">5 o'clock</span><br>
+<span class="gs-divider">────────────────────────────</span><br>
+<span class="gs-action">Terran vs Terran — Mirror Match</span><br>
+<br>
+<span class="gs-action">02:40</span> WooHyuk — <span class="gs-action">1 Rax FE → Fast Factory</span><br>
+<span class="gs-action">02:55</span> TaeHo — <span class="gs-action">2 Rax Pressure Build</span><br>
+<span class="gs-action">04:10</span> TaeHo — <span class="gs-alert">Marine push to WooHyuk's natural</span><br>
+<span class="gs-action">04:25</span> WooHyuk — <span class="gs-action">Bunker + 3 Marines hold</span><br>
+<span class="gs-action">05:50</span> WooHyuk — <span class="gs-resource">Vulture x2 produced. Eco lead established</span><br>
+<span class="gs-action">07:30</span> TaeHo — <span class="gs-action">Siege Tank x2 + Vulture x3 mid-map control</span><br>
+<span class="gs-action">07:45</span> WooHyuk — <span class="gs-action">Spider mine field at 3 o'clock path</span><br>
+<span class="gs-action">08:20</span> TaeHo — <span class="gs-alert">2 Vultures lost to mines</span><br>
+<span class="gs-action">09:00</span> WooHyuk — <span class="gs-action">Siege leapfrog push initiated</span><br>
+<span class="gs-action">09:40</span> TaeHo — <span class="gs-action">Counter push from 7 o'clock</span>
+</div>
+
+<p class="novel">테란 미러전은 시즈 탱크의 싸움이다. 먼저 시즈 모드를 펼쳐 사거리를 확보한 쪽이 유리하다. 하지만 시즈 모드 중에는 이동이 불가능하므로, 상대가 다른 경로로 우회하면 무방비가 된다. 이 모순을 해결하는 것이 '시즈 리프팅(Siege Leapfrog)' — 탱크 두 그룹을 교대로 전진시키며, 하나가 시즈 모드를 풀고 이동하는 동안 다른 하나가 시즈 모드로 엄호하는 전술. 2003년 이후에 체계화될 기술이었다.</p>
+
+<p class="novel">우혁은 시즈 리프팅을 7분 차부터 시작했다. 탱크를 알파 그룹과 브라보 그룹으로 나누고, 알파가 전진하면 브라보가 커버, 브라보가 전진하면 알파가 커버. 이 리듬을 유지하면서 서서히 맵 중앙을 장악했다.</p>
+
+<p class="novel">태호는 처음에 당황하지 않았다. 중앙을 내주고, 벌처 세 기를 우회시켜 우혁의 뒤를 노렸다. 하지만 우혁은 이미 우회 경로에 스파이더 마인을 심어놓았다. 벌처 두 기가 마인에 터졌다.</p>
+
+<p class="novel">여기서 태호의 표정이 바뀌었다. 모니터 반사광에 비친 얼굴이 굳었다. 연습생한테 벌처를 잃었다. 그것도 마인 매복에. 태호는 남은 벌처 한 기를 급히 후퇴시키고, 본진 방어를 위해 탱크를 뒤로 뺐다.</p>
+
+<p class="novel">그 순간이었다.</p>
+
+<p class="novel">우혁의 머릿속에서 계산이 끝났다. 태호가 탱크를 후퇴시키는 데 8초. 시즈 모드를 풀고 이동하고 다시 시즈 모드를 펼치는 데 8초. 그 8초 동안 태호의 앞마당은 시즈 탱크의 커버 범위 바깥에 놓인다. 앞마당 미네랄 라인이 무방비.</p>
+
+<p class="novel">우혁은 미리 준비해둔 벌처 네 기를 앞마당 뒤쪽으로 돌렸다. 태호가 탱크를 후퇴시키는 바로 그 8초 동안, 벌처 네 기가 앞마당 SCV 라인에 진입했다. SCV 일곱 기가 터졌다. 그리고 벌처가 빠지기 전에 마인을 두 개 심었다.</p>
+
+<p class="novel">태호의 앞마당 미네랄 채취량이 급감했다. 경제적 격차가 벌어졌다. 이 격차는 2분 뒤, 우혁이 세 번째 확장을 여는 것으로 더 벌어졌다. 태호는 세 번째 확장을 열 자원이 없었다. SCV를 잃은 앞마당이 회복되기 전에 우혁의 시즈 라인이 밀고 들어왔다.</p>
+
+<p class="novel">12분 37초.</p>
+
+<p class="novel">태호의 손이 멈추었다. 화면에서 커서가 잠시 정지했다. 그리고 채팅창에 두 글자가 떴다.</p>
+
+<p class="novel" style="text-align:center;font-weight:700;font-size:1.2rem;letter-spacing:1px">GG</p>
+
+<p class="novel">연습실이 조용했다. 뒤에서 보고 있던 연습생 진형이 숨을 들이켰다. 도윤이 입을 벌린 채 우혁의 화면을 보고 있었다. 1군 에이스가 연습생에게 졌다. 이 팀이 창단된 이래 처음 있는 일이었다.</p>
+
+<p class="novel">태호가 의자를 돌려 우혁을 보았다. 22세의 프로게이머. 얼굴에 분노가 아니라 당혹감이 있었다.</p>
+
+<p class="dialogue">"야. 너 그 마인 매복. 내가 벌처를 보내기 전에 이미 심어놨지?"</p>
+
+<p class="dialogue">"네."</p>
+
+<p class="dialogue">"내가 벌처를 보낼 줄 알았냐?"</p>
+
+<p class="dialogue">"네. 중앙을 내주면 벌처로 우회 견제를 넣는 게 태호 선배 스타일이니까요."</p>
+
+<p class="novel">태호의 눈이 좁아졌다. 이 연습생이 자신의 스타일을 분석하고 있었다는 뜻이었다.</p>
+
+<p class="dialogue">"그리고 8초."</p>
+
+<p class="dialogue">"뭐?"</p>
+
+<p class="dialogue">"탱크를 뒤로 빼는 데 8초 걸리잖아요. 그 8초가 앞마당이 비는 타이밍이에요."</p>
+
+<p class="novel">태호가 아무 말 없이 우혁을 3초쯤 바라보았다. 그리고 고개를 돌려 자기 화면을 보았다. 리플레이를 켰다. 8초. 정확히 8초 동안 앞마당이 커버 범위 밖에 놓여 있었다. 태호는 리플레이를 닫고, 한마디만 했다.</p>
+
+<p class="dialogue">"리매치."</p>
+
+<p class="novel">두 번째 경기. 태호가 이겼다. 이번에는 태호가 먼저 마인을 깔았다. 벌처 우회를 하지 않고, 정면에서 시즈 탱크 네 기를 모아 밀었다. 순수한 화력과 조작 속도의 싸움. 우혁은 같은 수의 탱크를 갖고도 배치와 해제 속도에서 1초씩 밀려 탱크 두 기를 먼저 잃었다. 그것으로 끝이었다.</p>
+
+<p class="novel">세 번째 경기. 태호가 이겼다. 우혁이 새로운 트랩을 준비했지만, 태호가 모든 우회 경로에 SCV를 보내 마인을 탐지했다. 학습 능력. 한 판 만에 상대의 전략을 읽고 대응하는 능력. 이것이 프로의 적응력이었다.</p>
+
+<p class="novel">평가전 결과, B조 1위는 태호, 2위는 우혁이었다. 우혁은 조 2위로 탈락했다. 하지만 태호에게서 1승을 가져갔다. 연습생이 1군에게서 따낸 최초의 1승.</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel novel-first">평가전이 끝난 뒤, 코치 오정수가 우혁을 불렀다.</p>
+
+<p class="dialogue">"태호한테 이겼네."</p>
+
+<p class="dialogue">"한 번은요. 세 번 붙었는데 두 번 졌습니다."</p>
+
+<p class="dialogue">"한 번이라도 이긴 게 중요한 거야. 너 그 첫 번째 경기, 내가 뒤에서 다 봤어."</p>
+
+<p class="novel">오정수가 화이트보드에 뭔가를 적었다. 대진표 옆에 '1군 확대 로스터' 라는 란이 있었다. 1군 다섯 명의 이름 아래, 오정수가 '후보 — 진우혁'이라고 적었다.</p>
+
+<p class="dialogue">"1군 확대 로스터에 이름을 올릴게. 바로 1군은 아니야. 1군 선수가 컨디션이 안 좋거나, 대회 일정이 겹칠 때, 대신 나갈 수 있는 후보. 그 자리에 네 이름을 넣을 생각이야."</p>
+
+<p class="novel">우혁은 화이트보드를 바라보았다. '후보 — 진우혁'. 매직펜으로 쓴 네 글자.</p>
+
+<p class="dialogue">"한 가지 조건이 있어."</p>
+
+<p class="dialogue">"뭡니까."</p>
+
+<p class="dialogue">"APM을 올려. 지금 218이지? 250까지 올려. 250이 넘으면 실전에 내보내줄게."</p>
+
+<p class="novel">250. 현재 218에서 32를 더 올려야 한다. 불가능한 숫자는 아니었다. 하지만 APM은 올라갈수록 올리기 어려워진다. 100에서 150으로 올리는 것과 200에서 250으로 올리는 것은 체감 난이도가 완전히 다르다.</p>
+
+<p class="dialogue">"기간은요."</p>
+
+<p class="dialogue">"2월 말까지. 두 달."</p>
+
+<p class="dialogue">"하겠습니다."</p>
+
+<p class="novel">오정수가 고개를 끄덕였다. 그리고 덧붙였다.</p>
+
+<p class="dialogue">"그리고 태호한테 이긴 방법, 그거 다른 팀한테도 통할 거라고 생각하지 마. 태호가 네 전략에 한 번 당하고 바로 대응했잖아. 프로는 다 그래. 같은 수가 두 번 통하지 않아. 네 강점이 전략 깊이라면, 매번 새로운 수를 준비해야 해. 그게 됨?"</p>
+
+<p class="dialogue">"됩니다."</p>
+
+<p class="internal">25년 뒤까지의 전략이 머릿속에 있다. 같은 수를 두 번 쓸 필요가 없다. 2002년의 전략, 2003년의 전략, 2004년의 전략. 아직 쓰지 않은 카드가 수십 장 남아 있다.</p>
+
+<p class="novel">우혁은 연습실로 돌아갔다. 자리에 앉았다. CRT 모니터를 켰다. 스타크래프트가 로딩되었다. 시계는 밤 11시를 가리키고 있었다. 주변에서 연습생들의 키보드 소리가 울렸다. 그리고 새벽 2시에 모두가 떠난 뒤에도, 7번 사물함의 주인은 자리를 지키고 있었다.</p>
+
+<p class="novel">새벽 3시의 CRT가 푸른 빛을 내뿜었다. 키보드 소리가 연습실에 울렸다. 탁탁탁탁탁. 이전보다 빨라진 소리. 이전보다 규칙적인 소리. 벌처가 드라군 사이를 파고들었다. 마린이 스플릿되었다. 시즈 탱크가 전진했다. 같은 동작을 반복했다. 스물세 번째. 스물네 번째. 스물다섯 번째.</p>
+
+<p class="novel">반지하 합숙소에서는 일곱 명의 소년이 잠들어 있었다. 내일도 같은 하루가 반복될 것이다. 화장실 앞의 줄, 5,000원 도시락, 14시간의 연습, 컵라면 냄새, 보일러 배관 소리. 그리고 또 새벽 3시의 CRT.</p>
+
+<p class="novel">진우혁, 17세, 연습생 번호 7번. 38세의 기억이 담긴 손가락이 키보드 위에서 속도를 올리고 있었다. 아직 부족했다. 아직 느렸다. 하지만 매일 밤, 다른 모든 사람이 잠든 뒤에도, 이 자리를 지키는 사람은 이 팀에서 한 명뿐이었다.</p>
+
+<p class="novel">그것이 재능의 차이를 좁히는 유일한 방법이라는 것을 우혁은 알고 있었다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>머리는 1군, 손은 2군<br><strong>매일 밤 그 간극을 좁힌다</strong></h2>
+  <p class="sub">새벽 3시의 CRT 앞에서 벌처가 돌고, 마린이 갈라지고, 탱크가 전진한다. 천재의 재능은 없지만, 천재가 무엇을 연습했는지는 안다.</p>
+</div>
+
+<footer class="footer">
+  <p>GG Series &middot; Fiction 03 of 05 &middot; Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

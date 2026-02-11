@@ -1,0 +1,776 @@
+---
+layout: layouts/article.njk
+pageTitle: "메타를 바꾼 남자"
+description: "프로리그 데뷔전에서 이 시대에 존재하지 않는 빌드를 꺼냈다. 해설진은 경악했고, 커뮤니티는 들끓었다. 사람들은 그를 '예언자'라 불렀다. 하지만 미래 지식에는 유통기한이 있었다."
+datePublished: "2026-02-11"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* NOVEL PROSE */
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+
+  /* SCENE BREAK */
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+
+  /* DIALOGUE */
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+
+  /* INTERNAL MONOLOGUE */
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  /* CHARACTER INTRO */
+  .char-intro {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 20px;
+    align-items: baseline;
+    margin: 40px 0 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .char-intro .c-name { font-size: 1.4rem; font-weight: 700; color: var(--fg); }
+  .char-intro .c-info { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
+
+  /* SECTION DIVIDER */
+  .part-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .part-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+  }
+  .section-divider {
+    margin-top: 64px;
+    margin-bottom: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* GAME SCREEN — StarCraft match display */
+  .game-screen {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    background: #1a1a18;
+    color: #c8c4b8;
+    padding: 24px 28px;
+    margin: 32px 0;
+    border: 1px solid var(--fg);
+  }
+  [data-theme="dark"] .game-screen { background: #0a0a08; border-color: var(--rule); }
+  .game-screen .gs-player { color: #7cafc2; font-weight: 700; }
+  .game-screen .gs-race { color: #8a8680; }
+  .game-screen .gs-action { color: #c9b97a; }
+  .game-screen .gs-alert { color: #c43e2a; font-weight: 700; }
+  .game-screen .gs-resource { color: #6db36d; }
+  .game-screen .gs-map { color: #d4a843; }
+  .game-screen .gs-divider { color: #4a4a48; }
+
+  /* APM COUNTER */
+  .apm-counter {
+    display: inline-block;
+    border: 2px solid var(--fg);
+    padding: 16px 28px;
+    margin: 32px 0;
+    text-align: center;
+  }
+  .apm-counter .apm-label {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .apm-counter .apm-value {
+    font-family: var(--mono);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -1px;
+  }
+
+  /* COMMENTARY — broadcast style */
+  .commentary {
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .commentary .cm-header {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .commentary .cm-line { font-size: 0.95rem; line-height: 1.8; color: var(--fg); margin-bottom: 8px; }
+  .commentary .cm-caster { font-weight: 700; color: var(--fg); }
+
+  /* ERA DETAIL */
+  .era-detail {
+    border: 1px solid var(--rule);
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+  .era-detail .ed-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .era-detail .ed-stat {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 16px;
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+  .era-detail .ed-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .era-detail .ed-value { color: var(--fg); }
+  .era-detail .ed-highlight { color: var(--accent); font-weight: 700; }
+
+  /* FORUM POST */
+  .forum-post {
+    border: 1px solid var(--rule);
+    padding: 20px 24px;
+    margin: 20px 0;
+    background: var(--card-bg);
+  }
+  .forum-post .fp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .forum-post .fp-nick {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .forum-post .fp-date {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+  .forum-post .fp-body {
+    font-size: 0.92rem;
+    line-height: 1.85;
+    color: var(--prose);
+  }
+  .forum-post .fp-reply {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--secondary);
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--rule);
+  }
+  .forum-post .fp-reply-nick {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--muted);
+  }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .char-intro { grid-template-columns: 1fr; }
+    .era-detail .ed-stat { grid-template-columns: 1fr; }
+    .forum-post .fp-header { flex-direction: column; gap: 4px; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">gg — fiction 04</p>
+  <h1>메타를 <strong>바꾼 남자</strong></h1>
+  <p class="deck">프로리그 데뷔전, 이 시대에 존재하지 않는 빌드를 꺼냈다.<br>해설진은 경악했고, 커뮤니티는 들끓었다.<br>사람들은 그를 '예언자'라 불렀다.</p>
+</header>
+
+<main>
+
+<!-- PART I -->
+
+<section>
+<div class="section-divider" style="border-top:none;margin-top:0;padding-top:0">
+  <p class="part-label">Part I</p>
+  <p class="part-title">"1군 엔트리"</p>
+</div>
+
+<div class="char-intro">
+  <span class="c-name">진우혁</span>
+  <span class="c-info">18 · xenics storm · trainee → 1st roster · terran</span>
+</div>
+
+<p class="novel novel-first">2002년 5월. 제닉스 스톰 합숙소, 마포구 합정동.</p>
+
+<p class="novel">새벽 두 시. 6인실 합숙방에서 키보드 소리가 멈추지 않았다. 다른 연습생 다섯 명은 이미 잠들었다. 진우혁만 모니터 앞에 앉아 있었다. CRT의 푸른 빛이 어둠 속에서 그의 얼굴을 비췄다.</p>
+
+<p class="novel">제닉스 스톰. 프로리그 12개 팀 중 하위권. 2001년 창단, 2002년 현재 프로리그 통산 전적 11승 23패. 에이스급 선수가 없고, 자금도 넉넉하지 않았다. 우혁이 이 팀에 온 것은 다른 팀이 받아주지 않아서가 아니라, 이 팀이 가장 빨리 1군 기회를 줄 수 있었기 때문이다.</p>
+
+<p class="internal">계산대로였다. 상위 팀에 들어가면 연습생으로 2년을 썩을 수 있다. 하위 팀은 다르다. 선수층이 얇으면 기회가 빨리 온다. 38세의 QA 엔지니어가 프로젝트 배정 로직을 읽듯, 나는 프로게이밍 시장의 구조를 읽었다.</p>
+
+<p class="novel">제닉스 스톰 1군은 다섯 명이었다. 테란 둘, 저그 둘, 프로토스 하나. 그중 테란 두 번째 자리를 놓고 우혁은 지난 석 달간 내부 선발전을 치렀다. 김태호를 이긴 이후로 1군 문턱에 서 있었지만, 감독은 신중했다.</p>
+
+<p class="dialogue">"우혁아."</p>
+
+<p class="novel">감독 오정수가 연습실 문을 열고 들어왔다. 시계를 보고 미간을 찌푸렸다.</p>
+
+<p class="dialogue">"또 이 시간까지 하고 있었어? 내일 선발전 있는 거 알지?"</p>
+
+<p class="dialogue">"알고 있습니다."</p>
+
+<p class="dialogue">"컨디션 관리도 실력이야. 자."</p>
+
+<p class="novel">우혁은 고개를 끄덕이고 모니터를 껐다. 하지만 잠이 올 리 없었다. 내일은 1군 최종 선발전이었다. 상대는 팀 내 테란 서열 2위, 박성재. 이기면 프로리그 엔트리에 이름이 올라간다. 지면 연습생으로 돌아간다.</p>
+
+<p class="novel">침대에 누웠다. 천장의 형광등 커버에 먼지가 쌓여 있었다. 이 천장을 매일 밤 보면서 지난 14개월을 보냈다. 2001년 3월, PC방에서 다시 시작한 이후. 하루 열네 시간의 연습. APM 87에서 시작해서, 130의 벽을 부수고, 200을 넘기고. 지금은 —</p>
+
+<div class="apm-counter">
+  <div class="apm-label">current apm — may 2002</div>
+  <div class="apm-value">248</div>
+</div>
+
+<p class="novel">248. 프로 평균에는 못 미치지만, 중위권 프로게이머와 겨룰 수 있는 수준. 손가락은 14개월 전과 다른 손가락이었다. 17세의 신경계는 38세의 신경계와 달랐다. 반복이 근육에 새겨졌고, 반응 속도가 밀리초 단위로 줄었다.</p>
+
+<p class="internal">하지만 APM만으로 프로가 되는 건 아니다. 이 시대의 최상위 선수들은 300을 넘긴다. 나는 손가락의 한계를 머리로 메운다. 2년 뒤, 5년 뒤, 10년 뒤의 전략을 지금 쓸 수 있다는 것. 그것이 나의 유일한 우위다.</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel novel-first">다음 날 오후 3시. 제닉스 스톰 연습실.</p>
+
+<p class="novel">1군 선수 다섯 명과 감독, 코치가 지켜보는 가운데, 우혁과 박성재가 마주 앉았다. 3전 2선승제. 이기면 1군. 지면 대기.</p>
+
+<p class="novel">박성재는 21세. 제닉스 스톰 창단 멤버. 실력은 1군 하위권이었지만 경험이 있었다. 프로리그 출전 경험 12회. 통산 전적 4승 8패. 화려하지는 않지만, 방송 경기의 압박을 아는 선수였다.</p>
+
+<p class="novel">우혁은 18세. 프로리그 출전 경험 0회. 하지만 머릿속에는 25년 뒤까지의 스타크래프트 역사가 들어 있었다.</p>
+
+<p class="novel">1세트. 맵은 아카디아 II.</p>
+
+<p class="novel">우혁은 오프닝부터 성재가 본 적 없는 빌드를 꺼냈다. 14 CC — 배럭보다 커맨드센터를 먼저 짓는 초고속 확장. 2003년 중반에나 등장할 극한의 경제 오프닝이었다. 성재의 벌처 견제가 도착했을 때, 우혁은 이미 벙커 두 개를 완성하고 마린으로 수비를 하고 있었다. 타이밍을 정확히 알고 있었기 때문이다.</p>
+
+<p class="novel">10분 후, 경제력 차이가 유닛 수로 변환되었다. 우혁의 시즈 탱크 라인이 맵 중앙을 장악했고, 성재는 GG를 쳤다.</p>
+
+<p class="novel">2세트. 맵은 블루 스톰. 우혁은 다른 빌드를 꺼냈다. 이번에는 1/1/1 — 배럭, 팩토리, 스타포트를 하나씩 올려 드랍십으로 시즈 탱크를 적 본진에 투하하는 전략. 이것도 2003년에 정립될 빌드였다. 성재는 대응하지 못했다.</p>
+
+<p class="novel">2:0. 우혁의 승리.</p>
+
+<p class="novel">감독이 자리에서 일어났다. 1군 선수들의 표정이 각각 달랐다. 에이스 이동현은 팔짱을 끼고 입술을 다물었다. 저그의 최용석은 고개를 갸웃했다. 프로토스 신재원은 조용히 박수를 쳤다.</p>
+
+<p class="dialogue">"우혁이. 다음 주 프로리그 원주 원정. 4세트에 넣는다."</p>
+
+<p class="novel">감독의 말이 연습실에 울렸다. 우혁은 고개를 숙여 인사했다. 심장이 미친 듯이 뛰었지만, 얼굴은 평정을 유지했다.</p>
+
+<p class="internal">38세의 내가 퇴근 후 맥주를 마시며 TV로 보던 프로리그. 그 무대에 내가 선다. 플레이어로.</p>
+</section>
+
+<!-- PART II -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part II</p>
+  <p class="part-title">"첫 방송 경기"</p>
+</div>
+
+<div class="era-detail">
+  <div class="ed-title">match info — proleague 2002</div>
+  <div class="ed-stat">
+    <span class="ed-label">날짜</span>
+    <span class="ed-value">2002. 05. 18. SAT</span>
+    <span class="ed-label">대회</span>
+    <span class="ed-value">온게임넷 프로리그 2002 전기리그</span>
+    <span class="ed-label">경기장</span>
+    <span class="ed-value">원주 종합체육관 특설 스튜디오</span>
+    <span class="ed-label">매치업</span>
+    <span class="ed-value ed-highlight">제닉스 스톰 vs 라이트닝 울브즈 · 4세트</span>
+    <span class="ed-label">선수</span>
+    <span class="ed-value"><span style="color:var(--accent);font-weight:700">진우혁(T)</span> vs 한동민(Z)</span>
+    <span class="ed-label">맵</span>
+    <span class="ed-value">아카디아 II</span>
+    <span class="ed-label">관중</span>
+    <span class="ed-value">약 800명</span>
+  </div>
+</div>
+
+<p class="novel novel-first">원주 종합체육관. 프로리그 지방 원정 경기. 관중석에 800명 정도가 앉아 있었다. 서울 용산 온게임넷 스튜디오의 수천 명 관중과는 비교할 수 없었지만, 우혁에게는 그 800명이 8만 명처럼 느껴졌다.</p>
+
+<p class="novel">경기장 뒤편 대기실. 우혁은 의자에 앉아 손가락을 풀고 있었다. 양손을 펴고, 접고, 돌리고. 14개월간 수만 시간을 반복한 손가락. 떨리지 않았다. 아니, 떨리고 있었지만 그것을 제어할 수 있었다. 38세의 정신력으로.</p>
+
+<p class="internal">한동민. 라이트닝 울브즈의 저그. 22세. 뮤탈리스크 운영이 좋고, 초반 올인에 강하다. 통산 전적은 21승 18패. 나쁘지 않은 선수다. 하지만 이 시대 저그의 공통적인 약점이 있다. 3해처리 뮤탈 이후의 후속 전환이 느리다. sAviOr가 나오기 전까지, 저그의 중후반 운영 체계는 미완성 상태다. 거기를 찌르면 된다.</p>
+
+<p class="novel">스태프가 대기실 문을 열었다.</p>
+
+<p class="dialogue">"진우혁 선수, 입장하세요."</p>
+
+<p class="novel">복도를 걸었다. 형광등 불빛이 차가웠다. 복도 끝에 커튼이 쳐져 있었고, 커튼 너머로 환성이 들렸다. 3세트가 끝난 모양이었다. 커튼을 젖히고 나가자, 조명이 쏟아졌다.</p>
+
+<p class="novel">800명의 관중이 보였다. 대부분 10대와 20대. 교복을 입은 학생들, 군복을 입은 군인들, 팀 로고가 박힌 응원복을 입은 팬들. 풍선 막대를 두드리는 소리가 체육관을 울렸다.</p>
+
+<p class="novel">무대 중앙에 부스 두 개가 놓여 있었다. 투명한 방음 부스. 안에 CRT 모니터와 키보드, 마우스가 세팅되어 있었다. 그리고 부스 위에 카메라가 매달려 있었다. 방송 카메라.</p>
+
+<p class="internal">온게임넷. 케이블 채널. 지금은 스타크래프트 전용 방송국이나 다름없는 곳. 이 경기가 TV로 나간다. 수십만 명이 본다.</p>
+
+<p class="novel">우혁은 부스에 들어갔다. 의자에 앉았다. 헤드셋을 썼다. 키보드 위에 손을 올렸다. 멤브레인 키보드가 아니라 팀에서 지급받은 체리 스위치 키보드. 손에 익은 키감. 마우스도 본인 것. 인텔리마우스 익스플로러 1.1. 이 시대의 프로게이머 표준 장비.</p>
+
+<p class="novel">맞은편 부스에 한동민이 앉았다. 단발머리에 안경. 경기복 위에 목에 수건을 두르고 있었다. 여유로운 표정이었다. 신인을 상대한다는 것을 알고 있었다.</p>
+
+<p class="novel">화면에 로딩이 시작되었다. 아카디아 II. 우혁은 11시, 동민은 5시에 배치되었다.</p>
+
+<div class="game-screen">
+<span class="gs-map">Map: Arcadia II</span><br>
+<span class="gs-divider">────────────────────────────</span><br>
+<span class="gs-player">Player 1: Spirit)WooHyuk</span> <span class="gs-race">[Terran]</span> — 11 o'clock<br>
+<span class="gs-player">Player 2: LW)DongMin</span> <span class="gs-race">[Zerg]</span> — 5 o'clock<br>
+<span class="gs-divider">────────────────────────────</span><br>
+<span class="gs-action">Proleague 2002 · Set 4</span><br>
+<span class="gs-action">Game Start</span>
+</div>
+
+<p class="novel">게임이 시작되었다.</p>
+
+<p class="novel">우혁의 손가락이 움직이기 시작했다. SCV를 미네랄 패치에 보내고, 10번째 SCV에서 서플라이를 짓고, 11번째에서 배럭을 올렸다. 여기까지는 평범했다. 2002년의 어떤 테란이든 하는 오프닝.</p>
+
+<p class="novel">차이가 벌어진 것은 그 다음부터였다.</p>
+
+<p class="novel">배럭이 완성되자 우혁은 마린을 뽑지 않았다. 대신 팩토리를 바로 올렸다. 그리고 팩토리에 머신 샵을 붙이면서, 동시에 배럭 옆에 두 번째 배럭을 지었다. 팩토리에서 벌처를 두 기 뽑고, 마인을 연구하면서, 두 번째 배럭에서 마린 생산을 시작했다. 그리고 — 앞마당에 커맨드센터를 내렸다.</p>
+
+<p class="novel">이것은 2002년의 빌드가 아니었다.</p>
+
+<p class="novel">이것은 2008년의 빌드였다. 더 정확히는, 이영호가 2007년 말부터 2008년 초에 걸쳐 완성한 현대 테란의 기본형. 벌처 소수로 맵 컨트롤을 잡으면서, 빠른 확장과 바이오닉 병력을 동시에 준비하는 복합 오프닝. 이 빌드의 핵심은 '벌처 마인으로 시간을 벌고, 그 시간 동안 경제를 키운다'는 것이었다. 단순하게 들리지만, 이 컨셉이 체계적으로 정립되는 것은 6년 뒤의 일이었다.</p>
+
+<div class="commentary">
+  <div class="cm-header">on-air · ongamenet proleague broadcast</div>
+  <p class="cm-line"><span class="cm-caster">해설 A:</span> 네, 제닉스 스톰의 신인 진우혁 선수가 데뷔전을 치르고 있습니다. 18세, 입단 14개월 만의 첫 방송 경기인데요.</p>
+  <p class="cm-line"><span class="cm-caster">해설 B:</span> 그런데 오프닝이... 이게 뭐죠? 팩토리 먼저 올리면서 배럭 추가, 그런데 벌처를 두 기만 뽑고 바로 앞마당을 내리네요?</p>
+  <p class="cm-line"><span class="cm-caster">해설 A:</span> 보통 이 타이밍에 벌처를 네 기 이상 모아서 견제를 가거나, 시즈 탱크를 올려서 수비를 하는데... 벌처 두 기에 마인만 연구해서 뭘 하겠다는 건지.</p>
+  <p class="cm-line"><span class="cm-caster">해설 B:</span> 전혀 본 적 없는 빌드입니다. 이거 괜찮은 건가요?</p>
+</div>
+
+<p class="novel">한동민은 12풀 — 12번째 드론에서 스포닝 풀을 올리는 표준 저그 오프닝으로 시작했다. 오버로드로 우혁의 본진을 정찰했다. 팩토리가 올라가고 있는 것을 확인했다. 2002년의 저그 입장에서, 팩토리가 빨리 올라가면 벌처 러시나 벌처 + 탱크 푸시가 올 것이라고 판단한다. 동민은 수비적으로 선크 콜로니를 지었다.</p>
+
+<p class="novel">그런데 벌처가 오지 않았다.</p>
+
+<p class="novel">우혁의 벌처 두 기는 맵 중앙의 길목 세 곳에 마인을 심고 있었다. 공격이 아니었다. 견제도 아니었다. 맵 컨트롤이었다. 저그의 유닛이 이동하는 경로에 마인을 깔아, 상대의 공격 타이밍을 감지하고 지연시키는 것. 이것이 이 빌드의 핵심이었다.</p>
+
+<p class="novel">동민은 혼란스러웠다. 정찰용 저글링 네 기를 보냈는데, 맵 중앙에서 마인에 걸려 두 기가 죽었다. 나머지 두 기로 우혁의 앞마당을 확인하니 — 커맨드센터가 이미 완성되어 있었다.</p>
+
+<p class="novel">7분 시점. 저그가 공격을 와야 하는 타이밍이었다. 하지만 동민의 저글링은 마인 때문에 직진할 수 없었고, 우회 경로를 찾는 동안 20초를 잃었다. 그 20초 동안 우혁은 마린 여섯 기와 시즈 탱크 한 기를 추가로 확보했다.</p>
+
+<p class="novel">동민의 저글링 열두 기가 앞마당에 도착했을 때, 우혁의 방어선은 이미 완성되어 있었다. 시즈 탱크 두 기가 시즈 모드를 켜고, 마린 열 기가 줄을 서 있었다. 벙커까지. 저글링은 시즈 탱크의 스플래시에 녹아내렸다.</p>
+
+<div class="game-screen">
+<span class="gs-divider">────────── 07:42 ──────────</span><br>
+<span class="gs-player">Spirit)WooHyuk</span><br>
+<span class="gs-resource">Minerals: 1,240 / Gas: 380</span><br>
+<span class="gs-action">Units: Marine x10 · Medic x2 · Vulture x3 · Siege Tank x2</span><br>
+<span class="gs-action">Expansion: Natural — ACTIVE</span><br>
+<span class="gs-divider">────────────────────────────</span><br>
+<span class="gs-player">LW)DongMin</span><br>
+<span class="gs-resource">Minerals: 880 / Gas: 310</span><br>
+<span class="gs-action">Units: Zergling x12 (6 lost to mines) · Hydralisk x4</span><br>
+<span class="gs-alert">Zergling rush FAILED — siege line held</span><br>
+<span class="gs-divider">────────────────────────────</span><br>
+<span class="gs-action">Economy gap: +360 minerals in WooHyuk's favor</span>
+</div>
+
+<p class="novel">경제력 차이가 벌어지기 시작했다. 우혁의 앞마당이 7분 전부터 돌아가고 있었기 때문이다. 동민의 앞마당도 있었지만, 저글링 손실과 방어 실패로 드론 생산이 밀려 있었다. 360 미네랄의 차이. 작아 보이지만, 이 격차는 시간이 갈수록 유닛 수의 차이로 복리처럼 불어난다.</p>
+
+<p class="novel">우혁은 서두르지 않았다.</p>
+
+<p class="internal">이 시대 테란의 가장 큰 문제는 중반 전환이다. 초반에 유리해도 러커가 나오면 대응이 느리다. 베슬 타이밍을 놓치거나, 시즈 탱크를 너무 앞에 배치해서 러커에게 따이는 경우가 허다하다. 하지만 나는 러커가 나오는 정확한 타이밍을 안다. 히드라덴에서 러커 업그레이드까지 80초. 동민이 히드라덴을 지은 게 6분 40초. 그러면 러커는 8분 즈음에 나온다.</p>
+
+<p class="novel">7분 50초. 우혁은 스타포트에서 사이언스 베슬 생산을 시작했다. 정확히 러커가 나오기 전에. 2002년의 대부분의 테란은 러커가 실제로 모습을 드러낸 뒤에야 당황하며 베슬을 생산한다. 우혁은 상대가 러커를 만들기도 전에 이미 대응을 시작하고 있었다.</p>
+
+<p class="novel">8분 30초. 동민의 러커 네 기가 전방에 배치되었다. 버로우. 투명해진다. 하지만 우혁의 베슬이 이미 합류하고 있었다. 디텍션. 러커의 위치가 드러났다. 시즈 탱크가 포문을 열었다.</p>
+
+<p class="novel">러커 네 기 전멸.</p>
+
+<div class="commentary">
+  <div class="cm-header">on-air · ongamenet broadcast</div>
+  <p class="cm-line"><span class="cm-caster">해설 A:</span> 아! 이거 보세요! 러커가 나오기도 전에 베슬을 미리 뽑아놨습니다! 어떻게 이 타이밍을 알고 있는 겁니까!</p>
+  <p class="cm-line"><span class="cm-caster">해설 B:</span> 진우혁 선수, 데뷔전이 맞습니까? 빌드의 정밀도가... 이건 1년 이상 이 빌드만 연구한 사람의 움직임입니다.</p>
+  <p class="cm-line"><span class="cm-caster">해설 A:</span> 한동민 선수가 완전히 당했습니다. 저글링 러시도, 러커 전환도, 전부 봉쇄당했어요. 이 빌드, 저는 처음 봅니다. 시청자 여러분, 이 빌드 이름이 뭔지 아시는 분?</p>
+  <p class="cm-line"><span class="cm-caster">해설 B:</span> 이름이 있을 리가요. 이건 지금 이 순간 처음 나온 빌드입니다.</p>
+</div>
+
+<p class="novel">12분. 우혁의 병력이 맵 중앙을 넘었다. 시즈 탱크 네 기, 마린 열여섯 기, 메딕 네 기, 벌처 네 기, 사이언스 베슬 한 기. 2002년의 기준으로 보면 기형적으로 균형 잡힌 조합이었다. 이 시대의 테란은 탱크에 올인하거나 바이오닉에 올인하는 경향이 강했다. 두 병종을 유기적으로 섞어 운용하는 것은 몇 년 뒤의 테란이었다.</p>
+
+<p class="novel">동민은 뮤탈리스크 여섯 기를 뽑아 역습을 시도했다. 하지만 우혁의 본진에는 이미 터렛 세 개가 배치되어 있었고, 마린 다섯 기가 대기하고 있었다. 뮤탈리스크는 마린에 스팅 데미지를 입히기도 전에 후퇴해야 했다.</p>
+
+<p class="novel">14분. 우혁의 탱크 라인이 동민의 앞마당 앞에 도착했다. 시즈 모드. 포탄이 선크 콜로니를 강타했다. 동민이 히드라리스크를 모아 반격했지만, 메딕의 힐과 마린의 화력 앞에 녹아내렸다.</p>
+
+<p class="novel">15분 23초.</p>
+
+<div class="game-screen">
+<span class="gs-divider">────────── 15:23 ──────────</span><br>
+<span class="gs-player">LW)DongMin</span><br>
+<span class="gs-alert">gg</span><br>
+<span class="gs-divider">────────────────────────────</span><br>
+<span class="gs-action">Spirit)WooHyuk WINS</span><br>
+<span class="gs-action">Debut match: VICTORY</span>
+</div>
+
+<p class="novel">GG.</p>
+
+<p class="novel">한동민이 항복을 쳤다. 15분 23초. 데뷔전 승리.</p>
+
+<p class="novel">우혁은 헤드셋을 벗었다. 손이 떨리고 있었다. 경기 중에는 몰랐는데, 끝나니까 떨렸다. 부스 밖으로 나오자 제닉스 스톰 선수들이 박수를 쳤다. 감독이 다가와 어깨를 두드렸다.</p>
+
+<p class="dialogue">"잘했어."</p>
+
+<p class="novel">관중석에서 제닉스 스톰 팬들이 풍선 막대를 두드렸다. 800명 중 100명도 안 되는 스톰 팬이었지만, 신인의 데뷔전 승리에 중립 관중도 박수를 보냈다.</p>
+
+<p class="novel">우혁은 관중석을 바라보았다. 38세의 우혁이 소파에 앉아 맥주를 마시며 보던 그 무대. 그 무대에 자신이 서 있었다. 플레이어로서.</p>
+
+<p class="internal">이겼다. 하지만 이건 시작이다. 한동민은 중위권 선수다. 위에는 더 센 놈들이 있다. 이 시대의 진짜 괴물들이.</p>
+</section>
+
+<!-- PART III -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part III</p>
+  <p class="part-title">"커뮤니티가 들끓다"</p>
+</div>
+
+<p class="novel novel-first">데뷔전 다음 날. 인터넷이 들끓었다.</p>
+
+<p class="novel">2002년의 인터넷. 네이버 카페, 다음 카페, 하이텔, 천리안. 그리고 PC통신에서 웹으로 넘어오고 있던 스타크래프트 커뮤니티들. 우혁의 데뷔전 리플레이가 커뮤니티에 퍼지는 데 24시간이면 충분했다.</p>
+
+<div class="forum-post">
+  <div class="fp-header">
+    <span class="fp-nick">TerranMaster_03</span>
+    <span class="fp-date">2002.05.19 01:23</span>
+  </div>
+  <p class="fp-body">어제 프로리그 4세트 본 사람? 제닉스 스톰 신인 진우혁. 이 빌드 도대체 뭐임? 팩토리 올리면서 벌처 두 기만 뽑고 앞마당 내림. 근데 이게 됨. 마인으로 맵 컨트롤 잡고, 러커 나오기 전에 베슬 미리 뽑아놓고. 15분 만에 끝냄. 리플레이 올림. 분석 좀.</p>
+  <div class="fp-reply">
+    <span class="fp-reply-nick">zerg_is_imba</span> 동민이가 못한 거 아님? 12풀 가서 저글링 모아서 치면 앞마당 내리는 타이밍에 깨지는데
+  </div>
+  <div class="fp-reply">
+    <span class="fp-reply-nick">ProLeagueWatcher</span> 리플 봤는데 마인 위치가 미쳤음. 저글링 이동 경로를 정확히 예측해서 심어놨음. 이거 운이 아니라 계산인데
+  </div>
+  <div class="fp-reply">
+    <span class="fp-reply-nick">TerranMaster_03</span> 진짜 신기한 게, 이 빌드를 프로리그에서 처음 쓴 거거든. 래더에서도 안 보이던 빌드임. 어디서 배운 거지?
+  </div>
+</div>
+
+<div class="forum-post">
+  <div class="fp-header">
+    <span class="fp-nick">StarAnaly_Kim</span>
+    <span class="fp-date">2002.05.19 14:07</span>
+  </div>
+  <p class="fp-body">[분석] 진우혁 데뷔전 빌드 해부. 핵심은 '지연 확장형 메카닉'이라고 부를 수 있을 것 같은데, 기존의 어떤 카테고리에도 안 들어감. 팩토리 타이밍은 FD 빌드에 가까운데, 벌처 생산량은 2기로 극도로 절제하고 마인 연구를 우선함. 이후 배럭 추가 + 앞마당 타이밍은 원투배럭 FE에 가까운데 팩토리가 이미 올라가 있으니 시즈 타이밍이 30초 빠름. 결론: 이건 새로운 빌드다. 기존 분류 체계에 없다.</p>
+  <div class="fp-reply">
+    <span class="fp-reply-nick">GosuTerran99</span> 래더에서 따라해봤는데 6전 5승. 저그가 대응을 못 함. 이거 밸붕 아님?
+  </div>
+  <div class="fp-reply">
+    <span class="fp-reply-nick">HyunJin_P</span> 좀 무섭다. 18살인데 이 수준의 빌드를 만들었다고? 혼자? 아니면 코치가 만들어준 건가?
+  </div>
+</div>
+
+<p class="novel">우혁의 데뷔전은 프로리그 전체 맥락에서 보면 작은 경기였다. 하위 팀의 4세트. 하지만 '빌드'가 사람들의 관심을 끌었다. 2002년의 프로게이밍 커뮤니티는 작았지만, 전략에 대한 열정은 뜨거웠다. 새로운 빌드는 화제가 될 수밖에 없었다.</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel novel-first">일주일 뒤. 우혁의 두 번째 경기.</p>
+
+<p class="novel">상대는 팀 오리온의 프로토스 선수 강현우. 통산 전적 15승 20패. 프로토스의 전형적인 캐리어 전환을 즐기는 선수. 우혁은 이번에도 다른 빌드를 꺼냈다.</p>
+
+<p class="novel">TvP에서 SKT 테란으로 불리게 될, 2005년형 2-base 메카닉 올인. 팩토리 두 개에서 시즈 탱크를 끊임없이 생산하면서, 골리앗을 섞어 프로토스의 공중 유닛에 대응하는 전략. 이 시대의 프로토스는 테란의 탱크 푸시에 대한 정립된 대응이 없었다. 강현우는 속수무책으로 당했다.</p>
+
+<p class="novel">17분. GG.</p>
+
+<p class="novel">그 다음 주. 세 번째 경기. 상대는 팀 피닉스의 테란 선수 오진수. TvT 미러 매치. 우혁은 이번에는 완전히 다른 접근을 했다. 발키리 + 드랍십 조합으로 적 본진에 시즈 탱크를 투하하는, 2004년에나 유행할 공중 수송 전략.</p>
+
+<p class="novel">오진수는 대응하지 못했다. 12분. GG.</p>
+
+<p class="novel">네 번째 경기. 우혁은 또 다른 시대의 빌드를 꺼냈다. TvZ에서 2006년형 3-base 바이오닉 웨이브. 마린, 메딕, 사이언스 베슬의 대규모 물량을 끝없이 밀어넣는 전략.</p>
+
+<p class="novel">14분. GG.</p>
+
+<p class="novel">4전 4승. 데뷔 후 무패.</p>
+
+<p class="novel">커뮤니티가 다시 들끓었다. 이번에는 데뷔전 때와 차원이 달랐다. 네 경기에서 네 개의 완전히 다른 빌드를 썼다는 것. 그리고 네 빌드 모두 상대가 대응하지 못했다는 것. 그것이 사람들을 놀라게 했다.</p>
+
+<div class="forum-post">
+  <div class="fp-header">
+    <span class="fp-nick">OnGameNet_Forum_Mod</span>
+    <span class="fp-date">2002.06.09 22:31</span>
+  </div>
+  <p class="fp-body">[화제] 제닉스 스톰 진우혁, 4전 4승. 매 경기 새로운 빌드. 커뮤니티 반응 정리. 이 선수 별명이 생겼는데, '예언자'. 빌드가 미래에서 온 것 같다고. ㅋㅋ 근데 진짜 그런 느낌이긴 함. 한 번도 본 적 없는 빌드를 매 경기 꺼내는데, 그게 다 먹힌다? 이건 천재가 아니면 설명이 안 됨.</p>
+  <div class="fp-reply">
+    <span class="fp-reply-nick">Nostradamus_Terran</span> 예언자 ㅋㅋㅋ 이름 잘 지었다. 진짜 미래에서 온 빌드 같음
+  </div>
+  <div class="fp-reply">
+    <span class="fp-reply-nick">SkepticGamer</span> 4경기밖에 안 됐는데 과대평가 아님? 상대가 다 중하위권이었잖아
+  </div>
+  <div class="fp-reply">
+    <span class="fp-reply-nick">BuildOrderDB</span> 상대 수준이 문제가 아니라 빌드 자체가 새로운 게 포인트임. 이 사람은 빌드를 '만드는' 능력이 있다는 거지. 그게 진짜 무서운 거
+  </div>
+</div>
+
+<p class="novel">예언자. 그 별명이 우혁에게 붙었다. 미래에서 온 듯한 빌드를 꺼내는 남자. 커뮤니티는 농담처럼 그 이름을 붙였지만, 우혁은 웃을 수 없었다. 그 별명은 너무 정확했기 때문이다.</p>
+
+<p class="novel">팀 내부의 반응도 갈렸다. 코치 이상민은 매 경기 뒤에 우혁에게 물었다.</p>
+
+<p class="dialogue">"이번 빌드도 네가 만든 거야?"</p>
+
+<p class="dialogue">"네."</p>
+
+<p class="dialogue">"어떻게? 어디서 이런 발상이 나와? 커스텀 게임에서 테스트한 거야, 혼자 연습할 때?"</p>
+
+<p class="dialogue">"... 네. 이것저것 해보다가요."</p>
+
+<p class="novel">코치는 고개를 갸웃했지만 더 추궁하지 않았다. 이기고 있으니까. 하지만 에이스 이동현의 눈빛은 달랐다. 데뷔전 이후로 이동현은 우혁을 유심히 관찰하고 있었다.</p>
+
+<p class="dialogue">"우혁아."</p>
+
+<p class="novel">어느 날 연습 후, 이동현이 우혁의 자리로 왔다.</p>
+
+<p class="dialogue">"네 빌드, 나한테도 가르쳐줄 수 있어?"</p>
+
+<p class="novel">우혁은 잠시 멈칫했다.</p>
+
+<p class="dialogue">"어떤 빌드요?"</p>
+
+<p class="dialogue">"데뷔전에서 쓴 거. 벌처 마인으로 시간 벌면서 앞마당 내리는 거."</p>
+
+<p class="novel">우혁은 이동현의 눈을 보았다. 경계가 아니었다. 진심으로 배우고 싶어하는 눈이었다. 이동현은 실력이 있었지만 빌드의 폭이 좁았다. 그것이 이 팀이 하위권인 이유 중 하나였다.</p>
+
+<p class="dialogue">"가르쳐드리겠습니다."</p>
+
+<p class="internal">어차피 한동민전에서 쓴 빌드는 이미 리플레이가 퍼졌다. 다른 팀들도 분석하고 있을 것이다. 공개된 빌드는 더 이상 비밀이 아니다. 그렇다면 같은 팀에 공유하는 것이 맞다.</p>
+
+<p class="novel">우혁은 온게임넷에서 인터뷰 요청을 받았다. 데뷔 후 4연승, 매 경기 새로운 빌드를 선보이는 신인. 방송국 입장에서는 이야깃거리였다.</p>
+
+<p class="novel">인터뷰는 경기장 로비에서 진행되었다. 카메라 앞에 서자 우혁은 어색했다. 38세의 직장인은 카메라 앞에 선 경험이 거의 없었다. 18세의 프로게이머도 마찬가지였다.</p>
+
+<p class="dialogue">"데뷔 후 4연승을 달리고 있는데, 소감이 어떤가요?"</p>
+
+<p class="dialogue">"감사합니다. 열심히 하겠습니다."</p>
+
+<p class="dialogue">"매 경기 새로운 빌드를 선보이고 있어요. 팬들 사이에서 '예언자'라는 별명도 생겼는데, 이 빌드들은 어떻게 만드시는 건가요?"</p>
+
+<p class="novel">우혁은 3초간 침묵했다.</p>
+
+<p class="dialogue">"... 많이 생각합니다."</p>
+
+<p class="dialogue">"구체적으로는요? 혼자 연구하시는 건가요, 코치님과 함께?"</p>
+
+<p class="dialogue">"혼자... 많이 합니다."</p>
+
+<p class="novel">인터뷰어가 더 이상 캐묻지 않고 웃으며 마무리했다. 화면에 잡힌 우혁의 표정은 무뚝뚝했다. 카메라가 꺼지자 우혁은 한숨을 내쉬었다.</p>
+
+<p class="internal">'이 빌드를 어떻게 만드느냐'는 질문에 대답할 수 있을 리 없다. '6년 뒤의 미래에서 가져왔습니다'라고 할 수도 없고. '많이 생각합니다.' 이보다 더 구체적인 대답은 불가능하다.</p>
+</section>
+
+<!-- PART IV -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part IV</p>
+  <p class="part-title">"예언자의 딜레마"</p>
+</div>
+
+<p class="novel novel-first">문제는 5연승 이후에 시작되었다.</p>
+
+<p class="novel">2002년 6월 말. 우혁의 데뷔 후 전적이 5승 0패가 되자, 상위 팀들이 우혁의 리플레이를 진지하게 분석하기 시작했다. 5경기 5개의 빌드. 그 중 데뷔전 빌드는 이미 래더에서 카피되어 퍼지고 있었다. 커뮤니티에서 '진우혁식 FD 확장형'이라는 이름까지 붙었다.</p>
+
+<p class="novel">문제는 그 다음이었다.</p>
+
+<p class="novel">6번째 경기. 상대 팀의 저그가 우혁의 데뷔전 빌드를 예상하고, 12풀 대신 9풀 스피드링 올인으로 나왔다. 벌처 두 기로 마인을 심기 전에 저글링 여덟 기가 앞마당에 들이닥쳤다. 우혁은 다른 빌드로 전환해서 겨우 이겼지만, '한 방'으로 끝내는 것은 불가능해졌다.</p>
+
+<p class="novel">7번째 경기. 우혁은 2004년형 TvP 빌드를 꺼냈지만, 상대 프로토스가 2경기 전에 우혁이 쓴 드랍 전략을 경계하고 옵저버를 일찍 뽑았다. 빌드의 핵심인 기습이 무력화되었다. 우혁은 이겼지만, 20분이 넘는 고전이었다.</p>
+
+<p class="novel">8번째 경기. 우혁은 처음으로 졌다.</p>
+
+<p class="novel">상대는 중상위 팀의 테란. TvT 미러에서 우혁이 3경기 전에 보여준 발키리 + 드랍 전략을 완벽하게 대비하고 있었다. 우혁은 다른 빌드로 전환했지만, 상대의 준비가 더 빨랐다.</p>
+
+<p class="novel">8전 7승 1패. 여전히 뛰어난 전적이었지만, 우혁은 패턴을 읽었다.</p>
+
+<p class="internal">미래 지식은 소모품이다. 한 번 쓰면 리플레이가 퍼진다. 분석된다. 대응책이 만들어진다. 두 번째는 효과가 반감되고, 세 번째는 무력화된다. 프로의 세계는 그런 곳이다. 나는 25년치 빌드를 갖고 있지만, 그것은 무한이 아니다. 유한한 탄약이다. 한 발 쓸 때마다 한 발이 줄어든다.</p>
+
+<p class="novel">그리고 더 큰 문제가 있었다.</p>
+
+<p class="novel">이 시대의 진짜 천재들이 등장하고 있었다.</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel novel-first">2002년 7월. 프로리그 후반전. 우혁의 9번째 경기.</p>
+
+<p class="novel">상대 팀에서 이름이 올라왔다. 이서준. 16세. 저그. 입단 6개월. 최근 3경기 연속 승리로 주목받기 시작한 신인.</p>
+
+<p class="novel">우혁은 그 이름을 보는 순간 등줄기가 서늘해졌다.</p>
+
+<div class="char-intro">
+  <span class="c-name">이서준</span>
+  <span class="c-info">16 · team vanguard · rookie · zerg</span>
+</div>
+
+<p class="internal">이서준. 16세. 이 이름을 나는 안다. PC방 대회에서 테란으로 만났던 그 아이. sj_terran. 내 클랜에 들어오라고 했던 그 아이가 프로에 와서는 저그로 종족을 바꿨다. 그리고 — 기억 속의 미래에서, 이 아이는 2004년부터 2006년까지 저그 역사를 다시 쓴다. 온갖 대회를 휩쓸고, 스타크래프트를 저그의 게임으로 바꿔놓은 선수. '괴물'이라 불린 사람. 지금은 열여섯 살. 아직 세상이 모른다.</p>
+
+<p class="novel">경기장은 용산 온게임넷 스튜디오였다. 관중 2,000명. 원주의 세 배. 열기가 달랐다. 풍선 막대 소리가 스튜디오 천장에 부딪혀 울렸다.</p>
+
+<p class="novel">부스에 앉았다. 맞은편에 이서준이 앉았다. 작은 체구. 교복을 벗은 지 얼마 안 된 듯한 앳된 얼굴. 하지만 모니터를 응시하는 눈이 달랐다. 긴장이 없었다. 16세의 나이에 2,000명 앞에서 긴장이 없다는 것은 — 그 자체로 재능이었다.</p>
+
+<p class="novel">1세트. 맵은 로스트 템플.</p>
+
+<p class="novel">우혁은 이 경기를 위해 아껴둔 빌드를 꺼냈다. 2006년형 3CC 레이트 메카닉. 커맨드센터 세 개를 일찍 확보하고, 시즈 탱크와 골리앗으로 거대한 방어선을 구축한 뒤, 압도적인 경제력으로 밀어붙이는 장기전 전략. 이 시대의 저그가 대응하기 가장 어려운 유형의 빌드였다. 저그의 3해처리 뮤탈 운영이 상대의 3CC 경제를 감당할 수 없기 때문이다.</p>
+
+<p class="novel">예상대로였다. 이서준은 표준 3해처리 뮤탈로 시작했다. 뮤탈리스크 여섯 기로 견제를 시도했지만, 우혁의 터렛 + 골리앗 수비에 막혔다. 저글링으로 앞마당을 노렸지만, 시즈 탱크 라인에 부딪혔다. 경제력 차이가 벌어지기 시작했다.</p>
+
+<p class="novel">18분. 우혁의 물량이 이서준을 압도했다. 시즈 탱크 여덟 기, 골리앗 여섯 기, 벌처 열 기. 맵을 장악하고, 이서준의 3번째 확장을 부쉈다.</p>
+
+<p class="novel">22분. GG. 우혁의 승리.</p>
+
+<p class="novel">1세트는 우혁의 완승이었다. 2006년형 빌드는 2002년의 저그에게 시대를 초월한 벽이었다.</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel novel-first">2세트. 맵은 아카디아 II.</p>
+
+<p class="novel">우혁은 다른 빌드를 준비하고 있었다. 2세트에서도 새로운 카드를 꺼낼 생각이었다. 하지만 —</p>
+
+<p class="novel">이서준이 먼저 변했다.</p>
+
+<p class="novel">1세트에서 22분간 당한 뒤, 이서준은 2세트의 오프닝을 완전히 바꿨다. 3해처리가 아니었다. 2해처리 히드라. 경제를 줄이는 대신 공격 타이밍을 앞당긴 것이다. 그것도 히드라리스크에 러커를 빠르게 섞는 —</p>
+
+<p class="novel">우혁의 눈이 커졌다.</p>
+
+<p class="internal">이건... 이건 내 1세트 빌드에 대한 정확한 카운터다. 3CC 레이트 메카닉의 약점은 초중반이 비어 있다는 것이다. 커맨드센터 세 개를 빨리 올리면 군사 유닛이 늦는다. 그 빈 타이밍에 히드라 + 러커를 밀어넣으면 — 수비가 밀린다. 이 대응책이 정립되는 건 2006년 후반이다. 그런데 이 16세 아이가, 1세트를 한 번 당한 뒤, 단 10분의 세트 사이 휴식 시간에 이걸 간파했다고?</p>
+
+<p class="novel">7분. 이서준의 히드라리스크 여덟 기와 러커 세 기가 우혁의 앞마당을 강타했다. 우혁은 아직 시즈 탱크 한 기와 마린 여덟 기밖에 없었다. 3CC 빌드의 약점이 정확히 노출된 것이다.</p>
+
+<p class="novel">우혁은 급히 대응했다. 벌처로 러커를 우회하려 했고, 마린을 빼서 히드라를 잡으려 했다. 하지만 이서준의 컨트롤이 빨랐다. 러커가 전진하면서 마린을 베어냈고, 히드라리스크가 시즈 탱크를 집중 사격했다.</p>
+
+<p class="novel">9분. 우혁의 앞마당이 무너졌다.</p>
+
+<p class="novel">우혁은 이를 악물었다. 본진으로 후퇴하며 수비를 재구축했다. 배럭에서 마린을 추가로 뽑고, 스타포트에서 베슬을 올렸다. 하지만 경제적 손실이 컸다. 앞마당 커맨드센터가 파괴되었고, SCV 여섯 기를 잃었다. 세 번째 커맨드센터는 아직 미네랄을 생산하지 못하고 있었다.</p>
+
+<p class="novel">이서준은 물러나지 않았다. 러커로 우혁의 본진 입구를 봉쇄하면서, 뒤에서 3번째 해처리를 올리고 드론을 추가했다. 공격으로 시간을 벌고, 그 시간에 경제를 확장하는 — 이것은 이 16세 소년이 1세트에서 우혁에게 당한 전략의 정확한 미러였다.</p>
+
+<p class="internal">이 아이가... 내 전략을 한 경기 만에 뒤집어서 쓰고 있다. 나는 이 전략을 2006년의 기억에서 가져왔다. 이 아이는 10분 전에 처음 보고, 핵심을 추출해서, 자기 종족에 맞게 변환해서, 지금 나한테 쓰고 있다.</p>
+
+<p class="novel">14분. 이서준의 병력이 다시 밀려왔다. 이번에는 뮤탈리스크 네 기가 추가되어 있었다. 히드라 + 러커 + 뮤탈. 세 병종의 조합 공격. 우혁의 베슬이 러커를 잡는 동안 뮤탈이 SCV를 학살했고, 히드라가 탱크를 부쉈다.</p>
+
+<p class="novel">17분. 우혁의 본진 미네랄이 바닥났다. 병력 보충이 불가능해졌다.</p>
+
+<p class="novel">18분 41초.</p>
+
+<p class="novel">우혁은 키보드에서 손을 뗐다. G키와 G키를 눌렀다.</p>
+
+<p class="dialogue">"GG."</p>
+
+<p class="novel">이서준이 2세트를 가져갔다.</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel novel-first">3세트. 맵은 블루 스톰. 최종 세트.</p>
+
+<p class="novel">우혁의 손가락이 떨리고 있었다. 2세트의 충격이 아직 가시지 않았다. 1세트에서 보여준 빌드를 한 경기 만에 간파하고, 카운터를 만들고, 역으로 응용한 16세 소년. 이것이 천재인가. 이것이 프로의 세계인가.</p>
+
+<p class="novel">3세트에서 우혁은 고민했다. 또 다른 미래 빌드를 꺼낼 수 있었다. 2007년형 SKT 스타일, 2008년형 현대 테란. 아직 꺼내지 않은 카드가 있었다. 하지만 —</p>
+
+<p class="internal">이 아이한테는 소용없다. 내가 새로운 빌드를 꺼내도, 이 아이는 게임 중에 적응한다. 1세트를 통째로 분석해서 2세트에 적용하는 수준의 적응력. 이건 빌드의 문제가 아니다. 재능의 문제다. 나는 미래를 알고 있지만, 이 아이는 미래를 만드는 사람이다.</p>
+
+<p class="novel">3세트. 우혁은 미래 빌드가 아니라, 2002년의 표준 테란 빌드를 선택했다. 배럭 두 개에서 마린을 모으고, 팩토리에서 벌처와 탱크를 생산하는, 이 시대의 평범한 TvZ 오프닝. 미래 지식 대신 14개월간 갈아온 기본기로 싸우기로 했다.</p>
+
+<p class="novel">이서준은 3세트에서 다시 변했다. 이번에는 표준 3해처리 뮤탈. 2세트의 공격적 빌드가 아니라, 안정적인 운영 체계. 우혁의 변화를 예측한 것인지, 아니면 자기만의 리듬을 찾은 것인지.</p>
+
+<p class="novel">10분. 15분. 20분. 경기가 길어졌다. 우혁은 기본기로 버텼고, 이서준은 운영으로 밀어붙였다. 우혁의 멀티태스킹이 한계에 달했다. APM 248의 손가락으로, 세 곳의 전장과 두 곳의 확장 기지를 동시에 관리하는 것은 벅찼다.</p>
+
+<p class="novel">25분. 이서준의 디파일러가 나왔다. 다크 스웜. 시즈 탱크의 포탄이 무력화되었다. 울트라리스크가 전선을 뚫었다.</p>
+
+<p class="novel">28분 17초.</p>
+
+<p class="dialogue">"GG."</p>
+
+<p class="novel">우혁이 항복을 쳤다. 2:1. 이서준의 역전승.</p>
+
+<p class="novel">데뷔 후 첫 시리즈 패배.</p>
+
+<p class="novel">부스에서 나왔다. 이서준이 맞은편 부스에서 나오고 있었다. 16세의 소년은 웃지 않았다. 담담한 표정으로 고개를 숙여 인사했다. 우혁도 고개를 숙였다.</p>
+
+<p class="internal">이 아이는 내 1세트 빌드를 한 번 당하고, 2세트에서 완벽한 카운터를 만들었다. 미래 지식이 필요 없었다. 이 아이에게는 자기 자신이 미래다. 나는 25년 뒤의 전략을 외워왔지만, 이 아이는 전략을 실시간으로 창조한다. 그 차이가 — 천재와 노력의 차이가 — 2세트에서 드러났다.</p>
+
+<p class="novel">대기실로 돌아갔다. 감독이 어깨를 두드렸다.</p>
+
+<p class="dialogue">"첫 패배지만 좋은 경기였어. 이서준이 워낙 잘했고."</p>
+
+<p class="novel">우혁은 고개를 끄덕였다. 하지만 머릿속은 복잡했다. 이서준과의 경기에서 확인한 것은 두 가지였다.</p>
+
+<p class="novel">첫째, 미래 지식은 유한한 자원이다. 한 번 공개된 빌드는 분석되고, 대응되고, 무력화된다. 25년치 빌드를 갖고 있어도, 한 경기에 한 개씩 소모하면 — 결국 바닥이 난다.</p>
+
+<p class="novel">둘째, 이 시대에는 미래 지식이 필요 없는 사람들이 있다. 진짜 천재들. 한 번 당하면 두 번은 당하지 않는 사람들. 보지 않아도 느끼는 사람들. 그들은 미래를 기억하는 것이 아니라, 미래를 만든다. 이서준이 그랬다. 그리고 기억 속에는 이서준 말고도 더 많은 천재들이 등장할 예정이었다.</p>
+
+<p class="internal">미래 빌드는 탄약이다. 유한한 탄약. 한 발 쓸 때마다 줄어든다. 그리고 진짜 강한 상대에게는 한 발이면 충분하다 — 대응하기에. 내가 가진 것은 25년치 탄약이 아니다. 25년치 탄약의 절반은 이미 소모되었고, 나머지 절반도 상위권으로 올라갈수록 빠르게 소진될 것이다. 그때 남는 것은 무엇인가. APM 248의 손가락과, 14개월의 연습과, 38세의 머리뿐이다.</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel novel-first">2002년 8월. 우혁은 개인리그 예선에 출전했다.</p>
+
+<p class="novel">온게임넷 스타리그. 프로게이밍 최고의 무대. 프로리그가 팀 대항전이라면, 스타리그는 개인전이다. 1:1. 자기 자신만 믿어야 하는 무대. 예선을 통과하면 본선 32강. 본선부터 전국에 생중계된다.</p>
+
+<p class="novel">우혁의 프로리그 전적은 10승 2패. 제닉스 스톰의 최고 전적이었다. 개인리그 예선 시드를 받기에 충분했다.</p>
+
+<p class="novel">예선 대진표가 발표되었다. 우혁은 대진표를 보았다. 32강에 오르려면 예선에서 세 경기를 이겨야 했다. 첫 두 경기의 상대는 중하위권 선수들이었다. 하지만 세 번째 경기 — 예선 결승의 상대 후보 자리에 이름이 있었다.</p>
+
+<p class="novel">이서준.</p>
+
+<p class="internal">또 만난다. 프로리그에서 나를 꺾은 16세 저그. 개인리그 예선에서 다시 만날 수도 있다. 이번에는 다를까? 아니, 이번에는 더 어려울 것이다. 이서준은 성장하고 있다. 매일. 매 경기. 내가 14개월에 걸쳐 한 것을, 이 아이는 경기 하나에서 한다.</p>
+
+<p class="novel">합숙소 연습실로 돌아왔다. CRT 모니터를 켰다. 배틀넷에 접속했다. 래더를 돌렸다.</p>
+
+<p class="novel">미래 빌드가 아닌 연습을 시작했다. 기본기. 마린 컨트롤. 벌처 마인 위치 선정. 시즈 탱크 진형. 멀티태스킹. 두 곳, 세 곳, 네 곳을 동시에 보는 연습. APM을 250에서 260으로, 260에서 270으로 올리기 위한 반복.</p>
+
+<p class="novel">미래 지식에 의존하는 것은 한계가 있다. 빌드는 소모되지만, 기본기는 소모되지 않는다. 손가락의 속도는 남는다. 판단의 속도도 남는다. 미래를 알고 있다는 것의 진짜 가치는 빌드가 아니라 — 이 게임이 어디로 가는지 아는 것, 무엇을 연습해야 하는지 아는 것, 어떤 선수를 경계해야 하는지 아는 것이다.</p>
+
+<p class="novel">그리고 가장 중요한 것. 이 세계에서 내가 미래를 바꿀 수 있다는 것.</p>
+
+<p class="novel">원래의 역사에서 제닉스 스톰은 없었다. 진우혁이라는 프로게이머도 없었다. 내가 존재하는 것 자체가 이미 메타를 바꾸고 있다. 내가 쓴 빌드가 퍼지고, 다른 선수들이 그것을 분석하고, 그것에 대한 대응이 나오고 — 그 과정에서 이 시대의 스타크래프트가 원래의 역사와 달라지고 있다. 이서준이 나를 상대로 보여준 적응력도, 원래의 역사에서는 없었던 경험이다.</p>
+
+<p class="novel">우혁은 키보드 위에 손을 올렸다. 탁, 탁탁, 탁. 새벽 세 시. 연습실에 혼자 남아 래더를 돌렸다. 미래를 아는 남자가, 미래를 만드는 소년들을 상대하기 위해, 현재를 갈아넣고 있었다.</p>
+
+<p class="novel">개인리그 예선은 2주 뒤였다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>미래를 아는 것과<br><strong>미래를 만드는 것은 다르다</strong></h2>
+  <p class="sub">25년치 빌드오더는 유한한 탄약이었다. 한 발 쓸 때마다 줄어들었고, 진짜 천재에게는 한 발이면 충분했다 — 적응하기에. 예언자의 다음 무대, 스타리그 예선이 시작된다.</p>
+</div>
+
+<footer class="footer">
+  <p>GG Series &middot; Fiction 04 of 05 &middot; Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

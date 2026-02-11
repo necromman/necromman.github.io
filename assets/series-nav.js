@@ -165,6 +165,16 @@
         { slug: 'interstellar-travel-reality', title: '별까지 가는 현실적인 방법' },
         { slug: 'fermis-question', title: '페르미의 질문' }
       ]
+    },
+    'starcraft-timeslip-series': {
+      title: 'GG',
+      articles: [
+        { slug: 'one-thousand-won', title: '다시, 천 원짜리 한 장' },
+        { slug: 'apm-one-thirty', title: 'APM 130의 벽' },
+        { slug: 'trainee-number-seven', title: '연습생 번호 7번' },
+        { slug: 'the-man-who-changed-meta', title: '메타를 바꾼 남자' },
+        { slug: 'gg', title: 'GG' }
+      ]
     }
   };
 

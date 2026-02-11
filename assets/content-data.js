@@ -660,5 +660,47 @@ window.CONTENT_DATA = [
         search: '페르미역설 드레이크방정식 대여과기 동물원가설 폰노이만 초월가설 발레'
       }
     ]
+  },
+  {
+    id: 'starcraft-timeslip',
+    title: 'GG',
+    description: '38세 QA 엔지니어가 2001년으로 돌아갔다. 25년 뒤의 빌드오더가 머릿속에 있지만, 손가락은 기억하지 못한다. 스타크래프트 프로게이머를 향한 타임슬립 소설.',
+    articles: [
+      {
+        title: '다시, 천 원짜리 한 장',
+        role: '2026년의 스타크래프트 지식을 가진 직장인이 2001년으로 돌아간다',
+        tag: '소설',
+        href: 'content/starcraft-timeslip-series/one-thousand-won.html',
+        search: 'GG 스타크래프트 타임슬립 회귀 프로게이머 2001 PC방 천원 빌드오더 APM 소설'
+      },
+      {
+        title: 'APM 130의 벽',
+        role: '미래 전략은 알지만 손이 안 따라주는 현실과 극한 연습',
+        tag: '소설',
+        href: 'content/starcraft-timeslip-series/apm-one-thirty.html',
+        search: 'APM 130 벽 스타크래프트 연습 PC방 대회 클랜전 빌드오더 성장 소설'
+      },
+      {
+        title: '연습생 번호 7번',
+        role: '프로팀 입단 테스트, 합숙소 생활, 머리는 1군 손은 2군',
+        tag: '소설',
+        href: 'content/starcraft-timeslip-series/trainee-number-seven.html',
+        search: '연습생 프로팀 입단 합숙소 스크림 코치 1군 2군 스타크래프트 소설'
+      },
+      {
+        title: '메타를 바꾼 남자',
+        role: '프로리그 데뷔, 미래 빌드로 커뮤니티를 뒤흔든 예언자',
+        tag: '소설',
+        href: 'content/starcraft-timeslip-series/the-man-who-changed-meta.html',
+        search: '메타 예언자 프로리그 데뷔 빌드 혁신 커뮤니티 온게임넷 스타크래프트 소설'
+      },
+      {
+        title: 'GG',
+        role: '개인리그 결승, 미래 지식 vs 천재의 본능, 두 글자의 의미',
+        tag: '소설',
+        href: 'content/starcraft-timeslip-series/gg.html',
+        search: 'GG 결승 개인리그 천재 프로게이머 스타크래프트 결전 타임슬립 소설'
+      }
+    ]
   }
 ];

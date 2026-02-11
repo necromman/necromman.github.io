@@ -1,0 +1,445 @@
+---
+layout: layouts/article.njk
+pageTitle: "다시, 천 원짜리 한 장"
+description: "38세 QA 엔지니어가 ASL을 보다 잠든 밤, 눈 뜨니 2001년. 17인치 CRT, 폴더폰, 시간당 천 원짜리 PC방. 25년 뒤의 전략이 머릿속에 있지만, 손가락은 기억하지 못한다."
+datePublished: "2026-02-11"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* NOVEL PROSE */
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+
+  /* SCENE BREAK */
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+
+  /* DIALOGUE */
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+
+  /* INTERNAL MONOLOGUE */
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  /* CHARACTER INTRO */
+  .char-intro {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 20px;
+    align-items: baseline;
+    margin: 40px 0 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .char-intro .c-name { font-size: 1.4rem; font-weight: 700; color: var(--fg); }
+  .char-intro .c-info { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
+
+  /* SECTION DIVIDER */
+  .part-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .part-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+  }
+  .section-divider {
+    margin-top: 64px;
+    margin-bottom: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* GAME SCREEN — StarCraft match display */
+  .game-screen {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    background: #1a1a18;
+    color: #c8c4b8;
+    padding: 24px 28px;
+    margin: 32px 0;
+    border: 1px solid var(--fg);
+  }
+  [data-theme="dark"] .game-screen { background: #0a0a08; border-color: var(--rule); }
+  .game-screen .gs-player { color: #7cafc2; font-weight: 700; }
+  .game-screen .gs-race { color: #8a8680; }
+  .game-screen .gs-action { color: #c9b97a; }
+  .game-screen .gs-alert { color: #c43e2a; font-weight: 700; }
+  .game-screen .gs-resource { color: #6db36d; }
+  .game-screen .gs-map { color: #d4a843; }
+  .game-screen .gs-divider { color: #4a4a48; }
+
+  /* APM COUNTER */
+  .apm-counter {
+    display: inline-block;
+    border: 2px solid var(--fg);
+    padding: 16px 28px;
+    margin: 32px 0;
+    text-align: center;
+  }
+  .apm-counter .apm-label {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .apm-counter .apm-value {
+    font-family: var(--mono);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -1px;
+  }
+
+  /* COMMENTARY — broadcast style */
+  .commentary {
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .commentary .cm-header {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .commentary .cm-line { font-size: 0.95rem; line-height: 1.8; color: var(--fg); margin-bottom: 8px; }
+  .commentary .cm-caster { font-weight: 700; color: var(--fg); }
+
+  /* ERA DETAIL */
+  .era-detail {
+    border: 1px solid var(--rule);
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+  .era-detail .ed-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .era-detail .ed-stat {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 16px;
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+  .era-detail .ed-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .era-detail .ed-value { color: var(--fg); }
+  .era-detail .ed-highlight { color: var(--accent); font-weight: 700; }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .char-intro { grid-template-columns: 1fr; }
+    .era-detail .ed-stat { grid-template-columns: 1fr; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">gg — fiction 01</p>
+  <h1>다시, <strong>천 원짜리</strong> 한 장</h1>
+  <p class="deck">38세 QA 엔지니어. SOOP ASL 시청이 유일한 낙.<br>눈 뜨니 2001년. 시간당 천 원짜리 PC방.<br>25년 뒤의 빌드오더가 머릿속에 있다.</p>
+</header>
+
+<main>
+
+<!-- PART I -->
+
+<section>
+<div class="section-divider" style="border-top:none;margin-top:0;padding-top:0">
+  <p class="part-label">Part I</p>
+  <p class="part-title">"F5를 눌러도 새로고침되지 않는 인생"</p>
+</div>
+
+<div class="char-intro">
+  <span class="c-name">진우혁</span>
+  <span class="c-info">38 · qa engineer · it corp · pangyo, gyeonggi-do</span>
+</div>
+
+<p class="novel novel-first">2026년 2월 10일 화요일 밤 11시 47분. 경기도 성남시 분당구 판교.</p>
+
+<p class="novel">진우혁은 원룸 침대에 엎드려 노트북 화면을 보고 있었다. SOOP에서 ASL 시즌 19 16강이 중계되고 있었다. 테란 vs 저그, 맵은 파이썬. 해설자의 목소리가 작은 블루투스 스피커에서 흘러나왔다.</p>
+
+<p class="novel">38세. 판교의 중견 IT 기업에서 QA 엔지니어로 일한다. 연봉 5,200만원. 혼자 산다. 취미라고 할 만한 것은 세 가지 — 퇴근 후 래더 한두 판, 주말 ASL 시청, 그리고 스타크래프트 갤러리에 전략 분석글을 올리는 것. 배틀넷 래더 MMR은 D+에서 C-를 오간다. 종족은 테란. 20년 넘게 테란이다.</p>
+
+<p class="internal">프로리그가 끝난 지 14년. 온게임넷 스튜디오가 문을 닫은 지도 까마득하다. 그래도 스타크래프트는 죽지 않았다. ASL이 9년째 돌아가고, 누적 시청자가 2억을 넘었다. 그 2억 중 상당수는 나 같은 사람일 것이다. 서른 넘고, 사십 넘어서도 여전히 테란을 하는 사람들.</p>
+
+<p class="novel">화면 속 테란 선수가 벌처 세 기를 12시 방향으로 보냈다. 스파이더 마인을 길목에 심는다. 우혁은 무의식적으로 중얼거렸다.</p>
+
+<p class="dialogue">"마인을 거기 심으면 안 되지. 저그가 오버로드를 9시에 띄워놨잖아. 보인다고."</p>
+
+<p class="novel">3초 후, 저그의 저글링 여섯 기가 마인을 피해 우회했다. 우혁이 옳았다. 해설자도 같은 말을 했다. 우혁은 콧바람을 내쉬었다. 프로가 될 실력은 아니었지만, 눈은 있었다. 20년 넘게 이 게임만 봤으니까.</p>
+
+<p class="novel">시계가 자정을 넘겼다. 내일도 9시 출근이다. 테스트 케이스 200개가 기다리고 있다. 우혁은 노트북을 닫지 않은 채 눈을 감았다. ASL 해설자의 목소리가 점점 멀어졌다.</p>
+
+<p class="internal">스타리그 결승에 10만 명이 몰렸던 그 시절. 임요환이 SCV로 프로브를 잡던 그 경기. PC방에서 친구들이랑 밤새 하던 그때. 그때로 돌아갈 수 있다면, 나는 뭘 할까.</p>
+
+<p class="novel">의식이 가라앉았다. 블루투스 스피커에서 ASL 해설이 계속되었지만, 우혁은 이미 듣지 못했다.</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel novel-first">알람 소리가 아니었다.</p>
+
+<p class="novel">귀에 익은 전자음. 하지만 스마트폰 알람이 아니다. 더 얇고, 더 작고, 더 옛날 소리. 우혁은 눈을 떴다.</p>
+
+<p class="novel">천장이 달랐다.</p>
+
+<p class="novel">판교 원룸의 하얀 석고보드 천장이 아니었다. 벽지가 붙은 천장이었다. 연한 베이지색. 구석에 약간 들뜬 부분이 있다. 이 천장을 안다. 이 들뜬 벽지를 안다.</p>
+
+<p class="novel">우혁은 벌떡 일어났다.</p>
+
+<p class="novel">방이 작았다. 아니, 자기 원룸보다 더 작은 방. 책상 하나, 침대 하나, 옷장 하나가 전부인 방. 책상 위에 17인치 CRT 모니터가 있었다. 삼성 싱크마스터. 모니터 옆에는 교과서가 쌓여 있었다. 수학의 정석. 성문 영어. 그리고 책상 구석에 폴더폰이 놓여 있었다.</p>
+
+<p class="novel">삼성 애니콜. SCH-X430. 은색 바디에 파란 LED 창.</p>
+
+<p class="novel">우혁의 손이 떨렸다. 폰을 집어 들었다. 화면에 날짜가 떠 있었다.</p>
+
+<p class="novel" style="text-align:center;font-weight:700;font-size:1.2rem;letter-spacing:1px">2001. 03. 05. MON</p>
+
+<p class="novel">2001년 3월 5일. 월요일.</p>
+
+<p class="novel">거울을 봐야 했다. 우혁은 방문을 열고 복도를 지나 화장실로 갔다. 이 복도를 안다. 이 화장실 문의 삐걱거리는 소리를 안다. 거울 앞에 섰다.</p>
+
+<p class="novel">17살의 얼굴이 거울에 비쳤다.</p>
+
+<p class="novel">여드름이 나 있었다. 이마에 두 개, 턱에 하나. 머리카락은 짧았다. 2001년식 투블럭 따위는 없는, 정석 교칙 머리. 체격은 마른 편이었다. 38세의 회사원 체형이 아니라, 17세의 마른 소년이었다.</p>
+
+<p class="dialogue">"우혁아, 밥 먹어!"</p>
+
+<p class="novel">엄마 목소리였다. 20년 전에 돌아가신 엄마의 목소리.</p>
+
+<p class="novel">우혁은 거울 앞에서 한동안 움직이지 못했다.</p>
+</section>
+
+<!-- PART II -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part II</p>
+  <p class="part-title">"시간당 천 원"</p>
+</div>
+
+<p class="novel novel-first">이틀이 지나서야 상황을 받아들였다. 아니, 받아들인 것이 아니라 체념에 가까웠다. 꿈이라면 너무 길고 디테일이 너무 정확했다. 수학의 정석 8차 교육과정 표지. 3월 초의 서늘한 공기. 교복 안주머니에 들어있는 천 원짜리 세 장과 오백 원짜리 동전 두 개. 38세의 기억을 가진 17세. 2001년 3월. 고등학교 2학년.</p>
+
+<p class="novel">수업은 견딜 만했다. 아니, 의외로 편했다. 38세의 뇌로 듣는 고2 수학은 쉬웠다. 미적분을 실무에서 쓸 일은 없었지만, 대학에서 한 번 배우고 나니 고교 과정은 복습에 불과했다. 영어도 마찬가지. 20년간 기술 문서를 영어로 읽어온 사람에게 고2 영어 독해는 퍼즐이 아니었다.</p>
+
+<p class="novel">문제는 방과 후였다.</p>
+
+<p class="novel">2001년 3월 7일 수요일. 5교시가 끝나자 같은 반 친구 세 명이 우혁의 책상으로 왔다.</p>
+
+<p class="dialogue">"야, 스타 한 판 하러 가자. 새로 생긴 PC방 시간당 천 원이래."</p>
+
+<p class="novel">박민수. 같은 반. 2001년의 우혁에게는 가장 친한 친구였다. 38세의 우혁 기억으로는 — 대학 진학 후 연락이 끊겼고, 페이스북에서 한 번 이름을 본 것이 마지막이었다.</p>
+
+<p class="dialogue">"가자. 시간당 천 원이면 괜찮네."</p>
+
+<p class="novel">우혁은 대답했다. 심장이 빨라졌다. 스타크래프트. 2001년의 스타크래프트. 브루드워 1.08 패치 시대. 이 시점에서 메타는 어떤 상태인가. 우혁의 머릿속에서 25년간 축적된 지식이 빠르게 정리되었다.</p>
+
+<div class="era-detail">
+  <div class="ed-title">era snapshot — march 2001</div>
+  <div class="ed-stat">
+    <span class="ed-label">PC방 이용료</span>
+    <span class="ed-value">시간당 1,000원</span>
+    <span class="ed-label">스타크래프트 버전</span>
+    <span class="ed-value">Brood War 1.08b</span>
+    <span class="ed-label">프로게이밍</span>
+    <span class="ed-value">OSL 3회째. 임요환 아직 무관</span>
+    <span class="ed-label">메타 수준</span>
+    <span class="ed-value ed-highlight">빌드오더 미정립. 경험적 운영 시대</span>
+    <span class="ed-label">PC방 모니터</span>
+    <span class="ed-value">17인치 CRT 삼성 싱크마스터</span>
+    <span class="ed-label">통신</span>
+    <span class="ed-value">ADSL 메가패스 초기. 핑 50~80ms</span>
+  </div>
+</div>
+
+<p class="novel">PC방은 학교에서 걸어서 7분 거리에 있었다. 새로 생긴 가게라 간판이 번쩍였다. '사이버 존'. 유리문을 열자 익숙한 냄새가 밀려왔다. 담배 연기와 컵라면, 그리고 CRT 모니터 수십 대의 전자기기 특유의 열기가 뒤섞인 냄새. 2026년의 PC방에서는 사라진 냄새. 우혁은 자신도 모르게 웃었다.</p>
+
+<p class="novel">50석 규모. 좁은 간격으로 배치된 나무 책상. 17인치 CRT 모니터가 줄지어 서 있고, 멤브레인 키보드와 볼 마우스가 놓여 있었다. 광마우스가 아니다. 볼 마우스. 우혁의 손가락이 마우스를 집어 들었다. 무겁고 볼이 굴러가는 감촉이 느껴졌다.</p>
+
+<p class="dialogue">"천 원 한 시간이요."</p>
+
+<p class="novel">카운터에 천 원을 내밀었다. 알바생이 자리 번호를 알려줬다. 23번석. 우혁은 자리에 앉아 스타크래프트를 실행했다.</p>
+
+<p class="novel">로딩 화면. 배틀넷. 그 익숙한 인터페이스. 하지만 2001년의 배틀넷이었다. 채널 목록에 한글 닉네임들이 넘쳐났다. 우혁은 래더에 접속하지 않고, 먼저 싱글 플레이어 — 유즈맵 '헌터'에 컴퓨터를 상대로 올렸다.</p>
+
+<p class="novel">손가락이 키보드 위에 올라갔다. 커맨드센터를 선택하고 SCV 생산. 여기까지는 자동이다. 하지만 다음 순서에서 우혁은 멈칫했다.</p>
+
+<p class="internal">2001년. 이 시점에서 테란의 표준 빌드오더는 뭐였지? 아니, 표준이라는 개념 자체가 아직 없었다. iloveoov가 '원마린 더블 커맨드센터'를 정립하는 건 2003년이다. 지금은 대부분 배럭 하나 올리고 감으로 하는 시대. 2 Rax FE? 이건 2003-2004년에 정립된다. 1/1/1 빌드? 이것도 2003년. 지금 이 시점에서, 2년 뒤에 정립될 빌드를 내가 쓸 수 있다.</p>
+
+<p class="novel">우혁은 컴퓨터 상대에게 테란 vs 저그를 걸었다. 맵은 로스트 템플.</p>
+
+<p class="novel">오픈을 2 Rax FE로 시작했다. 배럭 두 개를 올리고, 마린을 다섯 기 뽑은 뒤, 앞마당에 커맨드센터를 내렸다. 2003년 iloveoov가 체계화할 그 빌드. 마린으로 초반 수비를 하면서 빠르게 경제를 확장하는 전략. 이 시대의 테란 유저는 대부분 배럭 하나에서 마린을 모아 러시하거나, 팩토리를 빠르게 올려 벌처를 뽑았다. 경제를 먼저 키우겠다는 발상 자체가 드문 시기.</p>
+
+<p class="novel">컴퓨터 상대라 대단할 것은 없었다. 하지만 우혁은 자신의 손가락을 관찰하고 있었다.</p>
+
+<p class="novel">느렸다.</p>
+
+<p class="novel">머리는 다음 순서를 알고 있었다. 벌처 세 기로 저그의 앞마당을 견제하면서 시즈 탱크 생산을 시작하고, 터렛을 올려 뮤탈 대비를 하고, 이후 미디안으로 바이오닉 조합을 완성하는 — 2003년형 표준 TvZ 운영. 머리는 완벽했다.</p>
+
+<p class="novel">손가락이 못 따라갔다.</p>
+
+<div class="apm-counter">
+  <div class="apm-label">current apm</div>
+  <div class="apm-value">87</div>
+</div>
+
+<p class="novel">APM 87. 분당 87타. 38세 직장인의 취미 래더 수준. 프로게이머의 평균이 300을 넘는 세계에서, 87은 아마추어 중에서도 하위권이다. 벌처를 보내놓고 본진 매크로를 하다 보면, 벌처가 저글링에 둘러싸여 죽어 있다. 멀티태스킹이 안 되는 것이다.</p>
+
+<p class="internal">알고 있었다. 프로와 아마추어의 차이는 전략 지식이 아니다. 손이다. 초당 몇 번의 명령을 내릴 수 있느냐. 두 곳 이상을 동시에 관리할 수 있느냐. 나는 25년 뒤의 전략을 가지고 있지만, 이 손가락은 2026년의 38세 QA 엔지니어 수준이다.</p>
+
+<p class="novel">하지만.</p>
+
+<p class="novel">우혁은 자신의 손을 내려다보았다. 17세의 손이었다. 마디가 가늘고, 피부에 탄력이 있고, 관절이 유연했다. 38세의 손과는 다른 손. 손목 터널 증후군의 흔적이 없는 손. 반응 속도가 빠른 젊은 신경계에 연결된 손.</p>
+
+<p class="internal">이 손가락은 훈련시킬 수 있다.</p>
+</section>
+
+<!-- PART III -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part III</p>
+  <p class="part-title">"이 빌드는 아직 없다"</p>
+</div>
+
+<p class="novel novel-first">한 시간의 연습이 끝나고, 민수가 옆자리에서 말을 걸었다.</p>
+
+<p class="dialogue">"야, 한 판 하자. 1:1."</p>
+
+<p class="novel">민수의 종족은 프로토스였다. 2001년의 고등학생 수준. 배틀넷 래더에서 중급 정도. 우혁은 수락했다.</p>
+
+<p class="novel">맵은 로스트 템플.</p>
+
+<div class="game-screen">
+<span class="gs-map">Map: Lost Temple</span><br>
+<span class="gs-divider">────────────────────────────</span><br>
+<span class="gs-player">Player 1: WooHyuk</span> <span class="gs-race">[Terran]</span><br>
+<span class="gs-player">Player 2: MinSu</span> <span class="gs-race">[Protoss]</span><br>
+<span class="gs-divider">────────────────────────────</span><br>
+<span class="gs-action">Game Start</span>
+</div>
+
+<p class="novel">민수의 오프닝은 전형적인 2001년형 프로토스였다. 게이트웨이 하나 올리고 질럿 두 기를 뽑아 정찰 겸 견제. 이후 어시밀레이터를 짓고 사이버네틱스 코어를 올려 드라군 생산. 2001년의 프로토스 유저 대부분이 이렇게 했다.</p>
+
+<p class="novel">우혁은 다르게 시작했다.</p>
+
+<p class="novel">1 Rax FE. 배럭 하나를 올리고, 마린 한 기만 뽑은 뒤, 바로 앞마당에 커맨드센터를 내렸다. 2001년의 테란 유저가 보면 미친 짓이었다. 상대가 질럿 러시를 오면 마린 한 기로 앞마당을 어떻게 지키겠다는 것인가.</p>
+
+<p class="novel">하지만 우혁은 알고 있었다. 민수의 프로토스가 질럿 러시를 오려면 게이트웨이 두 개 이상이 필요하고, 민수는 게이트웨이를 하나만 올렸다. 2001년의 대부분의 프로토스가 그랬다. 투게이트 질럿 러시가 표준 전략으로 자리잡는 것은 좀 더 뒤의 일이다.</p>
+
+<p class="novel">커맨드센터가 완성되자 우혁의 미네랄 채취량이 급격히 올라갔다. 민수가 드라군 네 기를 모아 공격하러 왔을 때, 우혁은 이미 마린 여덟 기와 메딕 두 기, 그리고 시즈 탱크 한 기를 확보하고 있었다. 경제력의 차이가 유닛 수의 차이로 변환된 것이다.</p>
+
+<p class="novel">민수의 드라군 네 기가 앞마당에 도착했다. 우혁은 마린을 시즈 탱크 뒤에 배치하고, 시즈 모드를 켰다. 2001년에도 시즈 모드는 있었지만, 이것을 체계적인 방어 라인으로 활용하는 개념은 아직 정립되지 않은 시점이었다.</p>
+
+<p class="novel">시즈 탱크의 포탄이 드라군을 강타했다. 120의 스플래시 데미지. 드라군의 체력이 한 방에 절반 넘게 깎였다. 마린이 나머지를 처리했다. 민수의 첫 번째 공격이 실패했다.</p>
+
+<p class="dialogue">"야, 뭐야. 너 갑자기 왜 이렇게 잘해?"</p>
+
+<p class="novel">민수가 헤드셋을 반쯤 벗고 옆을 보며 말했다. 우혁은 대답하지 않고 화면에 집중했다. 손가락이 바빴다. 본진에서 팩토리 두 번째를 올리면서, 벌처를 생산해서 맵 중앙에 마인을 깔고, 동시에 앞마당에 터렛을 짓는 — 세 곳의 멀티태스킹. 머리는 다섯 수 앞을 보고 있었지만, 손가락은 여전히 두 수 뒤를 따라가고 있었다.</p>
+
+<p class="novel">그래도 민수에게는 충분했다. 10분 만에 민수의 프로토스가 무너졌다.</p>
+
+<p class="dialogue">"GG."</p>
+
+<p class="novel">민수가 항복을 쳤다.</p>
+
+<p class="dialogue">"야, 너 이거 뭐야? 갑자기 왜 이렇게 잘해? 너 원래 나한테 맨날 지지 않았어?"</p>
+
+<p class="novel">다른 친구 둘도 모니터 너머로 우혁의 화면을 들여다보고 있었다.</p>
+
+<p class="dialogue">"니가 쓴 빌드 뭐야? 앞마당에 커맨드센터 먼저 짓는 거 처음 봤는데."</p>
+
+<p class="novel">우혁은 잠시 말을 고르다가 대답했다.</p>
+
+<p class="dialogue">"그냥... 인터넷에서 본 거야. 외국 유저가 쓰는 빌드래."</p>
+
+<p class="novel">거짓말이었다. 이 빌드는 2년 뒤에 최연성이라는 프로게이머가 정립할 것이다. 그리고 그 빌드가 한국 프로게이밍의 테란 운영을 영구적으로 바꿀 것이다. 하지만 지금은 2001년이고, 최연성은 아직 아마추어이며, 이 빌드는 이 세계에 존재하지 않는다.</p>
+
+<p class="internal">존재하지 않는 빌드를 내가 갖고 있다.</p>
+</section>
+
+<!-- PART IV -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part IV</p>
+  <p class="part-title">"천 원짜리 한 장의 무게"</p>
+</div>
+
+<p class="novel novel-first">그날 밤, 우혁은 방에 누워 천장을 바라보았다. 들뜬 벽지가 어둠 속에서 희미하게 보였다.</p>
+
+<p class="novel">정리가 필요했다.</p>
+
+<p class="novel">첫째, 자신은 2001년으로 돌아왔다. 이유는 모른다. 방법도 모른다. 돌아갈 수 있는지도 모른다. 하지만 이것은 꿈이 아니다. 사흘째 같은 현실이 계속되고 있다.</p>
+
+<p class="novel">둘째, 25년간 축적한 스타크래프트 지식이 머릿속에 있다. 2003년 iloveoov의 빌드 체계. 2005년 sAviOr의 3해처리 뮤탈 운영. 2007년 Bisu의 PvZ 혁명. 2008년 이후 Flash의 현대 테란. 이 모든 전략적 혁신이 아직 일어나지 않은 2001년에, 그 지식을 가진 사람이 자신뿐이다.</p>
+
+<p class="novel">셋째, 그러나 지식만으로는 프로가 될 수 없다. 오늘 확인했다. APM 87. 이것은 아마추어 수준이다. 프로의 세계는 분당 300회 이상의 키보드와 마우스 조작이 기본이다. 전략을 아무리 많이 알아도, 그것을 실시간으로 실행할 수 없으면 의미가 없다.</p>
+
+<p class="novel">넷째, 하지만 지금 자신은 17세다. 반응 속도가 정점에 있는 나이. 프로게이머의 대부분이 10대 후반에서 20대 초반에 전성기를 맞는다. 시간이 있다. 훈련할 시간이.</p>
+
+<p class="novel">우혁은 폴더폰을 열었다. 파란 LED 화면에 시간이 떠 있었다. 23:42. 내일도 학교다.</p>
+
+<p class="internal">프로게이머. 2001년의 프로게이밍 씬. 아직 기업팀이 본격화하기 전. 임요환이 올해 OSL 2연속 우승을 하면서 프로게이밍을 대중화시킬 것이다. 내년에 SK텔레콤이 참여하면서 기업팀 시대가 열릴 것이고. 이후 10년간 한국 프로게이밍의 황금기가 펼쳐질 것이다. 나는 그 역사를 전부 알고 있다.</p>
+
+<p class="novel">하지만 알고 있는 것과 할 수 있는 것은 다르다.</p>
+
+<p class="novel">우혁은 책상으로 갔다. CRT 모니터를 켰다. Windows 98이 부팅되었다. 스타크래프트를 실행하고, 싱글 플레이어에서 컴퓨터 상대로 연습을 시작했다. 가족이 잠든 밤.</p>
+
+<p class="novel">SCV를 선택한다. 미네랄 패치에 보낸다. 배럭을 짓는다. 서플라이를 짓는다. 마린을 뽑는다. 벌처를 뽑는다. 시즈 탱크를 뽑는다. 같은 순서를 반복한다. 빌드오더를 손에 새기는 것이다. 머리가 아니라 손가락이 기억할 때까지.</p>
+
+<div class="apm-counter">
+  <div class="apm-label">target apm</div>
+  <div class="apm-value">300+</div>
+</div>
+
+<p class="novel">87에서 300. 그 사이의 거리가 프로와 아마추어의 거리다. 그리고 그 거리를 좁히는 유일한 방법은 반복이다. 수천 번, 수만 번의 반복.</p>
+
+<p class="novel">CRT 모니터가 푸르스름한 빛을 내뿜었다. 새벽 1시. 키보드 소리가 방 안에 울렸다. 탁, 탁탁, 탁. 아직 느린 소리. 하지만 매일 조금씩 빨라질 소리.</p>
+
+<p class="novel">우혁은 알고 있었다. 천 원짜리 한 장으로 PC방에서 한 시간을 살 수 있다. 하지만 프로게이머가 되려면 수천 시간이 필요하다. 수천 장의 천 원짜리. 수천 시간의 연습. 그리고 그것은 시작에 불과하다.</p>
+
+<p class="novel">하지만 이번에는 길을 알고 있다.</p>
+
+<p class="novel">38년의 인생에서 처음으로, 진우혁은 무엇을 해야 하는지 정확히 알고 있었다.</p>
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>25년 뒤의 전략이 머릿속에 있다<br><strong>손가락은 아직 기억하지 못한다</strong></h2>
+  <p class="sub">APM 87에서 300까지. 그 거리를 좁히는 유일한 방법은 수천 시간의 반복이다. 하지만 이번에는 길을 알고 있다.</p>
+</div>
+
+<footer class="footer">
+  <p>GG Series &middot; Fiction 01 of 05 &middot; Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>
