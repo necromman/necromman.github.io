@@ -1,0 +1,365 @@
+---
+layout: layouts/article.njk
+pageTitle: "각하합니다"
+description: "수거책을 상대로 민사소송을 걸었다. 1심에서 과실상계 40%, 항소심 기각. 승소해도 집행불능. 변호사비 345만 원만 사라졌다."
+datePublished: "2026-02-12"
+---
+<style>
+.masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+.masthead h1 { font-size: 3.6rem; font-weight: 900; line-height: 1.05; letter-spacing: -2px; }
+.masthead .deck { max-width: 440px; margin: 0 auto; }
+
+/* Novel typography */
+.novel { text-indent: 1em; line-height: 2.05; font-size: 1.05rem; color: var(--prose); margin: 0 0 0.2em; }
+.novel-first { text-indent: 0; }
+.dialogue { padding-left: 1em; text-indent: -1em; line-height: 2.05; font-size: 1.05rem; color: var(--prose); margin: 0 0 0.2em; }
+.internal { color: var(--muted); font-size: 1.02rem; line-height: 2; margin: 0.8em 0; }
+
+/* Scene break */
+.scene-break { text-align: center; letter-spacing: 12px; color: var(--muted); font-size: 0.85rem; padding: 40px 0; }
+
+/* Part labels */
+.part-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; margin-top: 0; }
+.part-title { font-size: 1.6rem; font-weight: 700; color: var(--fg); margin-bottom: 32px; letter-spacing: -0.5px; }
+.section-divider { border-top: 1px solid var(--fg); padding-top: 48px; margin-top: 56px; }
+
+/* Court document */
+.court-doc { margin: 32px 0; padding: 32px 36px; border: 1px solid var(--fg); background: var(--bg); }
+.court-doc .cd-court { font-family: var(--serif); font-size: 0.78rem; letter-spacing: 2px; font-weight: 700; color: var(--muted); margin-bottom: 4px; }
+.court-doc .cd-title { font-size: 1.2rem; font-weight: 700; color: var(--fg); margin-bottom: 20px; letter-spacing: -0.3px; }
+.court-doc .cd-body { font-size: 0.92rem; color: var(--prose); line-height: 1.9; }
+.court-doc .cd-body strong { font-weight: 700; color: var(--fg); }
+.court-doc .cd-ruling { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 1rem; font-weight: 700; color: var(--accent); }
+.court-doc .cd-indent { padding-left: 24px; margin: 12px 0; }
+
+/* Stats row */
+.stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 40px 0 48px; }
+.stats-row-2col { grid-template-columns: 1fr 1fr; }
+.stat { background: var(--bg); padding: 28px 20px; text-align: center; }
+.stat-num { font-family: var(--mono); font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+.stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+
+/* ChatGPT screen */
+.chat-screen { max-width: 420px; margin: 32px auto; border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
+.chat-header { background: var(--card-bg); padding: 12px 20px; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); border-bottom: 1px solid var(--rule); }
+.chat-body { padding: 20px; }
+.chat-msg { margin-bottom: 16px; }
+.chat-msg:last-child { margin-bottom: 0; }
+.chat-user { background: var(--card-bg); padding: 12px 16px; border-radius: 8px; font-size: 0.88rem; color: var(--prose); line-height: 1.6; margin-bottom: 12px; }
+.chat-ai { padding: 12px 16px; font-size: 0.88rem; color: var(--prose); line-height: 1.7; border-left: 2px solid var(--accent); }
+.chat-ai strong { font-weight: 700; color: var(--fg); }
+
+/* Scam voice - phone call (reused from ep1) */
+.phone-call { padding: 16px 24px; margin: 16px 0; background: var(--fg); color: var(--bg); border-radius: 8px; font-size: 0.95rem; line-height: 1.8; }
+.phone-call .pc-tag { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 3px; text-transform: uppercase; opacity: 0.5; margin-bottom: 6px; }
+
+/* Document stack visual */
+.doc-stack { margin: 40px 0; padding: 24px 28px; background: var(--card-bg); border: 1px solid var(--rule); }
+.doc-stack .ds-title { font-family: var(--serif); font-size: 0.78rem; letter-spacing: 2px; font-weight: 700; color: var(--muted); margin-bottom: 16px; }
+.doc-stack ul { list-style: none; padding: 0; margin: 0; }
+.doc-stack li { padding: 10px 0; border-bottom: 1px solid var(--rule); font-size: 0.9rem; color: var(--prose); display: grid; grid-template-columns: 1fr auto; gap: 12px; }
+.doc-stack li:last-child { border-bottom: none; }
+.doc-stack .ds-cost { font-family: var(--mono); font-weight: 700; color: var(--accent); font-size: 0.88rem; }
+
+/* Responsive */
+@media (max-width: 700px) {
+  .masthead h1 { font-size: 2.4rem; }
+  .court-doc { padding: 24px 20px; }
+  .stats-row { grid-template-columns: 1fr; }
+  .stats-row-2col { grid-template-columns: 1fr; }
+  .chat-screen { max-width: 100%; }
+  .phone-call { padding: 14px 18px; }
+}
+</style>
+
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">voice phishing — fiction 03</p>
+  <h1>각하합니다</h1>
+  <p class="deck">1심 패소, 항소 기각, 그리고 변호사비만 남은 서류 더미</p>
+</header>
+
+<main>
+
+<section>
+<div class="part-label">Part I</div>
+<div class="part-title">재판이라는 것</div>
+
+<p class="novel novel-first">정숙은 법원에 한 번도 가본 적이 없었다.</p>
+
+<p class="novel">서울북부지방법원. 건물은 생각보다 평범했다. 관공서 특유의 차가운 복도, 엘리베이터 앞에 늘어선 사람들, 법정 번호를 확인하며 오가는 양복 차림의 사람들. 정숙은 태호와 함께 3층 민사법정 앞 복도 벤치에 앉았다.</p>
+
+<p class="novel">소장을 접수한 지 3개월이 지나서야 첫 기일이 잡혔다. 변호사는 기일 전에 한 번 만났다. 15분이었다. 변호사는 소장 내용을 설명했고, "크게 걱정하지 않으셔도 됩니다"라고 말했다. 정숙은 그 말을 믿고 싶었다.</p>
+
+<p class="novel">법정 문이 열렸다. 안으로 들어갔다. 드라마에서 보던 것보다 작았다. 판사석, 원고석, 피고석. 피고석에 수거책 김모가 앉아 있었다. 국선변호인과 함께.</p>
+
+<p class="novel">22세. 정숙은 김모의 얼굴을 처음 보았다. 마른 체형, 트레이닝 복, 고개를 숙인 채 바닥만 보고 있었다. 정숙이 상상했던 범죄자의 얼굴이 아니었다. 수진보다 여섯 살 어린 청년이었다.</p>
+
+<p class="internal">이 사람이 내 돈을 가져갔다. 아니, 이 사람은 전달했을 뿐이다. 진짜 가져간 사람은 어딘가 다른 나라에 있다.</p>
+
+<p class="novel">재판이 시작되었다. 변호사가 소장을 읽었다. 피고 김모의 불법행위로 인한 손해배상 3,700만 원 및 지연이자 청구.</p>
+
+<p class="novel">김모의 국선변호인이 답변했다.</p>
+
+<p class="dialogue">"피고는 택배 알바인 줄 알았으며, 인출한 현금은 즉시 제3자에게 전달했습니다. 피고에게 고의가 없었고, 현재 무자력 상태입니다."</p>
+
+<p class="novel">판사가 김모에게 물었다.</p>
+
+<p class="dialogue">"피고, 이 돈이 범죄 수익금이라는 것을 알고 있었습니까?"</p>
+
+<p class="novel">김모가 고개를 들었다. 목소리가 작았다.</p>
+
+<p class="dialogue">"... 몰랐습니다. 텔레그램에서 택배 물건 대신 받아주는 알바라고 해서..."</p>
+
+<p class="dialogue">"현금을 ATM에서 인출하는 것이 택배 알바라고 생각했다는 겁니까?"</p>
+
+<p class="novel">김모가 대답하지 못했다. 국선변호인이 대신 말했다.</p>
+
+<p class="dialogue">"피고는 사회 경험이 부족한 22세 청년으로, 보이스피싱 조직의 기만에 의해 범행에 가담하게 되었습니다."</p>
+
+<p class="novel">정숙은 복도 벤치에서 들었던 변호사의 말을 떠올렸다. "크게 걱정하지 않으셔도 됩니다." 그런데 법정 안의 공기는 걱정하지 않을 수 있는 종류가 아니었다.</p>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<section class="section-divider">
+<div class="part-label">Part II</div>
+<div class="part-title">"원고에게도 과실이 있다"</div>
+
+<p class="novel novel-first">6개월 후, 판결문이 나왔다.</p>
+
+<p class="novel">변호사가 전화로 결과를 알려주었다. 정숙은 부엌에서 전화를 받았다. 통화 시간 4분 17초.</p>
+
+<div class="court-doc">
+  <div class="cd-court">서울북부지방법원 제X민사부</div>
+  <div class="cd-title">판결</div>
+  <div class="cd-body">
+    사건번호 2026가단XXXXXX 손해배상(기)<br><br>
+    <strong>1. 피고 김모는 공동불법행위자로 인정</strong><br>
+    피고가 보이스피싱 범행의 말단 역할을 수행하였으나, 대법원 2024.12.12. 선고에 따라 현금 수거 행위는 사기 범행의 핵심적 구성 요소에 해당하므로 공동정범의 책임이 인정됨.<br><br>
+    <strong>2. 단, 원고에게도 과실이 있음</strong><br>
+    <div class="cd-indent">보이스피싱이 사회적으로 널리 알려진 범죄 유형인 상황에서, 원고가 출처 불명의 앱을 설치하고, 금융 정보를 제공하며, 원격 제어를 허용한 행위는 <strong>금융 거래 시 일반적으로 요구되는 주의 의무를 위반</strong>한 것으로 판단됨.</div>
+    <strong>3. 과실비율: 원고 40%, 피고 60%</strong><br><br>
+    인용금액: 3,700만 원 &times; 60% = <strong>2,220만 원</strong>
+    <div class="cd-ruling">주문: 피고는 원고에게 2,220만 원 및 이에 대한 지연손해금을 지급하라.</div>
+  </div>
+</div>
+
+<p class="novel">2,220만 원. 판결문 위의 숫자는 그랬다.</p>
+
+<p class="novel">하지만 정숙은 이미 알고 있었다. 경찰이 말해준 것을, 인터넷에서 읽은 것을, 이 6개월 동안 천천히 받아들인 것을.</p>
+
+<p class="dialogue">"변호사님, 그래서 돈을 받을 수 있나요?"</p>
+
+<p class="novel">3초의 침묵.</p>
+
+<p class="dialogue">"... 김모의 재산 조회를 했는데요. 현재 수감 중이고, 급여 소득이 없고, 부동산도 예금도 없습니다."</p>
+
+<p class="dialogue">"그러면요?"</p>
+
+<p class="dialogue">"강제집행을 신청해도... 집행할 재산이 없으면 집행불능 조서가 발급됩니다."</p>
+
+<p class="internal">승소했지만 받을 돈이 없습니다.</p>
+
+<p class="novel">판결문에 적힌 2,220만 원은 존재하지 않는 돈이었다. 법이 "받아야 한다"고 선언했지만, 법이 "줄 수는 없었다." 김모의 전 재산은 교도소 영치금 3만 2천 원이었다.</p>
+
+<p class="novel">강제집행 신청서를 냈다. 결과는 예상대로였다.</p>
+
+<div class="stats-row stats-row-2col">
+  <div class="stat">
+    <div class="stat-num">2,220만</div>
+    <div class="stat-label">판결 인용금액</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">0원</div>
+    <div class="stat-label">실제 회수금액<br>(집행불능)</div>
+  </div>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<section class="section-divider">
+<div class="part-label">Part III</div>
+<div class="part-title">딸의 ChatGPT</div>
+
+<p class="novel novel-first">정숙은 포기하려 했다.</p>
+
+<p class="novel">이미 345만 원을 썼고, 받은 것은 아무것도 없었다. 판결문이라는 종이 한 장과 집행불능 조서라는 종이 한 장. 합쳐서 345만 원짜리 종이 두 장.</p>
+
+<p class="novel">수진이 찾아왔다. 주말마다 오는 것이 습관이 되었다. 이번에는 노트북을 들고 왔다.</p>
+
+<p class="dialogue">"엄마, 내가 좀 찾아봤어."</p>
+
+<p class="novel">수진은 ChatGPT에 판결문을 입력하고, 항소 가능성을 물어보았다.</p>
+
+<div class="chat-screen">
+  <div class="chat-header">ChatGPT</div>
+  <div class="chat-body">
+    <div class="chat-msg">
+      <div class="chat-user">보이스피싱 피해자인데 1심에서 과실 40%가 나왔어. AI 딥보이스로 가족 목소리를 복제한 건데, 항소하면 과실비율을 줄일 수 있을까?</div>
+      <div class="chat-ai">AI 딥보이스 기술의 발전을 고려하면 항소심에서 과실비율 조정 가능성이 있습니다. 참고할 수 있는 판례로는:<br><br>&bull; <strong>부천지법 2023가단XXXXX</strong> — 수거책 70% 책임 인정, 피해자 과실 30%<br>&bull; <strong>대전지법 2023나XXXXX</strong> — 기관사칭형의 기만성이 극히 높은 경우 피해자 과실을 25%로 축소<br><br>AI 음성 합성 기술의 고도화와 피해자의 연령, 사회적 경험 등을 종합적으로 주장하시면 과실비율 경감을 기대할 수 있습니다.</div>
+    </div>
+  </div>
+</div>
+
+<p class="dialogue">"엄마, 과실비율을 줄일 수 있을지도 몰라."</p>
+
+<p class="dialogue">"또 돈 드는 거 아니야?"</p>
+
+<p class="dialogue">"내가 항소이유서 초안을 쓸게. 변호사 없이."</p>
+
+<p class="novel">수진은 일주일 동안 밤마다 ChatGPT와 대화했다. 법률 용어를 물어가며, 항소이유서를 작성했다. 총 18페이지.</p>
+
+<p class="internal">"피고의 범행 가담 정도, 피해자의 연령(56세), AI 음성 복제 기술의 고도화, 원격 제어 악성앱의 전화 가로채기 기능(피해자가 112에 전화해도 범죄 조직이 응답)을 종합적으로 고려하면, 원고의 과실비율 40%는 과도하다..."</p>
+
+<p class="novel">정숙이 물었다.</p>
+
+<p class="dialogue">"이게 되는 거야?"</p>
+
+<p class="dialogue">"모르겠어. 근데 345만 원은 이미 쓴 거잖아. 항소 인지대는 15만 원이면 돼."</p>
+
+<p class="novel">15만 원. 그 정도는 할 수 있었다. 항소장을 접수했다. 수진이 직접 법원에 갔다.</p>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<section class="section-divider">
+<div class="part-label">Part IV</div>
+<div class="part-title">같은 대답</div>
+
+<p class="novel novel-first">항소심은 3개월이 걸렸다.</p>
+
+<p class="novel">이번에는 정숙이 직접 법정에서 진술했다. 변호사 없이, 딸과 함께.</p>
+
+<p class="dialogue">"저는 딸의 목소리를 듣고..."</p>
+
+<p class="novel">정숙의 목소리가 떨렸다. 판사를 올려다보았다. 판사의 표정은 변하지 않았다.</p>
+
+<p class="dialogue">"딸이 위험하다고... 울면서 전화가 왔습니다. 28년 동안 키운 딸의 목소리였습니다. 엄마가 그 전화를 의심할 수 있겠습니까."</p>
+
+<p class="novel">법정이 조용했다. 판사가 메모를 했다. 수진이 엄마 옆에서 입술을 깨물고 있었다.</p>
+
+<p class="dialogue">"원고는 112에 확인 전화를 했다고 하셨는데, 그때 범죄 조직이 받았다는 것이죠?"</p>
+
+<p class="dialogue">"네. 나중에 알았습니다. 앱을 설치한 순간부터 제 전화는 다 그쪽으로 갔다고요."</p>
+
+<p class="novel">판사가 고개를 끄덕였다. 수진은 그 고개 끄덕임에서 희망을 보았다. 정숙은 아무것도 보지 못했다. 6개월간의 법원 경험이 정숙에게 가르쳐준 것이 하나 있었다. 판사의 고개 끄덕임은 동의가 아니라 확인이라는 것.</p>
+
+<p class="novel">3개월 후, 판결문이 나왔다.</p>
+
+<div class="court-doc">
+  <div class="cd-court">서울북부지방법원 항소부</div>
+  <div class="cd-title">판결</div>
+  <div class="cd-body">
+    항소인(원고) 주장을 검토하건대,<br><br>
+    AI 음성 합성 기술의 발전은 인정하나, <strong>금융거래 시 본인확인 의무는 기술 발전과 무관하게 피해자에게도 존재</strong>한다. 원심이 인정한 과실비율 40%는 제반 사정에 비추어 부당하다고 볼 수 없다.
+    <div class="cd-ruling">주문: 항소를 기각한다. 항소비용은 원고가 부담한다.</div>
+  </div>
+</div>
+
+<p class="novel">항소 기각. 1심 판결 유지.</p>
+
+<p class="novel">수진이 판결문을 읽고 또 읽었다. "기술 발전과 무관하게 피해자에게도 존재한다." 법은 딸의 목소리가 가짜인지 진짜인지를 판단하지 않았다. 법은 피해자가 앱을 설치한 행위, 비밀번호를 입력한 행위, 원격 제어를 허용한 행위를 판단했다.</p>
+
+<p class="dialogue">"엄마, 미안해."</p>
+
+<p class="dialogue">"네가 뭘 미안해. 네가 해준 것만으로 고마워."</p>
+
+<p class="novel">수진이 18페이지짜리 항소이유서를 보았다. 일주일의 밤을 쏟은 종이 뭉치.</p>
+
+<p class="novel">법원이 보지 않은 것이 있었다. 엄마가 앱을 설치한 이유는 "수사관의 지시"가 아니었다. 딸이 울고 있었기 때문이었다. 28년 동안 키운 딸이 "엄마, 나 큰일 났어"라고 울었기 때문이었다. 그 순간 엄마에게 '주의 의무'란 존재하지 않는다.</p>
+
+<p class="novel">하지만 법은 그것을 과실이라고 불렀다.</p>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<section class="section-divider">
+<div class="part-label">Part V</div>
+<div class="part-title">사무관의 전화</div>
+
+<p class="novel novel-first">항소 기각 결정문을 받은 다음 날, 전화가 왔다.</p>
+
+<p class="novel">발신자 이름은 법률사무소였다. 정숙은 변호사에게서 전화가 왔다고 생각했다. 하지만 받은 것은 변호사가 아니었다. 사무관이었다. 처음 상담했던 바로 그 사무관.</p>
+
+<div class="phone-call">
+  <div class="pc-tag">법률사무소</div>
+  어머님, 항소심 결과를 보았습니다. 안타깝게 기각이 되었는데요. 그런데 대법원 상고를 고려해보셔야 합니다. 법리적으로 AI 딥보이스에 대한 과실비율 산정은 아직 대법원 판례가 없거든요. 새로운 판례를 만들 수 있는 기회입니다.
+</div>
+
+<p class="dialogue">"... 비용이 얼마인가요?"</p>
+
+<div class="phone-call">
+  <div class="pc-tag">사무관</div>
+  상고심은 사건이 복잡하지 않아서 착수금 300만 원이면 됩니다. 대법원에서 과실비율이 줄어들면 배상금이 늘어나시니까, 충분히 의미가 있습니다.
+</div>
+
+<p class="novel">300만 원. 또 300만 원.</p>
+
+<p class="novel">정숙은 조용히 생각했다. 이 사무관은 항소가 기각된 다음 날 전화를 걸어, 300만 원의 상고를 권유하고 있다. 패소해도 돈을 받는 사람은 법률사무소다. 착수금은 결과와 무관하다.</p>
+
+<p class="novel">정숙이 조용히 말했다.</p>
+
+<p class="dialogue">"... 됐습니다."</p>
+
+<div class="phone-call">
+  <div class="pc-tag">사무관</div>
+  어머님, 한 번 더 생각해보세요. 이런 사건은 시간이 지나면...
+</div>
+
+<p class="dialogue">"됐다고 했습니다."</p>
+
+<p class="novel">전화를 끊었다.</p>
+
+<p class="novel">정숙은 식탁에 앉아 서류 더미를 바라보았다. 소장, 답변서, 1심 판결문, 집행불능 조서, 항소이유서, 항소 기각 결정문. 두꺼운 서류 뭉치. 이것이 345만 원의 무게였다.</p>
+
+<div class="doc-stack">
+  <div class="ds-title">서류 더미의 가격표</div>
+  <ul>
+    <li>범죄 피해금 <span class="ds-cost">-3,700만 원</span></li>
+    <li>변호사 착수금 (1심) <span class="ds-cost">-330만 원</span></li>
+    <li>인지대 + 송달료 <span class="ds-cost">-15만 원</span></li>
+    <li>카드론 상환금 (24개월) <span class="ds-cost">-552만 원</span></li>
+    <li>금감원 환급금 <span class="ds-cost">+18,240원</span></li>
+    <li>판결 인용금액 (집행불능) <span class="ds-cost">+0원</span></li>
+  </ul>
+</div>
+
+<p class="novel">정숙은 가계부를 펼쳤다. 펜을 들었다. 마지막 줄에 적었다.</p>
+
+<p class="internal">총 손실: 4,597만 원. 남은 것: 적금 1,655만 원.</p>
+
+<p class="novel">펜을 내려놓았다. 창밖을 보았다. 중계동 아파트 단지에 저녁 해가 지고 있었다.</p>
+
+<p class="novel">정숙은 생각했다. 음지에서 3,700만 원을 잃었다. 양지에서 897만 원을 더 잃었다. 범죄자는 3,700만 원을 가져갔고, 법률사무소는 345만 원을 가져갔고, 카드론 이자로 52만 원을 더 쓸 것이고, 법원은 인지대와 송달료로 15만 원을 가져갔다.</p>
+
+<p class="novel">범죄자보다 정부와 변호사가 더 정확하게 돈을 받아갔다. 범죄자의 환급률은 0.049%였지만, 변호사의 회수율은 100%였다.</p>
+
+<p class="novel">정숙은 서류 더미를 봉투에 넣었다. 봉투 겉면에 적었다. "보이스피싱 관련." 그리고 서랍에 넣었다.</p>
+
+<p class="novel">다시 꺼내 볼 일은 없을 것이다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>법은 피해자에게<br><strong>"당신 잘못도 있다"고 말했다</strong></h2>
+  <p class="sub">마지막 편에서 정숙은 숫자를 정리한다. 잃은 것과 남은 것의 가계부. 그리고 엄마의 전화가 다시 울린다.</p>
+</div>
+
+<footer class="footer">
+  <p>이 작품은 실제 민사소송 판례와 법률 관행을 기반으로 한 픽션입니다</p>
+  <p>Sources: 대법원 2024.12.12 현금수거책 판례 &middot; 서울북부지법/부천지법 보이스피싱 판결 &middot; 민법 제750조/제763조 &middot; 변호사보수 소송비용산입 규칙</p>
+  <p>Written with Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

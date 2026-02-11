@@ -1,0 +1,435 @@
+---
+layout: layouts/article.njk
+pageTitle: "삶은 계속된다"
+description: "4,597만 원을 잃고 1,655만 원이 남았다. 범죄자보다 법이 더 정확하게 돈을 가져갔다. 그래도 엄마의 멘탈이 가족을 지탱한다."
+datePublished: "2026-02-12"
+---
+<style>
+.masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+.masthead h1 { font-size: 3.6rem; font-weight: 900; line-height: 1.05; letter-spacing: -2px; }
+.masthead .deck { max-width: 440px; margin: 0 auto; }
+
+/* Novel typography */
+.novel { text-indent: 1em; line-height: 2.05; font-size: 1.05rem; color: var(--prose); margin: 0 0 0.2em; }
+.novel-first { text-indent: 0; }
+.dialogue { padding-left: 1em; text-indent: -1em; line-height: 2.05; font-size: 1.05rem; color: var(--prose); margin: 0 0 0.2em; }
+.internal { color: var(--muted); font-size: 1.02rem; line-height: 2; margin: 0.8em 0; }
+
+/* Scene break */
+.scene-break { text-align: center; letter-spacing: 12px; color: var(--muted); font-size: 0.85rem; padding: 40px 0; }
+
+/* Part labels */
+.part-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; margin-top: 0; }
+.part-title { font-size: 1.6rem; font-weight: 700; color: var(--fg); margin-bottom: 32px; letter-spacing: -0.5px; }
+.section-divider { border-top: 1px solid var(--fg); padding-top: 48px; margin-top: 56px; }
+
+/* Ledger - accounting style table */
+.ledger { margin: 32px 0; border: 1px solid var(--fg); }
+.ledger-title { padding: 16px 24px; border-bottom: 1px solid var(--fg); font-family: var(--serif); font-size: 0.78rem; letter-spacing: 2px; font-weight: 700; color: var(--muted); }
+.ledger table { width: 100%; border-collapse: collapse; }
+.ledger th, .ledger td { padding: 12px 24px; font-size: 0.9rem; text-align: left; border-bottom: 1px solid var(--rule); }
+.ledger th { font-family: var(--serif); font-size: 0.72rem; letter-spacing: 2px; font-weight: 700; color: var(--muted); background: var(--card-bg); }
+.ledger td { color: var(--prose); }
+.ledger .l-minus { font-family: var(--mono); font-weight: 700; color: var(--accent); text-align: right; }
+.ledger .l-plus { font-family: var(--mono); font-weight: 700; color: #2a7d4f; text-align: right; }
+.ledger .l-total { border-top: 2px solid var(--fg); background: var(--card-bg); }
+.ledger .l-total td { font-weight: 700; color: var(--fg); }
+.ledger .l-remain td { font-weight: 700; color: var(--fg); font-size: 0.95rem; }
+
+/* Fact box - editorial analysis */
+.fact-section { margin: 48px 0; }
+.fact-header { font-family: var(--serif); font-size: 0.78rem; letter-spacing: 2px; font-weight: 700; color: var(--accent); margin-bottom: 20px; padding-bottom: 8px; border-bottom: 1px solid var(--accent); }
+.fact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: 24px; }
+.fact-cell { background: var(--bg); padding: 24px; }
+.fact-cell .fc-label { font-family: var(--serif); font-size: 0.72rem; letter-spacing: 2px; font-weight: 700; color: var(--muted); margin-bottom: 12px; }
+.fact-cell ul { list-style: none; padding: 0; margin: 0; }
+.fact-cell li { font-size: 0.9rem; color: var(--prose); line-height: 1.7; padding: 6px 0; padding-left: 16px; position: relative; }
+.fact-cell li::before { content: ''; position: absolute; left: 0; top: 14px; width: 6px; height: 1px; background: var(--accent); }
+.fact-cell li strong { font-weight: 700; color: var(--fg); }
+
+/* Epilogue phone */
+.epilogue-phone { max-width: 280px; margin: 40px auto; border-radius: 24px; overflow: hidden; border: 2px solid var(--fg); }
+.ep-header { background: var(--fg); color: var(--bg); padding: 32px 24px 16px; text-align: center; }
+.ep-header .ep-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; opacity: 0.6; margin-bottom: 4px; }
+.ep-header .ep-name { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.5px; }
+.ep-header .ep-sub { font-size: 0.75rem; opacity: 0.5; margin-top: 4px; }
+.ep-body { background: var(--fg); padding: 16px 24px 32px; text-align: center; }
+.ep-action { display: inline-block; padding: 14px 32px; background: #2a7d4f; color: var(--bg); font-family: var(--mono); font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; border-radius: 24px; }
+
+/* Stats row */
+.stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 40px 0 48px; }
+.stat { background: var(--bg); padding: 28px 20px; text-align: center; }
+.stat-num { font-family: var(--mono); font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+.stat-num-green { font-family: var(--mono); font-size: 1.6rem; font-weight: 700; color: #2a7d4f; }
+.stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+
+/* Responsive */
+@media (max-width: 700px) {
+  .masthead h1 { font-size: 2.4rem; }
+  .ledger th, .ledger td { padding: 10px 16px; font-size: 0.85rem; }
+  .fact-grid { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: 1fr; }
+  .epilogue-phone { max-width: 240px; }
+}
+</style>
+
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">voice phishing — fiction 04</p>
+  <h1>삶은 계속된다</h1>
+  <p class="deck">모든 것을 잃을 뻔했지만, 엄마의 멘탈이 가족을 지탱한다</p>
+</header>
+
+<main>
+
+<section>
+<div class="part-label">Part I</div>
+<div class="part-title">엄마의 가계부</div>
+
+<p class="novel novel-first">항소 기각 후 2개월.</p>
+
+<p class="novel">정숙은 부엌 식탁에 앉아 가계부를 정리했다. 형광등 불빛 아래, 파란색 볼펜으로 한 줄 한 줄 적었다. 숫자를 정확하게 알아야 다음으로 갈 수 있었다.</p>
+
+<div class="ledger">
+  <div class="ledger-title">박정숙 가계부 — 보이스피싱 피해 정산</div>
+  <table>
+    <tr>
+      <th>항목</th>
+      <th style="text-align:right">금액</th>
+    </tr>
+    <tr>
+      <td>예금 인출 (범죄자)</td>
+      <td class="l-minus">-3,200만 원</td>
+    </tr>
+    <tr>
+      <td>카드론 실행 (범죄자)</td>
+      <td class="l-minus">-500만 원</td>
+    </tr>
+    <tr>
+      <td>변호사 착수금 (1심)</td>
+      <td class="l-minus">-330만 원</td>
+    </tr>
+    <tr>
+      <td>인지대 + 송달료 (1심+항소)</td>
+      <td class="l-minus">-30만 원</td>
+    </tr>
+    <tr>
+      <td>카드론 이자 (24개월)</td>
+      <td class="l-minus">-52만 원</td>
+    </tr>
+    <tr>
+      <td>적금 중도해지 수수료</td>
+      <td class="l-minus">-3만 원</td>
+    </tr>
+    <tr>
+      <td>금감원 환급금</td>
+      <td class="l-plus">+18,240원</td>
+    </tr>
+    <tr>
+      <td>판결 인용금 (집행불능)</td>
+      <td class="l-plus">+0원</td>
+    </tr>
+    <tr class="l-total">
+      <td>총 손실</td>
+      <td class="l-minus">-4,113만 원</td>
+    </tr>
+    <tr class="l-remain">
+      <td>남은 재산 (적금 잔액)</td>
+      <td class="l-plus">1,655만 원</td>
+    </tr>
+  </table>
+</div>
+
+<p class="novel">정숙은 마지막 줄을 적고 펜을 내려놓았다.</p>
+
+<p class="novel">7,200만 원이 1,655만 원이 되었다. 5개월 만에. 거기에 카드론 매월 상환금 23만 원이 앞으로 20개월 남았다.</p>
+
+<p class="novel">하지만 정숙은 "4,113만 원을 잃었다"고 적지 않았다. 가계부 맨 아래에 이렇게 적었다.</p>
+
+<p class="internal">남은 돈: 1,655만 원. 이건 수진이 결혼할 때 쓸 거다.</p>
+
+<p class="novel">이것이 정숙의 방식이었다. 없어진 것을 세는 대신, 남은 것을 세는 방식. 태호가 부엌으로 들어와 어깨 너머로 가계부를 보았다.</p>
+
+<p class="dialogue">"정숙아."</p>
+
+<p class="dialogue">"응."</p>
+
+<p class="dialogue">"... 미안하다."</p>
+
+<p class="dialogue">"뭐가."</p>
+
+<p class="dialogue">"내가 더 일찍 알았으면."</p>
+
+<p class="novel">정숙이 고개를 저었다.</p>
+
+<p class="dialogue">"당신이 알았어도 마찬가지였어. 딸이 울면서 전화하는데 누가 의심해."</p>
+
+<p class="novel">태호가 아무 말 없이 물을 한 잔 따라 식탁에 놓았다. 정숙이 물을 마셨다. 부엌 시계가 밤 11시를 가리키고 있었다.</p>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<section class="section-divider">
+<div class="part-label">Part II</div>
+<div class="part-title">딸의 죄책감</div>
+
+<p class="novel novel-first">수진은 자신을 탓했다.</p>
+
+<p class="novel">인스타그램에 올린 릴스 영상. 카페에서 친구와 웃으며 이야기하는 15초 영상. 한강 러닝하면서 찍은 브이로그. 회사 야유회에서 찍은 셀카. 그 영상들에서 범죄 조직이 목소리를 추출했다.</p>
+
+<p class="novel">3초. 엄마에게는 28년이었지만, AI에게는 3초면 충분했다.</p>
+
+<p class="novel">수진은 인스타그램 계정을 삭제했다. 팔로워 1,200명이 사라졌다. 유튜브에 올렸던 일상 브이로그도 내렸다. 틱톡도 삭제했다. 목소리가 담긴 모든 콘텐츠를 지웠다.</p>
+
+<p class="dialogue">"엄마, 다 내 잘못이야. 내가 영상을 안 올렸으면..."</p>
+
+<p class="dialogue">"수진아."</p>
+
+<p class="dialogue">"응."</p>
+
+<p class="dialogue">"그러면 친구한테 전화하는 것도 네 잘못이야? 회사에서 발표하는 것도? 카페에서 주문하는 것도?"</p>
+
+<p class="novel">수진이 입을 다물었다.</p>
+
+<p class="dialogue">"네 목소리가 그렇게 비싼 줄 몰랐네."</p>
+
+<p class="novel">정숙이 웃었다. 수진이 울었다.</p>
+
+<p class="novel">수진은 그 달부터 월급의 일부를 엄마에게 보내기 시작했다. 매달 50만 원. 엄마의 카드론 상환금 23만 원보다 많았다. 정숙은 거절했다.</p>
+
+<p class="dialogue">"네 돈은 네가 써. 엄마가 잃은 거지, 네가 잃은 게 아니야."</p>
+
+<p class="dialogue">"엄마..."</p>
+
+<p class="dialogue">"진짜야. 그 돈으로 맛있는 거 사 먹어. 아니면 저축해. 네 결혼자금은 엄마가 따로 모을 거야."</p>
+
+<p class="novel">수진이 물었다.</p>
+
+<p class="dialogue">"어떻게?"</p>
+
+<p class="novel">정숙이 대답했다.</p>
+
+<p class="dialogue">"일하면 되지."</p>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<section class="section-divider">
+<div class="part-label">Part III</div>
+<div class="part-title">멘탈</div>
+
+<p class="novel novel-first">반찬가게는 정숙의 아이디어였다.</p>
+
+<p class="novel">중계동 아파트 단지 입구에 작은 가게가 비었다. 월세 45만 원. 보증금 500만 원은 태호의 사업 통장에서 빌렸다. 간판은 태호가 직접 만들었다. 인테리어 사무소 대표의 유일한 장점은 간판 만드는 데 돈이 들지 않는다는 것이었다.</p>
+
+<p class="novel">"정숙네 반찬." 흰 바탕에 검은 글씨. 소박했다.</p>
+
+<p class="novel">정숙은 김치를 잘 담갔다. 30년 경력이었다. 시어머니에게 배운 방식 그대로. 겉절이, 갓김치, 총각김치. 거기에 장조림, 어묵볶음, 잡채. 매일 새벽 5시에 일어나 재료를 손질했다.</p>
+
+<p class="novel">이웃이 물었다.</p>
+
+<p class="dialogue">"정숙 씨, 요즘 얼굴이 좀 좋아 보이네?"</p>
+
+<p class="dialogue">"앉아서 울고 있으면 뭐 해. 서서 일하는 게 낫지."</p>
+
+<p class="novel">정숙의 멘탈은 화려하지 않았다. 자기계발서에 나오는 '마인드셋 전환'이나 '긍정의 힘' 같은 것이 아니었다. 그냥 단순했다.</p>
+
+<p class="novel">카드론은 매달 23만 원씩 갚으면 된다. 반찬가게 수익에서 충분히 나온다.</p>
+
+<p class="novel">적금 1,655만 원은 절대 건드리지 않는다. 수진이 결혼할 때 쓸 돈이다.</p>
+
+<p class="novel">울어도 배추는 담가야 한다. 김치는 울음을 기다려주지 않는다. 양념이 마르기 전에 발라야 한다.</p>
+
+<p class="novel">어느 날, 노원구청에서 보이스피싱 예방 교육 봉사자를 모집한다는 안내문을 보았다. 정숙은 전화를 걸었다.</p>
+
+<p class="dialogue">"저도 신청할 수 있나요? 저... 직접 당한 사람인데요."</p>
+
+<p class="dialogue">"아, 네. 오히려 실제 피해 경험이 있으신 분이 교육 효과가 높습니다."</p>
+
+<p class="novel">정숙은 노인정과 복지관에서 한 달에 두 번씩 강의를 했다. 파워포인트도 모르고, 마이크 잡는 것도 서툴렀다. 하지만 이야기는 했다.</p>
+
+<p class="dialogue">"딸이 울면서 전화했어요. 28년 동안 들어온 딸의 목소리였어요. 근데 가짜였어요."</p>
+
+<p class="novel">노인정의 어르신들이 조용해졌다.</p>
+
+<p class="dialogue">"전화 받으면, 끊으세요. 그리고 직접 걸어보세요. 자녀한테. 직접."</p>
+
+<p class="novel">어르신 한 분이 물었다.</p>
+
+<p class="dialogue">"돈은 돌려받았어요?"</p>
+
+<p class="novel">정숙이 웃었다.</p>
+
+<p class="dialogue">"18,240원 받았어요."</p>
+
+<p class="novel">아무도 웃지 않았다.</p>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<section class="section-divider">
+<div class="part-label">Part IV</div>
+<div class="part-title">음지와 양지 사이에서</div>
+
+<p class="novel novel-first">이 이야기는 픽션이다. 하지만 숫자는 실제다.</p>
+
+<div class="fact-section">
+  <div class="fact-header">음지가 가져간 것</div>
+  <div class="fact-grid">
+    <div class="fact-cell">
+      <div class="fc-label">범죄 수익</div>
+      <ul>
+        <li><strong>3,700만 원</strong> — 예금 인출 + 카드론</li>
+        <li>AI 3초면 복제되는 가족의 목소리</li>
+        <li>"112에 전화하면 안전하다"는 상식</li>
+      </ul>
+    </div>
+    <div class="fact-cell">
+      <div class="fc-label">범죄 통계 (2025)</div>
+      <ul>
+        <li>연간 피해 <strong>1조 2,578억 원</strong></li>
+        <li>건당 평균 <strong>5,384만 원</strong></li>
+        <li>피해금 환급률 <strong>26~33%</strong></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="fact-section">
+  <div class="fact-header">양지가 가져간 것</div>
+  <div class="fact-grid">
+    <div class="fact-cell">
+      <div class="fc-label">법률 비용</div>
+      <ul>
+        <li>변호사 착수금 <strong>330만 원</strong></li>
+        <li>소송비용(인지대+송달료) <strong>30만 원</strong></li>
+        <li>카드론 이자 <strong>52만 원</strong></li>
+        <li>결과와 무관하게 <strong>100% 선납</strong></li>
+      </ul>
+    </div>
+    <div class="fact-cell">
+      <div class="fc-label">법원의 대답</div>
+      <ul>
+        <li>"원고에게도 <strong>과실 40%</strong>가 있다"</li>
+        <li>"항소를 <strong>기각</strong>한다"</li>
+        <li>집행 재산 없음 → <strong>회수 0원</strong></li>
+        <li>사무관: "상고 착수금 300만 원"</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="stats-row">
+  <div class="stat">
+    <div class="stat-num">4,113만</div>
+    <div class="stat-label">총 손실<br>(범죄+법률+이자)</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">18,240</div>
+    <div class="stat-label">법이 돌려준 돈<br>(원)</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num-green">1,655만</div>
+    <div class="stat-label">엄마에게 남은 것<br>(딸의 미래)</div>
+  </div>
+</div>
+
+<p class="novel novel-first">범죄자는 3,700만 원을 훔쳤다. 변호사는 345만 원을 받고 아무것도 돌려주지 못했다. 사무관은 패소 직후 다음 소송을 권유했다. 법은 피해자에게 "과실이 있다"고 말했다.</p>
+
+<p class="novel">피해자 박정숙에게 남은 것은 적금 1,655만 원과 카드론 20개월과 반찬가게 하나다.</p>
+
+<p class="novel">모든 것을 잃지는 않았다.</p>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<section class="section-divider">
+<div class="part-label">Epilogue</div>
+<div class="part-title">엄마의 전화</div>
+
+<p class="novel novel-first">어느 날 저녁, 반찬가게 정리를 마치고 집에 돌아왔을 때, 핸드폰이 울렸다.</p>
+
+<p class="novel">정숙은 핸드폰을 보았다.</p>
+
+<div class="epilogue-phone">
+  <div class="ep-header">
+    <div class="ep-label">incoming call</div>
+    <div class="ep-name">수진</div>
+    <div class="ep-sub">mobile</div>
+  </div>
+  <div class="ep-body">
+    <span class="ep-action">수락</span>
+  </div>
+</div>
+
+<p class="novel">3초.</p>
+
+<p class="novel">정숙은 3초 동안 전화기를 바라보았다.</p>
+
+<p class="novel">5개월 전이었다면 아무 생각 없이 받았을 것이다. 딸의 이름이 뜨면 반사적으로 손이 가던 시절. 지금은 3초가 필요하다. 딸의 이름을 보고, 숨을 쉬고, 받는다.</p>
+
+<p class="novel">전화를 받았다.</p>
+
+<p class="dialogue">"엄마, 나야. 오늘 저녁에 갈게. 뭐 해놨어?"</p>
+
+<p class="novel">정숙은 목소리를 들었다. 딸의 목소리였다. 5개월 전에도 딸의 목소리였다. 하지만 이번에는 달랐다. 이번에는 알 수 있었다. 설명할 수 없는 방식으로.</p>
+
+<p class="novel">엄마는 안다. 28년이 3초와 다르다는 것을. AI는 음성을 복제할 수 있다. 어투도, 억양도, 울음 섞인 목소리도. 하지만 엄마의 직감까지 복제할 수는 없다.</p>
+
+<p class="novel">그날 이후, 정숙은 딸의 전화를 받기 전에 항상 3초를 멈춘다. 3초 동안 숨을 쉰다. 그리고 받는다. 이것이 4,113만 원의 교훈이다. 비싼 교훈이었지만, 정숙은 그것을 교훈이라고 부르기로 했다.</p>
+
+<p class="dialogue">"... 김치찌개."</p>
+
+<p class="dialogue">"맛있겠다! 30분이면 가!"</p>
+
+<p class="novel">전화를 끊었다. 정숙은 냉장고를 열었다. 김치를 꺼냈다. 5개월 전, 반쯤 담다 멈췄던 그 김치가 아니었다. 반찬가게에서 매일 담그는 김치였다. 손이 기억하는 김치. 시어머니가 가르쳐준 김치.</p>
+
+<p class="novel">냄비에 물을 올렸다. 두부를 깍둑썰기했다. 파를 썰었다.</p>
+
+<p class="novel">현관문이 열렸다. 수진이 들어왔다. 손에는 딸기 한 팩이 들려 있었다.</p>
+
+<p class="dialogue">"엄마!"</p>
+
+<p class="dialogue">"어, 왔어."</p>
+
+<p class="novel">수진이 부엌으로 들어와 엄마 옆에 섰다. 딸기를 씻기 시작했다.</p>
+
+<p class="dialogue">"가게는 오늘 어땠어?"</p>
+
+<p class="dialogue">"김치가 다 나갔어. 내일 더 담가야 해."</p>
+
+<p class="dialogue">"대박이네."</p>
+
+<p class="dialogue">"대박은 무슨. 배추 값이 올라서 마진이 안 남아."</p>
+
+<p class="novel">수진이 웃었다. 정숙도 웃었다.</p>
+
+<p class="novel">부엌에 김치찌개 냄새가 퍼졌다. 딸기가 씻겨져 접시에 놓였다. 태호가 현관문을 열고 들어왔다. "오, 수진이 왔네." 세 사람이 식탁에 앉았다.</p>
+
+<p class="novel">평범한 저녁이었다. 5개월 전까지는 당연했던, 지금은 당연하지 않은, 그래서 더 소중한 저녁.</p>
+
+<p class="novel">삶은 계속된다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>3초면 복제할 수 있다<br><strong>28년은 복제할 수 없다</strong></h2>
+  <p class="sub">이 시리즈의 모든 수법, 법률 절차, 환급 금액, 과실비율은 실제 데이터와 판례에 기반합니다. 가족에게 전화가 올 때, 3초만 멈추세요. 끊고, 직접 거세요.</p>
+</div>
+
+<footer class="footer">
+  <p>이 작품은 실제 보이스피싱 수법, 피해 구제 절차, 민사소송 판례를 기반으로 한 픽션입니다</p>
+  <p>Sources: 경찰청 2025 보이스피싱 현황 &middot; 금감원 피해구제 통계 &middot; 통신사기피해환급법 &middot; 대법원 2024.12.12 수거책 판결 &middot; Microsoft VALL-E 논문</p>
+  <p>Written with Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

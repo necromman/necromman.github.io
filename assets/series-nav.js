@@ -195,6 +195,15 @@
         { slug: 'beyond-the-terminal', title: '터미널 밖으로' },
         { slug: 'build-your-own-tools', title: '나만의 도구를 만든다' }
       ]
+    },
+    'voice-phishing-series': {
+      title: '엄마의 전화',
+      articles: [
+        { slug: 'hello-mom', title: '여보세요' },
+        { slug: 'not-your-money', title: '본인의 돈이 아닙니다' },
+        { slug: 'overruled', title: '각하합니다' },
+        { slug: 'life-goes-on', title: '삶은 계속된다' }
+      ]
     }
   };
 

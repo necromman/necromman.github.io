@@ -788,5 +788,41 @@ window.CONTENT_DATA = [
         search: '나만의도구 개인화 메타자동화 유니버설인터페이스 워크플로우 복리 Claude Code 철학'
       }
     ]
+  },
+  {
+    id: 'voice-phishing',
+    seriesNum: 22,
+    title: '엄마의 전화',
+    description: 'AI 딥보이스에 속은 딸바보 엄마의 이야기. 음지에서 털리고 양지에서 또 털린다. 범죄자보다 냉정한 법의 민낯을 그린 공포/법률 소설.',
+    articles: [
+      {
+        title: '여보세요',
+        role: 'AI 딥보이스 피싱, 47분 만에 3,700만 원 소실',
+        tag: '공포',
+        href: 'content/voice-phishing-series/hello-mom.html',
+        search: '여보세요 보이스피싱 딥보이스 AI 음성복제 엄마 딸 전화사기 원격제어 카드론 소설'
+      },
+      {
+        title: '본인의 돈이 아닙니다',
+        role: '경찰/금감원/은행 환급 절차, 돌아온 건 18,240원',
+        tag: '스릴러',
+        href: 'content/voice-phishing-series/not-your-money.html',
+        search: '보이스피싱 피해금 환급 수거책 경찰 금감원 지급정지 민사소송 변호사 소설'
+      },
+      {
+        title: '각하합니다',
+        role: '1심 패소, 항소 기각, 사무관의 영업 전화',
+        tag: '법률',
+        href: 'content/voice-phishing-series/overruled.html',
+        search: '보이스피싱 재판 패소 과실상계 수거책 무자력 변호사비 항소 사무관 영업 소설'
+      },
+      {
+        title: '삶은 계속된다',
+        role: '잃은 것과 남은 것의 가계부, 엄마의 멘탈',
+        tag: '결론',
+        href: 'content/voice-phishing-series/life-goes-on.html',
+        search: '보이스피싱 피해자 회복 가계부 멘탈 반찬가게 딸 결혼자금 삶 소설'
+      }
+    ]
   }
 ];
