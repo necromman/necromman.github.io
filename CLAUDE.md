@@ -288,6 +288,16 @@ editorial/
 | 04 | `demo-day-disaster.html` | 데모가 터진 날 | 소설 — Supabase 일시정지, API 에러, 라이브 디버깅 |
 | 05 | `the-business-plan.html` | 사업계획서를 쓰는 밤 | 소설 — 투자 직전의 밤, 대표의 진심, 열린 결말 |
 
+### 시리즈 18: 거기서 어떻게 오셨어요 (ufo-physics-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `ufo-mach-sixty.html` | 틱택은 마하 60으로 날았다 | 물리학 — UFO 5대 물리법칙 위반을 숫자로 해부 |
+| 02 | `ufo-encounters.html` | 인류가 목격한 것들 | 사례분석 — 군사·민간 UFO 목격 사례 증거 등급 분석 |
+| 03 | `ufo-theoretical-physics.html` | 그 움직임을 가능하게 하려면 | 이론물리 — 워프 드라이브, 웜홀, 암흑에너지 이론 해부 |
+| 04 | `interstellar-travel-reality.html` | 별까지 가는 현실적인 방법 | 우주공학 — 보이저부터 반물질까지 성간여행 기술 스펙트럼 |
+| 05 | `fermis-question.html` | 페르미의 질문 | 우주론 — 드레이크 방정식, 대여과기, 우주의 침묵 |
+
 ## 콘텐츠 제작 워크플로우
 
 0. **기획**: `plans/[시리즈-슬러그]/series-plan.md`에 자료조사 + 시리즈 구성 기획서 작성 (series-plan 스킬 참조)

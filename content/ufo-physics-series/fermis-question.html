@@ -1,0 +1,289 @@
+---
+layout: layouts/article.njk
+pageTitle: "페르미의 질문"
+description: "은하에 별이 4,000억 개인데, 다들 어디 있지? 1950년 점심시간에 던져진 질문이 75년째 답이 없다."
+datePublished: "2026-02-11"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 520px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* EQUATION BLOCK */
+  .equation-block {
+    text-align: center;
+    padding: 40px 24px;
+    margin: 40px 0;
+    border: 1px solid var(--rule);
+    background: var(--card-bg);
+  }
+  .equation-block .eq-formula {
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .equation-block .eq-desc {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* HYPOTHESIS CARD */
+  .hypo-card {
+    margin: 36px 0;
+    padding: 28px 28px;
+    border-left: 3px solid var(--accent);
+    background: var(--card-bg);
+  }
+  .hypo-card .h-num {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .hypo-card .h-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+  .hypo-card .h-body {
+    font-size: 0.92rem;
+    color: var(--prose);
+    line-height: 1.85;
+  }
+  .hypo-card .h-body strong { color: var(--fg); font-weight: 700; }
+
+  /* VARIABLE TABLE */
+  .var-table {
+    display: grid;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 24px 0;
+  }
+  .var-table .vt-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 120px;
+    background: var(--bg);
+  }
+  .var-table .vt-row.vt-header {
+    background: var(--card-bg);
+  }
+  .var-table .vt-cell {
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    color: var(--prose);
+    line-height: 1.6;
+  }
+  .var-table .vt-cell:first-child {
+    font-family: var(--mono);
+    font-weight: 700;
+    color: var(--accent);
+    text-align: center;
+  }
+  .var-table .vt-header .vt-cell {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .var-table .vt-row { grid-template-columns: 40px 1fr 80px; }
+    .var-table .vt-cell { padding: 10px 10px; font-size: 0.8rem; }
+    .equation-block .eq-formula { font-size: 0.9rem; }
+    .hypo-card { padding: 20px 20px; }
+  }
+</style>
+
+<div class="page">
+<article>
+<header class="masthead">
+  <p class="issue">Series 18 — Fermi Paradox</p>
+  <h1>페르미의<br><strong>질문</strong></h1>
+  <p class="deck">"다들 어디 있지?" — 1950년, 물리학자 엔리코 페르미가 동료들과 점심을 먹다가 던진 이 질문에 75년째 답이 없다.</p>
+</header>
+
+<main>
+<section>
+  <div class="section-head">
+    <span class="num">Part I — The Lunch</span>
+    <h2>1950년 <strong>점심시간</strong></h2>
+  </div>
+
+  <p class="prose">1950년 여름, 로스앨러모스 국립연구소. 엔리코 페르미는 동료 물리학자 에드워드 텔러, 허버트 요크, 에밀 코노핀스키와 점심을 먹으러 걸어가고 있었다. 대화는 최근 유행하던 UFO 목격담과 외계인 만화에서 시작되었다. 웃으며 이런저런 농담을 주고받다가, 페르미가 갑자기 물었다.</p>
+
+  <div class="pull-quote">
+    <p>"다들 어디 있지?"</p>
+    <p class="attr">Enrico Fermi, 1950</p>
+  </div>
+
+  <p class="prose">이 질문이 단순한 농담이 아닌 이유가 있다. 페르미는 빠른 계산의 달인이었다. 그의 머릿속 계산은 대략 이랬을 것이다:</p>
+
+  <p class="prose">우리 은하에는 별이 <strong>1,000억~4,000억 개</strong>다. 은하의 나이는 약 <strong>136억 년</strong>이다. 태양 같은 별 중 상당수가 행성을 가지고 있다. 그 행성 중 일부는 생명이 살 수 있는 환경이다. 이 중 극히 일부에서만 지적 생명체가 나타나더라도, 은하의 나이를 감안하면 <strong>수백에서 수백만 개</strong>의 문명이 존재해야 한다.</p>
+
+  <p class="prose">그리고 핵심: 은하를 가로지르는 데 아광속으로도 <strong>100만~1,000만 년</strong>이면 충분하다. 은하 나이(136억 년)에 비하면 눈 깜짝할 사이다. 단 하나의 문명이 확장을 시작했다면, 이미 은하 전체에 퍼져 있어야 한다.</p>
+
+  <p class="prose">그런데 아무도 없다. 적어도 확실한 증거는 없다.</p>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="num">Part II — The Equation</span>
+    <h2>드레이크 <strong>방정식</strong></h2>
+  </div>
+
+  <p class="prose">1961년, 천문학자 프랭크 드레이크가 페르미의 질문을 정량화하려 시도했다. 그가 만든 방정식은 이것이다:</p>
+
+  <div class="equation-block">
+    <div class="eq-formula">N = R* x fp x ne x fl x fi x fc x L</div>
+    <div class="eq-desc">N = 우리 은하에서 현재 통신 가능한 문명의 수</div>
+  </div>
+
+  <div class="var-table">
+    <div class="vt-row vt-header">
+      <div class="vt-cell">Var</div>
+      <div class="vt-cell">Meaning</div>
+      <div class="vt-cell">2024 Estimate</div>
+    </div>
+    <div class="vt-row">
+      <div class="vt-cell">R*</div>
+      <div class="vt-cell">은하의 연간 별 생성률</div>
+      <div class="vt-cell">~1.5-3/yr</div>
+    </div>
+    <div class="vt-row">
+      <div class="vt-cell">fp</div>
+      <div class="vt-cell">행성을 가진 별의 비율</div>
+      <div class="vt-cell">~100% (케플러)</div>
+    </div>
+    <div class="vt-row">
+      <div class="vt-cell">ne</div>
+      <div class="vt-cell">거주 가능 행성 수/별</div>
+      <div class="vt-cell">~0.4</div>
+    </div>
+    <div class="vt-row">
+      <div class="vt-cell">fl</div>
+      <div class="vt-cell">생명이 발생할 확률</div>
+      <div class="vt-cell">??? (불확실)</div>
+    </div>
+    <div class="vt-row">
+      <div class="vt-cell">fi</div>
+      <div class="vt-cell">지적 생명체로 진화할 확률</div>
+      <div class="vt-cell">0.003-0.2% (2024)</div>
+    </div>
+    <div class="vt-row">
+      <div class="vt-cell">fc</div>
+      <div class="vt-cell">통신 기술을 개발할 확률</div>
+      <div class="vt-cell">???</div>
+    </div>
+    <div class="vt-row">
+      <div class="vt-cell">L</div>
+      <div class="vt-cell">문명의 수명 (년)</div>
+      <div class="vt-cell">??? (가장 불확실)</div>
+    </div>
+  </div>
+
+  <p class="prose">케플러 우주 망원경 덕분에 fp(행성을 가진 별의 비율)는 거의 100%로 확정되었다. 우리 은하의 별 대부분이 행성을 가지고 있다. 하지만 나머지 변수 — 특히 fl(생명 발생 확률), fi(지적 생명체 진화 확률), L(문명 수명) — 은 여전히 추정의 영역이다.</p>
+
+  <p class="prose">2024년 <strong>*Scientific Reports*</strong>에 발표된 드레이크 방정식 개정판은 새로운 변수를 추가했다. 판구조론의 존재, 적절한 대륙/해양 비율 등이다. 결과적으로 fi(지적 생명체 진화 확률)는 기존 가정(100%)에서 <strong>0.003~0.2%</strong>로 급락했다. 이 계산대로라면, 기술 문명은 생각보다 훨씬 드물다.</p>
+
+  <p class="prose">하지만 "드물다"와 "없다"는 전혀 다른 말이다. 0.003%라도 수천억 개의 별에 적용하면 여전히 <strong>0이 아닌 숫자</strong>가 나온다.</p>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="num">Part III — Possible Answers</span>
+    <h2>가능한 <strong>답들</strong></h2>
+  </div>
+
+  <p class="prose">75년간 제안된 답은 수십 가지다. 그 중 진지하게 검토할 만한 것들.</p>
+
+  <div class="hypo-card">
+    <div class="h-num">Hypothesis 01</div>
+    <div class="h-title">대침묵 — 누구도 살아남지 못한다</div>
+    <div class="h-body">
+      <p>"대여과기(Great Filter)"라 불리는 이 가설은 생명에서 성간 문명까지의 경로 어딘가에 거의 모든 종을 멸망시키는 장벽이 있다고 본다. 핵전쟁, 기후 붕괴, AI 통제 실패, 자원 고갈. 문명은 자멸한다.</p>
+      <p style="margin-top:16px">이 가설의 불안한 점: 대여과기가 우리 <strong>뒤</strong>에 있다면(생명 발생 자체가 극히 드문 사건이라면), 우리는 운이 좋은 것이다. 하지만 대여과기가 우리 <strong>앞</strong>에 있다면 — 기술 문명이 반드시 도달하는 자멸의 문턱이 있다면 — 인류의 미래가 어둡다.</p>
+    </div>
+  </div>
+
+  <div class="hypo-card">
+    <div class="h-num">Hypothesis 02</div>
+    <div class="h-title">동물원 가설 — 관찰만 하고 있다</div>
+    <div class="h-body">
+      <p>존 볼(John Ball)이 1973년에 제안한 가설. 고도로 발전한 문명은 덜 발전한 문명을 <strong>의도적으로 간섭하지 않고 관찰만 한다.</strong> 동물원에서 동물을 관찰하듯, 자연 보호구역에서 야생 생태계를 보존하듯.</p>
+      <p style="margin-top:16px">흥미로운 점: 군사 조우에서 보고된 UAP의 행동 패턴 — 관찰하되 공격하지 않고, 추적하되 접촉하지 않고, 존재를 완전히 숨기지도 않는 — 이 이 가설과 상당히 일치한다.</p>
+    </div>
+  </div>
+
+  <div class="hypo-card">
+    <div class="h-num">Hypothesis 03</div>
+    <div class="h-title">폰 노이만 탐사선 — 이미 여기에 있다</div>
+    <div class="h-body">
+      <p>자가 복제 로봇 탐사선을 한 대만 보내면, 목적지의 자원으로 자신을 복제하고, 복제본이 또 다음 별로 떠난다. 지수 함수적 확산이다. 수학적으로 계산하면, <strong>단 하나의 문명이 한 대만 발사해도 50만~1,000만 년 안에 은하 전체를 커버</strong>할 수 있다.</p>
+      <p style="margin-top:16px">2025년 연구에 따르면, 이런 탐사선이 이미 태양계 내에서 작동하고 있을 가능성을 배제할 수 없다. 소행성대나 외곽 궤도에서 태양 에너지로 자가 유지하는 그램 단위 탐사선은 현재 기술로 감지하기 극히 어렵다.</p>
+    </div>
+  </div>
+
+  <div class="hypo-card">
+    <div class="h-num">Hypothesis 04</div>
+    <div class="h-title">전사(Transcendence) — 물리적 우주를 떠났다</div>
+    <div class="h-body">
+      <p>충분히 발전한 문명은 별 사이를 여행하는 대신, <strong>디지털 존재로 전환</strong>하거나 다른 차원으로 이동했을 수 있다. 우리가 우주를 스캔하며 전파 신호를 찾고 있지만, 그것은 라디오 시대의 사고방식일 수 있다. 인류가 100년 전에 봉화를 찾아다닌 것과 비슷한 격이다.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="num">Part IV — Vallee's Question</span>
+    <h2>외계인이 <strong>아닐 수도 있다</strong></h2>
+  </div>
+
+  <p class="prose">이 시리즈의 마지막 반전은 자크 발레에게서 온다. 발레는 NASA에서 화성 최초 디지털 지도를 공동 개발한 컴퓨터 과학자이자, 50년 이상 UFO 현상을 연구한 인물이다. 그는 처음에 외계인 가설을 지지했지만, 데이터를 축적할수록 의문이 커졌다.</p>
+
+  <p class="prose">발레가 외계인 가설에 의문을 품은 다섯 가지 이유:</p>
+
+  <div class="warning-box">
+    <div class="w-title">발레의 다섯 가지 반론</div>
+    <ol class="warning-list">
+      <li>설명할 수 없는 근접 조우의 수가 <strong>지구의 물리적 탐사에 필요한 것보다 훨씬 많다.</strong> 과학적 조사라면 이렇게 자주 올 이유가 없다.</li>
+      <li>목격된 존재의 인간형 신체 구조는 <strong>다른 행성에서 독립적으로 진화했을 가능성이 극히 낮다.</strong></li>
+      <li>납치 사례에서 보고된 행동은 <strong>과학적 실험이나 유전자 연구와 일치하지 않는다.</strong></li>
+      <li>이 현상은 현대에만 존재하는 것이 아니라 <strong>인류 역사 전체에 걸쳐 기록되어 있다.</strong></li>
+      <li>시공간을 조작하는 듯한 능력은 <strong>단순한 성간여행보다 더 근본적인 무언가를 시사한다.</strong></li>
+    </ol>
+  </div>
+
+  <p class="prose">발레의 대안은 "차원간 가설(interdimensional hypothesis)"이다. UFO 현상은 다른 행성에서 온 존재가 아니라, 우리와 공존하지만 평소에는 감지되지 않는 <strong>다른 현실의 측면</strong>과의 접촉일 수 있다. 이것은 현재 과학으로 검증할 수 없으므로 "답"이라기보다는 "다른 방향의 질문"이다.</p>
+
+  <p class="prose">하지만 이 관점에서 흥미로운 것이 있다. 물리학 자체가 비슷한 방향을 가리키고 있다. 끈 이론은 10-11차원의 시공간을 요구한다. 양자역학의 다세계 해석은 무한한 평행 현실을 제안한다. ER=EPR은 양자 얽힘과 웜홀이 같은 현상이라고 말한다. <strong>우리가 인식하는 3차원 공간이 실재의 전부가 아닐 수 있다</strong>는 것은, 물리학 자체의 최전선에서 나오는 메시지다.</p>
+</section>
+</main>
+
+<div class="closing">
+  <h2>우주가 침묵하는 이유가 무엇이든<br><strong>우리는 아직 귀를 기울이고 있다</strong></h2>
+  <p class="sub">그리고 어쩌면, 답은 이미 나와 있는데 질문이 잘못된 것일 수도 있다.</p>
+</div>
+
+<footer class="footer">
+  <p>Sources: Fermi Paradox (1950) &middot; Drake Equation (1961) &middot; 2024 Revised Drake — Scientific Reports &middot; Vallee, Passport to Magonia (1969) &middot; Ball, Zoo Hypothesis (1973) &middot; Von Neumann Probe Analysis (2025) &middot; ER=EPR (Maldacena &amp; Susskind, 2013)</p>
+  <p>Research assisted by Claude &middot; 2026</p>
+</footer>
+</article>
+</div>

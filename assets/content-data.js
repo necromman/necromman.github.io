@@ -612,5 +612,53 @@ window.CONTENT_DATA = [
         search: '사업계획서 투자 죽음의계곡 대기업격차 열린결말 29000원 1.2% 소설'
       }
     ]
+  },
+  {
+    id: 'ufo-physics-series',
+    seriesNum: 18,
+    title: '거기서 어떻게 오셨어요',
+    description: 'UFO는 왜 물리법칙을 위반하는가. 틱택의 마하 60부터 페르미 역설까지 — 목격, 이론, 성간여행, 그리고 우주의 침묵을 과학으로 해부한다.',
+    articles: [
+      {
+        num: 1,
+        title: '틱택은 마하 60으로 날았다',
+        role: 'UFO 5대 물리법칙 위반을 숫자로 해부',
+        tag: '물리학',
+        href: 'content/ufo-physics-series/ufo-mach-sixty.html',
+        search: 'UFO 틱택 니미츠 마하60 소닉붐 5370g 물리법칙 위반 반중력 트랜스미디엄'
+      },
+      {
+        num: 2,
+        title: '인류가 목격한 것들',
+        role: '군사·민간 UFO 목격 사례 증거 등급 분석',
+        tag: '사례분석',
+        href: 'content/ufo-physics-series/ufo-encounters.html',
+        search: 'UFO 목격 니미츠 렌들샴 벨기에 JAL1628 피닉스라이트 청와대 미의회청문회'
+      },
+      {
+        num: 3,
+        title: '그 움직임을 가능하게 하려면',
+        role: '워프 드라이브, 웜홀, 암흑에너지 이론 해부',
+        tag: '이론물리',
+        href: 'content/ufo-physics-series/ufo-theoretical-physics.html',
+        search: 'UFO 워프드라이브 알쿠비에레 웜홀 ER=EPR 영점에너지 암흑물질 DIRD'
+      },
+      {
+        num: 4,
+        title: '별까지 가는 현실적인 방법',
+        role: '보이저부터 반물질까지 성간여행 기술 스펙트럼',
+        tag: '우주공학',
+        href: 'content/ufo-physics-series/interstellar-travel-reality.html',
+        search: '성간여행 보이저 레이저세일 Starshot DRACO 핵열추진 다이달로스 반물질'
+      },
+      {
+        num: 5,
+        title: '페르미의 질문',
+        role: '드레이크 방정식, 대여과기, 우주의 침묵',
+        tag: '우주론',
+        href: 'content/ufo-physics-series/fermis-question.html',
+        search: '페르미역설 드레이크방정식 대여과기 동물원가설 폰노이만 초월가설 발레'
+      }
+    ]
   }
 ];

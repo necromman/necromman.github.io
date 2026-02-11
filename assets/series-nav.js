@@ -155,6 +155,16 @@
         { slug: 'demo-day-disaster', title: '데모가 터진 날' },
         { slug: 'the-business-plan', title: '사업계획서를 쓰는 밤' }
       ]
+    },
+    'ufo-physics-series': {
+      title: '거기서 어떻게 오셨어요',
+      articles: [
+        { slug: 'ufo-mach-sixty', title: '틱택은 마하 60으로 날았다' },
+        { slug: 'ufo-encounters', title: '인류가 목격한 것들' },
+        { slug: 'ufo-theoretical-physics', title: '그 움직임을 가능하게 하려면' },
+        { slug: 'interstellar-travel-reality', title: '별까지 가는 현실적인 방법' },
+        { slug: 'fermis-question', title: '페르미의 질문' }
+      ]
     }
   };
 

@@ -1,0 +1,284 @@
+---
+layout: layouts/article.njk
+pageTitle: "틱택은 마하 60으로 날았다"
+description: "미 해군 레이더가 포착한 물체는 5,370g로 가속하고 마하 60에서 소닉붐이 없었다. UFO의 다섯 가지 물리법칙 위반을 숫자로 해부한다."
+datePublished: "2026-02-11"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 520px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* BIG NUMBER BLOCK */
+  .big-num {
+    text-align: center;
+    padding: 48px 24px;
+    margin: 40px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .big-num .bn-value {
+    font-family: var(--mono);
+    font-size: 3.6rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+  .big-num .bn-unit {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  .big-num .bn-desc {
+    font-size: 0.92rem;
+    color: var(--prose);
+    line-height: 1.7;
+    margin-top: 16px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* VIOLATION CARD */
+  .v-card {
+    padding: 32px 28px;
+    margin: 40px 0;
+    border: 1px solid var(--rule);
+  }
+  .v-card .v-num {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .v-card .v-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+  }
+  .v-card .v-sub {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .v-card .v-body {
+    font-size: 0.95rem;
+    color: var(--prose);
+    line-height: 1.85;
+  }
+  .v-card .v-body strong {
+    color: var(--fg);
+    font-weight: 700;
+  }
+
+  /* COMPARISON ROW */
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 24px 0;
+  }
+  .compare-row .c-item {
+    background: var(--bg);
+    padding: 20px 24px;
+  }
+  .compare-row .c-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .compare-row .c-val {
+    font-family: var(--mono);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--fg);
+  }
+  .compare-row .c-val.accent { color: var(--accent); }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .big-num .bn-value { font-size: 2.4rem; }
+    .compare-row { grid-template-columns: 1fr; }
+    .v-card { padding: 24px 20px; }
+  }
+</style>
+
+<div class="page">
+<article>
+<header class="masthead">
+  <p class="issue">Series 18 — UFO Physics</p>
+  <h1>틱택은<br><strong>마하 60으로 날았다</strong></h1>
+  <p class="deck">2004년 태평양 한가운데서, 미 해군의 최첨단 레이더가 설명할 수 없는 물체를 포착했다. 그 물체가 깨뜨린 물리법칙을 숫자로 보여주겠다.</p>
+</header>
+
+<main>
+<section>
+  <div class="section-head">
+    <span class="num">Part I — The Encounter</span>
+    <h2>2004년 11월 14일, <strong>태평양</strong></h2>
+  </div>
+
+  <p class="prose">샌디에이고 남서쪽 약 160km 해상. USS 프린스턴의 AN/SPY-1B 레이더 — 이지스 전투체계의 눈이자, 동시에 수백 개의 표적을 추적할 수 있는 지구상에서 가장 정교한 레이더 중 하나 — 가 이상한 물체를 잡기 시작한 건 2주 전부터였다.</p>
+
+  <p class="prose">레이더 운용관 케빈 데이는 이 기간 동안 100개 이상의 비정상 항공체를 기록했다. 물체들은 고도 28,000피트(약 8,500m)에서 나타나 느릿느릿 남쪽으로 이동하다가, 갑자기 해수면 근처까지 떨어졌다. 그리고 다시 올라왔다. 반복적으로.</p>
+
+  <p class="prose">11월 14일, 데이비드 프레이버 소령이 F/A-18F 슈퍼호넷 두 대를 이끌고 출격했다. 프레이버는 탑건 프로그램을 졸업한 베테랑으로, 비행 경력 16년 이상이었다. 그가 현장에서 목격한 것은 <strong>길이 약 12m의 흰색 캡슐형 물체</strong>였다. 날개 없음. 엔진 없음. 배기 없음. 물체는 바다 위 약 15m 지점에서 불규칙하게 움직이고 있었고, 그 아래 바다는 마치 끓듯이 교란되어 있었다.</p>
+
+  <p class="prose">프레이버가 나선형으로 강하하자, 물체는 그의 궤적을 <strong>거울처럼 반사하며</strong> 상승했다. 그리고 순간적으로 사라졌다.</p>
+
+  <p class="prose">몇 초 후, USS 프린스턴이 무선으로 보고했다. 물체가 약 96km 떨어진 프레이버의 CAP 포인트 — <strong>암호화된 군사 주파수로만 통신된 좌표</strong> — 에서 다시 포착되었다고.</p>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="num">Part II — Five Violations</span>
+    <h2>다섯 가지 <strong>불가능</strong></h2>
+  </div>
+
+  <p class="prose">펜타곤의 첨단항공위협식별프로그램(AATIP)을 이끌었던 루이스 엘리존도는 수십 년간의 군사 조우 데이터를 분석하여 UAP의 반복적 비행 특성을 다섯 가지로 정리했다. 하나하나가 물리학 교과서를 찢는다.</p>
+
+  <div class="v-card">
+    <div class="v-num">Violation 01</div>
+    <div class="v-title">추진 없는 정지비행</div>
+    <div class="v-sub">위반 법칙: 뉴턴 제3법칙(작용-반작용)</div>
+    <div class="v-body">
+      <p>인류가 아는 모든 비행체는 <strong>무언가를 밀어내서</strong> 하늘에 떠 있다. 로켓은 가스를 뿜고, 헬리콥터는 공기를 아래로 밀고, 비행기는 날개로 공기 흐름을 만든다. 뉴턴 제3법칙 — 모든 작용에는 같은 크기의 반작용이 있다.</p>
+      <p style="margin-top:16px">틱택에는 날개가 없었다. 로터가 없었다. 배기구가 없었다. 적외선 센서로 봤을 때 <strong>열 시그니처가 제로</strong>였다. 아무것도 밀어내지 않으면서 떠 있었다. 뉴턴이 보면 머리를 긁었을 것이다.</p>
+    </div>
+  </div>
+
+  <div class="v-card">
+    <div class="v-num">Violation 02</div>
+    <div class="v-title">순간 가속</div>
+    <div class="v-sub">위반 법칙: 뉴턴 제2법칙(F=ma), 재료역학</div>
+    <div class="v-body">
+      <p>2019년, 뉴욕주립대(SUNY Albany) 케빈 너스 교수팀이 니미츠 레이더 데이터를 학술지 <strong>*Entropy*</strong>에 발표했다. 논문에 따르면 이 물체는 고도 28,000피트에서 해수면 근처까지 <strong>0.78초</strong> 만에 떨어졌다.</p>
+    </div>
+  </div>
+
+  <div class="big-num">
+    <div class="bn-value">5,370 g</div>
+    <div class="bn-unit">acceleration</div>
+    <div class="bn-desc">니미츠 틱택의 추정 가속도. 전투기 조종사가 견딜 수 있는 한계는 9g다. 훈련받지 않은 사람은 5g에서 의식을 잃는다.</div>
+  </div>
+
+  <p class="prose">이 가속도로 질량 1,000kg짜리 물체를 움직이려면, 필요한 힘은 약 <strong>4,900만 뉴턴</strong>이다. 스페이스 셔틀 메인 엔진 90대를 동시에 점화하는 것과 같다. 필요 출력은 <strong>1,100기가와트</strong> — 미국 전체 발전용량(약 1,200GW)에 근접한다.</p>
+
+  <p class="prose">그리고 더 근본적인 문제가 있다. 5,370g에서 어떤 알려진 재료도 버틸 수 없다. 알루미늄이든 티타늄이든 탄소섬유든 내부 응력이 구조 한계를 즉시 초과한다. 생물학적 존재가 탑승하고 있었다면? 즉사라는 표현도 부족하다. <strong>액체가 된다.</strong></p>
+
+  <div class="compare-row">
+    <div class="c-item">
+      <div class="c-label">Fighter Jet (F-35)</div>
+      <div class="c-val">9 g</div>
+    </div>
+    <div class="c-item">
+      <div class="c-label">Tic Tac UAP</div>
+      <div class="c-val accent">5,370 g</div>
+    </div>
+  </div>
+
+  <div class="v-card">
+    <div class="v-num">Violation 03</div>
+    <div class="v-title">소닉붐 없는 극초음속</div>
+    <div class="v-sub">위반 법칙: 유체역학(충격파 형성), 열역학(공력가열)</div>
+    <div class="v-body">
+      <p>물체가 공기 중에서 음속을 넘으면, 공기가 비켜날 시간이 부족해서 압축파가 쌓인다. 이것이 소닉붐이다. 선택지가 아니라 <strong>물리적 필연</strong>이다. 총알이 소닉붐을 만들듯, 음속을 넘는 모든 것은 소닉붐을 만든다.</p>
+      <p style="margin-top:16px">틱택은 추정 마하 60으로 이동했다. 마하 5에서 물체 선단 온도는 1,000도를 넘는다. 마하 10에서 5,000도. 스페이스 셔틀이 재진입 시 내열 타일이 필요한 이유다. 마하 60이면 <strong>주변 공기가 플라즈마로 전환</strong>되어, 물체를 빛나는 불덩이로 감싸야 한다.</p>
+      <p style="margin-top:16px">적외선 센서는 아무것도 감지하지 못했다. 소닉붐도 없었다. 물체는 마치 <strong>공기가 존재하지 않는 것처럼</strong> 이동했다.</p>
+    </div>
+  </div>
+
+  <div class="v-card">
+    <div class="v-num">Violation 04</div>
+    <div class="v-title">공기에서 물로, 물에서 공기로</div>
+    <div class="v-sub">위반 법칙: 유체역학(매질 경계), 운동량 보존</div>
+    <div class="v-body">
+      <p>물의 밀도는 공기의 약 <strong>800배</strong>다. 고속으로 물에 진입하면, 콘크리트 벽에 충돌하는 것과 비슷한 충격을 받는다. 배가 고속으로 착수하면 부서지고, 전투기가 수면에 닿으면 산산조각난다.</p>
+      <p style="margin-top:16px">2013년 푸에르토리코 아구아디야에서 미 세관국경보호국 항공기의 적외선 카메라가 포착한 물체는 시속 약 180km로 수면에 진입한 뒤, <strong>시속 135km로 수중 이동</strong>을 계속했다. 감속이 거의 없었다. 참고로 가장 빠른 잠수함의 속력은 약 시속 70km다.</p>
+      <p style="margin-top:16px">물체는 이후 수면 위로 다시 올라와 비행을 재개했다. 한 시점에서는 <strong>두 개로 분리</strong>되는 것처럼 보이기도 했다.</p>
+    </div>
+  </div>
+
+  <div class="v-card">
+    <div class="v-num">Violation 05</div>
+    <div class="v-title">레이더가 당황한다</div>
+    <div class="v-sub">위반 법칙: 전자기학(레이더 반사 원리)</div>
+    <div class="v-body">
+      <p>레이더는 전자기파를 쏘고 반사파를 분석한다. 물체의 크기, 모양, 속도, 거리를 수학적으로 역산한다. 인류의 스텔스 기술은 전자기파를 흡수하거나 비스듬히 반사시켜 레이더 단면적(RCS)을 줄이는 방식이다. <strong>줄일 수는 있지만, 완전히 제거할 수는 없다.</strong></p>
+      <p style="margin-top:16px">틱택의 레이더 반응은 "비정상적"이라고 기술되었다. 물리적 크기에 비해 레이더 반사가 일관성이 없었고, 때로는 레이더가 재밍(방해전파)된 것처럼 보였다. 일부 물리학자들은 이것이 시공간 왜곡장 안에서 전자기파가 렌즈 효과를 받은 결과일 수 있다고 추측한다. 하지만 그 추측 자체가 이미 "알려진 물리학" 바깥에 있다.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="num">Part III — The Numbers</span>
+    <h2>숫자가 <strong>말해주는 것</strong></h2>
+  </div>
+
+  <p class="prose">이 모든 관측을 종합하면, 하나의 불편한 표가 만들어진다.</p>
+
+  <div class="mechanism-row">
+    <div class="mechanism">
+      <div style="font-family:var(--mono);font-size:0.6rem;letter-spacing:4px;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px">Power</div>
+      <div style="font-size:1.6rem;font-weight:700;color:var(--fg);margin-bottom:8px">1,100 GW</div>
+      <p style="font-size:0.85rem;color:var(--secondary);line-height:1.7">틱택 한 대의 추정 출력. 미국 전체 발전용량의 약 92%와 같다.</p>
+    </div>
+    <div class="mechanism">
+      <div style="font-family:var(--mono);font-size:0.6rem;letter-spacing:4px;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px">Energy</div>
+      <div style="font-size:1.6rem;font-weight:700;color:var(--fg);margin-bottom:8px">50 tons TNT</div>
+      <p style="font-size:0.85rem;color:var(--secondary);line-height:1.7">마하 60까지 가속하는 데 필요한 운동에너지. 소형 핵무기 수준이다.</p>
+    </div>
+    <div class="mechanism">
+      <div style="font-family:var(--mono);font-size:0.6rem;letter-spacing:4px;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px">Force</div>
+      <div style="font-size:1.6rem;font-weight:700;color:var(--fg);margin-bottom:8px">49 MN</div>
+      <p style="font-size:0.85rem;color:var(--secondary);line-height:1.7">5,370g 가속에 필요한 힘. 스페이스 셔틀 엔진 90대 동시 점화와 같다.</p>
+    </div>
+  </div>
+
+  <p class="prose">너스 교수팀의 논문은 결론에서 이렇게 적었다. 이 관측이 사실이라면, 이 비행체는 지구상의 어떤 알려진 항공기보다 현저히 앞선 기술을 보여준다. 관측이 거짓이거나, 심각한 오류이거나, 아니면 우리가 모르는 무언가가 있거나.</p>
+
+  <p class="prose">여기서 중요한 건 <strong>"알려진" 물리학</strong>이라는 수식어다.</p>
+
+  <p class="prose">뉴턴 역학은 300년 넘게 작동해왔다. 하지만 뉴턴 역학이 "전부"가 아니라는 것은 아인슈타인이 증명했다. 아인슈타인의 상대성이론이 "전부"가 아니라는 것은 양자역학이 보여주고 있다. 물리학의 역사는 "이건 절대 불가능해"가 "아, 우리가 몰랐던 게 있었네"로 바뀌는 과정이다.</p>
+
+  <div class="pull-quote">
+    <p>물리학이 틀렸거나,<br>우리가 모르는 물리학이 있다.</p>
+    <p class="attr">Kevin Knuth et al., Entropy, 2019</p>
+  </div>
+
+  <p class="prose">틱택이 보여준 움직임은 현재 물리학으로 설명되지 않는다. 그렇다고 "물리학을 위반한다"고 단정하는 것도 성급하다. 더 정확한 표현은 이것이다 — <strong>우리가 아직 모르는 물리학의 영역에 있을 수 있다.</strong></p>
+
+  <p class="prose">다음 글에서는 인류가 지금까지 목격한 가장 신뢰할 수 있는 UFO 사례들을 증거의 무게 순으로 정리한다. 니미츠만이 아니다. 영국 공군 기지 옆 숲에서, 벨기에 하늘에서, 알래스카 상공에서, 그리고 1976년 서울 청와대 위에서 — 무언가가 반복적으로 목격되었다.</p>
+</section>
+</main>
+
+<div class="closing">
+  <h2>물리학의 역사는<br><strong>"불가능"이 "아직"으로 바뀌는 역사다</strong></h2>
+  <p class="sub">뉴턴이 전부가 아니었듯, 아인슈타인이 전부가 아니듯. 우리가 모르는 물리학은 여전히 존재한다.</p>
+</div>
+
+<footer class="footer">
+  <p>Sources: Knuth, Powell, Reali — Entropy 21(10), 2019 &middot; USS Nimitz SCU Report &middot; AATIP Five Observables (Elizondo) &middot; Popular Mechanics &middot; AARO FY24 Report</p>
+  <p>Research assisted by Claude &middot; 2026</p>
+</footer>
+</article>
+</div>

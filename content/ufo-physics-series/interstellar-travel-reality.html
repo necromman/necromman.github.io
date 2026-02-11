@@ -1,0 +1,343 @@
+---
+layout: layouts/article.njk
+pageTitle: "별까지 가는 현실적인 방법"
+description: "레이저 세일부터 반물질 엔진, 워프 드라이브까지. 성간여행 기술을 현실성 순으로 정리한 스펙트럼."
+datePublished: "2026-02-11"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 520px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* SCALE COMPARE */
+  .scale-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0;
+    margin: 8px 0;
+    border: 1px solid var(--rule);
+  }
+  .scale-item .s-label {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--fg);
+    padding: 14px 16px;
+    background: var(--card-bg);
+    text-align: right;
+  }
+  .scale-item .s-bar-wrap {
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .scale-item .s-bar {
+    height: 8px;
+    background: var(--accent);
+    min-width: 2px;
+  }
+  .scale-item .s-val {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* TECH CARD */
+  .tech-card {
+    margin: 40px 0;
+    padding: 32px 28px;
+    border: 1px solid var(--rule);
+  }
+  .tech-card .t-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: baseline;
+    margin-bottom: 20px;
+  }
+  .tech-card .t-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.5px;
+  }
+  .tech-card .t-era {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .tech-card .t-body {
+    font-size: 0.95rem;
+    color: var(--prose);
+    line-height: 1.85;
+  }
+  .tech-card .t-body strong { color: var(--fg); font-weight: 700; }
+
+  /* SPEC GRID */
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 20px 0;
+  }
+  .spec-grid .sp-item {
+    background: var(--bg);
+    padding: 14px 16px;
+  }
+  .spec-grid .sp-label {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .spec-grid .sp-val {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .scale-item { grid-template-columns: 80px 1fr; }
+    .scale-item .s-label { font-size: 0.65rem; padding: 10px 8px; }
+    .tech-card { padding: 24px 20px; }
+    .tech-card .t-header { grid-template-columns: 1fr; }
+    .spec-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="page">
+<article>
+<header class="masthead">
+  <p class="issue">Series 18 — Interstellar Travel</p>
+  <h1>별까지 가는<br><strong>현실적인 방법</strong></h1>
+  <p class="deck">가장 가까운 별까지 빛의 속도로 4.3년. 현재 인류의 가장 빠른 우주선으로 73,000년. 꿈은 꾸되, 계산기는 놓지 말자.</p>
+</header>
+
+<main>
+<section>
+  <div class="section-head">
+    <span class="num">Part I — The Scale</span>
+    <h2>우주는 미친 듯이 <strong>넓다</strong></h2>
+  </div>
+
+  <p class="prose">거리를 체감하는 것부터 시작하자. 가장 가까운 별 알파 센타우리까지의 거리는 약 4.37광년, 즉 <strong>약 41조 km</strong>다. 이 숫자는 직관적이지 않으니, 비유를 쓰겠다.</p>
+
+  <p class="prose">지구를 탁구공 크기(직경 4cm)로 축소하면, 달은 약 1.2m 떨어진 구슬이다. 태양은 약 470m 밖에 있다. 같은 비율에서 알파 센타우리는 <strong>약 13,000km 떨어진 곳</strong>에 있다. 서울에서 탁구공을 놓으면, 가장 가까운 별은 브라질 어딘가에 있다.</p>
+
+  <p class="prose">인류가 보낸 가장 빠른 물체, 보이저 1호(시속 약 61,000km)로 이 거리를 간다면 <strong>약 73,000년</strong>이 걸린다. 빛의 속도로도 4.3년. 은하 반대편까지는 빛으로 10만 년.</p>
+
+  <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px">알파 센타우리까지 소요 시간</div>
+
+  <div class="scale-item">
+    <div class="s-label">Voyager 1</div>
+    <div class="s-bar-wrap">
+      <div class="s-bar" style="width:100%"></div>
+      <div class="s-val">73,000년</div>
+    </div>
+  </div>
+  <div class="scale-item">
+    <div class="s-label">Nuclear Pulse</div>
+    <div class="s-bar-wrap">
+      <div class="s-bar" style="width:0.2%"></div>
+      <div class="s-val">~130년</div>
+    </div>
+  </div>
+  <div class="scale-item">
+    <div class="s-label">Fusion</div>
+    <div class="s-bar-wrap">
+      <div class="s-bar" style="width:0.07%"></div>
+      <div class="s-val">~50년</div>
+    </div>
+  </div>
+  <div class="scale-item">
+    <div class="s-label">Laser Sail</div>
+    <div class="s-bar-wrap">
+      <div class="s-bar" style="width:0.04%"></div>
+      <div class="s-val">~25년</div>
+    </div>
+  </div>
+  <div class="scale-item">
+    <div class="s-label">Antimatter</div>
+    <div class="s-bar-wrap">
+      <div class="s-bar" style="width:0.01%"></div>
+      <div class="s-val">~8년</div>
+    </div>
+  </div>
+  <div class="scale-item">
+    <div class="s-label">Light</div>
+    <div class="s-bar-wrap">
+      <div class="s-bar" style="width:0.006%"></div>
+      <div class="s-val">4.3년</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="num">Part II — Near Future</span>
+    <h2>지금 당장 <strong>가능한 것</strong></h2>
+  </div>
+
+  <div class="tech-card">
+    <div class="t-header">
+      <div class="t-name">레이저 세일 (Breakthrough Starshot)</div>
+      <div class="t-era">Decades Away</div>
+    </div>
+    <div class="spec-grid">
+      <div class="sp-item">
+        <div class="sp-label">Speed</div>
+        <div class="sp-val">0.2c (빛의 20%)</div>
+      </div>
+      <div class="sp-item">
+        <div class="sp-label">Transit</div>
+        <div class="sp-val">20-30년</div>
+      </div>
+      <div class="sp-item">
+        <div class="sp-label">Payload</div>
+        <div class="sp-val">~1g (우표 크기)</div>
+      </div>
+    </div>
+    <div class="t-body">
+      <p>유리 밀너, 스티븐 호킹, 마크 저커버그가 2016년 설립한 프로젝트. 아이디어: 지구에 <strong>100GW 레이저 배열</strong>(1km^2 규모)을 설치하고, 4m 너비의 초박형 돛에 약 10분간 레이저를 쏴서 광속의 20%까지 가속한다. 돛 위에는 카메라, 통신 칩, 항법 장치가 포함된 그램 단위 칩이 탑재된다.</p>
+      <p style="margin-top:16px">물리학은 작동한다. 광압(radiation pressure)은 잘 이해된 현상이다. 문제는 공학이다. 돛은 60,000g의 가속과 레이저 가열을 견뎌야 한다. 목적지에서 감속할 방법이 없어 알파 센타우리계를 수 시간 만에 통과한다. 2025년 캘텍의 돛 제조 돌파로 비용이 <strong>9,000배</strong> 줄었지만, 전체 시스템은 아직 수십 년 뒤의 이야기다.</p>
+    </div>
+  </div>
+
+  <div class="tech-card">
+    <div class="t-header">
+      <div class="t-name">핵열추진 (DARPA DRACO)</div>
+      <div class="t-era">2027 Demo</div>
+    </div>
+    <div class="spec-grid">
+      <div class="sp-item">
+        <div class="sp-label">Speed</div>
+        <div class="sp-val">화학 로켓의 2-5배</div>
+      </div>
+      <div class="sp-item">
+        <div class="sp-label">Use Case</div>
+        <div class="sp-val">달-화성 수송</div>
+      </div>
+      <div class="sp-item">
+        <div class="sp-label">Status</div>
+        <div class="sp-val">2027 시연 예정</div>
+      </div>
+    </div>
+    <div class="t-body">
+      <p>원자로에서 수소를 가열하여 분사하는 방식. 화학 로켓보다 비추력(연료 효율)이 2-5배 높다. <strong>성간여행이 아니라 태양계 내부 수송용</strong>이다. 화성까지의 이동 시간을 수개월에서 수주로 줄일 수 있다. DARPA가 2027년 궤도 시연을 목표로 개발 중이며, 이것은 성간여행의 첫 번째 인프라 단계로 볼 수 있다.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="num">Part III — Century Scale</span>
+    <h2>100년 후에 <strong>가능할 것</strong></h2>
+  </div>
+
+  <div class="tech-card">
+    <div class="t-header">
+      <div class="t-name">핵융합 추진 (프로젝트 다이달로스)</div>
+      <div class="t-era">Century Away</div>
+    </div>
+    <div class="spec-grid">
+      <div class="sp-item">
+        <div class="sp-label">Speed</div>
+        <div class="sp-val">0.12c</div>
+      </div>
+      <div class="sp-item">
+        <div class="sp-label">Transit</div>
+        <div class="sp-val">~50년</div>
+      </div>
+      <div class="sp-item">
+        <div class="sp-label">Fuel</div>
+        <div class="sp-val">헬륨-3 50,000톤</div>
+      </div>
+    </div>
+    <div class="t-body">
+      <p>1973-78년 영국행성간학회가 설계한 무인 탐사선. 헬륨-3과 중수소 펠릿을 관성가둠 방식으로 융합시켜 추력을 얻는다. 2022년 NIF의 핵융합 점화 성공으로 물리학적 기초는 확인되었지만, <strong>필요한 헬륨-3(5만 톤)은 목성 대기에서 채굴</strong>해야 한다. 그리고 감속이 불가능한 플라이바이 임무다.</p>
+    </div>
+  </div>
+
+  <div class="tech-card">
+    <div class="t-header">
+      <div class="t-name">반물질 추진</div>
+      <div class="t-era">Centuries Away</div>
+    </div>
+    <div class="spec-grid">
+      <div class="sp-item">
+        <div class="sp-label">Speed</div>
+        <div class="sp-val">0.5-0.8c</div>
+      </div>
+      <div class="sp-item">
+        <div class="sp-label">Efficiency</div>
+        <div class="sp-val">E=mc^2의 100%</div>
+      </div>
+      <div class="sp-item">
+        <div class="sp-label">Cost</div>
+        <div class="sp-val">1g = $62.5조</div>
+      </div>
+    </div>
+    <div class="t-body">
+      <p>물질-반물질 쌍소멸은 질량의 <strong>100%를 에너지로 변환</strong>한다. 핵융합(0.7%)이나 화학반응(0.00001%)과는 차원이 다르다. 이론적으로 가장 강력한 추진 방식이다.</p>
+      <p style="margin-top:16px">문제는 생산이다. 현재 전 세계 반물질 생산량은 연간 약 <strong>10나노그램</strong>이다. 성간여행에는 최소 수 킬로그램이 필요하다. 1그램의 가격은 약 62.5조 달러로, 전 세계 GDP의 약 70%에 해당한다. 그리고 반물질은 보통 물질과 접촉하면 즉시 폭발하므로, 완벽한 자기장 격리가 필수다.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="num">Part IV — Millennium Scale</span>
+    <h2>1,000년 후에 <strong>가능할 것</strong></h2>
+  </div>
+
+  <p class="prose">이 영역의 기술은 더 이상 공학의 문제가 아니다. <strong>물리학 자체의 확장</strong>이 필요하다.</p>
+
+  <div class="tech-card">
+    <div class="t-header">
+      <div class="t-name">워프 드라이브</div>
+      <div class="t-era">Unknown Timeline</div>
+    </div>
+    <div class="t-body">
+      <p>3편에서 다뤘듯, 2024년 양의 에너지만으로 아광속 워프가 수학적으로 가능해졌다. 하지만 초광속 워프에는 여전히 음에너지가 필요하다. 그리고 수학적 가능성과 물리적 구현 사이의 간극은 광대하다. 전자기학이 방정식으로 먼저 존재했고, 실제 발전기가 나오기까지 수십 년이 걸렸다. <strong>워프 물리학은 아직 방정식 단계에 있다.</strong></p>
+    </div>
+  </div>
+
+  <div class="tech-card">
+    <div class="t-header">
+      <div class="t-name">웜홀 네트워크</div>
+      <div class="t-era">Unknown Timeline</div>
+    </div>
+    <div class="t-body">
+      <p>웜홀이 시공간의 기본 구조에 내장되어 있다면(ER=EPR이 맞다면), 충분히 진보된 문명은 이를 확대하고 안정화시켜 <strong>항구적인 성간 교통망</strong>으로 사용할 수 있을 것이다. 크라스니코프 튜브 — 첫 번째 아광속 여행 중에 시공간 고속도로를 건설하고, 이후 방문은 초광속으로 — 도 같은 범주에 있다. 두 가지 모두 양자중력 이론의 완성을 전제로 한다.</p>
+    </div>
+  </div>
+
+  <p class="prose">결국 스펙트럼은 이렇다. <strong>수십 년 내</strong>에는 그램 단위 탐사선을 가까운 별에 보낼 수 있다. <strong>수백 년 내</strong>에는 무인 우주선이 빛의 10% 이상으로 날 수 있다. <strong>그 너머</strong>는 아직 발견되지 않은 물리학의 영역이다.</p>
+
+  <p class="prose">그런데, 만약 "그 너머"의 물리학을 이미 알고 있는 문명이 있다면?</p>
+</section>
+</main>
+
+<div class="closing">
+  <h2>가장 빠른 방법은<br><strong>아직 발견되지 않았을 수 있다</strong></h2>
+  <p class="sub">100년 전에는 비행기가 불가능했다. 60년 전에는 달 착륙이 공상이었다. 다음 "불가능"은 무엇이 될까.</p>
+</div>
+
+<footer class="footer">
+  <p>Sources: Breakthrough Starshot &middot; Project Daedalus (BIS, 1978) &middot; DARPA DRACO Program &middot; NASA Antimatter Propulsion Studies &middot; NIF Fusion Ignition (2022) &middot; Fuchs et al. (2024)</p>
+  <p>Research assisted by Claude &middot; 2026</p>
+</footer>
+</article>
+</div>
