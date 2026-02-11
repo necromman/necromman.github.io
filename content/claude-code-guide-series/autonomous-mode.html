@@ -1,0 +1,427 @@
+---
+layout: layouts/article.njk
+pageTitle: "자율 주행 모드"
+description: "테스트와 검증 수단을 제공하면 Claude Code는 자율적으로 작업한다. TDD, Git 워크플로우, PR 리뷰까지 — 감독에서 위임으로 전환하는 기술."
+datePublished: "2026-02-12"
+---
+<style>
+  .masthead .deck { max-width: 520px; }
+
+  /* TIP CARD */
+  .tip-card {
+    border: 1px solid var(--rule);
+    padding: 24px 28px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .tip-card .tip-num {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .tip-card h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .tip-card .tip-body {
+    font-size: 0.88rem;
+    color: var(--secondary);
+    line-height: 1.8;
+  }
+
+  /* TERMINAL BLOCK */
+  .terminal {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    padding: 20px 24px;
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    line-height: 1.75;
+    overflow-x: auto;
+    white-space: pre;
+    margin: 24px 0;
+    color: var(--prose);
+  }
+  .terminal .t-label {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .terminal .t-comment { color: var(--muted); }
+  .terminal .t-prompt { color: var(--muted); user-select: none; }
+  .terminal .t-key { font-weight: 700; color: var(--fg); }
+
+  /* LOOP DIAGRAM */
+  .loop-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+    gap: 0;
+    align-items: center;
+    margin: 40px 0;
+    text-align: center;
+  }
+  .loop-step {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    padding: 20px 12px;
+  }
+  .loop-step .ls-num {
+    font-family: var(--mono);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .loop-step .ls-name {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--fg);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .loop-step .ls-desc {
+    font-size: 0.7rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .loop-arrow {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding: 0 6px;
+  }
+
+  /* COMPARE GRID */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 32px 0;
+  }
+  .compare-cell {
+    background: var(--bg);
+    padding: 24px 20px;
+  }
+  .compare-cell .c-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .compare-cell h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .compare-cell .c-body {
+    font-size: 0.84rem;
+    color: var(--secondary);
+    line-height: 1.8;
+  }
+  .compare-cell.bad { background: var(--card-bg); }
+
+  /* STRATEGY GRID */
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 32px 0;
+  }
+  .strat-cell {
+    background: var(--bg);
+    padding: 24px 20px;
+  }
+  .strat-cell .st-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 6px;
+    letter-spacing: 2px;
+  }
+  .strat-cell h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .strat-cell .st-body {
+    font-size: 0.84rem;
+    color: var(--secondary);
+    line-height: 1.8;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .loop-grid {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .loop-arrow {
+      font-size: 0;
+      text-align: center;
+      padding: 4px 0;
+    }
+    .loop-arrow::after {
+      content: '\2193';
+      font-size: 0.85rem;
+    }
+    .compare-grid { grid-template-columns: 1fr; }
+    .strategy-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">Series 21 &mdash; Claude Code Field Guide &middot; Part III</p>
+  <h1>자율 주행 <strong>모드</strong></h1>
+  <p class="deck">테스트를 주면 Claude는 혼자 달린다. 감독에서 위임으로 전환하는 핵심 기술.</p>
+</header>
+
+<article>
+<main>
+
+<!-- ────────── PART I ────────── -->
+<section>
+<div class="section-head">
+  <span class="num">Part I &mdash; The Verification Loop</span>
+  <h2>검증이 <strong>자율을 만든다</strong></h2>
+</div>
+
+<div class="tip-card">
+  <span class="tip-num">Tip 09 &mdash; Complete the Write-Test Cycle</span>
+  <h4>검증 수단을 제공하면 Claude는 자율적으로 작업할 수 있다</h4>
+  <p class="tip-body">단위 테스트, Playwright, git bisect, tmux &mdash; 어떤 것이든 "이게 맞는지 확인할 방법"을 주면 Claude는 스스로 시도하고 수정하는 루프에 들어간다.</p>
+</div>
+
+<p class="prose">대부분의 사용자는 Claude Code를 "명령-확인-수정"의 감독 모드로 쓴다. 코드를 쓰게 하고, 결과를 확인하고, 문제가 있으면 다시 지시하는 방식이다. 이것은 쓸모없는 건 아니지만 <strong>생산성의 절반만 활용하는 것이다.</strong></p>
+
+<p class="prose">진짜 생산성 폭발은 <strong>"자율 모드"</strong>에서 일어난다. Claude에게 코드를 쓰게 하고, 테스트를 돌리게 하고, 실패하면 수정하게 하고, 다시 테스트를 돌리게 하는 루프를 구축하면 &mdash; 당신이 커피를 마시는 동안 Claude가 일을 끝낸다.</p>
+
+<div class="loop-grid">
+  <div class="loop-step">
+    <span class="ls-num">01</span>
+    <span class="ls-name">작업 지시</span>
+    <span class="ls-desc">무엇을 만들지<br>명확하게 지시</span>
+  </div>
+  <span class="loop-arrow">&rarr;</span>
+  <div class="loop-step">
+    <span class="ls-num">02</span>
+    <span class="ls-name">코드 작성</span>
+    <span class="ls-desc">Claude가<br>코드를 생성</span>
+  </div>
+  <span class="loop-arrow">&rarr;</span>
+  <div class="loop-step">
+    <span class="ls-num">03</span>
+    <span class="ls-name">자동 검증</span>
+    <span class="ls-desc">테스트 실행<br>결과 확인</span>
+  </div>
+  <span class="loop-arrow">&rarr;</span>
+  <div class="loop-step">
+    <span class="ls-num">04</span>
+    <span class="ls-name">자동 수정</span>
+    <span class="ls-desc">실패 시<br>스스로 수정</span>
+  </div>
+</div>
+
+<p class="prose">이 루프의 핵심은 <strong>03번(자동 검증)</strong>이다. 검증 수단이 없으면 Claude는 "이게 맞는 것 같습니다"라고 말할 수밖에 없다. 하지만 테스트가 있으면 "테스트가 통과했습니다" 또는 "3개가 실패해서 수정하겠습니다"라고 구체적으로 행동한다.</p>
+
+<div class="terminal"><span class="t-label">자율 모드 프롬프트 예시</span>
+<span class="t-comment"># 검증 수단을 명시적으로 알려준다</span>
+"auth 모듈을 리팩토링해줘.
+테스트는 npm test로 돌릴 수 있어.
+<span class="t-key">모든 테스트가 통과할 때까지</span> 수정을 반복해줘.
+중간에 확인 받지 않아도 돼."</div>
+
+<p class="prose">마지막 줄이 핵심이다. <strong>"중간에 확인 받지 않아도 돼"</strong>라고 명시하면 Claude는 매 수정마다 멈추지 않고 연속적으로 작업한다. 물론 이를 위해서는 충분한 테스트 커버리지가 전제되어야 한다.</p>
+</section>
+
+<!-- ────────── PART II ────────── -->
+<section>
+<div class="section-head">
+  <span class="num">Part II &mdash; Test-Driven Development</span>
+  <h2>테스트를 <strong>먼저 쓴다</strong></h2>
+</div>
+
+<div class="tip-card">
+  <span class="tip-num">Tip 34 &mdash; Write Lots of Tests (and Use TDD)</span>
+  <h4>Claude는 테스트 작성에 뛰어나다. 이것을 활용하지 않는 건 낭비다</h4>
+  <p class="tip-body">테스트-주도 개발(TDD)은 Claude Code와 궁합이 가장 좋은 방법론이다. 테스트가 자율 작업의 가드레일이 된다.</p>
+</div>
+
+<p class="prose">많은 개발자가 테스트를 "나중에" 쓴다. 기능 구현이 먼저고, 테스트는 시간이 남으면 하는 것. Claude Code를 쓰면 이 순서가 뒤집혀야 한다. <strong>테스트를 먼저 쓰면, Claude의 자율 작업 품질이 비약적으로 올라간다.</strong></p>
+
+<div class="compare-grid">
+  <div class="compare-cell bad">
+    <span class="c-label">Without TDD</span>
+    <h4>테스트 없이 코딩</h4>
+    <p class="c-body">Claude가 코드를 쓴다. "이게 맞나?" 직접 실행해서 확인한다. 문제 발견. 다시 지시한다. 3-4번 왕복 후에야 원하는 결과를 얻는다.</p>
+  </div>
+  <div class="compare-cell">
+    <span class="c-label">With TDD</span>
+    <h4>테스트 먼저 작성</h4>
+    <p class="c-body"><strong>먼저 테스트를 작성하게 한다.</strong> 그 다음 구현을 시킨다. Claude는 테스트를 돌리며 스스로 수정한다. 당신은 최종 결과만 확인하면 된다.</p>
+  </div>
+</div>
+
+<div class="terminal"><span class="t-label">TDD 워크플로우</span>
+<span class="t-comment"># 1단계: 테스트부터 작성하게 한다</span>
+"결제 모듈의 테스트를 먼저 작성해줘.
+- 정상 결제 성공
+- 잔액 부족 실패
+- 중복 결제 방지
+- 환불 처리
+<span class="t-key">아직 구현은 하지 마.</span>"
+
+<span class="t-comment"># 2단계: 테스트를 통과하도록 구현</span>
+"이제 모든 테스트가 통과하도록 결제 모듈을 구현해줘.
+npm test로 확인하면서 진행해."</div>
+
+<p class="prose">이 방식의 부수 효과도 있다. 테스트가 <strong>요구사항의 명세</strong> 역할을 한다. "정상 결제 성공"이라는 테스트 케이스 이름 자체가 Claude에게 무엇을 구현해야 하는지 알려준다. 별도의 긴 설명이 필요 없다.</p>
+</section>
+
+<!-- ────────── PART III ────────── -->
+<section>
+<div class="section-head">
+  <span class="num">Part III &mdash; Git Like a Pro</span>
+  <h2>Git을 <strong>프로처럼</strong></h2>
+</div>
+
+<div class="tip-card">
+  <span class="tip-num">Tip 04 &mdash; Using Git and GitHub CLI Like a Pro</span>
+  <h4>Git 조작과 GitHub CLI를 Claude에게 위임하라</h4>
+  <p class="tip-body">커밋, 브랜치, PR 생성까지 Claude가 처리한다. 드래프트 PR로 안전하게 운영하고, GitHub GraphQL API로 고급 작업도 가능하다.</p>
+</div>
+
+<p class="prose">Claude Code는 터미널에서 동작하므로 Git과 GitHub CLI(gh)를 네이티브로 사용할 수 있다. 이것을 활용하지 않고 직접 git 명령어를 치는 건 <strong>통역관에게 직접 외국어로 말하는 것</strong>과 같다.</p>
+
+<div class="terminal"><span class="t-label">Claude에게 Git 위임</span>
+<span class="t-comment"># 커밋 메시지 자동 생성</span>
+"변경사항을 확인하고 적절한 커밋 메시지로 커밋해줘"
+
+<span class="t-comment"># 드래프트 PR 생성 (안전한 방법)</span>
+"이 브랜치의 변경사항으로 <span class="t-key">드래프트 PR</span>을 만들어줘.
+제목과 설명은 변경사항을 기반으로 작성해"
+
+<span class="t-comment"># 고급: GraphQL 쿼리</span>
+"gh api graphql로 이 레포의 최근 10개 PR 상태를 가져와줘"</div>
+
+<p class="prose">핵심은 <strong>드래프트 PR</strong>이다. Claude가 만든 PR을 바로 머지하는 건 위험하다. 드래프트로 만들면 CI가 돌아가고, 코드 리뷰를 할 수 있고, 문제가 있으면 수정할 수 있다. 안전망을 유지하면서 자동화의 이점을 누리는 방법이다.</p>
+</section>
+
+<!-- ────────── PART IV ────────── -->
+<section>
+<div class="section-head">
+  <span class="num">Part IV &mdash; Git Worktrees</span>
+  <h2>두 개의 브랜치를 <strong>동시에</strong></h2>
+</div>
+
+<div class="tip-card">
+  <span class="tip-num">Tip 16 &mdash; Git Worktrees for Parallel Branch Work</span>
+  <h4>git worktree로 브랜치 전환 없이 병렬 작업하라</h4>
+  <p class="tip-body">별도의 작업 디렉토리를 만들어 서로 다른 브랜치를 동시에 편집한다. Claude Code 멀티 인스턴스와 조합하면 병렬 개발이 가능하다.</p>
+</div>
+
+<p class="prose">일반적인 Git 워크플로우에서 브랜치를 전환하면 작업 디렉토리의 파일이 바뀐다. 빌드 캐시가 날아가고, 에디터가 파일을 다시 로드한다. <strong>worktree</strong>는 이 문제를 해결한다. 하나의 레포에서 여러 브랜치를 각각 다른 디렉토리로 체크아웃한다.</p>
+
+<div class="terminal"><span class="t-label">Git Worktree 기본 사용법</span>
+<span class="t-comment"># 새 worktree 생성 (feat-auth 브랜치를 ../auth-work에)</span>
+<span class="t-prompt">$ </span><span class="t-key">git worktree add</span> ../auth-work feat-auth
+
+<span class="t-comment"># 이제 두 터미널을 열 수 있다</span>
+<span class="t-comment"># 터미널 1: ./main-project (main 브랜치)</span>
+<span class="t-prompt">$ </span>claude  <span class="t-comment"># Claude 인스턴스 1 - 메인 작업</span>
+
+<span class="t-comment"># 터미널 2: ./auth-work (feat-auth 브랜치)</span>
+<span class="t-prompt">$ </span>claude  <span class="t-comment"># Claude 인스턴스 2 - 인증 모듈 작업</span>
+
+<span class="t-comment"># worktree 삭제</span>
+<span class="t-prompt">$ </span><span class="t-key">git worktree remove</span> ../auth-work</div>
+
+<p class="prose">Claude Code 멀티 인스턴스와 worktree의 조합은 강력하다. <strong>하나의 Claude가 메인 기능을 작업하는 동안, 다른 Claude가 별도 브랜치에서 버그를 수정하거나 테스트를 보강할 수 있다.</strong> 각 인스턴스의 컨텍스트가 서로 독립적이므로 간섭이 없다.</p>
+</section>
+
+<!-- ────────── PART V ────────── -->
+<section>
+<div class="section-head">
+  <span class="num">Part V &mdash; Plan, Prototype, Review</span>
+  <h2>계획과 프로토타입 <strong>사이</strong></h2>
+</div>
+
+<div class="tip-card">
+  <span class="tip-num">Tip 39 + 26 &mdash; Plan, Prototype, and Review</span>
+  <h4>계획에 시간을 쓰되, 빠르게 프로토타이핑하라. 그리고 리뷰로 품질을 잡아라</h4>
+  <p class="tip-body">/plan 모드로 설계, 빠른 프로토타이핑으로 검증, 인터랙티브 PR 리뷰로 품질 확보. 세 단계의 균형이 최적의 결과를 만든다.</p>
+</div>
+
+<div class="strategy-grid">
+  <div class="strat-cell">
+    <span class="st-num">01 &mdash; PLAN</span>
+    <h4>/plan 모드로 설계</h4>
+    <p class="st-body">코드를 쓰기 전에 /plan으로 구조를 잡는다. Claude가 파일 구조, 인터페이스, 데이터 흐름을 설계한다. <strong>계획이 있으면 구현이 빨라진다.</strong></p>
+  </div>
+  <div class="strat-cell">
+    <span class="st-num">02 &mdash; PROTOTYPE</span>
+    <h4>빠르게 만들고 확인</h4>
+    <p class="st-body">완벽한 계획보다 빠른 프로토타입이 낫다. 작동하는 코드를 먼저 만들고, 그것을 기반으로 개선한다. 계획에만 시간을 쏟지 않는다.</p>
+  </div>
+  <div class="strat-cell">
+    <span class="st-num">03 &mdash; REVIEW</span>
+    <h4>인터랙티브 코드 리뷰</h4>
+    <p class="st-body">Claude에게 자신이 쓴 코드를 리뷰하게 한다. "이 PR의 변경사항을 리뷰해줘"라고 요청하면 보안 문제, 성능 이슈, 코드 스멜을 찾아낸다.</p>
+  </div>
+  <div class="strat-cell">
+    <span class="st-num">04 &mdash; ITERATE</span>
+    <h4>반복하여 개선</h4>
+    <p class="st-body">리뷰에서 발견된 문제를 수정하고, 다시 리뷰한다. 이 사이클을 2-3회 돌리면 <strong>혼자 작업하면서도 팀 코드 리뷰 수준의 품질</strong>을 달성할 수 있다.</p>
+  </div>
+</div>
+
+<p class="prose">이 세 단계의 비율은 프로젝트 성격에 따라 달라진다. 새 프로젝트라면 Plan에 더 시간을 쓴다. 기존 코드의 버그 수정이라면 Prototype으로 바로 들어간다. 중요한 건 <strong>세 단계를 모두 거치는 것</strong>이다. 계획 없이 코딩하면 헤매고, 프로토타입 없이 계획만 하면 진도가 안 나가고, 리뷰 없이 머지하면 품질이 떨어진다.</p>
+</section>
+
+<!-- ────────── CLOSING ────────── -->
+<section>
+<div class="pull-quote">
+  <p>자율은 방임이 아니다.<br>테스트라는 가드레일 안에서의 자유다.</p>
+</div>
+
+<div class="closing">
+  <h2>감독에서 위임으로<br><strong>당신의 역할이 바뀐다</strong></h2>
+  <p class="sub">다음 편 "터미널 밖으로"에서는 Claude Code를 코딩 이외의 영역으로 확장하는 법을 다룬다. DevOps, 리서치, 컨테이너 격리, 백그라운드 서브에이전트까지.</p>
+</div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <p>Sources: ykdojo/claude-code-tips (GitHub, 2025) &middot; Shipyard Claude Code vs Gemini CLI (2026) &middot; Educative AI Coding Agents Review (2026)</p>
+  <p>Curated &amp; written with Claude &middot; 2026</p>
+</footer>
+
+</article>
+
+</div>

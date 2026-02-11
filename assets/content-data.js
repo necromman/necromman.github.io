@@ -702,5 +702,91 @@ window.CONTENT_DATA = [
         search: 'GG 결승 개인리그 천재 프로게이머 스타크래프트 결전 타임슬립 소설'
       }
     ]
+  },
+  {
+    id: 'vow-system-series',
+    seriesNum: 20,
+    title: '서약빨',
+    description: '양산형 VR MMORPG에 숨겨진 서약 시스템. 자발적 제약이 만드는 창의성. 실패한 인디 개발자가 남의 게임에서 자기 철학을 발견하고, 다시 만드는 자로 돌아가기까지.',
+    articles: [
+      {
+        title: '첫 번째 족쇄',
+        role: '서약 시스템 발견, 실패한 인디 개발자의 첫 서약',
+        tag: '소설',
+        href: 'content/vow-system-series/first-shackle.html',
+        search: '서약 시스템 VR MMORPG 인디 개발자 제약 창의성 엘리시움 바운드 소설'
+      },
+      {
+        title: '자유가 0이 되는 순간',
+        role: '서약 바이럴, 커뮤니티 메타 전쟁, 라이벌 리미터 등장',
+        tag: '소설',
+        href: 'content/vow-system-series/zero-freedom.html',
+        search: '서약 바이럴 커뮤니티 리미터 PvP 서약의탑 메타 전쟁 소설'
+      },
+      {
+        title: '만든 자의 패배',
+        role: 'GDC 강연, 전 공동창업자 재회, 만든 자와 하는 자의 거리',
+        tag: '소설',
+        href: 'content/vow-system-series/creators-defeat.html',
+        search: 'GDC 강연 인디게임 실패 바운드 콘스트레인트 스튜디오 3200장 200만 소설'
+      },
+      {
+        title: '서약의 탑',
+        role: '25층 탑 공략, 리미터의 서약 파기, 마지막 층의 요구',
+        tag: '소설',
+        href: 'content/vow-system-series/tower-of-vows.html',
+        search: '서약의탑 25층 자유도 리미터 서약파기 마지막서약 게임포기 소설'
+      },
+      {
+        title: '풀다이브 아웃',
+        role: '마지막 서약, 개발자의 메시지, 현실로의 귀환',
+        tag: '소설',
+        href: 'content/vow-system-series/full-dive-out.html',
+        search: '풀다이브 마지막서약 자유도0 개발자메시지 바운드2 인디게임 재도전 소설'
+      }
+    ]
+  },
+  {
+    id: 'claude-code-guide',
+    seriesNum: 21,
+    title: '컨텍스트는 우유다',
+    description: 'ykdojo/claude-code-tips 45개 팁 중 25개를 큐레이션. 설치 직후 세팅부터 컨텍스트 관리, 자율 실행, DevOps, 메타 자동화까지 Claude Code 필드 가이드.',
+    articles: [
+      {
+        title: '처음 30분',
+        role: '설치 직후 반드시 해야 할 다섯 가지 세팅',
+        tag: '입문',
+        href: 'content/claude-code-guide-series/the-first-thirty-minutes.html',
+        search: 'Claude Code 설치 세팅 status line 슬래시명령 alias 터미널 입문 claude-code-tips'
+      },
+      {
+        title: '컨텍스트는 우유다',
+        role: '컨텍스트 관리, 수동 압축, 분할 정복, CLAUDE.md 설계',
+        tag: '핵심',
+        href: 'content/claude-code-guide-series/context-is-milk.html',
+        search: '컨텍스트 관리 우유 신선도 수동압축 compact 분할정복 CLAUDE.md 시스템프롬프트'
+      },
+      {
+        title: '자율 주행 모드',
+        role: 'TDD 검증 루프, Git 워크트리, 자율 실행 위임 전략',
+        tag: '실전',
+        href: 'content/claude-code-guide-series/autonomous-mode.html',
+        search: '자율주행 TDD 테스트 Git worktree 검증루프 plan prototype 자율실행 위임'
+      },
+      {
+        title: '터미널 밖으로',
+        role: '컨테이너, 리서치, DevOps, 서브에이전트, 단순화',
+        tag: '확장',
+        href: 'content/claude-code-guide-series/beyond-the-terminal.html',
+        search: '터미널밖 컨테이너 Docker 리서치 DevOps 서브에이전트 백그라운드 단순화'
+      },
+      {
+        title: '나만의 도구를 만든다',
+        role: '개인화, 메타 자동화, 유니버설 인터페이스, 워크플로우 투자',
+        tag: '철학',
+        href: 'content/claude-code-guide-series/build-your-own-tools.html',
+        search: '나만의도구 개인화 메타자동화 유니버설인터페이스 워크플로우 복리 Claude Code 철학'
+      }
+    ]
   }
 ];

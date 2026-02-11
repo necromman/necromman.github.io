@@ -1,0 +1,416 @@
+---
+layout: layouts/article.njk
+pageTitle: "만든 자의 패배"
+description: "콘스트레인트 스튜디오의 GDC 강연이 공개된다. 2인 개발팀이 밝힌 엘리시움의 설계 철학. 그리고 3년 전 해산한 전 공동 창업자와의 재회. 같은 질문, 다른 대답. 3,200장 대 200만의 거리."
+datePublished: "2026-02-12"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  .char-intro { display: grid; grid-template-columns: auto 1fr; gap: 0 20px; align-items: baseline; margin: 40px 0 32px; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
+  .char-intro .c-name { font-size: 1.4rem; font-weight: 700; color: var(--fg); }
+  .char-intro .c-info { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
+
+  .part-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .part-title { font-size: 1.6rem; font-weight: 700; color: var(--fg); margin-bottom: 40px; letter-spacing: -0.5px; }
+  .section-divider { margin-top: 64px; margin-bottom: 48px; padding-top: 32px; border-top: 1px solid var(--rule); }
+
+  .sys-msg { font-family: var(--mono); font-size: 0.82rem; line-height: 1.7; background: #1a1a18; color: #c8c4b8; padding: 24px 28px; margin: 32px 0; border: 1px solid var(--fg); }
+  [data-theme="dark"] .sys-msg { background: #0a0a08; border-color: var(--rule); }
+  .sys-msg .s-label { color: #7cafc2; font-weight: 700; }
+  .sys-msg .s-value { color: #c9b97a; }
+  .sys-msg .s-alert { color: #c43e2a; font-weight: 700; }
+  .sys-msg .s-success { color: #6db36d; font-weight: 700; }
+  .sys-msg .s-divider { color: #4a4a48; display: block; overflow: hidden; }
+
+  .vow-declaration { border: 1px solid var(--fg); border-top: 3px solid var(--accent); padding: 32px 36px; margin: 40px 0; text-align: center; }
+  .vow-declaration .vow-header { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .vow-declaration .vow-text { font-size: 1.3rem; font-weight: 700; color: var(--fg); line-height: 1.5; margin-bottom: 16px; }
+  .vow-declaration .vow-grade { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 3px; color: var(--muted); }
+  .vow-declaration .vow-grade strong { color: var(--accent); font-weight: 700; }
+
+  .freedom-gauge { display: block; width: fit-content; margin: 40px auto; padding: 24px 48px; text-align: center; background: #1a1a18; border: 1px solid rgba(200, 196, 184, 0.15); border-top: 3px solid var(--accent); }
+  [data-theme="dark"] .freedom-gauge { background: #0a0a08; }
+  .freedom-gauge .fg-label { font-size: 0.8rem; letter-spacing: 2px; color: var(--muted); margin-bottom: 8px; }
+  .freedom-gauge .fg-bar { width: 200px; height: 4px; background: #3a3a38; margin: 12px auto 8px; }
+  .freedom-gauge .fg-fill { height: 100%; background: var(--accent); }
+  .freedom-gauge .fg-value { font-family: var(--mono); font-size: 2rem; font-weight: 700; color: var(--accent); letter-spacing: -1px; line-height: 1; }
+
+  /* GDC QUOTE — lecture/presentation style */
+  .gdc-quote { border-left: 3px solid var(--accent); padding: 24px 28px; margin: 32px 0; background: var(--card-bg); }
+  .gdc-quote .gq-header { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .gdc-quote .gq-text { font-size: 1.1rem; font-weight: 600; line-height: 1.8; color: var(--fg); margin-bottom: 8px; }
+  .gdc-quote .gq-speaker { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
+
+  .strat-box { border: 1px solid var(--rule); padding: 24px 28px; margin: 32px 0; }
+  .strat-box .sb-title { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .strat-box .sb-content { font-size: 0.92rem; color: var(--prose); line-height: 1.8; }
+  .strat-box .sb-content strong { color: var(--fg); }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .char-intro { grid-template-columns: 1fr; }
+    .freedom-gauge { padding: 20px 32px; }
+    .freedom-gauge .fg-bar { width: 160px; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">vow system — fiction 03</p>
+  <h1>만든 자의 <strong>패배</strong></h1>
+  <p class="deck">같은 철학, 다른 결과.<br>2명이서 200만을 만든 사람들과<br>2명이서 3,200장을 만든 사람의 거리.</p>
+</header>
+
+<main>
+
+<!-- PART I -->
+
+<section>
+<div class="section-divider" style="border-top:none;margin-top:0;padding-top:0">
+  <p class="part-label">Part I</p>
+  <p class="part-title">"GDC 2027"</p>
+</div>
+
+<p class="novel novel-first">콘스트레인트 스튜디오가 침묵을 깼다.</p>
+
+<p class="novel">2027년 5월 15일. GDC 2027 특별 세션. 제목: 'The Oath System — How We Designed Players to Design Themselves.' 엘리시움 온라인의 서약 시스템 설계 철학을 최초로 공개하는 강연.</p>
+
+<p class="novel">도윤은 새벽 4시에 일어나 유튜브 라이브로 시청했다. 한국 시간으로는 이른 아침. 콘스트레인트 스튜디오의 공동 창업자 두 명 — 에이든 첸(기획)과 마야 실바(프로그래머) — 이 무대에 올랐다.</p>
+
+<div class="gdc-quote">
+  <div class="gq-header">gdc 2027 — constraint studio keynote</div>
+  <div class="gq-text">"우리는 1년 전 이 무대에서 말했습니다. 스스로의 손발을 묶으라고. 그 원칙으로 게임을 만들었습니다. 그런데 한 가지 빠뜨린 게 있었어요. 우리가 만든 게임 안에서도, 플레이어에게 같은 질문을 던져야 한다는 걸요."</div>
+  <div class="gq-speaker">— aiden chen, co-founder, constraint studio</div>
+</div>
+
+<p class="novel">에이든 첸이 서약 시스템의 설계 과정을 설명했다. 엘리시움의 개발 초기에는 서약 시스템이 없었다. 일반적인 MMORPG의 문법 — 레벨업, 장비 강화, 파티 레이드 — 을 따라갔다. 하지만 어느 시점에 멈칫했다.</p>
+
+<div class="gdc-quote">
+  <div class="gq-header">gdc 2027 — constraint studio keynote</div>
+  <div class="gq-text">"테스트 플레이어들이 계속 같은 패턴으로 플레이했습니다. 최적화된 빌드, 최적화된 파티 구성, 최적화된 사냥 루트. 효율적이지만 창의적이지 않았어요. 우리는 스스로에게 물었습니다. '어떻게 하면 플레이어가 스스로 창의적이 되도록 만들 수 있을까?'"</div>
+  <div class="gq-speaker">— maya silva, co-founder, constraint studio</div>
+</div>
+
+<div class="gdc-quote">
+  <div class="gq-header">gdc 2027 — constraint studio keynote</div>
+  <div class="gq-text">"답은 우리가 1년 전에 했던 말 안에 있었습니다. 제약이 창의성을 만든다. 플레이어에게 자유를 더 주는 대신, 스스로 자유를 줄이도록 유도하면 어떨까. 그래서 서약 시스템을 만들었습니다. 핵심 규칙은 단 하나 — 시스템이 제약을 강제하지 않는다. 플레이어가 스스로 선택한다. 그리고 그 선택의 무게만큼 보상한다."</div>
+  <div class="gq-speaker">— aiden chen, co-founder, constraint studio</div>
+</div>
+
+<p class="novel">도윤은 노트북 화면 앞에서 주먹을 쥐었다. 손톱이 손바닥에 파고들었다.</p>
+
+<p class="internal">같은 질문이다. 정확히 같은 질문. "어떻게 하면 플레이어가 스스로 창의적이 되도록 만들 수 있을까?" 나도 이 질문을 했다. 바운드를 기획할 때, 3년 전, 시우와 새벽까지 토론하며 이 질문에 답하려 했다. 그리고 같은 답에 도달했다. 자발적 제약. 비가역적 선택. 포기의 무게 = 보상의 무게.</p>
+
+<p class="internal">같은 질문, 같은 답. 차이는 결과뿐이다. 그들은 200만. 나는 3,200.</p>
+
+<p class="novel">강연의 마지막 슬라이드에 이런 문장이 떴다.</p>
+
+<p class="novel" style="text-align:center;font-weight:700;font-size:1.1rem;color:var(--accent);letter-spacing:0.5px">"The game doesn't design the player. The player designs the game.<br>We just built the walls."</p>
+
+<p class="novel">게임이 플레이어를 설계하는 것이 아니다. 플레이어가 게임을 설계한다. 우리는 벽만 세웠을 뿐이다.</p>
+
+<p class="novel">도윤은 노트북을 닫았다. 그리고 한동안 아무것도 하지 못했다.</p>
+
+</section>
+
+<!-- PART II -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part II</p>
+  <p class="part-title">"3,200 대 200만"</p>
+</div>
+
+<div class="char-intro">
+  <span class="c-name">정시우</span>
+  <span class="c-info">34 · senior programmer · nextengine corp · pangyo</span>
+</div>
+
+<p class="novel novel-first">전화가 온 것은 GDC 강연 이틀 뒤였다.</p>
+
+<p class="dialogue">"도윤아. 나 시우야."</p>
+
+<p class="novel">3년 만의 목소리였다. 바운드 게임즈를 해산한 뒤로 연락이 끊겼다. 인스타에서 가끔 근황을 보는 정도. 시우는 넥스트엔진에서 시니어 프로그래머로 일하고 있었다. 연봉은 도윤의 컨설팅 수입의 세 배는 될 것이다.</p>
+
+<p class="dialogue">"GDC 봤어?"</p>
+
+<p class="dialogue">"봤어."</p>
+
+<p class="dialogue">"만나자. 할 얘기가 있어."</p>
+
+<p class="novel">판교의 카페에서 만났다. 시우는 3년 사이 좀 살이 찐 것 말고는 크게 변하지 않았다. 여전히 조용하고, 여전히 안경을 쓰고, 여전히 커피를 블랙으로 마셨다.</p>
+
+<p class="novel">시우가 먼저 말했다.</p>
+
+<p class="dialogue">"콘스트레인트 스튜디오 GDC 강연 봤을 때, 네 생각이 나더라."</p>
+
+<p class="dialogue">"나도."</p>
+
+<p class="dialogue">"서약 시스템. 바운드의 제약 트리랑 거의 같은 구조지?"</p>
+
+<p class="dialogue">"거의가 아니라 같아. 자발적 제약, 등급별 비례 보상, 비가역성, 조합 시너지. 네 가지 원칙이 똑같아."</p>
+
+<p class="novel">시우가 커피를 마셨다. 잠시 침묵이 흘렀다.</p>
+
+<p class="dialogue">"도윤아. 내가 3년 전에 한 말 기억해?"</p>
+
+<p class="novel">기억했다. 바운드 게임즈 해산을 결정한 날, 시우가 한 말.</p>
+
+<p class="dialogue">"'제약은 유저를 떠나게 만든다. 자유도가 곧 재미다.' 그 말이지?"</p>
+
+<p class="dialogue">"그래. 그때 나는 바운드가 안 팔린 이유가 시스템 때문이라고 생각했어. 유저한테 자유를 주는 대신 제약을 걸라고 하니까 사람들이 안 사는 거라고."</p>
+
+<p class="dialogue">"지금은?"</p>
+
+<p class="novel">시우가 안경을 벗고 닦았다.</p>
+
+<p class="dialogue">"반은 맞고 반은 틀렸던 것 같아."</p>
+
+<p class="dialogue">"어떤 반이 맞고 어떤 반이 틀려?"</p>
+
+<p class="dialogue">"바운드의 시스템 자체는 좋았어. 그건 이제 엘리시움이 증명하고 있으니까. 하지만 바운드가 안 팔린 건 시스템 때문이 아니었어. 우리가 2명이었고, 마케팅 예산이 0이었고, 스팀에 로그라이크가 하루에 30개씩 올라오는 시장이었으니까. 시스템이 좋아도 발견되지 않으면 존재하지 않는 거야."</p>
+
+<p class="novel">도윤은 대답하지 않았다. 시우의 말이 맞았다. 하지만 맞다는 것과 받아들인다는 것은 다른 문제였다.</p>
+
+<p class="dialogue">"콘스트레인트 스튜디오도 2명이야. 그 사람들은 발견됐고."</p>
+
+<p class="dialogue">"그 사람들에겐 VR이라는 타이밍이 있었어. 풀다이브 VR 하드웨어가 보급되는 시점에, 첫 번째 대형 VR MMORPG를 들고 나왔으니까. 우리는 2024년에 스팀 로그라이크를 들고 나갔고. 타이밍의 차이야."</p>
+
+<p class="dialogue">"타이밍이라고? 그게 다야?"</p>
+
+<p class="novel">도윤의 목소리가 날카로워졌다. 시우가 도윤을 바라보았다.</p>
+
+<p class="dialogue">"도윤아. 너 아직도 3,200장에 묶여 있는 거야?"</p>
+
+<p class="novel">도윤이 멈췄다.</p>
+
+<p class="dialogue">"너는 항상 그랬어. 숫자에 의미를 부여하는 사람이잖아. 3,200이라는 숫자가 네 게임 철학이 틀렸다는 증거라고 생각하고 있지? 3년째?"</p>
+
+<p class="novel">도윤은 커피잔을 내려놓았다.</p>
+
+<p class="dialogue">"틀렸는지 맞았는지, 그 판단을 내가 할 수 있나? 시장이 하는 거지. 시장은 3,200장이라고 했어."</p>
+
+<p class="dialogue">"그리고 다른 시장은 200만이라고 했어. 같은 철학으로."</p>
+
+<p class="novel">침묵.</p>
+
+<p class="dialogue">"도윤아. 나 너한테 사과하려고 만나자고 한 거야."</p>
+
+<p class="dialogue">"뭘 사과해."</p>
+
+<p class="dialogue">"3년 전에 내가 '제약은 유저를 떠나게 만든다'고 했을 때. 나는 네 게임 철학을 부정한 거였어. 근데 엘리시움이 나오고 서약 시스템을 보니까 — 네가 맞았어. 시스템은 맞았어. 우리가 그걸 세상에 보여주는 방법을 몰랐던 거지."</p>
+
+<p class="novel">도윤은 창밖을 보았다. 판교의 오후. 회사원들이 점심을 먹으러 오가는 거리.</p>
+
+<p class="dialogue">"시우야."</p>
+
+<p class="dialogue">"응."</p>
+
+<p class="dialogue">"나 지금 엘리시움에서 서약을 3개 걸었어. 결(結) 등급 2개, 맹(盟) 1개. 파티 봉인, 상점 봉인, 전직 봉인. 기본 전사 솔로 플레이어야."</p>
+
+<p class="novel">시우의 눈이 커졌다.</p>
+
+<p class="dialogue">"너 그거 — 바운드의 제약 트리를 그대로 적용한 거야?"</p>
+
+<p class="dialogue">"무의식적으로. 서약을 설계할 때 바운드의 기획 문서가 자동으로 떠올라. 어떤 제약이 어떤 시너지를 만드는지, 3년 전에 이미 전부 계산해놨으니까."</p>
+
+<p class="dialogue">"그래서? 잘 돌아가?"</p>
+
+<p class="dialogue">"잘 돌아가. 솔로로 4인 파티 던전을 클리어하고 있어."</p>
+
+<p class="novel">시우가 웃었다. 오랜만에 보는 시우의 웃음이었다.</p>
+
+<p class="dialogue">"그러면 바운드는 틀리지 않은 거잖아. 증명된 거잖아."</p>
+
+<p class="dialogue">"남의 게임 안에서."</p>
+
+<p class="novel">도윤의 목소리가 조용해졌다.</p>
+
+<p class="dialogue">"남의 게임 안에서 내 철학이 작동하는 걸 보는 것은, 내가 그걸 만들지 못했다는 사실을 더 선명하게 보여줄 뿐이야."</p>
+
+</section>
+
+<!-- PART III -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part III</p>
+  <p class="part-title">"만든 자의 패배"</p>
+</div>
+
+<p class="novel novel-first">시우와 헤어진 후, 도윤은 합정동 원룸에 돌아와 책상 앞에 앉았다. 엘리시움에 접속하지 않았다. 대신 구글 드라이브를 열고, 바운드 게임즈의 공유 폴더를 들여다보았다.</p>
+
+<p class="novel">파일이 847개. 기획 문서, 스프레드시트, 프로토타입 빌드, 테스트 리포트, 마케팅 시안, 트레일러 스크립트. 2년 4개월의 기록. 두 사람의 흔적이 847개의 파일에 남아 있었다.</p>
+
+<p class="novel">도윤은 'BOUND_DesignDoc_v3.7_FINAL.pdf'를 열었다. 마지막 버전의 게임 디자인 독. 표지에 적힌 문장.</p>
+
+<p class="novel" style="text-align:center;font-weight:600;font-size:1rem;color:var(--secondary);line-height:1.8">"Bound: A Game Where Constraints Set You Free"<br>Bound Games — Doyun Han, Siwoo Jung</p>
+
+<p class="novel">34페이지짜리 문서. 제약 트리의 모든 브랜치, 모든 시너지, 모든 밸런스 시트가 적혀 있었다. 도윤이 설계하고, 시우가 구현했다. 두 사람이 만들 수 있었던 최선이었다.</p>
+
+<p class="novel">그리고 그 최선은 3,200장이었다.</p>
+
+<p class="internal">기획자에게 가장 잔인한 것은 무엇일까. 자기 아이디어가 틀렸다는 것을 발견하는 것? 아니다. 자기 아이디어가 맞았다는 것을, 다른 사람의 성공으로 발견하는 것이다.</p>
+
+<p class="internal">콘스트레인트 스튜디오는 나와 같은 철학을 가지고, 같은 메커니즘을 설계하고, 같은 원칙을 적용했다. 차이는 실행이었다. VR이라는 매체, AI 프로시저럴 생성이라는 기술, 그리고 타이밍. 시우의 말대로, 타이밍의 차이. 하지만 그 '타이밍'이라는 말이 3년간의 노력을 한 단어로 축소하는 것 같아서 — 받아들이기 어렵다.</p>
+
+<p class="novel">도윤은 문서를 닫았다. 그리고 엘리시움의 서약 시스템에 대해 생각했다.</p>
+
+<p class="novel">자신이 지금 하고 있는 것. 엘리시움 안에서 서약을 쌓고, 서약의 탑을 향해 가는 것. 이것은 무엇인가. 게임을 즐기는 것인가? 시스템을 분석하는 것인가? 아니면 — 남이 만든 세계에서, 자기가 만들지 못한 시스템을 플레이하며, 대리 만족을 얻는 것인가?</p>
+
+<p class="internal">만든 자(creator)와 하는 자(player)는 다르다. 만든 자는 시스템을 설계하고, 하는 자는 시스템을 사용한다. 나는 만든 자였다. 바운드를 만들었다. 하지만 지금은 하는 자다. 엘리시움을 플레이하고 있다. 만든 자가 하는 자로 전락한 것. 이것이 패배가 아니면 뭔가.</p>
+
+<p class="novel">노트북을 닫고, VR 헤드셋을 바라보았다. 헤드셋의 렌즈가 천장 조명을 반사하고 있었다.</p>
+
+<p class="novel">엘리시움에 접속하면, 서약 시스템이 도윤을 기다리고 있을 것이다. 서약의 탑이 도윤을 부르고 있을 것이다. 그 안에 무엇이 있는지 알고 싶었다. 기획자의 본능이 — 이 시스템의 끝을 보고 싶다는 본능이 — 멈추지 않았다.</p>
+
+<p class="novel">하지만 거기서 찾을 수 있는 것은 무엇인가. 엘리시움의 엔딩? 숨겨진 보상? 개발자의 메시지? 그것이 도윤에게 무엇을 의미하는가.</p>
+
+<p class="novel">도윤은 노트를 꺼내 펜을 들었다. 바운드 게임즈 시절의 습관. 생각을 정리할 때는 항상 손으로 적었다.</p>
+
+<p class="novel">적은 것.</p>
+
+<p class="novel" style="text-align:center;font-weight:600;font-size:1rem;color:var(--fg);line-height:2">질문: 나는 왜 서약의 탑에 가려고 하는가?<br>대답 1: 시스템의 끝이 궁금해서. (기획자의 본능)<br>대답 2: 서약 시스템이 바운드의 철학과 같다는 걸 확인하고 싶어서. (자기 증명)<br>대답 3: 게임 안에서라도 '만든 자'의 시선으로 끝까지 가고 싶어서. (자존심)</p>
+
+<p class="novel">세 번째 대답에서 펜이 멈췄다. 도윤은 그 문장을 오래 바라보았다.</p>
+
+<p class="internal">게임 안에서라도. 이 '라도'가 문제다. 게임 안에서 '라도'라는 말은, 현실에서는 포기했다는 뜻이다. 현실에서 만든 자로 서는 것을 포기하고, 게임 안에서 하는 자로 대리 만족하겠다는 뜻이다.</p>
+
+<p class="internal">그게 나쁜 건가? 모르겠다. 하지만 정직하지는 않다.</p>
+
+</section>
+
+<!-- PART IV -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part IV</p>
+  <p class="part-title">"다섯 번째 서약"</p>
+</div>
+
+<p class="novel novel-first">일주일이 지났다. 도윤은 엘리시움에 접속하지 않았다.</p>
+
+<p class="novel">컨설팅 일정을 소화하고, 밤에는 바운드의 디자인 독을 다시 읽었다. 3년 전의 자기 자신과 대화하는 것 같았다. 자신감에 차 있던 27-31세의 도윤. 그때의 도윤은 바운드가 성공할 것이라고 믿었다. 시스템이 좋으면 팔린다고 믿었다.</p>
+
+<p class="novel">7일째 되던 밤, 게임 전문 매체 '겜톡'의 기자에게서 메시지가 왔다.</p>
+
+<p class="dialogue">"한도윤 선생님. 겜톡 장예은 기자입니다. 엘리시움 온라인의 서약 시스템에 대한 기사를 준비하고 있습니다. 서약 보유자 중 가장 이른 시기에 결(結) 등급에 도달한 유저로 알려진 BOUND에 대해 인터뷰를 요청드립니다."</p>
+
+<p class="novel">도윤은 처음에 거절하려 했다. 하지만 메시지의 마지막 문장이 눈에 들어왔다.</p>
+
+<p class="dialogue">"서약 시스템이 단순한 게임 메커니즘을 넘어서 무언가를 말하고 있다는 느낌이 듭니다. 그 '무언가'가 무엇인지 이야기를 듣고 싶습니다."</p>
+
+<p class="novel">도윤은 수락했다.</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel novel-first">화상 인터뷰. 장예은 기자는 20대 후반으로 보이는 여성이었다. 게임 전문 기자답게 엘리시움의 시스템에 대한 이해도가 높았다.</p>
+
+<p class="dialogue">"바운드 님의 서약 빌드가 다른 서약 유저들과 다른 점이 있다면 무엇일까요?"</p>
+
+<p class="dialogue">"대부분의 유저는 서약을 '추가 능력치'로 봅니다. 제약은 불편함이고, 보상이 목적이라고 생각하죠. 하지만 저는 반대로 접근합니다. 제약이 목적이고, 보상은 부산물입니다."</p>
+
+<p class="dialogue">"제약이 목적이라니, 무슨 뜻이죠?"</p>
+
+<p class="dialogue">"서약을 걸면 할 수 있는 것이 줄어듭니다. 그 줄어든 상태에서 남은 것들로 문제를 풀어야 합니다. 그 과정에서 이전에는 생각하지 못했던 전략이 나옵니다. 파티를 포기하니까 솔로 전략이 생겼고, 상점을 포기하니까 제작과 채집이 핵심이 됐고, 전직을 포기하니까 기본 스킬의 잠재력을 발견했습니다. 제약이 새로운 길을 열어주는 겁니다."</p>
+
+<p class="dialogue">"마치 게임을 디자인하는 것처럼 들립니다."</p>
+
+<p class="novel">도윤이 멈칫했다.</p>
+
+<p class="dialogue">"...네. 그렇습니다."</p>
+
+<p class="dialogue">"혹시 게임 관련 업종에 종사하시나요?"</p>
+
+<p class="novel">잠시 침묵.</p>
+
+<p class="dialogue">"전에 인디 게임을 만든 적이 있습니다. 바운드라는 이름의 게임을요. 서약 시스템과 비슷한 메커니즘을 구현했었습니다. 결과는 — 좋지 않았습니다."</p>
+
+<p class="dialogue">"바운드... 혹시 스팀에서 '가장 혁신적인 메커니즘' 후보에 올랐던 그 게임인가요?"</p>
+
+<p class="dialogue">"네."</p>
+
+<p class="dialogue">"저 그 게임 플레이해봤습니다. 제약 트리 시스템이 인상적이었어요. 그런데 — 엘리시움의 서약 시스템이랑 구조가 거의 같네요?"</p>
+
+<p class="dialogue">"같습니다. 같은 질문에서 출발한 시스템이니까요."</p>
+
+<p class="novel">장예은이 잠시 메모를 했다.</p>
+
+<p class="dialogue">"마지막 질문입니다. 서약 시스템이 '단순한 게임 메커니즘을 넘어서' 말하고 있는 것은 무엇이라고 생각하시나요?"</p>
+
+<p class="novel">도윤은 생각했다. 그리고 대답했다.</p>
+
+<p class="dialogue">"무엇을 포기할 수 있는가. 이 질문에 답하는 것이 곧 자기 자신을 정의하는 것이라고 생각합니다. 게임에서든 현실에서든."</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel novel-first">인터뷰가 끝난 뒤, 도윤은 VR 헤드셋을 썼다. 일주일 만의 엘리시움.</p>
+
+<p class="novel">접속하자마자 친구 목록을 확인했다. 리미터가 온라인이었다. 도윤은 리미터에게 메시지를 보냈다.</p>
+
+<p class="dialogue">"서약의 탑에 갈 준비를 합니다."</p>
+
+<p class="novel">리미터의 답장은 짧았다.</p>
+
+<p class="dialogue">"거기서 봐."</p>
+
+<p class="novel">도윤은 서약의 탑 입장 조건을 다시 확인했다. 결(結) 등급 이상 서약 3개. 조건은 이미 충족되어 있었다. 하지만 탑에 들어가기 전에 한 가지를 더 하고 싶었다.</p>
+
+<p class="novel">네 번째 서약.</p>
+
+<p class="novel">이번에는 오래 고민하지 않았다. 인터뷰에서 자기가 한 말이 머릿속에 남아 있었다. "무엇을 포기할 수 있는가. 이 질문에 답하는 것이 곧 자기 자신을 정의하는 것이다."</p>
+
+<p class="dialogue">"나는 이 캐릭터의 레벨을 올리지 않겠다. 현재 레벨 58에서 더 이상 경험치를 획득하지 않겠다."</p>
+
+<div class="vow-declaration">
+  <div class="vow-header">binding oath — confirmed</div>
+  <div class="vow-text">"레벨을 올리지 않겠다"</div>
+  <div class="vow-grade">GRADE: <strong>속(束)</strong> — SHACKLING OATH<br>EFFECT: LEVEL LOCK — STAT CONVERSION</div>
+</div>
+
+<p class="novel">속(束) 등급. 네 번째 등급. '생존을 위협하는 구속.' 레벨을 올리지 않겠다는 서약. MMORPG에서 레벨은 성장의 핵심이다. 그것을 포기한다는 것은 — 성장의 가장 기본적인 축을 버린다는 뜻이다.</p>
+
+<p class="novel">대가로 받은 것: 획득했어야 할 경험치가 전부 스탯 보정치로 전환되는 패시브. 레벨은 58에서 멈추지만, 전투할 때마다 능력치가 미세하게 상승한다. 레벨이 아닌 경험으로 강해지는 캐릭터.</p>
+
+<div class="freedom-gauge">
+  <div class="fg-label">자유도</div>
+  <div class="fg-bar"><div class="fg-fill" style="width:41%"></div></div>
+  <div class="fg-value">41%</div>
+</div>
+
+<p class="novel">자유도 41%. 절반 이하. 파티 불가. 상점 불가. 전직 불가. 레벨업 불가. 이 게임에서 할 수 있는 것의 60% 가까이를 포기한 상태.</p>
+
+<p class="novel">도윤은 월드맵을 열고 서약의 탑을 바라보았다. 대륙 중앙의 봉인 지역. 아직 가본 적 없는 곳.</p>
+
+<p class="internal">이 게임의 끝이 거기 있다. 서약 시스템의 설계자가 최종적으로 전하고 싶었던 메시지가 거기 있다. 게임 기획자로서, 그리고 바운드의 만든 자로서, 그 메시지를 확인해야 한다. 설령 그것이 만든 자가 아닌 하는 자로서의 경험일지라도.</p>
+
+<p class="novel">도윤은 서약의 탑을 향해 걷기 시작했다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>같은 질문, 다른 결과<br><strong>만든 자는 하는 자가 된다</strong></h2>
+  <p class="sub">3,200장의 게임과 200만의 게임. 같은 철학이 다른 결과를 만들었다. 답을 찾으려면 끝까지 가야 한다.</p>
+</div>
+
+<footer class="footer">
+  <p>Inspired by "2인 개발로 400억 버는 치트키 공개" (YouTube, 2024) &middot; GDC "Constraints and Creativity" &middot; Subset Games (FTL, Into the Breach)</p>
+  <p>Written with Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

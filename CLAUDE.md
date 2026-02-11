@@ -308,6 +308,26 @@ editorial/
 | 04 | `the-man-who-changed-meta.html` | 메타를 바꾼 남자 | 소설 — 프로리그 데뷔, 미래 빌드로 메타를 뒤흔든 예언자 |
 | 05 | `gg.html` | GG | 소설 — 개인리그 결승, 미래 지식 vs 천재의 본능, GG의 의미 |
 
+### 시리즈 20: 서약빨 (vow-system-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `first-shackle.html` | 첫 번째 족쇄 | 소설 — 실패한 인디 개발자가 VR MMORPG의 숨겨진 서약 시스템을 발견 |
+| 02 | `zero-freedom.html` | 자유가 0이 되는 순간 | 소설 — 서약 시스템 바이럴, 리미터 등장, 자유도 58%의 PvP |
+| 03 | `creators-defeat.html` | 만든 자의 패배 | 소설 — GDC 강연, 전 파트너 재회, 4번째 서약으로 자유도 41% |
+| 04 | `tower-of-vows.html` | 서약의 탑 | 소설 — 25층 서약의 탑, 리미터의 파기, 마지막 층의 영구 퇴장 요구 |
+| 05 | `full-dive-out.html` | 풀다이브 아웃 | 소설 — 자유도 0%, 개발자의 숨겨진 메시지, 현실에서의 새 출발 |
+
+### 시리즈 21: 컨텍스트는 우유다 (claude-code-guide-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `the-first-thirty-minutes.html` | 처음 30분 | 입문 — 설치 직후 반드시 해야 할 다섯 가지 세팅 |
+| 02 | `context-is-milk.html` | 컨텍스트는 우유다 | 핵심 — 컨텍스트 관리, 수동 압축, 분할 정복, CLAUDE.md 설계 |
+| 03 | `autonomous-mode.html` | 자율 주행 모드 | 실전 — TDD 검증 루프, Git 워크트리, 자율 실행 위임 전략 |
+| 04 | `beyond-the-terminal.html` | 터미널 밖으로 | 확장 — 컨테이너, 리서치, DevOps, 서브에이전트, 단순화 |
+| 05 | `build-your-own-tools.html` | 나만의 도구를 만든다 | 철학 — 개인화, 메타 자동화, 유니버설 인터페이스, 워크플로우 투자 |
+
 ## 콘텐츠 제작 워크플로우
 
 0. **기획**: `plans/[시리즈-슬러그]/series-plan.md`에 자료조사 + 시리즈 구성 기획서 작성 (series-plan 스킬 참조)

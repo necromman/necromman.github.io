@@ -1,0 +1,579 @@
+---
+layout: layouts/article.njk
+pageTitle: "서약의 탑"
+description: "전 서버 12명만이 자격을 가진 서약의 탑. 각 층마다 더 가혹한 서약을 요구하고, 거부하면 탈락한다. 리미터는 20층에서 서약을 파기한다. 그리고 최종층이 요구하는 마지막 서약 — '이 게임을 다시는 하지 않겠다.'"
+datePublished: "2026-02-12"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  .char-intro { display: grid; grid-template-columns: auto 1fr; gap: 0 20px; align-items: baseline; margin: 40px 0 32px; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
+  .char-intro .c-name { font-size: 1.4rem; font-weight: 700; color: var(--fg); }
+  .char-intro .c-info { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
+
+  .part-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .part-title { font-size: 1.6rem; font-weight: 700; color: var(--fg); margin-bottom: 40px; letter-spacing: -0.5px; }
+  .section-divider { margin-top: 64px; margin-bottom: 48px; padding-top: 32px; border-top: 1px solid var(--rule); }
+
+  .sys-msg { font-family: var(--mono); font-size: 0.82rem; line-height: 1.7; background: #1a1a18; color: #c8c4b8; padding: 24px 28px; margin: 32px 0; border: 1px solid var(--fg); }
+  [data-theme="dark"] .sys-msg { background: #0a0a08; border-color: var(--rule); }
+  .sys-msg .s-label { color: #7cafc2; font-weight: 700; }
+  .sys-msg .s-value { color: #c9b97a; }
+  .sys-msg .s-alert { color: #c43e2a; font-weight: 700; }
+  .sys-msg .s-success { color: #6db36d; font-weight: 700; }
+  .sys-msg .s-divider { color: #4a4a48; display: block; overflow: hidden; }
+
+  .vow-declaration { border: 1px solid var(--fg); border-top: 3px solid var(--accent); padding: 32px 36px; margin: 40px 0; text-align: center; }
+  .vow-declaration .vow-header { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .vow-declaration .vow-text { font-size: 1.3rem; font-weight: 700; color: var(--fg); line-height: 1.5; margin-bottom: 16px; }
+  .vow-declaration .vow-grade { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 3px; color: var(--muted); }
+  .vow-declaration .vow-grade strong { color: var(--accent); font-weight: 700; }
+
+  .freedom-gauge { display: block; width: fit-content; margin: 40px auto; padding: 24px 48px; text-align: center; background: #1a1a18; border: 1px solid rgba(200, 196, 184, 0.15); border-top: 3px solid var(--accent); }
+  [data-theme="dark"] .freedom-gauge { background: #0a0a08; }
+  .freedom-gauge .fg-label { font-size: 0.8rem; letter-spacing: 2px; color: var(--muted); margin-bottom: 8px; }
+  .freedom-gauge .fg-bar { width: 200px; height: 4px; background: #3a3a38; margin: 12px auto 8px; }
+  .freedom-gauge .fg-fill { height: 100%; background: var(--accent); }
+  .freedom-gauge .fg-value { font-family: var(--mono); font-size: 2rem; font-weight: 700; color: var(--accent); letter-spacing: -1px; line-height: 1; }
+
+  .strat-box { border: 1px solid var(--rule); padding: 24px 28px; margin: 32px 0; }
+  .strat-box .sb-title { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .strat-box .sb-content { font-size: 0.92rem; color: var(--prose); line-height: 1.8; }
+  .strat-box .sb-content strong { color: var(--fg); }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .char-intro { grid-template-columns: 1fr; }
+    .freedom-gauge { padding: 20px 32px; }
+    .freedom-gauge .fg-bar { width: 160px; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">vow system — fiction 04</p>
+  <h1>서약의 <strong>탑</strong></h1>
+  <p class="deck">전 서버 12명만이 자격을 가진 장소.<br>각 층마다 더 가혹한 서약을 요구하고,<br>거부하면 탈락한다.</p>
+</header>
+
+<main>
+
+<!-- PART I -->
+
+<section>
+<div class="section-divider" style="border-top:none;margin-top:0;padding-top:0">
+  <p class="part-label">Part I</p>
+  <p class="part-title">"자격"</p>
+</div>
+
+<p class="novel novel-first">대륙 중앙. 봉인 지역.</p>
+
+<p class="novel">월드맵에서 봤을 때는 단순한 마커에 불과했다. 하지만 실제로 도착하니 그것은 마커가 아니었다. 하늘이 잘려 있었다. 봉인 지역의 경계에 도달한 순간, 엘리시움의 항상 밝던 하늘이 잿빛으로 변했고, 바람이 멈췄다. 필드 BGM이 사라졌다. 아무 소리도 나지 않는, 완전한 정적.</p>
+
+<p class="novel">그 정적 한가운데에 탑이 서 있었다.</p>
+
+<p class="novel">높이를 가늠할 수 없었다. VR의 시야 한계까지 올려다봐도 꼭대기가 보이지 않았다. 탑의 표면은 돌이 아니라 글자로 이루어져 있었다. 수만 개의 문장이 벽면을 뒤덮고 있었다. 도윤이 가까이 다가가자 글자의 일부가 읽혔다. 모두 서약이었다. '나는 빛을 포기한다.' '나는 이름을 버린다.' '나는 기억하지 않겠다.' 이 탑의 벽면 전체가 서약으로 쌓여 있었다.</p>
+
+<p class="novel">탑 입구에 반투명한 패널이 떠올랐다.</p>
+
+<div class="sys-msg">
+<span class="s-divider">════════════════════════════</span><br>
+<span class="s-alert">[ TOWER OF OATHS ]</span><br>
+<span class="s-divider">════════════════════════════</span><br><br>
+<span class="s-label">입장 자격 확인</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-label">Character:</span> <span class="s-value">BOUND · Lv.58 Warrior (Basic)</span><br>
+<span class="s-label">Active Oaths:</span> <span class="s-value">4 / 7</span><br>
+<span class="s-label">Oath Grades:</span> <span class="s-value">결(結) x2 · 맹(盟) x1 · 속(束) x1</span><br>
+<span class="s-label">Freedom Index:</span> <span class="s-value">41%</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-success">자격 충족. 입장을 허가합니다.</span><br><br>
+<span class="s-label">TOWER RULES</span><br>
+<span class="s-value">1. 탑은 25층으로 구성됩니다.</span><br>
+<span class="s-value">2. 각 층의 관문에서 서약이 제시됩니다.</span><br>
+<span class="s-value">3. 서약을 수락하면 다음 층으로 올라갑니다.</span><br>
+<span class="s-value">4. 서약을 거부하면 탑에서 추방됩니다.</span><br>
+<span class="s-value">5. 탑 내부에서 기존 서약을 위반하면 즉시 추방됩니다.</span><br>
+<span class="s-alert">6. 꼭대기에 무엇이 있는지는 알려드리지 않습니다.</span><br>
+<span class="s-divider">════════════════════════════</span><br>
+<span class="s-success">[입장]</span> &nbsp;&nbsp; <span class="s-value">[포기]</span>
+</div>
+
+<p class="novel">도윤은 규칙을 두 번 읽었다. 기획자의 눈이 자동으로 해석했다.</p>
+
+<p class="internal">각 층에서 서약이 '제시'된다. 지금까지의 서약은 플레이어가 자발적으로 선언하는 것이었다. 하지만 탑에서는 시스템이 서약을 제시한다. 자발적 선택이 아니라 수락/거부의 이분법. 구조가 다르다. 밖에서의 서약이 자유 작문이었다면, 탑 안의 서약은 객관식이다. 그리고 오답(거부)을 고르면 게임 오버.</p>
+
+<p class="internal">꼭대기에 무엇이 있는지 알려주지 않는다. 보상을 모르는 채로 제약만 쌓아야 한다. 이것은 순수한 신뢰의 테스트다. 시스템을 믿고 끝까지 갈 수 있는가.</p>
+
+<p class="novel">도윤은 [입장]을 눌렀다.</p>
+
+<p class="novel">탑의 문이 열렸다. 안은 어두웠다. 도윤이 한 발짝 들어서자 뒤에서 문이 닫혔고, 발밑에 빛의 선이 생겨 1층의 관문까지 안내했다. 빛을 따라 걸었다. 관문은 작은 방이었다. 방 중앙에 제단이 있고, 제단 위에 반투명한 패널이 떠 있었다.</p>
+
+<div class="sys-msg">
+<span class="s-label">FLOOR 01 / 25</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-value">이 층의 서약:</span><br>
+<span class="s-alert">"탑 내부에서 아이템을 사용하지 않겠다"</span><br><br>
+<span class="s-label">영향:</span> <span class="s-value">소비 아이템(물약, 스크롤, 음식) 사용 불가</span><br>
+<span class="s-label">판정 등급:</span> <span class="s-value">맹(盟)</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-success">[수락]</span> &nbsp;&nbsp; <span class="s-value">[거부 — 탑에서 추방]</span>
+</div>
+
+<p class="novel">1층의 서약. 아이템 사용 금지. 맹(盟) 등급. 물약 없이 탑의 몬스터를 상대해야 한다. 까다롭지만, 도윤의 기존 빌드 — 서약 보너스로 강화된 기본 스킬 — 라면 물약 없이도 일반 몬스터를 처리할 수 있다.</p>
+
+<p class="novel">도윤은 수락했다.</p>
+
+<div class="vow-declaration">
+  <div class="vow-header">tower oath 01 — accepted</div>
+  <div class="vow-text">"탑 내부에서 아이템을 사용하지 않겠다"</div>
+  <div class="vow-grade">GRADE: <strong>맹(盟)</strong> — PLEDGE OATH</div>
+</div>
+
+<p class="novel">계단이 나타났다. 위로 올라갔다.</p>
+
+<p class="novel">2층. "탑 내부에서 스킬 단축키를 사용하지 않겠다." 스킬 자체를 사용하지 못하는 것은 아니었다. 단축키를 쓰지 않고 음성 명령으로만 스킬을 발동해야 한다는 뜻이었다. 전투 속도가 현저히 떨어지지만, 불가능하지는 않다. 수락.</p>
+
+<p class="novel">3층. "탑 내부에서 미니맵을 보지 않겠다." 시야 정보의 제약. 수락.</p>
+
+<p class="novel">4층. "탑 내부에서 뒤를 돌아보지 않겠다." 캐릭터의 시점 회전이 180도로 제한된다. 등 뒤에서 공격해오는 적을 볼 수 없다. 수락.</p>
+
+<p class="novel">각 층의 서약을 수락할 때마다, 탑 내부의 빛이 조금씩 어두워졌다. 4층까지 올라오자 주변은 거의 암흑에 가까웠다. 미니맵도 없고, 뒤도 볼 수 없고, 아이템도 쓸 수 없는 어둠 속을 걸어야 했다.</p>
+
+<p class="novel">4층의 전투 구간에서 골렘형 몬스터 3마리를 상대했다. 뒤에서 오는 공격을 막을 수 없어서 HP가 40%까지 떨어졌다. 물약이 없으므로 회복할 수단이 없다. 남은 HP로 버텨야 한다.</p>
+
+<p class="novel">그리고 5층 관문에 도착했을 때, 도윤은 자기 혼자가 아니라는 것을 알았다.</p>
+
+<p class="novel">관문 방에 다른 캐릭터가 서 있었다.</p>
+
+<p class="novel" style="text-align:center;font-weight:700;font-size:1.2rem;letter-spacing:2px">LIMITER</p>
+
+<p class="dialogue">"4층까지 HP 한 번도 안 빠지고 왔어."</p>
+
+<p class="novel">리미터가 말했다. 변조된 음성. HP 바가 100%였다. 도윤의 40%와 대조적이었다. HP 회복을 포기한 리미터가 오히려 HP를 온전히 유지하고 있었다. 맞지 않았다는 뜻이다. 4층의 골렘 3마리를, 뒤를 돌아볼 수도 없는 상태에서, 한 대도 맞지 않고 처리했다.</p>
+
+<p class="internal">직감형 플레이어의 진가가 여기서 나온다. 나는 시스템을 분석하고 최적해를 찾는다. 하지만 리미터는 분석 없이 반응한다. 보이지 않는 적을 소리로 감지하고, 체감으로 회피하는 것. 제약이 가혹해질수록 본능에 의존하는 리미터가 유리해진다.</p>
+
+<p class="dialogue">"이 탑에 다른 사람도 있어?"</p>
+
+<p class="dialogue">"입장 자격자가 전 서버 통틀어 12명이래. 지금 탑 안에 몇 명이 있는지는 모르지만."</p>
+
+<div class="sys-msg">
+<span class="s-label">TOWER STATUS</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-label">Qualified Entrants (All Servers):</span> <span class="s-value">12</span><br>
+<span class="s-label">Currently Inside:</span> <span class="s-value">7</span><br>
+<span class="s-label">Expelled This Session:</span> <span class="s-alert">2</span><br>
+<span class="s-divider">────────────────────────────</span>
+</div>
+
+<p class="novel">전 서버 자격자 12명 중 7명이 탑 안에 있고, 이미 2명이 추방되었다. 서약을 거부했거나 기존 서약을 위반한 것이다. 5층까지 올라오는 동안 2명이 탈락했다.</p>
+
+<p class="novel">리미터가 5층의 관문 패널을 가리켰다.</p>
+
+<div class="sys-msg">
+<span class="s-label">FLOOR 05 / 25</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-value">이 층의 서약:</span><br>
+<span class="s-alert">"방어 스킬을 사용하지 않겠다"</span><br><br>
+<span class="s-label">영향:</span> <span class="s-value">가드, 패링, 쉴드 계열 모든 방어 스킬 봉인</span><br>
+<span class="s-label">판정 등급:</span> <span class="s-value">결(結)</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-success">[수락]</span> &nbsp;&nbsp; <span class="s-value">[거부 — 탑에서 추방]</span>
+</div>
+
+<p class="dialogue">"방어 스킬 봉인. 나한테는 해당 사항 없지."</p>
+
+<p class="novel">리미터가 웃었다. HP 회복을 포기한 리미터의 전투 스타일에 방어 스킬은 애초에 필요 없었다. 맞기 전에 죽이는 것이 리미터의 방식이니까. 하지만 도윤에게는 달랐다. 방어 스킬은 솔로 플레이어의 생존 수단이었다. 파티가 없으니 탱커도 없고, 모든 공격을 혼자 막아야 했다. 방어를 포기하면 남는 것은 회피뿐이다.</p>
+
+<p class="novel">도윤은 수락했다.</p>
+
+<div class="vow-declaration">
+  <div class="vow-header">tower oath 05 — accepted</div>
+  <div class="vow-text">"방어 스킬을 사용하지 않겠다"</div>
+  <div class="vow-grade">GRADE: <strong>결(結)</strong> — BINDING OATH</div>
+</div>
+
+</section>
+
+<!-- PART II -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part II</p>
+  <p class="part-title">"10층"</p>
+</div>
+
+<p class="novel novel-first">6층부터 서약의 무게가 달라졌다.</p>
+
+<div class="sys-msg">
+<span class="s-label">FLOOR 06 / 25</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-value">이 층의 서약:</span><br>
+<span class="s-alert">"검 이외의 공격 수단을 포기한다"</span><br><br>
+<span class="s-label">영향:</span> <span class="s-value">투척, 원거리, 환경 오브젝트 사용 불가. 오직 근접 검술만 허용</span><br>
+<span class="s-label">판정 등급:</span> <span class="s-value">결(結)</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-success">[수락]</span> &nbsp;&nbsp; <span class="s-value">[거부 — 탑에서 추방]</span>
+</div>
+
+<p class="novel">검 이외의 공격 수단 포기. 도윤은 기본 전사 클래스라 어차피 검이 주력이었지만, 탑 내부의 환경 오브젝트(함정 발동, 기둥 무너뜨리기 등)를 이용한 전술이 봉쇄된다. 순수하게 검 한 자루로만 싸워야 한다.</p>
+
+<p class="novel">수락. 7층. "장비를 교체하지 않겠다." 현재 장착된 장비 고정. 수락. 8층. "탑 내부에서 달리지 않겠다." 이동 속도가 걷기로 제한된다. 수락. 9층. "HP가 표시되지 않는 것에 동의한다." 자기 HP와 적의 HP 모두 비공개. 수락.</p>
+
+<p class="novel">9층의 서약이 도윤에게 가장 가혹했다. HP를 볼 수 없다는 것은 수치 기반의 판단이 불가능하다는 뜻이다. '체력이 30% 남았으니 공격 3회 안에 끝내야 한다'는 계산을 할 수 없다. 감으로 싸워야 한다. 기획자의 무기인 수치 분석을 빼앗기는 서약.</p>
+
+<p class="internal">이 탑은 나를 읽고 있다. 아니, 서약을 설계한 사람이 나 같은 유형의 플레이어를 이해하고 있다. 분석형 플레이어에게는 정보를 빼앗고, 본능형 플레이어에게는 — 리미터에게는 아마 다른 종류의 서약이 제시될 것이다.</p>
+
+<p class="novel">10층 관문에 도달했을 때, 도윤은 숫자를 정리했다.</p>
+
+<div class="strat-box">
+  <div class="sb-title">tower progress — floor 10</div>
+  <div class="sb-content">
+    <strong>기존 서약 (탑 외부):</strong> 4개 (결x2, 맹x1, 속x1)<br>
+    <strong>탑 서약 (1-9층):</strong> 9개 (결x3, 맹x6)<br>
+    <strong>총 활성 서약:</strong> 13개<br><br>
+    <strong>봉인된 행동:</strong> 파티 / 상점 / 전직 / 레벨업 / 아이템 사용 / 스킬 단축키 / 미니맵 / 후방 시야 / 방어 스킬 / 검 외 공격 / 장비 교체 / 달리기 / HP 표시<br><br>
+    <strong>남은 행동:</strong> 전방 시야 내 근접 검 공격 / 음성 스킬 발동 / 걷기 / 회피
+  </div>
+</div>
+
+<div class="freedom-gauge">
+  <div class="fg-label">자유도</div>
+  <div class="fg-bar"><div class="fg-fill" style="width:28%"></div></div>
+  <div class="fg-value">28%</div>
+</div>
+
+<p class="novel">자유도 28%. 할 수 있는 것이 네 가지로 줄었다. 앞을 보고 걷는 것. 검을 휘두르는 것. 소리로 스킬을 부르는 것. 피하는 것. 그것이 전부였다.</p>
+
+<p class="novel">하지만 남은 행동 하나하나의 위력은 극대화되어 있었다. 13개의 서약이 만들어낸 공명 효과가 중첩되면서, 기본 스킬 '수평 베기'의 데미지가 원래의 8배에 달했다. 한 타에 일반 엘리트 몬스터의 HP 절반을 날리는 수준. 도윤의 캐릭터는 더 이상 전사가 아니었다. 자유를 대가로 만들어진, 하나의 무기에 가까웠다.</p>
+
+<p class="novel">10층 전투 구간. 거대한 원형 경기장이었다. 중앙에 보스 몬스터가 있었다 — 탑의 수호자, 석상 기사. 레벨이 표시되지 않았다. HP도 보이지 않았다. 크기는 도윤 캐릭터의 3배.</p>
+
+<p class="novel">리미터가 옆에 서 있었다. 탑은 개인 인스턴스가 아니었다. 같은 시간에 같은 층에 도달한 유저는 같은 공간을 공유했다. 하지만 파티를 맺을 수 없으니 협력은 불가능했다. 같은 공간에 있되, 각자 싸워야 했다.</p>
+
+<p class="dialogue">"같이 싸울 수 없는 거 알지?"</p>
+
+<p class="dialogue">"알고 있습니다. 파티 서약이 있으니까."</p>
+
+<p class="dialogue">"그러면 각자. 먼저 끝내는 쪽이 위에서 기다리는 거야."</p>
+
+<p class="novel">석상 기사가 깨어났다. 거대한 대검을 들어올렸다.</p>
+
+<p class="novel">리미터가 먼저 돌진했다. 단검 두 자루가 석상 기사의 다리를 연속으로 할퀴었다. 석상 기사가 반격으로 대검을 내리찍었지만 리미터는 이미 공격 범위 밖에 있었다. 한 대도 맞지 않는 전투. 맞으면 회복할 수 없으니, 맞지 않는 것이 유일한 방어였다.</p>
+
+<p class="novel">도윤은 다르게 접근했다. 석상 기사의 패턴을 관찰했다. HP가 보이지 않으니 데미지 계산은 불가능했다. 대신 석상 기사의 행동 변화를 읽었다. 공격 속도가 빨라지는 시점, 새로운 패턴이 추가되는 시점 — 그것이 페이즈 전환이고, 페이즈 전환은 곧 남은 체력의 간접 지표다.</p>
+
+<p class="novel">음성으로 스킬을 발동했다. "수평 베기." 발화에서 스킬 발동까지 약 0.8초의 딜레이. 단축키였다면 0.1초였을 것이다. 이 0.7초의 차이가 전투의 리듬을 완전히 바꿨다. 말하는 동안 무방비. 타이밍을 정확히 맞춰야 했다.</p>
+
+<p class="novel">12분간의 전투 끝에 석상 기사가 무너졌다. 리미터가 7분, 도윤이 12분. 리미터가 5분 먼저 끝냈다.</p>
+
+<p class="dialogue">"느려."</p>
+
+<p class="novel">리미터가 말했다. 조롱이 아니라 관찰이었다.</p>
+
+<p class="dialogue">"음성 발동 딜레이 때문입니다. 단축키 봉인이 제 빌드에는 더 크게 영향을 미칩니다."</p>
+
+<p class="dialogue">"나는 스킬 자체를 거의 안 써. 기본 공격만으로 충분하니까. 서약 보정이 기본 공격에도 적용되거든."</p>
+
+<p class="internal">그렇다. 리미터의 빌드는 스킬 의존도가 낮다. 기본 공격에 서약 보정이 실리면, 스킬 단축키 봉인은 리미터에게 거의 영향이 없다. 반면 나는 스킬 콤보에 의존하는 전투 스타일이라 단축키 봉인이 직격이다. 탑의 서약은 모든 유저에게 같은 내용이지만, 유저의 빌드에 따라 체감 난이도가 완전히 다르다. 탑은 유저의 강점을 정확히 찌른다.</p>
+
+</section>
+
+<!-- PART III -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part III</p>
+  <p class="part-title">"리미터의 파기"</p>
+</div>
+
+<p class="novel novel-first">15층. 서약의 무게가 한계에 근접했다.</p>
+
+<p class="novel">11층부터 15층까지의 서약은 더욱 가혹했다. "소리를 내지 않겠다" — 음성 스킬 발동이 불가능해졌다. 남은 공격 수단은 기본 공격과 자동 발동 패시브뿐. "점프하지 않겠다." "왼손을 사용하지 않겠다" — 양손검을 한 손으로 휘둘러야 했다. "적에게 등을 보이지 않겠다" — 후퇴가 불가능했다. 앞으로만 갈 수 있었다.</p>
+
+<div class="freedom-gauge">
+  <div class="fg-label">자유도</div>
+  <div class="fg-bar"><div class="fg-fill" style="width:15%"></div></div>
+  <div class="fg-value">15%</div>
+</div>
+
+<p class="novel">자유도 15%. 할 수 있는 것: 전방으로 걷기. 오른손으로 검을 휘두르기. 좌우로 비켜서기. 그것이 전부. 소리를 낼 수 없고, 뛸 수 없고, 뒤로 물러날 수 없고, 왼손을 쓸 수 없고, 아무것도 볼 수 없는 상태에서, 한 자루 검을 한 손에 쥐고 앞으로만 걸어야 했다.</p>
+
+<p class="novel">탑 안에 남은 유저는 5명이었다. 10층에서 2명이 추가 탈락했다. 리미터와 도윤, 그리고 이름만 아는 3명의 유저가 어딘가에서 각자 탑을 오르고 있었다.</p>
+
+<p class="novel">15층 보스 — 거울 기사. 플레이어의 움직임을 정확히 모방하는 보스. 도윤이 검을 휘두르면 거울 기사도 같은 타이밍에 같은 궤적으로 검을 휘둘렀다. 공격과 방어가 완벽히 상쇄되는 구조.</p>
+
+<p class="novel">정상적이라면 풀 수 없는 퍼즐이었다. 하지만 도윤에게는 방법이 있었다. 거울 기사는 도윤의 행동을 '모방'한다. 도윤의 행동은 서약에 의해 극도로 제한되어 있다. 서약이 봉인한 행동 — 달리기, 점프, 후퇴, 왼손 사용 — 은 거울 기사도 사용하지 않는다. 거울이 원본보다 많은 것을 할 수는 없으니까. 즉, 서약이 거울 기사의 행동도 함께 제한하는 것이다.</p>
+
+<p class="internal">제약이 적에게도 적용된다. 나를 묶는 족쇄가 적도 묶는다. 서약이 많을수록 거울 기사의 행동 범위도 좁아진다. 15%의 자유도라면, 거울 기사도 15%의 자유도로만 싸운다. 탑의 설계자는 이것을 의도한 것이다. 서약을 많이 가진 유저가 이 보스에서 오히려 유리하다.</p>
+
+<p class="novel">도윤은 최소한의 동작으로 싸웠다. 앞으로 한 발, 오른손 베기 한 번, 옆으로 비켜서기. 세 동작의 반복. 거울 기사도 세 동작만 할 수 있었다. 둘의 전투는 극도로 단순했고, 단순해진 만큼 도윤의 서약 보정 데미지가 압도적으로 높았다. 거울은 원본의 보정치를 복사하지 못했다.</p>
+
+<p class="novel">5분 만에 거울 기사가 산산조각 났다.</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel novel-first">20층.</p>
+
+<p class="novel">16층부터 19층까지의 서약은 도윤의 마지막 자유를 하나씩 깎아나갔다. "전투 중 멈추지 않겠다" — 한 번 움직이면 멈출 수 없다. "같은 공격을 연속으로 하지 않겠다" — 같은 모션을 반복할 수 없다. "피격 시 소리를 내지 않겠다" — 이미 소리를 못 내는데 이 서약의 의미는, 피격 모션 자체가 짧아진다는 것이었다. 고통의 표현조차 포기하는 대신, 경직 시간이 0이 된다.</p>
+
+<p class="novel">20층 관문에 도착했을 때, 탑에 남은 유저는 3명이었다. 도윤, 리미터, 그리고 한 명.</p>
+
+<p class="novel">리미터가 20층 관문에서 기다리고 있었다. 하지만 무언가 달랐다. 리미터의 캐릭터가 미세하게 떨리고 있었다. HP 바는 보이지 않지만 — 리미터의 호흡이 거칠었다. 변조된 음성으로도 느낄 수 있는 긴장.</p>
+
+<p class="dialogue">"17층에서 한 대 맞았어."</p>
+
+<p class="novel">리미터가 말했다. 담담한 음성이었지만, 그 한마디의 무게를 도윤은 알고 있었다. HP 회복이 불가능한 리미터에게, 피격 1회는 영구적인 손실이었다. 20층까지 남은 HP가 얼마인지 리미터 자신도 모른다. HP 표시가 봉인되어 있으니까.</p>
+
+<p class="novel">20층의 서약 패널이 떠올랐다.</p>
+
+<div class="sys-msg">
+<span class="s-label">FLOOR 20 / 25</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-value">이 층의 서약:</span><br>
+<span class="s-alert">"공격 시 HP를 소모한다"</span><br><br>
+<span class="s-label">영향:</span> <span class="s-value">모든 공격에 최대 HP의 2%를 소모. 공격할수록 죽음에 가까워짐</span><br>
+<span class="s-label">판정 등급:</span> <span class="s-alert">속(束)</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-success">[수락]</span> &nbsp;&nbsp; <span class="s-value">[거부 — 탑에서 추방]</span>
+</div>
+
+<p class="novel">속(束) 등급. 공격할 때마다 HP 2% 소모. 도윤에게는 가혹하지만 감당할 수 있는 수준이었다. 50번 공격하면 HP가 0이 되지만, 서약 보정으로 강화된 한 타의 위력이면 대부분의 적을 10타 내에 처리할 수 있다.</p>
+
+<p class="novel">하지만 리미터에게 이 서약은 사형선고였다.</p>
+
+<p class="novel">HP 회복 수단이 없는 리미터. 17층에서 한 대 맞아 HP가 깎인 리미터. 거기에 공격할 때마다 HP가 줄어드는 서약까지 겹치면 — 적을 죽이기 전에 자기가 먼저 죽는다.</p>
+
+<p class="novel">리미터가 패널을 오래 바라보았다.</p>
+
+<p class="dialogue">"이건 못 받아."</p>
+
+<p class="novel">도윤이 리미터를 보았다. 리미터의 음성은 변함없이 중립적이었지만, 캐릭터의 손이 떨리고 있었다. VR에서 손 떨림은 현실의 손 떨림이 그대로 반영된다.</p>
+
+<p class="dialogue">"거부하면 추방입니다."</p>
+
+<p class="dialogue">"알아."</p>
+
+<p class="novel">침묵.</p>
+
+<p class="dialogue">"그런데 수락해도 죽어. 공격할 때마다 HP가 줄면, 내 남은 HP로는 보스를 못 잡아. 수락하든 거부하든 여기까지야."</p>
+
+<p class="novel">리미터가 돌아서서 도윤을 마주 보았다.</p>
+
+<p class="dialogue">"아니면 — 한 가지 방법이 있어."</p>
+
+<p class="novel">리미터의 눈이 빛났다. 변조된 음성이었지만, 그 안에 실린 결기를 도윤은 느낄 수 있었다.</p>
+
+<p class="dialogue">"서약을 부순다."</p>
+
+<p class="internal">서약 파기. 위반. 서약은 해제할 수 없고, 오직 위반만이 서약을 끝낸다. 위반의 대가는 서약의 무게만큼이다. 속(束) 등급 서약 위반의 대가는 — 캐릭터 반파 수준일 것이다.</p>
+
+<p class="dialogue">"리미터 씨. 속(束) 등급 서약을 위반하면 대가가 —"</p>
+
+<p class="dialogue">"알아. 하지만 족쇄를 부수는 것도 선택이야."</p>
+
+<p class="novel">리미터가 20층의 서약을 수락했다.</p>
+
+<p class="novel">그리고 바로 다음 순간, 20층의 보스가 나타났다. 거대한 사슬 골렘. 온몸이 사슬로 이루어진 3미터 높이의 인형. 보스의 양손에서 사슬이 쏟아져 나와 경기장 전체를 뒤덮었다.</p>
+
+<p class="novel">리미터가 움직였다. 단검을 들고 돌진했다. 첫 번째 타격. 사슬 골렘의 흉부에 단검이 박혔다. 동시에 리미터의 캐릭터에서 붉은 기운이 피어올랐다 — HP 소모. 두 번째 타격. 세 번째 타격. 공격할 때마다 리미터의 몸에서 붉은 빛이 번졌다.</p>
+
+<p class="novel">리미터는 멈추지 않았다. 4연타, 5연타, 6연타. 사슬 골렘이 반격으로 사슬을 휘둘렀지만 리미터는 한 타도 허용하지 않았다. 피하면서 공격했다. 공격할 때마다 자기 HP가 줄어들었지만, 그 속도보다 빠르게 적의 HP를 깎았다.</p>
+
+<p class="novel">그리고 20타째.</p>
+
+<p class="novel">리미터가 단검을 내리고, 입을 열었다.</p>
+
+<p class="dialogue">"나는 HP 회복 수단을 사용한다."</p>
+
+<p class="novel">선언과 동시에 — 리미터의 인벤토리에서 HP 물약이 꺼내졌다.</p>
+
+<div class="sys-msg">
+<span class="s-divider">════════════════════════════</span><br>
+<span class="s-alert">[ OATH VIOLATED ]</span><br>
+<span class="s-divider">════════════════════════════</span><br><br>
+<span class="s-label">위반 서약:</span> <span class="s-alert">"HP 회복 수단을 사용하지 않겠다"</span><br>
+<span class="s-label">등급:</span> <span class="s-alert">속(束) — SHACKLING OATH</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-alert">위반 대가 적용 중...</span><br>
+<span class="s-alert">전 능력치 50% 감소</span><br>
+<span class="s-alert">전 서약 보정 효과 60초간 무효</span><br>
+<span class="s-alert">서약 공명 해제</span><br>
+<span class="s-divider">════════════════════════════</span>
+</div>
+
+<p class="novel">리미터의 캐릭터가 무릎을 꿇었다. 능력치의 절반이 날아갔다. 서약 보정이 60초간 사라졌다. 공명 효과가 해제되었다. 화면 전체가 붉은 경고 메시지로 뒤덮였다.</p>
+
+<p class="novel">하지만 리미터의 HP가 회복되었다. 물약 하나로 채워진 HP. 그리고 — 서약 보정이 사라진 60초 사이에, 리미터의 기본 스탯이 드러났다. 서약 없는, 날것의 능력치.</p>
+
+<p class="novel">리미터가 일어섰다.</p>
+
+<p class="dialogue">"60초."</p>
+
+<p class="novel">리미터가 중얼거렸다. 그리고 단검을 집어 들었다.</p>
+
+<p class="novel">서약 보정이 없는 60초. 능력치가 반토막 난 상태. 하지만 리미터의 움직임은 오히려 빨라졌다. 서약의 족쇄가 풀린 몸이었다. 그동안 봉인되어 있던 행동들 — 달리기, 점프, 양손 사용, 후퇴 — 이 모두 돌아왔다. 60초 동안 리미터는 서약 없는 자유로운 몸이었다.</p>
+
+<p class="novel">리미터가 폭발했다. 달리면서 뛰면서 구르면서 양손의 단검을 휘둘렀다. 사슬 골렘의 약점을 정확하게 찔렀다. 서약 보정은 없었지만, 해방된 자유도가 만들어내는 전투의 밀도가 그것을 상쇄했다. 아니, 상쇄를 넘어섰다. 서약으로 묶여 있을 때보다 더 빠르고, 더 정확하고, 더 아름다운 전투였다.</p>
+
+<p class="novel">48초 만에 사슬 골렘이 무너졌다.</p>
+
+<p class="novel">리미터가 서약의 잔해 위에 서 있었다. 60초가 지나자 남은 서약의 보정이 돌아왔지만, 위반한 속(束) 등급 서약과 그에 연결된 공명은 영구히 소멸했다. 리미터의 전투력은 위반 전의 약 60%로 떨어졌다. 캐릭터가 반파된 것이나 다름없었다.</p>
+
+<p class="novel">하지만 리미터는 웃고 있었다.</p>
+
+<p class="dialogue">"족쇄를 채우는 것만이 서약이 아니야."</p>
+
+<p class="novel">리미터가 도윤을 돌아보았다.</p>
+
+<p class="dialogue">"족쇄를 부수는 것도 선택이고, 부수는 것도 서약이야. 네가 서약을 지키는 쪽이라면, 나는 서약을 부수는 쪽이야. 둘 다 자기 자신과의 약속이야."</p>
+
+<p class="novel">도윤은 대답하지 못했다.</p>
+
+<p class="internal">리미터의 말이 맞는가? 서약을 지키는 것과 부수는 것. 두 가지가 같은 무게를 가지는가. 나는 지금까지 서약을 '설계'하고 '유지'하는 것이 서약 시스템의 본질이라고 생각했다. 제약을 쌓고, 그 안에서 최적해를 찾는 것. 하지만 리미터는 다른 답을 내놓았다. 서약은 쌓는 것이기도 하지만, 부수는 것이기도 하다. 서약의 탑이 서약을 요구하는 이유는 그것을 지키게 만들기 위해서가 아니라 — 지킬 것인가 부술 것인가를 선택하게 만들기 위해서인지도 모른다.</p>
+
+<p class="novel">리미터가 발걸음을 돌렸다. 21층으로 올라가지 않았다. 반파된 캐릭터로는 더 이상의 진행이 불가능했다.</p>
+
+<p class="dialogue">"나는 여기까지야."</p>
+
+<p class="dialogue">"리미터 씨."</p>
+
+<p class="dialogue">"끝까지 가. 거기에 뭐가 있는지 나중에 알려줘."</p>
+
+<p class="novel">리미터가 귀환 스크롤을 사용했다. 탑 내부에서 아이템 사용이 금지되어 있으므로 — 이것도 서약 위반이었다. 리미터의 캐릭터에서 다시 한 번 붉은 경고가 번졌다. 추가 대가가 적용되었을 것이다. 하지만 리미터는 신경 쓰지 않았다. 빛이 번지면서 리미터의 모습이 사라졌다.</p>
+
+<p class="novel">도윤 혼자 20층 관문에 남았다.</p>
+
+<div class="strat-box">
+  <div class="sb-title">philosophical note — two paths</div>
+  <div class="sb-content">
+    <strong>서약을 지키는 자:</strong> 제약을 쌓고, 남은 자유도 안에서 최적해를 찾는다. 시스템의 규칙 안에서 승리한다. 설계자의 길.<br><br>
+    <strong>서약을 부수는 자:</strong> 제약을 깨고, 그 대가를 감수한다. 시스템의 규칙 밖으로 나간다. 파괴자의 길.<br><br>
+    <strong>어느 쪽이 옳은가:</strong> 탑의 설계자는 답을 정해두지 않았을 것이다. 두 길 모두 서약 시스템의 일부다. 서약은 지키기 위해서만 존재하는 것이 아니다. 부수기 위해서도 존재한다.
+  </div>
+</div>
+
+</section>
+
+<!-- PART IV -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part IV</p>
+  <p class="part-title">"마지막 층의 요구"</p>
+</div>
+
+<p class="novel novel-first">21층부터 24층까지, 도윤은 혼자 올랐다.</p>
+
+<p class="novel">21층. "이 전투에서 한 번만 공격할 수 있다." 보스의 HP를 한 타에 끝내야 했다. 서약 보정이 극한까지 쌓인 한 타의 수평 베기가 보스의 몸통을 관통했다. 한 타 격파.</p>
+
+<p class="novel">22층. "눈을 감겠다." 시야가 완전히 차단되었다. 소리와 진동만으로 적의 위치를 파악하고 싸워야 했다. 3번 죽었다. 4번째에 클리어했다.</p>
+
+<p class="novel">23층. "검을 내려놓겠다." 무기가 사라졌다. 맨손 전투. 서약 보정이 맨손에도 적용되어 주먹 한 방에 일반 몬스터가 날아갔지만, 보스의 체력은 맨손으로 깎기에는 막막했다. 47분 걸렸다.</p>
+
+<p class="novel">24층. "움직이지 않겠다." 제자리에 서서 적이 다가올 때만 반격하는 전투. 적이 공격 범위에 들어오지 않으면 아무것도 할 수 없다. 보스가 원거리 공격을 섞자 그것을 맨손으로 튕겨내며 카운터를 넣었다. 1시간 12분.</p>
+
+<p class="novel">탑에 남은 유저는 도윤 한 명이었다.</p>
+
+<div class="sys-msg">
+<span class="s-label">TOWER STATUS</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-label">Qualified Entrants:</span> <span class="s-value">12</span><br>
+<span class="s-label">Currently Inside:</span> <span class="s-value">1</span><br>
+<span class="s-label">Expelled:</span> <span class="s-alert">11</span><br>
+<span class="s-label">Remaining:</span> <span class="s-success">BOUND</span><br>
+<span class="s-divider">────────────────────────────</span>
+</div>
+
+<p class="novel">25층. 최종층.</p>
+
+<p class="novel">계단을 올라가자 넓은 방이 나왔다. 보스는 없었다. 전투 구간이 아니었다. 방 중앙에 제단이 하나 있고, 제단 위에 빛이 고여 있었다. 그 빛에 다가가자, 시야 전체를 채우는 패널이 떠올랐다.</p>
+
+<div class="sys-msg">
+<span class="s-divider">════════════════════════════</span><br>
+<span class="s-alert">[ FINAL FLOOR — 25 / 25 ]</span><br>
+<span class="s-divider">════════════════════════════</span><br><br>
+<span class="s-label">축하합니다, BOUND.</span><br>
+<span class="s-value">서약의 탑 최종층에 도달한 첫 번째 플레이어입니다.</span><br><br>
+<span class="s-label">마지막 서약이 남았습니다.</span><br>
+<span class="s-value">이 서약을 수락하면 탑의 보상을 받습니다.</span><br>
+<span class="s-value">거부하면 보상 없이 탑에서 추방됩니다.</span><br><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-label">마지막 서약:</span><br><br>
+<span class="s-alert" style="font-size:1rem">"이 게임을 다시는 하지 않겠다"</span><br><br>
+<span class="s-label">영향:</span> <span class="s-value">서약 수락 및 보상 수령 후, 엘리시움 온라인 계정이 영구 정지됩니다.</span><br>
+<span class="s-value">캐릭터, 서약, 모든 데이터가 보존되지만 접속할 수 없습니다.</span><br>
+<span class="s-value">재가입, 복구, 예외는 없습니다.</span><br>
+<span class="s-label">판정 등급:</span> <span class="s-alert">???</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-success">[수락]</span> &nbsp;&nbsp; <span class="s-value">[거부 — 보상 없이 추방]</span>
+</div>
+
+<p class="novel">도윤의 손이 멈췄다.</p>
+
+<p class="novel">이 게임을 다시는 하지 않겠다.</p>
+
+<p class="novel">엘리시움 온라인 계정 영구 정지. 수락하면 보상을 받지만, 이 게임에 다시는 접속할 수 없다. 서약 시스템이 만들어낸 캐릭터, 쌓아온 모든 것이 남아 있지만, 그것을 만진 자는 영원히 돌아올 수 없다.</p>
+
+<p class="novel">판정 등급: ???. 명(命)인가? 그보다 위인가? 아니면 등급 체계 밖의 서약인가?</p>
+
+<p class="novel">도윤은 제단 앞에 서서, 오랫동안 패널을 바라보았다.</p>
+
+<p class="internal">이 게임을 다시는 하지 않겠다. 서약의 끝이 이것이다. 게임 안에서 모든 자유를 포기하는 것으로는 부족했다. 최종적으로 게임 자체를 포기해야 한다. 자유도 0%가 아니다. 존재 자체를 포기하는 것이다.</p>
+
+<p class="internal">보상이 무엇인지 모른다. 탑의 보상이 무엇인지 한 번도 공개된 적 없다. 아무도 여기까지 온 적 없으니까. 보상이 대단한 것일 수도 있고, 보잘것없는 것일 수도 있다. 하지만 보상의 크기는 중요하지 않다. 중요한 것은 질문이다.</p>
+
+<p class="internal">이 게임을 포기할 수 있는가.</p>
+
+<p class="novel">도윤은 자기 캐릭터를 내려다보았다. VR 안에서, 자기 손을 바라보았다. 기본 전사. 레벨 58. 서약으로 가득 찬 캐릭터. 검 한 자루 없이 맨손으로, 움직이지도 않고, 소리도 내지 않고, 아무것도 보이지 않는 상태로 탑의 꼭대기까지 올라온 캐릭터.</p>
+
+<p class="novel">이것을 포기할 수 있는가.</p>
+
+<p class="novel">도윤은 바운드를 생각했다. 3,200장. 2년 4개월의 개발. 해산. 그리고 엘리시움에서 발견한 같은 철학. 서약 시스템 안에서 자기 철학이 살아 있다는 것을 확인했다. 리미터를 만나 서약에 대한 두 가지 길을 보았다. 시우를 만나 3년간의 질문에 답을 얻었다.</p>
+
+<p class="novel">이 모든 경험을 만들어준 게임. 이 게임을 다시는 하지 않겠다.</p>
+
+<p class="internal">수락하면 무엇이 남는가. 보상을 받겠지만, 그 보상을 사용할 게임이 없다. 게임 안의 보상이 게임 밖에서 의미가 있는가. 아니, 질문을 바꾸자. 게임 안에서 쌓은 경험은 게임 밖에서 의미가 있는가.</p>
+
+<p class="internal">거부하면 무엇이 남는가. 보상 없이 추방된다. 하지만 게임에 돌아올 수 있다. 서약은 유지되고, 캐릭터는 남아 있다. 탑의 끝을 보지 못한 채로, 다시 엘리시움의 필드를 걸을 수 있다.</p>
+
+<p class="internal">바운드도 같은 질문이었다. 바운드를 계속 만들 것인가, 포기할 것인가. 3년 전 나는 포기했다. 그 포기가 지금의 나를 만들었다. 포기하지 않았다면 — 여전히 3,200장 앞에서 멈춰 있었을 것이다.</p>
+
+<p class="internal">서약의 본질은 포기다. 무엇을 포기할 수 있는가. 이 질문의 최종 형태가 여기 있다. 가장 소중한 것을 포기할 수 있는가.</p>
+
+<p class="novel">도윤은 [수락]도 [거부]도 누르지 않았다.</p>
+
+<p class="novel">제단 앞에 서서, 선택의 무게를 재고 있었다.</p>
+
+<p class="novel">VR 헤드셋 너머의 현실에서, 합정동 원룸의 시계가 새벽 3시를 가리키고 있었다. 내일 오전에 넥스트엔진 컨설팅이 있었다. 현실은 계속되고 있었다.</p>
+
+<p class="novel">엘리시움의 최종층에서, 도윤은 아직 선택하지 못하고 있었다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>모든 것을 포기한 끝에<br><strong>마지막 질문이 남는다</strong></h2>
+  <p class="sub">서약의 탑은 모든 자유를 빼앗고, 마지막으로 게임 자체를 요구한다. 수락하면 보상과 함께 영원히 떠나야 하고, 거부하면 아무것도 얻지 못한다. 도윤은 아직 선택하지 못했다.</p>
+</div>
+
+<footer class="footer">
+  <p>Inspired by "2인 개발로 400억 버는 치트키 공개" (YouTube, 2024) &middot; GDC "Constraints and Creativity" &middot; Subset Games (FTL, Into the Breach)</p>
+  <p>Written with Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

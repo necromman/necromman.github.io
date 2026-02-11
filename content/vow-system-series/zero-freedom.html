@@ -1,0 +1,448 @@
+---
+layout: layouts/article.njk
+pageTitle: "자유가 0이 되는 순간"
+description: "바운드의 솔로 던전 클리어 영상이 커뮤니티를 뒤흔든다. 서약 시스템이 공개되고, 수만 명이 서약을 걸기 시작하지만 대부분 실패한다. 그리고 도윤보다 먼저 서약을 발견한 유일한 플레이어, 리미터가 나타난다."
+datePublished: "2026-02-12"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  .char-intro {
+    display: grid; grid-template-columns: auto 1fr; gap: 0 20px;
+    align-items: baseline; margin: 40px 0 32px; padding-bottom: 20px; border-bottom: 1px solid var(--rule);
+  }
+  .char-intro .c-name { font-size: 1.4rem; font-weight: 700; color: var(--fg); }
+  .char-intro .c-info { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
+
+  .part-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .part-title { font-size: 1.6rem; font-weight: 700; color: var(--fg); margin-bottom: 40px; letter-spacing: -0.5px; }
+  .section-divider { margin-top: 64px; margin-bottom: 48px; padding-top: 32px; border-top: 1px solid var(--rule); }
+
+  .sys-msg { font-family: var(--mono); font-size: 0.82rem; line-height: 1.7; background: #1a1a18; color: #c8c4b8; padding: 24px 28px; margin: 32px 0; border: 1px solid var(--fg); }
+  [data-theme="dark"] .sys-msg { background: #0a0a08; border-color: var(--rule); }
+  .sys-msg .s-label { color: #7cafc2; font-weight: 700; }
+  .sys-msg .s-value { color: #c9b97a; }
+  .sys-msg .s-alert { color: #c43e2a; font-weight: 700; }
+  .sys-msg .s-success { color: #6db36d; font-weight: 700; }
+  .sys-msg .s-divider { color: #4a4a48; display: block; overflow: hidden; }
+
+  .vow-declaration { border: 1px solid var(--fg); border-top: 3px solid var(--accent); padding: 32px 36px; margin: 40px 0; text-align: center; }
+  .vow-declaration .vow-header { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .vow-declaration .vow-text { font-size: 1.3rem; font-weight: 700; color: var(--fg); line-height: 1.5; margin-bottom: 16px; }
+  .vow-declaration .vow-grade { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 3px; color: var(--muted); }
+  .vow-declaration .vow-grade strong { color: var(--accent); font-weight: 700; }
+
+  .freedom-gauge { display: block; width: fit-content; margin: 40px auto; padding: 24px 48px; text-align: center; background: #1a1a18; border: 1px solid rgba(200, 196, 184, 0.15); border-top: 3px solid var(--accent); }
+  [data-theme="dark"] .freedom-gauge { background: #0a0a08; }
+  .freedom-gauge .fg-label { font-size: 0.8rem; letter-spacing: 2px; color: var(--muted); margin-bottom: 8px; }
+  .freedom-gauge .fg-bar { width: 200px; height: 4px; background: #3a3a38; margin: 12px auto 8px; }
+  .freedom-gauge .fg-fill { height: 100%; background: var(--accent); }
+  .freedom-gauge .fg-value { font-family: var(--mono); font-size: 2rem; font-weight: 700; color: var(--accent); letter-spacing: -1px; line-height: 1; }
+
+  /* COMMUNITY POST — forum/thread style */
+  .comm-post { border: 1px solid var(--rule); padding: 24px 28px; margin: 32px 0; }
+  .comm-post .cp-header { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .comm-post .cp-title { font-size: 1.1rem; font-weight: 700; color: var(--fg); margin-bottom: 8px; }
+  .comm-post .cp-meta { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-bottom: 16px; }
+  .comm-post .cp-body { font-size: 0.92rem; color: var(--prose); line-height: 1.8; }
+  .comm-post .cp-reply { border-top: 1px solid var(--rule); padding-top: 12px; margin-top: 12px; font-size: 0.88rem; color: var(--secondary); line-height: 1.7; }
+  .comm-post .cp-reply strong { color: var(--fg); font-weight: 700; }
+
+  .strat-box { border: 1px solid var(--rule); padding: 24px 28px; margin: 32px 0; }
+  .strat-box .sb-title { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .strat-box .sb-content { font-size: 0.92rem; color: var(--prose); line-height: 1.8; }
+  .strat-box .sb-content strong { color: var(--fg); }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .char-intro { grid-template-columns: 1fr; }
+    .freedom-gauge { padding: 20px 32px; }
+    .freedom-gauge .fg-bar { width: 160px; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">vow system — fiction 02</p>
+  <h1>자유가 <strong>0</strong>이 되는 순간</h1>
+  <p class="deck">서약 시스템이 세상에 알려진다.<br>수만 명이 서약을 걸고, 대부분 실패한다.<br>그리고 도윤보다 먼저 그것을 발견한 자가 나타난다.</p>
+</header>
+
+<main>
+
+<!-- PART I -->
+
+<section>
+<div class="section-divider" style="border-top:none;margin-top:0;padding-top:0">
+  <p class="part-label">Part I</p>
+  <p class="part-title">"바이럴"</p>
+</div>
+
+<p class="novel novel-first">시작은 한 편의 영상이었다.</p>
+
+<p class="novel">도윤이 올린 것이 아니었다. 석화왕의 심연을 솔로 클리어하는 과정에서, 던전 입구에 있던 다른 유저가 도윤의 입장과 퇴장을 목격했다. 4인 파티 던전에 혼자 들어가서 혼자 나온 레벨 53 전사. 그 유저가 입장/퇴장 장면을 캡처하여 엘리시움 공식 디스코드에 올렸다.</p>
+
+<div class="comm-post">
+  <div class="cp-header">elysium official discord — kr general</div>
+  <div class="cp-title">기본 전사가 석화왕 솔로 클리어함;;</div>
+  <div class="cp-meta">by DarkPaladin_92 · 2027.04.30 · views 12,847 · replies 234</div>
+  <div class="cp-body">방금 잿빛 계곡에서 봄. 닉네임 BOUND. 기본 전사(전직 안 함). Lv.53. 석화왕의 심연에 혼자 들어가서 23분 만에 나옴. 스크린샷 첨부. 파티창 아이콘이 비활성 상태라 파티 자체가 안 되는 것 같은데, 이거 핵인가요?</div>
+  <div class="cp-reply"><strong>XenoMage:</strong> 전직도 안 한 기본 전사가 솔로? ㅋㅋ 영상 없으면 핵이겠지</div>
+  <div class="cp-reply"><strong>TankMaster_KR:</strong> 파티창 비활성이 진짜면 버그 아닌가. 파티 기능 자체가 잠기는 버그 있나?</div>
+  <div class="cp-reply"><strong>ElysiumGuide:</strong> 공식 위키에 파티 비활성 관련 정보 없음. 처음 보는 상태</div>
+</div>
+
+<p class="novel">이틀 뒤, 다른 유저가 도윤의 솔로 사냥 장면을 VR 관전 모드로 녹화하여 유튜브에 올렸다. 제목: "전직 안 한 기본 전사가 4인 던전을 솔로 클리어하는 영상 (버그? 핵?)". 조회수가 하루 만에 8만을 넘었다.</p>
+
+<p class="novel">도윤은 영상의 존재를 3일 뒤에야 알았다. 출근길에 스마트폰으로 엘리시움 커뮤니티를 확인하다가 자기 닉네임이 트렌딩에 올라 있는 것을 발견했다.</p>
+
+<p class="internal">예상보다 빨리 노출됐다. MMORPG에서 비정상적 행동은 반드시 목격된다. 200만 유저의 눈이 있는 세계에서 숨길 수 있는 것은 없다.</p>
+
+<p class="novel">커뮤니티의 반응은 세 갈래로 나뉘었다. 핵/치트 의심파. 개발사 내부자/GM 의심파. 그리고 소수의 분석파 — 도윤의 캐릭터 상태를 면밀히 관찰하고, '파티 기능 비활성'이라는 상태가 의도적 제약이 아닌가 추측하는 유저들.</p>
+
+<p class="novel">그리고 그 분석파 중 한 명이 핵심을 찔렀다.</p>
+
+<div class="comm-post">
+  <div class="cp-header">elysium official discord — kr theory</div>
+  <div class="cp-title">[분석] BOUND의 파티 비활성 — '서약'이라는 숨겨진 시스템이 있다</div>
+  <div class="cp-meta">by SystemReader · 2027.05.04 · views 45,230 · replies 1,247</div>
+  <div class="cp-body">BOUND의 영상을 프레임 단위로 분석했습니다. 캐릭터 상태창에 일반 버프와 다른 아이콘이 있습니다. 이름이 잘 안 보이지만 확대하면 '결(結)'이라는 한자가 적혀 있습니다. 파티 기능 비활성 + 비정상적 스탯 보너스 + '결'이라는 표시. 결론: 엘리시움에는 공식 가이드에 없는 숨겨진 시스템이 있고, BOUND는 그것을 활성화한 것입니다.</div>
+  <div class="cp-reply"><strong>TankMaster_KR:</strong> 와 이 사람 진짜 CSI급이네;; 확대 스크린샷 보니까 진짜 한자가 보임</div>
+  <div class="cp-reply"><strong>ElysiumGuide:</strong> 결(結) — 묶을 결. 구속한다는 의미? 자기한테 뭔가를 거는 건가?</div>
+</div>
+
+<p class="novel">이 게시글이 올라간 뒤, 커뮤니티가 폭발했다.</p>
+
+</section>
+
+<!-- PART II -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part II</p>
+  <p class="part-title">"서약 러시"</p>
+</div>
+
+<p class="novel novel-first">48시간 만에 엘리시움의 모든 커뮤니티가 '서약 시스템'으로 도배되었다.</p>
+
+<p class="novel">누군가가 역추적에 성공했다. 핵심은 음성 선언이었다. 게임 내에서 자기 자신에게 제약을 거는 발언을 하면, 시스템이 반응한다. 이 정보가 퍼지자 수만 명의 유저가 동시에 실험을 시작했다.</p>
+
+<p class="novel">"나는 검만 쓰겠다." "나는 방패를 버리겠다." "나는 회복 마법을 쓰지 않겠다." "나는 도시에 들어가지 않겠다."</p>
+
+<p class="novel">필드 곳곳에서 유저들이 소리를 지르며 서약 시스템 활성화를 시도했다. VR 게임의 특성상 음성은 주변 유저에게도 들렸다. 사냥터가 아수라장이 되었다. 도윤은 접속하자마자 필드의 소음에 질려 외곽으로 이동해야 했다.</p>
+
+<p class="novel">그리고 결과가 나오기 시작했다.</p>
+
+<p class="novel">서약 시스템을 활성화하는 것 자체는 어렵지 않았다. 대부분의 유저가 서(誓) 등급 서약을 걸 수 있었다. 하지만 그 이상이 문제였다.</p>
+
+<p class="novel">서(誓) 등급의 보상은 미미했다. 공격력 3-5% 상승, 특정 스탯 소폭 보정. 체감하기 힘든 수준. 유저들은 더 높은 등급을 원했고, 더 무거운 서약을 걸기 시작했다.</p>
+
+<p class="novel">그리고 '서약 자살'이 시작되었다.</p>
+
+<div class="comm-post">
+  <div class="cp-header">elysium official discord — kr general</div>
+  <div class="cp-title">[긴급] 서약 잘못 걸어서 캐릭터 박살남 — 주의하세요</div>
+  <div class="cp-meta">by CrusaderX · 2027.05.07 · views 89,412 · replies 2,841</div>
+  <div class="cp-body">"나는 HP가 50% 이하일 때 후퇴하지 않겠다"라는 서약을 걸었습니다. 속(束) 등급이 떴고 공격력이 60% 넘게 올랐습니다. 신나서 사냥했는데, HP 50% 이하에서 도망갈 수 없으니까 1시간 만에 3번 죽었습니다. 그러다 실수로 보스전에서 후퇴 버튼을 눌렀는데 — 서약 위반. 모든 능력치 초기화. 47레벨 캐릭터가 1레벨 스탯으로 돌아갔습니다. 장비는 남아있지만 스탯이 사라져서 장비를 낄 수도 없습니다. 사실상 캐릭터 삭제입니다.</div>
+</div>
+
+<p class="novel">이런 사례가 하루에 수백 건씩 쏟아졌다. 유저들이 '서약 자살'이라고 부르기 시작한 현상. 높은 보상에 눈이 멀어 감당할 수 없는 서약을 걸고, 결국 위반하여 캐릭터가 망가지는 패턴.</p>
+
+<p class="novel">문제의 핵심을 도윤은 즉시 파악했다.</p>
+
+<p class="internal">대부분의 유저는 서약을 '추가 버프'로 인식한다. 제약은 불편함이고, 보상이 목적이라고. 하지만 서약 시스템의 설계 의도는 그 반대다. 제약 자체가 목적이고, 보상은 부산물이다. 제약이 플레이 스타일을 바꾸고, 바뀐 스타일에서 새로운 전략이 탄생하고, 그 전략이 이전보다 효율적일 때 — 서약이 '성공'하는 것이다.</p>
+
+<p class="internal">"후퇴하지 않겠다"는 서약은 전략을 바꾸지 않는다. 그냥 위험을 감수하는 것일 뿐이다. 반면 "파티를 맺지 않겠다"는 서약은 플레이 방식 전체를 재설계하게 만든다. 좋은 서약은 '불편함'이 아니라 '변환'을 만든다.</p>
+
+<p class="novel">도윤은 커뮤니티에 글을 올리지 않았다. 설명해줄 의무도 없고, 설명해봤자 이해할 사람도 적을 것이다. 대신 도윤은 조용히 자기 플레이에 집중했다.</p>
+
+<p class="novel">두 번째 서약. 3일간의 분석 끝에 결정했다.</p>
+
+<p class="dialogue">"나는 상점에서 장비를 구매하지 않겠다. 모든 장비는 직접 획득하거나 제작한다."</p>
+
+<div class="vow-declaration">
+  <div class="vow-header">oath registered</div>
+  <div class="vow-text">"상점 장비 구매를 포기한다"</div>
+  <div class="vow-grade">GRADE: <strong>맹(盟)</strong> — PLEDGE OATH</div>
+</div>
+
+<p class="novel">맹(盟) 등급. 두 번째 등급. 제작 스킬 경험치 +40%, 드롭률 +25%. 그리고 첫 번째 서약과의 '공명'이 발생했다.</p>
+
+<div class="sys-msg">
+<span class="s-success">[ OATH RESONANCE DETECTED ]</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-label">서약 1:</span> <span class="s-value">"파티를 맺지 않겠다" (결)</span><br>
+<span class="s-label">서약 2:</span> <span class="s-value">"상점 장비를 구매하지 않겠다" (맹)</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-success">공명 효과: 자급자족의 길</span><br>
+<span class="s-value">솔로 전투 시 장비 내구도 감소 -50%</span><br>
+<span class="s-value">보스 처치 시 희귀 재료 드롭 확률 +100%</span><br>
+<span class="s-divider">────────────────────────────</span>
+</div>
+
+<p class="novel">공명. 두 서약이 결합되어 개별 합산 이상의 시너지를 만들어냈다. '자급자족의 길' — 파티도 없고 상점도 이용하지 않는, 완전한 자립형 플레이어에게 시스템이 준 이름.</p>
+
+<p class="internal">이거다. 서약의 핵심은 개별 서약의 크기가 아니라 조합의 논리다. 바운드의 '제약 트리'와 같은 구조. 제약이 제약을 보완하고, 전체가 하나의 빌드가 된다. 서약을 걸 때는 '이 서약이 기존 서약과 어떤 시너지를 만드는가'를 먼저 생각해야 한다.</p>
+
+<div class="freedom-gauge">
+  <div class="fg-label">자유도</div>
+  <div class="fg-bar"><div class="fg-fill" style="width:72%"></div></div>
+  <div class="fg-value">72%</div>
+</div>
+
+</section>
+
+<!-- PART III -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part III</p>
+  <p class="part-title">"리미터"</p>
+</div>
+
+<p class="novel novel-first">도윤이 세 번째 서약을 준비하던 날, 그를 찾아온 자가 있었다.</p>
+
+<p class="novel">잿빛 계곡 외곽. 다른 유저가 거의 오지 않는 절벽 지대. 도윤이 석화 가고일을 상대로 서약 보너스의 한계치를 실험하고 있을 때, 뒤에서 발소리가 들렸다.</p>
+
+<p class="novel">도윤은 돌아보았다. 여성 캐릭터. 클래스는 — 도윤의 눈이 좁아졌다. 상태창이 보이지 않았다. 엘리시움에서는 범위 내 유저의 기본 정보(닉네임, 레벨, 클래스)가 자동으로 표시되는데, 이 캐릭터의 정보창은 전부 '???'로 가려져 있었다.</p>
+
+<p class="novel">유일하게 보이는 것은 닉네임 하나.</p>
+
+<p class="novel" style="text-align:center;font-weight:700;font-size:1.2rem;letter-spacing:2px">LIMITER</p>
+
+<div class="char-intro">
+  <span class="c-name">리미터</span>
+  <span class="c-info">? · unknown class · ??? · oath holder</span>
+</div>
+
+<p class="dialogue">"네가 바운드?"</p>
+
+<p class="novel">음성은 변조되어 있었다. VR 게임에서 음성 변조기를 쓰는 유저는 흔했다. 하지만 이 변조는 단순한 익명이 아니었다. 음높이와 톤이 의도적으로 중립화되어, 성별도 나이도 추측할 수 없었다.</p>
+
+<p class="dialogue">"누구세요?"</p>
+
+<p class="dialogue">"서약을 가진 사람. 너보다 먼저."</p>
+
+<p class="novel">도윤의 시선이 리미터의 캐릭터를 훑었다. 상태 정보가 숨겨져 있다는 것은, 그것을 숨기는 서약이 있다는 뜻이다. 정보를 공개하지 않겠다는 서약. 그 자체가 제약이고, 보상은 — 정보 은닉이 곧 전투에서의 유리함이 되는 구조.</p>
+
+<p class="dialogue">"서약이 몇 개죠?"</p>
+
+<p class="dialogue">"네가 알아야 할 건 하나뿐이야. 내 서약 중 하나는 속(束) 등급이라는 거."</p>
+
+<p class="novel">속(束). 서약 등급의 네 번째. '생존을 위협하는 구속.' 도윤의 서약은 결(結)이 최고인데, 리미터는 그 위의 속(束)을 이미 보유하고 있었다.</p>
+
+<p class="dialogue">"무슨 서약인지 물어봐도 됩니까?"</p>
+
+<p class="novel">리미터가 웃었다. 변조된 음성이었지만, 웃음이라는 것은 알 수 있었다.</p>
+
+<p class="dialogue">"HP 회복 수단을 사용하지 않겠다. 물약도, 힐링 스킬도, 자연 회복도."</p>
+
+<p class="novel">도윤의 표정이 굳었다.</p>
+
+<p class="internal">HP 회복을 전부 포기했다고? 그건 — 한 번이라도 실수하면 죽는다는 뜻이다. 전투에서 받는 모든 데미지가 누적되고, 회복할 방법이 없다. 사냥 한 번 나가면 남은 HP로 전투를 이어가야 하고, HP가 바닥나면 마을에 돌아가 '부활'하는 수밖에 없다. 극한의 제약.</p>
+
+<p class="internal">하지만 그 대가는 — 속(束) 등급이라면 공격력 보정이 100%를 넘을 것이다. 맞기 전에 죽이는 전략. 유리대포의 극한 버전. 미친 짓이지만, 작동한다면 효율은 최상이다.</p>
+
+<p class="dialogue">"대결하자."</p>
+
+<p class="novel">리미터가 말했다. 감정이 없는 음성이었다. 제안이 아니라 통보에 가까웠다.</p>
+
+<p class="dialogue">"왜요?"</p>
+
+<p class="dialogue">"같은 시스템을 쓰는 사람이 나타났으니까. 궁금하잖아. 네 방식이 맞는지, 내 방식이 맞는지."</p>
+
+<p class="novel">도윤은 잠시 생각했다. PvP는 도윤의 주 콘텐츠가 아니었다. 시스템 분석가에게 대인전은 부차적이다. 하지만 — 리미터의 전투 데이터는 서약 시스템을 이해하는 데 결정적인 정보가 될 수 있었다. 속(束) 등급 서약의 실전 효과를 직접 체감할 기회.</p>
+
+<p class="dialogue">"좋습니다."</p>
+
+<div class="sys-msg">
+<span class="s-label">PVP DUEL REQUEST</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-value">BOUND vs LIMITER</span><br>
+<span class="s-label">Mode:</span> <span class="s-value">Duel — No Death Penalty</span><br>
+<span class="s-label">Location:</span> <span class="s-value">잿빛 계곡 외곽 절벽</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-success">[ DUEL START ]</span>
+</div>
+
+<p class="novel">리미터가 먼저 움직였다.</p>
+
+<p class="novel">빠르다. 도윤이 검을 들어올리기도 전에 리미터의 첫 타격이 도착했다. 단검이었다. 양손에 하나씩. 그리고 첫 타격의 데미지가 — 도윤의 HP 12%를 날렸다.</p>
+
+<p class="internal">한 타에 12%? 이건 서약 보너스가 없으면 나올 수 없는 수치다. 속(束) 등급의 공격력 보정이 얼마인지 대략 역산할 수 있다. 최소 120%. 아니, 공명까지 합치면 그 이상일 수도.</p>
+
+<p class="novel">도윤은 방어에 집중했다. 리미터의 공격 패턴을 읽어야 했다. 3연타 — 회피 — 2연타 — 백스텝 — 돌진. 공격이 끊기지 않았다. HP 회복 수단이 없는 리미터에게 전투는 '맞기 전에 끝내는 것'이 전부였다. 수비라는 개념 자체가 없었다. 순수한 공격.</p>
+
+<p class="novel">도윤의 HP가 40%까지 떨어졌다. 반면 리미터는 도윤의 반격을 거의 맞지 않았다. 속도 차이가 압도적이었다.</p>
+
+<p class="novel">하지만 도윤에게는 리미터에게 없는 것이 있었다. 물약.</p>
+
+<p class="novel">HP 물약을 마시고, 전투를 장기전으로 끌었다. 리미터는 시간이 지날수록 불리해졌다. HP 회복이 불가능하다는 것은, 도윤이 한 대만 때려도 그 데미지가 영구적이라는 뜻이었다. 도윤은 방어와 회피에 집중하면서, 확실한 기회에만 한 타씩 넣었다.</p>
+
+<p class="novel">7분간의 대결. 리미터의 HP가 먼저 바닥났다.</p>
+
+<div class="sys-msg">
+<span class="s-success">[ DUEL END — WINNER: BOUND ]</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-label">BOUND HP:</span> <span class="s-value">23%</span><br>
+<span class="s-label">LIMITER HP:</span> <span class="s-alert">0%</span><br>
+<span class="s-label">Duration:</span> <span class="s-value">7:14</span>
+</div>
+
+<p class="novel">리미터가 바닥에 쓰러졌다. PvP 듀얼이므로 실제 사망은 아니었다. 몇 초 뒤 리미터가 일어섰다.</p>
+
+<p class="dialogue">"장기전 전략이었어?"</p>
+
+<p class="dialogue">"당신의 서약이 HP 회복 봉인이라는 걸 알고 있었으니까요. 시간을 끌면 유리한 쪽은 나였습니다."</p>
+
+<p class="dialogue">"서약을 말해준 게 실수였나."</p>
+
+<p class="dialogue">"아니요. 말하든 안 하든 전투를 보면 알 수 있었어요. 물약을 안 마시는 것, 회피보다 공격을 우선하는 것. 서약의 내용은 플레이 스타일에 그대로 드러납니다."</p>
+
+<p class="novel">리미터가 잠시 침묵했다. 그리고 말했다.</p>
+
+<p class="dialogue">"너는 나와 다르게 서약을 쓰는 사람이구나."</p>
+
+<p class="dialogue">"다르다는 건 어떤 의미로요?"</p>
+
+<p class="dialogue">"나는 제약을 걸고 그 안에서 살아남는 쪽이야. 본능으로. 제약이 만들어내는 압박 속에서 몸이 반응하는 대로 싸워. 하지만 너는 — 제약을 설계하는 사람이야. 제약을 걸기 전에 이미 결과를 계산하고 있어."</p>
+
+<p class="novel">도윤은 대답하지 않았다. 리미터의 말이 정확했기 때문이다.</p>
+
+<p class="dialogue">"게임 기획자 출신이지?"</p>
+
+<p class="novel">도윤이 멈칫했다. 리미터가 웃었다.</p>
+
+<p class="dialogue">"시스템을 보는 눈이 유저의 눈이 아니야. 설계자의 눈이야. 나는 서약을 무기로 쓰지만, 너는 서약을 도구로 분석해. 재밌는 차이야."</p>
+
+<p class="novel">리미터가 돌아섰다.</p>
+
+<p class="dialogue">"다음에 또 싸우자. 그때는 내가 이길 거야."</p>
+
+<p class="novel">리미터가 텔레포트 스크롤을 사용해 사라졌다. 도윤은 절벽 끝에 서서 잿빛 계곡을 내려다보았다. 저 아래에서 수십 명의 유저가 서약을 외치며 서약 시스템을 실험하고 있었다. 대부분은 서(誓) 등급에 머물거나, 무리한 서약으로 캐릭터를 망가뜨리겠지만.</p>
+
+<p class="internal">리미터. 직감형 플레이어. 제약 안에서 본능으로 싸우는 타입. 나와 정반대. 나는 분석하고 설계하고 예측한다. 리미터는 느끼고 반응하고 돌파한다. 같은 서약 시스템을 완전히 다른 방식으로 활용하는 두 사람. 개발자라면 이런 다양성을 의도했을 것이다.</p>
+
+</section>
+
+<!-- PART IV -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part IV</p>
+  <p class="part-title">"선택의 무게"</p>
+</div>
+
+<p class="novel novel-first">서약 시스템이 공개된 지 2주. 엘리시움의 생태계가 변하고 있었다.</p>
+
+<p class="novel">전체 유저 200만 명 중, 서약을 건 유저는 약 18만 명. 그중 서(誓) 등급이 92%, 맹(盟) 등급이 7%, 결(結) 등급 이상이 1% 미만. 그리고 속(束) 등급 보유자는 전 서버를 통틀어 도윤이 확인한 바로는 리미터 한 명뿐이었다.</p>
+
+<p class="novel">서약 시스템은 엘리시움의 밸런스를 흔들기 시작했다. 서약을 건 유저와 서약 없는 유저의 격차가 벌어졌다. 특히 결(結) 등급 이상의 서약 보유자는 레벨 대비 비정상적 전투력을 보였고, PvP와 경매장에서 압도적 우위를 점했다.</p>
+
+<p class="novel">공식 포럼에 항의 글이 쏟아졌다. '밸런스 붕괴.' '숨겨진 시스템으로 치팅하는 것과 다를 바 없다.' '개발사가 의도적으로 일부 유저만 유리하게 만들었다.' '서약 시스템을 전원에게 공개하고 밸런스 패치를 하라.'</p>
+
+<p class="novel">콘스트레인트 스튜디오는 침묵했다. 공식 성명도, 패치 노트도 없었다. 이것이 커뮤니티를 더 자극했다.</p>
+
+<p class="novel">도윤은 이 상황을 관찰하면서, 자기 앞에 놓인 선택을 고민했다.</p>
+
+<p class="novel">세 번째 서약. 서약을 더 쌓을 것인가, 현재에 만족할 것인가.</p>
+
+<p class="novel">현재 도윤의 서약은 두 개. 결(結) + 맹(盟). 공명 효과 '자급자족의 길.' 이것만으로도 솔로 플레이어로서 충분한 효율을 내고 있었다. 여기서 멈춘다면 안정적이다. 서약 위반의 위험도 적고, 자유도도 72%가 남아 있다.</p>
+
+<p class="novel">하지만 서약의 탑이 있다.</p>
+
+<p class="novel">리미터가 떠난 뒤, 도윤은 서약 시스템의 숨겨진 콘텐츠를 탐색했다. 그리고 서약 보유자만 볼 수 있는 월드맵의 마커를 발견했다 — '서약의 탑.' 위치는 대륙 중앙의 봉인된 지역. 입장 조건: 결(結) 등급 이상 서약 3개. 내부 정보는 전무. 보상도, 난이도도, 그 안에 무엇이 있는지도 알려져 있지 않았다.</p>
+
+<p class="internal">결(結) 등급 이상 서약 3개. 지금 나에게는 결(結) 1개, 맹(盟) 1개. 최소 결(結) 등급 서약을 2개 더 걸어야 한다. 그러면 자유도가 — 50% 이하로 떨어질 것이다. 할 수 있는 것이 절반 이하로 줄어든다.</p>
+
+<p class="novel">도윤은 책상 앞에 앉아 스프레드시트를 열었다. 바운드 게임즈 시절의 습관. 시스템을 분석할 때는 반드시 수치를 정리한다.</p>
+
+<div class="strat-box">
+  <div class="sb-title">oath build — path analysis</div>
+  <div class="sb-content">
+    <strong>현재 빌드:</strong><br>
+    서약 1: "파티를 맺지 않겠다" (결) — 솔로 전투 증폭<br>
+    서약 2: "상점 장비를 구매하지 않겠다" (맹) — 자급자족 보너스<br>
+    공명: 자급자족의 길<br><br>
+    <strong>후보 서약 3:</strong><br>
+    A안: "전직하지 않겠다" (결 예상) — 기본 클래스 유지. 상위 스킬 포기 대신 기본 스킬 극대화?<br>
+    B안: "방어 스킬을 사용하지 않겠다" (결 예상) — 공격 특화. 리미터와 유사한 방향이지만 회복은 유지<br>
+    C안: "마을에 돌아가지 않겠다" (속 예상) — 필드 영구 체류. 극한의 자급자족<br><br>
+    <strong>판단:</strong> A안. 기존 서약(솔로 + 자급자족)과 가장 높은 시너지. 기본 전사 클래스의 한계를 서약 보너스로 극복하는 빌드. "제약이 정체성을 만든다"의 가장 순수한 구현.
+  </div>
+</div>
+
+<p class="novel">도윤은 결정했다.</p>
+
+<p class="dialogue">"나는 전직하지 않겠다. 기본 전사 클래스를 유지하겠다."</p>
+
+<div class="vow-declaration">
+  <div class="vow-header">binding oath — confirmed</div>
+  <div class="vow-text">"나는 전직하지 않겠다"</div>
+  <div class="vow-grade">GRADE: <strong>결(結)</strong> — BINDING OATH<br>EFFECT: ORIGIN CLASS MASTERY</div>
+</div>
+
+<p class="novel">결(結) 등급. 세 번째 서약. '오리진 클래스 마스터리' — 기본 클래스의 모든 기본 스킬이 강화 단계 해금. 전직 시 얻을 상위 스킬 대신, 기본 스킬의 숨겨진 진화 경로가 열렸다. 그리고 세 서약의 공명.</p>
+
+<div class="sys-msg">
+<span class="s-success">[ TRIPLE OATH RESONANCE ]</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-label">서약 1:</span> <span class="s-value">"파티를 맺지 않겠다" (결)</span><br>
+<span class="s-label">서약 2:</span> <span class="s-value">"상점 장비를 구매하지 않겠다" (맹)</span><br>
+<span class="s-label">서약 3:</span> <span class="s-value">"전직하지 않겠다" (결)</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-success">삼중 공명: 원초의 길</span><br>
+<span class="s-value">기본 클래스 스킬 데미지 +200%</span><br>
+<span class="s-value">솔로 보스 처치 시 전직 전용 장비 드롭 가능</span><br>
+<span class="s-value">월드 맵 숨겨진 장소 탐지 활성화</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-alert">서약의 탑 입장 자격 충족</span>
+</div>
+
+<p class="novel">서약의 탑 입장 자격 충족. 결(結) 등급 이상 3개라는 조건을 정확히 만족했다.</p>
+
+<div class="freedom-gauge">
+  <div class="fg-label">자유도</div>
+  <div class="fg-bar"><div class="fg-fill" style="width:58%"></div></div>
+  <div class="fg-value">58%</div>
+</div>
+
+<p class="novel">자유도 58%. 파티 불가. 상점 불가. 전직 불가. 엘리시움에서 할 수 있는 것의 거의 절반을 포기한 상태. 하지만 남은 것들 — 솔로 전투, 직접 채집과 제작, 기본 스킬 — 의 하나하나가 일반 유저의 두세 배 성능을 냈다.</p>
+
+<p class="novel">도윤은 월드맵을 열었다. 대륙 중앙, 봉인 지역에 새로운 마커가 떠 있었다. '서약의 탑.'</p>
+
+<p class="novel">아직 들어갈 준비가 되지 않았다. 레벨도, 장비도, 그리고 마음의 준비도. 그 안에 무엇이 있는지 아무도 모른다. 하지만 한 가지는 확실했다.</p>
+
+<p class="internal">이 게임은 나에게 질문하고 있다. "너는 얼마나 더 포기할 수 있는가?" 서약의 탑은 그 질문의 끝에 있다. 자유가 0이 되는 순간, 그 너머에 무엇이 있는지.</p>
+
+<p class="novel">도윤은 월드맵을 닫고, 잿빛 계곡의 석화 골렘에게 검을 들었다. 기본 스킬 — '수평 베기.' 스킬 강화 효과로 베기 한 번에 골렘의 HP가 20%씩 녹았다.</p>
+
+<p class="novel">58%의 자유도로, 도윤은 그 어느 때보다 효율적으로 사냥하고 있었다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>포기할수록 강해지고<br><strong>강해질수록 좁아진다</strong></h2>
+  <p class="sub">서약의 탑이 열렸다. 자격 조건: 결(結) 등급 이상 3개. 그 안에 무엇이 있는지는 아무도 모른다. 확실한 것은 하나 — 더 많이 포기해야 한다.</p>
+</div>
+
+<footer class="footer">
+  <p>Inspired by "2인 개발로 400억 버는 치트키 공개" (YouTube, 2024) &middot; GDC "Constraints and Creativity" &middot; Subset Games (FTL, Into the Breach)</p>
+  <p>Written with Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

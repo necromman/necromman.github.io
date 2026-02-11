@@ -175,6 +175,26 @@
         { slug: 'the-man-who-changed-meta', title: '메타를 바꾼 남자' },
         { slug: 'gg', title: 'GG' }
       ]
+    },
+    'vow-system-series': {
+      title: '서약빨',
+      articles: [
+        { slug: 'first-shackle', title: '첫 번째 족쇄' },
+        { slug: 'zero-freedom', title: '자유가 0이 되는 순간' },
+        { slug: 'creators-defeat', title: '만든 자의 패배' },
+        { slug: 'tower-of-vows', title: '서약의 탑' },
+        { slug: 'full-dive-out', title: '풀다이브 아웃' }
+      ]
+    },
+    'claude-code-guide-series': {
+      title: '컨텍스트는 우유다',
+      articles: [
+        { slug: 'the-first-thirty-minutes', title: '처음 30분' },
+        { slug: 'context-is-milk', title: '컨텍스트는 우유다' },
+        { slug: 'autonomous-mode', title: '자율 주행 모드' },
+        { slug: 'beyond-the-terminal', title: '터미널 밖으로' },
+        { slug: 'build-your-own-tools', title: '나만의 도구를 만든다' }
+      ]
     }
   };
 

@@ -1,0 +1,608 @@
+---
+layout: layouts/article.njk
+pageTitle: "첫 번째 족쇄"
+description: "3,200장. 인디 게임 기획자 한도윤이 만든 게임의 총 판매량이다. 제약이 창의성을 만든다는 철학을 게임으로 구현했지만, 시장은 외면했다. 그런 그가 200만 유저의 VR RPG에서 자신의 철학과 같은 숨겨진 시스템을 발견한다."
+datePublished: "2026-02-12"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* NOVEL PROSE */
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+
+  /* SCENE BREAK */
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+
+  /* DIALOGUE */
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+
+  /* INTERNAL MONOLOGUE */
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  /* CHARACTER INTRO */
+  .char-intro {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 20px;
+    align-items: baseline;
+    margin: 40px 0 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .char-intro .c-name { font-size: 1.4rem; font-weight: 700; color: var(--fg); }
+  .char-intro .c-info { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
+
+  /* SECTION DIVIDER */
+  .part-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .part-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+  }
+  .section-divider {
+    margin-top: 64px;
+    margin-bottom: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* SYSTEM MESSAGE — VR game UI */
+  .sys-msg {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    background: #1a1a18;
+    color: #c8c4b8;
+    padding: 24px 28px;
+    margin: 32px 0;
+    border: 1px solid var(--fg);
+  }
+  [data-theme="dark"] .sys-msg { background: #0a0a08; border-color: var(--rule); }
+  .sys-msg .s-label { color: #7cafc2; font-weight: 700; }
+  .sys-msg .s-value { color: #c9b97a; }
+  .sys-msg .s-alert { color: #c43e2a; font-weight: 700; }
+  .sys-msg .s-success { color: #6db36d; font-weight: 700; }
+  .sys-msg .s-divider { color: #4a4a48; display: block; overflow: hidden; }
+
+  /* VOW DECLARATION — oath system activation */
+  .vow-declaration {
+    border: 1px solid var(--fg);
+    border-top: 3px solid var(--accent);
+    padding: 32px 36px;
+    margin: 40px 0;
+    text-align: center;
+  }
+  .vow-declaration .vow-header {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .vow-declaration .vow-text {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--fg);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+  .vow-declaration .vow-grade {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    color: var(--muted);
+  }
+  .vow-declaration .vow-grade strong {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* FREEDOM GAUGE */
+  .freedom-gauge {
+    display: block;
+    width: fit-content;
+    margin: 40px auto;
+    padding: 24px 48px;
+    text-align: center;
+    background: #1a1a18;
+    border: 1px solid rgba(200, 196, 184, 0.15);
+    border-top: 3px solid var(--accent);
+  }
+  [data-theme="dark"] .freedom-gauge { background: #0a0a08; }
+  .freedom-gauge .fg-label {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .freedom-gauge .fg-bar {
+    width: 200px;
+    height: 4px;
+    background: #3a3a38;
+    margin: 12px auto 8px;
+    position: relative;
+  }
+  .freedom-gauge .fg-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+  .freedom-gauge .fg-value {
+    font-family: var(--mono);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+
+  /* STRATEGY ANALYSIS — game designer's eye */
+  .strat-box {
+    border: 1px solid var(--rule);
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+  .strat-box .sb-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .strat-box .sb-content {
+    font-size: 0.92rem;
+    color: var(--prose);
+    line-height: 1.8;
+  }
+  .strat-box .sb-content strong { color: var(--fg); }
+
+  /* GAME STATUS — character stats */
+  .game-status {
+    border: 1px solid var(--rule);
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+  .game-status .gs-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .game-status .gs-stat {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 16px;
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+  .game-status .gs-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .game-status .gs-val { color: var(--fg); }
+  .game-status .gs-highlight { color: var(--accent); font-weight: 700; }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .char-intro { grid-template-columns: 1fr; }
+    .game-status .gs-stat { grid-template-columns: 1fr; }
+    .freedom-gauge { padding: 20px 32px; }
+    .freedom-gauge .fg-bar { width: 160px; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">vow system — fiction 01</p>
+  <h1>첫 번째 <strong>족쇄</strong></h1>
+  <p class="deck">인디 게임 기획자가 만든 게임의 총 판매량, 3,200장.<br>200만 유저의 VR RPG에서 그는 자신의 실패한 철학과<br>같은 숨겨진 시스템을 발견한다.</p>
+</header>
+
+<main>
+
+<!-- PART I -->
+
+<section>
+<div class="section-divider" style="border-top:none;margin-top:0;padding-top:0">
+  <p class="part-label">Part I</p>
+  <p class="part-title">"3,200장"</p>
+</div>
+
+<div class="char-intro">
+  <span class="c-name">한도윤</span>
+  <span class="c-info">34 · freelance game designer · former co-founder, bound games · seoul</span>
+</div>
+
+<p class="novel novel-first">2027년 4월 14일 월요일 오후 2시. 서울 강남구 역삼동. 카페 3층 미팅룸.</p>
+
+<p class="novel">한도윤은 노트북 화면에 띄운 기획 문서를 가리키며 말하고 있었다. 레벨 디자인 컨설팅. 클라이언트는 중견 게임사 '넥스트엔진'의 기획팀이었다. 그들이 개발 중인 모바일 RPG의 던전 밸런스를 검토해달라는 의뢰. 시급 12만원, 오늘 예정 3시간. 이달 수입의 약 40%.</p>
+
+<p class="dialogue">"7층 보스의 체력을 15% 줄이시는 게 맞습니다. 지금 구조에서 유저 평균 DPS 대비 보스 HP가 2.3배 높아서, 클리어율이 12%까지 떨어집니다. 모바일 유저의 세션 타임이 평균 7분인 걸 고려하면, 보스전을 4분 이내로 줄여야 이탈이 안 생깁니다."</p>
+
+<p class="novel">넥스트엔진 기획자 세 명이 고개를 끄덕였다. 도윤의 분석은 정확했다. 그가 수치 모델을 만들어 보여주면, 대부분의 클라이언트가 수긍했다. 도윤은 게임의 뼈대를 읽는 데 능했다. 전투 공식, 경험치 커브, 보상 테이블, 난이도 곡선 — 게임이 유저에게 말을 거는 방식을 수학으로 번역할 수 있었다.</p>
+
+<p class="novel">미팅이 끝나갈 무렵, 넥스트엔진의 팀장이 물었다.</p>
+
+<p class="dialogue">"한 선생님, 원래 직접 게임 만드셨던 거 맞죠? 바운드... 게임즈? 이름이 그거 맞나."</p>
+
+<p class="novel">도윤의 손가락이 살짝 멈췄다.</p>
+
+<p class="dialogue">"네. 바운드 게임즈요."</p>
+
+<p class="dialogue">"그 게임, 뭐였죠? 로그라이크? 인디 어워드에서 본 것 같은데."</p>
+
+<p class="dialogue">"바운드. 제약 기반 전투 시스템을 핵심으로 한 로그라이크였습니다."</p>
+
+<p class="dialogue">"아, 맞다. 기억난다. 평론가들이 좋아했던 거. 근데 — 판매량이 좀 아쉬웠던 거 아닌가요?"</p>
+
+<p class="novel">도윤은 노트북을 닫았다.</p>
+
+<p class="dialogue">"3,200장이요."</p>
+
+<p class="novel">잠깐의 침묵. 팀장이 어색하게 웃으며 화제를 돌렸다. 도윤은 그 침묵의 무게를 알고 있었다. 3,200장. 2년 4개월의 개발 기간. 두 사람의 인생. 총 투입 비용 약 1억 8천만원(인건비 포기분 포함). 장당 15,000원. 총 매출 4,800만원. 스팀 수수료 30%를 빼면 실수령 3,360만원. 1인당 1,680만원.</p>
+
+<p class="internal">3,200장. 이 숫자가 3년째 머릿속에 산다. 자기 전에도, 아침에 눈 뜰 때도, 다른 회사의 게임을 컨설팅할 때도. 3,200장. 게임 자체가 나빴던 건 아니다. '가장 혁신적인 메커니즘' 후보에 올랐으니까. 비평가 평점 82/100. 유저 리뷰 '매우 긍정적'. 하지만 산 사람이 3,200명뿐이었다.</p>
+
+<p class="novel">카페를 나서며 도윤은 스마트폰을 확인했다. 오후 5시 17분. 다음 컨설팅 일정은 모레. 오늘은 이것으로 끝이다. 집에 가서 할 일은 정해져 있었다. 엘리시움 온라인.</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel novel-first">서울 마포구 합정동. 원룸. 책상 위에 VR 헤드셋이 놓여 있었다. 메타 퀘스트 5. 작년에 출시된 최신 모델이지만, 도윤은 이것을 '게임'을 위해 산 것이 아니었다. 시스템 분석을 위해 샀다.</p>
+
+<p class="novel">엘리시움 온라인. 2026년 8월 출시. 풀다이브 VR MMORPG. 동시접속 200만. 개발사는 실리콘밸리의 '콘스트레인트 스튜디오' — 2인 개발팀이 AI 프로시저럴 생성으로 대륙급 오픈월드를 구축했다. GDC 2026에서 "우리는 스스로의 손발을 묶고 이 게임을 만들었다"고 발표하여 업계의 화제가 되었다. 2명이 만든 게임이 동시접속 200만을 찍었다. 투자 없이. 퍼블리셔 없이.</p>
+
+<p class="internal">2명이서 200만. 나도 2명이었다. 결과는 3,200. 같은 2인 개발이라는 말이 이렇게 다를 수가 있다.</p>
+
+<p class="novel">도윤이 엘리시움에 접속하는 이유는 단순했다. 이 게임의 시스템이 궁금했다. 콘스트레인트 스튜디오가 GDC 강연에서 말한 "제약이 창의성을 만든다"는 설계 철학 — 이것이 게임 안에서 어떻게 구현되었는지 알고 싶었다. 기획자의 직업병 같은 것이었다. 게임을 플레이하기보다 해부하는 습관.</p>
+
+<p class="novel">VR 헤드셋을 썼다. 시야가 어두워졌다가, 밝아졌다.</p>
+
+<div class="sys-msg">
+<span class="s-label">ELYSIUM ONLINE</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-value">Welcome back, BOUND.</span><br>
+<span class="s-label">Server:</span> <span class="s-value">KR-02 · Aethon</span><br>
+<span class="s-label">Character:</span> <span class="s-value">Lv.47 Warrior · Human</span><br>
+<span class="s-label">Last Login:</span> <span class="s-value">2 days ago</span><br>
+<span class="s-divider">────────────────────────────</span>
+</div>
+
+<p class="novel">캐릭터명 'BOUND'. 자기가 만든 게임 이름을 그대로 가져왔다. 클래스는 전사. 가장 기본적인 클래스. 엘리시움에는 전사, 마법사, 궁수, 성직자, 도적의 5개 기본 클래스가 있고, 각각의 상위 전직이 2개씩 존재한다. 전사의 상위 전직은 검사와 수호자. 도윤은 아직 전직을 하지 않았다. 전직보다 기본 클래스의 시스템 구조를 먼저 이해하고 싶었기 때문이다.</p>
+
+<p class="novel">레벨 47. 만렙 100 기준으로 중상위권. 하지만 탑 랭커들은 이미 80대 후반. 도윤은 레벨링에 관심이 없었다. 사냥할 때도 몬스터의 AI 패턴을 분석하고, 스킬의 내부 공식을 역산하고, 필드 이벤트의 트리거 조건을 추적했다. 게임을 즐기는 것이 아니라 읽는 것에 가까웠다.</p>
+
+<p class="novel">오늘도 마찬가지였다. 도윤은 레벨 45-50 구간의 사냥터인 '잿빛 계곡'으로 이동했다. 이곳의 몬스터 — 석화 골렘 — 은 물리 저항이 높고 마법 저항이 낮은, 전형적인 전사 불리 필드였다. 대부분의 전사 유저는 이 사냥터를 피하고, 마법사나 궁수가 주로 사냥했다.</p>
+
+<p class="internal">왜 전사 불리 필드를 만들어놨을까. 단순한 클래스 밸런스 이슈가 아니다. 이 게임의 설계자라면 — '제약이 창의성을 만든다'는 철학을 가진 설계자라면 — 전사가 이 필드에서 할 수 있는 무언가를 숨겨놨을 가능성이 있다.</p>
+
+<p class="novel">도윤은 석화 골렘 한 마리를 상대하며 이런저런 실험을 했다. 방패를 버리고 양손검으로 싸워봤다. 방어 스킬을 쓰지 않고 공격만으로 밀어봤다. 특정 스킬 조합의 순서를 바꿔봤다. 효율은 떨어졌지만, 그게 목적이 아니었다.</p>
+
+<p class="novel">그리고 어느 순간, 도윤은 방패를 장착 해제하며 혼잣말처럼 중얼거렸다.</p>
+
+<p class="dialogue">"오늘은 방패 없이 해볼까."</p>
+
+</section>
+
+<!-- PART II -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part II</p>
+  <p class="part-title">"시스템이 대답했다"</p>
+</div>
+
+<p class="novel novel-first">순간, 시야 중앙에 반투명한 패널이 떠올랐다.</p>
+
+<p class="novel">도윤이 한 번도 본 적 없는 인터페이스였다.</p>
+
+<div class="sys-msg">
+<span class="s-divider">════════════════════════════</span><br>
+<span class="s-alert">[ HIDDEN SYSTEM ACTIVATED ]</span><br>
+<span class="s-divider">════════════════════════════</span><br><br>
+<span class="s-label">OATH SYSTEM</span> — <span class="s-value">ver 1.0</span><br><br>
+<span class="s-value">자발적 제약이 감지되었습니다.</span><br>
+<span class="s-value">당신은 스스로를 구속하려 합니다.</span><br>
+<span class="s-value">시스템이 그 의지를 인정합니다.</span><br><br>
+<span class="s-label">서약을 선언하시겠습니까?</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-success">[예]</span> &nbsp;&nbsp; <span class="s-value">[아니오]</span>
+</div>
+
+<p class="novel">도윤의 손이 멈췄다. 석화 골렘이 느린 팔을 내리찍었지만, 도윤은 반사적으로 회피하면서도 눈은 패널에 고정되어 있었다.</p>
+
+<p class="internal">서약 시스템? 이건 뭐지. 8개월 동안 이 게임을 분석했는데 한 번도 본 적 없다. 공식 가이드에도, 유저 위키에도, 커뮤니티 어디에도 이 시스템에 대한 언급이 없었다. 히든 시스템.</p>
+
+<p class="novel">도윤은 골렘을 피해 안전 지대로 이동한 뒤, 패널을 자세히 읽었다. 게임 기획자의 눈이 자동으로 작동했다. 이 인터페이스의 디자인 언어, 텍스트의 톤, 활성화 조건 — 모든 것이 정보였다.</p>
+
+<p class="internal">활성화 조건을 역추적해보자. 내가 한 행동 — 방패를 해제하고, '방패 없이 해볼까'라고 말했다. 방패 해제만으로는 안 됐을 것이다. 장비를 바꾸는 건 일상적인 행동이니까. 핵심은 음성 선언이다. '해볼까'라는 의지 표현. 그리고 그 선언이 '자발적 제약'의 형태였다는 것. 시스템이 '자발적 제약이 감지되었습니다'라고 했다. 이 게임은 플레이어의 음성을 파싱하고 있고, 그중에서 '자기 자신에게 제약을 거는 발언'을 탐지하는 필터가 있다.</p>
+
+<p class="novel">도윤은 한참을 생각한 뒤, [아니오]를 눌렀다.</p>
+
+<p class="novel">패널이 사라졌다. 하지만 도윤의 머릿속에서 기획자의 엔진이 돌아가기 시작했다.</p>
+
+<div class="strat-box">
+  <div class="sb-title">designer's note — system analysis</div>
+  <div class="sb-content">
+    <strong>활성화 조건 가설:</strong> 플레이어가 자발적으로 제약을 선언(음성)할 때 시스템이 반응한다. 단순 장비 변경이 아니라, '의지를 가진 자기 제약'이어야 한다.<br><br>
+    <strong>시스템 이름:</strong> OATH SYSTEM (서약 시스템). '서약'은 자기 자신과의 약속이다. 게임 내 NPC나 퀘스트가 아닌, 플레이어의 자발적 선택에 기반한 시스템.<br><br>
+    <strong>설계 의도 추정:</strong> 콘스트레인트 스튜디오의 철학 — "제약이 창의성을 만든다." 이 시스템은 그 철학의 게임 내 구현일 가능성이 높다. 플레이어가 스스로 족쇄를 채우면, 그 대가로 무언가를 돌려주는 구조.
+  </div>
+</div>
+
+<p class="novel">도윤은 이후 3시간 동안 서약 시스템의 활성화 조건을 실험했다. 결과를 정리하면 이랬다.</p>
+
+<p class="novel">"검만 쓸 거야" — 반응 없음. 이미 검만 쓰고 있었으므로 실질적 제약이 아님.</p>
+
+<p class="novel">"스킬을 안 쓸 거야" — 반응. 서약 시스템 패널 활성화.</p>
+
+<p class="novel">"앉아서 싸울 거야" — 반응 없음. 전투에 의미 있는 제약이 아님(앉으면 즉사하므로 의미 없는 선언).</p>
+
+<p class="novel">"물약을 안 마실 거야" — 반응. 서약 시스템 패널 활성화.</p>
+
+<p class="internal">패턴이 보인다. 시스템은 '실질적으로 플레이에 영향을 주는 제약'만 인식한다. 이미 하고 있는 행동을 제약이라고 선언해도 안 먹히고, 비현실적인 제약(앉아서 싸우기)도 걸러낸다. 즉, 이 시스템은 '진짜 포기'만 인정한다. 의미 있는 것을 포기해야 서약이 성립한다.</p>
+
+<p class="novel">도윤은 VR 헤드셋을 벗고, 책상 서랍에서 낡은 노트를 꺼냈다. 3년 전 바운드 게임즈 시절의 기획 노트. 첫 페이지에 적힌 문장이 눈에 들어왔다.</p>
+
+<p class="novel" style="text-align:center;font-weight:700;font-size:1.1rem;color:var(--accent);letter-spacing:0.5px">"제약의 크기 = 보상의 크기. 포기의 무게가 능력의 무게가 된다."</p>
+
+<p class="novel">바운드의 핵심 메커니즘을 설계할 때 적은 문장이었다. 3년 전, 이 문장으로 게임을 만들었고, 3,200장이 팔렸다.</p>
+
+<p class="novel">그리고 지금, 200만 유저의 게임 안에 같은 철학이 숨겨져 있었다.</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel novel-first">다음 날부터 도윤은 본격적으로 서약 시스템을 파고들었다. 컨설팅 일정이 없는 날에는 하루 8시간 이상 엘리시움에 접속했다. 서약 패널을 활성화시키고, 다양한 조건에서 [예]를 눌러봤다.</p>
+
+<p class="novel">첫 번째 서약은 가벼운 것으로 시작했다.</p>
+
+<p class="dialogue">"나는 이 사냥터에서 물약을 사용하지 않겠다."</p>
+
+<div class="vow-declaration">
+  <div class="vow-header">oath registered</div>
+  <div class="vow-text">"잿빛 계곡에서 회복 물약을 사용하지 않겠다"</div>
+  <div class="vow-grade">GRADE: <strong>서(誓)</strong> — MINOR OATH</div>
+</div>
+
+<p class="novel">서(誓) 등급. 가장 낮은 등급의 서약. 효과는 미미했다 — 잿빛 계곡 한정으로 공격력이 3% 상승했다. 솔직히 체감할 수 있는 수치가 아니었다. 하지만 도윤에게 중요한 것은 수치가 아니었다.</p>
+
+<p class="internal">시스템이 작동한다. 그리고 등급 체계가 있다. 서(誓)가 최하위라면, 상위 등급은 무엇이 있고, 보상은 얼마나 커지는가. 이 시스템의 스케일링 곡선이 궁금하다.</p>
+
+<p class="novel">도윤은 일주일에 걸쳐 서(誓) 등급 서약을 여러 개 실험했다. 서약의 범위가 넓을수록(특정 사냥터 한정 → 모든 필드), 기간이 길수록(오늘만 → 영구), 등급이 올라갔다. 그리고 맹(盟) 등급에 도달했을 때, 시스템이 새로운 정보를 내놓았다.</p>
+
+<div class="sys-msg">
+<span class="s-label">OATH SYSTEM — GUIDE</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-value">서약의 등급은 다섯 단계로 구성됩니다.</span><br><br>
+<span class="s-value">서(誓) — 가벼운 자기 약속</span><br>
+<span class="s-value">맹(盟) — 플레이 방식의 변경</span><br>
+<span class="s-value">결(結) — 핵심 기능의 봉인</span><br>
+<span class="s-value">속(束) — 생존을 위협하는 구속</span><br>
+<span class="s-alert">명(命) — 존재를 건 서약</span><br><br>
+<span class="s-value">서약은 해제할 수 없습니다.</span><br>
+<span class="s-value">오직 위반만이 서약을 끝냅니다.</span><br>
+<span class="s-alert">위반의 대가는 서약의 무게만큼입니다.</span><br>
+<span class="s-divider">────────────────────────────</span>
+</div>
+
+<p class="novel">도윤은 이 텍스트를 세 번 읽었다. '서약은 해제할 수 없습니다.' 비가역적 시스템. 한 번 걸면 돌이킬 수 없고, 서약을 어기면 그 무게만큼의 페널티를 받는다. 이것은 가벼운 버프 시스템이 아니었다. 캐릭터의 정체성을 영구적으로 바꾸는 결정이었다.</p>
+
+<p class="internal">이래서 아무도 발견하지 못한 거다. 설령 우연히 서약 시스템을 활성화하더라도, 대부분의 유저는 '영구적 제약'이라는 말에 [아니오]를 누를 것이다. MMORPG에서 자유도를 스스로 줄이는 선택을 하는 유저는 없다. 모든 유저는 더 강한 장비, 더 많은 스킬, 더 넓은 선택지를 원한다. 서약은 그 반대를 요구한다.</p>
+
+<p class="novel">하지만 도윤은 알고 있었다. 바운드를 만들면서 2년 동안 고민했던 것. 제약과 보상의 비례 관계. 무언가를 포기하면 나머지가 강해진다. 완다와 거상이 마을과 NPC를 제거해서 보스가 거대한 스테이지가 된 것처럼. 인투 더 브리치가 적의 공격을 미리 보여줘서 새로운 전략 공간이 열린 것처럼.</p>
+
+<p class="novel">도윤은 결심했다. 제대로 된 서약을 걸겠다. 의미 있는 제약. 돌이킬 수 없는 선택.</p>
+
+</section>
+
+<!-- PART III -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part III</p>
+  <p class="part-title">"파티를 맺지 않겠다"</p>
+</div>
+
+<p class="novel novel-first">사흘을 고민했다.</p>
+
+<p class="novel">어떤 서약을 걸 것인가. 이 선택이 캐릭터의 방향을 영구적으로 결정한다. 바운드를 기획할 때와 같은 사고 과정이었다. 게임 디자이너에게 '어떤 제약을 걸 것인가'는 곧 '어떤 게임을 만들 것인가'와 같은 질문이다.</p>
+
+<p class="novel">도윤은 엘리시움의 시스템 구조를 정리했다. 이 게임에서 전사 클래스의 핵심 병목은 두 가지 — 낮은 원거리 딜과, 레이드에서의 역할 한정(탱커/근접 딜러). 이 병목을 해결하는 일반적 방법은 파티 플레이(마법사/궁수와 역할 분담)와 상위 전직(검사 → 원거리 스킬 확보)이다.</p>
+
+<p class="novel">도윤은 양쪽 모두를 포기하는 서약을 걸기로 했다.</p>
+
+<p class="internal">파티. MMORPG의 핵심 기능이다. 레이드 던전은 파티 없이 공략이 불가능하게 설계되어 있고, 엘리시움의 엔드게임 콘텐츠는 8인 레이드가 중심이다. 파티를 포기한다는 것은 엔드게임을 포기한다는 뜻이다. 모든 콘텐츠를 혼자 해결해야 한다. 미친 짓이다.</p>
+
+<p class="internal">하지만 인투 더 브리치의 개발자가 한 말이 있다. "적의 공격을 미리 보여준다는 조건을 걸자, 게임이 너무 쉬워졌다. 그래서 도망갈 수 없는 건물을 배치했다. 그러자 적을 밀쳐내는 새로운 전략이 탄생했다." 하나의 제약이 문제를 만들고, 그 문제를 풀기 위해 나머지 시스템이 재배치된다. 제약이 시스템을 디자인한다.</p>
+
+<p class="internal">파티를 포기하면, 나는 모든 것을 혼자 해결하는 방법을 찾아야 한다. 전사의 한계를 전사의 틀 안에서 극복해야 한다. 그리고 서약 시스템은 그 대가로 무언가를 돌려줄 것이다. 포기의 무게만큼.</p>
+
+<p class="novel">2027년 4월 22일. 화요일 밤. 도윤은 엘리시움에 접속하고, 잿빛 계곡의 중앙 평원에 섰다. 주변에 다른 유저가 없는 것을 확인한 뒤, 깊은 숨을 쉬고 말했다.</p>
+
+<p class="dialogue">"나는 이 게임에서 파티를 맺지 않겠다. 누구와도 파티를 구성하지 않고, 레이드에 파티원으로 참가하지 않겠다. 모든 전투를 혼자 수행하겠다."</p>
+
+<div class="sys-msg">
+<span class="s-divider">════════════════════════════</span><br>
+<span class="s-alert">[ OATH EVALUATION ]</span><br>
+<span class="s-divider">════════════════════════════</span><br><br>
+<span class="s-label">선언 내용:</span> <span class="s-value">"파티를 맺지 않겠다"</span><br>
+<span class="s-label">제약 분석:</span> <span class="s-value">MMO 핵심 기능 봉인 · 레이드 참가 불가 · 모든 전투 솔로 수행</span><br>
+<span class="s-label">영향 범위:</span> <span class="s-value">전 콘텐츠 · 영구</span><br>
+<span class="s-label">판정 등급:</span> <span class="s-alert">결(結) — BINDING OATH</span><br><br>
+<span class="s-value">이 서약은 해제할 수 없습니다.</span><br>
+<span class="s-value">위반 시 모든 능력치가 초기화됩니다.</span><br><br>
+<span class="s-label">서약을 확정하시겠습니까?</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-success">[확정]</span> &nbsp;&nbsp; <span class="s-value">[철회]</span>
+</div>
+
+<p class="novel">결(結) 등급. 다섯 단계 중 세 번째. '핵심 기능의 봉인.' 서(誓)에서 두 단계를 뛰어넘었다. 위반 시 모든 능력치 초기화. 47레벨까지 쌓아온 모든 것이 날아간다는 뜻이다.</p>
+
+<p class="novel">도윤은 [확정]을 눌렀다.</p>
+
+<div class="vow-declaration">
+  <div class="vow-header">binding oath — confirmed</div>
+  <div class="vow-text">"나는 파티를 맺지 않겠다"</div>
+  <div class="vow-grade">GRADE: <strong>결(結)</strong> — BINDING OATH<br>EFFECT: SOLO COMBAT AMPLIFICATION</div>
+</div>
+
+<p class="novel">순간, 캐릭터의 몸에서 붉은 빛이 번졌다가 사라졌다. 그리고 상태창이 변했다.</p>
+
+<div class="game-status">
+  <div class="gs-title">character status — post-oath</div>
+  <div class="gs-stat">
+    <span class="gs-label">공격력</span>
+    <span class="gs-val gs-highlight">+42% (서약 보너스)</span>
+    <span class="gs-label">방어력</span>
+    <span class="gs-val gs-highlight">+28% (서약 보너스)</span>
+    <span class="gs-label">스킬 쿨타임</span>
+    <span class="gs-val gs-highlight">-20% (서약 보너스)</span>
+    <span class="gs-label">경험치 획득</span>
+    <span class="gs-val gs-highlight">+35% (서약 보너스)</span>
+    <span class="gs-label">파티 시스템</span>
+    <span class="gs-val gs-highlight">영구 봉인</span>
+    <span class="gs-label">활성 서약</span>
+    <span class="gs-val">1 / 7</span>
+  </div>
+</div>
+
+<p class="novel">공격력 42% 증가. 방어력 28% 증가. 스킬 쿨타임 20% 감소. 경험치 35% 추가. 일반 유저가 장비와 버프를 쌓아서 얻는 수치를 서약 하나로 획득했다. 그리고 '활성 서약 1/7' — 서약은 최대 7개까지 걸 수 있다는 뜻이었다.</p>
+
+<p class="novel">도윤은 가장 가까운 석화 골렘에게 다가갔다. 검을 들고 기본 연속 베기를 시전했다.</p>
+
+<p class="novel">골렘의 체력이 녹았다. 이전에는 한 마리를 잡는 데 4분이 걸렸다. 지금은 2분 20초. 물리 저항이 높은 몬스터를 상대로 이 수치면, 일반 필드의 몬스터는 절반도 안 걸릴 것이다.</p>
+
+<p class="internal">42%. 이건 단순한 숫자 보정이 아니다. 서약 시스템은 '혼자서도 파티급 전투가 가능하도록' 보상을 설계한 것이다. 파티의 역할 분담(탱커/딜러/힐러)을 포기하는 대신, 한 캐릭터가 그 모든 역할을 부분적으로 수행할 수 있는 수준의 스탯을 준다. 이건 게임 디자이너가 의도한 대안 경로다.</p>
+
+<p class="novel">도윤은 다음 목표를 정했다. 잿빛 계곡 끝에 있는 '석화왕의 심연' — 레벨 50 추천 파티 던전. 일반적으로 4인 파티가 필요한 인스턴스 던전이다. 파티 없이 솔로로 클리어할 수 있는지 확인해야 했다.</p>
+
+<p class="novel">던전 입구에 도착했다. 입장 조건: '레벨 45 이상, 권장 인원 4인.' 파티 제한은 없었다 — 입장 자체는 솔로로 가능했다. 다만, 이 던전의 보스는 4인 파티 기준으로 밸런싱되어 있었다.</p>
+
+<p class="novel">도윤은 입장했다.</p>
+
+<p class="novel">석화왕의 심연. 동굴 형태의 던전. 좁은 통로에 석화 골렘들이 밀집해 있었다. 일반 필드보다 강한 엘리트 몬스터들. 도윤은 하나씩 끌어서(어그로) 처리했다. 서약 보너스 덕분에 효율이 좋았지만, 파티가 없으니 실수하면 뒤에서 다른 몬스터가 달려드는 상황을 혼자 감당해야 했다.</p>
+
+<p class="novel">1시간 30분 만에 보스 방에 도달했다. 보스 '석화왕 고르곤' — 4인 파티 기준 15분 전투. 공략 패턴은 세 페이즈. 1페이즈에서 탱커가 어그로를 잡고, 딜러가 약점을 공격하고, 힐러가 석화 디버프를 해제하는 구조.</p>
+
+<p class="novel">탱커도 딜러도 힐러도 없이, 혼자서.</p>
+
+<p class="novel">23분 걸렸다. 물약 37개를 소모했다. 석화 디버프를 4번 맞았고, 그중 한 번은 HP가 8%까지 떨어졌다. 하지만 클리어했다.</p>
+
+<div class="sys-msg">
+<span class="s-success">[ DUNGEON CLEAR — SOLO ]</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-label">Dungeon:</span> <span class="s-value">석화왕의 심연</span><br>
+<span class="s-label">Clear Time:</span> <span class="s-value">23:17</span><br>
+<span class="s-label">Party Size:</span> <span class="s-value">1 (SOLO)</span><br>
+<span class="s-label">Oath Bonus:</span> <span class="s-value">+150% Gold · +200% EXP</span><br>
+<span class="s-divider">────────────────────────────</span><br>
+<span class="s-success">SOLO OATH HOLDER — 추가 보상 지급</span>
+</div>
+
+<p class="novel">솔로 클리어 보너스. 골드 150% 추가, 경험치 200% 추가. 4인 파티로 클리어했을 때보다 개인 획득량이 3배 이상이었다. 서약의 '파티를 맺지 않겠다'는 제약이 솔로 플레이를 위한 완전한 대안 경로를 열어준 것이다.</p>
+
+<p class="novel">도윤은 VR 헤드셋 안에서 웃었다. 소리 내어 웃은 것은 오랜만이었다.</p>
+
+<div class="freedom-gauge">
+  <div class="fg-label">자유도</div>
+  <div class="fg-bar"><div class="fg-fill" style="width:86%"></div></div>
+  <div class="fg-value">86%</div>
+</div>
+
+</section>
+
+<!-- PART IV -->
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part IV</p>
+  <p class="part-title">"바운드가 옳았다"</p>
+</div>
+
+<p class="novel novel-first">그 주에 도윤은 석화왕의 심연을 7번 더 솔로 클리어했다. 클리어 타임이 23분에서 14분으로 줄었다. 패턴을 외운 것도 있지만, 서약 보너스로 인한 경험치 폭증 때문에 레벨이 빠르게 올랐다. 일주일 만에 레벨 47에서 53으로. 일반 유저의 두 배 속도.</p>
+
+<p class="novel">효율이 바뀌자 플레이 패턴 자체가 변했다. 파티를 기다리는 대기 시간이 사라졌다. 파티원의 실력에 좌우되는 변수가 없어졌다. 원하는 시간에 접속해서, 원하는 만큼 사냥하고, 원하는 때에 로그아웃했다. 모든 것이 자기 통제 안에 있었다.</p>
+
+<p class="internal">역설이다. 파티라는 '자유'를 포기했더니, 시간의 자유가 생겼다. MMORPG에서 가장 큰 비효율은 사실 파티 매칭 대기 시간이었다. 탱커가 없어서 30분 대기, 힐러가 탈주해서 재모집, 파티원 실력 차이로 와이프 — 이 모든 비용이 사라졌다.</p>
+
+<p class="novel">도윤은 다음 서약을 고민하기 시작했다. 서약은 최대 7개까지 걸 수 있고, 서로 시너지가 맞으면 '공명'이 발생한다고 했다. 아직 공명이 무엇인지는 모르지만, 서약 간의 조합이 개별 합산보다 강한 효과를 내는 것이라면 — 서약의 설계 자체가 하나의 빌드 시스템이 되는 셈이다.</p>
+
+<p class="novel">그 생각이 들자, 도윤의 머릿속에 3년 전의 기획 문서가 떠올랐다. 바운드의 핵심 디자인 독. '제약 트리.' 플레이어가 선택할 수 있는 제약의 조합을 트리 형태로 설계하고, 특정 조합이 맞물리면 새로운 능력이 열리는 시스템. 도윤과 시우가 6개월 동안 밸런싱했던 바로 그 시스템.</p>
+
+<p class="novel">3,200장의 게임에서 구현했던 그 시스템이, 200만 유저의 게임 안에 숨겨져 있었다.</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel novel-first">그 날 밤, 도윤은 VR 헤드셋을 벗은 뒤에도 한참 동안 책상 앞에 앉아 있었다. 노트북 화면에는 바운드 게임즈 시절의 기획 문서가 열려 있었다. 구글 드라이브에 아직 남아 있는 공유 폴더. '바운드 — 게임 디자인 독'이라는 이름의 문서.</p>
+
+<p class="novel">마지막 수정일: 2024년 3월 17일. 시우가 마지막으로 수정한 날짜. 그날, 그들은 바운드 게임즈의 해산을 결정했다.</p>
+
+<p class="novel">도윤은 문서를 스크롤했다. '제약 트리 설계 원칙'이라는 섹션. 자신이 쓴 문장들이 나열되어 있었다.</p>
+
+<div class="strat-box">
+  <div class="sb-title">bound — game design doc (2024.03.17)</div>
+  <div class="sb-content">
+    <strong>원칙 1:</strong> 모든 제약은 자발적이어야 한다. 시스템이 강제하는 제약은 페널티이고, 플레이어가 선택하는 제약은 정체성이다.<br><br>
+    <strong>원칙 2:</strong> 제약의 크기는 보상의 크기와 비례한다. 가벼운 제약은 가벼운 보상을, 치명적인 제약은 치명적인 보상을.<br><br>
+    <strong>원칙 3:</strong> 제약은 비가역적이어야 한다. 돌이킬 수 있는 제약은 진짜 포기가 아니다. 진짜 선택은 돌아갈 수 없을 때 의미를 가진다.<br><br>
+    <strong>원칙 4:</strong> 제약의 조합은 개별 합산보다 커야 한다. 시너지가 없으면 제약을 쌓을 동기가 없다.
+  </div>
+</div>
+
+<p class="novel">도윤은 모니터 앞에서 오랫동안 이 네 문장을 바라보았다.</p>
+
+<p class="novel">그리고 엘리시움의 서약 시스템이 이 네 원칙을 정확히 따르고 있다는 것을 깨달았다. 자발적 선언. 등급별 보상 비례. 비가역적 서약. 공명 시스템(조합 시너지).</p>
+
+<p class="novel">우연의 일치인가? 아니다. 콘스트레인트 스튜디오의 설계 철학 — "제약이 창의성을 만든다" — 에서 출발한 시스템이라면, 같은 결론에 도달하는 것은 필연이다. 같은 질문을 던지면 같은 답에 도착한다. 도윤과 콘스트레인트 스튜디오는 같은 질문을 던지고 있었다.</p>
+
+<p class="internal">"무엇을 포기할 수 있는가?"</p>
+
+<p class="novel">차이가 있다면 하나. 콘스트레인트 스튜디오는 이 철학으로 200만 유저를 만들었고, 도윤은 3,200장을 만들었다는 것.</p>
+
+<p class="novel">도윤은 노트북을 닫았다. 창밖은 어두웠다. 합정동의 밤. 골목 건너편 편의점의 형광등 불빛이 방 안까지 들어왔다.</p>
+
+<p class="novel">도윤은 자기 자신에게 물었다. 바운드가 틀렸던 건가? 3,200장은 시스템이 나빠서 그런 건가? 아니면 시스템은 맞았는데, 그것을 세상에 전달하는 방법이 틀렸던 건가?</p>
+
+<p class="novel">대답은 없었다. 하지만 확실한 것이 하나 있었다.</p>
+
+<p class="novel">엘리시움 안에서, 도윤의 철학은 작동하고 있었다. 서약 시스템은 도윤의 분석을 기다리고 있었고, 도윤의 전략에 반응했고, 도윤에게 보상을 돌려줬다. 이 세계 안에서, '제약이 창의성을 만든다'는 원칙은 살아 있었다.</p>
+
+<p class="novel">VR 헤드셋을 다시 집어 들었다.</p>
+
+<p class="novel">오늘 밤, 두 번째 서약을 걸 것이다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>3,200장의 실패가<br><strong>족쇄의 시작이 된다</strong></h2>
+  <p class="sub">자유를 포기할수록 강해지는 시스템. 게임 기획자의 눈이 그 설계를 읽어낸다. 하지만 서약은 아직 첫 번째에 불과하다.</p>
+</div>
+
+<footer class="footer">
+  <p>Inspired by "2인 개발로 400억 버는 치트키 공개" (YouTube, 2024) &middot; GDC "Constraints and Creativity" &middot; Subset Games (FTL, Into the Breach)</p>
+  <p>Written with Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>
