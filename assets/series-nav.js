@@ -209,7 +209,8 @@
       title: '서버는 샀는데',
       articles: [
         { slug: 'no-data-yet', title: '데이터가 없다' },
-        { slug: 'what-to-build', title: '뭘 만들 것인가' }
+        { slug: 'what-to-build', title: '뭘 만들 것인가' },
+        { slug: 'before-the-server-arrives', title: '56일 후' }
       ]
     }
   };

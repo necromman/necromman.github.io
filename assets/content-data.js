@@ -843,7 +843,14 @@ window.CONTENT_DATA = [
         role: 'ChatGPT와 싸우지 않는 전략 — 대기업 사각지대와 연구기관 시장',
         tag: '제품전략',
         href: 'content/ai-server-setup-series/what-to-build.html',
-        search: '제품전략 ChatGPT 대기업 사각지대 연구기관 대학 GS인증 AI바우처 중소기업 버티컬'
+        search: '제품전략 ChatGPT 대기업 사각지대 연구기관 대학 GS인증 AI바우처 버티컬'
+      },
+      {
+        title: '56일 후',
+        role: 'D-56 준비 가이드 — 데이터 정제, PRD 작성, 아이디어 수집, 8주 타임라인',
+        tag: '준비',
+        href: 'content/ai-server-setup-series/before-the-server-arrives.html',
+        search: '서버준비 데이터정제 PRD 기획서 Ollama 프로토타입 아이디어 8주 타임라인 HWP 인벤토리'
       }
     ]
   }
