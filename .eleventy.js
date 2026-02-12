@@ -11,6 +11,11 @@ export default function (eleventyConfig) {
   // HtmlBasePlugin — pathPrefix를 HTML 출력의 절대경로에 자동 적용
   eleventyConfig.addPlugin(HtmlBasePlugin);
 
+  // 커스텀 필터: 숫자 zero-padding (01, 02, ...)
+  eleventyConfig.addFilter("pad", function (n) {
+    return n < 10 ? "0" + n : String(n);
+  });
+
   // 커스텀 필터: <style> 블록 추출 (head에 배치용)
   eleventyConfig.addFilter("extractStyles", function (content) {
     if (!content) return "";

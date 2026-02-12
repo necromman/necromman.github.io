@@ -27,7 +27,35 @@ googleVerification: "kAqrh5ZOHV8HzJRVBXeFuKSymzJKs_H9H4mdilIw168"
 
   <div id="noResults" class="no-results">검색 결과가 없습니다</div>
 
-  <main id="contentArea"></main>
+  <main id="contentArea">
+{%- for series in contentData | reverse %}
+    <section class="series-section" data-series="{{ series.id }}" data-series-num="{{ loop.revindex }}">
+      <div class="series-header" data-sid="{{ series.id }}">
+        <span class="series-label">Series {{ loop.revindex | pad }}</span>
+        <h2 class="series-title">{{ series.title | e }}</h2>
+        <span class="series-toggle">&#9660;</span>
+      </div>
+      <div class="series-body">
+        <div class="series-meta">
+          <p class="series-desc">{{ series.description | e }}</p>
+          <span class="series-count">{{ series.articles | length }} articles</span>
+        </div>
+        <nav><ul class="article-list">
+{%- for a in series.articles %}
+          <li><a class="article-item" href="{{ a.href }}" data-search="{{ a.search | e }}">
+            <span class="article-num">{{ loop.index | pad }}</span>
+            <div class="article-info">
+              <div class="article-title">{{ a.title | e }}</div>
+              <div class="article-role">{{ a.role | e }}</div>
+            </div>
+            <span class="article-tag">{{ a.tag | e }}</span>
+          </a></li>
+{%- endfor %}
+        </ul></nav>
+      </div>
+    </section>
+{%- endfor %}
+  </main>
 
   <footer class="site-footer">
     <div class="visitor-count" id="visitorCount">

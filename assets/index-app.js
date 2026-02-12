@@ -1,16 +1,19 @@
 /**
  * index-app.js
- * 랜딩 페이지 렌더링, 검색, 정렬(ASC/DESC), 모두 펼침/접기 로직
- * content-data.js가 먼저 로드되어야 합니다.
+ * Progressive enhancement for the SSR landing page.
+ * HTML is pre-rendered by 11ty. This script adds:
+ * - Search (filter articles by keyword)
+ * - Sort (ascending/descending by series number)
+ * - Collapse/Expand (toggle series bodies)
  *
- * localStorage 키:
- *   editorial-sort    — 'asc' | 'desc' (기본: desc)
- *   editorial-collapsed — JSON 객체 { seriesId: true/false }
+ * localStorage keys:
+ *   editorial-sort      — 'asc' | 'desc' (default: desc)
+ *   editorial-collapsed — JSON object { seriesId: true/false }
  */
 (function () {
   'use strict';
 
-  /* ---------- localStorage 헬퍼 ---------- */
+  /* ---------- localStorage helpers ---------- */
 
   function loadSort() {
     var v = localStorage.getItem('editorial-sort');
@@ -34,78 +37,56 @@
     localStorage.setItem('editorial-collapsed', JSON.stringify(obj));
   }
 
-  /* ---------- 상태 ---------- */
+  /* ---------- State ---------- */
 
   var sortOrder = loadSort();
   var collapsed = loadCollapsed();
 
   var contentArea, searchInput, searchCount, noResults, sortBtn, toggleAllBtn;
 
-  function pad(n) {
-    return n < 10 ? '0' + n : String(n);
-  }
+  /* ---------- Sort ---------- */
 
-  function esc(s) {
-    var el = document.createElement('span');
-    el.textContent = s;
-    return el.innerHTML;
-  }
-
-  function getSortedData() {
-    var data = window.CONTENT_DATA.slice();
-    if (sortOrder === 'desc') {
-      data.reverse();
-    }
-    return data;
-  }
-
-  function render() {
-    var data = getSortedData();
-    var html = '';
-
-    data.forEach(function (series) {
-      var seriesNum = window.CONTENT_DATA.indexOf(series) + 1;
-      var isCollapsed = !!collapsed[series.id];
-      html += '<section class="series-section" data-series="' + series.id + '">'
-        + '<div class="series-header" data-sid="' + series.id + '">'
-        + '<span class="series-label">Series ' + pad(seriesNum) + '</span>'
-        + '<h2 class="series-title">' + esc(series.title) + '</h2>'
-        + '<span class="series-toggle' + (isCollapsed ? ' collapsed' : '') + '">&#9660;</span>'
-        + '</div>'
-        + '<div class="series-body' + (isCollapsed ? ' collapsed' : '') + '">'
-        + '<div class="series-meta">'
-        + '<p class="series-desc">' + esc(series.description) + '</p>'
-        + '<span class="series-count">' + series.articles.length + ' articles</span>'
-        + '</div>'
-        + '<nav><ul class="article-list">';
-
-      series.articles.forEach(function (a, aIdx) {
-        html += '<li>'
-          + '<a class="article-item" href="' + a.href + '" data-search="' + esc(a.search) + '">'
-          + '<span class="article-num">' + pad(aIdx + 1) + '</span>'
-          + '<div class="article-info">'
-          + '<div class="article-title">' + esc(a.title) + '</div>'
-          + '<div class="article-role">' + esc(a.role) + '</div>'
-          + '</div>'
-          + '<span class="article-tag">' + esc(a.tag) + '</span>'
-          + '</a></li>';
-      });
-
-      html += '</ul></nav></div></section>';
+  function reorderSections() {
+    var sections = Array.prototype.slice.call(contentArea.querySelectorAll('.series-section'));
+    sections.sort(function (a, b) {
+      var aNum = parseInt(a.getAttribute('data-series-num'), 10);
+      var bNum = parseInt(b.getAttribute('data-series-num'), 10);
+      return sortOrder === 'asc' ? aNum - bNum : bNum - aNum;
     });
-
-    contentArea.innerHTML = html;
-    bindHeaders();
-    syncToggleAllBtn();
-
-    var query = searchInput.value.trim().toLowerCase();
-    if (query) applySearch(query);
+    sections.forEach(function (s) {
+      contentArea.appendChild(s);
+    });
   }
 
-  function bindHeaders() {
-    var headers = contentArea.querySelectorAll('.series-header');
-    for (var i = 0; i < headers.length; i++) {
-      headers[i].addEventListener('click', onHeaderClick);
+  function handleSort() {
+    sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+    saveSort(sortOrder);
+    syncSortBtn();
+    reorderSections();
+  }
+
+  function syncSortBtn() {
+    if (sortOrder === 'desc') {
+      sortBtn.textContent = '최신순';
+      sortBtn.classList.add('active');
+    } else {
+      sortBtn.textContent = '오래된순';
+      sortBtn.classList.remove('active');
+    }
+  }
+
+  /* ---------- Collapse ---------- */
+
+  function applyCollapsedState() {
+    var sections = contentArea.querySelectorAll('.series-section');
+    for (var i = 0; i < sections.length; i++) {
+      var id = sections[i].getAttribute('data-series');
+      var body = sections[i].querySelector('.series-body');
+      var toggle = sections[i].querySelector('.series-toggle');
+      if (collapsed[id]) {
+        body.classList.add('collapsed');
+        toggle.classList.add('collapsed');
+      }
     }
   }
 
@@ -120,26 +101,14 @@
     syncToggleAllBtn();
   }
 
-  /* ---------- 정렬 ---------- */
-
-  function handleSort() {
-    sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
-    saveSort(sortOrder);
-    syncSortBtn();
-    render();
-  }
-
-  function syncSortBtn() {
-    if (sortOrder === 'desc') {
-      sortBtn.textContent = '최신순';
-      sortBtn.classList.add('active');
-    } else {
-      sortBtn.textContent = '오래된순';
-      sortBtn.classList.remove('active');
+  function bindHeaders() {
+    var headers = contentArea.querySelectorAll('.series-header');
+    for (var i = 0; i < headers.length; i++) {
+      headers[i].addEventListener('click', onHeaderClick);
     }
   }
 
-  /* ---------- 모두 펼침/접기 ---------- */
+  /* ---------- Toggle All ---------- */
 
   function isAllExpanded() {
     var bodies = contentArea.querySelectorAll('.series-body');
@@ -176,7 +145,7 @@
     toggleAllBtn.textContent = isAllExpanded() ? '모두 접기' : '모두 펼침';
   }
 
-  /* ---------- 검색 ---------- */
+  /* ---------- Search ---------- */
 
   function applySearch(query) {
     var sections = contentArea.querySelectorAll('.series-section');
@@ -248,7 +217,7 @@
     applySearch(query);
   }
 
-  /* ---------- 초기화 ---------- */
+  /* ---------- Init ---------- */
 
   document.addEventListener('DOMContentLoaded', function () {
     contentArea = document.getElementById('contentArea');
@@ -258,11 +227,22 @@
     sortBtn = document.getElementById('sortBtn');
     toggleAllBtn = document.getElementById('toggleAllBtn');
 
+    // Apply saved collapsed state to SSR HTML
+    applyCollapsedState();
+
+    // Apply saved sort order (SSR default is descending)
+    if (sortOrder === 'asc') {
+      reorderSections();
+    }
+
+    // Bind events
+    bindHeaders();
     sortBtn.addEventListener('click', handleSort);
     toggleAllBtn.addEventListener('click', handleToggleAll);
     searchInput.addEventListener('input', handleSearch);
 
+    // Sync button labels
     syncSortBtn();
-    render();
+    syncToggleAllBtn();
   });
 })();
