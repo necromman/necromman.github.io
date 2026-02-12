@@ -1,5 +1,12 @@
 {
    "permissions": {
     "defaultMode": "bypassPermissions"
-   }
+   },
+   "status_line": {
+    "enabled": true,
+    "show_model": true,
+    "show_git_branch": true,
+    "show_token_usage": true,
+    "show_conversation_summary": true
+  }
 }

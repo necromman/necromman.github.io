@@ -1,0 +1,403 @@
+---
+layout: layouts/article.njk
+pageTitle: "데이터가 없다"
+description: "13조 토큰의 GPT-4 vs 0 토큰의 우리 서버. Chinchilla Scaling Law가 증명한 데이터의 힘, RAG로 시작해야 하는 이유, 90일 데이터 확보 로드맵."
+datePublished: "2026-02-12"
+---
+<style>
+.masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+.masthead .issue { margin-bottom: 24px; }
+.masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+.masthead h1 strong { font-weight: 900; color: var(--accent); }
+.masthead .deck { max-width: 520px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+/* COMPARE TABLE */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin: 32px 0 48px;
+  font-size: 0.88rem;
+}
+.compare-grid .cg-head {
+  background: var(--fg);
+  color: var(--bg);
+  padding: 14px 16px;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.compare-grid .cg-label {
+  background: var(--card-bg);
+  padding: 14px 16px;
+  font-weight: 700;
+  color: var(--fg);
+}
+.compare-grid .cg-cell {
+  background: var(--bg);
+  padding: 14px 16px;
+  color: var(--prose);
+  line-height: 1.5;
+}
+.compare-grid .cg-cell strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* SOURCE CARD */
+.source-card {
+  padding: 28px 28px 24px;
+  margin: 24px 0;
+  border: 1px solid var(--rule);
+}
+.source-card .sc-num {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.source-card .sc-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 6px;
+  letter-spacing: -0.3px;
+}
+.source-card .sc-tag {
+  font-family: var(--serif);
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.source-card .sc-body {
+  font-size: 0.92rem;
+  color: var(--prose);
+  line-height: 1.85;
+}
+.source-card .sc-body strong {
+  color: var(--fg);
+  font-weight: 700;
+}
+
+/* ROADMAP TABLE */
+.roadmap-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 32px 0 40px;
+  font-size: 0.9rem;
+}
+.roadmap-table th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--fg);
+  font-weight: 600;
+}
+.roadmap-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--prose);
+  line-height: 1.6;
+  vertical-align: top;
+}
+.roadmap-table td:first-child {
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+  width: 100px;
+  font-size: 0.85rem;
+}
+.roadmap-table td:nth-child(2) {
+  font-weight: 700;
+  color: var(--fg);
+  width: 180px;
+}
+
+/* 2-COLUMN MECHANISM */
+.mechanism-2col { grid-template-columns: 1fr 1fr; }
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .masthead h1 { font-size: 2.2rem; }
+  .compare-grid { grid-template-columns: 100px 1fr 1fr; font-size: 0.8rem; }
+  .compare-grid .cg-label,
+  .compare-grid .cg-cell { padding: 10px 12px; }
+  .source-card { padding: 20px; }
+  .roadmap-table { font-size: 0.82rem; }
+  .roadmap-table td:first-child { width: auto; }
+  .roadmap-table td:nth-child(2) { width: auto; }
+  .mechanism-2col { grid-template-columns: 1fr; }
+}
+</style>
+
+<div class="page">
+<article>
+<header class="masthead">
+  <p class="issue">Series 23 — AI Server Setup</p>
+  <h1>데이터가<br><strong>없다</strong></h1>
+  <p class="deck">GPU는 도구다. 재료가 없으면 요리가 나오지 않는다.</p>
+</header>
+
+<main>
+
+<section>
+  <div class="section-head">
+    <span class="num">Part I — Zero Tokens</span>
+    <h2>13조 토큰 vs <strong>0</strong></h2>
+  </div>
+
+  <p class="prose">GPU 서버가 도착했다. L40S 48GB 2장, 총 96GB VRAM. <strong>nvidia-smi</strong>를 치면 0% 사용률로 대기 중이다.</p>
+
+  <div class="mechanism-row">
+    <div class="mechanism">
+      <div class="m-label">GPT-4</div>
+      <h3>~13조 토큰</h3>
+      <p class="m-body">인터넷, 코드, 학술 논문. 수십억 달러의 데이터 파이프라인.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Llama 3</div>
+      <h3>15조 토큰</h3>
+      <p class="m-body">Meta의 오픈소스. Common Crawl 기반, 고품질 필터링.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">우리 서버</div>
+      <h3>0 토큰</h3>
+      <p class="m-body">96GB VRAM이 대기 중이다. <strong>넣을 데이터가 없다.</strong></p>
+    </div>
+  </div>
+
+  <p class="prose">최고급 오븐이 왔다. 하지만 냉장고가 비어 있다. <strong>이것이 GPU 서버를 산 직후의 현실이다.</strong> 하드웨어 스펙은 충분한데, 그 안에서 돌릴 데이터가 준비되어 있지 않다. 파인튜닝에는 QLoRA 기준 최소 1,000~5,000건의 Q&A 쌍, Full fine-tune이면 1만~10만 건이 필요하다.</p>
+
+  <div class="pull-quote">
+    <p>데이터 없는 GPU 서버는<br><strong>책 없는 도서관</strong>이다.<br>건물은 있지만, 빌릴 책이 없다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="num">Part II — Data Beats Model</span>
+    <h2>데이터가 모델을 <strong>이긴다</strong></h2>
+  </div>
+
+  <p class="prose">직감적으로는 큰 모델이 좋은 답변을 할 것 같다. <strong>틀렸다.</strong> 2022년 DeepMind의 Chinchilla 논문이 이 상식을 뒤집었다.</p>
+
+  <div class="mechanism-row mechanism-2col">
+    <div class="mechanism">
+      <div class="m-label">Gopher</div>
+      <h3>280B 파라미터, 300B 토큰</h3>
+      <p class="m-body">당시 최대 규모 모델. 파라미터 수로 승부했다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Chinchilla</div>
+      <h3>70B 파라미터, 1.4T 토큰</h3>
+      <p class="m-body">파라미터는 <strong>4분의 1</strong>. 대신 데이터를 <strong>4.7배</strong> 투입했다. 결과: 모든 벤치마크에서 Gopher를 이겼다.</p>
+    </div>
+  </div>
+
+  <p class="prose">Chinchilla Scaling Law의 결론은 명확하다. <strong>같은 연산 예산이라면 모델을 키우는 것보다 데이터를 늘리는 것이 더 효율적이다.</strong> 이 논문 이후 Llama, Mistral, Gemma 등 거의 모든 오픈소스 모델이 학습 전략을 바꿨다. 큰 모델보다 좋은 데이터 — 이것이 2024년 이후 AI 업계의 합의다.</p>
+
+  <p class="prose">파인튜닝에서도 동일하다. 같은 7B 모델이라도, 정제된 5,000건의 Q&A로 학습하면 정확도 80%가 나온다. 정제 안 된 raw 데이터 5,000건이면 50%에 못 미친다. RAG에서는 이 격차가 더 극적이다. 문서의 청킹 품질, 임베딩 전처리, 메타데이터 설계에 따라 <strong>같은 질문에 대한 답변 정확도가 30%에서 85%까지 차이</strong>난다. 모델은 동일한데.</p>
+
+  <div class="warning-box">
+    <div class="w-title">나쁜 데이터가 만드는 결과</div>
+    <ol class="warning-list">
+      <li>오버피팅 — 학습 데이터를 그대로 복사하는 모델이 된다. 새 질문에 대답 못 한다</li>
+      <li>환각 증가 — 잘못된 문서를 검색하면 "자신있게 틀린 답"을 출력한다</li>
+      <li>모델 붕괴 — AI가 생성한 데이터로만 반복 학습하면 5세대 안에 품질이 붕괴한다 (Shumailov et al., 2024)</li>
+    </ol>
+  </div>
+
+  <p class="prose"><strong>96GB VRAM에 쓰레기 데이터를 넣으면 쓰레기 모델이 나온다. 24GB GPU에 정제된 데이터를 넣으면 쓸 만한 모델이 나온다.</strong> GPU 사양이 아니라 데이터 품질이 성능을 결정한다.</p>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="num">Part III — RAG Comes First</span>
+    <h2>RAG가 <strong>먼저다</strong></h2>
+  </div>
+
+  <p class="prose">데이터가 중요하다는 건 알겠다. 그런데 데이터가 없다. 여기서 선택지가 갈린다. 파인튜닝 데이터를 먼저 모을 것인가, RAG로 서비스부터 시작할 것인가.</p>
+
+  <div class="compare-grid">
+    <div class="cg-head">&nbsp;</div>
+    <div class="cg-head">RAG</div>
+    <div class="cg-head">Fine-tuning</div>
+
+    <div class="cg-label">구축 기간</div>
+    <div class="cg-cell"><strong>2~4주</strong></div>
+    <div class="cg-cell">2~6개월</div>
+
+    <div class="cg-label">필요 데이터</div>
+    <div class="cg-cell"><strong>문서 수백~수천 건</strong></div>
+    <div class="cg-cell">Q&amp;A 쌍 1,000~100,000건</div>
+
+    <div class="cg-label">데이터 갱신</div>
+    <div class="cg-cell"><strong>문서 교체 → 즉시 반영</strong></div>
+    <div class="cg-cell">재학습 필요 (수 시간~수일)</div>
+
+    <div class="cg-label">환각 제어</div>
+    <div class="cg-cell"><strong>출처 문서 명시 가능</strong></div>
+    <div class="cg-cell">모델 내재화, 출처 불명</div>
+
+    <div class="cg-label">핵심 원리</div>
+    <div class="cg-cell"><strong>모델에 문서를 붙여준다</strong></div>
+    <div class="cg-cell">모델의 가중치를 바꾼다</div>
+  </div>
+
+  <p class="prose"><strong>RAG를 먼저 구축하고, 서비스를 돌리고, 데이터가 쌓이면 그때 파인튜닝한다.</strong></p>
+
+  <p class="prose">NVIDIA는 이것을 <strong>Data Flywheel</strong>이라 부른다. 서비스를 돌리면 사용자가 질문한다. 질문이 쌓이면 데이터가 된다. 데이터로 모델을 개선하면 더 나은 서비스가 되고, 더 많은 사용자가 온다. 바퀴는 한 번 돌기 시작하면 가속이 붙는다. <strong>첫 회전에는 RAG면 충분하다.</strong></p>
+
+  <div class="mechanism-row">
+    <div class="mechanism">
+      <div class="m-label">01 — 시작</div>
+      <h3>RAG로 서비스 오픈</h3>
+      <p class="m-body">기존 문서를 임베딩하고 서비스를 시작한다. 완벽하지 않아도 된다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">02 — 수집</div>
+      <h3>사용자 데이터 축적</h3>
+      <p class="m-body">질문 로그, 피드백, 검색 실패 패턴이 자동으로 쌓인다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">03 — 전환</div>
+      <h3>파인튜닝 시작</h3>
+      <p class="m-body">축적된 데이터로 QLoRA. 이때 GPU가 진짜 일을 시작한다.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="num">Part IV — Start With What You Have</span>
+    <h2>있는 데이터부터 <strong>쓴다</strong></h2>
+  </div>
+
+  <p class="prose">파인튜닝에 쓸 데이터는 없다. 하지만 <strong>RAG에 쓸 데이터는 이미 있다.</strong> 정리되어 있지 않을 뿐이다.</p>
+
+  <div class="source-card">
+    <div class="sc-num">Source 01</div>
+    <div class="sc-title">서비스 운영 로그</div>
+    <div class="sc-tag">실시간 수집 / 도메인 특화</div>
+    <div class="sc-body">운영 중인 서비스가 있다면, 사용자 질문과 시스템 응답 로그가 가장 귀한 데이터다. RAG 질의 패턴 분석에 즉시 사용 가능하고, 누적되면 파인튜닝 데이터셋의 원석이 된다. 피드백 UI("답변이 도움이 되었나요?")를 붙이면 <strong>품질 라벨링이 자동으로 시작</strong>된다.</div>
+  </div>
+
+  <div class="source-card">
+    <div class="sc-num">Source 02</div>
+    <div class="sc-title">납품처 업무 문서</div>
+    <div class="sc-tag">RAG 임베딩 / 즉시 수집</div>
+    <div class="sc-body">고객사에 납품한 시스템이 있다면, 그 고객의 업무 문서가 RAG의 지식 기반이 된다. 학칙, 규정, 매뉴얼, 공문, 양식. 문서 한 건을 추가할 때마다 AI의 답변 범위가 즉시 확장된다. <strong>모델 재학습 없이.</strong></div>
+  </div>
+
+  <div class="source-card">
+    <div class="sc-num">Source 03</div>
+    <div class="sc-title">공개 데이터셋 + 합성 데이터</div>
+    <div class="sc-tag">베이스라인 / 무료</div>
+    <div class="sc-body">AI Hub 한국어 데이터셋(<strong>KoAlpaca</strong> ~2만 건, <strong>kullm-v2</strong> ~15만 건)은 HuggingFace에서 바로 다운로드 가능하다. Claude/GPT API로 도메인 특화 Q&A를 합성하면 데이터를 빠르게 확장할 수 있다. NIA 가이드라인 v3.5는 합성 데이터를 공식 인정하면서 <strong>실제 데이터와의 혼합 비율</strong> 기준까지 제시했다.</div>
+  </div>
+
+  <p class="prose">데이터 수집의 첫 번째 난관은 <strong>HWP</strong>다. 한국 공공기관 문서의 대다수가 한글(.hwp, .hwpx) 포맷인데, PDF나 Word와 달리 바이너리 독자 포맷이라 파싱이 까다롭다. 단순히 텍스트로 덤프하면 표의 행열이 뒤섞이고, 머리글이 본문에 섞인다.</p>
+
+  <div class="mechanism-row mechanism-2col">
+    <div class="mechanism">
+      <div class="m-label">Option A</div>
+      <h3>HWPX 경유 파싱</h3>
+      <p class="m-body">HWP를 HWPX(Open XML)로 변환 후 XML 파싱. python-hwp, pyhwpx가 표·텍스트를 분리한다. 무료, 자체 구축 가능. <strong>복잡한 서식은 깨진다.</strong></p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Option B</div>
+      <h3>VLM 기반 문서 파서</h3>
+      <p class="m-body">Vision-Language Model로 문서를 이미지 렌더링 후 구조 분석. 한국딥러닝 DEEP Parser 기준 정확도 <strong>97.3%</strong>. 정확하지만 비용과 처리 시간이 든다.</p>
+    </div>
+  </div>
+
+  <p class="prose"><strong>A로 시작하고, 정확도 부족한 문서만 B로 보완한다.</strong> 파싱 후에는 청킹(한국어 기준 600자 청크, 100자 오버랩)과 개인정보 비식별화(Microsoft Presidio)를 거쳐 임베딩한다.</p>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="num">Part V — The 90-Day Roadmap</span>
+    <h2>90일 <strong>로드맵</strong></h2>
+  </div>
+
+  <p class="prose">서버 도착일로부터 90일. 이 안에 첫 번째 RAG 파이프라인이 돌아가야 한다.</p>
+
+  <table class="roadmap-table">
+    <thead>
+      <tr><th>기간</th><th>목표</th><th>작업 내용</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Week 1~2</td>
+        <td>데이터 인벤토리</td>
+        <td>보유 데이터 목록화. 형식(HWP/PDF/Excel/DB), 건수, 품질 등급, 개인정보 포함 여부 기록</td>
+      </tr>
+      <tr>
+        <td>Week 3~4</td>
+        <td>파싱 파이프라인</td>
+        <td>HWP/PDF 파싱 → 텍스트/표 추출 → 개인정보 마스킹 → 청킹. 이 파이프라인은 다른 고객에게도 재사용 가능</td>
+      </tr>
+      <tr>
+        <td>Month 2</td>
+        <td>데이터 확장</td>
+        <td>공개 데이터셋 + 합성 Q&A 생성. 도메인 특화 Q&A <strong>최소 1,000건</strong> 확보</td>
+      </tr>
+      <tr>
+        <td>Month 3</td>
+        <td>피드백 루프</td>
+        <td>서비스에 피드백 UI 추가. 낮은 점수 응답을 인간이 교정하면 파인튜닝 데이터가 된다</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="prose">90일이 끝나면 손에 쥐는 것은 세 가지다.</p>
+
+  <div class="mechanism-row">
+    <div class="mechanism">
+      <div class="m-label">01</div>
+      <h3>RAG 지식 기반</h3>
+      <p class="m-body">수백~수천 건의 문서가 벡터 DB에 임베딩된 상태. 질문하면 관련 문서를 찾아 답변을 생성한다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">02</div>
+      <h3>데이터 파이프라인</h3>
+      <p class="m-body">HWP/PDF → 텍스트 → 비식별화 → 청킹 → 임베딩의 자동화. 새 고객이 오면 문서를 넣기만 하면 된다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">03</div>
+      <h3>피드백 루프</h3>
+      <p class="m-body">피드백이 자동 수집되는 구조. 파인튜닝에 쓸 고품질 데이터가 시간과 함께 축적된다.</p>
+    </div>
+  </div>
+
+  <p class="prose">파인튜닝은 이 다음이다. 피드백 라벨이 붙은 데이터가 1,000건을 넘으면, 그때 QLoRA로 첫 시도를 한다. 96GB VRAM이면 <strong>70B 모델도 파인튜닝이 가능</strong>하다. 부족한 것은 하드웨어가 아니라 데이터다.</p>
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>0에서 시작하는 건 문제가 아니다.<br><strong>0에 머무는 것이 문제다.</strong></h2>
+  <p class="sub">서비스를 먼저 돌려라. 사용자가 데이터를 만든다. 그 데이터가 서버에 의미를 부여한다.</p>
+</div>
+
+<footer class="footer">
+  <p>Sources: Hoffmann et al. Chinchilla Scaling Law (DeepMind 2022) &middot; Shumailov et al. Model Collapse (Nature 2024) &middot; NVIDIA Data Flywheel Blueprint &middot; NIA AI 데이터 품질관리 가이드라인 v3.5 (2025) &middot; 한국딥러닝 DEEP Parser &middot; AI Hub 한국어 데이터셋</p>
+  <p>Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</article>
+</div>

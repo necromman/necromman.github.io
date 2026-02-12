@@ -824,5 +824,27 @@ window.CONTENT_DATA = [
         search: '보이스피싱 피해자 회복 가계부 멘탈 반찬가게 딸 결혼자금 삶 소설'
       }
     ]
+  },
+  {
+    id: 'ai-server-setup',
+    seriesNum: 23,
+    title: '서버는 샀는데',
+    description: 'GPU 서버를 사고 가장 먼저 해야 할 일. 데이터 확보부터 제품 전략까지, 한국 중소기업 AI 도입의 현실적 로드맵.',
+    articles: [
+      {
+        title: '데이터가 없다',
+        role: 'GPU 서버를 사고 가장 먼저 해야 할 일 — RAG 먼저, 파인튜닝은 나중',
+        tag: '데이터',
+        href: 'content/ai-server-setup-series/no-data-yet.html',
+        search: '데이터 GPU서버 L40S RAG 파인튜닝 HWP 벡터DB 중소기업 AI도입 90일로드맵'
+      },
+      {
+        title: '뭘 만들 것인가',
+        role: 'ChatGPT와 싸우지 않는 전략 — 대기업 사각지대와 연구기관 시장',
+        tag: '제품전략',
+        href: 'content/ai-server-setup-series/what-to-build.html',
+        search: '제품전략 ChatGPT 대기업 사각지대 연구기관 대학 GS인증 AI바우처 중소기업 버티컬'
+      }
+    ]
   }
 ];
