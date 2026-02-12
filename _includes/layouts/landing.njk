@@ -7,11 +7,11 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <title>{{ pageTitle }}</title>
 <meta name="description" content="{{ description }}">
-<link rel="canonical" href="https://necromman.github.io/editorial{{ page.url }}">
+<link rel="canonical" href="https://necromman.github.io{{ page.url }}">
 <meta property="og:type" content="website">
 <meta property="og:title" content="{{ pageTitle }}">
 <meta property="og:description" content="{{ ogDescription or description }}">
-<meta property="og:url" content="https://necromman.github.io/editorial{{ page.url }}">
+<meta property="og:url" content="https://necromman.github.io{{ page.url }}">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="Editorial">
 <meta name="twitter:card" content="summary_large_image">
@@ -21,7 +21,7 @@
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Editorial",
-  "url": "https://necromman.github.io/editorial/",
+  "url": "https://necromman.github.io/",
   "description": description
 } %}
 <script type="application/ld+json">{{ ld | dump | safe }}</script>
