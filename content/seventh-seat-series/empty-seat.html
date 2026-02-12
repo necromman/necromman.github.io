@@ -1,0 +1,580 @@
+---
+layout: layouts/article.njk
+pageTitle: "빈 자리"
+description: "태초신이 임명한 일곱 기사 중 하나가 300년 전 사라졌다. 차원이 무너지는 날, 남은 여섯은 빈 자리의 주인이 남긴 흔적을 발견한다."
+datePublished: "2026-02-12"
+---
+<style>
+.masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+.masthead .issue { margin-bottom: 24px; }
+.masthead h1 { font-size: 3.6rem; font-weight: 900; line-height: 1.05; letter-spacing: -2px; }
+.masthead h1 strong { font-weight: 900; color: var(--accent); }
+.masthead .deck { max-width: 460px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+/* Novel typography */
+.novel { text-indent: 1em; line-height: 2.05; font-size: 1.05rem; color: var(--prose); margin: 0 0 0.2em; }
+.novel-first { text-indent: 0; }
+.dialogue { padding-left: 1em; text-indent: -1em; line-height: 2.05; font-size: 1.05rem; color: var(--prose); margin: 0 0 0.2em; }
+.internal { color: var(--muted); font-size: 1.02rem; line-height: 2; margin: 0.8em 0; text-indent: 1em; }
+
+/* Scene break */
+.scene-break { text-align: center; letter-spacing: 12px; color: var(--muted); font-size: 0.85rem; padding: 40px 0; }
+
+/* Part labels */
+.part-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; margin-top: 0; }
+.part-title { font-size: 1.6rem; font-weight: 700; color: var(--fg); margin-bottom: 32px; letter-spacing: -0.5px; }
+.section-divider { border-top: 1px solid var(--fg); padding-top: 48px; margin-top: 56px; }
+
+/* Knight character colors */
+:root {
+  --knight-eric: #2d2645;
+  --knight-minwoo: #8b2500;
+  --knight-hyesung: #4a6d8c;
+  --knight-dongwan: #6b5a2e;
+  --knight-junjin: #2e5c3f;
+  --knight-andy: #8b7a2e;
+}
+[data-theme="dark"] {
+  --knight-eric: #9b8fbf;
+  --knight-minwoo: #d4735a;
+  --knight-hyesung: #7fa8c9;
+  --knight-dongwan: #bfa85a;
+  --knight-junjin: #6db88a;
+  --knight-andy: #d4c35a;
+}
+
+/* Knight voice — character-specific dialogue block */
+.knight-voice {
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-left: 3px solid var(--accent);
+  background: var(--card-bg);
+}
+.knight-voice .kv-tag {
+  font-family: var(--serif);
+  font-size: 0.78rem;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.knight-voice .kv-text {
+  font-size: 0.95rem;
+  line-height: 1.9;
+  color: var(--prose);
+}
+.knight-voice.eric { border-left-color: var(--knight-eric); }
+.knight-voice.eric .kv-tag { color: var(--knight-eric); }
+.knight-voice.minwoo { border-left-color: var(--knight-minwoo); }
+.knight-voice.minwoo .kv-tag { color: var(--knight-minwoo); }
+.knight-voice.hyesung { border-left-color: var(--knight-hyesung); }
+.knight-voice.hyesung .kv-tag { color: var(--knight-hyesung); }
+.knight-voice.dongwan { border-left-color: var(--knight-dongwan); }
+.knight-voice.dongwan .kv-tag { color: var(--knight-dongwan); }
+.knight-voice.junjin { border-left-color: var(--knight-junjin); }
+.knight-voice.junjin .kv-tag { color: var(--knight-junjin); }
+.knight-voice.andy { border-left-color: var(--knight-andy); }
+.knight-voice.andy .kv-tag { color: var(--knight-andy); }
+
+/* Round table — 7 seats, one empty */
+.round-table {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin: 40px 0;
+}
+.round-table .seat {
+  background: var(--bg);
+  padding: 20px 8px;
+  text-align: center;
+}
+.round-table .seat-name {
+  font-family: var(--serif);
+  font-size: 0.92rem;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.round-table .seat-attr {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+.round-table .seat.empty {
+  background: var(--card-bg);
+  border: 1px dashed var(--muted);
+}
+.round-table .seat.empty .seat-name {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+/* Dimension description */
+.dimension-desc {
+  font-size: 1.02rem;
+  line-height: 2;
+  color: var(--secondary);
+  margin: 0 0 0.2em;
+  text-indent: 1em;
+  border-left: 2px solid var(--rule);
+  padding-left: 20px;
+}
+
+/* Collapse scene — dimensional collapse visual */
+.collapse-scene {
+  position: relative;
+  padding: 24px;
+  margin: 32px 0;
+  border: 1px solid var(--rule);
+  background: var(--card-bg);
+}
+.collapse-scene .cs-label {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.collapse-scene .cs-text {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--prose);
+}
+.collapse-scene .cs-grid {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin-top: 12px;
+}
+.collapse-scene .cs-grid dt,
+.collapse-scene .cs-grid dd {
+  background: var(--bg);
+  padding: 10px 14px;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.collapse-scene .cs-grid dt {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1px;
+  background: var(--card-bg);
+  display: flex;
+  align-items: center;
+}
+.collapse-scene .cs-grid dd {
+  color: var(--prose);
+}
+@media (max-width: 700px) {
+  .collapse-scene .cs-grid { grid-template-columns: 68px 1fr; }
+  .collapse-scene .cs-grid dt { font-size: 0.65rem; padding: 8px 10px; }
+  .collapse-scene .cs-grid dd { padding: 8px 12px; font-size: 0.85rem; }
+}
+
+/* Spell notation */
+.spell {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  letter-spacing: 1px;
+  color: var(--accent);
+  padding: 2px 8px;
+  border: 1px solid var(--rule);
+  background: var(--card-bg);
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .masthead h1 { font-size: 2.4rem; }
+  .round-table { grid-template-columns: repeat(7, 1fr); }
+  .round-table .seat { padding: 14px 4px; }
+  .round-table .seat-name { font-size: 0.72rem; letter-spacing: 0; }
+  .round-table .seat-attr { font-size: 0.6rem; }
+}
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">the seventh seat — fiction 01</p>
+  <h1>빈 <strong>자리</strong></h1>
+  <p class="deck">원탁에는 일곱 자리가 있다.<br>300년째, 한 자리가 비어 있다.</p>
+</header>
+
+<main>
+
+<!-- PART 1 -->
+<section>
+<div class="part-label">Part I</div>
+<div class="part-title">천추궁</div>
+
+<p class="novel novel-first">구름 위에 성이 있다.</p>
+
+<p class="novel">천추궁(天樞宮). 만상계를 내려다보는 태초신의 요새. 흰 돌로 쌓은 성벽이 구름을 가르고, 누각의 처마 끝에서 바람이 풍경을 울린다. 이곳에 해가 지는 것을 본 사람은 없다. 항상 새벽과 황혼 사이 — 하늘이 보랏빛과 금빛을 동시에 머금는 시간에 멈춰 있다.</p>
+
+<p class="novel">성의 중심에 원탁이 있다. 돌을 깎아 만든 원형 탁자. 일곱 개의 자리. 각 자리에는 기사의 이름이 새겨져 있다.</p>
+
+<div class="round-table">
+  <div class="seat">
+    <div class="seat-name" style="color:var(--knight-eric)">에릭</div>
+    <div class="seat-attr">음(陰)</div>
+  </div>
+  <div class="seat">
+    <div class="seat-name" style="color:var(--knight-minwoo)">민우</div>
+    <div class="seat-attr">화(火)</div>
+  </div>
+  <div class="seat">
+    <div class="seat-name" style="color:var(--knight-hyesung)">혜성</div>
+    <div class="seat-attr">수(水)</div>
+  </div>
+  <div class="seat">
+    <div class="seat-name" style="color:var(--knight-dongwan)">동완</div>
+    <div class="seat-attr">토(土)</div>
+  </div>
+  <div class="seat">
+    <div class="seat-name" style="color:var(--knight-junjin)">전진</div>
+    <div class="seat-attr">목(木)</div>
+  </div>
+  <div class="seat">
+    <div class="seat-name" style="color:var(--knight-andy)">앤디</div>
+    <div class="seat-attr">금(金)</div>
+  </div>
+  <div class="seat empty">
+    <div class="seat-name">???</div>
+    <div class="seat-attr">무(無)</div>
+  </div>
+</div>
+
+<p class="novel">여섯 개의 자리에는 찻잔 자국과 손때가 묻어 있다. 일곱 번째 자리만 깨끗하다. 300년 동안 아무도 앉지 않았으니까. 이름이 새겨져 있었을 부분은 — 지워져 있다. 깎여 나간 것이 아니라 녹아내린 것처럼, 돌이 부드럽게 평평해져 있다. 누군가 의도적으로 이름을 지운 것이다.</p>
+
+<p class="novel">혜성은 그 빈 자리를 바라보고 있었다.</p>
+
+<p class="novel">새벽이었다. 아니, 천추궁에서는 늘 새벽이니까, 정확히는 다른 기사들이 아직 깨지 않은 시간이었다. 혜성은 원탁의 자기 자리에 앉아 찻잔을 감싸 쥐고 있었다. 차가 식었다. 한 시간 전에 따른 것인데, 손끝이 차갑다는 것을 이제야 알았다.</p>
+
+<p class="internal">또 그 꿈이었다. 어둠 속에서 누군가 이름을 부르는 꿈. 내 이름이 아니라 — 내가 잊어버린 이름을. 300년 동안 같은 꿈이다.</p>
+
+<p class="novel">발소리가 들렸다. 무거운 발걸음. 혜성은 고개를 들지 않아도 누군지 알았다.</p>
+
+<div class="knight-voice minwoo">
+  <div class="kv-tag">민우 — 열화</div>
+  <div class="kv-text">"또 여기서 밤을 샜어?"</div>
+</div>
+
+<p class="novel">민우가 원탁 반대편에 앉았다. 갑옷이 아니라 편한 옷차림이었다. 손에 든 것은 — 술병. 이른 아침에 술을 마시는 기사. 400년을 살면 예절 같은 건 의미가 없어진다.</p>
+
+<p class="dialogue">"차가 식었네."</p>
+
+<p class="novel">민우가 혜성의 찻잔을 가져다가 손바닥으로 감쌌다. 잠시 후 찻잔에서 김이 올랐다. 화(火)의 기사에게는 이런 것도 가능했다. 민우가 다시 건넸다. 혜성이 작게 웃으며 받았다.</p>
+
+<p class="dialogue">"고마워."</p>
+
+<p class="dialogue">"300년째 같은 자리에서 같은 걸 보고 있으면 뭐가 달라져?"</p>
+
+<p class="novel">혜성은 대답하지 않았다. 민우도 답을 기대한 것은 아니었다. 이 대화를 두 사람은 수백 번 반복했다. 민우는 혜성이 빈 자리에서 눈을 떼기를 바랐고, 혜성은 떼지 못했다. 그게 전부였다.</p>
+
+<p class="novel">그때 성 전체가 울렸다. 낮게, 그러나 뼛속까지 파고드는 진동. 풍경 소리가 미친 듯이 울리고, 원탁의 돌이 은은하게 빛났다. 경보.</p>
+
+<p class="novel">혜성의 눈이 달라졌다. 물의 기사의 눈. 차원의 결을 읽는 눈. 만상계 어딘가에서 — 차원이 무너지고 있었다.</p>
+
+<div class="collapse-scene">
+  <div class="cs-label">dimensional collapse detected</div>
+  <div class="cs-text">만상계 제372차원 '경화(鏡花)'</div>
+  <dl class="cs-grid">
+    <dt>규모</dt><dd>소형 농경 세계</dd>
+    <dt>인구</dt><dd>약 8천</dd>
+    <dt>붕괴</dt><dd>진행률 23%</dd>
+    <dt>소멸</dt><dd>4시진(8시간) 후 완전 소멸</dd>
+  </dl>
+</div>
+
+<p class="novel">복도에서 발소리가 쏟아졌다. 에릭이 먼저 나타났다. 검은 갑옷을 이미 걸치고 있었다 — 이 남자는 잠을 자면서도 갑옷 안에 있는 것 같다. 그 뒤로 동완이 서찰을 펼치며 걸어왔고, 전진은 복도 끝에서 뛰어오고 있었다. 앤디가 마지막으로, 눈을 비비며 나타났다.</p>
+
+<div class="knight-voice eric">
+  <div class="kv-tag">에릭 — 현암</div>
+  <div class="kv-text">"경화. 소형 차원이다. 동완, 데이터."</div>
+</div>
+
+<div class="knight-voice dongwan">
+  <div class="kv-tag">동완 — 반석</div>
+  <div class="kv-text">"자연 붕괴라면 수십 년에 걸쳐 서서히 축소되는 게 정상입니다. 이건 — 급성이에요. 하루 안에 23%가 소실됐어요. 자연적이지 않습니다."</div>
+</div>
+
+<p class="novel">에릭의 눈이 좁아졌다. 음(陰)의 기사. 430년을 산 이 남자의 얼굴에서 감정을 읽는 것은 불가능에 가까웠다. 하지만 혜성은 알았다. 눈이 좁아지는 것은 단순한 경계가 아니라 — 무언가를 이미 짐작하고 있다는 뜻이었다.</p>
+
+<div class="knight-voice eric">
+  <div class="kv-tag">에릭 — 현암</div>
+  <div class="kv-text">"전원 출동. 전진이 선발대, 혜성이 결 분석, 민우와 내가 주민 대피, 동완이 결계, 앤디가 정화. 이동한다."</div>
+</div>
+
+<p class="novel">여섯 기사가 원탁을 떠났다. 일곱 번째 자리만 남았다. 빈 자리 위로 풍경 소리가 울었다.</p>
+
+</section>
+
+<!-- SCENE BREAK -->
+<div class="scene-break">* * *</div>
+
+<!-- PART 2 -->
+<section class="section-divider">
+<div class="part-label">Part II</div>
+<div class="part-title">경화</div>
+
+<p class="novel novel-first">차원 이동은 '문'을 여는 것이다.</p>
+
+<p class="novel">에릭이 어둠 속에서 문을 열었다. 음(陰)의 술법. 그림자가 허공에서 원형으로 찢어지고, 그 안에 다른 세계의 풍경이 비쳤다. 여섯 기사가 차례로 들어갔다. 전진이 가장 먼저 — 바람처럼.</p>
+
+<p class="novel">경화(鏡花)는 아름다운 세계였다. 아니, 아름다운 세계였어야 했다.</p>
+
+<p class="dimension-desc">이름의 뜻대로 거울과 꽃의 세계. 수면처럼 고요한 호수가 대지 곳곳에 펼쳐져 있고, 호수에 비치는 하늘은 분홍빛이었다. 벚나무를 닮은 나무들이 끝없이 이어지고, 바람이 불면 꽃잎이 호수 위를 떠다녔다. 작은 마을들이 호수와 호수 사이에 자리 잡고, 8천여 명의 주민이 농사를 짓고 배를 타며 살았다.</p>
+
+<p class="novel">지금 그 풍경이 접히고 있었다.</p>
+
+<p class="novel">문자 그대로 '접히는' 것이었다. 하늘의 한쪽이 종이처럼 구부러지고 있었다. 지평선이 위로 올라가고, 그 접힌 부분에서 대지가 사라졌다. 건물이 사라지고, 나무가 사라지고, 호수의 물이 접힌 면을 따라 위로 흘러갔다. 물이 하늘로 올라가는 풍경. 비현실적이되 너무나 또렷했다.</p>
+
+<p class="novel">그리고 — 사람들이 멈춰 있었다.</p>
+
+<p class="novel">접힌 영역 가장자리에서 도망치다 멈춘 사람들. 달리는 자세 그대로, 공포에 질린 표정 그대로 정지해 있었다. 숨도 쉬지 않았다. 심장도 뛰지 않았다. 하지만 죽은 것도 아니었다. 차원이 접히면서 시간마저 접힌 것이다.</p>
+
+<div class="knight-voice junjin">
+  <div class="kv-tag">전진 — 질풍</div>
+  <div class="kv-text">"북쪽 마을 두 곳이 이미 접혔습니다. 주민 약 3천 — 시간 정지 상태. 남쪽은 아직 괜찮지만, 접힘 속도가 올라가고 있어요."</div>
+</div>
+
+<p class="novel">전진이 바람을 타고 돌아왔다. 정찰 결과를 보고하는 전진의 얼굴은 평소의 무뚝뚝함과 달리 — 약간 창백했다. 380년을 살아도, 시간이 접힌 사람들의 모습은 익숙해지지 않는 것이다.</p>
+
+<div class="knight-voice eric">
+  <div class="kv-tag">에릭 — 현암</div>
+  <div class="kv-text">"동완, 남쪽 마을에 결계를 쳐. 접힘이 더 퍼지지 않게. 민우, 나와 함께 멈춰 있는 주민들을 남쪽으로 옮긴다. 전진은 계속 정찰. 앤디, 이동하면서 정화술을 펼쳐 — 접힌 영역의 잔여 기운을 밀어내."</div>
+</div>
+
+<p class="novel">에릭의 명령은 항상 간결했다. 여섯 기사가 흩어졌다. 그리고 — 한 명이 빠져 있었다.</p>
+
+<div class="knight-voice eric">
+  <div class="kv-tag">에릭 — 현암</div>
+  <div class="kv-text">"혜성."</div>
+</div>
+
+<p class="novel">혜성은 접힌 경계면을 바라보고 있었다. 다른 기사들에게 접힘은 '하늘이 구부러지는 것'으로 보였다. 혜성에게는 달랐다. 수(水)의 기사는 차원의 결을 읽는다. 혜성의 눈에 보이는 것은 — 실.</p>
+
+<p class="novel">차원은 실로 짜여 있다. 경화라는 세계를 이루는 실이 있고, 만상계 전체를 이루는 실이 있고, 삼계를 잇는 실이 있다. 차원이 건강하면 실은 촘촘하고 탄탄하다. 차원이 병들면 실이 풀린다. 자연 붕괴는 실이 천천히 닳는 것이다.</p>
+
+<p class="novel">이것은 달랐다.</p>
+
+<p class="internal">실이 끊어진 게 아니라 — 잘렸다. 칼로 자른 것처럼 단면이 깨끗하다. 누군가 의도적으로 이 차원의 실을 잘라내고 있다.</p>
+
+<div class="knight-voice hyesung">
+  <div class="kv-tag">혜성 — 명월</div>
+  <div class="kv-text">"에릭. 이건 자연 붕괴가 아니야. 누군가 이 차원을 — 해부하고 있어."</div>
+</div>
+
+<p class="novel">에릭이 멈췄다. 혜성의 말을 듣고 0.5초 동안 — 430년을 산 이 남자가 0.5초 동안 아무 말도 하지 못했다. 그것은 혜성이 에릭을 관찰해온 수백 년 중에서도 드문 순간이었다.</p>
+
+<p class="dialogue">"... 해부?"</p>
+
+<p class="dialogue">"접힘의 패턴이 규칙적이야. 동쪽에서 시작해서 시계 방향으로 접히고 있어. 자연 붕괴는 이렇게 깔끔하지 않아. 이건 — 누군가 이 차원에서 뭔가를 찾고 있는 거야. 층층이 벗겨가면서."</p>
+
+<p class="novel">에릭의 표정이 돌처럼 굳었다.</p>
+
+</section>
+
+<!-- SCENE BREAK -->
+<div class="scene-break">* * *</div>
+
+<!-- PART 3 -->
+<section class="section-divider">
+<div class="part-label">Part III</div>
+<div class="part-title">흔적</div>
+
+<p class="novel novel-first">구출 작전은 두 시간 만에 끝났다.</p>
+
+<p class="novel">동완의 결계가 남쪽 마을을 감쌌다. 토(土)의 술법. 동완이 대지에 양손을 짚으면 땅이 솟아올라 벽이 되었다. 보통 벽이 아니라 차원의 실을 포함한 결계. 접힘이 결계 앞에서 멈췄다. 동완의 이마에 땀이 맺혔다. 400년을 산 기사도 차원 규모의 결계를 유지하는 것은 쉽지 않았다.</p>
+
+<p class="novel">민우와 에릭이 시간 정지 상태의 주민들을 남쪽으로 옮겼다. 민우의 불이 정지된 시간의 막을 녹이고, 에릭의 그림자가 사람들을 감싸 이동시켰다. 음과 화. 상극 속성의 합동 술법이었다. 상극을 함께 쓸 때의 반동 — 두 사람의 손등에 검은 줄이 새겨졌다. 혈관처럼 보이는 그 줄은 상극의 대가다. 몇 시간이면 사라지지만, 쓸 때마다 몸에 부하가 쌓인다.</p>
+
+<p class="novel">앤디가 금(金)의 빛으로 접힌 영역의 잔여 기운을 정화했다. 빛이 지나간 자리에서 차원의 실이 조금씩 회복되었다. 완전하지는 않았지만 — 앤디의 양(陽) 속성은 아직 완전 각성하지 않았으니까 — 더 이상 접히는 것을 늦추기에는 충분했다.</p>
+
+<p class="novel">전진이 마지막 정찰을 마치고 돌아왔다. 보고는 간결했다.</p>
+
+<div class="knight-voice junjin">
+  <div class="kv-tag">전진 — 질풍</div>
+  <div class="kv-text">"접힘의 중심부를 찾았습니다. 북쪽 호수 한가운데. 호수가 — 거꾸로 솟아 있어요."</div>
+</div>
+
+<p class="novel">여섯 기사가 북쪽으로 향했다. 이미 접힌 영역이었다. 하늘이 구부러져 있고, 대지가 비스듬히 기울어져 있었다. 중력의 방향이 어긋나서 나무가 비스듬히 자라고, 호수의 물이 반쯤 하늘로 올라가 있었다. 걷는 것도 힘들었다. 발을 디딜 때마다 바닥이 미끄러지듯 움직였다.</p>
+
+<p class="novel">호수에 도착했을 때, 혜성이 숨을 멈췄다.</p>
+
+<p class="novel">호수의 한가운데에 기둥이 솟아 있었다. 물이 아래에서 위로 흘러오르며 만든 물기둥 — 이 아니었다. 가까이 갈수록 그것이 물이 아니라는 것을 알 수 있었다. 투명했지만, 그 안에 무언가가 새겨져 있었다. 기호. 문자가 아니라 — 술식. 봉인의 술식.</p>
+
+<p class="novel">혜성만 읽을 수 있는 것이었다.</p>
+
+<p class="novel">수(水)의 기사만이 차원의 실을 보듯, 이 술식도 혜성에게만 보였다. 다른 기사들에게 이 기둥은 그저 기이한 물기둥일 뿐이었다. 하지만 혜성에게 — 이것은 글이었다. 아니, 글보다 더 오래된 것. 차원이 만들어지기 전의 언어. 태초의 언어로 쓰인 봉인.</p>
+
+<p class="novel">그리고 그 봉인의 기운을, 혜성은 알고 있었다.</p>
+
+<p class="internal">이 기운을 안다. 300년 전에 느꼈다. 마지막으로 느꼈다. 이건 —</p>
+
+<p class="novel">혜성의 손이 떨렸다.</p>
+
+<p class="novel">이것은 7번째 기사의 기운이었다.</p>
+
+<p class="novel">무(無)의 속성. 모든 것의 부재이자 근원. 300년 전 천추궁에서 사라진, 이름이 지워진, 원탁의 빈 자리의 주인. 그 기사의 술법 잔여가 이 차원의 중심에 박혀 있었다.</p>
+
+<div class="knight-voice hyesung">
+  <div class="kv-tag">혜성 — 명월</div>
+  <div class="kv-text">"... 여기에 봉인이 있어. 이 차원의 중심에."</div>
+</div>
+
+<p class="novel">모두가 혜성을 봤다.</p>
+
+<p class="dialogue">"봉인? 누가 건 거야?"</p>
+
+<p class="novel">민우의 질문. 혜성은 대답하기 전에 에릭을 봤다. 에릭의 얼굴은 여전히 돌이었다. 하지만 — 미세하게 — 턱이 경직되어 있었다. 430년을 함께한 혜성만이 읽을 수 있는 변화.</p>
+
+<p class="internal">에릭은 알고 있다. 이미 알고 있었다.</p>
+
+<p class="dialogue">"... 7번째 기사의 술식이야."</p>
+
+<p class="novel">침묵이 내려앉았다. 호수 위로 물이 거꾸로 흐르는 소리만 울렸다.</p>
+
+<p class="novel">민우가 가장 먼저 반응했다. 화(火)의 기사답게. 몸이 뜨거워졌다 — 비유가 아니라, 민우의 체온이 실제로 올라간 것이다. 분노. 아니면 동요. 민우에게는 그 둘의 구분이 모호했다.</p>
+
+<div class="knight-voice minwoo">
+  <div class="kv-tag">민우 — 열화</div>
+  <div class="kv-text">"300년 전에 사라진 놈의 술식이 지금 이 차원을 무너뜨리고 있다고? 뭘 찾으려고? 여기에 뭐가 있는데?"</div>
+</div>
+
+<p class="novel">동완이 결계를 유지하면서도 분석을 멈추지 않았다. 토(土)의 기사의 사고방식. 감정보다 데이터.</p>
+
+<div class="knight-voice dongwan">
+  <div class="kv-tag">동완 — 반석</div>
+  <div class="kv-text">"경화는 만상계에서 가장 작은 차원 중 하나야. 전략적 가치도 없고, 특별한 자원도 없어. 그런데 7번째 기사가 여기에 봉인을 남겨뒀다? ... 봉인이라면 — 뭔가를 가두고 있는 거지. 뭔가를 막고 있거나."</div>
+</div>
+
+<p class="novel">앤디가 조심스럽게 물기둥에 손을 뻗었다. 금(金)의 빛이 기둥 표면에 닿았다. 그 순간 — 앤디가 비명을 삼켰다. 빛이 튕겨나왔다. 무(無)의 기운이 앤디의 양(陽)을 밀어낸 것이다.</p>
+
+<div class="knight-voice andy">
+  <div class="kv-tag">앤디 — 서광</div>
+  <div class="kv-text">"... 거부당했어요. 봉인이 저를 밀어냈어요. 살아 있는 것처럼."</div>
+</div>
+
+<p class="novel">살아 있는 것처럼. 앤디의 그 말이 혜성의 가슴을 찔렀다. 살아 있다. 이 봉인은 살아 있다. 300년 전에 걸린 봉인이 지금도 활성화되어 있다면 — 건 사람도 살아 있다는 뜻이 아닌가.</p>
+
+<p class="novel">혜성은 에릭을 돌아보았다. 에릭은 물기둥을 바라보고 있었다. 그 돌 같은 얼굴에 — 처음으로 — 금이 가는 것이 보였다. 아주 미세하게, 입술 끝이 떨렸다.</p>
+
+<p class="novel">혜성은 물었다. 300년 동안 묻지 못했던 질문을.</p>
+
+<p class="dialogue">"에릭. 너는 알고 있지?"</p>
+
+<p class="novel">에릭이 혜성을 봤다. 음(陰)과 수(水)가 마주했다. 어둠과 물. 이 두 사람은 400년을 함께 싸웠고, 서로의 술법으로 서로를 구한 횟수를 세다 포기한 지 200년째였다. 그러면서도 말하지 않는 것이 있었다. 에릭이 감추는 것. 혜성이 묻지 않는 것. 300년간 유지된 균형.</p>
+
+<p class="novel">지금, 그 균형이 깨지려 하고 있었다.</p>
+
+<div class="knight-voice eric">
+  <div class="kv-tag">에릭 — 현암</div>
+  <div class="kv-text">"... 철수한다. 주민 대피를 우선한다."</div>
+</div>
+
+<p class="novel">대답하지 않았다. 에릭은 혜성의 질문에 대답하지 않고, 명령을 내렸다. 수장의 판단. 민우의 눈에 불꽃이 일었지만, 전진이 민우의 어깨를 잡았다. 지금은 아니라는 뜻이었다.</p>
+
+<p class="novel">여섯 기사가 움직이기 시작했다. 살릴 수 있는 주민을 구하기 위해. 경화라는 작은 세계를 포기할 수는 없었다 — 아직 5천 명이 남아 있었으니까.</p>
+
+</section>
+
+<!-- SCENE BREAK -->
+<div class="scene-break">* * *</div>
+
+<!-- PART 4 -->
+<section class="section-divider">
+<div class="part-label">Part IV</div>
+<div class="part-title">균열</div>
+
+<p class="novel novel-first">경화의 주민 4,200명이 인접 차원으로 대피했다. 나머지 3,800명은 시간 정지 상태로 접힌 영역 안에 있었다. 구할 수 없었다. 차원이 완전히 소멸하면 — 그들도 사라진다.</p>
+
+<p class="novel">천추궁으로 돌아온 여섯 기사의 분위기는 무거웠다. 원탁에 둘러앉았지만, 누구도 먼저 말하지 않았다. 일곱 번째 빈 자리가 그 어느 때보다 눈에 들어왔다.</p>
+
+<p class="novel">민우가 먼저 입을 열었다. 이 사람은 침묵을 못 견뎠다. 400년을 살아도.</p>
+
+<div class="knight-voice minwoo">
+  <div class="kv-tag">민우 — 열화</div>
+  <div class="kv-text">"에릭. 혜성의 질문에 대답해. 7번째 기사의 흔적이 거기 있었어. 300년 동안 너는 '사라졌다'고만 했지. 어떻게 사라졌는지, 왜 사라졌는지 말한 적 없어. 이제 말해."</div>
+</div>
+
+<p class="novel">에릭은 자기 자리에 앉아 있었다. 원탁의 음(陰) 자리. 그 옆이 빈 자리 — 무(無)의 자리였다. 에릭은 430년 동안 빈 자리 바로 옆에 앉아왔다.</p>
+
+<p class="novel">전진이 벽에 등을 기대고 팔짱을 꼈다. 동완이 서찰 위에 경화의 데이터를 정리하면서도 귀는 에릭을 향하고 있었다. 앤디는 자기 자리에서 형들의 얼굴을 번갈아 보고 있었다. 혜성은 — 차를 마시고 있었다. 조용히. 하지만 찻잔을 감싼 손가락이 창백했다.</p>
+
+<p class="novel">에릭이 말했다.</p>
+
+<div class="knight-voice eric">
+  <div class="kv-tag">에릭 — 현암</div>
+  <div class="kv-text">"경화에서 발견한 건 봉인이다. 7번째가 남긴 봉인. 그 봉인이 지금 약해지면서 차원이 무너지고 있다. ... 그게 전부다."</div>
+</div>
+
+<div class="knight-voice minwoo">
+  <div class="kv-tag">민우 — 열화</div>
+  <div class="kv-text">"전부라고? 형. 7번째가 왜 거기에 봉인을 남긴 거야? 뭘 봉인한 거야? 그리고 왜 — 사라지기 전에 형한테 말하지 않은 거야? 아니, 형은 그걸 정말로 몰랐어?"</div>
+</div>
+
+<p class="novel">에릭의 침묵이 길어졌다. 민우의 체온이 올라가고 있었다 — 원탁 주변의 공기가 뜨거워졌다. 화(火)의 감정 폭주. 동완이 조용히 결계를 깔았다. 민우의 열기가 성을 손상시키지 않도록.</p>
+
+<div class="knight-voice dongwan">
+  <div class="kv-tag">동완 — 반석</div>
+  <div class="kv-text">"민우. 잠깐. 지금 필요한 건 따지는 게 아니라 분석이야. 7번째의 봉인이 약해지고 있다면 — 다른 차원에도 같은 봉인이 있을 수 있어. 그렇다면 경화는 시작일 뿐이지."</div>
+</div>
+
+<p class="novel">동완의 말이 원탁을 차갑게 만들었다. 시작일 뿐. 만상계에 수천 개의 차원이 있다. 그중 얼마나 많은 곳에 7번째의 봉인이 숨겨져 있는지 아무도 모른다.</p>
+
+<div class="knight-voice andy">
+  <div class="kv-tag">앤디 — 서광</div>
+  <div class="kv-text">"형들. ... 그 봉인이 저를 밀어냈잖아요. 무(無)가 양(陽)을 거부한 거예요. 그건 — 봉인이 아직 의지를 가지고 있다는 뜻 아니에요? 건 사람이 아직..."</div>
+</div>
+
+<p class="novel">앤디가 말을 끝내지 못했다. 하지만 모두가 같은 생각을 하고 있었다.</p>
+
+<p class="novel">7번째 기사가 살아 있을 수 있다.</p>
+
+<p class="novel">300년 동안 죽었다고, 아니 — 사라졌다고 믿어왔던 기사가. 어딘가에서 봉인을 유지하며 살아 있을 수 있다. 그 가능성이 원탁 위에 놓이자, 여섯 기사의 얼굴이 각각 다른 감정을 드러냈다.</p>
+
+<p class="novel">민우의 눈에 불이 커졌다 — 분노와 희망이 뒤섞인. 동완은 눈을 감고 계산하고 있었다. 전진은 팔짱을 풀고 의자에서 일어섰다 — 전진은 앉아서 기다리는 걸 못 하는 사람이었다. 앤디는 빈 자리를 바라보고 있었다.</p>
+
+<p class="novel">에릭은 — 에릭은 원탁에 놓인 자기 손을 내려다보고 있었다. 그 손이 미세하게 떨리는 것을, 혜성만 보았다.</p>
+
+<p class="novel">혜성은 차를 내려놓았다.</p>
+
+<p class="novel">혜성이 보고도 아직 말하지 않은 것이 있었다.</p>
+
+<p class="novel">경화의 물기둥에서 혜성만 읽을 수 있었던 태초의 술식. 그 술식의 가장 안쪽 — 다른 기사들이 볼 수 없는 가장 깊은 층에, 글자가 있었다. 한 줄. 수(水)의 기사에게만 보이도록, 물의 결에 새겨진 한 줄.</p>
+
+<p class="internal">나를 찾지 마라. 나를 찾으면, 일곱 번째 자리가 다시 채워지는 것이 아니라 — 여섯 자리가 사라진다.</p>
+
+<p class="novel">혜성은 이것을 아직 말하지 않았다. 에릭이 무언가를 숨기고 있듯, 혜성도 이 한 줄을 품에 넣어두었다. 말하면 모든 것이 달라질 것이다. 민우는 더 격앙될 것이고, 에릭은 더 닫힐 것이고, 앤디는 — 앤디가 7번째의 자리를 채울 수 있다는 예언이 있다. 그 예언과 이 경고가 만나면 어떤 결론이 나올지, 혜성은 두려웠다.</p>
+
+<p class="novel">원탁에 침묵이 내려앉았다. 풍경 소리만 울렸다. 바람이 불었다 — 전진의 바람은 아니었다. 천추궁 자체의 바람. 이 성이 존재한 이래 한 번도 멈추지 않은 바람.</p>
+
+<p class="novel">빈 자리가 그 어느 때보다 크게 보였다.</p>
+
+<p class="novel">300년간의 균형이 무너지기 시작했다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>원탁에는 일곱 자리가 있다<br><strong>하나가 비어 있다</strong></h2>
+  <p class="sub">찾지 말라는 경고를 받은 자가<br>가장 먼저 찾으러 갈 것이다.</p>
+</div>
+
+<footer class="footer">
+  <p>The Seventh Seat Fiction Series &middot; Episode 01 of 05</p>
+  <p>Written with Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

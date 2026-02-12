@@ -212,6 +212,19 @@
         { slug: 'what-to-build', title: '뭘 만들 것인가' },
         { slug: 'before-the-server-arrives', title: '56일 후' }
       ]
+    },
+    'modern-mukhyang-series': {
+      title: '묵향 — 탈마',
+      articles: [
+        { slug: 'non-standard', title: '탈마(脫魔)' }
+      ]
+    },
+    'seventh-seat-series': {
+      title: '일곱 번째 자리',
+      articles: [
+        { slug: 'empty-seat', title: '빈 자리' },
+        { slug: 'mirror-forest', title: '거울의 숲' }
+      ]
     }
   };
 

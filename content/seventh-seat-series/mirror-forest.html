@@ -1,0 +1,718 @@
+---
+layout: layouts/article.njk
+pageTitle: "거울의 숲"
+description: "경화 이후 또 다른 차원이 무너진다. 모든 것을 비추는 숲에서 여섯 기사는 자신의 그림자와 마주하고, 혜성은 300년 전 봉인된 기억을 되찾기 시작한다."
+datePublished: "2026-02-12"
+---
+<style>
+.masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+.masthead .issue { margin-bottom: 24px; }
+.masthead h1 { font-size: 3.6rem; font-weight: 900; line-height: 1.05; letter-spacing: -2px; }
+.masthead h1 strong { font-weight: 900; color: var(--accent); }
+.masthead .deck { max-width: 460px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+/* Novel typography */
+.novel { text-indent: 1em; line-height: 2.05; font-size: 1.05rem; color: var(--prose); margin: 0 0 0.2em; }
+.novel-first { text-indent: 0; }
+.dialogue { padding-left: 1em; text-indent: -1em; line-height: 2.05; font-size: 1.05rem; color: var(--prose); margin: 0 0 0.2em; }
+.internal { color: var(--muted); font-size: 1.02rem; line-height: 2; margin: 0.8em 0; text-indent: 1em; }
+
+/* Scene break */
+.scene-break { text-align: center; letter-spacing: 12px; color: var(--muted); font-size: 0.85rem; padding: 40px 0; }
+
+/* Part labels */
+.part-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; margin-top: 0; }
+.part-title { font-size: 1.6rem; font-weight: 700; color: var(--fg); margin-bottom: 32px; letter-spacing: -0.5px; }
+.section-divider { border-top: 1px solid var(--fg); padding-top: 48px; margin-top: 56px; }
+
+/* Knight character colors */
+:root {
+  --knight-eric: #2d2645;
+  --knight-minwoo: #8b2500;
+  --knight-hyesung: #4a6d8c;
+  --knight-dongwan: #6b5a2e;
+  --knight-junjin: #2e5c3f;
+  --knight-andy: #8b7a2e;
+}
+[data-theme="dark"] {
+  --knight-eric: #9b8fbf;
+  --knight-minwoo: #d4735a;
+  --knight-hyesung: #7fa8c9;
+  --knight-dongwan: #bfa85a;
+  --knight-junjin: #6db88a;
+  --knight-andy: #d4c35a;
+}
+
+/* Knight voice — character-specific dialogue block */
+.knight-voice {
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-left: 3px solid var(--accent);
+  background: var(--card-bg);
+}
+.knight-voice .kv-tag {
+  font-family: var(--serif);
+  font-size: 0.78rem;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.knight-voice .kv-text {
+  font-size: 0.95rem;
+  line-height: 1.9;
+  color: var(--prose);
+}
+.knight-voice.eric { border-left-color: var(--knight-eric); }
+.knight-voice.eric .kv-tag { color: var(--knight-eric); }
+.knight-voice.minwoo { border-left-color: var(--knight-minwoo); }
+.knight-voice.minwoo .kv-tag { color: var(--knight-minwoo); }
+.knight-voice.hyesung { border-left-color: var(--knight-hyesung); }
+.knight-voice.hyesung .kv-tag { color: var(--knight-hyesung); }
+.knight-voice.dongwan { border-left-color: var(--knight-dongwan); }
+.knight-voice.dongwan .kv-tag { color: var(--knight-dongwan); }
+.knight-voice.junjin { border-left-color: var(--knight-junjin); }
+.knight-voice.junjin .kv-tag { color: var(--knight-junjin); }
+.knight-voice.andy { border-left-color: var(--knight-andy); }
+.knight-voice.andy .kv-tag { color: var(--knight-andy); }
+
+/* Dimension description */
+.dimension-desc {
+  font-size: 1.02rem;
+  line-height: 2;
+  color: var(--secondary);
+  margin: 0 0 0.2em;
+  text-indent: 1em;
+  border-left: 2px solid var(--rule);
+  padding-left: 20px;
+}
+
+/* Collapse scene — dimensional collapse visual */
+.collapse-scene {
+  position: relative;
+  padding: 24px;
+  margin: 32px 0;
+  border: 1px solid var(--rule);
+  background: var(--card-bg);
+}
+.collapse-scene .cs-label {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.collapse-scene .cs-text {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--prose);
+}
+.collapse-scene .cs-grid {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin-top: 12px;
+}
+.collapse-scene .cs-grid dt,
+.collapse-scene .cs-grid dd {
+  background: var(--bg);
+  padding: 10px 14px;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.collapse-scene .cs-grid dt {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1px;
+  background: var(--card-bg);
+  display: flex;
+  align-items: center;
+}
+.collapse-scene .cs-grid dd {
+  color: var(--prose);
+}
+
+/* Mirror scene — eerie reflection descriptions */
+.mirror-scene {
+  position: relative;
+  padding: 20px 24px;
+  margin: 24px 0;
+  border: 1px solid var(--rule);
+  background: var(--card-bg);
+  border-left: 3px solid var(--muted);
+}
+.mirror-scene .ms-label {
+  font-family: var(--serif);
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.mirror-scene .ms-text {
+  font-size: 0.98rem;
+  line-height: 1.95;
+  color: var(--secondary);
+}
+
+/* Memory fragment — flashback/recovered memory */
+.memory-fragment {
+  padding: 24px;
+  margin: 32px 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  background: var(--card-bg);
+}
+.memory-fragment .mf-label {
+  font-family: var(--serif);
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.memory-fragment .mf-text {
+  font-size: 1.02rem;
+  line-height: 2;
+  color: var(--prose);
+  text-indent: 1em;
+}
+.memory-fragment .mf-text:first-of-type { text-indent: 0; }
+.memory-fragment .mf-dialogue {
+  padding-left: 1em;
+  text-indent: -1em;
+  font-size: 1.02rem;
+  line-height: 2;
+  color: var(--prose);
+  margin: 0 0 0.2em;
+}
+
+/* Spell notation */
+.spell {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  letter-spacing: 1px;
+  color: var(--accent);
+  padding: 2px 8px;
+  border: 1px solid var(--rule);
+  background: var(--card-bg);
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .masthead h1 { font-size: 2.4rem; }
+  .collapse-scene .cs-grid { grid-template-columns: 68px 1fr; }
+  .collapse-scene .cs-grid dt { font-size: 0.65rem; padding: 8px 10px; }
+  .collapse-scene .cs-grid dd { padding: 8px 12px; font-size: 0.85rem; }
+}
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">the seventh seat — fiction 02</p>
+  <h1>거울의 <strong>숲</strong></h1>
+  <p class="deck">그 숲은 모든 것을 비춘다.<br>당신이 잊어버린 것까지도.</p>
+</header>
+
+<main>
+
+<!-- PART 1 -->
+<section>
+<div class="part-label">Part I</div>
+<div class="part-title">잔상</div>
+
+<p class="novel novel-first">경화가 무너진 뒤 사흘이 지났다.</p>
+
+<p class="novel">천추궁의 공기가 달랐다. 항상 새벽과 황혼 사이에 멈춰 있는 이 성에 계절 같은 것은 없었지만, 기사들 사이에 흐르는 온도는 분명히 내려가 있었다. 원탁에 함께 앉는 시간이 짧아졌다. 눈이 마주치면 먼저 피하는 쪽이 생겼다. 400년을 함께한 사이에도 이런 변화가 가능하다는 것을 혜성은 새삼 알았다.</p>
+
+<p class="novel">에릭은 답하지 않은 질문을 안고 있었고, 민우는 답을 받지 못한 분노를 안고 있었다. 그 사이에서 동완이 데이터로 벽을 쌓고, 전진이 몸으로 틈을 메우고, 앤디가 웃음으로 균열을 덮었다. 혜성은 — 혜성은 품 안에 경고를 감추고 있었다.</p>
+
+<p class="internal">나를 찾지 마라. 나를 찾으면, 일곱 번째 자리가 다시 채워지는 것이 아니라 — 여섯 자리가 사라진다.</p>
+
+<p class="novel">경화에서 가져온 그 한 줄이 혜성의 잠을 빼앗았다. 수(水)의 기사에게만 보이도록 물의 결에 새겨진 글자. 7번째 기사가 남긴 것이 분명했다. 혜성에게만 보이도록 한 이유는 — 혜성만이 읽을 수 있으니까가 아니라, 혜성만이 이 경고를 삼킬 수 있다고 판단했기 때문일 것이다.</p>
+
+<p class="novel">말해야 하나. 혜성은 찻잔을 감싸 쥔 채 생각했다. 말하면 민우는 더 격앙될 것이다. 에릭은 더 닫힐 것이다. 앤디는 — 앤디가 7번째의 자리를 채울 수 있다는 예언이 있다. 여섯 자리가 사라진다는 경고와 그 예언이 만나면 어떤 결론이 나올지.</p>
+
+<p class="novel">아직은 안 된다. 혜성은 차를 마셨다. 식어 있었다. 이번에는 민우가 데워주지 않았다.</p>
+
+<p class="novel">동완이 원탁에 서찰을 펼친 것은 그날 오후였다. 동완의 얼굴에 사흘간의 수면 부족이 그대로 드러나 있었다. 토(土)의 기사는 다른 기사들이 갈등으로 잠을 못 잘 때 데이터로 잠을 못 잤다.</p>
+
+<div class="knight-voice dongwan">
+  <div class="kv-tag">동완 — 반석</div>
+  <div class="kv-text">"경화 같은 급성 붕괴 징후가 하나 더 있어. 만상계 제1,024차원 '반영림(反影林)'. 이틀 전부터 차원 밀도가 불안정해지고 있고, 붕괴율은 아직 3%지만 — 경화와 패턴이 똑같아. 동쪽에서 시작해서 시계 방향으로. 자연적이지 않다는 뜻이야."</div>
+</div>
+
+<p class="novel">원탁에 앉은 다섯 기사의 시선이 동완에게 쏠렸다. 에릭만 서찰을 바라보고 있었다. 표정 없이. 하지만 혜성은 알았다 — 에릭의 턱이 미세하게 긴장하는 것을. 경화 때와 같은 반응.</p>
+
+<div class="collapse-scene">
+  <div class="cs-label">anomaly detected</div>
+  <div class="cs-text">만상계 제1,024차원 '반영림(反影林)'</div>
+  <dl class="cs-grid">
+    <dt>규모</dt><dd>중형 산림 세계</dd>
+    <dt>인구</dt><dd>무인 — 거주자 없음</dd>
+    <dt>특성</dt><dd>모든 표면이 반사체. '거울의 숲'이라 불림</dd>
+    <dt>붕괴</dt><dd>진행률 3% — 가속 중</dd>
+  </dl>
+</div>
+
+<div class="knight-voice minwoo">
+  <div class="kv-tag">민우 — 열화</div>
+  <div class="kv-text">"또 7번째의 봉인이겠지. 경화에 있었으면 다른 데도 있을 거라고 했잖아. 이번에는 — 그냥 조사만 하고 오는 거 아니야. 봉인을 깨서라도 뭔지 알아내야 해."</div>
+</div>
+
+<div class="knight-voice eric">
+  <div class="kv-tag">에릭 — 현암</div>
+  <div class="kv-text">"무인 차원이다. 주민 대피가 필요 없어. 소규모 조사팀으로 간다. 나와 혜성, 민우. 나머지는 경화 대피민 후속 처리를 계속해."</div>
+</div>
+
+<p class="novel">민우가 이를 갈았다. 에릭의 결정에 불만이 있는 것은 아니었다 — 자기가 포함된 것에는 만족했다. 하지만 에릭이 또 정보를 통제하려 한다는 것을 느꼈다. 소규모 조사팀. 목격자를 줄이겠다는 뜻으로도 읽혔다.</p>
+
+<div class="knight-voice andy">
+  <div class="kv-tag">앤디 — 서광</div>
+  <div class="kv-text">"저도 가겠습니다."</div>
+</div>
+
+<p class="novel">앤디의 목소리는 조용했지만 단호했다. 350년을 산 존재의 단호함. 밝은 웃음 뒤에 숨기지만, 이 막내는 자기 의지가 있었다.</p>
+
+<div class="knight-voice andy">
+  <div class="kv-tag">앤디 — 서광</div>
+  <div class="kv-text">"경화에서 봉인이 저를 밀어냈잖아요. 무(無)가 양(陽)을 거부한 거예요. 그게 뭘 의미하는지 — 직접 확인해야 해요."</div>
+</div>
+
+<p class="novel">에릭이 앤디를 봤다. 음(陰)과 금(金)/양(陽). 가장 어두운 속성의 기사와 가장 밝은 속성의 기사가 마주했다. 잠시의 침묵 뒤에 에릭이 고개를 끄덕였다.</p>
+
+<p class="novel">전진이 벽에서 등을 뗐다. 동완이 서찰을 접었다. 두 사람은 남겠지만, 표정은 못마땅했다. 전진은 위험한 곳에 가장 먼저 들어가는 것이 자기 역할이라고 믿는 사람이었다.</p>
+
+<div class="knight-voice junjin">
+  <div class="kv-tag">전진 — 질풍</div>
+  <div class="kv-text">"조심하세요. 반영림은 — 옛 기록에 따르면 그 숲에 들어간 자는 자기 자신과 마주한다고 되어 있어요."</div>
+</div>
+
+<p class="novel">전진의 경고를 들으며 혜성은 생각했다. 자기 자신과 마주한다. 400년을 살면서 잃어버린 것들. 인간이었던 시절의 기억. 이름. 얼굴. 감정. 기사의 대가로 닳아 없어진 것들. 그런 것들이 거울에 비친다면.</p>
+
+<p class="internal">보고 싶은 것이 있다. 동시에, 보는 것이 두렵다.</p>
+
+<p class="novel">넷이 출발했다. 에릭이 어둠 속에서 문을 열었다. 이번에는 문 너머로 보이는 풍경이 달랐다. 경화의 분홍빛 호수가 아니라 — 은빛이었다. 숲 전체가 은빛으로 빛나고 있었다.</p>
+
+</section>
+
+<!-- SCENE BREAK -->
+<div class="scene-break">* * *</div>
+
+<!-- PART 2 -->
+<section class="section-divider">
+<div class="part-label">Part II</div>
+<div class="part-title">반영림</div>
+
+<p class="novel novel-first">문을 나서자마자 혜성은 숨을 삼켰다.</p>
+
+<p class="dimension-desc">나무였다. 끝이 보이지 않는 나무들. 줄기가 수십 미터 높이로 솟아 하늘을 덮고 있었다. 그 나무들의 표면이 — 거울이었다. 은빛 수피(樹皮)가 세계를 비추고 있었다. 나뭇잎도 거울이었다. 이끼도, 바닥의 돌도, 심지어 공기 중에 떠다니는 포자까지. 모든 것이 빛을 반사했다. 숲 안은 햇빛이 없는데도 밝았다. 빛이 무한히 튕겨 다니며 스스로 광원이 된 것이다. 그 빛에 열기가 없었다. 차갑게 빛나는 세계.</p>
+
+<p class="novel">걸을 때마다 수천 개의 자신이 따라왔다. 나무마다 비치는 에릭, 민우, 혜성, 앤디. 어느 방향을 봐도 자신이 있었다. 처음에는 정상적인 거울상이었다. 고개를 돌리면 거울 속 자신도 고개를 돌렸다. 손을 들면 거울 속 자신도 손을 들었다.</p>
+
+<p class="novel">달라지기 시작한 것은 숲으로 30분쯤 들어갔을 때였다.</p>
+
+<p class="novel">민우가 먼저 알아챘다. 화(火)의 기사는 감각이 날카로웠다 — 감정이 날카로운 만큼.</p>
+
+<div class="knight-voice minwoo">
+  <div class="kv-tag">민우 — 열화</div>
+  <div class="kv-text">"... 이상해. 나무를 봐."</div>
+</div>
+
+<p class="novel">가장 가까운 나무를 봤다. 나무 표면에 비친 민우가 — 0.5초 늦었다. 민우가 고개를 돌렸는데, 거울 속 민우는 아직 앞을 보고 있었다. 0.5초 뒤에야 따라 돌았다. 마치 — 생각하고 나서 따라하는 것처럼.</p>
+
+<p class="novel">혜성이 차원의 결을 읽었다. 수(水)의 눈으로 보이는 것은 실. 이 차원을 이루는 실이 — 꼬여 있었다. 경화에서 실이 잘린 것과 달랐다. 여기서는 실이 매듭지어져 있었다. 의도적으로. 누군가 이 차원의 실을 복잡하게 꼬아서, 현실과 반사 사이에 시차를 만든 것이다.</p>
+
+<p class="novel">더 깊이 들어갔다. 거울 속 모습의 시차가 점점 벌어졌다. 1초. 2초. 나중에는 — 거울 속 자신이 완전히 다른 행동을 했다.</p>
+
+<p class="novel">앤디가 오른쪽 나무를 지나쳤을 때, 거울 속 앤디는 멈춰 있었다. 멈춰 서서 — 무언가를 바라보고 있었다. 거울 속에만 존재하는 무언가를. 앤디가 발걸음을 멈추고 거울을 들여다봤다.</p>
+
+<div class="knight-voice andy">
+  <div class="kv-tag">앤디 — 서광</div>
+  <div class="kv-text">"형들. 저기 — 거울 속에..."</div>
+</div>
+
+<p class="novel">앤디의 목소리가 떨렸다. 거울 속 앤디가 바라보고 있는 것이 보였다. 의자. 돌로 만든 의자가 거울 속 숲 한가운데에 놓여 있었다. 원탁의 일곱 번째 자리와 같은 모양의 의자. 거울 속 앤디가 — 그 의자에 천천히 앉았다.</p>
+
+<p class="novel">현실의 앤디는 서 있었다. 거울 속 앤디는 앉아 있었다. 같은 사람인데 다른 행동. 앤디의 얼굴이 창백해졌다.</p>
+
+<div class="mirror-scene">
+  <div class="ms-label">반영림의 거울</div>
+  <div class="ms-text">이 숲의 거울은 현재를 비추지 않는다. 보는 자의 안쪽을 비춘다. 기억, 두려움, 욕망, 후회. 기사로 살면서 닳아 없어진 것들. 인간이었던 시절의 잔해. 거울은 그것을 끌어내어 보여준다. 당신이 잊어버린 당신 자신을.</div>
+</div>
+
+<p class="novel">혜성이 왼쪽의 나무를 봤다. 거울 속 혜성이 — 울고 있었다. 소리 없이. 눈물이 뺨을 타고 흘렀다. 현실의 혜성은 울고 있지 않았다. 하지만 가슴 안쪽이 서늘했다. 거울이 끌어낸 것이 무엇인지 혜성은 알았다. 300년간 매일 빈 자리를 바라보며 삼킨 것.</p>
+
+<p class="novel">에릭의 거울을 본 것은 민우였다. 민우가 에릭 옆의 나무를 지나치다 멈췄다. 눈이 커졌다.</p>
+
+<p class="dialogue">"에릭 형."</p>
+
+<p class="novel">에릭의 거울상 옆에 누군가 서 있었다. 거울 속에만 존재하는 사람. 윤곽은 희미했지만 — 형체가 있었다. 에릭보다 약간 작은 키. 어깨가 가늘고, 고개를 살짝 기울이는 버릇이 있는 사람. 거울 속 에릭이 그 사람을 향해 — 고개를 돌리고 있었다. 현실의 에릭이 앞을 보는 동안, 거울 속 에릭은 옆을 보고 있었다.</p>
+
+<p class="novel">옆에 서 있는, 여기 없는 사람을.</p>
+
+<div class="knight-voice eric">
+  <div class="kv-tag">에릭 — 현암</div>
+  <div class="kv-text">"보지 마라."</div>
+</div>
+
+<p class="novel">에릭의 목소리가 낮았다. 명령이 아니라 — 부탁에 가까웠다. 430년을 산 수장의 목소리에서 처음 듣는 톤이었다. 민우가 입을 다물었다. 에릭의 거울을 다시 보지 않았다.</p>
+
+<p class="novel">숲이 깊어질수록 거울의 반영은 더 선명해졌다. 걷는 것이 고통이 되었다. 사방에서 자신의 안쪽이 노출되는 감각. 벗겨지는 것 같았다. 피부가 아니라 — 기억이.</p>
+
+<p class="novel">혜성이 차원의 결을 다시 읽었다. 실의 매듭이 하나의 중심을 향하고 있었다. 숲의 한가운데. 모든 반사가 수렴하는 지점.</p>
+
+<div class="knight-voice hyesung">
+  <div class="kv-tag">혜성 — 명월</div>
+  <div class="kv-text">"중심부에 뭔가 있어. 경화의 물기둥처럼 — 봉인의 핵이야. 이 숲의 거울은 전부 그 핵에 연결되어 있어."</div>
+</div>
+
+<div class="knight-voice minwoo">
+  <div class="kv-tag">민우 — 열화</div>
+  <div class="kv-text">"그러니까 이 거울들이 우리 기억을 빨아들이고 있다는 거야? 7번째가 만든 이 숲이?"</div>
+</div>
+
+<p class="novel">혜성이 고개를 저었다.</p>
+
+<p class="dialogue">"빨아들이는 게 아니야. 비추는 거야. 거울이니까. 다만 — 비추는 과정에서 기억이 표면으로 올라오고, 올라온 기억은 다시 가라앉을 때 조금 더 희미해져. 이 숲을 오래 걸으면 — 기억을 잃어."</p>
+
+<p class="novel">기사의 대가와 같은 것이었다. 기사로 살수록 인간이었던 시절의 기억이 닳는다. 이 숲은 그 과정을 가속시키는 것이었다.</p>
+
+<div class="knight-voice eric">
+  <div class="kv-tag">에릭 — 현암</div>
+  <div class="kv-text">"빠르게 중심부로 간다. 오래 머물 수 없다."</div>
+</div>
+
+<p class="novel">넷이 숲의 중심을 향해 걸었다. 사방의 거울이 그들의 안쪽을 비추며 따라왔다. 혜성은 자기 거울을 보지 않으려 했다. 하지만 거울은 어디에나 있었다.</p>
+
+<p class="novel">거울 속 혜성의 옆에도 — 누군가 서 있었다. 에릭의 거울에 보인 것과 같은 윤곽. 거울 속 혜성이 그 사람의 손을 잡고 있었다.</p>
+
+<p class="novel">혜성은 고개를 돌렸다. 현실에는 아무도 없었다.</p>
+
+</section>
+
+<!-- SCENE BREAK -->
+<div class="scene-break">* * *</div>
+
+<!-- PART 3 -->
+<section class="section-divider">
+<div class="part-label">Part III</div>
+<div class="part-title">명경</div>
+
+<p class="novel novel-first">숲의 중심에 호수가 있었다.</p>
+
+<p class="dimension-desc">나무들이 원형으로 물러나 빈 공간을 만들고, 그 안에 호수가 고여 있었다. 크지 않았다 — 지름 30미터쯤. 수면이 완벽하게 고요했다. 바람이 불어도 물결이 일지 않았다. 거울보다 더 정확한 수면. 주변의 나무가 수면에 비치고, 하늘이 비쳤다. 하지만 — 비친 하늘의 색이 달랐다. 현실의 하늘은 숲에 가려 보이지 않았는데, 수면에는 하늘이 또렷하게 비치고 있었다. 보랏빛과 금빛이 섞인 하늘. 천추궁의 하늘과 같은 색.</p>
+
+<p class="novel">혜성의 발걸음이 멈추었다. 이 호수의 이름을 알고 있었다. 기억나지 않는데 — 알고 있었다. 몸이 기억하고 있었다. 발이 이 흙을 밟아본 적이 있었다.</p>
+
+<p class="dialogue">"명경(明鏡)."</p>
+
+<p class="novel">혜성이 중얼거렸다. 이름이 입에서 나왔다. 기억이 아니라 습관처럼.</p>
+
+<div class="knight-voice minwoo">
+  <div class="kv-tag">민우 — 열화</div>
+  <div class="kv-text">"뭐? 여길 알아?"</div>
+</div>
+
+<p class="novel">혜성은 대답하지 못했다. 안다. 하지만 어떻게 아는지 모른다. 기사의 대가인가 — 아니면 누군가 의도적으로 지운 기억인가.</p>
+
+<p class="novel">호수 위에 봉인이 있었다. 경화의 물기둥과 달리 여기서는 — 수면 아래에 있었다. 호수 바닥에서 빛이 올라왔다. 은은하게. 수(水)의 기사에게만 보이는 빛. 술식이 수면 아래에 새겨져 있었다.</p>
+
+<p class="novel">혜성이 호수 가장자리에 무릎을 꿇었다. 수면에 손을 대었다. 물이 차가웠다. 아니 — 차가운 것이 아니라 슬펐다. 물이 슬프다는 것이 말이 되지 않았지만, 수(水)의 기사에게 물은 감정이었다. 이 호수의 물은 300년 동안 슬퍼하고 있었다.</p>
+
+<p class="novel">손이 수면에 닿는 순간, 세계가 바뀌었다.</p>
+
+<div class="memory-fragment">
+  <div class="mf-label">300년 전 — 명경</div>
+  <p class="mf-text">같은 호수였다. 같은 나무들이 둘러싸고 있었다. 하지만 거울이 아니었다 — 나무의 수피는 평범한 갈색이었고, 이끼는 초록이었다. 반영림은 원래 거울의 숲이 아니었다. 평범한 숲이었다.</p>
+  <p class="mf-text">호수 앞에 두 사람이 앉아 있었다. 혜성과 — 누군가. 얼굴이 보이지 않았다. 이름이 기억나지 않았다. 하지만 어깨가 가늘었고, 고개를 살짝 기울이는 버릇이 있었고, 목소리가 — 바람 같았다. 그렇다. 이 사람의 목소리는 바람 같았다. 부드럽고 멀었다.</p>
+  <p class="mf-dialogue">"혜성아."</p>
+  <p class="mf-text">그가 혜성을 불렀다. 기사호가 아니라 이름으로. 기사들 사이에서 이름을 부르는 것은 — 의미가 있었다. 이름은 인간이었던 시절의 잔해이니까. 기사로 살수록 잊히는 것. 이름으로 부른다는 것은 상대의 인간적인 부분을 기억하겠다는 뜻이었다.</p>
+  <p class="mf-dialogue">"여기에 봉인을 남길 거야."</p>
+  <p class="mf-text">그가 호수를 바라보며 말했다.</p>
+  <p class="mf-dialogue">"왜? 이 차원에 뭐가 있어?"</p>
+  <p class="mf-text">혜성이 물었다. 기억 속의 혜성은 지금보다 — 표정이 풍부했다. 눈이 더 컸고, 웃을 때 입꼬리가 올라갔다. 110년 전의 혜성은 아직 인간의 표정을 많이 가지고 있었다.</p>
+  <p class="mf-dialogue">"아무것도 없어. 그래서 여기에 남기는 거야. 아무도 찾지 않을 곳에."</p>
+  <p class="mf-text">그가 웃었다. 그 웃음도 바람 같았다. 스치고 지나가는 것. 잡을 수 없는 것.</p>
+  <p class="mf-dialogue">"너만은 알아야 해. 하지만 — 아직은 안 돼."</p>
+  <p class="mf-dialogue">"뭘 알아야 하는데?"</p>
+  <p class="mf-dialogue">"때가 되면 이 숲이 보여줄 거야."</p>
+  <p class="mf-text">그가 혜성의 이마에 손을 대었다. 손이 따뜻했다. 무(無)의 속성은 차가울 것 같지만 — 이 사람의 손은 늘 따뜻했다. 모든 속성의 부재이자 근원. 속성이 없기에 어떤 온도든 될 수 있었고, 이 사람은 혜성 앞에서 항상 따뜻한 쪽을 택했다.</p>
+  <p class="mf-text">손이 이마에 닿은 순간, 무언가가 빠져나갔다. 기억의 한 조각. 이름. 이 사람의 이름이 — 사라졌다. 혜성은 손을 뻗었지만, 이미 늦었다.</p>
+  <p class="mf-dialogue">"물의 기사는 모든 것을 비춘다."</p>
+  <p class="mf-text">그가 말했다. 손을 내리며.</p>
+  <p class="mf-dialogue">"하지만 가장 중요한 것은 — 비추지 않는 것 속에 있어."</p>
+  <p class="mf-text">그리고 일어섰다. 뒤를 돌았다. 걸어갔다.</p>
+  <p class="mf-text">혜성이 손을 뻗었다. 닿지 않았다.</p>
+</div>
+
+<p class="novel">혜성이 수면에서 손을 떼었다. 뺨이 젖어 있었다. 울고 있었다. 언제부터 울었는지 모르겠다. 300년 만의 눈물이었는지, 아니면 300년 동안 매일 흘렸지만 기억하지 못한 눈물이었는지.</p>
+
+<p class="novel">민우가 혜성의 어깨를 잡았다. 아무 말 없이. 화(火)의 기사의 손은 항상 뜨거웠지만, 지금 그 열기가 위로가 되었다.</p>
+
+<p class="novel">앤디가 먼 곳을 보고 있었다. 혜성이 본 것을 앤디는 보지 못했다. 하지만 혜성의 눈물이 무엇을 의미하는지는 알았다. 350년을 함께한 막내에게도 이 정도의 읽기는 가능했다.</p>
+
+<p class="novel">에릭은 — 돌아서 있었다. 등을 보이고 있었다. 혜성이 호수에서 무엇을 보았는지, 에릭은 이미 알고 있는 듯했다. 그래서 보지 않은 것이다. 자기가 보면 — 감당할 수 없으니까.</p>
+
+<p class="novel">혜성이 숨을 고르고 말했다.</p>
+
+<div class="knight-voice hyesung">
+  <div class="kv-tag">혜성 — 명월</div>
+  <div class="kv-text">"봉인이 있어. 경화와 같은 거야. 하지만 이번에는 — 메시지도 있어."</div>
+</div>
+
+<p class="novel">에릭이 돌아섰다. 표정은 여전히 돌이었지만 — 눈이 달랐다. 430년을 산 이 남자의 눈에 두려움 비슷한 것이 있었다.</p>
+
+<p class="dialogue">"뭐라고 쓰여 있어?"</p>
+
+<p class="novel">혜성이 수면을 내려다봤다. 호수 아래에서 빛나는 술식. 그 한가운데에 새겨진 글자. 경화에서 본 경고와 다른 것. 이번에는 — 이미지였다. 문자가 아니라 기억의 조각. 수(水)의 기사가 읽으면 기억으로 변환되는 형태의 기록.</p>
+
+<p class="novel">혜성이 다시 수면에 손을 대었다. 기억이 흘러들어왔다. 이번에는 회상이 아니라 — 메시지였다.</p>
+
+<p class="internal">이 봉인은 다섯 중 하나다. 다섯 봉인이 모두 풀리면 — 명허(冥墟)의 문이 열린다. 열리면 안 된다. 봉인을 유지해야 한다. 하지만 나는 — 더 이상 유지할 힘이 없다.</p>
+
+<p class="novel">다섯 봉인. 혜성의 눈이 커졌다. 경화의 봉인, 반영림의 봉인. 이미 둘이 약해지고 있었다. 남은 셋은 어디에.</p>
+
+<p class="novel">그리고 명허. 하계. 소멸한 차원의 잔해가 가라앉는 곳. 귀기(鬼氣)의 원천. 그 문이 열리면 — 상상하고 싶지 않았다.</p>
+
+<div class="knight-voice hyesung">
+  <div class="kv-tag">혜성 — 명월</div>
+  <div class="kv-text">"봉인이 다섯 개야. 만상계 곳곳에. 이것들이 모두 풀리면 — 명허의 문이 열린다고 써 있어."</div>
+</div>
+
+<p class="novel">침묵. 네 기사의 얼굴이 각각 다른 방식으로 굳었다. 명허. 그 이름만으로도 충분했다. 기사들은 400년 가까이 명허의 기운이 만상계에 스며드는 것을 막아왔다. 그것이 한꺼번에 쏟아진다면.</p>
+
+<div class="knight-voice minwoo">
+  <div class="kv-tag">민우 — 열화</div>
+  <div class="kv-text">"그러니까 — 7번째는 300년 동안 혼자서 명허를 봉인하고 있었다는 거야? 다섯 곳에? 혼자?"</div>
+</div>
+
+<p class="novel">민우의 목소리에 분노가 아닌 것이 섞여 있었다. 처음으로. 당혹. 아니 — 죄책감에 가까운 것. 300년간 사라진 동료를 원망하기도, 그리워하기도 했다. 그동안 그가 혼자서 이런 짐을 지고 있었다면.</p>
+
+<p class="novel">에릭이 말이 없었다. 에릭의 침묵이 대답이었다.</p>
+
+</section>
+
+<!-- SCENE BREAK -->
+<div class="scene-break">* * *</div>
+
+<!-- PART 4 -->
+<section class="section-divider">
+<div class="part-label">Part IV</div>
+<div class="part-title">대가</div>
+
+<p class="novel novel-first">숲이 변한 것은 혜성이 봉인의 메시지를 읽은 직후였다.</p>
+
+<p class="novel">소리가 먼저 달라졌다. 나뭇잎이 바람 없이 울렸다. 금속이 부딪치는 소리 — 거울이 서로를 비추며 내는 공명. 그 소리가 높아지더니, 나무의 거울 표면에 금이 갔다.</p>
+
+<p class="novel">금이 간 거울에서 — 무언가가 나왔다.</p>
+
+<p class="novel">그림자. 아니, 반사. 거울 속에 있어야 할 반사가 거울 바깥으로 빠져나온 것이다. 사람의 형태를 하고 있었지만 입체가 아니었다. 평면이었다. 종이를 세워놓은 것처럼 얇은 존재. 하지만 그 얇은 면에 — 기사들의 얼굴이 있었다.</p>
+
+<p class="novel">혜성의 반사가 가장 먼저 나왔다. 거울 속에서 울고 있던 그 혜성. 뺨에 눈물 자국이 있었고, 눈이 텅 비어 있었다. 손을 뻗었다 — 현실의 혜성을 향해. 그 손이 닿으려는 순간 에릭이 혜성을 뒤로 밀었다.</p>
+
+<div class="knight-voice eric">
+  <div class="kv-tag">에릭 — 현암</div>
+  <div class="kv-text">"만지면 안 된다. 만지면 기억을 빼앗긴다."</div>
+</div>
+
+<p class="novel">에릭이 알고 있었다. 이 숲의 방어 기제를. 봉인에 접근한 자에게 숲이 반격하는 것. 혜성은 물을 시간이 없었다 — 왜 알고 있는지.</p>
+
+<p class="novel">반사들이 쏟아졌다. 모든 나무에서. 수백, 수천의 반사가 거울 밖으로 나와 기사들을 에워쌌다. 각 기사의 반사가 각 기사를 향해 다가왔다. 손을 뻗으며. 텅 빈 눈으로.</p>
+
+<p class="novel">에릭이 먼저 움직였다. 음(陰)의 술법 — 그림자가 에릭의 발밑에서 솟구쳐 반사들을 덮쳤다. 하지만 —</p>
+
+<p class="novel">효과가 없었다.</p>
+
+<p class="novel">그림자가 반사를 통과했다. 거울은 그림자를 먹는다. 어둠을 비추면 어둠이 되니까. 에릭의 음(陰) 속성이, 거울로 이루어진 이 차원에서는 무력했다.</p>
+
+<div class="knight-voice eric">
+  <div class="kv-tag">에릭 — 현암</div>
+  <div class="kv-text">"... 안 먹힌다."</div>
+</div>
+
+<p class="novel">에릭의 목소리에 당혹이 스쳤다. 430년의 전투 경험에서도 드문 상황. 자기 술법이 통하지 않는 환경. 음(陰)의 기사가 거울의 세계에서 무력해지는 것은 — 논리적으로 당연했지만, 그것을 몸으로 겪는 것은 다른 문제였다.</p>
+
+<p class="novel">민우가 화(火)를 펼쳤다. 주먹에서 불이 타올라 가장 가까운 반사를 덮쳤다. 불이 거울을 녹였다. 반사가 비명 — 아니, 비명처럼 들리는 공명을 내며 사라졌다. 하지만 녹은 거울에서 빛의 파편이 흩어졌다. 그 파편 하나하나가 기억이었다. 누군가의 기억. 민우가 녹인 반사에 담겨 있던 기억의 조각이 공중에 흩뿌려졌다.</p>
+
+<p class="novel">민우의 눈이 흔들렸다. 흩어진 파편 속에서 무언가를 본 것이다.</p>
+
+<div class="knight-voice minwoo">
+  <div class="kv-tag">민우 — 열화</div>
+  <div class="kv-text">"... 뭐야 이건. 내 기억이야. 이건 — 기사가 되기 전의..."</div>
+</div>
+
+<p class="novel">민우가 멈칫한 사이 다른 반사가 다가왔다. 민우의 반사. 거울 속에서 민우는 혼자였다. 원탁이 보였는데 — 민우의 자리만 있고 다른 자리가 텅 비어 있었다. 여섯 개의 빈 자리와 혼자 앉은 민우. 민우의 가장 깊은 두려움이 형태를 갖춘 것이었다.</p>
+
+<p class="novel">반사가 민우의 팔을 잡았다. 민우의 몸이 경직되었다. 눈이 풀렸다 — 기억이 빠져나가고 있었다.</p>
+
+<p class="dialogue">"민우!"</p>
+
+<p class="novel">혜성이 수(水)의 술법을 펼쳤다. 호수의 물이 솟아올라 민우를 감싼 반사를 떼어냈다. 물은 거울에 반사되지 않는다 — 물은 스스로가 거울이니까. 수(水)의 술법이 이 차원에서 유일하게 정상적으로 작동하는 것이었다.</p>
+
+<p class="novel">민우가 풀려났다. 하지만 눈이 흐릿했다. 무언가를 잃어버린 눈. 민우가 고개를 저었다.</p>
+
+<p class="dialogue">"괜찮아. 괜찮은데 — 뭔가 하나 안 떠올라. 뭐였지. 방금까지 있었는데."</p>
+
+<p class="novel">기억 하나를 빼앗겼다. 무엇을 잃었는지조차 모르는 것이 이 숲의 잔인함이었다.</p>
+
+<p class="novel">반사들이 더 몰려왔다. 에릭의 그림자는 무력했고, 민우의 불은 기억을 흩뿌렸다. 혜성의 물은 방어에는 효과적이었지만 수백의 반사를 막기에는 역부족이었다.</p>
+
+<p class="novel">앤디가 앞으로 나섰다.</p>
+
+<div class="knight-voice andy">
+  <div class="kv-tag">앤디 — 서광</div>
+  <div class="kv-text">"비켜주세요."</div>
+</div>
+
+<p class="novel">앤디의 양손에서 빛이 피어났다. 금(金)/양(陽)의 빛. 거울은 그림자를 먹고, 불은 거울을 녹이고, 물은 거울이 된다. 하지만 빛은 — 거울을 통과한다. 반사가 아니라 투과. 양(陽)의 속성은 비추는 것이 아니라 꿰뚫는 것이었다.</p>
+
+<p class="novel">앤디가 빛을 풀었다. 단순한 섬광이 아니었다. 빛이 나무 사이를 관통하며 거울 표면을 꿰뚫었다. 반사가 아닌 투과. 거울 속의 반사가 빛에 꿰뚫려 사라졌다. 비명 같은 공명이 숲 전체를 울렸다.</p>
+
+<p class="novel">앤디의 빛이 반영림을 정화했다. 미각성 상태에서도 이 정도였다. 양(陽)이 완전히 깨어나면 어떻게 될지 — 혜성은 처음으로 실감했다. 예언이 앤디를 가리키는 이유를.</p>
+
+<p class="novel">하지만 앤디의 얼굴이 창백해졌다. 미각성 상태에서 이 규모의 술법은 몸에 부하가 컸다. 앤디가 무릎을 꿇었다. 에릭이 앤디를 잡았다.</p>
+
+<p class="novel">반사들이 물러났다. 숲이 조용해졌다. 나무의 거울 표면에 금이 간 채로, 더 이상 반사가 빠져나오지 않았다.</p>
+
+<p class="novel">하지만 대가가 있었다.</p>
+
+<p class="novel">혜성이 자신의 손을 내려다봤다. 손가락 끝의 감각이 희미해져 있었다. 기억이 아니라 — 감각. 이 숲이 빼앗은 것. 민우는 기억 하나를, 혜성은 손끝의 촉감을. 에릭은 — 에릭의 눈 아래에 검은 선이 하나 더 생겨 있었다. 음(陰)의 반동. 앤디는 체력을 소진했다.</p>
+
+<p class="novel">넷이 숲을 빠져나왔다. 에릭이 문을 열었다. 천추궁의 보랏빛 하늘이 보였다. 혜성은 문을 나서기 전에 한 번 뒤를 돌아보았다. 숲의 거울들이 금이 간 채로 희미하게 빛나고 있었다. 300년 전, 누군가와 함께 이 숲에 온 적이 있었다. 그 기억을 되찾았다. 하지만 여전히 — 그의 이름은 모른다.</p>
+
+<p class="novel">이름만 빼고 돌려준 것이다. 이 숲이. 아니 — 그가. 300년 전에 지운 이름만큼은, 아직 돌려줄 때가 아니라는 뜻이었다.</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel">천추궁. 밤이었다. 천추궁에서의 밤은 보랏빛이 짙어지는 것이다. 금빛이 빠지고, 보라만 남는 시간.</p>
+
+<p class="novel">원탁에 보고가 끝난 뒤, 동완과 전진이 자리를 떴다. 동완은 반영림의 데이터를 정리해야 했고, 전진은 앤디를 쉬게 해야 했다. 민우는 — 민우는 술병을 들고 어딘가로 갔다. 잃어버린 기억 하나가 무엇이었는지, 아마 밤새 떠올리려 할 것이다. 떠올리지 못할 것이다.</p>
+
+<p class="novel">혜성이 에릭을 찾은 것은 성벽 위였다. 에릭은 구름 아래를 내려다보고 있었다. 만상계가 보이는 자리. 수천 개의 차원이 빛나는 점으로 펼쳐져 있었다. 그중 다섯에 봉인이 있다. 두 개는 이미 약해지고 있다.</p>
+
+<p class="dialogue">"에릭."</p>
+
+<p class="novel">에릭이 돌아보지 않았다. 혜성이 옆에 섰다. 두 사람이 나란히 만상계를 내려다봤다. 400년 동안 수없이 반복한 구도. 하지만 이번에는 달랐다. 사이에 놓인 것이 달랐다.</p>
+
+<p class="dialogue">"너는 거기 있었지. 그가 떠나는 날."</p>
+
+<p class="novel">혜성의 목소리는 조용했다. 비난이 아니었다. 확인이었다. 거울의 숲이 보여준 것 — 에릭의 반사 옆에 서 있던 윤곽. 그것은 에릭의 기억이었다. 에릭이 마지막으로 7번째 기사를 본 날의 기억.</p>
+
+<p class="novel">에릭의 침묵이 길었다. 바람이 불었다. 성벽 위의 바람은 차가웠다.</p>
+
+<div class="knight-voice eric">
+  <div class="kv-tag">에릭 — 현암</div>
+  <div class="kv-text">"... 그래. 나는 봤다. 그가 떠나는 것을."</div>
+</div>
+
+<p class="novel">처음이었다. 300년 만에 에릭이 인정한 것. 혜성의 가슴이 조여왔다.</p>
+
+<p class="dialogue">"왜 말하지 않았어."</p>
+
+<div class="knight-voice eric">
+  <div class="kv-tag">에릭 — 현암</div>
+  <div class="kv-text">"막지 못했다."</div>
+</div>
+
+<p class="novel">에릭의 목소리가 갈라졌다. 미세하게. 430년을 산 음(陰)의 기사. 모든 것을 짊어지고, 감정을 드러내지 않고, 결정을 내리고, 대가를 치르는 남자. 그 남자의 목소리가 갈라진 것을 혜성은 — 300년 만에 처음 들었다.</p>
+
+<div class="knight-voice eric">
+  <div class="kv-tag">에릭 — 현암</div>
+  <div class="kv-text">"막을 수 없었다. 그가 — 자기 의지로 떠난 거니까. 떠나야만 하는 이유가 있었으니까. 나는 그 이유를 들었고 — 막지 못했다. 막으면 안 된다는 것을 알았으니까."</div>
+</div>
+
+<p class="novel">혜성은 에릭을 바라보았다. 에릭의 눈 아래에 검은 선이 있었다. 반영림에서 생긴 것. 하지만 그것만이 아니었다. 300년 동안 혼자 진실을 안고 있었던 무게가 그 선 하나하나에 새겨져 있었다.</p>
+
+<p class="dialogue">"그가 내 기억을 지운 것도 알고 있었어?"</p>
+
+<p class="novel">에릭이 처음으로 혜성을 봤다. 음(陰)과 수(水)가 마주했다. 어둠과 물.</p>
+
+<div class="knight-voice eric">
+  <div class="kv-tag">에릭 — 현암</div>
+  <div class="kv-text">"... 그가 부탁했다. 혜성의 기억을 지운 뒤에 — 혜성이 매일 빈 자리를 바라볼 거라고. 이름은 모르지만 자리가 비어 있다는 것은 알 테니까. 그래도 지워야 한다고 했다. 이름을 기억하면 찾으러 갈 테니까."</div>
+</div>
+
+<p class="novel">혜성의 눈에서 물이 흘렀다. 물의 기사의 눈물. 천추궁의 보랏빛 바람이 눈물을 말렸다.</p>
+
+<p class="novel">300년간 매일 빈 자리를 바라봤다. 왜 바라보는지도 모르면서. 이름을 모르는 사람을 그리워하면서. 그것이 의도된 것이었다. 이름을 지운 사람도, 그것을 지켜본 사람도 — 혜성이 빈 자리 앞에서 보낼 300년을 알고 있었다.</p>
+
+<p class="dialogue">"잔인해."</p>
+
+<p class="novel">혜성이 말했다. 에릭을 향한 것인지, 7번째를 향한 것인지, 자기 자신을 향한 것인지 알 수 없는 한 마디.</p>
+
+<p class="novel">에릭이 대답하지 않았다. 대답할 수 없는 말이었으니까.</p>
+
+<p class="novel">두 사람이 한동안 침묵 속에 서 있었다. 만상계의 빛나는 점들이 아래에서 깜빡였다. 그중 다섯에 약해지는 봉인이 있고, 그 봉인 너머에 명허의 문이 있다.</p>
+
+<p class="novel">혜성이 말했다.</p>
+
+<div class="knight-voice hyesung">
+  <div class="kv-tag">혜성 — 명월</div>
+  <div class="kv-text">"봉인이 다섯 곳에 있어. 경화와 반영림, 둘은 확인했어. 남은 셋을 찾아야 해. 봉인이 무너지면 명허의 문이 열려. ... 그리고 에릭. 나는 경화에서 또 다른 메시지를 봤어."</div>
+</div>
+
+<p class="novel">에릭의 눈이 좁아졌다.</p>
+
+<div class="knight-voice hyesung">
+  <div class="kv-tag">혜성 — 명월</div>
+  <div class="kv-text">"나를 찾지 마라. 나를 찾으면, 일곱 번째 자리가 다시 채워지는 것이 아니라 — 여섯 자리가 사라진다."</div>
+</div>
+
+<p class="novel">혜성이 경화에서부터 품고 있던 경고를 에릭에게 건넸다. 모두에게가 아니라 에릭에게만. 이것이 혜성의 판단이었다. 모두에게 말하면 혼란이 온다. 에릭에게만 말하면 — 에릭이 짊어진다. 또 하나의 짐을. 잔인한 판단이었다. 하지만 혜성은 에릭이 짊어질 수 있다는 것을 알았다. 430년을 봐왔으니까.</p>
+
+<p class="novel">에릭의 얼굴이 — 혜성이 400년간 본 적 없는 표정을 지었다. 돌이 아니었다. 무표정이 아니었다. 고통이었다. 순수한 고통. 0.5초 동안. 그리고 다시 돌이 되었다.</p>
+
+<div class="knight-voice eric">
+  <div class="kv-tag">에릭 — 현암</div>
+  <div class="kv-text">"... 그래도 찾아야 해."</div>
+</div>
+
+<p class="novel">혜성이 에릭을 봤다.</p>
+
+<div class="knight-voice eric">
+  <div class="kv-tag">에릭 — 현암</div>
+  <div class="kv-text">"봉인이 무너지고 있어. 명허의 문이 열리면 여섯 자리든 일곱 자리든 상관없어 — 전부 사라져. 찾지 말라는 경고를 따를 수 없어. 봉인을 유지할 방법을 찾든, 대체할 방법을 찾든 — 남은 세 봉인을 먼저 확인해야 해."</div>
+</div>
+
+<p class="novel">혜성은 고개를 끄덕였다. 알고 있었다. 경고를 따를 수 없다는 것을. 찾지 말라는 말을 들었지만 — 찾아야 한다는 것을. 그것도 7번째 기사가 알고 있었을 것이다. 혜성에게 경고를 남긴 것은 멈추라는 뜻이 아니라 — 각오하라는 뜻이었을 것이다.</p>
+
+<p class="novel">성벽 아래로 바람이 불었다. 천추궁의 바람. 만상계의 수천 차원 위를 스치고 온 바람.</p>
+
+<p class="novel">혜성은 손끝을 움직여 보았다. 반영림에서 잃어버린 촉감. 물건을 만지면 0.5초 뒤에야 느낌이 왔다. 거울의 숲이 가져간 대가. 앞으로 세 곳의 봉인을 더 찾아가면 — 무엇을 더 잃게 될까.</p>
+
+<p class="internal">그래도 간다. 빈 자리의 주인이 나를 찾지 말라고 했지만 — 300년간 매일 빈 자리를 바라본 사람에게 그 말은 통하지 않는다.</p>
+
+<p class="novel">원탁으로 돌아갔다. 빈 자리가 거기 있었다. 이름이 지워진 일곱 번째 자리. 혜성은 그 자리 앞에 섰다. 300년간 해왔던 것처럼. 하지만 이번에는 달랐다. 거울의 숲이 돌려준 기억이 있었다. 얼굴은 보이지 않지만 — 어깨가 가늘고, 고개를 기울이는 버릇이 있고, 바람 같은 목소리를 가진 사람.</p>
+
+<p class="novel">혜성이 빈 자리의 표면을 손가락으로 쓸었다. 이름이 녹아 없어진 자리. 0.5초 뒤에 돌의 차가움이 느껴졌다.</p>
+
+<p class="novel">이름을 모른다. 하지만 이제 안다 — 그가 스스로 이름을 지웠다는 것을. 혜성의 기억에서도, 원탁의 돌에서도. 찾지 못하게 하려고.</p>
+
+<p class="novel">찾겠다.</p>
+
+<p class="novel">여섯 자리가 사라진다 해도.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>거울은 모든 것을 비춘다<br><strong>당신이 잊은 것까지</strong></h2>
+  <p class="sub">다섯 봉인 중 둘이 흔들리고 있다.<br>남은 셋을 찾아야 한다.</p>
+</div>
+
+<footer class="footer">
+  <p>The Seventh Seat Fiction Series &middot; Episode 02 of 05</p>
+  <p>Written with Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

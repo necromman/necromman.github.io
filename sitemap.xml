@@ -611,4 +611,24 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- Series 24: 묵향: 리부트 -->
+  <url>
+    <loc>https://necromman.github.io/content/modern-mukhyang-series/non-standard.html</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Series 25: 일곱 번째 자리 -->
+  <url>
+    <loc>https://necromman.github.io/content/seventh-seat-series/empty-seat.html</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/editorial/content/seventh-seat-series/mirror-forest.html</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

@@ -853,5 +853,42 @@ window.CONTENT_DATA = [
         search: '서버준비 데이터정제 PRD 기획서 Ollama 프로토타입 아이디어 8주 타임라인 HWP 인벤토리'
       }
     ]
+  },
+  {
+    id: 'modern-mukhyang',
+    seriesNum: 24,
+    title: '묵향: 리부트',
+    description: '묵향(전동조) 오마주. 마교의 살수가 배신당한 밤, 탈마의 경지에서 이계로 떨어진다. 소녀의 몸, 기사와 마법사의 세계, 그리고 타이탄. 모던 무협 팬픽 5편.',
+    articles: [
+      {
+        title: '탈마(脫魔)',
+        role: '소설 — 마교의 살수가 배신당하고, 죽음의 문턱에서 이계로 떨어진다',
+        tag: '입문',
+        href: 'content/modern-mukhyang-series/non-standard.html',
+        search: '묵향 리부트 팬픽 무협 판타지 살수 마교 탈마 다크레이디 이세계 타이탄 마장기'
+      }
+    ]
+  },
+  {
+    id: 'seventh-seat',
+    seriesNum: 25,
+    title: '일곱 번째 자리',
+    description: '천추궁의 여섯 기사는 300년간 일곱 번째 자리를 비워두었다. 음양오행의 세계에서 신화 여섯 멤버가 사라진 동료의 흔적을 좇는 하이 판타지 소설.',
+    articles: [
+      {
+        title: '빈 자리',
+        role: '소설 — 천추궁의 이변, 일곱 번째 기사의 흔적, 여섯 자리가 사라진다는 경고',
+        tag: '소설/판타지',
+        href: 'content/seventh-seat-series/empty-seat.html',
+        search: '일곱번째자리 빈자리 천추궁 신화 팬픽 가즈나이트 음양오행 하이판타지 에릭 민우 혜성 동완 전진 앤디 소설'
+      },
+      {
+        title: '거울의 숲',
+        role: '소설 — 뒤집힌 차원, 자신의 그림자와 대면, 혜성의 봉인된 기억',
+        tag: '소설/판타지',
+        href: 'content/seventh-seat-series/mirror-forest.html',
+        search: '거울의숲 반영림 명경 신화 판타지 혜성 에릭 민우 앤디 기억 봉인 명허 소설'
+      }
+    ]
   }
 ];

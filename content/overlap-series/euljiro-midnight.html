@@ -1,0 +1,652 @@
+---
+layout: layouts/article.njk
+pageTitle: "을지로, 자정"
+description: "32세 출판사 에디터 한서연은 을지로 골목에서 간판 글자가 틀린 것을 발견한다. 골목의 구조가 바뀌고, 사라진 사람을 찾는 밤이 시작된다."
+datePublished: "2026-02-12"
+---
+<style>
+.masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+.masthead .issue { margin-bottom: 24px; }
+.masthead h1 { font-size: 3.6rem; font-weight: 900; line-height: 1.05; letter-spacing: -2px; }
+.masthead h1 strong { font-weight: 900; color: var(--accent); }
+.masthead .deck { max-width: 460px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+/* Novel typography */
+.novel { text-indent: 1em; line-height: 2.05; font-size: 1.05rem; color: var(--prose); margin: 0 0 0.2em; }
+.novel-first { text-indent: 0; }
+.dialogue { padding-left: 1em; text-indent: -1em; line-height: 2.05; font-size: 1.05rem; color: var(--prose); margin: 0 0 0.2em; }
+.internal { color: var(--muted); font-size: 1.02rem; line-height: 2; margin: 0.8em 0; text-indent: 1em; }
+
+/* Scene break */
+.scene-break { text-align: center; letter-spacing: 12px; color: var(--muted); font-size: 0.85rem; padding: 40px 0; }
+
+/* Part labels */
+.part-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; margin-top: 0; }
+.part-title { font-size: 1.6rem; font-weight: 700; color: var(--fg); margin-bottom: 32px; letter-spacing: -0.5px; }
+.section-divider { border-top: 1px solid var(--fg); padding-top: 48px; margin-top: 56px; }
+
+/* Character intro */
+.char-intro { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: baseline; margin: 24px 0 32px; padding: 20px 24px; background: var(--card-bg); border: 1px solid var(--rule); }
+.c-name { font-family: var(--mono); font-size: 0.8rem; font-weight: 700; color: var(--accent); letter-spacing: 2px; white-space: nowrap; }
+.c-info { font-size: 0.85rem; color: var(--secondary); line-height: 1.6; }
+
+/* Overlap effect — dimensional bleed */
+.overlap-moment {
+  position: relative;
+  padding: 32px 24px;
+  margin: 32px 0;
+  border: 1px solid var(--rule);
+  background: var(--card-bg);
+  overflow: hidden;
+}
+.overlap-moment::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, transparent 0%, var(--card-bg) 100%);
+  pointer-events: none;
+  opacity: 0.5;
+}
+.overlap-moment .om-label {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+  position: relative;
+}
+.overlap-moment .om-text {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--prose);
+  position: relative;
+}
+
+/* Signboard — wrong signs in Euljiro */
+.signboard {
+  max-width: 320px;
+  margin: 32px auto;
+  text-align: center;
+}
+.signboard .sb-frame {
+  border: 2px solid var(--fg);
+  padding: 20px 28px;
+  position: relative;
+}
+.signboard .sb-original {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--fg);
+  letter-spacing: 2px;
+  text-decoration: line-through;
+  opacity: 0.4;
+  margin-bottom: 8px;
+}
+.signboard .sb-changed {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 2px;
+}
+.signboard .sb-note {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  color: var(--muted);
+  margin-top: 12px;
+}
+
+/* Night patrol voice */
+.patrol-voice {
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-left: 3px solid var(--accent);
+  background: var(--card-bg);
+}
+.patrol-voice .pv-tag {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.patrol-voice .pv-text {
+  font-size: 0.95rem;
+  line-height: 1.9;
+  color: var(--prose);
+}
+
+/* Imyeon description — the other side */
+.imyeon {
+  font-size: 1.02rem;
+  line-height: 2;
+  color: var(--secondary);
+  margin: 0 0 0.2em;
+  text-indent: 1em;
+  border-left: 2px solid var(--rule);
+  padding-left: 20px;
+  margin-left: 0;
+}
+
+/* Missing person notice */
+.missing-notice {
+  max-width: 360px;
+  margin: 32px auto;
+  border: 1px solid var(--fg);
+  padding: 24px 28px;
+}
+.missing-notice .mn-header {
+  font-family: var(--serif);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule);
+}
+.missing-notice .mn-row {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+.missing-notice .mn-label {
+  color: var(--muted);
+  font-weight: 700;
+}
+.missing-notice .mn-value { color: var(--prose); }
+
+/* Responsive */
+@media (max-width: 700px) {
+  .masthead h1 { font-size: 2.4rem; }
+  .char-intro { grid-template-columns: 1fr; gap: 4px 0; }
+  .missing-notice .mn-row { grid-template-columns: 1fr; gap: 2px; }
+}
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">overlap — fiction 01</p>
+  <h1>을지로,<br><strong>자정</strong></h1>
+  <p class="deck">골목의 간판 글자가 틀려 있었다.<br>아무도 눈치채지 못했다. 나만 빼고.</p>
+</header>
+
+<main>
+
+<!-- PART 1 -->
+<section>
+<div class="part-label">Part I</div>
+<div class="part-title">균열</div>
+
+<div class="char-intro">
+  <span class="c-name">한서연</span>
+  <span class="c-info">32 &middot; 출판사 에디터 &middot; 서울 마포구</span>
+</div>
+
+<p class="novel novel-first">화요일 저녁 9시 47분, 서연은 모니터를 끄지 않은 채 자리에서 일어났다. 교정 원고 세 권이 책상 위에 겹쳐 있었다. 빨간 펜으로 표시한 오탈자가 페이지마다 열두 개씩 박혀 있었고, 편집장에게 보낼 리뷰 메모는 아직 절반도 쓰지 못했다. 서연은 그것들을 쳐다보다가, 가방을 집었다.</p>
+
+<p class="novel">출판사는 을지로 3가역에서 두 블록 거리에 있었다. 10년 전까지는 인쇄소가 골목마다 박혀 있던 동네. 지금은 절반이 카페가 되었고, 나머지 절반은 아직 잉크 냄새가 났다. 서연은 이 동네를 좋아했다. 낮에는 복사기와 재단기 소리가 리듬처럼 울렸고, 밤에는 골목이 깊어졌다. 깊어진다는 건 비유가 아니었다. 을지로의 골목은 밤이 되면 물리적으로 더 길어지는 것 같았다.</p>
+
+<p class="internal">약을 끊은 지 열흘째다. 의사에게 말하지 않았다. 말하면 다시 처방전을 쓸 것이고, 처방전을 받으면 다시 먹을 것이고, 먹으면 다시 아무것도 느끼지 못하는 하루가 반복될 것이다.</p>
+
+<p class="novel">서연이 먹던 약은 항불안제였다. 번아웃 진단을 받은 것이 8개월 전. 수면제, 항불안제, 상담. 상담사는 "일에서 한 발 물러서세요"라고 했고, 서연은 고개를 끄덕이면서 야근을 했다. 약을 먹으면 잠은 잘 왔지만, 낮에 세상이 한 겹의 유리 너머에 있는 것처럼 느껴졌다. 소리가 먼저 들리고, 감정이 0.5초 뒤에 도착하는 느낌.</p>
+
+<p class="novel">열흘 전에 약을 끊은 건 용기가 아니라 귀찮음이었다. 처방전이 떨어졌는데 병원에 갈 시간이 없었을 뿐이다. 그런데 사흘째부터 이상한 일이 시작됐다.</p>
+
+<p class="novel">처음에는 사소한 것이었다. 지하철역 계단을 내려가는데, 계단 수가 달라 보였다. 22개여야 하는데 23개 같았다. 사무실 창밖의 간판이 — 지나다니면서 수천 번은 봤을 '대한인쇄'가 — 어느 순간 '대한인새'로 보였다가, 다시 보면 원래대로였다. 이런 것들. 약 끊은 금단 증상이려니 했다.</p>
+
+<p class="novel">그런데 오늘, 퇴근길에 그것을 봤다.</p>
+
+<div class="scene-break">* * *</div>
+
+<p class="novel novel-first">을지로 3가 골목. 서연이 매일 걷는 길이다. 인쇄소 세 곳, 간판 제작소 한 곳, 공구 가게 두 곳을 지나면 큰 도로가 나오고, 거기서 좌회전하면 지하철역이다. 시간으로 7분. 골목을 빠져나오기까지 4분, 큰 도로에서 역까지 3분. 서연은 이 루트를 3년 동안 걸었다.</p>
+
+<p class="novel">자정 직전이었다. 골목이 평소보다 어두웠다. 어제까지 켜져 있던 '진흥인쇄' 간판이 꺼져 있었고, 그 옆의 '세기전자' 네온사인만 파란빛을 뿌리고 있었다. 서연은 걸음을 멈추지 않았다. 이 골목을 수천 번 걸었다. 눈을 감고도 걸을 수 있다.</p>
+
+<p class="novel">그래서 눈치챘다.</p>
+
+<div class="signboard">
+  <div class="sb-frame">
+    <div class="sb-original">세기전자</div>
+    <div class="sb-changed">세기전차</div>
+  </div>
+  <div class="sb-note">one character. wrong.</div>
+</div>
+
+<p class="novel">'자'가 '차'로 바뀌어 있었다. 네온사인의 파란 빛은 똑같았다. 글자의 폰트도, 크기도, 위치도 똑같았다. 단 한 글자만 달랐다. 서연은 멈췄다. 고개를 들어 간판을 올려다봤다. 세기전차. 아니, 이건 원래 세기전자였다. 3년 동안 매일 봤다. 틀릴 리가 없다.</p>
+
+<p class="novel">다시 봤다. 세기전자. 맞다. 원래대로다.</p>
+
+<p class="internal">... 방금 분명히 '차'였는데.</p>
+
+<p class="novel">서연은 고개를 저으며 걸음을 옮겼다. 그때 골목의 끝이 보이지 않는다는 것을 깨달았다.</p>
+
+<p class="novel">4분 거리의 골목이다. 출구가 보여야 한다. 큰 도로의 가로등 불빛이 보여야 한다. 그런데 골목이 — 계속되고 있었다. 어두운 인쇄소 셔터가 반복되고, 공구 가게의 접힌 차양이 반복되고, 콘크리트 벽의 균열 패턴이 반복되었다. 같은 골목이 복사된 것처럼 앞으로 이어졌다.</p>
+
+<p class="novel">서연은 뒤를 돌아봤다. 뒤쪽도 마찬가지였다. 왔던 길이 보이지 않았다. 을지로 3가 사거리의 편의점 불빛이 없었다. 골목이 양쪽으로 끝없이 이어져 있었다.</p>
+
+<div class="overlap-moment">
+  <div class="om-label">overlap detected</div>
+  <div class="om-text">공기가 달라졌다. 온도는 같은데 밀도가 다른 느낌. 숨을 들이마시면 공기가 폐를 0.5초 늦게 채우는 것 같았다. 소리도 달라졌다. 을지로의 밤은 원래 조용하지 않다. 먼 곳의 차 소리, 환기팬 돌아가는 소리, 어딘가의 TV 소리가 늘 깔려 있다. 그런데 지금은 — 고요했다. 완전한 고요. 서연 자신의 심장 소리가 들릴 정도의.</div>
+</div>
+
+<p class="novel">서연의 손이 떨렸다. 핸드폰을 꺼냈다. 화면이 켜졌지만, 신호가 없었다. LTE도 5G도 아닌, 아예 안테나 표시 자체가 사라져 있었다. 시간은 — 00:00. 자정. 숫자가 바뀌지 않았다. 00:00이 00:01이 되지 않고 그대로 멈춰 있었다.</p>
+
+<p class="novel">서연은 뛰기 시작했다. 앞으로. 어느 방향이든 상관없었다. 골목이 끝나야 했다. 골목은 끝나게 되어 있다. 현실의 골목은.</p>
+
+<p class="novel">20초쯤 달렸을 때, 누군가의 등이 보였다.</p>
+
+<p class="novel">골목 한가운데, 어둠 속에 서 있는 사람. 후드를 쓰고 있었다. 서연의 발소리에도 돌아보지 않았다. 서연은 멈췄다. 숨이 거칠었다. 그 사람에게 다가가야 할지, 반대로 도망쳐야 할지 판단이 서지 않았다.</p>
+
+<p class="novel">그 사람이 돌아봤다.</p>
+
+<p class="novel">20대 초반의 남자였다. 서연의 예상과 달리 — 평범했다. 아니, 평범한 것이 이상했다. 이 상황에서 이 사람의 표정은 너무나 일상적이었다. 마치 편의점에서 마주친 것처럼. 그는 이어폰을 한쪽 귀에서 빼며 서연을 봤다.</p>
+
+<p class="dialogue">"... 보여요?"</p>
+
+<p class="novel">서연은 아무 말도 못했다.</p>
+
+<p class="dialogue">"지금 여기가 이상하다는 거, 보여요?"</p>
+
+<p class="novel">서연이 고개를 끄덕였다. 그것이 이 기이한 밤에 서연이 할 수 있는 가장 솔직한 대답이었다.</p>
+
+<p class="novel">남자가 웃었다. 놀란 것도 아니고, 기뻐하는 것도 아닌 — 뭐랄까, '아, 진짜 있구나' 하는 종류의 웃음이었다.</p>
+
+<p class="dialogue">"오래 있으면 안 돼요. 저 따라오세요."</p>
+
+<p class="novel">남자가 걷기 시작했다. 서연은 — 따라갔다. 낯선 남자를 자정의 골목에서 따라가는 것이 얼마나 위험한 일인지 알고 있었다. 하지만 이 골목이 끝나지 않는다는 것도 알고 있었다. 두 가지 공포 중 하나를 골라야 했고, 서연은 움직이는 쪽을 골랐다.</p>
+
+<p class="novel">남자가 걸으면서 왼쪽 손을 들어올렸다. 손가락을 튕겼다. 소리는 나지 않았지만, 바람이 불었다. 골목 안에서 바람이 분다는 것도 이상했지만, 바람의 방향이 더 이상했다. 앞에서 오는 것도, 뒤에서 오는 것도 아닌 — 아래에서 위로 부는 바람이었다.</p>
+
+<p class="novel">골목의 끝이 보였다. 가로등 불빛. 차 소리. 편의점의 형광등. 현실이었다.</p>
+
+<p class="novel">서연이 골목을 빠져나오는 순간, 핸드폰이 진동했다. 시간이 다시 움직이고 있었다. 00:07. 7분이 지나 있었다. 뒤를 돌아봤다. 평범한 을지로 3가 골목이었다. 인쇄소 셔터, 공구 가게, 간판들. 세기전자. '자'가 맞았다.</p>
+
+<p class="novel">남자가 서연 옆에 서 있었다. 이어폰을 다시 귀에 꽂으며 말했다.</p>
+
+<p class="dialogue">"박시우예요. 대학원생. 아, 그리고 — 야경."</p>
+
+<p class="dialogue">"... 야경?"</p>
+
+<p class="dialogue">"밤에 순찰하는 사람들이요. 설명하기 좀 긴데 — 우선 이것만요. 방금 겪은 거, 약 부작용 아니에요."</p>
+
+<p class="novel">서연의 눈이 커졌다.</p>
+
+<p class="dialogue">"내가 약을 먹는 걸 어떻게..."</p>
+
+<p class="dialogue">"겹을 보는 사람들은 대부분 약을 먹어요. 혹은 먹었었거나. 어릴 때 이상한 걸 봤다고 말하면 부모님이 병원에 데려가니까."</p>
+
+<p class="novel">서연은 아무 말도 할 수 없었다. 8살 때 엄마에게 말했었다. 학교 운동장 구석에 사람이 서 있는데, 다른 아이들은 못 본다고. 엄마는 서연을 소아정신과에 데려갔고, 의사는 약을 처방했다. 그 후로 아무것도 보이지 않았다. 24년 동안.</p>
+
+<p class="dialogue">"내일 밤 11시에 여기로 와요. 같은 자리. 설명해드릴게요. 그리고 — 솔직히 도움이 필요하기도 하고요."</p>
+
+<p class="dialogue">"도움?"</p>
+
+<p class="dialogue">"여기서 사람이 사라졌어요. 사흘 전에. 겹 안으로 들어간 것 같은데, 저희가 못 찾고 있어요. 근데 아까 보니까 — 겹을 보는 능력이 저보다 나은 것 같아서요."</p>
+
+<p class="novel">시우는 손을 흔들고 골목으로 걸어갔다. 몇 걸음 가서 돌아보며 덧붙였다.</p>
+
+<p class="dialogue">"아, 그리고 정말로 — 약 부작용 아니에요. 당신이 보는 게 진짜예요."</p>
+
+<p class="novel">서연은 편의점 불빛 아래 서서 오래도록 골목을 바라보았다.</p>
+
+</section>
+
+<!-- SCENE BREAK -->
+<div class="scene-break">* * *</div>
+
+<!-- PART 2 -->
+<section class="section-divider">
+<div class="part-label">Part II</div>
+<div class="part-title">접촉</div>
+
+<p class="novel novel-first">다음 날 밤, 서연은 그 골목 앞에 서 있었다.</p>
+
+<p class="novel">온종일 일이 손에 잡히지 않았다. 교정 원고를 펼쳐놓고 같은 문장을 여섯 번 읽었다. "역사는 반복되지 않지만 운율을 맞춘다." 마크 트웨인의 인용구. 서연은 빨간 펜을 들었다가 내려놓았다. 반복. 그 골목이 반복되던 것처럼.</p>
+
+<p class="novel">낮에 을지로 3가 골목을 걸어보았다. 모든 것이 정상이었다. 세기전자의 '자'는 정확했고, 골목의 끝에는 큰 도로가 있었고, 인쇄소에서는 재단기 소리가 났다. 현실. 완전한 현실. 서연은 오히려 불안해졌다. 어젯밤이 진짜가 아니라면 자신이 미친 것이고, 진짜라면 — 세상이 자신이 알던 것과 다른 것이니까.</p>
+
+<p class="novel">11시 5분 전에 도착했다. 시우는 이미 와 있었다. 어제의 후드 대신 패딩 점퍼를 입고 있었고, 한 손에 편의점 커피를 들고 있었다. 다른 손에도 하나.</p>
+
+<p class="dialogue">"올 줄 알았어요. 이거요."</p>
+
+<p class="novel">서연은 커피를 받았다. 따뜻했다.</p>
+
+<div class="char-intro">
+  <span class="c-name">박시우</span>
+  <span class="c-info">24 &middot; 도시공학 석사과정 &middot; 야경 3년차 &middot; 풍(風)</span>
+</div>
+
+<p class="dialogue">"먼저 — 제가 아는 선에서만 설명할게요. 전부 다 아는 건 아니거든요. 저도 3년차라서."</p>
+
+<p class="novel">시우는 커피를 한 모금 마시고 말을 이었다.</p>
+
+<p class="dialogue">"서울에는 차원이 겹치는 장소가 있어요. 저희는 '겹점'이라고 불러요. 이 을지로 골목이 그중 하나고요. 겹점에서는 우리 세계와 다른 차원 — '이면'이라고 하는 곳 — 이 겹쳐져요. 대부분의 시간에는 아무 일 없이 겹쳐 있다가, 가끔 — 특히 자정 무렵에 — 경계가 얇아지면서 이쪽과 저쪽이 섞여요. 어제 겪은 게 그거예요."</p>
+
+<p class="dialogue">"... 다른 차원."</p>
+
+<p class="dialogue">"네. 이면은 서울과 같은 지리를 공유해요. 같은 건물, 같은 도로가 있어요. 근데 모든 게 미묘하게 달라요. 간판 글자가 한 글자씩 틀리거나, 해가 뜨지 않거나, 소리가 늦게 들리거나."</p>
+
+<p class="novel">서연은 어젯밤을 떠올렸다. 공기의 밀도. 소리의 부재. 멈춘 시계. 간판의 '차'.</p>
+
+<p class="dialogue">"야경은 그 겹점을 지키는 사람들이에요. 경계가 열리면 이면의 것들이 이쪽으로 넘어올 수 있거든요. 그걸 막아요. 서울에 겹점이 일곱 개 있고, 저희가 네 명이라 — 솔직히 좀 버거워요."</p>
+
+<p class="dialogue">"네 명?"</p>
+
+<p class="dialogue">"대장님이랑 형 두 분, 저. 네 명."</p>
+
+<p class="novel">서연은 커피를 내려다보았다. 이성적인 사람이었다. 출판사 에디터는 팩트를 확인하고 오류를 잡는 직업이다. 이 남자가 하는 말은 소설 원고의 설정처럼 들렸다. 하지만 어젯밤의 골목은 소설이 아니었다. 서연의 몸이 기억하고 있었다. 골목이 끝나지 않는 공포. 아래에서 위로 부는 바람. 시간이 멈춘 핸드폰.</p>
+
+<p class="dialogue">"사라진 사람 — 누구예요?"</p>
+
+<p class="novel">시우의 표정이 진지해졌다.</p>
+
+<div class="missing-notice">
+  <div class="mn-header">실종 신고 미접수 건</div>
+  <div class="mn-row">
+    <span class="mn-label">이름</span>
+    <span class="mn-value">고영수</span>
+  </div>
+  <div class="mn-row">
+    <span class="mn-label">나이</span>
+    <span class="mn-value">58세</span>
+  </div>
+  <div class="mn-row">
+    <span class="mn-label">직업</span>
+    <span class="mn-value">진흥인쇄 대표</span>
+  </div>
+  <div class="mn-row">
+    <span class="mn-label">실종일</span>
+    <span class="mn-value">2월 9일, 자정 무렵</span>
+  </div>
+  <div class="mn-row">
+    <span class="mn-label">비고</span>
+    <span class="mn-value">CCTV에 골목 진입 영상만 있음. 나오는 영상 없음</span>
+  </div>
+</div>
+
+<p class="dialogue">"진흥인쇄 고 사장님이에요. 이 골목에서 30년 넘게 인쇄소를 하신 분. 3일 전 자정에 가게를 닫고 나오셨는데 — 골목에서 사라졌어요. 가족이 경찰에 신고했지만 CCTV에는 골목으로 들어가는 영상만 있고 나오는 게 없대요. 경찰은 CCTV 사각지대로 나갔을 거라고 하는데 —"</p>
+
+<p class="dialogue">"겹 안으로 들어간 거라고 생각하는 거죠."</p>
+
+<p class="dialogue">"네. 근데 고 사장님은 겹을 볼 수 없는 사람이에요. 보통 사람은 겹이 열려도 인지를 못 하거든요. 그냥 골목이 좀 어둡다, 좀 이상하다 정도 느끼고 지나가요. 근데 가끔 — 정말 드물게 — 겹이 너무 크게 열리면 보통 사람도 빨려 들어가요."</p>
+
+<p class="novel">서연은 오늘 낮에 진흥인쇄 앞을 지나간 것을 기억했다. 셔터가 내려져 있었다. 평소에는 이 시간에도 인쇄기가 돌아갔는데.</p>
+
+<p class="dialogue">"... 찾으러 들어갈 수 있어요?"</p>
+
+<p class="dialogue">"저희가 사흘째 시도하고 있어요. 근데 문제가 있어요. 이면의 을지로는 — 미로예요. 현실의 골목 구조와 달라요. 들어갈 때마다 배치가 바뀌어요. 저희가 이쪽 사람을 추적하는 방식은 기사의 감각에 의존하는 건데, 이면 안에서는 감각이 둔해져요. 근데 —"</p>
+
+<p class="novel">시우가 서연을 봤다.</p>
+
+<p class="dialogue">"어제 당신, 겹 안에서 꽤 또렷하게 보고 있었어요. 겁먹은 건 당연한데 — 감각은 살아 있었어요. 보통 처음 겹을 경험하면 공황 상태에 빠지는데, 당신은 주변을 관찰하고 있었어요. 간판 글자가 틀린 걸 알아본 거잖아요. 그거 — 대단한 거예요."</p>
+
+<p class="novel">서연은 쓴웃음을 지었다. 에디터의 직업병이다. 오탈자를 못 지나치는 눈. 그게 여기서 대단한 거라니.</p>
+
+<p class="dialogue">"같이 와주실 수 있어요? 이면 안에서 당신이 방향을 잡아주면 — 찾을 수 있을 것 같아요."</p>
+
+<p class="novel">서연은 어두운 골목을 바라보았다. 이성적인 선택은 돌아가는 것이다. 집에 가서 자고, 내일 아침 다시 병원에 가서 약을 처방받고, 이 모든 것을 금단 증상으로 정리하는 것이다.</p>
+
+<p class="novel">하지만 서연은 이성적인 것과 정직한 것의 차이를 알고 있었다. 이성적인 선택은 안전했지만, 정직하지 않았다. 어젯밤의 골목은 진짜였다. 그리고 58세의 인쇄소 사장님이 거기 안에 있었다.</p>
+
+<p class="dialogue">"들어가요."</p>
+
+</section>
+
+<!-- SCENE BREAK -->
+<div class="scene-break">* * *</div>
+
+<!-- PART 3 -->
+<section class="section-divider">
+<div class="part-label">Part III</div>
+<div class="part-title">이면의 을지로</div>
+
+<p class="novel novel-first">자정이 되자 골목이 바뀌었다.</p>
+
+<p class="novel">어제처럼 갑작스러운 변화가 아니었다. 시우와 함께 걸으니 과정이 보였다. 먼저 소리가 죽었다. 먼 곳의 차 소리부터 사라지고, 환기팬 소리가 꺼지고, 마지막으로 자신의 발소리마저 흡수되는 듯한 고요가 찾아왔다. 그다음 빛이 달라졌다. 가로등의 주황빛이 빠지면서 모든 것이 은청색으로 물들었다. 마지막으로 — 공기. 같은 온도인데 다른 밀도. 숨을 쉬면 폐에 닿기까지 한 박자가 늦는 느낌.</p>
+
+<p class="novel">시우가 속삭였다.</p>
+
+<p class="dialogue">"겹이 열렸어요. 이제부터는 조심해요."</p>
+
+<p class="novel">시우의 왼손에 바람이 감겨 있었다. 물리적으로 보이는 바람이었다. 투명한 소용돌이가 손바닥 위에서 천천히 회전하고 있었다. 서연은 그것을 바라보았다. 시우가 눈치채고 살짝 들어 보였다.</p>
+
+<p class="dialogue">"기사의 힘이에요. 저는 바람. 겹 안의 기류를 읽을 수 있어요. 이상 징후를 감지하는 레이더 같은 거죠."</p>
+
+<p class="novel">그들은 골목을 걸었다. 이면의 을지로.</p>
+
+<p class="imyeon">같은 골목이었다. 같은 인쇄소 셔터, 같은 공구 가게 차양, 같은 콘크리트 벽. 하지만 모든 것이 미묘하게 틀려 있었다. 진흥인쇄의 간판은 '진흥인새'였다. 대한인쇄는 '대환인쇄'. 세기전자는 '세기전차'. 한 글자씩. 모든 간판이 한 글자씩.</p>
+
+<p class="imyeon">그리고 소리가 들렸다. 멀리서. 인쇄기 소리. 자정인데 인쇄기가 돌아가고 있었다. 리드미컬한 딸깍딸깍 소리. 종이를 찍어내는 규칙적인 압착음. 그 소리가 골목 깊은 곳에서 울려오고 있었다.</p>
+
+<p class="novel">시우가 걸음을 멈췄다.</p>
+
+<p class="dialogue">"느껴져요? 저기. 골목 안쪽에서 뭔가 — 있어요."</p>
+
+<p class="novel">서연은 고개를 끄덕였다. 느껴졌다. 정확히 말하면 — 보였다. 시우에게 보이지 않는 것이 서연에게는 보였다. 골목의 분기점. 현실의 을지로에서는 이 골목이 직선으로 끝까지 이어지지만, 이면에서는 중간에 갈림길이 있었다. 왼쪽으로 꺾이는 골목. 현실에는 없는 골목.</p>
+
+<p class="dialogue">"왼쪽으로 길이 있어요. 여기서는 안 보여요?"</p>
+
+<p class="novel">시우가 왼쪽을 봤다. 벽이었다. 콘크리트 벽에 오래된 페인트가 벗겨져 있는, 그냥 벽.</p>
+
+<p class="dialogue">"... 안 보여요. 벽인데요?"</p>
+
+<p class="dialogue">"제 눈에는 길이에요. 좁은 골목이 왼쪽으로 꺾여 있어요. 인쇄기 소리가 거기서 나오는 것 같아요."</p>
+
+<p class="novel">시우가 서연의 얼굴을 바라보았다. 진지한 눈이었다.</p>
+
+<p class="dialogue">"역시 — 대단하네요. 진짜로. 저는 바람으로 겨우 방향만 잡는 건데, 당신은 직접 보는 거잖아요."</p>
+
+<p class="novel">서연이 앞장섰다. 벽으로 보이는 곳에 손을 뻗었다. 손이 벽을 통과했다. 차가운 공기가 손등을 감쌌다. 시우가 짧게 감탄했다. 서연이 먼저 걸어 들어갔고, 시우가 뒤따랐다.</p>
+
+<p class="novel">좁은 골목이 나타났다. 양쪽 벽이 가까워서 어깨가 닿을 듯했다. 천장은 — 없었다. 아니, 있었지만 높이를 알 수 없었다. 어둠이 위로 무한히 이어지는 것처럼 보였다. 인쇄기 소리가 점점 커졌다.</p>
+
+<p class="novel">골목이 끝나고 넓은 공간이 나타났다.</p>
+
+<p class="imyeon">인쇄소였다. 현실의 진흥인쇄와 같은 구조. 같은 위치에 인쇄기가 있고, 같은 위치에 재단기가 있었다. 하지만 인쇄기가 혼자 돌아가고 있었다. 아무도 조작하지 않는데, 종이가 투입되고 잉크가 묻고 인쇄되어 나왔다. 인쇄된 종이를 서연이 집어 들었다. 글자가 있었지만 읽을 수 없었다. 한글처럼 보이지만 한글이 아닌 — 미묘하게 획이 다른 문자들이 빼곡히 찍혀 있었다.</p>
+
+<p class="novel">그리고, 인쇄기 뒤에 사람이 있었다.</p>
+
+<p class="novel">고영수. 58세. 진흥인쇄 대표. 30년간 이 자리에서 인쇄소를 해온 사람. 그는 인쇄기 뒤 의자에 앉아 인쇄된 종이를 한 장씩 확인하고 있었다. 표정이 — 평화로웠다.</p>
+
+<p class="dialogue">"고 사장님!"</p>
+
+<p class="novel">시우가 불렀다. 고영수가 고개를 들었다. 서연과 시우를 번갈아 보았다. 인상을 찌푸리는 것도 아니고, 반가워하는 것도 아니었다. 그저 — 방해받은 사람의 표정.</p>
+
+<p class="dialogue">"누구세요?"</p>
+
+<p class="dialogue">"사장님, 저 박시우예요. 이 골목에서 몇 번 뵌 적 있잖아요. 사장님, 여기가 어딘지 아세요?"</p>
+
+<p class="novel">고영수가 주변을 둘러보았다. 그리고 자연스럽게 대답했다.</p>
+
+<p class="dialogue">"내 인쇄소지. 어딘 어디야."</p>
+
+<p class="dialogue">"여기는 사장님 인쇄소가 아니에요. 비슷하게 생겼지만 —"</p>
+
+<p class="dialogue">"아니, 여기가 내 인쇄소야."</p>
+
+<p class="novel">고영수의 목소리가 단호했다. 화가 난 것이 아니라 확신에 찬 것이었다. 서연이 옆에서 인쇄된 종이를 보았다. 읽을 수 없는 글자들. 이것을 고영수는 읽고 있는 것일까?</p>
+
+<p class="dialogue">"사장님, 이 종이에 뭐가 쓰여 있어요?"</p>
+
+<p class="novel">고영수가 종이를 들어 서연에게 보여주었다.</p>
+
+<p class="dialogue">"주문서지. 고려대 축제 팜플렛 500부. 거래처 이 사장이 급하다고 내일까지 해달라 했어. 인쇄기가 잘 돌아가니까 곧 끝나."</p>
+
+<p class="novel">서연은 종이를 내려다보았다. 읽을 수 없는 문자들. 고영수에게는 주문서로 보이는 것이 서연에게는 해독 불가능한 기호였다.</p>
+
+<p class="novel">시우가 서연의 팔을 잡았다. 속삭였다.</p>
+
+<p class="dialogue">"겹에 오래 있으면 이면에 동화돼요. 여기가 진짜라고 믿기 시작해요. 사흘이면... 거의 돌이키기 힘들어요."</p>
+
+<p class="dialogue">"데리고 나가야 해요."</p>
+
+<p class="dialogue">"억지로는 안 돼요. 이면에 동화된 사람을 강제로 끌어내면 — 정신이 버텨요 못해요. 본인이 나가겠다고 인지해야 해요."</p>
+
+<p class="novel">서연은 고영수 앞에 무릎을 꿇었다. 인쇄기 소리가 규칙적으로 울리고 있었다. 서연은 에디터의 눈으로 이 공간을 보았다. 같지만 다르다. 모든 것이 한 글자씩 틀려 있다. 간판도, 인쇄물도, 아마 이 공간의 논리 자체도.</p>
+
+<p class="dialogue">"사장님. 저 그 종이 한 번만 읽어봐도 될까요?"</p>
+
+<p class="novel">고영수가 건넸다. 서연이 읽을 수 없는 글자를 가리키며 물었다.</p>
+
+<p class="dialogue">"여기 — 이 글자, '고려대'의 '대' 맞으세요?"</p>
+
+<p class="novel">고영수가 고개를 기울였다. 서연이 가리킨 글자를 자세히 보았다. 잠시 침묵이 흘렀다.</p>
+
+<p class="dialogue">"... 뭐지. 이거 '대'가 아니네."</p>
+
+<p class="novel">서연의 심장이 뛰었다.</p>
+
+<p class="dialogue">"다른 글자도 한번 보시겠어요?"</p>
+
+<p class="novel">고영수가 종이를 들어올렸다. 인쇄기의 소리가 한 박자 느려진 것 같았다. 고영수의 눈이 종이 위를 훑었다. 천천히. 한 글자, 한 글자.</p>
+
+<p class="dialogue">"... 이거 뭐야. 이게 뭐야. 하나도 못 읽겠어."</p>
+
+<p class="novel">고영수의 손이 떨리기 시작했다. 종이가 바닥에 떨어졌다. 고영수가 인쇄소 안을 둘러보았다. 처음으로 — 진짜로 처음으로 — 이 공간을 의심하는 눈으로.</p>
+
+<p class="dialogue">"... 여기가 어디야?"</p>
+
+<p class="novel">시우가 서연에게 눈짓했다. 지금이다. 서연이 고영수의 손을 잡았다.</p>
+
+<p class="dialogue">"사장님. 여기는 사장님 인쇄소가 아니에요. 밖으로 나가야 해요. 같이 가요."</p>
+
+<p class="novel">고영수가 서연의 손을 잡았다. 인쇄기가 멈췄다. 아무도 끄지 않았는데, 그냥 멈췄다. 그리고 이면의 인쇄소가 — 흔들렸다. 벽이 물결치듯 일그러졌다. 천장의 형광등이 깜빡였다. 인쇄기 위에 놓인 종이들이 바닥에 쏟아졌다.</p>
+
+<p class="dialogue">"빨리요!"</p>
+
+<p class="novel">시우가 바람을 일으켰다. 들어왔던 좁은 골목을 향해 강한 기류가 길을 열었다. 서연이 고영수의 손을 잡고 뛰었다. 골목이 좁아지고 있었다. 양쪽 벽이 서서히 가까워지는 것 같았다. 어깨가 벽에 스쳤다. 콘크리트의 감촉이 이상했다 — 차갑지 않고 미지근했다. 살아 있는 것처럼.</p>
+
+<p class="novel">빛이 보였다. 가로등의 주황빛. 현실의 빛. 서연이 골목을 빠져나왔다. 고영수를 끌고. 시우가 마지막으로 나왔다. 뒤를 돌아보며 손을 뻗었다 — 바람이 골목 입구를 감쌌다. 봉인.</p>
+
+<p class="novel">고영수가 바닥에 주저앉았다. 을지로 3가의 아스팔트 위에. 현실의 공기를 들이마셨다. 편의점의 형광등 아래에서. 서연은 고영수 옆에 쪼그려 앉았다. 괜찮으세요? 라는 말이 나오려 했지만, 고영수가 먼저 말했다.</p>
+
+<p class="novel">고영수의 목소리가 작았다. 거의 혼잣말이었다.</p>
+
+<p class="dialogue">"... 거기가 더 좋았는데."</p>
+
+<p class="novel">서연이 얼어붙었다.</p>
+
+<p class="dialogue">"거기선 내 인쇄소가 돌아가고 있었어. 주문이 있었어. 할 일이 있었어. 여기선 — 지난달에 마지막 거래처도 끊겼어. 다음 달 월세를 낼 수 있을지도 모르겠고."</p>
+
+<p class="novel">고영수가 을지로 골목을 바라보았다. 셔터가 내려진 인쇄소들. 카페로 바뀐 빈 공간들. 30년 일한 곳이 사라져가는 동네.</p>
+
+<p class="dialogue">"거기선 할 일이 있었는데."</p>
+
+<p class="novel">서연은 아무 말도 할 수 없었다. 시우도 마찬가지였다. 편의점 불빛 아래, 세 사람이 한동안 앉아 있었다.</p>
+
+</section>
+
+<!-- SCENE BREAK -->
+<div class="scene-break">* * *</div>
+
+<!-- PART 4 -->
+<section class="section-divider">
+<div class="part-label">Part IV</div>
+<div class="part-title">경고</div>
+
+<p class="novel novel-first">고영수가 택시를 타고 간 뒤, 시우가 전화를 걸었다. 짧은 통화. 통화가 끝나자 시우의 표정이 굳어 있었다.</p>
+
+<p class="dialogue">"대장님이 오신대요."</p>
+
+<p class="dialogue">"대장님?"</p>
+
+<p class="dialogue">"이도영. 야경 대장. 그분이 — 좀 무서워요. 아니, 무섭다기보다 — 직접 만나보면 알아요."</p>
+
+<p class="novel">5분 뒤, 남산 방향에서 한 남자가 걸어왔다. 첫인상은 — 열기. 추운 2월 밤이었는데, 그 사람이 가까워지자 공기가 미세하게 따뜻해졌다. 서연은 그것을 확실히 느꼈다. 시우 옆에 있을 때 바람이 느껴지듯, 이 사람 옆에서는 열이 느껴졌다.</p>
+
+<div class="char-intro">
+  <span class="c-name">이도영</span>
+  <span class="c-info">external age 32 &middot; actual age 250+ &middot; 야경 대장 &middot; 화(火)</span>
+</div>
+
+<p class="novel">30대 초반으로 보이는 남자. 넓은 어깨, 짧은 머리, 검은 코트. 눈이 — 오래됐다. 얼굴은 젊은데 눈만 늙어 있었다. 250년을 살았다는 시우의 말이 과장이 아닌 것 같았다. 그런 눈이었다.</p>
+
+<p class="novel">도영이 서연을 봤다. 위아래를 훑는 것이 아니라 — 관통하는 시선이었다. 서연은 본능적으로 반 걸음 물러섰다.</p>
+
+<p class="dialogue">"시우."</p>
+
+<p class="dialogue">"네, 대장님."</p>
+
+<p class="dialogue">"고영수 씨는?"</p>
+
+<p class="dialogue">"택시 태워 보냈습니다. 사흘 동안 이면에 있었는데, 동화 초기 단계까지 갔었어요. 한서연 씨가 인지를 깨뜨려서 데리고 나올 수 있었습니다."</p>
+
+<p class="novel">도영이 다시 서연을 봤다.</p>
+
+<p class="dialogue">"겹을 본다고?"</p>
+
+<p class="novel">서연이 고개를 끄덕였다.</p>
+
+<p class="dialogue">"언제부터?"</p>
+
+<p class="dialogue">"... 어릴 때 잠깐. 그리고 열흘 전부터 다시."</p>
+
+<p class="dialogue">"약을 끊었고."</p>
+
+<p class="novel">이 사람도 안다. 시우처럼. 서연이 약을 먹었다는 것을.</p>
+
+<p class="dialogue">"겹을 보는 능력자가 나타난 건 오래간만이다. 시우가 합류한 게 3년 전이고, 그 전은 — 한참 전이지."</p>
+
+<p class="novel">도영이 한 걸음 다가왔다. 서연은 물러서지 않았다. 도영의 눈이 서연의 눈을 잡았다.</p>
+
+<p class="dialogue">"듣기 좋은 말부터 하면 — 당신의 능력이 오늘 사람 한 명을 살렸다. 고맙다."</p>
+
+<p class="novel">잠깐의 침묵.</p>
+
+<p class="dialogue">"듣기 싫은 말은 — 다시 오지 마라."</p>
+
+<p class="novel">시우가 말하려 했지만, 도영이 손을 들어 막았다.</p>
+
+<p class="dialogue">"겹을 보는 사람은 이면에 끌린다. 본능적으로. 고영수 씨처럼 동화되는 게 아니라 — 스스로 걸어 들어가게 된다. 겹을 볼 수 있다는 건 이면이 당신을 볼 수 있다는 뜻이기도 하다. 위험한 건 당신만이 아니라 우리 전부다."</p>
+
+<p class="dialogue">"대장님, 하지만 오늘 서연 씨가 아니었으면 고 사장님을 —"</p>
+
+<p class="dialogue">"시우."</p>
+
+<p class="novel">시우가 입을 다물었다. 도영이 서연을 마지막으로 한 번 보았다.</p>
+
+<p class="dialogue">"약을 다시 먹어라. 겹이 안 보이게."</p>
+
+<p class="novel">도영이 돌아섰다. 남산 방향으로 걸어갔다. 몇 걸음 만에 어둠에 녹아들었다. 열기가 사라졌다. 다시 2월의 찬 공기가 돌아왔다.</p>
+
+<p class="novel">시우가 미안한 표정으로 서연을 봤다.</p>
+
+<p class="dialogue">"대장님이 원래 저래요. 나쁜 분 아니에요, 진짜로. 근데 — 250년 동안 비슷한 일을 많이 겪으셔서. 겹을 보는 사람이 나타나면 좋은 일이 없었다고..."</p>
+
+<p class="dialogue">"괜찮아요."</p>
+
+<p class="novel">서연은 괜찮지 않았다. 하지만 그 감정이 두려움인지 분노인지 호기심인지 — 정리가 되지 않았다. 분명한 것은 하나 있었다.</p>
+
+<p class="novel">서연은 다시 올 것이다.</p>
+
+<p class="novel">약을 다시 먹지 않을 것이다.</p>
+
+<p class="novel">24년간 봉인되었던 것이 돌아왔고, 그것은 약 부작용이 아니었다. 오늘 밤 서연은 사람을 구했다. 벽을 통과했다. 읽을 수 없는 글자를 보았다. 그리고 을지로의 인쇄소 사장님이 말했다 — "거기가 더 좋았는데." 그 말이 서연의 가슴에 박혀 있었다.</p>
+
+<p class="novel">을지로 3가. 자정. 서울의 밤은 아직 깊었고, 골목의 간판은 다시 정확한 글자를 표시하고 있었다. 하지만 서연은 이제 알고 있었다. 이 도시 위에 또 다른 도시가 겹쳐 있다는 것을. 그리고 그 겹을 볼 수 있는 사람이, 지금 이 골목 앞에 서 있다는 것을.</p>
+
+<p class="internal">골목이 나를 부르고 있다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>을지로의 간판은<br>한 글자씩 <strong>틀려 있었다</strong></h2>
+  <p class="sub">서연은 그 한 글자의 차이를 보는 사람이었다.<br>그리고 이제, 그 너머를 걸어갈 차례다.</p>
+</div>
+
+<footer class="footer">
+  <p>Overlap Fiction Series &middot; Episode 01 of 05</p>
+  <p>Written with Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>
