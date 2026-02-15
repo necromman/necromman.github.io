@@ -111,79 +111,19 @@ function seriesLabel(seriesSlug, seriesNum) {
 
 function titleFontSize(title) {
   const len = title.length;
-  if (len <= 6) return 88;
-  if (len <= 10) return 78;
-  if (len <= 16) return 66;
-  if (len <= 24) return 56;
-  return 46;
+  if (len <= 2) return 180;
+  if (len <= 4) return 140;
+  if (len <= 6) return 120;
+  if (len <= 8) return 105;
+  if (len <= 12) return 88;
+  if (len <= 16) return 76;
+  if (len <= 20) return 66;
+  if (len <= 28) return 56;
+  return 48;
 }
 
-function truncate(text, max) {
-  if (!text || text.length <= max) return text;
-  return text.slice(0, max - 1) + '\u2026';
-}
-
-function buildOgElement({ title, description, seriesSlug, seriesNum }) {
-  const label = seriesNum ? seriesLabel(seriesSlug, seriesNum) : null;
+function buildOgElement({ title }) {
   const fontSize = titleFontSize(title);
-  const desc = truncate(description, 80);
-
-  // 콘텐츠 블록 (시리즈 라벨 + 제목 + bar + 설명)
-  const contentChildren = [];
-
-  if (label) {
-    contentChildren.push({
-      type: 'div',
-      props: {
-        style: {
-          fontSize: 18,
-          color: TEXT_MUTED,
-          letterSpacing: '3px',
-          marginBottom: 20,
-        },
-        children: label,
-      },
-    });
-  }
-
-  contentChildren.push({
-    type: 'div',
-    props: {
-      style: {
-        fontSize,
-        fontWeight: 700,
-        color: TEXT_WHITE,
-        lineHeight: 1.3,
-        marginBottom: 24,
-        wordBreak: 'keep-all',
-        overflowWrap: 'break-word',
-      },
-      children: title,
-    },
-  });
-
-  contentChildren.push({
-    type: 'div',
-    props: {
-      style: { width: 80, height: 4, backgroundColor: ACCENT, marginBottom: 20 },
-    },
-  });
-
-  if (desc) {
-    contentChildren.push({
-      type: 'div',
-      props: {
-        style: {
-          fontSize: 18,
-          color: '#aaaaaa',
-          lineHeight: 1.5,
-          wordBreak: 'keep-all',
-          overflowWrap: 'break-word',
-        },
-        children: desc,
-      },
-    });
-  }
 
   return {
     type: 'div',
@@ -193,30 +133,43 @@ function buildOgElement({ title, description, seriesSlug, seriesNum }) {
         height: OG_HEIGHT,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
-        padding: '48px 64px',
+        justifyContent: 'center',
+        padding: '60px 72px',
         backgroundColor: BG_COLOR,
         fontFamily: 'Pretendard',
       },
       children: [
-        // 메인 콘텐츠 블록
-        {
-          type: 'div',
-          props: {
-            style: { display: 'flex', flexDirection: 'column' },
-            children: contentChildren,
-          },
-        },
-        // 하단 브랜딩 (우측 정렬)
+        // 제목 — 화면을 꽉 채움
         {
           type: 'div',
           props: {
             style: {
-              display: 'flex',
-              justifyContent: 'flex-end',
+              fontSize,
+              fontWeight: 700,
+              color: TEXT_WHITE,
+              lineHeight: 1.25,
+              wordBreak: 'keep-all',
+              overflowWrap: 'break-word',
+            },
+            children: title,
+          },
+        },
+        // Accent bar
+        {
+          type: 'div',
+          props: {
+            style: { width: 80, height: 5, backgroundColor: ACCENT, marginTop: 32 },
+          },
+        },
+        // 브랜딩 — accent bar 아래
+        {
+          type: 'div',
+          props: {
+            style: {
               fontSize: 18,
               color: TEXT_BRAND,
               letterSpacing: '5px',
+              marginTop: 20,
             },
             children: 'Editorial',
           },
@@ -313,12 +266,7 @@ async function main() {
     const seriesInfo = seriesMap.get(file.relPath);
     const seriesNum = seriesInfo?.seriesNum;
 
-    const element = buildOgElement({
-      title,
-      description: fm.description || '',
-      seriesSlug: file.seriesSlug,
-      seriesNum,
-    });
+    const element = buildOgElement({ title });
 
     // satori → SVG
     const svg = await satori(element, { width: OG_WIDTH, height: OG_HEIGHT, fonts });
