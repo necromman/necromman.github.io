@@ -133,13 +133,14 @@ function buildOgElement({ title }) {
         height: OG_HEIGHT,
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'center',
         justifyContent: 'center',
         padding: '60px 72px',
         backgroundColor: BG_COLOR,
         fontFamily: 'Pretendard',
       },
       children: [
-        // 제목 — 화면을 꽉 채움
+        // 제목 — 가운데 정렬, 화면을 꽉 채움
         {
           type: 'div',
           props: {
@@ -148,6 +149,7 @@ function buildOgElement({ title }) {
               fontWeight: 700,
               color: TEXT_WHITE,
               lineHeight: 1.25,
+              textAlign: 'center',
               wordBreak: 'keep-all',
               overflowWrap: 'break-word',
             },
@@ -161,7 +163,7 @@ function buildOgElement({ title }) {
             style: { width: 80, height: 5, backgroundColor: ACCENT, marginTop: 32 },
           },
         },
-        // 브랜딩 — accent bar 아래
+        // 브랜딩
         {
           type: 'div',
           props: {
