@@ -94,7 +94,7 @@ dateModified: "2026-02-09"                     # 수정일이 다를 때만 (선
 
 ```xml
 <url>
-  <loc>https://necromman.github.io/editorial/content/[시리즈-슬러그]/[파일-슬러그].html</loc>
+  <loc>https://necromman.github.io/content/[시리즈-슬러그]/[파일-슬러그].html</loc>
   <lastmod>YYYY-MM-DD</lastmod>
   <changefreq>monthly</changefreq>
   <priority>0.8</priority>
