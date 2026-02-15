@@ -952,6 +952,49 @@
         search: 'AI 일자리 해고 대체 자동화 비교우위 제번스역설 병목 Shumer David Oks GPT 낙관 비관 종합 화이트칼라 경영진'
       }
     ]
+  },
+  {
+    id: 'toss-reality',
+    seriesNum: 31,
+    title: '편의점은 공짜인데',
+    description: '월급 268만 원의 중소기업을 떠나 토스에 입사한 한도현. 사이닝 보너스 3,800만 원의 설렘은 첫 코드 리뷰 47건에 박살났다. "대표님의 미래먹거리" 후속 시리즈.',
+    articles: [
+      {
+        title: '사이닝 보너스',
+        role: '넥스트비전 퇴사, 토스 NEXT 챌린지, 7,200만 원 + 사이닝 보너스',
+        tag: '소설',
+        href: 'content/toss-reality-series/signing-bonus.html',
+        search: '토스 입사 사이닝보너스 대기업 이직 중소기업 개발자 한도현 코딩테스트 연봉 소설'
+      },
+      {
+        title: '코드 리뷰 47건',
+        role: '첫 PR에 쏟아진 47건의 코드 리뷰, 토스 코드 품질 기준의 벽',
+        tag: '소설',
+        href: 'content/toss-reality-series/forty-seven-comments.html',
+        search: '토스 코드리뷰 PR 컨벤션 TypeScript TDS 사일로 개발문화 소설'
+      },
+      {
+        title: '만들고 부수고',
+        role: '스프린트 데모, 피처 플래그, A/B 테스트 — 빠르게 만들고 빠르게 버리는 문화',
+        tag: '소설',
+        href: 'content/toss-reality-series/build-and-break.html',
+        search: '토스 스프린트 피처플래그 AB테스트 데모 애자일 PO 사일로 소설'
+      },
+      {
+        title: '편의점은 공짜인데',
+        role: '복지는 최고인데 쓸 시간이 없는 토양어선의 현실',
+        tag: '소설',
+        href: 'content/toss-reality-series/free-convenience-store.html',
+        search: '토스 복지 토양어선 야근 편의점 무료간식 워라밸 번아웃 개발자 소설'
+      },
+      {
+        title: '그래도 출근한다',
+        role: '번아웃과 성장 사이, 도현의 선택',
+        tag: '소설',
+        href: 'content/toss-reality-series/still-showing-up.html',
+        search: '토스 번아웃 성장 개발자 정체성 중소기업 대기업 격차 선택 소설'
+      }
+    ]
   }
 ];
   // Auto-generate thumbnail from href: content/foo/bar.html → assets/og/foo/bar.png

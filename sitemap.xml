@@ -659,4 +659,35 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- Series 31: 편의점은 공짜인데 -->
+  <url>
+    <loc>https://necromman.github.io/editorial/content/toss-reality-series/signing-bonus.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/editorial/content/toss-reality-series/forty-seven-comments.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/editorial/content/toss-reality-series/build-and-break.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/editorial/content/toss-reality-series/free-convenience-store.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/editorial/content/toss-reality-series/still-showing-up.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

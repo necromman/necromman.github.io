@@ -1,0 +1,795 @@
+---
+layout: layouts/article.njk
+pageTitle: "코드 리뷰 47건"
+description: "넥스트비전에서 4년 동안 코드 리뷰를 받은 적이 없었다. 토스에서는 2주 만에 47건을 받았다. 800줄짜리 PR은 리젝당했고, 'fixed stuff' 커밋은 거절당했다."
+datePublished: "2026-02-15"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* NOVEL PROSE */
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+
+  /* SCENE BREAK */
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+
+  /* DIALOGUE */
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+
+  /* INTERNAL MONOLOGUE */
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  /* SECTION DIVIDER */
+  .part-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .part-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+  }
+  .section-divider {
+    margin-top: 64px;
+    margin-bottom: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* TERMINAL BLOCK */
+  .terminal {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    background: #2a2a28;
+    color: #e8e4dc;
+    padding: 24px 28px;
+    margin: 32px 0;
+    overflow-x: auto;
+    border: 1px solid var(--fg);
+  }
+  .terminal .t-prompt { color: #6db36d; }
+  .terminal .t-comment { color: #8a8680; }
+  .terminal .t-error { color: #c43e2a; }
+  .terminal .t-warn { color: #d4a843; }
+  .terminal .t-key { color: #7cafc2; }
+  .terminal .t-str { color: #c9b97a; }
+
+  /* SOURCE CODE BLOCK */
+  .source-code {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.7;
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    padding: 24px 28px;
+    margin: 32px 0;
+    overflow-x: auto;
+    color: var(--prose);
+  }
+  .source-code .sc-title {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .source-code .sc-comment { color: var(--muted); }
+  .source-code .sc-keyword { color: var(--accent); font-weight: 600; }
+  .source-code .sc-string { color: #4a9a7a; }
+  .source-code .sc-fn { color: #7cafc2; }
+
+  /* CODE REVIEW — GitHub PR Comment UI */
+  .code-review {
+    border: 1px solid var(--rule);
+    margin: 32px 0;
+    overflow: hidden;
+  }
+  .code-review .cr-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.82rem;
+  }
+  .code-review .cr-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bg);
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .code-review .cr-name { font-weight: 700; color: var(--fg); }
+  .code-review .cr-badge {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+  .code-review .cr-time { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); margin-left: auto; }
+  .code-review .cr-diff {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    padding: 0;
+  }
+  .code-review .cr-diff-line {
+    padding: 2px 16px;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  .code-review .cr-del { background: #f5d0cc; color: #8b2515; }
+  .code-review .cr-add { background: #d4edda; color: #1b5e20; }
+  .code-review .cr-context { background: var(--bg); color: var(--secondary); }
+  .code-review .cr-body {
+    padding: 16px;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--prose);
+    border-top: 1px solid var(--rule);
+  }
+  .code-review .cr-suggestion {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 12px 16px;
+    margin-top: 8px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: var(--fg);
+  }
+  .code-review .cr-suggestion-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #4a9a7a;
+    margin-bottom: 8px;
+  }
+  [data-theme="dark"] .code-review .cr-del { background: #3d1a15; color: #f5a9a0; }
+  [data-theme="dark"] .code-review .cr-add { background: #1a3d20; color: #a0d8a8; }
+
+  /* SLACK MSG */
+  .slack-msg {
+    border: 1px solid var(--rule);
+    border-left: 3px solid #4a9a7a;
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .slack-msg .s-channel {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: #4a9a7a;
+    margin-bottom: 12px;
+  }
+  .slack-msg .s-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .slack-msg .s-name { font-size: 0.9rem; font-weight: 700; color: var(--fg); }
+  .slack-msg .s-time { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
+  .slack-msg .s-body { font-size: 0.95rem; line-height: 1.8; color: var(--prose); }
+  .slack-msg + .slack-msg { margin-top: -16px; }
+
+  /* COMMENT STATS */
+  .comment-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0;
+  }
+  .comment-stats .cs-item {
+    background: var(--bg);
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .comment-stats .cs-label {
+    font-size: 0.88rem;
+    color: var(--prose);
+  }
+  .comment-stats .cs-count {
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .comment-stats { grid-template-columns: 1fr; }
+    .code-review .cr-header { flex-wrap: wrap; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">toss reality — fiction 02</p>
+  <h1>코드 리뷰 <strong>47건</strong></h1>
+  <p class="deck">넥스트비전에서는 4년 동안 코드 리뷰를 받은 적이 없었다.<br>토스에서는 2주 만에 47건을 받았다.</p>
+</header>
+
+<main>
+
+<!-- ───────── PART I ───────── -->
+
+<section>
+<div class="section-divider" style="border-top:none;margin-top:0;padding-top:0">
+  <p class="part-label">Part I</p>
+  <p class="part-title">"첫 번째 PR"</p>
+</div>
+
+<p class="novel novel-first">2027년 2월 24일 월요일 오전 10시 04분. 입사 2주차.</p>
+
+<p class="novel">도현은 스프린트 플래닝 미팅을 세 번 참관했다. 온보딩 문서를 두 번 읽었다. TDS(Toss Design System) 컴포넌트 라이브러리를 훑었다. Yarn Berry 모노레포 구조를 파악했다. 2주 동안 코드를 한 줄도 프로덕션에 올리지 않았다. 넥스트비전에서는 입사 첫날에 ERP 오류를 수정했다. 여기서는 2주가 지나도록 커밋 하나 없다.</p>
+
+<p class="novel">PO 강서윤이 스프린트 보드를 보며 말했다.</p>
+
+<p class="dialogue">"도현 님, 이번 스프린트에서 결제 확인 페이지 로딩 UX 개선 건 잡아보시겠어요? 작은 건이라 온보딩 겸 해보시기 좋을 것 같아요."</p>
+
+<p class="novel">도현은 고개를 끄덕였다. "작은 건." 결제 확인 페이지에서 카드 정보를 불러오는 동안 보여줄 스켈레톤 UI를 추가하는 작업이었다. 넥스트비전이었다면 30분이면 끝날 일이다. div 하나 만들고, CSS 애니메이션 넣고, push하면 된다.</p>
+
+<p class="novel">도현은 VS Code를 열었다. 토스의 코드베이스는 넥스트비전의 것과 차원이 달랐다.</p>
+
+<div class="terminal">
+<span class="t-comment"># 넥스트비전 프로젝트 구조</span><br>
+<span class="t-key">src/</span><br>
+&nbsp;&nbsp;pages/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;index.js<br>
+&nbsp;&nbsp;&nbsp;&nbsp;quote.js<br>
+&nbsp;&nbsp;&nbsp;&nbsp;admin.js<br>
+&nbsp;&nbsp;styles/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;global.css <span class="t-comment"># 1,847줄, 전부 여기</span><br>
+&nbsp;&nbsp;utils/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;helpers.js <span class="t-comment"># "나중에 정리" — 정리한 적 없음</span><br>
+<br>
+<span class="t-comment"># 토스 결제 사일로 모노레포 (일부)</span><br>
+<span class="t-key">packages/</span><br>
+&nbsp;&nbsp;payment-ui/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;src/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;components/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PaymentConfirm/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PaymentConfirm.tsx<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PaymentConfirm.test.tsx<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PaymentConfirm.stories.tsx<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CardSelector/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SkeletonLoader/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hooks/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;utils/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constants/<br>
+&nbsp;&nbsp;payment-api/<br>
+&nbsp;&nbsp;tds-components/ <span class="t-comment"># Toss Design System</span><br>
+&nbsp;&nbsp;shared-utils/<br>
+</div>
+
+<p class="internal">넥스트비전에서는 파일이 한 손에 잡혔다. 폴더 3개, 파일 10개. 전부 내 머릿속에 있었다. 여기서는 packages만 12개다. 컴포넌트 하나에 .tsx, .test.tsx, .stories.tsx, index.ts가 세트로 붙는다. 스켈레톤 UI 하나를 추가하는데 파일을 4개 만들어야 한다.</p>
+
+<p class="novel">도현은 코드를 짰다. 3일이 걸렸다. 넥스트비전이었다면 30분이었을 작업이 3일이 된 이유는 간단하다. 코드를 짠 시간은 4시간이었다. 나머지 시간은 코드를 짜기 전에 기존 코드를 읽는 데 쓴 것이다. PaymentConfirm 컴포넌트의 구조, TDS의 Skeleton 컴포넌트 사용법, emotion 스타일링 문법, React Suspense 패턴. 넥스트비전에서는 만드는 시간이 90%였다. 여기서는 읽는 시간이 90%다.</p>
+
+<p class="novel">2월 27일 목요일 오후 4시 32분. 도현은 PR을 올렸다.</p>
+
+<div class="terminal">
+<span class="t-prompt">$</span> git add .<br>
+<span class="t-prompt">$</span> git commit -m <span class="t-str">"fixed stuff"</span><br>
+<span class="t-prompt">$</span> git push origin feat/payment-skeleton<br>
+<br>
+<span class="t-comment"># GitHub — Pull Request #4,217</span><br>
+<span class="t-key">Title:</span> 결제 확인 페이지 스켈레톤 UI 추가<br>
+<span class="t-key">Branch:</span> feat/payment-skeleton → main<br>
+<span class="t-key">Files changed:</span> 14<br>
+<span class="t-warn">Lines: +812, -23</span><br>
+</div>
+
+<p class="novel">812줄. 도현은 줄 수를 신경 쓰지 않았다. 넥스트비전에서는 1,000줄짜리 커밋도 일상이었다. 한 번에 만들고, 한 번에 올리고, 한 번에 끝내는 것이 효율적이라고 생각했다.</p>
+
+<p class="novel">5분 뒤 알림이 왔다.</p>
+
+<div class="terminal">
+<span class="t-comment"># GitHub Actions — auto-reviewer-bot</span><br>
+<span class="t-key">Assigned reviewers:</span><br>
+&nbsp;&nbsp;@jaewon.park (FE Lead)<br>
+&nbsp;&nbsp;@nahyun.kim (FE)<br>
+&nbsp;&nbsp;@eunso.cho (BE — cross-review)<br>
+<br>
+<span class="t-warn">⚠ PR size: 812 lines (recommended: 300-400)</span><br>
+</div>
+
+<p class="novel">리뷰어가 자동으로 할당되었다. 3명. GitHub Actions 봇이 사일로 내 개발자 중 가용한 리뷰어를 자동으로 골라 붙였다. 넥스트비전에서는 리뷰어가 0명이었다. 여기서는 5분 만에 3명이 붙는다.</p>
+
+<p class="novel">그리고 경고가 떴다. PR 크기: 812줄 (권장: 300~400줄).</p>
+
+<p class="novel">첫 번째 코멘트가 30분 뒤에 달렸다.</p>
+
+<div class="code-review">
+  <div class="cr-header">
+    <div class="cr-avatar">JP</div>
+    <span class="cr-name">박재원</span>
+    <span class="cr-badge">reviewer</span>
+    <span class="cr-time">16:58</span>
+  </div>
+  <div class="cr-body">
+    도현 님, PR 잘 봤습니다! 전체적인 방향은 좋은데, PR 크기가 800줄이 넘어요. 저희는 300~400줄을 기준으로 하고 있어서, 기능 단위로 나눠주시면 리뷰가 수월할 것 같아요.<br><br>
+    1. 스켈레톤 컴포넌트 생성 → PR 1<br>
+    2. PaymentConfirm에 스켈레톤 적용 → PR 2<br>
+    3. 테스트 + 스토리북 → PR 3<br><br>
+    이렇게 세 개로 나눠볼까요?
+  </div>
+</div>
+
+<p class="internal">800줄이 왜 문제인지 처음에는 이해하지 못했다. 넥스트비전에서는 기능 하나가 곧 커밋 하나였다. 1,000줄이든 2,000줄이든, 동작하면 main에 push했다. 여기서는 main이 곧 라이브다. 800줄짜리 변경이 라이브에 직접 올라간다는 뜻이다. 그 800줄 중 하나에 버그가 있으면, 전체를 롤백해야 한다. 300줄씩 세 개로 나누면, 버그가 있는 300줄만 롤백하면 된다. 그 단순한 논리를 지금 처음 배운다.</p>
+
+<p class="novel">도현은 PR을 닫고, 세 개로 나누는 작업을 시작했다.</p>
+
+</section>
+
+<!-- ───────── PART II ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part II</p>
+  <p class="part-title">"Conventional Commit"</p>
+</div>
+
+<p class="novel novel-first">2월 28일 금요일 오전 11시. PR 1을 올렸다. 스켈레톤 컴포넌트 생성. 287줄.</p>
+
+<p class="novel">커밋 메시지를 썼다.</p>
+
+<div class="terminal">
+<span class="t-prompt">$</span> git commit -m <span class="t-str">"fixed stuff"</span><br>
+<br>
+<span class="t-error">✗ commitlint: subject may not be empty</span><br>
+<span class="t-error">✗ commitlint: type may not be empty</span><br>
+<span class="t-error">✗ Expected format: type(scope): description</span><br>
+</div>
+
+<p class="novel">커밋이 거절당했다. Git hook이 커밋 메시지를 검사한 것이다. "fixed stuff"는 Conventional Commit 규칙에 맞지 않는다. 넥스트비전에서 도현의 커밋 히스토리는 이랬다.</p>
+
+<div class="terminal">
+<span class="t-comment"># 넥스트비전 — 도현의 커밋 히스토리 (실제)</span><br>
+<span class="t-str">fix thing</span><br>
+<span class="t-str">update</span><br>
+<span class="t-str">fixed stuff</span><br>
+<span class="t-str">wip</span><br>
+<span class="t-str">asdf</span><br>
+<span class="t-str">ㅇㅇ</span><br>
+<span class="t-str">진짜 최종</span><br>
+<span class="t-str">진짜진짜 최종 (2)</span><br>
+</div>
+
+<p class="novel">도현은 온보딩 문서에서 Conventional Commit 규칙을 다시 찾아 읽었다.</p>
+
+<div class="source-code">
+<div class="sc-title">conventional commit format</div>
+<span class="sc-keyword">type</span>(<span class="sc-fn">scope</span>): <span class="sc-string">description</span><br>
+<br>
+<span class="sc-comment">// types</span><br>
+<span class="sc-keyword">feat</span>:     새 기능 추가<br>
+<span class="sc-keyword">fix</span>:      버그 수정<br>
+<span class="sc-keyword">chore</span>:    빌드, 설정 변경 (코드 영향 없음)<br>
+<span class="sc-keyword">refactor</span>: 리팩토링 (기능 변경 없음)<br>
+<span class="sc-keyword">test</span>:     테스트 추가/수정<br>
+<span class="sc-keyword">docs</span>:     문서 수정<br>
+<br>
+<span class="sc-comment">// example</span><br>
+<span class="sc-keyword">feat</span>(<span class="sc-fn">payment</span>): <span class="sc-string">결제 확인 페이지에 스켈레톤 UI 추가</span>
+</div>
+
+<p class="novel">도현은 커밋 메시지를 다시 썼다.</p>
+
+<div class="terminal">
+<span class="t-prompt">$</span> git commit -m <span class="t-str">"feat(payment): 결제 확인 페이지 스켈레톤 컴포넌트 생성"</span><br>
+<span class="t-key">✓ commitlint passed</span><br>
+</div>
+
+<p class="internal">"fixed stuff"로 4년간 살았다. 커밋 메시지에 의미를 쓰는 것이 습관이 아니었다. 어차피 읽는 사람이 나밖에 없었으니까. 여기서는 커밋 메시지를 다른 사람이 읽는다. 한 달 뒤에 내가 쓴 커밋을 다른 사람이 보고, 무슨 변경이었는지 이해해야 한다. "fixed stuff"로는 불가능하다.</p>
+
+<p class="novel">PR 1이 올라갔다. 리뷰가 시작되었다. 첫 번째 코멘트가 14분 만에 달렸다.</p>
+
+<div class="code-review">
+  <div class="cr-header">
+    <div class="cr-avatar">NH</div>
+    <span class="cr-name">김나현</span>
+    <span class="cr-badge">reviewer</span>
+    <span class="cr-time">11:27</span>
+  </div>
+  <div class="cr-diff">
+    <div class="cr-diff-line cr-del">- const SkeletonBox = styled.div`</div>
+    <div class="cr-diff-line cr-del">-   width: 100%;</div>
+    <div class="cr-diff-line cr-del">-   height: 48px;</div>
+    <div class="cr-diff-line cr-del">-   background: #e8e4dc;</div>
+    <div class="cr-diff-line cr-del">-   border-radius: 8px;</div>
+    <div class="cr-diff-line cr-del">-   animation: pulse 1.5s infinite;</div>
+    <div class="cr-diff-line cr-del">- `;</div>
+  </div>
+  <div class="cr-body">
+    도현 님, 여기서 커스텀 스켈레톤을 만드셨는데, TDS에 <strong>Skeleton</strong> 컴포넌트가 이미 있어요!<br><br>
+    <div class="cr-suggestion-label">suggestion</div>
+    <div class="cr-suggestion">
+import { Skeleton } from '@toss/tds';<br>
+<br>
+&lt;Skeleton width="100%" height={48} /&gt;
+    </div>
+  </div>
+</div>
+
+<p class="novel">TDS. Toss Design System. emotion 기반의 사내 컴포넌트 라이브러리. 스켈레톤, 버튼, 인풋, 토스트, 바텀시트 — 모든 UI 컴포넌트가 이미 만들어져 있다. 도현은 이것을 읽기는 했지만, 습관적으로 커스텀 CSS를 짠 것이다. 넥스트비전에서는 모든 것을 직접 만들어야 했으니까.</p>
+
+<div class="code-review">
+  <div class="cr-header">
+    <div class="cr-avatar">JP</div>
+    <span class="cr-name">박재원</span>
+    <span class="cr-badge">reviewer</span>
+    <span class="cr-time">11:42</span>
+  </div>
+  <div class="cr-diff">
+    <div class="cr-diff-line cr-del">- const [isLoading, setIsLoading] = useState(true);</div>
+    <div class="cr-diff-line cr-del">- const [cardData, setCardData] = useState(null);</div>
+    <div class="cr-diff-line cr-del">- </div>
+    <div class="cr-diff-line cr-del">- useEffect(() => {</div>
+    <div class="cr-diff-line cr-del">-   fetchCardInfo().then(data => {</div>
+    <div class="cr-diff-line cr-del">-     setCardData(data);</div>
+    <div class="cr-diff-line cr-del">-     setIsLoading(false);</div>
+    <div class="cr-diff-line cr-del">-   });</div>
+    <div class="cr-diff-line cr-del">- }, []);</div>
+  </div>
+  <div class="cr-body">
+    데이터 페칭에 useState + useEffect 조합을 쓰셨는데, 저희는 <strong>React Query</strong>(TanStack Query)를 씁니다. 로딩/에러/캐시가 자동으로 관리돼요.<br><br>
+    <div class="cr-suggestion-label">suggestion</div>
+    <div class="cr-suggestion">
+const { data: cardData, isLoading } = useQuery({<br>
+&nbsp;&nbsp;queryKey: ['card-info', paymentId],<br>
+&nbsp;&nbsp;queryFn: () => fetchCardInfo(paymentId),<br>
+});</div>
+  </div>
+</div>
+
+<p class="novel">React Query. 도현은 이름은 알고 있었다. QuoteMate에서 쓸까 고민했지만, "상태관리 라이브러리를 배울 시간이 없다"는 이유로 useState + useEffect 패턴을 고수했다. 넥스트비전에서는 그것으로 충분했다. 아무도 문제 삼지 않았으니까.</p>
+
+<div class="code-review">
+  <div class="cr-header">
+    <div class="cr-avatar">JP</div>
+    <span class="cr-name">박재원</span>
+    <span class="cr-badge">reviewer</span>
+    <span class="cr-time">11:58</span>
+  </div>
+  <div class="cr-diff">
+    <div class="cr-diff-line cr-del">- &lt;form onSubmit={handleSubmit}&gt;</div>
+    <div class="cr-diff-line cr-del">-   &lt;input value={amount} onChange={e =&gt; setAmount(e.target.value)} /&gt;</div>
+  </div>
+  <div class="cr-body">
+    폼 관리에 <strong>react-hook-form</strong>을 써주세요. 현재 패턴이면 리렌더가 입력마다 발생해요. 결제 페이지에서는 성능이 중요합니다.
+  </div>
+</div>
+
+<p class="novel">react-hook-form. 또 모르는 것이다. 도현은 코멘트를 하나씩 읽으며 메모장에 키워드를 적었다.</p>
+
+<div class="terminal">
+<span class="t-comment"># 도현의 메모 — "몰랐던 것들"</span><br>
+<br>
+<span class="t-key">1.</span> TDS Skeleton 컴포넌트 → 커스텀 CSS 금지<br>
+<span class="t-key">2.</span> React Query → useState+useEffect 금지<br>
+<span class="t-key">3.</span> react-hook-form → 수동 폼 핸들링 금지<br>
+<span class="t-key">4.</span> emotion → CSS 파일 직접 작성 금지<br>
+<span class="t-key">5.</span> Conventional Commit → "fixed stuff" 금지<br>
+<span class="t-key">6.</span> PR 300~400줄 → 800줄짜리 금지<br>
+<br>
+<span class="t-warn">넥스트비전에서 4년간 한 것의 대부분이 여기서는 금지다.</span>
+</div>
+
+<p class="novel">도현은 코멘트를 반영하기 시작했다. 커스텀 스켈레톤을 TDS Skeleton으로 교체했다. useState + useEffect를 React Query로 바꿨다. emotion 문법을 처음 써봤다. 컴파일 에러 12번. 타입스크립트가 타입을 요구했다. 넥스트비전은 자바스크립트였다. 타입이 없는 세계였다.</p>
+
+<p class="internal">넥스트비전에서는 "동작하면 된다"가 원칙이었다. 아무도 내 코드를 읽지 않았으니까. 여기서는 "동작하는 것"이 시작이다. 동작한 다음에, 읽기 쉬운지, 유지보수가 가능한지, 성능이 괜찮은지, 기존 패턴과 일관되는지를 본다. 4단계가 더 있다.</p>
+
+</section>
+
+<!-- ───────── PART III ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part III</p>
+  <p class="part-title">"47건"</p>
+</div>
+
+<p class="novel novel-first">3월 5일 수요일 오후 6시 14분. PR 3개 모두에 대한 리뷰가 완료되었다.</p>
+
+<p class="novel">도현은 GitHub의 코멘트 탭을 열었다. 세 개 PR의 코멘트를 합산했다. 47건.</p>
+
+<div class="comment-stats">
+  <div class="cs-item">
+    <span class="cs-label">스타일/패턴</span>
+    <span class="cs-count">12</span>
+  </div>
+  <div class="cs-item">
+    <span class="cs-label">로직 개선</span>
+    <span class="cs-count">8</span>
+  </div>
+  <div class="cs-item">
+    <span class="cs-label">테스트 누락</span>
+    <span class="cs-count">7</span>
+  </div>
+  <div class="cs-item">
+    <span class="cs-label">TDS 미사용</span>
+    <span class="cs-count">6</span>
+  </div>
+  <div class="cs-item">
+    <span class="cs-label">네이밍</span>
+    <span class="cs-count">5</span>
+  </div>
+  <div class="cs-item">
+    <span class="cs-label">성능</span>
+    <span class="cs-count">4</span>
+  </div>
+  <div class="cs-item">
+    <span class="cs-label">접근성</span>
+    <span class="cs-count">3</span>
+  </div>
+  <div class="cs-item">
+    <span class="cs-label">기타</span>
+    <span class="cs-count">2</span>
+  </div>
+</div>
+
+<p class="novel">47건. 스켈레톤 UI 하나를 추가하는 데 리뷰 코멘트 47건. 넥스트비전에서는 QuoteMate를 포함해 4년간 코드 리뷰를 받은 횟수가 0건이었다. 정확히 0건. 코드를 읽어주는 사람이 없었으니까.</p>
+
+<p class="novel">47건 중에서 가장 기억에 남는 것 세 개가 있었다.</p>
+
+<p class="novel">첫 번째. 네이밍.</p>
+
+<div class="code-review">
+  <div class="cr-header">
+    <div class="cr-avatar">NH</div>
+    <span class="cr-name">김나현</span>
+    <span class="cr-badge">reviewer</span>
+    <span class="cr-time">14:22</span>
+  </div>
+  <div class="cr-diff">
+    <div class="cr-diff-line cr-del">- const data = useQuery(...);</div>
+  </div>
+  <div class="cr-body">
+    <code>data</code>라는 이름은 아무 의미가 없어요. 이 변수가 뭘 담는지 이름에서 알 수 있어야 합니다.<br><br>
+    <div class="cr-suggestion-label">suggestion</div>
+    <div class="cr-suggestion">const { data: paymentCardInfo } = useQuery(...);</div>
+  </div>
+</div>
+
+<p class="internal">"data." 넥스트비전에서 내 변수명의 80%가 data, temp, result, item이었다. 나만 읽는 코드였으니 상관없었다. 여기서는 다른 사람이 읽는다. "data"만 보고는 이것이 카드 정보인지, 결제 금액인지, 사용자 프로필인지 알 수 없다.</p>
+
+<p class="novel">두 번째. 테스트.</p>
+
+<div class="code-review">
+  <div class="cr-header">
+    <div class="cr-avatar">JP</div>
+    <span class="cr-name">박재원</span>
+    <span class="cr-badge">reviewer</span>
+    <span class="cr-time">15:07</span>
+  </div>
+  <div class="cr-body">
+    테스트가 없습니다. 최소한 다음 케이스는 커버해주세요:<br><br>
+    1. 로딩 중일 때 스켈레톤이 표시되는지<br>
+    2. 데이터 로드 완료 후 스켈레톤이 사라지는지<br>
+    3. 에러 시 에러 UI가 표시되는지<br>
+    4. 카드 정보가 올바르게 렌더링되는지
+  </div>
+</div>
+
+<p class="novel">테스트. 도현은 테스트 코드를 작성한 적이 없다. QuoteMate에도 테스트가 없다. 넥스트비전의 4년간 전체 테스트 커버리지는 0%다. "동작하면 테스트"라는 것이 도현의 원칙이었다. 브라우저에서 클릭해보고 되면 끝.</p>
+
+<p class="novel">세 번째. 접근성.</p>
+
+<div class="code-review">
+  <div class="cr-header">
+    <div class="cr-avatar">EC</div>
+    <span class="cr-name">조은서</span>
+    <span class="cr-badge">cross-review</span>
+    <span class="cr-time">16:33</span>
+  </div>
+  <div class="cr-diff">
+    <div class="cr-diff-line cr-del">- &lt;div className={skeletonStyle}&gt;</div>
+  </div>
+  <div class="cr-body">
+    스켈레톤 UI에 <code>aria-busy="true"</code>와 <code>role="status"</code>를 추가해주세요. 스크린 리더 사용자가 로딩 중이라는 것을 알 수 있어야 합니다.
+  </div>
+</div>
+
+<p class="internal">접근성. aria-busy. role="status". 넥스트비전에서는 접근성이라는 단어를 들어본 적이 없다. 스크린 리더를 사용하는 사용자가 우리 서비스를 쓸 거라고 생각해본 적이 없다. 여기서는 BE 개발자가 FE의 접근성을 지적한다. cross-review. 다른 직군이 내 코드를 보고 접근성을 이야기한다.</p>
+
+<p class="novel">도현은 47건의 코멘트를 화면에 띄워놓고 하나씩 읽었다. 오후 6시가 넘었다. 사무실에는 여전히 사람들이 있었다. 도현은 자리에서 일어나지 않았다.</p>
+
+<p class="novel">옆자리의 박재원이 노트북을 닫으며 말했다.</p>
+
+<p class="dialogue">"도현 님, 리뷰 많이 받으셨죠?"</p>
+
+<p class="dialogue">"47건이요."</p>
+
+<p class="novel">재원이 고개를 끄덕였다.</p>
+
+<p class="dialogue">"저도 처음에 그랬어요. 첫 PR에서 리뷰 40건 넘게 받았습니다. 카카오에서 올 때."</p>
+
+<p class="novel">도현은 재원을 보았다. 28세. 카카오 출신. 도현보다 7살 어리다.</p>
+
+<p class="dialogue">"카카오에서도 코드 리뷰 많이 받으셨을 텐데요."</p>
+
+<p class="dialogue">"카카오는 좀 다릅니다. 토스 코드 리뷰는 밀도가 다르다고 해야 할까. 여기 코드스멜 워킹그룹이라고 있거든요. 매주 모여서 코드 리뷰에서 반복되는 패턴을 정리합니다. 가독성 위원회도 따로 있고요."</p>
+
+<p class="novel">코드스멜 워킹그룹. 가독성 위원회. 도현은 이 단어들이 현실에 존재한다는 것이 신기했다.</p>
+
+<p class="dialogue">"저 하나 도와드릴까요? 리뷰 반영하는 거 같이 보면 빠를 수 있어요."</p>
+
+<p class="novel">도현은 2초간 망설였다. 28살한테 도움을 받는 것이 자존심이 상하는지 스스로에게 물었다. 0.5초 만에 답이 나왔다. 아니다. 여기서는 나이가 아니라 코드가 기준이다. 재원의 코드가 더 깨끗하다. 그것은 사실이다.</p>
+
+<p class="dialogue">"부탁드립니다."</p>
+
+<p class="novel">재원이 의자를 도현 쪽으로 끌고 왔다. 도현의 모니터를 함께 보며 코멘트를 하나씩 짚어나갔다.</p>
+
+<p class="dialogue">"이 부분은 TDS의 Skeleton 컴포넌트가 props로 animation 타입을 받거든요. pulse 말고 wave도 있어요. 결제 페이지에서는 wave가 더 자연스러울 수 있어요."</p>
+
+<p class="dialogue">"여기 React Query 옵션에 staleTime을 추가하면 좋겠어요. 카드 정보는 자주 바뀌지 않으니까, 5분 정도 캐시하면 불필요한 API 호출을 줄일 수 있습니다."</p>
+
+<p class="dialogue">"emotion에서 css prop을 쓸 때는 이렇게 분리하면 가독성이 올라갑니다."</p>
+
+<p class="novel">재원은 2시간 동안 도현 옆에 앉아 있었다. 47건 중 30건을 함께 반영했다. 도현은 재원이 설명하는 것을 들으며 메모장에 빽빽하게 적었다. 넥스트비전에서 4년 동안 동료에게서 코드를 배운 시간은 0시간이다. 여기서는 2시간 만에 TDS, React Query, emotion, 접근성, 테스트 패턴을 배웠다.</p>
+
+<p class="internal">28살이 나한테 코드를 가르친다. 근데 맞는 말이다. 모든 코멘트가 맞는 말이다. 47건 중에서 "이건 좀 아닌데"라고 반박할 수 있는 것이 하나도 없다. 넥스트비전에서 4년간 쌓은 습관이, 여기서는 전부 교정 대상이다.</p>
+
+</section>
+
+<!-- ───────── PART IV ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part IV</p>
+  <p class="part-title">"12시의 편의점"</p>
+</div>
+
+<p class="novel novel-first">3월 5일 수요일 밤 11시 17분.</p>
+
+<p class="novel">사무실에 남은 사람은 도현과, 다른 사일로의 BE 개발자 한 명뿐이었다. 도현은 47건의 코멘트를 모두 반영하고 PR 3개를 다시 올렸다. 커밋 메시지를 세 번 확인했다. Conventional Commit 형식. TDS 컴포넌트 사용. React Query 적용. react-hook-form 적용. 테스트 4개 작성. aria-busy, role="status" 추가.</p>
+
+<div class="terminal">
+<span class="t-comment"># PR #4,217-1: 스켈레톤 컴포넌트 생성</span><br>
+<span class="t-key">feat(payment): 결제 확인 페이지 스켈레톤 컴포넌트 생성</span><br>
+<span class="t-key">Lines:</span> +142, -0<br>
+<span class="t-key">Status:</span> <span class="t-prompt">✓ Approved (2/2)</span><br>
+<br>
+<span class="t-comment"># PR #4,217-2: 스켈레톤 적용</span><br>
+<span class="t-key">feat(payment): PaymentConfirm에 스켈레톤 로딩 UI 적용</span><br>
+<span class="t-key">Lines:</span> +98, -23<br>
+<span class="t-key">Status:</span> <span class="t-prompt">✓ Approved (2/2)</span><br>
+<br>
+<span class="t-comment"># PR #4,217-3: 테스트 + 스토리북</span><br>
+<span class="t-key">test(payment): 스켈레톤 로딩 UI 테스트 및 스토리 추가</span><br>
+<span class="t-key">Lines:</span> +87, -0<br>
+<span class="t-key">Status:</span> <span class="t-prompt">✓ Approved (2/2)</span><br>
+</div>
+
+<p class="novel">Approve 2개. 세 개 PR 전부. 머지 버튼을 눌렀다. 초록색 "Merged" 뱃지가 떴다. 도현의 코드가 main에 합류했다. main은 라이브다. 도현의 코드가 토스 사용자의 화면에 표시된다.</p>
+
+<p class="novel">넥스트비전에서는 git push origin main을 치면 그것이 배포였다. 여기서는 PR → 코드 리뷰 → Approve → 머지 → CI → 배포. 6단계. 넥스트비전의 1단계가 여기서는 6단계다. 그리고 그 5단계의 차이가, 코드의 품질 차이를 만든다.</p>
+
+<p class="novel">밤 11시 42분. 도현은 사내 편의점으로 갔다. 편의점 문을 열었다. 불이 켜져 있었다. 24시간. 컵라면을 하나 골랐다. 삼각김밥을 하나 더 골랐다. 바코드를 찍었다. 결제 금액: 0원.</p>
+
+<p class="novel">뜨거운 물을 부으며 도현은 생각했다.</p>
+
+<p class="internal">넥스트비전에서는 4년 동안 코드 리뷰를 받은 적이 없었다. 코드를 읽어주는 사람이 없었다. 내가 짠 코드가 좋은 코드인지 나쁜 코드인지 판단해줄 기준이 없었다. "동작하면 끝"이 내 기준이었다. 그리고 그 기준으로 투자자 데모까지 갔다. 동작은 했다. 하지만 좋은 코드는 아니었다. 그것을 알기까지 4년이 걸렸다. 정확히는, 여기 와서 2주가 걸렸다.</p>
+
+<p class="novel">컵라면을 먹으며 Slack을 열었다. 사일로 채널에 메시지가 와 있었다.</p>
+
+<div class="slack-msg">
+  <div class="s-channel"># settlement-silo</div>
+  <div class="s-header">
+    <span class="s-name">박재원</span>
+    <span class="s-time">23:44</span>
+  </div>
+  <div class="s-body">도현 님 첫 머지 축하합니다! 리뷰 반영 속도 빨랐어요. 내일부터 다음 스프린트 건 잡아볼까요?</div>
+</div>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">강서윤 (PO)</span>
+    <span class="s-time">23:45</span>
+  </div>
+  <div class="s-body">축하해요 도현 님! 다음 건은 좀 더 큰 거 드려도 될까요? 카드 선택 UI 리뉴얼 건이 있어요.</div>
+</div>
+
+<p class="novel">도현은 컵라면 국물을 한 모금 마시고 답장을 쳤다.</p>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">한도현</span>
+    <span class="s-time">23:48</span>
+  </div>
+  <div class="s-body">감사합니다. 네, 잡아보겠습니다.</div>
+</div>
+
+<p class="novel">보내기를 누른 뒤 도현은 잠시 멈추었다. 그리고 한 줄을 더 썼다.</p>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">한도현</span>
+    <span class="s-time">23:48</span>
+  </div>
+  <div class="s-body">이번에는 300줄 안에 끝내보겠습니다.</div>
+</div>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">박재원</span>
+    <span class="s-time">23:49</span>
+  </div>
+  <div class="s-body">ㅋㅋ 좋습니다</div>
+</div>
+
+<p class="novel">도현은 편의점 테이블에 앉아 빈 컵라면 용기를 정리하며 창밖을 보았다. 강남의 밤이 여전히 밝았다. 안양의 밤과는 다른 밝기다. 하지만 야근은 같다. 넥스트비전에서도 밤 12시에 사무실에 있었다. 대표가 시킨 것이 아니라, 코드가 끝나지 않아서. 여기서도 밤 12시에 사무실에 있다. 리뷰가 끝나지 않아서.</p>
+
+<p class="internal">같은 야근인데, 밀도가 다르다. 넥스트비전에서의 밤은 혼자서 방향 없이 키보드를 두드리는 시간이었다. 여기서의 밤은 47건의 피드백을 반영하고, 하나하나 이해하고, 코드가 조금씩 깨끗해지는 시간이다. 같은 컵라면인데, 맛이 다르다. 넥스트비전의 컵라면은 1,500원이었다. 여기서는 0원이다. 그리고 넥스트비전의 컵라면은 혼자 먹었고, 여기서의 컵라면은 "축하합니다"라는 Slack 메시지와 함께 먹는다.</p>
+
+<p class="novel">도현은 편의점을 나와 엘리베이터를 탔다. 1층 로비에서 사원증을 찍었다. 퇴근 시각: 00:03. 강남역까지 걸었다. 막차는 지났다. 택시를 잡았다. 안양까지 38,000원. 사이닝 보너스의 0.1%다.</p>
+
+<p class="novel">택시 안에서 도현은 GitHub 앱을 열었다. 머지된 PR을 보았다. 세 개의 초록색 "Merged" 뱃지. 커밋 메시지가 깨끗했다. "feat(payment): 결제 확인 페이지 스켈레톤 컴포넌트 생성." "fixed stuff"가 아니라.</p>
+
+<p class="novel">도현은 스크롤을 내려 47건의 코멘트를 훑었다. 스타일 12건, 로직 8건, 테스트 누락 7건, TDS 미사용 6건, 네이밍 5건, 성능 4건, 접근성 3건, 기타 2건. 이 47건은 넥스트비전에서 4년 동안 받지 못한 피드백이다. 4년간의 공백을 2주 만에 압축해서 받은 것이다.</p>
+
+<p class="novel">안양에 도착했다. 원룸 문을 열었다. 천장의 금이 거기 있었다. 냉장고 모터가 돌아갔다. 이를 닦으며 거울을 보았다. 35세. 코드 리뷰 47건을 받은 사람의 얼굴이 보였다. 피곤했다. 하지만 넥스트비전에서 프린터를 고치고 나서 느꼈던 피곤과는 종류가 달랐다.</p>
+
+<p class="novel">내일은 카드 선택 UI 리뉴얼을 시작한다. 이번에는 300줄. 이번에는 TDS 먼저. 이번에는 React Query부터. 이번에는 테스트를 먼저 쓴다.</p>
+
+<p class="novel">컵라면 값: 0원.</p>
+
+<p class="novel">47건의 코멘트 값: 측정 불가.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>동작하면 끝이었다<br><strong>여기서는 동작하는 것이 시작이다</strong></h2>
+  <p class="sub">넥스트비전에서 4년간 받은 코드 리뷰: 0건. 토스에서 2주간 받은 코드 리뷰: 47건.</p>
+</div>
+
+<footer class="footer">
+  <p>This is a work of fiction &middot; Characters and events are imaginary</p>
+  <p>Toss Tech Blog &middot; Conventional Commits &middot; Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

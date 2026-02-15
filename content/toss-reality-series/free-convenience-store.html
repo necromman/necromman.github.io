@@ -1,0 +1,596 @@
+---
+layout: layouts/article.njk
+pageTitle: "편의점은 공짜인데"
+description: "무료 카페 3회, 무료 편의점 27회, 헤어살롱 0회. 복지가 없어서 못 쓰는 게 아니다. 시간이 없어서 못 쓰는 것이다. 토양어선의 아이러니."
+datePublished: "2026-02-15"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* NOVEL PROSE */
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+
+  /* SCENE BREAK */
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+
+  /* DIALOGUE */
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+
+  /* INTERNAL MONOLOGUE */
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  /* SECTION DIVIDER */
+  .part-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .part-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+  }
+  .section-divider {
+    margin-top: 64px;
+    margin-bottom: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* TERMINAL BLOCK */
+  .terminal {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    background: #2a2a28;
+    color: #e8e4dc;
+    padding: 24px 28px;
+    margin: 32px 0;
+    overflow-x: auto;
+    border: 1px solid var(--fg);
+  }
+  .terminal .t-prompt { color: #6db36d; }
+  .terminal .t-comment { color: #8a8680; }
+  .terminal .t-error { color: #c43e2a; }
+  .terminal .t-warn { color: #d4a843; }
+  .terminal .t-key { color: #7cafc2; }
+  .terminal .t-str { color: #c9b97a; }
+
+  /* SOURCE CODE BLOCK */
+  .source-code {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.7;
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    padding: 24px 28px;
+    margin: 32px 0;
+    overflow-x: auto;
+    color: var(--prose);
+  }
+  .source-code .sc-title {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .source-code .sc-comment { color: var(--muted); }
+  .source-code .sc-keyword { color: var(--accent); font-weight: 600; }
+  .source-code .sc-string { color: #4a9a7a; }
+  .source-code .sc-fn { color: #7cafc2; }
+
+  /* BENEFIT INVENTORY */
+  .benefit-list {
+    display: grid;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0;
+  }
+  .benefit-item {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: baseline;
+    background: var(--bg);
+    padding: 16px 24px;
+    gap: 16px;
+  }
+  .bi-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--fg);
+  }
+  .bi-count {
+    font-family: var(--mono);
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: right;
+    min-width: 40px;
+  }
+  .bi-count.zero { color: var(--muted); }
+  .bi-count.low { color: var(--accent); }
+  .bi-count.high { color: #4a9a7a; }
+  .bi-note {
+    font-size: 0.78rem;
+    color: var(--secondary);
+    min-width: 180px;
+  }
+
+  /* PHONE CALL */
+  .phone-call {
+    border: 1px solid var(--rule);
+    margin: 40px 0;
+    padding: 32px;
+    background: var(--card-bg);
+  }
+  .phone-call .pc-header {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .phone-call .dialogue {
+    padding-left: 0;
+    text-indent: 0;
+    text-align: center;
+    color: var(--prose);
+  }
+  .phone-call .pc-silence {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding: 12px 0;
+  }
+
+  /* DOC EXCERPT — Blind/Stats */
+  .doc-excerpt {
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .doc-excerpt .de-source {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .doc-excerpt .de-body {
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: var(--prose);
+  }
+  .doc-excerpt .de-body strong {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* SLACK MSG */
+  .slack-msg {
+    border: 1px solid var(--rule);
+    border-left: 3px solid #4a9a7a;
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .slack-msg .s-channel {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: #4a9a7a;
+    margin-bottom: 12px;
+  }
+  .slack-msg .s-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .slack-msg .s-name { font-size: 0.9rem; font-weight: 700; color: var(--fg); }
+  .slack-msg .s-time { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
+  .slack-msg .s-body { font-size: 0.95rem; line-height: 1.8; color: var(--prose); }
+  .slack-msg + .slack-msg { margin-top: -16px; }
+  .slack-msg.alert { border-left-color: var(--accent); }
+  .slack-msg.alert .s-channel { color: var(--accent); }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .benefit-item { grid-template-columns: 1fr auto; }
+    .bi-note { display: none; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">toss reality — fiction 04</p>
+  <h1>편의점은 <strong>공짜인데</strong></h1>
+  <p class="deck">복지가 없어서 못 쓰는 게 아니다.<br>시간이 없어서 못 쓰는 것이다.</p>
+</header>
+
+<main>
+
+<!-- ───────── PART I ───────── -->
+
+<section>
+<div class="section-divider" style="border-top:none;margin-top:0;padding-top:0">
+  <p class="part-label">Part I</p>
+  <p class="part-title">"복지 인벤토리"</p>
+</div>
+
+<p class="novel novel-first">2027년 5월 12일 월요일 오후 7시 43분. 입사 4개월 차.</p>
+
+<p class="novel">도현은 화장실에서 손을 씻으며 칫솔꽂이를 보았다. 회사에서 제공하는 칫솔이다. 옆에 치약도 있고, 그 아래 서랍에는 양말과 스타킹이 있다고 들었다. 도현은 칫솔을 쓴 적은 있다. 양말을 가져간 적은 없다.</p>
+
+<p class="novel">자리에 돌아와 노트북을 열었다. 스프린트 작업 대신 다른 것을 열었다. 메모장. 토스에서 4개월간 사용한 복지를 정리해보기로 했다. 이유는 없다. 그냥 궁금했다.</p>
+
+<div class="benefit-list">
+  <div class="benefit-item">
+    <span class="bi-name">무료 카페</span>
+    <span class="bi-count low">3회</span>
+    <span class="bi-note">전부 테이크아웃, 자리에서 마심</span>
+  </div>
+  <div class="benefit-item">
+    <span class="bi-name">무료 편의점</span>
+    <span class="bi-count high">27회</span>
+    <span class="bi-note">전부 야근 중 — 컵라면, 삼각김밥</span>
+  </div>
+  <div class="benefit-item">
+    <span class="bi-name">헤어살롱</span>
+    <span class="bi-count zero">0회</span>
+    <span class="bi-note">예약하려고 했으나 시간이 안 맞음</span>
+  </div>
+  <div class="benefit-item">
+    <span class="bi-name">두에싸 (Do Everything Silo)</span>
+    <span class="bi-count low">1회</span>
+    <span class="bi-note">엄마 생일 선물 — 직접 살 시간 없어서</span>
+  </div>
+  <div class="benefit-item">
+    <span class="bi-name">금요일 오후 (주 4.5일제)</span>
+    <span class="bi-count low">1/8회</span>
+    <span class="bi-note">8번 중 7번은 스프린트 마감으로 반납</span>
+  </div>
+  <div class="benefit-item">
+    <span class="bi-name">법인카드 식대</span>
+    <span class="bi-count high">매일</span>
+    <span class="bi-note">점심을 자리에서 먹는 날이 절반</span>
+  </div>
+  <div class="benefit-item">
+    <span class="bi-name">교육비 지원</span>
+    <span class="bi-count zero">0회</span>
+    <span class="bi-note">신청할 강의를 고를 시간이 없음</span>
+  </div>
+</div>
+
+<p class="novel">도현은 표를 보았다. 사용 빈도가 높은 것: 편의점(27회)과 법인카드 식대. 둘 다 "먹는 것"이다. 사용 빈도가 0인 것: 헤어살롱, 교육비. 둘 다 "시간이 필요한 것"이다.</p>
+
+<p class="internal">복지가 없어서 못 쓰는 게 아니다. 시간이 없어서 못 쓰는 것이다. 편의점 27회 중 24회가 밤 9시 이후다. 무료 카페 3회 중 3회가 자리에서 마신 테이크아웃이다. 법인카드로 먹는 점심의 절반은 자리에서 모니터를 보며 먹는다. 두에싸를 1회 쓴 것도, 엄마 생일 선물을 "내가" 사러 갈 시간이 없어서 "회사에" 대신 시킨 것이다. 복지가 좋다는 것은 사실이다. 근데 복지를 쓸 겨를이 없다는 것도 사실이다.</p>
+
+<p class="novel">도현은 헤어살롱을 한 번도 가지 못한 이유를 생각해보았다. 헤어살롱은 사전 예약제다. 예약 가능 시간: 오전 10시~오후 6시. 도현의 스프린트는 오전 10시에 시작해서, 종료 시간은 정해져 있지 않다. "잠깐 머리 자르러 갈게요"라고 말할 수 있는 분위기인지 아닌지는 판단이 어려웠다. 누가 막는 것이 아니다. 다만 사일로 8명 중에서 업무 중에 헤어살롱에 가는 사람을 본 적이 없다.</p>
+
+<p class="novel">금요일 오후도 마찬가지다. 제도적으로는 금요일 오후가 자유다. 주 4.5일제. 하지만 스프린트 마감이 보통 금요일이다. 강서윤이 "금요일까지 배포 가능할까요?"라고 물을 때, "금요일 오후는 주 4.5일제라 안 됩니다"라고 대답하는 사람을 도현은 본 적이 없다. 금요일 오후에 사무실을 나서는 사람은 있다. 하지만 노트북을 가지고 나서는 사람이 더 많다.</p>
+
+</section>
+
+<!-- ───────── PART II ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part II</p>
+  <p class="part-title">"전화"</p>
+</div>
+
+<p class="novel novel-first">5월 14일 수요일 저녁 8시 22분. 핸드폰이 울렸다. 화면에 "김영수 대표님"이 떴다.</p>
+
+<p class="novel">도현은 사무실 복도로 나와 전화를 받았다.</p>
+
+<div class="phone-call">
+  <div class="pc-header">incoming call — 김영수</div>
+
+  <p class="dialogue">"도현아."</p>
+
+  <p class="dialogue">"대표님, 안녕하세요."</p>
+
+  <p class="dialogue">"거기 좋다며? 편의점이 공짜라며?"</p>
+
+  <p class="dialogue">"네 대표님, 공짜예요. 밤 12시에 컵라면 먹을 때 씁니다."</p>
+
+  <p class="pc-silence">2초간의 침묵.</p>
+
+  <p class="dialogue">"우리 때는 300원짜리 캔커피라도 있었는데."</p>
+
+  <p class="dialogue">"네, 기억나요. 자판기 옆에 있던 거."</p>
+
+  <p class="dialogue">"자판기 고장 나면 도현이가 고쳤잖아."</p>
+</div>
+
+<p class="novel">도현은 웃었다. 넥스트비전의 커피 자판기. 2주에 한 번씩 고장이 났다. 도현이 분해해서 석회질을 제거하고 다시 조립했다. 개발팀장의 업무 목록에 "커피 자판기 수리"가 있던 회사.</p>
+
+<div class="phone-call">
+  <p class="dialogue">"아 그리고, 새로 온 개발자 말이야."</p>
+
+  <p class="dialogue">"뽑으셨어요?"</p>
+
+  <p class="dialogue">"아직 못 뽑았어. 면접을 몇 번 봤는데, 다들 연봉 이야기하다 끝나더라고. 4,500만 원 이하로는 안 온다고 하더라."</p>
+
+  <p class="pc-silence">도현은 대답하지 못했다. 넥스트비전에서 도현의 마지막 연봉이 3,800만 원이었다.</p>
+
+  <p class="dialogue">"도현이 자리 아직 비어있어. 모니터도 그대로고. PC 수리 맡길 데도 없고."</p>
+
+  <p class="pc-silence">짧은 침묵.</p>
+
+  <p class="dialogue">"대표님, 잘 되실 거예요. 개발자 구인 사이트에—"</p>
+
+  <p class="dialogue">"알아, 알아. 그냥 전화한 거야. 잘하고 있나 싶어서."</p>
+</div>
+
+<p class="novel">전화를 끊었다. 도현은 복도 창 밖을 보았다. 강남의 밤이 밝았다.</p>
+
+<p class="internal">268만 원의 세계에서 나는 유일한 개발자였다. PC도 고치고, 프린터도 고치고, 자판기도 고치고, 코드도 짰다. 아무도 대신할 수 없는 사람이었다. 480만 원의 세계에서 나는 사일로의 FE 3번이다. 내가 내일 그만둬도 사일로는 돌아간다. 재원이 내 코드를 리뷰하듯 누군가 내 자리를 채울 것이다. 대체 불가능한 268만 원과 대체 가능한 480만 원. 어느 쪽이 더 나은 건지 아직 모르겠다.</p>
+
+<p class="novel">도현은 자리에 돌아왔다. 옆자리의 FE 개발자 김나현이 말했다.</p>
+
+<p class="dialogue">"도현 님, 괜찮아요? 표정이 좀 그래요."</p>
+
+<p class="dialogue">"아, 아뇨. 전 직장 대표님한테 전화가 와서."</p>
+
+<p class="dialogue">"아, 전 직장. 어디셨어요?"</p>
+
+<p class="dialogue">"안양에 있는 B2B 소프트웨어 회사요. 직원 12명."</p>
+
+<p class="novel">나현이 고개를 끄덕였다. 아무 말 없이. 토스에는 다양한 곳에서 온 사람들이 있다. 카카오, 네이버, 라인, 쿠팡. 12명짜리 회사에서 온 사람은 도현뿐일 것이다.</p>
+
+</section>
+
+<!-- ───────── PART III ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part III</p>
+  <p class="part-title">"6개월의 벽"</p>
+</div>
+
+<p class="novel novel-first">5월 19일 월요일. 사일로 채널에 메시지가 올라왔다.</p>
+
+<div class="slack-msg">
+  <div class="s-channel"># settlement-silo</div>
+  <div class="s-header">
+    <span class="s-name">강서윤 (PO)</span>
+    <span class="s-time">09:14</span>
+  </div>
+  <div class="s-body">수민 님이 오늘부로 퇴사하셨습니다. 짧은 시간이었지만 함께해주셔서 감사합니다.</div>
+</div>
+
+<p class="novel">이수민. 도현과 같은 달에 입사한 경력직 동기. BE 개발자. 네이버 출신, 5년 차. 4개월. 입사한 지 4개월 만에 퇴사했다.</p>
+
+<p class="novel">도현은 이수민과 점심을 함께 먹은 적이 여러 번 있다. 같은 시기에 입사했으니 자연스럽게 어울렸다. 이수민은 한 달 전부터 표정이 어두워지고 있었다.</p>
+
+<p class="novel">3주 전, 점심 시간에 이수민이 말했었다.</p>
+
+<p class="dialogue">"나는 속도를 못 따라가겠어. 네이버에서도 빠르게 했다고 생각했는데, 여기는 차원이 달라. 스프린트 2주마다 배포하고, 데이터 보고, 킬하고, 다시 만들고. 여기 사람들은 이걸 당연하다는 듯이 하는데, 나는 적응이 안 돼."</p>
+
+<p class="novel">도현은 그때 대답하지 못했다. 도현도 속도가 힘들었으니까. 하지만 도현에게는 다른 기준이 있었다. 넥스트비전. 도현은 넥스트비전보다 나은 곳에 있다는 것을 매일 확인했다. 이수민에게는 그런 기준이 없었다. 네이버도 좋은 회사였으니까. 네이버에서 토스로 온 이수민에게는 "여기가 전 직장보다 낫다"는 확인이 불가능했다.</p>
+
+<p class="novel">이수민이 떠난 뒤, 도현은 블라인드를 열어보았다. 토스 게시판.</p>
+
+<div class="doc-excerpt">
+  <div class="de-source">Blind — Toss</div>
+  <div class="de-body">"산전수전 겪은 경력직들이 <strong>6개월 못 버티고 퇴사</strong>함. 빠르게 들어오고 빠르게 나감."</div>
+</div>
+
+<div class="doc-excerpt">
+  <div class="de-source">Blind — Toss</div>
+  <div class="de-body">"<strong>일찍 퇴근하는 날은 하루도 없나요?</strong> 입사 전에 들었던 것과 너무 다름."</div>
+</div>
+
+<div class="doc-excerpt">
+  <div class="de-source">워라밸 만족도 조사 — 2021</div>
+  <div class="de-body">토스 워라밸 만족도: <strong>5점 만점 2.1점</strong>. 추이: 2019년 2.22 → 2020년 2.41 → 2021년 2.1 (하락).</div>
+</div>
+
+<div class="doc-excerpt">
+  <div class="de-source">퇴사율 통계</div>
+  <div class="de-body">2021년 기준 입사 259명, 퇴사 102명. <strong>1년 내 퇴사율 약 39%.</strong></div>
+</div>
+
+<p class="novel">워라밸 2.1점. 퇴사율 39%. 숫자가 현실이 되었다. 이수민이 그 39%에 포함된 것이다.</p>
+
+<p class="novel">하지만 도현에게는 다른 관점이 있었다.</p>
+
+<p class="internal">넥스트비전에서도 야근했다. 268만 원 받으면서. 야근 수당은 없었다. 성과 측정도 없었다. 코드 리뷰도 없었다. "수고했어 도현아"라는 대표의 한 마디가 야근의 대가였다. 여기서도 야근한다. 480만 원 받으면서. 야근 수당은 여기도 없다. 하지만 차이가 있다. 내 코드가 측정된다. 내가 만든 +0.7%가 기록된다. 내가 받은 47건의 코드 리뷰가 기록된다. 넥스트비전에서의 4년은 기록이 없다. 여기서의 4개월은 숫자로 남아 있다.</p>
+
+<p class="novel">워라밸 2.1점이라는 숫자가 의미하는 것은, 토스의 업무 강도가 높다는 것이다. 이것은 사실이다. 도현도 매일 느끼고 있다. 하지만 넥스트비전의 업무 강도도 높았다. 방향이 달랐을 뿐. 넥스트비전에서는 방향 없이 오래 앉아 있는 것이 업무였다. 여기서는 방향이 있는 대신, 속도가 빠르다.</p>
+
+</section>
+
+<!-- ───────── PART IV ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part IV</p>
+  <p class="part-title">"같은 야근, 다른 야근"</p>
+</div>
+
+<p class="novel novel-first">5월 22일 목요일 밤 10시 07분.</p>
+
+<p class="novel">도현은 결제 실패 복구 UI의 마지막 PR을 머지하고 퇴근 준비를 하고 있었다. 노트북을 닫으려는 순간 Slack 알림이 울렸다.</p>
+
+<div class="slack-msg alert">
+  <div class="s-channel"># incident-alert</div>
+  <div class="s-header">
+    <span class="s-name">PagerDuty Bot</span>
+    <span class="s-time">22:07</span>
+  </div>
+  <div class="s-body">P1 ALERT: 결제 API 레이턴시 급증 — p99 latency 4,200ms (threshold: 500ms). 토스페이먼츠 결제 사일로 온콜 호출.</div>
+</div>
+
+<p class="novel">P1. 최고 심각도. 도현은 장애 대응에 참여한 적이 없다. 온콜 로테이션에 도현은 아직 포함되지 않은 상태다. 하지만 사일로 채널에 메시지가 올라오기 시작했다.</p>
+
+<div class="slack-msg alert">
+  <div class="s-channel"># settlement-silo</div>
+  <div class="s-header">
+    <span class="s-name">박재원</span>
+    <span class="s-time">22:09</span>
+  </div>
+  <div class="s-body">결제 API 확인 중. Kafka 메시지 큐 지연으로 Gateway 타임아웃 발생 중인 것 같습니다. BE 쪽 확인 부탁드려요.</div>
+</div>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">정민호 (BE)</span>
+    <span class="s-time">22:11</span>
+  </div>
+  <div class="s-body">확인했습니다. consumer lag 급증. 스케일 아웃 진행합니다.</div>
+</div>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">박재원</span>
+    <span class="s-time">22:13</span>
+  </div>
+  <div class="s-body">FE 쪽은 결제 실패 시 에러 화면이 제대로 뜨고 있는지 확인해야 합니다. @한도현 님 혹시 아직 사무실이시면 에러 바운더리 확인 가능하세요?</div>
+</div>
+
+<p class="novel">도현은 노트북을 다시 열었다.</p>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">한도현</span>
+    <span class="s-time">22:14</span>
+  </div>
+  <div class="s-body">네, 사무실에 있습니다. 확인하겠습니다.</div>
+</div>
+
+<p class="novel">도현은 결제 화면의 에러 바운더리를 확인했다. API 타임아웃 시 사용자에게 보여주는 에러 UI. 이것은 도현이 지난 스프린트에서 만든 결제 실패 복구 BottomSheet였다. 자기가 만든 컴포넌트가 실전에서 작동하는 것을 처음 본다.</p>
+
+<p class="novel">문제가 있었다. 타임아웃 에러 코드가 500으로 올 때는 BottomSheet가 정상적으로 뜨지만, Gateway에서 504를 반환할 때는 에러 타입 분기가 빠져 있었다. 504는 도현이 테스트에서 커버하지 않은 케이스였다.</p>
+
+<div class="source-code">
+<div class="sc-title">error-boundary-fix.tsx — hotfix</div>
+<span class="sc-comment">// Before — 504 미처리</span><br>
+<span class="sc-keyword">if</span> (error.status === <span class="sc-string">500</span>) {<br>
+&nbsp;&nbsp;<span class="sc-keyword">return</span> &lt;<span class="sc-fn">PaymentErrorSheet</span> type=<span class="sc-string">"server"</span> /&gt;;<br>
+}<br>
+<br>
+<span class="sc-comment">// After — Gateway 타임아웃 처리 추가</span><br>
+<span class="sc-keyword">if</span> (error.status === <span class="sc-string">500</span> || error.status === <span class="sc-string">504</span>) {<br>
+&nbsp;&nbsp;<span class="sc-keyword">const</span> type = error.status === <span class="sc-string">504</span> ? <span class="sc-string">"timeout"</span> : <span class="sc-string">"server"</span>;<br>
+&nbsp;&nbsp;<span class="sc-keyword">return</span> &lt;<span class="sc-fn">PaymentErrorSheet</span> type={type} /&gt;;<br>
+}
+</div>
+
+<p class="novel">도현은 코드를 수정하고 PR을 올렸다.</p>
+
+<div class="terminal">
+<span class="t-prompt">$</span> git commit -m <span class="t-str">"fix(payment): Gateway 504 타임아웃 에러 바운더리 처리 추가"</span><br>
+<span class="t-key">✓ commitlint passed</span><br>
+<br>
+<span class="t-comment"># PR #4,583 — hotfix</span><br>
+<span class="t-key">Lines:</span> +8, -2<br>
+<span class="t-key">Reviewers:</span> @jaewon.park (expedited review)<br>
+</div>
+
+<p class="novel">재원이 3분 만에 Approve를 눌렀다. 장애 상황에서의 핫픽스는 일반 리뷰보다 빠르게 처리된다. 도현은 머지했다. CI가 돌고, 배포가 완료되었다.</p>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">한도현</span>
+    <span class="s-time">22:38</span>
+  </div>
+  <div class="s-body">504 에러 바운더리 핫픽스 배포 완료. 타임아웃 시 결제 실패 복구 BottomSheet 정상 표시 확인했습니다.</div>
+</div>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">정민호 (BE)</span>
+    <span class="s-time">22:52</span>
+  </div>
+  <div class="s-body">Kafka consumer 스케일 아웃 완료. p99 latency 380ms로 정상화. consumer lag 해소 중.</div>
+</div>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">박재원</span>
+    <span class="s-time">23:15</span>
+  </div>
+  <div class="s-body">전체 지표 정상 확인. 인시던트 종료합니다. 모두 수고하셨어요. 내일 오전 10시에 포스트모텀 합시다.</div>
+</div>
+
+<p class="novel">인시던트 종료. 22:07 발생, 23:15 해소. 1시간 8분. 사일로 8명 중 4명이 대응했다. 재원, 민호, 도현, 그리고 사일로 밖에서 합류한 인프라 엔지니어 1명.</p>
+
+<p class="novel">도현은 자리에 앉아 숨을 내쉬었다. 손이 약간 떨렸다. 자기가 만든 에러 바운더리에 구멍이 있었다. 504를 놓쳤다. 장애 중에 발견된 것이다. 다행히 빠르게 수정했지만, 자기 코드의 빈틈이 실전에서 드러난 경험은 처음이다.</p>
+
+<p class="novel">시니어 재원이 다가왔다.</p>
+
+<p class="dialogue">"수고했어요, 도현 님."</p>
+
+<p class="dialogue">"504를 놓친 건 죄송합니다. 테스트에서 커버했어야 하는데."</p>
+
+<p class="dialogue">"포스트모텀에서 다루면 됩니다. 에러 코드별 테스트 매트릭스를 정리해서 공유하면 다른 사일로에서도 참고할 수 있을 거예요. 실수에서 배우는 게 포스트모텀의 목적이니까요."</p>
+
+<p class="novel">포스트모텀. 사후 분석. 누구의 잘못인지를 따지는 자리가 아니라, 무엇이 잘못되었고, 어떻게 방지할 수 있는지를 정리하는 자리. 넥스트비전에서의 장애 대응은 달랐다.</p>
+
+<p class="internal">넥스트비전에서의 장애 대응. 도현 혼자, 새벽 3시, 아무도 모르게 고침. 장애가 있었다는 사실을 대표에게 보고하면, "왜 그런 거야?"라는 질문이 돌아왔다. "Kafka consumer lag이 — " 같은 설명은 불가능했다. 대표는 기술을 모르니까. "서버가 좀 느려졌는데 고쳤습니다"가 보고의 전부였다. 포스트모텀? 없었다. 장애 원인 분석? 도현 혼자 머릿속에서 했다. 기록? 없다. 재발 방지? "조심하자"가 전부였다.</p>
+
+<p class="novel">여기서의 장애 대응. 4명이 함께. 밤 10시. Slack에 실시간으로 상황이 공유된다. 해결되면 포스트모텀이 남는다. 원인, 타임라인, 조치사항, 재발 방지 계획이 문서로 정리된다. 다른 사일로에서도 참고한다.</p>
+
+<p class="novel">같은 야근이다. 같은 밤이다. 하지만 밀도가 다르다.</p>
+
+<p class="novel">밤 11시 30분. 도현은 편의점에 갔다. 28번째 방문이다. 컵라면을 골랐다. 삼각김밥을 골랐다. 0원. 뜨거운 물을 부으며 도현은 생각했다.</p>
+
+<p class="internal">넥스트비전에서의 야근은 혼자서 방향 없이 키보드를 두드리는 시간이었다. 옆에 아무도 없었고, 물어볼 사람도 없었고, 장애가 나면 나 혼자 해결해야 했다. 300원짜리 캔커피를 마시며 새벽 3시에 커밋했다. 여기서의 야근은 4명이 함께 장애를 대응하고, Slack에 실시간으로 상황을 공유하고, 포스트모텀을 예약하고, "수고했어요"라는 메시지를 받는 시간이다. 0원짜리 컵라면을 먹으며 밤 11시에 퇴근한다. 같은 야근인데 밀도가 다르다. 같은 컵라면인데 가격이 다르다.</p>
+
+<p class="novel">도현은 컵라면을 다 먹고 정리했다. 엘리베이터를 탔다. 사원증을 찍었다. 퇴근 시각: 23:41. 강남역으로 걸었다. 막차가 15분 뒤다. 오늘은 택시를 안 타도 된다.</p>
+
+<p class="novel">지하철 안에서 도현은 핸드폰을 꺼냈다. 김영수 대표에게 문자를 보냈다.</p>
+
+<p class="dialogue">"대표님, 오늘 장애 대응하느라 야근했어요. 편의점에서 컵라면 먹었습니다. 공짜예요. 근데 넥스트비전 300원짜리 캔커피가 생각나네요."</p>
+
+<p class="novel">1분 뒤 답장이 왔다.</p>
+
+<p class="dialogue">"ㅋㅋ 그래도 공짜가 낫잖아. 잘하고 있어 도현아."</p>
+
+<p class="novel">도현은 핸드폰을 주머니에 넣었다. 안양역에서 내렸다. 원룸까지 10분을 걸었다. 천장의 금이 거기 있었다. 냉장고 모터가 돌아갔다.</p>
+
+<p class="novel">내일 오전 10시. 포스트모텀. 504 에러 테스트 매트릭스를 정리해서 가져가야 한다. 도현은 노트북을 다시 열었다. 새벽 1시까지 에러 코드별 테스트 케이스 문서를 작성했다.</p>
+
+<p class="novel">넥스트비전에서는 이런 문서를 쓴 적이 없다. 아무도 요구하지 않았으니까. 여기서는 쓴다. 누군가 읽으니까.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>복지가 좋다는 건 사실이다<br><strong>쓸 겨를이 없다는 것도 사실이다</strong></h2>
+  <p class="sub">무료 편의점 27회. 전부 밤 9시 이후. 300원짜리 캔커피와 0원짜리 컵라면. 같은 야근인데, 밀도가 다르다.</p>
+</div>
+
+<footer class="footer">
+  <p>This is a work of fiction &middot; Characters and events are imaginary</p>
+  <p>Toss Benefits &middot; Blind Reviews &middot; Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

@@ -1,0 +1,692 @@
+---
+layout: layouts/article.njk
+pageTitle: "만들고 부수고"
+description: "6주간 3개를 만들었다. 2개는 죽었다. 1개가 살아남았다 — 애니메이션을 0.3초 줄인 것. 전환율 +0.7%. 여기서는 숫자가 판사다."
+datePublished: "2026-02-15"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* NOVEL PROSE */
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+
+  /* SCENE BREAK */
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+
+  /* DIALOGUE */
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+
+  /* INTERNAL MONOLOGUE */
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  /* SECTION DIVIDER */
+  .part-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .part-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+  }
+  .section-divider {
+    margin-top: 64px;
+    margin-bottom: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* TERMINAL BLOCK */
+  .terminal {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    background: #2a2a28;
+    color: #e8e4dc;
+    padding: 24px 28px;
+    margin: 32px 0;
+    overflow-x: auto;
+    border: 1px solid var(--fg);
+  }
+  .terminal .t-prompt { color: #6db36d; }
+  .terminal .t-comment { color: #8a8680; }
+  .terminal .t-error { color: #c43e2a; }
+  .terminal .t-warn { color: #d4a843; }
+  .terminal .t-key { color: #7cafc2; }
+  .terminal .t-str { color: #c9b97a; }
+
+  /* SOURCE CODE BLOCK */
+  .source-code {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.7;
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    padding: 24px 28px;
+    margin: 32px 0;
+    overflow-x: auto;
+    color: var(--prose);
+  }
+  .source-code .sc-title {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .source-code .sc-comment { color: var(--muted); }
+  .source-code .sc-keyword { color: var(--accent); font-weight: 600; }
+  .source-code .sc-string { color: #4a9a7a; }
+  .source-code .sc-fn { color: #7cafc2; }
+
+  /* DASHBOARD — A/B Test Results */
+  .dashboard {
+    border: 1px solid var(--rule);
+    margin: 40px 0;
+    overflow: hidden;
+  }
+  .dashboard .db-header {
+    padding: 16px 24px;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .dashboard .db-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 700;
+  }
+  .dashboard .db-period {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+  }
+  .dashboard .db-body {
+    padding: 24px;
+  }
+
+  /* METRIC CARD */
+  .metric-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 32px 0;
+  }
+  .metric-card {
+    background: var(--bg);
+    padding: 24px;
+    text-align: center;
+  }
+  .metric-card .mc-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .metric-card .mc-value {
+    font-family: var(--mono);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--fg);
+    line-height: 1.2;
+  }
+  .metric-card .mc-delta {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+  .mc-delta.negative { color: var(--accent); }
+  .mc-delta.positive { color: #4a9a7a; }
+
+  /* AB TEST COMPARISON */
+  .ab-compare {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0;
+    align-items: center;
+    margin: 24px 0;
+  }
+  .ab-group {
+    padding: 20px 24px;
+    text-align: center;
+  }
+  .ab-group .ab-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .ab-group .ab-metric {
+    font-family: var(--mono);
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .ab-group .ab-sub {
+    font-size: 0.82rem;
+    color: var(--secondary);
+    margin-top: 4px;
+  }
+  .ab-vs {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+    padding: 0 12px;
+  }
+  .ab-group.control .ab-metric { color: var(--fg); }
+  .ab-group.experiment .ab-metric { color: var(--accent); }
+
+  /* FEATURE LOG */
+  .feature-log {
+    display: grid;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0;
+  }
+  .feature-log-item {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    background: var(--bg);
+    align-items: center;
+  }
+  .fl-num {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 20px 0;
+    background: var(--card-bg);
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .fl-desc {
+    padding: 20px 24px;
+  }
+  .fl-desc .fl-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 2px;
+  }
+  .fl-desc .fl-detail {
+    font-size: 0.82rem;
+    color: var(--secondary);
+  }
+  .fl-status {
+    padding: 20px 24px;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: right;
+  }
+  .fl-status.killed { color: var(--accent); }
+  .fl-status.survived { color: #4a9a7a; }
+
+  /* SLACK MSG */
+  .slack-msg {
+    border: 1px solid var(--rule);
+    border-left: 3px solid #4a9a7a;
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .slack-msg .s-channel {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: #4a9a7a;
+    margin-bottom: 12px;
+  }
+  .slack-msg .s-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .slack-msg .s-name { font-size: 0.9rem; font-weight: 700; color: var(--fg); }
+  .slack-msg .s-time { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
+  .slack-msg .s-body { font-size: 0.95rem; line-height: 1.8; color: var(--prose); }
+  .slack-msg + .slack-msg { margin-top: -16px; }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .metric-row { grid-template-columns: 1fr; }
+    .ab-compare { grid-template-columns: 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+    .ab-vs { padding: 8px 0; text-align: center; background: var(--bg); }
+    .ab-group { background: var(--bg); }
+    .feature-log-item { grid-template-columns: 40px 1fr; }
+    .fl-status { grid-column: 1 / -1; padding: 0 24px 16px; text-align: left; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">toss reality — fiction 03</p>
+  <h1>만들고 <strong>부수고</strong></h1>
+  <p class="deck">6주간 3개를 만들었다. 2개는 죽었다.<br>살아남은 1개 — 애니메이션을 0.3초 줄인 것.</p>
+</header>
+
+<main>
+
+<!-- ───────── PART I ───────── -->
+
+<section>
+<div class="section-divider" style="border-top:none;margin-top:0;padding-top:0">
+  <p class="part-label">Part I</p>
+  <p class="part-title">"첫 번째 배포"</p>
+</div>
+
+<p class="novel novel-first">2027년 3월 24일 월요일 오전 10시 12분. 입사 6주차.</p>
+
+<p class="novel">도현은 PR을 올리는 속도가 빨라졌다. 300줄 이하. Conventional Commit. TDS 컴포넌트 먼저. React Query. 테스트 3개 이상. 2주 전까지 47건의 코멘트를 받았던 사람이, 이제는 평균 8~12건 수준으로 줄었다. 여전히 많다. 하지만 처음의 47건에 비하면 진전이다.</p>
+
+<p class="novel">PO 강서윤이 스프린트 리뷰에서 말했다.</p>
+
+<p class="dialogue">"도현 님이 맡은 카드 선택 UI 리뉴얼 건, 이번 스프린트에서 배포까지 가봅시다. 데이터팀이 A/B 테스트 세팅 완료했고요."</p>
+
+<p class="novel">A/B 테스트. 도현은 이 단어를 토스에 오기 전까지 개념으로만 알고 있었다. 사용자의 50%에게는 기존 UI(대조군)를, 나머지 50%에게는 새 UI(실험군)를 보여주고, 어느 쪽의 전환율이 높은지 측정하는 것. 넥스트비전에서는 불가능한 개념이었다. 사용자가 몇 명인지도 몰랐으니까. Google Analytics를 달긴 했지만, 김 대표가 한 달에 한 번 "요즘 사람들 많이 들어오나?"라고 물을 때만 열어봤다.</p>
+
+<p class="novel">도현의 기능은 결제 화면에서 카드를 선택하는 UI를 바꾸는 것이었다. 기존에는 드롭다운 리스트로 카드를 고르는 방식이었다. 도현이 만든 것은 카드를 가로로 스와이프하는 캐러셀 방식이다. 모바일에서 더 직관적이라는 판단이었다.</p>
+
+<p class="novel">3월 24일 오후 3시 07분. CI 테스트 전부 통과. PR Approve 2개. 머지.</p>
+
+<div class="terminal">
+<span class="t-comment"># CI/CD Pipeline — settlement-silo</span><br>
+<br>
+<span class="t-key">[14:42]</span> feat(payment): 카드 선택 캐러셀 UI 적용<br>
+<span class="t-key">[14:43]</span> <span class="t-prompt">✓</span> lint passed<br>
+<span class="t-key">[14:44]</span> <span class="t-prompt">✓</span> type-check passed<br>
+<span class="t-key">[14:46]</span> <span class="t-prompt">✓</span> unit tests passed (23/23)<br>
+<span class="t-key">[14:47]</span> <span class="t-prompt">✓</span> integration tests passed (8/8)<br>
+<span class="t-key">[14:48]</span> <span class="t-prompt">✓</span> build succeeded<br>
+<span class="t-key">[15:07]</span> merged to main<br>
+<span class="t-key">[15:08]</span> deploying to production...<br>
+<span class="t-key">[15:09]</span> <span class="t-prompt">✓</span> deployment complete<br>
+<span class="t-key">[15:09]</span> <span class="t-warn">A/B test group assigned: 50% control / 50% experiment</span>
+</div>
+
+<p class="novel">15시 09분. 도현의 코드가 프로덕션에 배포되었다. 실시간. 토스 결제를 사용하는 수백만 명의 사용자 중 절반에게 도현의 카드 선택 캐러셀이 보인다. 나머지 절반에게는 기존의 드롭다운이 보인다.</p>
+
+<p class="internal">넥스트비전에서는 배포가 사건이었다. FTP에 파일을 올리고, 새벽 2시에 "되나?" 확인하고, 안 되면 이전 파일을 다시 올리는 것이 롤백이었다. 여기서는 배포가 일상이다. main에 머지하면 자동으로 올라간다. 그리고 올라가는 순간 측정이 시작된다. 넥스트비전에서는 배포 후에 아무 일도 일어나지 않았다. 대표가 "괜찮네"라고 말하면 그것이 평가였다. 여기서는 배포 후에 진짜가 시작된다.</p>
+
+<p class="novel">데이터 분석가 윤하진이 사일로 채널에 메시지를 남겼다.</p>
+
+<div class="slack-msg">
+  <div class="s-channel"># settlement-silo</div>
+  <div class="s-header">
+    <span class="s-name">윤하진 (Data)</span>
+    <span class="s-time">15:22</span>
+  </div>
+  <div class="s-body">카드 선택 캐러셀 A/B 테스트 라이브 확인했습니다. 72시간 후 1차 리포트 드릴게요. 유의미한 데이터가 쌓이려면 최소 3일은 걸립니다.</div>
+</div>
+
+<p class="novel">72시간. 3일 동안 도현의 코드가 실험실에 놓인다. 실험 대상은 사용자다. 실험 도구는 숫자다. 실험 결과에 따라 도현의 코드가 살거나 죽는다.</p>
+
+<p class="novel">도현은 이 감각이 처음이었다. 넥스트비전에서는 코드가 죽는 법이 없었다. 한번 배포된 기능은 영원히 살아 있었다. 아무도 지우지 않았다. 아무도 측정하지 않았으니까. 사용자가 쓰든 안 쓰든 서버에 살아 있었다. 4년간 만든 기능 중에서 실제로 사용자가 쓰는 것이 몇 개인지 도현은 알지 못한다.</p>
+
+</section>
+
+<!-- ───────── PART II ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part II</p>
+  <p class="part-title">"마이너스 0.3%"</p>
+</div>
+
+<p class="novel novel-first">3월 27일 목요일 오전 10시. 스프린트 미팅. 데이터 분석가 윤하진이 화면을 공유했다.</p>
+
+<div class="dashboard">
+  <div class="db-header">
+    <span class="db-title">A/B Test Report — Card Selector Carousel</span>
+    <span class="db-period">2027.03.24 15:09 — 2027.03.27 09:00</span>
+  </div>
+  <div class="db-body">
+    <div class="ab-compare">
+      <div class="ab-group control">
+        <div class="ab-label">Control (Dropdown)</div>
+        <div class="ab-metric">12.4%</div>
+        <div class="ab-sub">전환율</div>
+      </div>
+      <div class="ab-vs">vs</div>
+      <div class="ab-group experiment">
+        <div class="ab-metric">12.1%</div>
+        <div class="ab-sub">전환율</div>
+      </div>
+    </div>
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="mc-label">전환율 차이</div>
+        <div class="mc-value">-0.3%</div>
+        <div class="mc-delta negative">실험군 열위</div>
+      </div>
+      <div class="metric-card">
+        <div class="mc-label">이탈률</div>
+        <div class="mc-value">+1.2%</div>
+        <div class="mc-delta negative">실험군 증가</div>
+      </div>
+      <div class="metric-card">
+        <div class="mc-label">p-value</div>
+        <div class="mc-value">0.03</div>
+        <div class="mc-delta negative">유의</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="novel">전환율 -0.3%. 이탈률 +1.2%. p-value 0.03. 통계적으로 유의한 결과. 도현의 캐러셀이 기존 드롭다운보다 나빴다.</p>
+
+<p class="novel">윤하진이 설명했다.</p>
+
+<p class="dialogue">"캐러셀 UI에서 사용자가 카드를 스와이프하다가 결제 버튼 근처에서 이탈하는 패턴이 관찰됐어요. 스와이프 제스처와 스크롤 제스처가 겹치면서 의도하지 않은 화면 이동이 발생한 것 같습니다."</p>
+
+<p class="novel">도현은 데이터를 보며 아무 말도 하지 못했다. 캐러셀이 더 직관적이라고 생각했다. 모바일에서 카드를 넘기는 것이 드롭다운을 펼치는 것보다 자연스럽다고 판단했다. 하지만 숫자는 달랐다. 사용자는 도현의 판단에 동의하지 않았다. 정확히는, 사용자의 행동이 도현의 가설을 부정했다.</p>
+
+<p class="novel">PO 강서윤이 말했다.</p>
+
+<p class="dialogue">"킬합시다. 다음 스프린트에서 다른 방향으로 접근해봐요."</p>
+
+<p class="novel">킬. 도현이 2주간 만든 기능을 죽이는 것이다. 강서윤의 표정에 감정이 없었다. 슬프지도, 화나지도, 미안하지도 않았다. 숫자가 -0.3%라고 말했고, 의사결정은 끝났다.</p>
+
+<p class="internal">내가 만든 코드가 3일 만에 죽었다. PR을 올리고, 코드 리뷰 받고, 수정하고, 다시 리뷰 받고, 테스트 쓰고, 배포하고. 2주간의 시간이 -0.3%라는 숫자 하나로 끝났다. 그런데 아무도 슬퍼하지 않는다. PO도, 데이터 분석가도, 시니어도. "킬합시다"라는 말이 "점심 뭐 먹을까요"와 같은 톤이었다.</p>
+
+<p class="novel">미팅이 끝나고 도현은 자리에서 움직이지 않았다. 시니어 박재원이 다가왔다.</p>
+
+<p class="dialogue">"도현 님, 첫 번째 킬이죠?"</p>
+
+<p class="dialogue">"네."</p>
+
+<p class="dialogue">"저도 처음에 좀 충격이었어요. 카카오에서는 한번 만든 기능을 킬하는 일이 드물었거든요. 여기서는 자주 있는 일입니다."</p>
+
+<p class="novel">도현이 물었다.</p>
+
+<p class="dialogue">"자주가 얼마나 자주인데요?"</p>
+
+<p class="dialogue">"사일로마다 다르지만, 만든 기능의 절반 이상이 킬되거나 롤백돼요. 저희 사일로 지난 분기 기능 12개 중 살아남은 건 5개였습니다."</p>
+
+<p class="novel">12개 중 5개. 절반도 안 된다. 넥스트비전에서는 도현이 4년간 만든 모든 기능이 살아 있다. 단 하나도 킬된 적이 없다. 아무도 측정하지 않았으니까. 측정하지 않으면 킬할 근거도 없다.</p>
+
+<p class="dialogue">"킬된 코드는 어떻게 되는 건가요?"</p>
+
+<p class="dialogue">"feature flag로 끕니다. 코드 자체는 당장 삭제하지 않고요. 나중에 비슷한 방향으로 재시도할 때 참고 코드로 쓸 수도 있거든요. 하지만 대부분은 결국 정리합니다."</p>
+
+<p class="internal">넥스트비전에서는 코드가 쌓였다. 쓰지 않는 기능, 호출되지 않는 API, 아무도 클릭하지 않는 버튼이 코드베이스에 화석처럼 박혀 있었다. 4년치 퇴적물. 여기서는 킬된 코드를 정리한다. 코드가 살아 있으려면 숫자로 증명해야 한다.</p>
+
+<div class="terminal">
+<span class="t-comment"># Feature Flag — kill card-selector-carousel</span><br>
+<br>
+<span class="t-prompt">$</span> toss-cli feature disable card-selector-carousel<br>
+<span class="t-key">Target:</span> production<br>
+<span class="t-key">Affected users:</span> 100% → 0% (experiment group)<br>
+<span class="t-key">Rollback:</span> immediate<br>
+<br>
+<span class="t-prompt">✓</span> Feature disabled. All users now see control (dropdown).<br>
+<span class="t-warn">Duration: 72h 14m (2027.03.24 15:09 → 2027.03.27 10:23)</span>
+</div>
+
+<p class="novel">72시간 14분. 도현의 첫 번째 기능이 살아 있었던 시간이다.</p>
+
+</section>
+
+<!-- ───────── PART III ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part III</p>
+  <p class="part-title">"6주, 3개, 1개"</p>
+</div>
+
+<p class="novel novel-first">4월 11일 금요일 오후 12시. 전사 위클리.</p>
+
+<p class="novel">도현이 토스에 입사한 지 6주가 되었다. 6주간의 성적표를 스스로 정리해보았다.</p>
+
+<p class="novel">만든 기능: 3개.</p>
+
+<div class="feature-log">
+  <div class="feature-log-item">
+    <div class="fl-num" style="color:var(--accent)">01</div>
+    <div class="fl-desc">
+      <div class="fl-title">카드 선택 캐러셀 UI</div>
+      <div class="fl-detail">결제 화면 카드 선택 방식 변경 (드롭다운 → 캐러셀)</div>
+    </div>
+    <div class="fl-status killed">killed</div>
+  </div>
+  <div class="feature-log-item">
+    <div class="fl-num" style="color:var(--accent)">02</div>
+    <div class="fl-desc">
+      <div class="fl-title">결제 수단 추천 배너</div>
+      <div class="fl-detail">사용 빈도 기반 결제 수단 상단 노출</div>
+    </div>
+    <div class="fl-status killed">killed</div>
+  </div>
+  <div class="feature-log-item">
+    <div class="fl-num" style="color:#4a9a7a">03</div>
+    <div class="fl-desc">
+      <div class="fl-title">결제 완료 애니메이션 최적화</div>
+      <div class="fl-detail">Lottie 애니메이션 렌더 시간 1.1초 → 0.8초 단축</div>
+    </div>
+    <div class="fl-status survived">survived</div>
+  </div>
+</div>
+
+<p class="novel">3개 중 2개가 킬되었다. 살아남은 것은 가장 작은 것이었다. 결제 완료 후 보여주는 체크마크 애니메이션을 0.3초 줄인 것. 도현은 이것을 "기능"이라고 부르기도 민망했다. 코드 변경량은 12줄이었다.</p>
+
+<div class="source-code">
+<div class="sc-title">payment-confirm-animation.tsx — diff</div>
+<span class="sc-comment">// Before</span><br>
+<span class="sc-keyword">const</span> <span class="sc-fn">animationConfig</span> = {<br>
+&nbsp;&nbsp;duration: <span class="sc-string">1100</span>, <span class="sc-comment">// 1.1초</span><br>
+&nbsp;&nbsp;renderer: <span class="sc-string">'svg'</span>,<br>
+&nbsp;&nbsp;loop: <span class="sc-keyword">false</span>,<br>
+};<br>
+<br>
+<span class="sc-comment">// After</span><br>
+<span class="sc-keyword">const</span> <span class="sc-fn">animationConfig</span> = {<br>
+&nbsp;&nbsp;duration: <span class="sc-string">800</span>, <span class="sc-comment">// 0.8초</span><br>
+&nbsp;&nbsp;renderer: <span class="sc-string">'canvas'</span>, <span class="sc-comment">// SVG → Canvas (렌더 성능)</span><br>
+&nbsp;&nbsp;loop: <span class="sc-keyword">false</span>,<br>
+};
+</div>
+
+<p class="novel">12줄. duration을 1100에서 800으로 바꾸고, renderer를 svg에서 canvas로 바꾼 것이 전부다. 이 12줄의 A/B 테스트 결과가 나왔다.</p>
+
+<div class="dashboard">
+  <div class="db-header">
+    <span class="db-title">A/B Test Report — Confirm Animation Optimization</span>
+    <span class="db-period">2027.04.04 — 2027.04.11</span>
+  </div>
+  <div class="db-body">
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="mc-label">전환율</div>
+        <div class="mc-value">+0.7%</div>
+        <div class="mc-delta positive">실험군 우위</div>
+      </div>
+      <div class="metric-card">
+        <div class="mc-label">이탈률</div>
+        <div class="mc-value">-0.4%</div>
+        <div class="mc-delta positive">실험군 감소</div>
+      </div>
+      <div class="metric-card">
+        <div class="mc-label">p-value</div>
+        <div class="mc-value">0.01</div>
+        <div class="mc-delta positive">유의</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="novel">전환율 +0.7%. 이탈률 -0.4%. p-value 0.01. 도현의 12줄이 통계적으로 유의한 개선을 만들었다.</p>
+
+<p class="novel">PO 강서윤이 말했다.</p>
+
+<p class="dialogue">"좋은 숫자네요. 유지합시다. 전체 사용자에게 롤아웃합니다."</p>
+
+<p class="novel">도현은 기뻤다. 동시에 혼란스러웠다. 2주간 공들여 만든 캐러셀 UI는 -0.3%로 죽었고, 반나절 만에 고친 애니메이션 속도는 +0.7%로 살아남았다. 투입 시간과 임팩트가 비례하지 않는다.</p>
+
+<p class="internal">넥스트비전에서 나는 "대표님이 원하는 기능"을 만들었다. 김 대표가 유튜브에서 본 것, 경쟁사 사이트에서 발견한 것, 거래처 사장님이 요청한 것. 그것이 사용자에게 유용한지는 아무도 확인하지 않았다. 여기서는 사용자가 확인해준다. 숫자로. 0.3초를 줄인 것이 UI 전체를 바꾼 것보다 효과가 컸다. 사용자는 카드 선택 방식이 아니라, 결제가 끝난 뒤의 0.3초를 더 신경 쓰고 있었다. 이것을 "직관"으로는 알 수 없었다. 숫자로만 알 수 있었다.</p>
+
+<p class="novel">윤하진이 추가 분석 결과를 공유했다.</p>
+
+<div class="slack-msg">
+  <div class="s-channel"># settlement-silo</div>
+  <div class="s-header">
+    <span class="s-name">윤하진 (Data)</span>
+    <span class="s-time">14:30</span>
+  </div>
+  <div class="s-body">0.7% 전환율 개선의 연간 매출 영향 추정: 약 2.4억 원 (토스페이먼츠 결제 트래픽 기준). 12줄짜리 코드치고 나쁘지 않은 ROI네요.</div>
+</div>
+
+<p class="novel">2.4억 원. 12줄. 도현은 이 숫자를 세 번 읽었다.</p>
+
+<p class="novel">넥스트비전에서 도현의 연봉은 3,800만 원이었다. 4년간 만든 기능의 매출 영향을 숫자로 증명한 적은 한 번도 없다. 여기서는 12줄로 연간 2.4억 원의 가치를 만들었다는 것이 숫자로 증명된다. 물론 0.3초를 줄인 것은 도현의 아이디어가 아니라, 박재원이 "이 애니메이션 좀 느린 것 같은데, 한번 건드려보시겠어요?"라고 던진 제안에서 출발한 것이지만.</p>
+
+<p class="dialogue">"재원 님이 제안해주신 건데요, 사실."</p>
+
+<p class="novel">재원이 고개를 저었다.</p>
+
+<p class="dialogue">"제안은 아무나 합니다. 코드를 짜고 테스트를 쓴 건 도현 님이에요."</p>
+
+</section>
+
+<!-- ───────── PART IV ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part IV</p>
+  <p class="part-title">"PO와 디자이너와 데이터"</p>
+</div>
+
+<p class="novel novel-first">4월 14일 월요일. 새 스프린트가 시작되었다.</p>
+
+<p class="novel">도현은 6주간 사일로의 의사결정 구조를 관찰했다. 넥스트비전과는 모든 것이 달랐다.</p>
+
+<p class="novel">넥스트비전에서의 의사결정은 이랬다. 김영수 대표가 유튜브를 본다. "이거 우리도 넣자." 도현이 만든다. 끝. 대표가 거래처에서 돌아온다. "이 기능 추가해줘." 도현이 만든다. 끝. 중간 과정이 없다. 분석이 없다. 데이터가 없다. 대표의 직관과 도현의 코드, 두 가지만 있었다.</p>
+
+<p class="novel">토스에서의 의사결정은 이랬다.</p>
+
+<p class="novel">PO 강서윤이 사일로 채널에 스프린트 백로그를 올린다. 기능 후보 5개. 각 후보에는 "예상 임팩트"와 "근거 데이터"가 붙어 있다. 디자이너 한소은이 프로토타입 2~3개를 Figma에 올린다. 도현을 포함한 FE 3명이 "이건 TDS로 가능, 이건 커스텀 필요, 이건 기술적으로 2주 이상"이라고 코멘트를 단다. BE 2명이 "이 기능은 API 변경 필요, 이건 기존 API로 가능"이라고 코멘트를 단다. 데이터 분석가 윤하진이 과거 A/B 테스트 결과를 기반으로 "이 방향은 이전에 시도했을 때 -0.2%였다"는 데이터를 붙인다.</p>
+
+<p class="novel">그리고 PO가 결정한다. CEO가 아니라 PO가. 사일로 안에서. 대표 보고 없이.</p>
+
+<p class="novel">이번 스프린트에서 강서윤은 "결제 실패 시 자동 재시도 UI"를 선택했다. 도현이 예상했던 것과 달랐다. 도현은 결제 수단 추천 배너의 재도전이 올 거라고 생각했다. 전 스프린트에서 킬된 기능의 변형을.</p>
+
+<p class="dialogue">"서윤 님, 결제 수단 추천 배너는 안 하나요? 방향을 좀 바꿔서 다시 시도하면—"</p>
+
+<p class="novel">강서윤이 대시보드를 가리켰다.</p>
+
+<p class="dialogue">"지난 분기 데이터를 보면, 결제 실패 후 이탈하는 사용자가 결제 수단 선택 단계에서 이탈하는 사용자보다 3배 많아요. 실패 복구 UX가 임팩트가 더 큽니다."</p>
+
+<p class="novel">3배. 숫자가 방향을 결정했다. 도현이 "이 기능이 더 좋을 것 같다"고 느끼는 것은 아무 의미가 없다. 데이터가 "이쪽이 3배 더 크다"고 말하면 그쪽으로 간다.</p>
+
+<p class="internal">넥스트비전의 김 대표는 유튜브를 보고 결정했다. 여기서는 대시보드를 보고 결정한다. 어느 쪽이 더 합리적인지는 안다. 데이터로 결정하는 것이 맞다. 하지만 어느 쪽이 더 견디기 쉬운지는 모르겠다. 김 대표의 "이거 해줘"에는 어쨌든 사람의 온도가 있었다. 비합리적이고, 근거 없고, 경쟁사 따라하기일 뿐이었지만. 여기서는 숫자가 결정하고, 숫자에는 온도가 없다.</p>
+
+<p class="novel">디자이너 한소은이 결제 실패 복구 UI의 프로토타입을 Figma에 올렸다. 도현이 프로토타입을 보며 물었다.</p>
+
+<p class="dialogue">"이 컴포넌트, TDS에 있나요?"</p>
+
+<p class="dialogue">"BottomSheet는 있는데, 에러 복구 전용 바텀시트는 없어요. FE 챕터에서 논의하면 어떨까요? 범용 에러 복구 UI가 있으면 다른 사일로에서도 쓸 수 있잖아요."</p>
+
+<p class="novel">FE 챕터. 동일 직군끼리 모여 기술 논의를 하는 조직 횡단 커뮤니티. 결제 사일로의 FE 3명만의 논의가 아니라, 토스 전체 FE 개발자들의 논의다. 도현은 아직 FE 챕터 미팅에 한 번도 발언한 적이 없다. 듣기만 했다. "TDS 컴포넌트를 새로 만들자"는 제안은 도현의 레벨에서 할 수 있는 것이 아니라고 느꼈다.</p>
+
+<p class="dialogue">"재원 님이 챕터에 안건으로 올려주실 수 있을까요?"</p>
+
+<p class="novel">재원이 고개를 끄덕였다.</p>
+
+<p class="dialogue">"네, 올리죠. 도현 님이 구현하시는 거니까 도현 님이 챕터에서 발표하면 좋겠는데요."</p>
+
+<p class="novel">도현은 2초간 입을 다물었다. FE 챕터에서 발표. 토스 전체 FE 개발자들 앞에서. 입사 6주차가.</p>
+
+<p class="dialogue">"제가요?"</p>
+
+<p class="dialogue">"여기서는 구현하는 사람이 발표합니다. 직급이 아니라 맥락이 기준이에요. 도현 님이 결제 실패 복구 UI를 가장 잘 아는 사람이잖아요."</p>
+
+<p class="novel">넥스트비전에서는 발표할 곳이 없었다. 개발자가 도현 혼자였으니까. 여기서는 발표할 곳이 있다. 그리고 그 자리에서 입사 6주차도 발언할 수 있다. "구현하는 사람이 발표한다." 직급이 아니라 맥락.</p>
+
+<p class="internal">넥스트비전에서 나는 "개발팀장 (팀원 0명)"이었다. 직함은 높고, 권한은 없고, 관객은 없었다. 여기서는 직함이 없고, 권한은 맥락에서 오고, 관객은 수십 명의 FE 개발자다. 어느 쪽이 더 무서운지 물으면, 확실히 여기다. 하지만 어느 쪽이 더 성장하는지 물으면, 그것도 확실히 여기다.</p>
+
+<p class="novel">금요일 오후 12시. 전사 위클리가 시작되었다. 매주 금요일, 전 직원이 모이는 자리. 각 사일로에서 이번 주 배포 결과와 데이터를 공유한다. 도현은 처음으로 자기 이름이 불리는 것을 들었다.</p>
+
+<p class="dialogue">"결제 사일로에서 이번 주 배포된 결제 완료 애니메이션 최적화, 전환율 +0.7%를 기록했습니다. 담당 개발자 한도현 님."</p>
+
+<p class="novel">100명이 넘는 사람이 모인 공간에서 도현의 이름이 불렸다. 화면에 +0.7%가 표시되었다. 도현은 박수를 받았다. 짧은 박수. 토스에서 매주 반복되는 일상적인 박수. 하지만 도현에게는 처음이었다.</p>
+
+<p class="novel">넥스트비전에서 도현의 코드가 인정받는 방식은 이랬다. 김 대표가 "됐네" 하고 고개를 끄덕이는 것. 그게 전부다. 4년간 박수를 받은 적은 없다. 넥스트비전에는 전사 위클리 같은 것이 없었으니까. 직원 12명이 전부인 회사에서 매주 모여 발표할 것은 없다.</p>
+
+<p class="internal">+0.7%. 이 숫자가 100명 앞에서 내 이름 옆에 붙었다. 12줄의 코드. 0.3초의 차이. 2.4억 원의 추정 매출 영향. 넥스트비전에서 나는 4년간 한 번도 내 코드의 가치를 숫자로 증명하지 못했다. 여기서는 6주 만에 숫자가 생겼다. 12줄짜리 숫자이긴 하지만.</p>
+
+<p class="novel">위클리가 끝나고 주 4.5일제의 금요일 오후가 시작되었다. 도현은 자리에 앉아 있었다. 주변을 둘러보았다. 사일로 8명 중 5명이 자리에 있었다. 금요일 오후인데. 강서윤은 다음 스프린트 백로그를 정리하고 있었고, 재원은 FE 챕터 안건을 작성하고 있었고, 윤하진은 대시보드를 보고 있었다.</p>
+
+<p class="novel">도현은 노트북을 닫지 않았다. 결제 실패 복구 UI의 구현을 시작했다. TDS BottomSheet 컴포넌트 문서를 열었다. 이번에는 커스텀 CSS 없이. 이번에는 TDS 먼저.</p>
+
+<p class="novel">금요일 오후 5시. 도현은 BottomSheet 기반 에러 복구 컴포넌트의 초안을 완성했다. 87줄. PR 크기에 딱 맞는 분량이다. 커밋 메시지를 썼다.</p>
+
+<div class="terminal">
+<span class="t-prompt">$</span> git commit -m <span class="t-str">"feat(payment): 결제 실패 복구 BottomSheet UI 초안"</span><br>
+<span class="t-key">✓ commitlint passed</span>
+</div>
+
+<p class="novel">도현은 PR을 올리지 않았다. 월요일에 올리기로 했다. 금요일 오후에 PR을 올리면 리뷰어가 주말에 볼 수도 있다. 그것은 토스에서 배운 것이 아니라, 넥스트비전에서 배운 것이다. 주말에 카톡으로 "이거 해놨어" 메시지를 받는 기분이 어떤지 도현은 안다.</p>
+
+<p class="novel">퇴근. 오후 5시 14분. 6주간 가장 이른 퇴근이다.</p>
+
+<p class="novel">강남역으로 걸어가면서 도현은 생각했다. 6주간 3개를 만들었다. 2개는 죽었다. 1개가 살아남았다. 살아남은 것은 가장 작은 것이었다. 0.3초. 12줄. +0.7%.</p>
+
+<p class="novel">넥스트비전에서는 크게 만드는 것이 좋은 것이었다. 기능이 많으면 대표가 좋아했다. "우리 시스템 기능 진짜 많다"가 영업 포인트였다. 여기서는 작게 만드는 것이 좋은 것이다. 작게 만들고, 빠르게 측정하고, 안 되면 빠르게 죽인다. 되면 빠르게 늘린다.</p>
+
+<p class="internal">6주간 배운 것. 만드는 것보다 측정하는 것이 중요하다. 측정하지 않으면 죽일 수도 없고, 살릴 수도 없다. 넥스트비전에서 4년간 만든 것들은 살아 있는 것이 아니라, 측정되지 않은 채 방치된 것이다. 살아 있는 것과 방치된 것은 다르다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>만드는 것보다 측정하는 것이<br><strong>더 중요한 세계에 왔다</strong></h2>
+  <p class="sub">6주, 3개, 2개 킬, 1개 생존. 0.3초, 12줄, +0.7%, 2.4억 원.</p>
+</div>
+
+<footer class="footer">
+  <p>This is a work of fiction &middot; Characters and events are imaginary</p>
+  <p>Toss Tech Blog &middot; A/B Testing &middot; Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

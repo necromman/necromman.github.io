@@ -1,0 +1,900 @@
+---
+layout: layouts/article.njk
+pageTitle: "사이닝 보너스"
+description: "투자는 오지 않았다. 6개월의 침묵 끝에, 268만 원짜리 개발팀장은 토스의 문을 두드린다. 사이닝 보너스 3,800만 원. 같은 손인데, 숫자만 바뀌었다."
+datePublished: "2026-02-15"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* NOVEL PROSE */
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+
+  /* SCENE BREAK */
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+
+  /* DIALOGUE */
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+
+  /* INTERNAL MONOLOGUE */
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  /* CHARACTER INTRO */
+  .char-intro {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 20px;
+    align-items: baseline;
+    margin: 40px 0 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .char-intro .c-name { font-size: 1.4rem; font-weight: 700; color: var(--fg); }
+  .char-intro .c-info { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
+
+  /* SECTION DIVIDER */
+  .part-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .part-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+  }
+  .section-divider {
+    margin-top: 64px;
+    margin-bottom: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* TERMINAL BLOCK */
+  .terminal {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    background: #2a2a28;
+    color: #e8e4dc;
+    padding: 24px 28px;
+    margin: 32px 0;
+    overflow-x: auto;
+    border: 1px solid var(--fg);
+  }
+  .terminal .t-prompt { color: #6db36d; }
+  .terminal .t-comment { color: #8a8680; }
+  .terminal .t-error { color: #c43e2a; }
+  .terminal .t-warn { color: #d4a843; }
+  .terminal .t-key { color: #7cafc2; }
+  .terminal .t-str { color: #c9b97a; }
+
+  /* KAKAO MESSAGE */
+  .kakao-msg {
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .kakao-msg .k-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .kakao-msg .k-name { font-size: 0.9rem; font-weight: 700; color: var(--fg); }
+  .kakao-msg .k-time { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
+  .kakao-msg .k-body { font-size: 0.95rem; line-height: 1.8; color: var(--prose); }
+  .kakao-msg .k-room {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .kakao-msg + .kakao-msg { margin-top: -16px; }
+
+  /* DOC EXCERPT */
+  .doc-excerpt {
+    border-left: 3px solid var(--rule);
+    background: var(--card-bg);
+    padding: 20px 24px;
+    margin: 32px 0;
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: var(--secondary);
+  }
+  .doc-excerpt .doc-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  /* COMPANY PROFILE */
+  .company-profile {
+    border: 2px solid var(--rule);
+    padding: 28px 32px;
+    margin: 40px 0;
+  }
+  .company-profile .cp-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .company-profile .cp-stat {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 16px;
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+  .company-profile .cp-label {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .company-profile .cp-value { color: var(--fg); }
+  .company-profile .cp-highlight { color: var(--accent); font-weight: 700; }
+
+  /* OFFER LETTER */
+  .offer-letter {
+    border: 2px solid var(--fg);
+    padding: 32px 36px;
+    margin: 40px 0;
+    text-align: center;
+  }
+  .offer-letter .ol-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+  .offer-letter .ol-company {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 24px;
+  }
+  .offer-letter .ol-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.95rem;
+    color: var(--prose);
+  }
+  .offer-letter .ol-row:last-child { border-bottom: none; }
+  .offer-letter .ol-label { color: var(--muted); text-align: left; }
+  .offer-letter .ol-value { font-weight: 700; text-align: right; }
+  .offer-letter .ol-accent { color: var(--accent); font-size: 1.2rem; }
+
+  /* SALARY COMPARE */
+  .salary-compare {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0;
+    margin: 40px 0;
+    border: 1px solid var(--rule);
+    background: var(--rule);
+  }
+  .salary-compare .sc-col {
+    background: var(--bg);
+    padding: 28px 24px;
+    text-align: center;
+  }
+  .salary-compare .sc-arrow {
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 1.2rem;
+    color: var(--muted);
+  }
+  .salary-compare .sc-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .salary-compare .sc-amount {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 4px;
+  }
+  .salary-compare .sc-detail {
+    font-size: 0.82rem;
+    color: var(--secondary);
+    line-height: 1.6;
+  }
+  .salary-compare .sc-accent { color: var(--accent); }
+
+  /* SLACK MSG */
+  .slack-msg {
+    border: 1px solid var(--rule);
+    border-left: 3px solid #4a9a7a;
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .slack-msg .s-channel {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: #4a9a7a;
+    margin-bottom: 12px;
+  }
+  .slack-msg .s-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .slack-msg .s-name { font-size: 0.9rem; font-weight: 700; color: var(--fg); }
+  .slack-msg .s-time { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
+  .slack-msg .s-body { font-size: 0.95rem; line-height: 1.8; color: var(--prose); }
+  .slack-msg + .slack-msg { margin-top: -16px; }
+
+  /* EMAIL NOTIFICATION */
+  .email-notif {
+    border: 1px solid var(--rule);
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .email-notif .en-from {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .email-notif .en-subject {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 8px;
+  }
+  .email-notif .en-body {
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: var(--secondary);
+  }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .char-intro { grid-template-columns: 1fr; }
+    .company-profile .cp-stat { grid-template-columns: 1fr; }
+    .offer-letter .ol-row { flex-direction: column; gap: 4px; }
+    .salary-compare { grid-template-columns: 1fr; }
+    .salary-compare .sc-arrow {
+      justify-content: center;
+      padding: 8px 0;
+      font-size: 0;
+    }
+    .salary-compare .sc-arrow::after {
+      content: '\2193';
+      font-size: 1.2rem;
+    }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">toss reality — fiction 01</p>
+  <h1>사이닝 <strong>보너스</strong></h1>
+  <p class="deck">투자는 오지 않았다. 6개월의 침묵 끝에,<br>268만 원짜리 개발팀장은 토스의 문을 두드린다.</p>
+</header>
+
+<main>
+
+<!-- ───────── PART I ───────── -->
+
+<section>
+<div class="section-divider" style="border-top:none;margin-top:0;padding-top:0">
+  <p class="part-label">Part I</p>
+  <p class="part-title">"6개월의 침묵"</p>
+</div>
+
+<div class="char-intro">
+  <span class="c-name">한도현</span>
+  <span class="c-info">35 · ex-dev team lead · nextvision · anyang</span>
+</div>
+
+<p class="novel novel-first">2026년 8월 19일 월요일 오전 7시 42분. 경기도 안양시 만안구.</p>
+
+<p class="novel">알람이 울렸다. 도현은 눈을 뜨고 천장을 보았다. 원룸 천장의 금이 여전히 거기 있었다. 6개월 전에도 이 금을 보면서 잠들었다. 새벽 4시 3분에 사업계획서 이메일을 보내고, 냉장고 모터 소리를 들으며 잠든 그 밤에도.</p>
+
+<p class="novel">투자는 오지 않았다.</p>
+
+<p class="novel">정확히는, 2주 뒤에 이정민 대표로부터 메일이 왔다. 42페이지를 읽었다는 증거가 있는 정중한 메일이었다.</p>
+
+<div class="email-notif">
+  <div class="en-from">From: jm.lee@bluebridge.vc</div>
+  <div class="en-subject">Re: [넥스트비전] AI 견적 자동화 서비스 QuoteMate 사업계획서</div>
+  <div class="en-body">
+    한도현 님,<br><br>
+    보내주신 자료 잘 검토했습니다. QuoteMate의 비용 구조는 인상적이었고,
+    특히 $5/월 운영 모델은 기존 SaaS 투자 건에서 보기 어려운 수준입니다.<br><br>
+    다만, 현 시점에서 저희 포트폴리오 방향과 시장 타이밍이 맞지 않아
+    이번 라운드에서는 함께하기 어려울 것 같습니다.<br><br>
+    향후 트랙션이 생기시면 다시 연락 주시면 감사하겠습니다.<br><br>
+    이정민 드림
+  </div>
+</div>
+
+<p class="novel">"시장 타이밍이 맞지 않아." 도현은 이 문장을 열일곱 번 읽었다. 투자업계에서 이것은 "No"를 의미한다. 정중한 "No". 42페이지를 읽어준 것만으로도 예의 바른 거절이었다.</p>
+
+<p class="internal">3억 원을 요구했다. 연매출 8억짜리 회사에서, 개인 카드로 29,000원짜리 Claude Pro를 결제하던 사람이. Supabase 무료 티어 500MB 안에 데이터를 우겨넣던 사람이. 지금 생각하면 이정민 대표가 "비용 구조가 인상적"이라고 한 건 칭찬이 아니라, 0원 스택으로 버틴 것에 대한 놀라움이었을 것이다.</p>
+
+<p class="novel">도현은 이메일을 받은 날 대표 김영수에게 보고했다. 대표는 의외로 담담했다.</p>
+
+<p class="dialogue">"그래, 원래 그런 거야. 투자가 쉬우면 다 하지." 대표가 캔커피를 따며 말했다. 300원짜리. 도현과 같은 것.</p>
+
+<p class="dialogue">"죄송합니다, 대표님."</p>
+
+<p class="dialogue">"뭐가 미안해. 네가 잘못한 게 아닌데."</p>
+
+<p class="novel">대표는 창밖을 보며 말했다.</p>
+
+<p class="dialogue">"메타버스 때도 그랬고, 블록체인 때도 그랬고. 매번 새로운 거 한다고 설치다가 안 되면 잊어버리고. 나도 안다, 내가 그래."</p>
+
+<p class="novel">도현은 대답하지 않았다. 대표가 이렇게 솔직한 것은 처음이었다.</p>
+
+<p class="dialogue">"근데 이번엔 좀 달랐어. QuoteMate인가 뭔가, 그게 진짜 돌아가는 거 보니까." 대표가 캔커피를 한 모금 마셨다. "좀 아깝다."</p>
+
+<p class="novel">도현은 그 말이 진심인 줄 알았다. 하지만 3일 뒤 대표는 새로운 유튜브 영상 링크를 단톡에 올렸다. "AI 에이전트로 영업 자동화하는 법". 세상은 돌아간다. 대표의 알고리즘도.</p>
+
+<p class="novel">QuoteMate는 도현의 노트북에 남았다. Supabase 무료 티어는 7일 미사용으로 일시정지되었고, 도현은 복구 버튼을 누르지 않았다. 500MB의 데이터가 잠들었다.</p>
+
+<p class="novel">그리고 5개월이 지났다.</p>
+
+<p class="novel">5개월 동안 달라진 것은 없었다. 도현은 여전히 8시 47분에 출근했고, 자판기 커피를 뽑았고, 프린터를 고쳤고, ERP 오류를 수정했다. 연봉 협상 시기가 왔고, 3,800만 원이 3,900만 원이 되었다. 100만 원. 세후 월 7만 원 인상. 자판기 커피 233잔 분량.</p>
+
+<p class="internal">5개월 동안 달라진 것이 하나 있다. 사업계획서를 쓰던 밤들이 남긴 것. 42페이지를 혼자 만들어낸 뒤에 남은 것. "나는 만들 수 있는 사람이다"라는 확신이 아니라, "나는 여기서 더 배울 게 없다"는 자각. 넥스트비전의 한계가 아니라, 넥스트비전에 있는 한도현의 한계가 보이기 시작했다.</p>
+
+<p class="novel">8월의 어느 퇴근길. 도현은 안양역 지하철 플랫폼에서 휴대폰을 보고 있었다. 블라인드 앱을 열었다. 습관적으로. "연봉" 탭을 눌렀다. 네이버 5년차 8,000만 원. 카카오 4년차 7,500만 원. 토스 3년차 7,200만 원.</p>
+
+<p class="internal">토스 3년차 7,200만 원. 내 5년차 3,900만 원. 1.85배. 같은 나라, 같은 직업, 같은 언어로 코드를 쓰는 사람인데. 그 차이가 연봉으로 번역되면 1.85배다.</p>
+
+<p class="novel">지하철이 왔다. 도현은 탔다. 자리가 없어서 손잡이를 잡고 서 있었다. 블라인드 앱을 닫고, 노트 앱을 열었다. 빈 페이지에 한 줄을 썼다.</p>
+
+<p class="novel">"이력서를 쓰자."</p>
+
+</section>
+
+<!-- ───────── PART II ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part II</p>
+  <p class="part-title">"개발팀장 (팀원 0명)"</p>
+</div>
+
+<p class="novel novel-first">9월 3일 수요일 밤 11시. 도현의 원룸.</p>
+
+<p class="novel">이력서를 쓰는 것은 코딩보다 어려웠다. 코드는 동작하면 증명이 되지만, 이력서는 경험을 문장으로 포장해야 한다. 도현의 경험은 포장이 어려운 종류였다.</p>
+
+<div class="terminal">
+<span class="t-comment"># 이력서 — 경력사항</span><br>
+<br>
+<span class="t-prompt">회사</span> (주)넥스트비전 (2022.03 ~ 현재)<br>
+<span class="t-prompt">직위</span> 개발팀장<br>
+<span class="t-prompt">주요 업무</span><br>
+<span class="t-key">- 풀스택 웹 개발</span> (Next.js, PHP, jQuery, MySQL)<br>
+<span class="t-key">- ERP 시스템 유지보수</span> (자체 개발, 10년치 레거시)<br>
+<span class="t-key">- 서버/네트워크 관리</span> (Linux, Windows Server)<br>
+<span class="t-key">- SI 하청 프로젝트 수행</span> (연 3~4건)<br>
+<span class="t-warn">- PC 수리, 프린터 관리, 와이파이 문제 해결</span><br>
+<span class="t-warn">- 인사/총무 보조 업무</span><br>
+<br>
+<span class="t-comment"># 사이드 프로젝트</span><br>
+<span class="t-key">- QuoteMate</span> AI 견적 자동화 서비스 (MVP)<br>
+&nbsp;&nbsp;Next.js 14 + Supabase + OpenRouter + Netlify<br>
+&nbsp;&nbsp;월 운영비 $5, 엔젤 투자자 데모 완료<br>
+</div>
+
+<p class="novel">도현은 이력서를 보며 한숨을 쉬었다. "PC 수리, 프린터 관리, 와이파이 문제 해결." 이것을 적어야 하나 말아야 하나. 적으면 솔직하지만 인상이 나빠지고, 안 적으면 4년간 뭘 했는지 설명이 안 된다. 결국 지웠다. 대신 "인프라 운영 관리"라고 바꿨다. 프린터 고치는 것도 넓은 의미에서는 인프라다.</p>
+
+<p class="internal">대기업 면접관이 이 이력서를 보면 뭐라고 할까. "팀원 0명인데 팀장이요?" "ERP 유지보수는 레거시 경험이지 성장 경험이 아닙니다." "SI 하청은 저희가 찾는 경력과 좀 다르네요." 면접 전에 이미 불합격 시나리오가 보인다.</p>
+
+<p class="novel">9월부터 12월까지. 4개월 동안 도현은 퇴근 후와 주말을 이용해 이력서를 보내고, LeetCode를 풀고, 포트폴리오를 정리했다. Claude Pro 구독은 유지했다. 29,000원. 이번에는 이력서 첨삭과 코딩 테스트 연습에 썼다. 여전히 개인 카드다.</p>
+
+<p class="novel">세 곳에 지원했다. 세 곳 모두 경력직 채용이었다.</p>
+
+<p class="novel">첫 번째. 중견 SaaS 기업. 서류 합격, 코딩 테스트 합격, 1차 면접 불합격. 면접관의 질문: "팀 리드 경험이 있으시다고 했는데, 팀원이 몇 명이었나요?" 도현의 대답: "0명이었습니다." 면접관의 침묵이 3초 이상 지속되었다. 1주일 뒤 불합격 메일이 왔다.</p>
+
+<p class="novel">두 번째. 핀테크 스타트업. 서류 합격, 코딩 테스트 합격, 기술 면접 합격, 문화 면접 불합격. 문화 면접에서의 질문: "5명 규모의 프론트엔드 팀을 리드할 수 있으신가요?" 도현의 솔직한 대답: "리드 경험은 없습니다. 하지만 혼자서 전체 스택을 운영한 경험이 있습니다." 면접관의 미소가 살짝 어색해졌다. "저희는 지금 '함께 일하는 경험'이 중요한 시점이라서요."</p>
+
+<p class="novel">세 번째. 대형 SI 기업. 합격. 연봉 4,200만 원. 도현은 합격 통보를 받고 5초 동안 기뻤다. 그리고 직무 설명서를 다시 읽었다. "공공기관 SI 프로젝트 참여, 요구사항 분석, 설계 문서 작성, 코드 리뷰." SI다. 넥스트비전에서 하던 일의 규모만 커진 버전이다. 연봉은 300만 원 올랐지만 본질은 같았다.</p>
+
+<p class="novel">도현은 그 합격을 수락하지 않았다.</p>
+
+<p class="internal">3,900만 원에서 4,200만 원으로. 세후 월 22만 원 인상. 자판기 커피 733잔. 이것을 위해 회사를 옮기는 것은 이직이 아니라 횡이동이다. 같은 수준의 다른 의자로 옮겨 앉는 것.</p>
+
+<p class="novel">12월 말. 도현은 거의 포기하고 있었다. 면접에서 "팀원 0명"이라고 대답할 때마다 면접관의 표정이 바뀌는 것을 세 번 보았다. 중소기업 5년차의 이력서는 대기업 문을 여는 열쇠가 아니었다.</p>
+
+<p class="novel">그때 광고가 떴다. 프로그래머스 앱의 배너 광고.</p>
+
+<p class="novel">"2027 토스 NEXT 개발자 챌린지. 경력 3년 이하. 실무 이력보다 기술 가능성."</p>
+
+<p class="novel">도현은 그 배너를 3초 동안 바라보았다. "경력 3년 이하." 도현은 5년차다. 해당 안 된다. 하지만 "실무 이력보다 기술 가능성"이라는 문장이 눈에 걸렸다. 세부 요건을 클릭했다.</p>
+
+<div class="doc-excerpt">
+  <div class="doc-title">toss next developer challenge 2027</div>
+  경력 3년 이하 개발자 대상. 단, 비전공자 또는 비전통적 경력의 개발자도 지원 가능. 코딩 테스트와 기술 면접을 통해 <strong>기술적 가능성</strong>을 확인합니다. 이력서의 줄 수가 아니라, 문제를 해결하는 방식을 봅니다.
+</div>
+
+<p class="novel">"비전통적 경력." 도현의 경력이 비전통적인지는 모르겠지만, 전통적이지 않은 것은 확실했다. 4년 동안 혼자서 풀스택 + 서버 + ERP + PC 수리를 한 경력은 어떤 분류에도 깔끔하게 들어가지 않는다.</p>
+
+<p class="novel">도현은 지원 버튼을 눌렀다. 포트폴리오란에 QuoteMate의 GitHub 링크를 넣었다. Supabase가 잠들어 있어서 데모는 동작하지 않지만, 코드는 남아 있다. $5짜리 MVP의 코드가.</p>
+
+<p class="internal">될 리가 없다. 토스다. 연봉 7,000만 원짜리 회사다. 카페가 무료인 회사다. 그런 곳에 자판기 커피 300원 출신이 가겠다고? 하지만 지원서를 내는 데 드는 비용은 0원이다. 넥스트비전에서 배운 것이 하나 있다면, 0원으로 시도하는 법이다.</p>
+
+</section>
+
+<!-- ───────── PART III ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part III</p>
+  <p class="part-title">"2시간 30분"</p>
+</div>
+
+<p class="novel novel-first">2027년 1월 11일 토요일 오전 9시 55분.</p>
+
+<p class="novel">프로그래머스 코딩 테스트 페이지가 화면에 떠 있었다. 10시 시작. 7문제. 2시간 30분. 도현은 넥스트비전 사무실이 아닌 집의 22인치 모니터 앞에 앉아 있었다. 모니터 옆에는 물 한 잔과 초콜릿 바 한 개가 있었다. 자판기 커피 대신.</p>
+
+<p class="novel">4개월간 LeetCode를 매일 2문제씩 풀었다. 퇴근 후 밤 10시부터 새벽 1시까지. Easy 120문제, Medium 80문제. Hard는 10문제에서 포기했다. 넥스트비전의 업무를 하면서, SI 납기를 맞추면서, 프린터를 고치면서. 도현의 하루에 남는 3시간은 전부 코딩 테스트 준비에 들어갔다.</p>
+
+<p class="novel">10시. 시험이 시작되었다. 첫 번째 문제: 배열 정렬. Easy. 4분. 두 번째: 문자열 파싱. Easy. 7분. 세 번째: 그래프 탐색. Medium. 18분. 네 번째: 동적 프로그래밍. Medium. 35분. 여기서 땀이 났다. 다섯 번째: API 응답 최적화 시나리오. 이것은 알고리즘이 아니라 실무 판단 문제였다. "주어진 API가 이런 조건에서 병목이 생길 때, 어떻게 해결하겠는가." 도현은 이 문제가 좋았다. LeetCode에서 배운 것이 아니라, 넥스트비전에서 배운 것으로 풀 수 있는 문제였다. 22분.</p>
+
+<p class="novel">여섯 번째와 일곱 번째는 시간이 부족했다. 여섯 번째는 부분 점수를 받았고, 일곱 번째는 빈 칸으로 제출했다. 5문제 완전 풀이, 1문제 부분 풀이, 1문제 미풀이. 도현은 노트북을 닫으며 생각했다. 안 될 것 같다.</p>
+
+<p class="novel">3일 뒤 메일이 왔다. "코딩 테스트를 통과하셨습니다. 기술 면접 일정을 안내드립니다."</p>
+
+<p class="novel">도현은 메일을 두 번 읽었다.</p>
+
+<p class="scene-break">&middot;&middot;&middot;</p>
+
+<p class="novel novel-first">1월 18일 수요일 오후 2시. 토스 본사.</p>
+
+<p class="novel">도현은 면접실에 앉아 있었다. 맞은편에 두 명의 면접관이 있었다. 시니어 프론트엔드 개발자와 엔지니어링 매니저. 둘 다 도현보다 어려 보였다. 면접 시간: 2시간.</p>
+
+<p class="novel">면접관이 노트북을 열더니 화면을 도현 쪽으로 돌렸다. GitHub 페이지가 열려 있었다. QuoteMate 레포지토리.</p>
+
+<p class="dialogue">"도현 님, QuoteMate 코드를 보고 왔습니다. 몇 가지 여쭤볼게요."</p>
+
+<p class="novel">도현의 심장이 빨라졌다. QuoteMate 코드를 미리 봤다. 그 코드에는 새벽 2시에 졸면서 쓴 부분도 있고, 데모 당일에 급하게 추가한 에러 핸들링도 있고, Supabase 500MB 제한 때문에 억지로 최적화한 쿼리도 있다.</p>
+
+<p class="dialogue">"이 API Route에서 OpenRouter를 호출하시는데, fallback 로직이 있네요. 무료 모델 실패 시 유료 모델로 전환하는 구조인데, 이건 왜 이렇게 짰나요?"</p>
+
+<p class="novel">도현은 잠시 생각했다. 솔직하게 말할지, 포장할지.</p>
+
+<p class="dialogue">"투자자 데모 중에 무료 모델의 rate limit에 걸렸습니다. 데모가 터지기 직전에 터미널에서 환경변수를 바꿔서 유료 모델로 전환했습니다. 그 뒤에 코드 레벨에서 자동 fallback을 추가한 겁니다."</p>
+
+<p class="novel">면접관 두 명이 동시에 웃었다. 도현은 이것이 좋은 웃음인지 나쁜 웃음인지 판단할 수 없었다.</p>
+
+<p class="dialogue">"라이브 디버깅을 데모에서 하신 거예요?"</p>
+
+<p class="dialogue">"네. 투자자 앞에서 cat .env.local을 쳤습니다."</p>
+
+<p class="novel">엔지니어링 매니저가 고개를 끄덕였다.</p>
+
+<p class="dialogue">"Supabase를 쓰셨는데, RLS 설정을 직접 하셨네요. 보통 무료 티어에서는 RLS까지 신경 안 쓰는 경우가 많은데."</p>
+
+<p class="dialogue">"보안은 무료 티어든 유료 티어든 중요하다고 생각했습니다."</p>
+
+<p class="dialogue">"근데 여기 인덱스가 빠져 있는 테이블이 있어요."</p>
+
+<p class="dialogue">"500MB 안에 넣어야 해서 인덱스를 최소화했습니다. 데이터가 1만 건 미만이라 풀스캔이 크게 느리지 않을 거라고 판단했습니다."</p>
+
+<p class="dialogue">"1만 건이면 괜찮죠. 근데 10만 건이면요?"</p>
+
+<p class="dialogue">"인덱스를 추가하고, 쿼리를 커서 기반 페이지네이션으로 바꿔야 합니다. 그 시점이면 Supabase Pro로 올려야 하고, 월 $25가 됩니다."</p>
+
+<p class="novel">면접관이 메모를 했다. 도현은 그 메모가 무엇인지 볼 수 없었다.</p>
+
+<p class="novel">2시간이 지났다. 면접이 끝났다. 도현은 면접실을 나오며 로비를 보았다. 넓었다. 카페가 보였다. 사람들이 노트북을 들고 소파에 앉아 있었다. 넥스트비전의 2층 사무실 전체보다 이 로비가 넓었다.</p>
+
+<p class="scene-break">&middot;&middot;&middot;</p>
+
+<p class="novel novel-first">1월 22일 월요일 오후 3시. 문화적합성 면접.</p>
+
+<p class="novel">면접실에는 한 명의 면접관만 있었다. 토스 피플팀. 커피를 한 잔 건네주었다. 도현은 기계에서 뽑은 것이 아닌, 바리스타가 내린 커피를 면접장에서 처음 마셔봤다.</p>
+
+<p class="dialogue">"편하게 대화합시다. 도현 님, 왜 토스에 오고 싶으세요?"</p>
+
+<p class="novel">도현은 준비한 답변이 있었다. 토스의 기술 문화에 대한 존경, 성장에 대한 열망, 사일로 조직의 자율성. 하지만 입에서 나온 것은 준비한 문장이 아니었다.</p>
+
+<p class="dialogue">"4년 동안 혼자 만들었습니다. 코드 리뷰를 받은 적이 없습니다. PR이라는 걸 안 쓰고 main에 직접 push했습니다. 테스트도 안 썼습니다. 동작하면 끝이었습니다."</p>
+
+<p class="novel">면접관이 도현을 보았다. 도현은 이어서 말했다.</p>
+
+<p class="dialogue">"그렇게 만든 것 중에 하나가 투자자 데모까지 갔습니다. 동작은 했습니다. 하지만 저는 그 코드가 좋은 코드인지 모릅니다. 판단해줄 사람이 없었으니까요."</p>
+
+<p class="novel">도현은 잠시 멈추었다가 말했다.</p>
+
+<p class="dialogue">"이제 제대로 만드는 법을 배우고 싶습니다. 코드 리뷰를 받고 싶습니다. 동작하는 것이 아니라 좋은 코드를 쓰고 싶습니다."</p>
+
+<p class="novel">면접관이 웃었다. 이번에는 그것이 좋은 웃음이라는 것을 알 수 있었다.</p>
+
+<p class="dialogue">"도현 님, 토스에서는 PR을 올리면 코멘트가 수십 개 달립니다. 괜찮으시겠어요?"</p>
+
+<p class="dialogue">"괜찮습니다. 그게 목적이니까요."</p>
+
+<p class="novel">면접은 1시간 10분 동안 이어졌다. 커피챗 같은 분위기였다. 면접관이 마지막으로 물었다.</p>
+
+<p class="dialogue">"혹시 토스에 대해 궁금한 거 있으세요?"</p>
+
+<p class="dialogue">"편의점이 정말 무료인가요?"</p>
+
+<p class="novel">면접관이 웃었다.</p>
+
+<p class="dialogue">"네, 무료예요. 24시간."</p>
+
+<p class="internal">넥스트비전에서는 자판기 커피가 300원이었다. 여기서는 편의점이 무료다. 같은 나라, 같은 직업인데.</p>
+
+</section>
+
+<!-- ───────── PART IV ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part IV</p>
+  <p class="part-title">"3,800만 원"</p>
+</div>
+
+<p class="novel novel-first">1월 23일 화요일 오후 5시 17분. 넥스트비전 사무실.</p>
+
+<p class="novel">도현은 ERP 거래처 코드를 수정하고 있었다. 프린터는 오늘 고장나지 않았다. 대표의 카톡은 오후에 한 건 왔다. "이거 봐봐" + AI 유튜브 링크. 평범한 화요일이었다.</p>
+
+<p class="novel">휴대폰이 진동했다. 발신자: 모르는 번호. 도현은 보통 모르는 번호를 받지 않지만, 이번에는 받았다. 어제 면접을 본 직후라서.</p>
+
+<p class="dialogue">"안녕하세요, 비바리퍼블리카 인재영입팀입니다."</p>
+
+<p class="novel">도현의 손이 마우스를 놓았다.</p>
+
+<p class="dialogue">"한도현 님, 이번 토스 NEXT 개발자 챌린지 전형 결과를 안내드리려고 연락드렸습니다."</p>
+
+<p class="novel">도현은 ERP 화면을 보고 있었다. 넥스트비전의 10년치 거래처 데이터가 22인치 모니터에 표시되어 있었다. 멤브레인 키보드 위에 손이 올려져 있었다. 사무실 시계가 5시 18분을 가리키고 있었다.</p>
+
+<p class="dialogue">"합격이십니다. 축하드립니다."</p>
+
+<p class="novel">도현은 2초 동안 아무 말도 하지 못했다.</p>
+
+<p class="dialogue">"감사합니다."</p>
+
+<p class="novel">전화가 끝난 뒤 도현은 화장실에 갔다. 거울을 보았다. 35세. 눈 밑의 다크서클은 여전했다. 4개월간 LeetCode를 풀고, 이력서를 고치고, 면접을 보면서 생긴 것 위에, 원래부터 있던 것이 겹쳐 있었다. 거울 속의 얼굴은 축하를 받아야 할 표정이 아니라, 믿기지 않는다는 표정이었다.</p>
+
+<p class="novel">자리에 돌아오니 메일이 와 있었다.</p>
+
+<div class="offer-letter">
+  <div class="ol-title">offer letter</div>
+  <div class="ol-company">비바리퍼블리카 (토스)</div>
+  <div class="ol-row">
+    <span class="ol-label">포지션</span>
+    <span class="ol-value">프론트엔드 개발자</span>
+  </div>
+  <div class="ol-row">
+    <span class="ol-label">소속</span>
+    <span class="ol-value">토스페이먼츠</span>
+  </div>
+  <div class="ol-row">
+    <span class="ol-label">기본 연봉</span>
+    <span class="ol-value ol-accent">72,000,000원</span>
+  </div>
+  <div class="ol-row">
+    <span class="ol-label">사이닝 보너스</span>
+    <span class="ol-value ol-accent">38,000,000원</span>
+  </div>
+  <div class="ol-row">
+    <span class="ol-label">사이닝 보너스 산정</span>
+    <span class="ol-value">전 직장 연봉 100% (최대 1억 원)</span>
+  </div>
+  <div class="ol-row">
+    <span class="ol-label">지급 시점</span>
+    <span class="ol-value">입사 후 첫 급여일에 일시 지급</span>
+  </div>
+  <div class="ol-row">
+    <span class="ol-label">입사일</span>
+    <span class="ol-value">2027년 2월 10일 (월)</span>
+  </div>
+</div>
+
+<p class="novel">7,200만 원. 도현의 넥스트비전 연봉 3,900만 원의 1.85배. 세후 월급으로 환산하면 약 480만 원. 268만 원에서 480만 원으로. 같은 사람이다. 같은 손으로 같은 키보드를 치는 사람이다. 어제까지 프린터를 고치던 손이다.</p>
+
+<p class="novel">사이닝 보너스 3,800만 원. 넥스트비전에서의 연봉 전액이 입사 첫 달에 통장에 찍힌다. 넥스트비전에서 1년 동안 벌 돈을, 토스는 "환영합니다"의 대가로 준다.</p>
+
+<div class="salary-compare">
+  <div class="sc-col">
+    <div class="sc-label">nextvision</div>
+    <div class="sc-amount">268<span style="font-size:1rem;font-weight:400">만 원</span></div>
+    <div class="sc-detail">세후 월급<br>자판기 커피 300원<br>멤브레인 키보드<br>모니터 1대</div>
+  </div>
+  <div class="sc-arrow">&rarr;</div>
+  <div class="sc-col">
+    <div class="sc-label">toss</div>
+    <div class="sc-amount sc-accent">480<span style="font-size:1rem;font-weight:400">만 원</span></div>
+    <div class="sc-detail">세후 월급<br>카페 무료<br>MacBook Pro<br>모니터 2대</div>
+  </div>
+</div>
+
+<p class="internal">같은 사람인데. 같은 손으로 코드를 치는데. 숫자만 바뀌었다. 아니, 숫자가 바뀐 것이 아니라, 숫자를 매기는 사람이 바뀐 것이다. 넥스트비전의 대표는 내 가치를 3,900만 원으로 매겼다. 토스는 7,200만 원으로 매겼다. 나는 달라진 게 없는데.</p>
+
+<p class="scene-break">&middot;&middot;&middot;</p>
+
+<p class="novel novel-first">1월 31일 금요일. 넥스트비전 대표실.</p>
+
+<p class="novel">도현은 사직서를 들고 대표실 문을 두드렸다. 대표 김영수는 도현이 들어오자 안경을 벗었다. 노트북에서 유튜브를 보고 있었다. 도현은 한눈에 보았다. 썸네일에 "DeepSeek R2"라고 쓰여 있었다. 대표의 유튜브 알고리즘은 여전히 AI로 도배되어 있었다.</p>
+
+<p class="dialogue">"대표님, 드릴 말씀이 있습니다."</p>
+
+<p class="novel">김영수 대표는 도현의 표정을 보았다. 그리고 사직서를 보았다. 1초도 안 걸려서 알아챘다.</p>
+
+<p class="dialogue">"어디야?"</p>
+
+<p class="dialogue">"토스입니다."</p>
+
+<p class="novel">대표가 의자에 등을 기대었다. 3초간 도현을 바라보았다. 그리고 웃었다. 진심으로 웃었다.</p>
+
+<p class="dialogue">"토스? 야, 잘됐네. 거기 좋은 데잖아."</p>
+
+<p class="dialogue">"죄송합니다, 대표님. 충원도 안 된 상태에서 &mdash;"</p>
+
+<p class="dialogue">"아이, 그런 소리 하지 마." 대표가 손을 저었다. "좋은 데 가는 거잖아. 가야지. 나라도 그러겠다."</p>
+
+<p class="novel">도현은 아무 말도 하지 못했다. 대표가 이렇게 쉽게 보내줄 줄 몰랐다.</p>
+
+<p class="dialogue">"근데 한 가지만 물어보자. 연봉 얼마야?"</p>
+
+<p class="dialogue">"7,200만 원입니다."</p>
+
+<p class="novel">대표의 눈이 잠깐 커졌다. 그리고 고개를 끄덕였다.</p>
+
+<p class="dialogue">"그래야지. 네 실력이면 그 정도는 받아야지. 여기서 3,900만 원 받고 있었던 게 미안할 따름이다."</p>
+
+<p class="novel">도현은 "아닙니다"라고 말하려다가 멈추었다. 대표의 말이 사교적 겸손이 아니라 진심이라는 것을 알았기 때문이다. 55세 중소기업 대표가 직원 12명의 생계를 책임지면서 개발자 한 명에게 7,200만 원을 줄 여력은 없다. 김영수는 그것을 알고 있었고, 도현도 알고 있었다.</p>
+
+<p class="dialogue">"도현아."</p>
+
+<p class="dialogue">"네."</p>
+
+<p class="dialogue">"거기 가서도 자판기 커피 마시지 마라. 거기는 커피가 공짜라며."</p>
+
+<p class="novel">도현은 웃었다.</p>
+
+<p class="dialogue">"편의점도 공짜라고 들었습니다."</p>
+
+<p class="dialogue">"편의점이 공짜야?" 대표가 눈을 크게 떴다. "야, 거기 과자도 공짜야?"</p>
+
+<p class="dialogue">"네."</p>
+
+<p class="dialogue">"컵라면도?"</p>
+
+<p class="dialogue">"네."</p>
+
+<p class="novel">대표가 캔커피를 들어 올렸다. 300원짜리. 한 모금 마시고 말했다.</p>
+
+<p class="dialogue">"미래먹거리는 편의점이 공짜인 데 가는 거였구나."</p>
+
+<p class="novel">둘 다 웃었다. 도현이 넥스트비전에서 마지막으로 웃은 순간이었다.</p>
+
+<p class="scene-break">&middot;&middot;&middot;</p>
+
+<p class="novel novel-first">2027년 2월 10일 월요일 오전 8시 50분. 서울 강남구.</p>
+
+<p class="novel">도현은 토스 사옥 앞에 서 있었다. 안양시 만안구의 3층 건물과는 차원이 달랐다. 로비에 들어서자 리셉션 직원이 이름을 확인하고 사원증을 건넸다. 사원증 뒷면에 법인카드가 내장되어 있었다. 식대 무제한.</p>
+
+<p class="novel">온보딩 오리엔테이션. 2시간. 인사팀에서 복지를 설명했다.</p>
+
+<div class="terminal">
+<span class="t-comment"># 토스 복지 — 온보딩 메모</span><br>
+<br>
+<span class="t-key">식대</span>: 제한 없음. 법인카드로 결제.<br>
+<span class="t-key">카페</span>: 사내 전 카페 무료.<br>
+<span class="t-key">편의점</span>: 사내 편의점 전 품목 무료.<br>
+<span class="t-key">간식</span>: 무제한. 생필품(칫솔, 양말 등) 포함.<br>
+<span class="t-key">장비</span>: 업무용 100% 지원. MacBook Pro M4, 모니터 2대.<br>
+<span class="t-key">교육비</span>: 전액 지원.<br>
+<span class="t-key">헤어살롱</span>: 사내 전문 헤어디자이너 풀타임. 시술 무료.<br>
+<span class="t-key">근무제</span>: 주 4.5일 (금요일 오후 자유).<br>
+<span class="t-warn">두에싸 (Do Everything Silo)</span>: 가사서비스, 맛집추천,<br>
+&nbsp;&nbsp;기념일 챙기기, 여행플래닝, 택배, 환전, 꽃다발 주문 등.<br>
+<br>
+<span class="t-comment"># 넥스트비전 복지 — 비교</span><br>
+<span class="t-error">식대: 없음 (6,500원 백반집, 자비)</span><br>
+<span class="t-error">카페: 자판기 300원 (자비)</span><br>
+<span class="t-error">장비: 5년 된 데스크탑, 멤브레인 키보드 (회사 지급)</span><br>
+<span class="t-error">교육비: 없음</span><br>
+<span class="t-error">근무제: 주 5일 + 야근 (포괄임금제)</span><br>
+</div>
+
+<p class="internal">자판기 커피 300원이 카페 무료가 되었다. 멤브레인 키보드가 MacBook Pro가 되었다. 6,500원 백반이 법인카드 무제한이 되었다. 모든 것이 바뀌었는데, 나만 같다. 어제까지 안양역에서 지하철을 타던 사람이 오늘 강남의 이 로비에 서 있다. 사원증 목걸이가 목에 걸려 있다. 무게는 30그램 정도. 하지만 의미의 무게는 측정할 수 없다.</p>
+
+<p class="novel">오전 11시. 자리 배정. 토스페이먼츠 결제 사일로.</p>
+
+<p class="novel">사일로. 넥스트비전에는 없던 단어다. 6~8명이 하나의 팀이자 작은 스타트업처럼 자율적으로 의사결정하는 조직이라고 설명을 들었다. 도현이 배치된 결제 사일로의 구성은 이랬다.</p>
+
+<div class="company-profile">
+  <div class="cp-title">toss payments — settlement silo</div>
+  <div class="cp-stat">
+    <span class="cp-label">PO</span>
+    <span class="cp-value">강서윤 (32)</span>
+    <span class="cp-label">FE</span>
+    <span class="cp-value">박재원 (28), 김나현 (30), <span class="cp-highlight">한도현 (35)</span></span>
+    <span class="cp-label">BE</span>
+    <span class="cp-value">이승민 (31), 조은서 (29)</span>
+    <span class="cp-label">디자이너</span>
+    <span class="cp-value">정하윤 (27)</span>
+    <span class="cp-label">데이터</span>
+    <span class="cp-value">오준혁 (30)</span>
+  </div>
+</div>
+
+<p class="novel">8명. 넥스트비전의 전체 직원 수(12명)에 근접하는 숫자가 하나의 팀이다. 그리고 이런 사일로가 20~30개 있다. 도현은 자리에 앉았다. 양쪽에 32인치 모니터가 두 대 있었다. 앞에는 MacBook Pro M4 Max가 놓여 있었다. 넥스트비전의 5년 된 데스크탑 대신.</p>
+
+<p class="novel">왼쪽 자리의 박재원이 인사했다. 시니어 프론트엔드 개발자. 28세. 도현보다 7살 어리다.</p>
+
+<p class="dialogue">"도현 님, 환영합니다. 온보딩 문서 공유해드렸으니 천천히 보시고, 모르는 거 있으면 편하게 물어보세요."</p>
+
+<p class="dialogue">"감사합니다."</p>
+
+<p class="novel">도현은 MacBook을 열었다. 이메일에 온보딩 가이드가 와 있었다. Yarn Berry 모노레포 세팅, 코딩 컨벤션, PR 가이드라인, TDS(Toss Design System) 문서. 문서만 20페이지가 넘었다. 넥스트비전에서는 온보딩 문서가 없었다. "이거 보면서 하면 돼"라는 대표의 한 마디가 전부였다.</p>
+
+<p class="novel">오후 1시. 점심. 법인카드로 결제했다. 사무실 근처의 레스토랑. 14,000원짜리 파스타. 넥스트비전의 6,500원 백반 두 끼 가격이다. 아무도 가격을 신경 쓰지 않았다.</p>
+
+<p class="novel">오후 3시. 사내 카페에서 아메리카노를 가져왔다. 무료. 도현은 커피를 한 모금 마시며 생각했다. 이 커피의 가격은 0원이다. 넥스트비전의 자판기 커피는 300원이었다. 300원과 0원의 차이. 숫자로 보면 300원이지만, 의미로 보면 세계가 다르다.</p>
+
+<p class="novel">오후 5시 30분. Slack 알림.</p>
+
+<div class="slack-msg">
+  <div class="s-channel"># settlement-silo</div>
+  <div class="s-header">
+    <span class="s-name">강서윤 (PO)</span>
+    <span class="s-time">17:32</span>
+  </div>
+  <div class="s-body">도현 님, 환영합니다! 내일부터 스프린트에 합류하시면 됩니다. 내일 오전 10시에 스프린트 플래닝 미팅 있어요.</div>
+</div>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">박재원</span>
+    <span class="s-time">17:33</span>
+  </div>
+  <div class="s-body">환영합니다 도현 님! 내일 PR 하나 올려보시면서 워크플로우 익히시면 좋을 것 같아요. 리뷰 도와드릴게요.</div>
+</div>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">김나현</span>
+    <span class="s-time">17:35</span>
+  </div>
+  <div class="s-body">환영해요! 혹시 Yarn Berry 세팅에서 막히면 말해주세요. 처음에 다들 한 번씩 삽질해요 😅</div>
+</div>
+
+<p class="novel">도현은 Slack 메시지를 보며 손가락이 키보드 위에서 멈춰 있는 것을 느꼈다. 넥스트비전에서 4년 동안 코딩에 대해 대화를 나눌 수 있는 사람이 없었다. 유일한 개발자였으니까. 코드 리뷰도, PR도, 스프린트도, 플래닝 미팅도 없었다. 모든 것을 혼자 결정하고, 혼자 만들고, 혼자 배포했다.</p>
+
+<p class="novel">여기에는 FE만 3명이다. 사일로에 8명이다. 그리고 "리뷰 도와드릴게요"라고 말하는 사람이 있다.</p>
+
+<p class="novel">도현은 답장을 쳤다.</p>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">한도현</span>
+    <span class="s-time">17:38</span>
+  </div>
+  <div class="s-body">감사합니다. 내일 PR 올려보겠습니다. 많이 배우겠습니다.</div>
+</div>
+
+<p class="novel">보내기를 누르고 도현은 자리에 앉아 모니터 두 대를 바라보았다. 왼쪽 모니터에는 VS Code가 열려 있었다. 오른쪽 모니터에는 TDS 문서가 열려 있었다. MacBook의 팬이 조용했다. 넥스트비전의 데스크탑은 VS Code를 열면 팬이 돌아갔다.</p>
+
+<p class="novel">오후 6시. 퇴근 시간이다. 주변을 보았다. 아무도 움직이지 않았다. 모두 모니터를 보고 있었다. 도현도 자리에 남았다. 온보딩 문서를 읽었다. Conventional Commit 규칙, PR 크기 가이드(300~400줄), GitHub Actions 자동 리뷰어 할당. 모든 것이 새로웠다. 넥스트비전에서는 커밋 메시지가 "fixed stuff"인 적도 있었다.</p>
+
+<p class="novel">밤 8시. 도현은 사내 편의점에 갔다. 컵라면을 하나 골랐다. 바코드를 찍고 나왔다. 결제 금액: 0원. 넥스트비전에서는 편의점 컵라면이 1,500원이었다. 여기서는 0원이다.</p>
+
+<p class="novel">도현은 컵라면에 뜨거운 물을 부으며 휴대폰을 꺼냈다. 카카오톡. 김영수 대표의 메시지가 와 있었다.</p>
+
+<div class="kakao-msg">
+  <div class="k-header">
+    <span class="k-name">김영수 대표</span>
+    <span class="k-time">18:22</span>
+  </div>
+  <div class="k-body">첫날 어때? 편의점 공짜 맞아?</div>
+</div>
+
+<p class="novel">도현은 컵라면을 들고 답장을 쳤다.</p>
+
+<div class="kakao-msg">
+  <div class="k-header">
+    <span class="k-name">한도현</span>
+    <span class="k-time">20:05</span>
+  </div>
+  <div class="k-body">네 대표님. 공짜 맞습니다. 지금 공짜 컵라면 먹고 있습니다.</div>
+</div>
+
+<div class="kakao-msg">
+  <div class="k-header">
+    <span class="k-name">김영수 대표</span>
+    <span class="k-time">20:06</span>
+  </div>
+  <div class="k-body">ㅋㅋ 잘 먹어. 거기서 잘 해라 도현아.</div>
+</div>
+
+<div class="kakao-msg">
+  <div class="k-header">
+    <span class="k-name">김영수 대표</span>
+    <span class="k-time">20:07</span>
+  </div>
+  <div class="k-body">아 그리고 여기 개발자 뽑는 건 좀 걸릴 것 같다. 아직 이력서가 안 와.</div>
+</div>
+
+<p class="novel">도현은 그 마지막 메시지를 보며 컵라면 국물을 마셨다. 넥스트비전의 개발팀장(팀원 0명) 자리는 아직 비어 있다. 5년 전에도 비어 있었고, 도현이 떠난 뒤에도 비어 있다. 그 자리를 채울 사람은 아마 쉽게 나타나지 않을 것이다. 268만 원의 세후 월급과, 프린터 수리와, ERP 오류와, 대표의 미래먹거리를 감당할 수 있는 사람은.</p>
+
+<p class="novel">밤 9시. 도현은 MacBook을 닫고 사옥을 나왔다. 강남역 방면으로 걸었다. 주머니에 사원증이 있었다. 법인카드가 내장된 사원증. 무게는 30그램. 안양까지 가는 지하철은 40분이다. 넥스트비전에서 집까지는 도보 15분이었다.</p>
+
+<p class="novel">지하철에 앉아서 생각했다. 내일 해야 할 일: 스프린트 플래닝 미팅(10시), 첫 번째 PR 올리기, Yarn Berry 모노레포 세팅, TDS 컴포넌트 학습. 프린터를 고칠 일은 없다. ERP 오류를 수정할 일도 없다. 대표의 카톡에 "네 확인했습니다"라고 답장할 일도 없다.</p>
+
+<p class="novel">대신, 코드 리뷰가 온다. PR에 코멘트가 달린다. 누군가 내 코드를 읽는다. 4년 동안 아무도 읽지 않았던 코드를. 내일부터 누군가 읽는다.</p>
+
+<p class="novel">도현은 지하철 창밖을 보았다. 2월의 밤이 빠르게 지나가고 있었다.</p>
+
+<p class="internal">사이닝 보너스 3,800만 원. 넥스트비전에서 1년 동안 받을 연봉 전액이, 토스에서는 환영의 의미로 주어진다. 같은 숫자가 다른 의미를 가진다. 3,800만 원은 넥스트비전에서는 1년의 무게였다. 토스에서는 첫 달의 인사였다.</p>
+
+<p class="novel">안양역에 도착했다. 자판기가 보였다. 300원짜리 커피 자판기. 도현은 잠시 멈추었다가 지나쳤다. 오늘은 카페에서 무료 커피를 마셨다. 사내 편의점에서 무료 컵라면을 먹었다. 300원짜리 자판기 커피를 마실 이유가 없다.</p>
+
+<p class="novel">하지만 도현은 알고 있었다. 무료 커피가 무료인 이유가 있다는 것을. 편의점이 공짜인 이유가 있다는 것을. 블라인드에서 본 글이 떠올랐다. "토스는 복지가 좋다. 근데 복지를 쓸 겨를이 없다."</p>
+
+<p class="novel">그것을 확인하는 데는 오래 걸리지 않을 것이다.</p>
+
+<p class="novel">원룸 문을 열었다. 천장의 금이 여전히 거기 있었다. 냉장고 모터가 돌아가는 소리가 났다. 6개월 전 사업계획서를 보냈던 밤과 같은 방이다. 달라진 것은 도현의 직함과, 통장에 찍힐 숫자와, MacBook의 유무 정도다.</p>
+
+<p class="novel">도현은 이를 닦고 이불을 덮었다. 내일은 토스에서의 둘째 날이다. 첫 번째 PR을 올린다. 첫 번째 코드 리뷰를 받는다. 4년 동안 한 번도 경험하지 못한 것을, 내일 경험한다.</p>
+
+<p class="novel">편의점은 공짜인데. 그 다음 문장이 뭔지는 내일 알게 된다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>268만 원에서 480만 원으로<br><strong>같은 손인데, 숫자만 바뀌었다</strong></h2>
+  <p class="sub">넥스트비전의 개발팀장(팀원 0명) 자리는 아직 비어 있다.</p>
+</div>
+
+<footer class="footer">
+  <p>This is a work of fiction &middot; Characters and events are imaginary</p>
+  <p>Toss NEXT Developer Challenge &middot; Toss Employee Benefits &middot; Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>
