@@ -1,0 +1,576 @@
+---
+layout: layouts/article.njk
+pageTitle: "결과물이 없는 시간"
+description: "바이브 코딩 속도의 역설 — 45% 보안 결함, 23분 컨텍스트 회복, 3개 워킹 메모리. 가장 생산적인 시간에는 코드가 없다."
+datePublished: "2026-02-15"
+---
+<style>
+  .masthead .deck { max-width: 520px; }
+
+  /* ---- Stat Grid ---- */
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+    margin: 2.5rem 0;
+  }
+  .stat-card {
+    background: var(--card-bg); padding: 2rem 1.5rem; text-align: center;
+  }
+  .stat-num {
+    font-family: 'Source Serif 4', serif; font-size: 3rem;
+    font-weight: 700; color: var(--accent); line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.95rem; color: var(--fg); margin-top: 0.5rem; line-height: 1.5;
+  }
+  .stat-src {
+    font-size: 0.7rem; color: var(--muted); margin-top: 0.5rem;
+  }
+
+  /* ---- Comparison ---- */
+  .dia-cmp {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+    margin: 2.5rem 0;
+  }
+  .dia-cmp-col { background: var(--card-bg); padding: 2rem 1.5rem; }
+  .dia-cmp-col h3 {
+    font-family: 'Source Serif 4', serif; font-size: 1rem;
+    font-weight: 700; margin: 0 0 1.2rem; letter-spacing: -0.02em;
+  }
+  .dia-cmp-col.bad h3 { color: var(--muted); }
+  .dia-cmp-col.good h3 { color: var(--accent); }
+  .dia-cmp-col ol {
+    list-style: none; padding: 0; margin: 0; counter-reset: cmp;
+  }
+  .dia-cmp-col ol li {
+    position: relative; padding: 0.5rem 0 0.5rem 2rem;
+    font-size: 0.85rem; color: var(--secondary);
+    border-bottom: 1px solid var(--rule); line-height: 1.6;
+  }
+  .dia-cmp-col ol li:last-child { border-bottom: none; }
+  .dia-cmp-col ol li::before {
+    content: counter(cmp, decimal-leading-zero); counter-increment: cmp;
+    position: absolute; left: 0; top: 0.5rem;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  /* ---- Cognitive Grid ---- */
+  .cog-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+    margin: 2.5rem 0;
+  }
+  .cog-card { background: var(--card-bg); padding: 1.5rem; }
+  .cog-num {
+    font-family: 'Source Serif 4', serif; font-size: 2.2rem;
+    font-weight: 700; color: var(--accent); line-height: 1;
+  }
+  .cog-title {
+    font-size: 0.85rem; font-weight: 700; color: var(--fg);
+    margin-top: 0.5rem; letter-spacing: -0.02em;
+  }
+  .cog-desc {
+    font-size: 0.8rem; color: var(--secondary); margin-top: 0.25rem; line-height: 1.6;
+  }
+  .cog-src {
+    font-size: 0.65rem; color: var(--muted); margin-top: 0.5rem;
+  }
+
+  /* ---- Workflow Diagram ---- */
+  .wf-diagram {
+    background: var(--card-bg); border: 1px solid var(--rule);
+    margin: 2.5rem 0;
+  }
+  .wf-step {
+    padding: 1.5rem 2rem; border-bottom: 1px solid var(--rule);
+    display: grid; grid-template-columns: 5rem 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+  .wf-step:last-child { border-bottom: none; }
+  .wf-badge {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 1px; color: var(--accent); text-transform: uppercase;
+  }
+  .wf-badge span {
+    display: block; font-family: 'Source Serif 4', serif;
+    font-size: 1.8rem; font-weight: 700; line-height: 1; margin-top: 0.25rem;
+    color: var(--fg);
+  }
+  .wf-content h3 {
+    font-family: 'Source Serif 4', serif; font-size: 1.1rem;
+    font-weight: 700; margin: 0 0 0.15rem; letter-spacing: -0.02em;
+  }
+  .en-sub {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+    color: var(--muted); letter-spacing: 1px; text-transform: uppercase;
+  }
+  .wf-content p {
+    font-size: 0.85rem; color: var(--secondary); line-height: 1.7;
+    margin-top: 0.5rem;
+  }
+
+  /* ---- Prompt Box ---- */
+  .prompt-box {
+    background: var(--card-bg); border-left: 3px solid var(--accent);
+    padding: 1.5rem; margin: 2rem 0; position: relative;
+  }
+  .pb-label {
+    font-size: 0.85rem; font-weight: 700; color: var(--accent);
+    margin-bottom: 0.25rem;
+  }
+  .pb-desc {
+    font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem;
+  }
+  .pb-prompt {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+    line-height: 1.7; color: var(--fg); background: var(--bg);
+    padding: 1.25rem; border-radius: 16px; white-space: pre-wrap;
+    word-break: break-word; position: relative;
+  }
+  .pb-copy {
+    position: absolute; top: 0.75rem; right: 0.75rem;
+    background: var(--card-bg); border: 1px solid var(--rule);
+    border-radius: 6px; padding: 0.25rem 0.75rem; font-size: 0.65rem;
+    color: var(--muted); cursor: pointer; font-family: inherit;
+  }
+  .pb-copy:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ---- Flow Arrow ---- */
+  .flow-arrow {
+    text-align: center; padding: 0.75rem 0; color: var(--muted);
+    font-size: 1.2rem;
+  }
+
+  /* ---- Expert Card ---- */
+  .expert-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+    margin: 2rem 0;
+  }
+  .expert-card { background: var(--card-bg); padding: 1.5rem; }
+  .expert-quote {
+    font-family: 'Source Serif 4', serif; font-size: 0.9rem;
+    line-height: 1.7; color: var(--fg); margin-bottom: 1rem;
+  }
+  .expert-name {
+    font-size: 0.8rem; font-weight: 700; color: var(--fg);
+  }
+  .expert-role {
+    font-size: 0.7rem; color: var(--muted);
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 700px) {
+    .stat-grid, .cog-grid, .dia-cmp, .expert-row { grid-template-columns: 1fr; }
+    .stat-num { font-size: 2.2rem; }
+    .cog-num { font-size: 1.8rem; }
+    .wf-step { grid-template-columns: 3.5rem 1fr; gap: 1rem; padding: 1.2rem 1.2rem; }
+    .wf-badge span { font-size: 1.4rem; }
+    .wf-content h3 { font-size: 1rem; }
+    .pb-prompt { font-size: 0.72rem; padding: 1rem; }
+    .prompt-box { padding: 1.2rem; }
+    .expert-quote { font-size: 0.85rem; }
+  }
+</style>
+
+<div class="page">
+  <article>
+
+    <header class="masthead">
+      <div class="issue">Series 29 — Code Last</div>
+      <h1>결과물이 없는<br><strong>시간</strong></h1>
+      <p class="deck">가장 생산적인 시간에는 코드가 없다</p>
+    </header>
+
+    <main>
+
+    <!-- ============ PART I ============ -->
+    <section>
+      <div class="section-head">
+        <span class="num">Part I — The Speed Trap</span>
+        <h2>속도의 <strong>함정</strong></h2>
+      </div>
+
+      <p class="prose">무언가를 만들고 싶었다. Cursor를 열었다. 프롬프트를 쳤다. 코드가 나왔다. 거의 됐다. 한 군데를 고쳤다. 다른 데가 깨졌다. 그걸 고쳤다. 두 군데가 더 깨졌다. 세 시간이 지났다. 직접 작성하지 않은 코드를 디버깅하고 있다.</p>
+      <p class="prose">익숙한가?</p>
+      <p class="prose">2025년, AI 코딩 도구의 채택률은 84%에 달했다. 그러나 같은 해, AI 도구의 정확도를 신뢰하는 개발자는 29%로 떨어졌다. 쓰는 사람은 늘었는데, 믿는 사람은 줄었다. 이 역설의 중심에 <strong>속도</strong>가 있다.</p>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-num">45%</div>
+          <div class="stat-label">AI 생성 코드의 보안 결함률</div>
+          <div class="stat-src">Veracode GenAI Report, 2025</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">10x</div>
+          <div class="stat-label">6개월 만에 증가한 보안 결함</div>
+          <div class="stat-src">Apiiro Fortune 50 분석, 2025</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">70%</div>
+          <div class="stat-label">AI 코드 디버깅에 추가 시간을 쓰는 개발자</div>
+          <div class="stat-src">Harness, 2025</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">66%</div>
+          <div class="stat-label">"거의 맞지만 완전히 틀린" AI 결과에 좌절</div>
+          <div class="stat-src">Stack Overflow 2025 Survey</div>
+        </div>
+      </div>
+
+      <p class="prose">숫자가 말해준다. Veracode는 2025년 AI가 생성한 코드의 45%에 보안 취약점이 있다고 보고했다. LLM이 안전한 방법과 위험한 방법 중 선택할 때, 45%의 확률로 위험한 쪽을 골랐다. Java는 70%를 넘었다.</p>
+      <p class="prose">Apiiro는 Fortune 50 기업의 수만 개 레포지토리를 분석했다. AI 코딩 도구 도입 후 6개월 만에 월간 보안 결함이 10배 증가했다. 개발 속도는 4배 빨라졌지만, 보안 결함은 10배 늘었다. 속도가 빚을 만든 것이다.</p>
+      <p class="prose">Tenzai는 2025년 12월, Claude Code, Cursor, Devin 등 5개 주요 AI 코딩 도구를 동일한 3개 애플리케이션으로 비교 테스트했다. 15개 앱에서 69개의 취약점이 발견됐다. 결론은 이것이었다.</p>
+
+      <div class="pull-quote">
+        <p>보안 통제에 관해서, 모든 코딩 에이전트가 처참하게 실패했다.<br>잘못 구현한 것이 아니다. 대부분의 경우, <strong>시도조차 하지 않았다.</strong></p>
+      </div>
+
+      <p class="prose">도구의 문제인가? 아니다. 도구는 시킨 대로 했을 뿐이다. 문제는 도구에게 시키는 방식에 있다. 맥락 없이, 계획 없이, 요구사항 정리 없이 "로그인 기능 만들어줘"라고 프롬프트를 치면, AI는 가장 흔한 패턴을 가장 빠르게 생성한다. 보안? 에지 케이스? 아키텍처 일관성? 시키지 않은 일은 하지 않는다.</p>
+
+      <div class="dia-cmp">
+        <div class="dia-cmp-col bad">
+          <h3>급한 사람</h3>
+          <ol>
+            <li>프롬프트를 친다</li>
+            <li>코드가 나온다</li>
+            <li>에러가 난다</li>
+            <li>수정을 요청한다</li>
+            <li>다른 곳이 깨진다</li>
+            <li>처음부터 다시</li>
+          </ol>
+        </div>
+        <div class="dia-cmp-col good">
+          <h3>돌아가는 사람</h3>
+          <ol>
+            <li>무엇을 만들지 정리한다</li>
+            <li>필요한 정보를 수집한다</li>
+            <li>요구사항을 문서화한다</li>
+            <li>AI에게 맥락을 주입한다</li>
+            <li>한 번에 개발한다</li>
+            <li>디테일을 다듬는다</li>
+          </ol>
+        </div>
+      </div>
+
+      <p class="prose">Andrej Karpathy는 2025년 2월 "vibe coding"이라는 용어를 만들었다. "코드가 존재한다는 사실조차 잊어버리고, 분위기에 몸을 맡기는 코딩." 1년 뒤, 그는 용어를 바꿨다. "agentic engineering" — 에이전트를 조율하는 엔지니어링. 그리고 이렇게 덧붙였다.</p>
+
+      <div class="pull-quote">
+        <p>'engineering'을 강조하는 이유는, 거기에 기예와 과학과 전문성이 있기 때문이다.</p>
+      </div>
+
+      <p class="prose">바이브 코딩을 만든 사람조차 바이브만으로는 안 된다고 말하고 있다. 속도는 도구가 주는 것이 아니다. 계획이 주는 것이다.</p>
+    </section>
+
+    <!-- ============ PART II ============ -->
+    <section>
+      <div class="section-head">
+        <span class="num">Part II — The Brain Bottleneck</span>
+        <h2>뇌가 <strong>감당 못 한다</strong></h2>
+      </div>
+
+      <p class="prose">문제는 AI 도구가 아니다. 문제는 뇌다. 인간의 워킹 메모리에는 한계가 있고, 계획 없이 코드부터 치는 행위는 그 한계를 전부 위반한다.</p>
+
+      <div class="cog-grid">
+        <div class="cog-card">
+          <div class="cog-num">3-4</div>
+          <div class="cog-title">워킹 메모리 한계</div>
+          <div class="cog-desc">인간이 동시에 처리할 수 있는 독립적 정보 덩어리 수. 변수 값, 제어 흐름, 호출 순서를 동시에 머릿속에 넣으면, 3-4개가 한계다.</div>
+          <div class="cog-src">Cowan, The Magical Mystery Four, 2001</div>
+        </div>
+        <div class="cog-card">
+          <div class="cog-num">23:15</div>
+          <div class="cog-title">컨텍스트 전환 회복 시간</div>
+          <div class="cog-desc">중단 후 깊은 집중을 회복하는 데 걸리는 평균 시간. 프롬프트 결과가 기대와 다를 때마다 — 그것은 중단이다.</div>
+          <div class="cog-src">Gloria Mark, UC Irvine, 2023</div>
+        </div>
+        <div class="cog-card">
+          <div class="cog-num">49%</div>
+          <div class="cog-title">자기 중단 비율</div>
+          <div class="cog-desc">외부가 아닌 스스로 일으키는 중단의 비율. "이것도 해볼까?" "저쪽 먼저 고칠까?" 계획이 없으면, 스스로 중단을 만든다.</div>
+          <div class="cog-src">Gloria Mark, Attention Span, 2023</div>
+        </div>
+        <div class="cog-card">
+          <div class="cog-num">50%</div>
+          <div class="cog-title">디버깅에 쓰는 시간</div>
+          <div class="cog-desc">개발자가 새 코드를 작성하는 대신 디버깅에 소비하는 시간 비율. 계획 없는 코딩은 이 비율을 더 높인다.</div>
+          <div class="cog-src">Cambridge University Survey</div>
+        </div>
+      </div>
+
+      <p class="prose">George Miller의 "7 +/- 2"는 유명하지만, Nelson Cowan의 2001년 후속 연구가 더 엄격하다. 청킹 전략 없이 순수하게 처리할 수 있는 정보는 <strong>3-4개</strong>뿐이다. 변수 값 하나, 함수 호출 흐름 하나, 에러 메시지 하나 — 그것만으로 워킹 메모리의 절반이 차버린다.</p>
+      <p class="prose">Gloria Mark의 연구는 더 불편한 사실을 알려준다. 중단 후 깊은 집중을 회복하는 데 평균 <strong>23분 15초</strong>가 걸린다. 바이브 코딩에서 "프롬프트 → 결과 확인 → 수정 요청" 사이클은 매번 컨텍스트 전환이다. 그리고 중단의 49%는 외부가 아니라 자기 자신이 만든다.</p>
+      <p class="prose">여기서 핵심적인 발견이 하나 있다. <strong>Zeigarnik 효과</strong>다.</p>
+      <p class="prose">Bluma Zeigarnik이 1927년에 발견한 이 현상은, 완료하지 않은 작업이 머릿속에 남아 인지 자원을 계속 점유한다는 것이다. 바이브 코딩으로 달리는 사람은 끊임없이 미완성 작업을 안고 달린다. 에러를 고치면 다른 에러가 생기고, 기능을 추가하면 기존 기능이 깨진다. 모든 미완성이 워킹 메모리를 잠식한다.</p>
+      <p class="prose">그런데 후속 연구에서 밝혀진 것이 있다. 미완료 작업 자체가 문제가 아니라, <strong>그 작업에 대한 구체적 계획이 없는 것</strong>이 문제다. 계획을 세우면 — 단순히 다음 단계를 적어두기만 해도 — 인지 부담이 해소된다.</p>
+
+      <div class="pull-quote">
+        <p>미완료 작업이 아니라,<br><strong>계획이 없는 작업이 머릿속을 잠식한다.</strong></p>
+      </div>
+
+      <p class="prose">"결과물이 없어서 불안하다"는 감정의 정체는, 사실 "계획이 없어서 뇌가 과부하된 것"이다. 해법은 역설적으로 단순하다. 계획을 세워라. 문서로 써라. 머릿속의 미완성을 종이 위로 옮기는 순간, 뇌는 해방된다.</p>
+
+      <div class="warning-box">
+        <div class="w-title">당신이 지금 하고 있는 것</div>
+        <ul class="warning-list">
+          <li>생각 정리 없이 바로 프롬프트부터 친다</li>
+          <li>에러가 나면 AI에게 수정을 반복 요청한다 — 같은 컨텍스트에서</li>
+          <li>결과물이 안 보이면 불안해서 더 빨리 코드를 쓰려 한다</li>
+        </ul>
+        <p>세 가지 모두, 뇌의 인지 부하를 높이는 행동이다. 빠르게 하려고 할수록 느려지는 이유가 여기에 있다.</p>
+      </div>
+    </section>
+
+    <!-- ============ PART III ============ -->
+    <section>
+      <div class="section-head">
+        <span class="num">Part III — The First Three Hours</span>
+        <h2>코드 없는 <strong>첫 3시간</strong></h2>
+      </div>
+
+      <p class="prose">불편한 진실이 있다. 프로젝트에서 가장 생산적인 시간에는 코드가 한 줄도 없다.</p>
+      <p class="prose">아래의 5단계를 따르면, 코딩을 시작하기 전까지 최소 2-3시간을 쓰게 된다. 그 시간 동안 결과물은 코드가 아니라 문서다. 그리고 그 문서가 이후의 모든 것을 결정한다.</p>
+
+      <div class="wf-diagram">
+        <div class="wf-step">
+          <div class="wf-badge">STEP<span>01</span></div>
+          <div class="wf-content">
+            <h3>생각 정리</h3>
+            <div class="en-sub">Clarify</div>
+            <p>무엇을 만들 것인가. 왜 만들 것인가. 누가 쓸 것인가. 무엇을 하지 않을 것인가. 대부분의 바이브 코더가 건너뛰는 단계다.</p>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-badge">STEP<span>02</span></div>
+          <div class="wf-content">
+            <h3>자료 수집</h3>
+            <div class="en-sub">Research</div>
+            <p>기술을 정하기 전에 선택지를 파악한다. 유사 서비스의 아키텍처를 분석하고, 잠재적 함정을 미리 확인한다.</p>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-badge">STEP<span>03</span></div>
+          <div class="wf-content">
+            <h3>문서 작성</h3>
+            <div class="en-sub">Document</div>
+            <p>PRD를 쓴다. 거창할 필요 없다. 핵심은 AI가 읽을 수 있는 구조화된 문서를 만드는 것이다.</p>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-badge">STEP<span>04</span></div>
+          <div class="wf-content">
+            <h3>맥락 주입</h3>
+            <div class="en-sub">Context</div>
+            <p>CLAUDE.md, .cursorrules, 또는 사용하는 도구의 규칙 파일을 작성한다. AI에게 "이 프로젝트에서는 이렇게 해라"를 알려주는 지시서다.</p>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-badge">STEP<span>05</span></div>
+          <div class="wf-content">
+            <h3>개발 + 디테일링</h3>
+            <div class="en-sub">Execute</div>
+            <p>이제 코드를 쓴다. PRD, 규칙, 아키텍처가 결정되어 있다. AI는 "무엇을 만들지" 묻지 않는다. 바로 만든다.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="prose">각 단계를 상세히 살펴보자. 그리고 각 단계에서 AI에게 건넬 수 있는 프롬프트를 제공한다. 대괄호 [ ] 안의 내용을 본인의 상황에 맞게 수정하고, AI에 붙여넣으면 된다.</p>
+
+      <!-- STEP 01 Detail -->
+      <h3>Step 01 — 생각 정리</h3>
+      <p class="prose">"로그인 기능 만들어줘"라고 프롬프트를 치기 전에, 그 로그인이 OAuth인지 이메일/비밀번호인지, 소셜 로그인이 필요한지, 세션 관리를 어떻게 할 것인지를 정리해야 한다. 정리되지 않은 생각은 정리되지 않은 코드가 된다.</p>
+      <p class="prose">AI에게 질문을 받으면서 생각을 구조화할 수 있다. 아래 프롬프트는 AI가 핵심 질문을 던지고, 답변을 정리해주는 역할을 한다.</p>
+
+      <div class="prompt-box">
+        <div class="pb-label">생각을 구조화하고 싶다면</div>
+        <div class="pb-desc">대괄호 [ ] 안의 내용을 자신의 프로젝트에 맞게 수정한 뒤, AI에 붙여넣으세요.</div>
+        <div class="pb-prompt">다음 프로젝트의 요구사항을 구조화해주세요.
+
+프로젝트: [프로젝트 이름이나 한 줄 설명]
+목적: [이 프로젝트를 왜 만드는지]
+사용자: [누가 쓸 것인지]
+
+아래 질문에 대해 하나씩 답을 정리해주세요:
+1. 핵심 기능 3가지는 무엇인가?
+2. 반드시 포함하지 않을 기능은?
+3. 성공 기준은 무엇인가?
+4. 기술적 제약 조건은?
+5. 유사 서비스나 참고할 제품은?
+
+주의: 모호한 답변이 있으면 추가 질문으로 명확화해주세요.
+출력: 마크다운 형식의 요구사항 정리 문서</div>
+      </div>
+
+      <div class="flow-arrow">&#8595;</div>
+
+      <!-- STEP 02 Detail -->
+      <h3>Step 02 — 자료 수집</h3>
+      <p class="prose">AI와 웹 검색을 활용하되, 수집한 자료를 정리하는 것이 핵심이다. 브라우저 탭 30개를 열어두는 것과, 핵심 정보를 문서 하나에 요약하는 것은 전혀 다른 행위다. 전자는 워킹 메모리를 소비하고, 후자는 워킹 메모리를 해방한다.</p>
+
+      <div class="prompt-box">
+        <div class="pb-label">기술 조사를 시작하고 싶다면</div>
+        <div class="pb-desc">대괄호 [ ] 안의 내용을 자신의 프로젝트에 맞게 수정한 뒤, AI에 붙여넣으세요.</div>
+        <div class="pb-prompt">다음 프로젝트를 위해 기술 조사를 해주세요.
+
+프로젝트: [프로젝트 이름]
+핵심 요구사항: [Step 1에서 정리한 핵심 기능]
+기술 스택: [사용할 언어/프레임워크, 미정이면 "미정"]
+
+조사할 항목:
+1. 핵심 기능 구현에 필요한 기술/라이브러리
+2. 유사 프로젝트의 아키텍처 분석
+3. 알려진 함정이나 주의점
+4. 성능/보안 측면의 고려사항
+5. 대안 기술의 장단점 비교
+
+주의: 2025년 이후 자료를 우선하고, 출처를 반드시 포함해주세요.
+출력: 기술 조사 보고서 (마크다운, 항목별 구분)</div>
+      </div>
+
+      <div class="flow-arrow">&#8595;</div>
+
+      <!-- STEP 03 Detail -->
+      <h3>Step 03 — 문서 작성</h3>
+      <p class="prose">PRD(Product Requirements Document)를 쓴다. 거창할 필요 없다. 핵심은 AI가 읽을 수 있는 구조화된 문서를 만드는 것이다. 이 문서가 AI와의 대화에서 "맥락"이 된다. 매번 처음부터 설명하는 대신, 문서를 참조시킨다.</p>
+      <p class="prose">Simon Willison(Django 공동 창시자)의 황금률이 여기에 적용된다.</p>
+
+      <div class="expert-row">
+        <div class="expert-card">
+          <div class="expert-quote">"내가 다른 사람에게 정확히 무엇을 하는지 설명할 수 없는 코드는, 내 저장소에 커밋하지 않는다."</div>
+          <div class="expert-name">Simon Willison</div>
+          <div class="expert-role">Django 공동 창시자</div>
+        </div>
+        <div class="expert-card">
+          <div class="expert-quote">"LLM이 모든 코드를 작성했더라도, 당신이 검토하고, 테스트하고, 이해했다면 — 그건 바이브 코딩이 아니라 타이핑 보조다."</div>
+          <div class="expert-name">Simon Willison</div>
+          <div class="expert-role">Not All AI-Assisted Programming Is Vibe Coding, 2025</div>
+        </div>
+      </div>
+
+      <div class="prompt-box">
+        <div class="pb-label">PRD를 작성하고 싶다면</div>
+        <div class="pb-desc">대괄호 [ ] 안의 내용을 자신의 프로젝트에 맞게 수정한 뒤, AI에 붙여넣으세요.</div>
+        <div class="pb-prompt">지금까지의 논의를 바탕으로 PRD를 작성해주세요.
+
+포함할 내용:
+1. 프로젝트 개요 (한 문단)
+2. 목표와 성공 지표
+3. 사용자 스토리 (최소 5개, Given-When-Then 형식)
+4. 기술 스택과 선택 근거
+5. 아키텍처 개요 (주요 컴포넌트와 데이터 흐름)
+6. API 설계 (엔드포인트 목록)
+7. 데이터 모델 (엔티티와 관계)
+8. 비기능 요구사항 (성능, 보안, 접근성)
+9. 구현 우선순위 (P0/P1/P2)
+10. 제외 범위 (명시적으로 하지 않을 것)
+
+주의: 모호한 표현("적절한", "좋은") 대신 측정 가능한 기준을 사용하세요.
+출력: PRD 문서 (마크다운, 섹션별 구분)</div>
+      </div>
+
+      <div class="flow-arrow">&#8595;</div>
+
+      <!-- STEP 04 Detail -->
+      <h3>Step 04 — 맥락 주입</h3>
+      <p class="prose">시스템 프롬프트가 AI의 성격을 정하듯, 규칙 파일이 프로젝트의 성격을 정한다. CLAUDE.md, .cursorrules, 또는 사용하는 도구의 규칙 파일에 코딩 컨벤션, 금지 사항, 아키텍처 결정을 넣는다. AI는 매번 이 파일을 읽고 프로젝트 맥락을 파악한다.</p>
+      <p class="prose">규칙 파일이 없으면 AI는 매 대화마다 백지에서 시작한다. 규칙 파일이 있으면 AI는 프로젝트를 아는 동료처럼 행동한다.</p>
+
+      <div class="prompt-box">
+        <div class="pb-label">프로젝트 규칙 파일을 작성하고 싶다면</div>
+        <div class="pb-desc">대괄호 [ ] 안의 내용을 자신의 프로젝트에 맞게 수정한 뒤, AI에 붙여넣으세요.</div>
+        <div class="pb-prompt">이 프로젝트의 AI 코딩 규칙 파일을 작성해주세요.
+
+프로젝트: [프로젝트 이름]
+기술 스택: [PRD에서 확정된 스택]
+PRD 위치: [PRD 파일 경로]
+
+포함할 내용:
+1. 프로젝트 개요 (AI가 맥락을 파악할 수 있는 2-3문장)
+2. 폴더 구조 (주요 디렉토리와 역할)
+3. 코딩 컨벤션 (네이밍, 포매팅, 패턴)
+4. 금지 사항 (절대 하지 말아야 할 것 목록)
+5. 의존성 규칙 (허용된 라이브러리, 버전 고정 여부)
+6. 테스트 규칙 (테스트 프레임워크, 커버리지 기준)
+7. Git 규칙 (브랜치 전략, 커밋 메시지 형식)
+8. 참조 문서 경로
+
+형식: CLAUDE.md (Claude Code) 또는 .cursorrules (Cursor)
+주의: "~하는 것이 좋다"가 아니라 "~해야 한다/하지 않는다"로 작성하세요.
+출력: 규칙 파일 전문</div>
+      </div>
+
+      <div class="flow-arrow">&#8595;</div>
+
+      <!-- STEP 05 Detail -->
+      <h3>Step 05 — 개발 + 디테일링</h3>
+      <p class="prose">이제 코드를 쓴다. 그런데 이 시점에서 코딩은 놀랍도록 빠르다. 왜? AI가 모든 맥락을 알고 있기 때문이다. PRD가 있고, 규칙이 있고, 아키텍처가 결정되어 있다. AI는 "무엇을 만들지" 묻지 않는다. 바로 만든다.</p>
+      <p class="prose">Kent Beck의 원칙이 여기에 정확히 들어맞는다. "Make it work, make it right, make it fast." 먼저 동작하게 만들고, 올바르게 고치고, 그다음 최적화한다. 1-4단계에서 "right"의 기준을 이미 정의했으므로, 5단계에서는 "work"에 집중할 수 있다.</p>
+
+      <div class="prompt-box">
+        <div class="pb-label">기능을 구현하고 싶다면</div>
+        <div class="pb-desc">대괄호 [ ] 안의 내용을 자신의 프로젝트에 맞게 수정한 뒤, AI에 붙여넣으세요.</div>
+        <div class="pb-prompt">PRD와 프로젝트 규칙을 참조하여 다음 기능을 구현해주세요.
+
+구현할 기능: [PRD의 사용자 스토리 번호 또는 기능 설명]
+우선순위: [P0/P1/P2]
+
+참조 문서:
+- PRD: [파일 경로]
+- 규칙: [CLAUDE.md 또는 .cursorrules 경로]
+
+구현 조건:
+1. PRD의 아키텍처 설계를 따를 것
+2. 규칙 파일의 코딩 컨벤션을 준수할 것
+3. 에지 케이스 처리를 포함할 것
+4. 단위 테스트를 함께 작성할 것
+5. 보안 고려사항을 체크할 것
+
+주의: 구현 전에 접근 방식을 먼저 설명하고, 승인 후 코드를 작성할 것.
+출력: 구현 코드 + 테스트 코드 + 변경사항 요약</div>
+      </div>
+
+      <p class="prose">Martin Fowler의 기술 부채 분류가 경고하는 것이 있다. 계획 없이 쌓인 부채는 <strong>Reckless/Inadvertent</strong> — 무모하면서 자각도 없는 부채다. 네 가지 분면 중 최악이다. 부채가 있다는 사실조차 모르기 때문에, 갚을 방법도 모른다.</p>
+      <p class="prose">5단계 워크플로우는 이 최악의 분면을 피하기 위한 것이다. 1-4단계에서 무엇을 만들고 무엇을 만들지 않을지 결정했으므로, 5단계에서 발생하는 부채는 최소한 <strong>Prudent/Deliberate</strong> — 신중하고 의도적인 부채가 된다.</p>
+
+      <div class="warning-box">
+        <div class="w-title">급해도 괜찮은 경우</div>
+        <ul class="warning-list">
+          <li><strong>프로토타입 / 버릴 코드</strong> — 학습이 목적이면 빠르게 만들고 빠르게 버려라</li>
+          <li><strong>이미 잘 아는 영역</strong> — 도메인 지식이 충분하면 문서 없이도 맥락이 머릿속에 있다</li>
+          <li><strong>단순 CRUD</strong> — 복잡도가 낮으면 계획의 ROI도 낮다</li>
+        </ul>
+        <p>이 글이 말하는 "급할수록 돌아가라"는, 당신이 잘 모르는 영역에서 복잡한 것을 만들 때의 이야기다. 모든 상황에 5단계를 적용하라는 뜻이 아니다.</p>
+      </div>
+    </section>
+
+    </main>
+
+    <!-- ============ CLOSING ============ -->
+    <div class="closing">
+      <h2>급할수록<br><strong>돌아가라</strong></h2>
+      <p class="sub">코드가 없는 시간은 낭비가 아니다.<br>가장 생산적인 시간이다.</p>
+    </div>
+
+    <footer class="footer">
+      <p>Veracode, GenAI Code Security Report, 2025. Apiiro, 4x Velocity 10x Vulnerabilities: AI Coding Assistants, 2025. Tenzai, Bad Vibes: Comparing the Secure Coding Capabilities of Popular Coding Agents, 2025. Stack Overflow, 2025 Developer Survey. Harness, State of Code Assistants, 2025. Nelson Cowan, The Magical Mystery Four, Behavioral and Brain Sciences, 2001. Gloria Mark, Attention Span, Hanover Square Press, 2023. Bluma Zeigarnik, Das Behalten erledigter und unerledigter Handlungen, Psychologische Forschung, 1927. Andrej Karpathy, @karpathy, 2025-2026. Simon Willison, Not All AI-Assisted Programming Is Vibe Coding, 2025. Kent Beck, Make It Work Make It Right Make It Fast. Martin Fowler, Technical Debt Quadrant, 2009. Claude.</p>
+    </footer>
+
+  </article>
+</div>
+
+<script>
+  document.querySelectorAll('.pb-prompt').forEach(function(el) {
+    var btn = document.createElement('button');
+    btn.className = 'pb-copy';
+    btn.textContent = '\uBCF5\uC0AC';
+    btn.addEventListener('click', function() {
+      navigator.clipboard.writeText(el.textContent.trim()).then(function() {
+        btn.textContent = '\uBCF5\uC0AC\uB428';
+        setTimeout(function() { btn.textContent = '\uBCF5\uC0AC'; }, 1500);
+      });
+    });
+    el.appendChild(btn);
+  });
+</script>

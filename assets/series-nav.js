@@ -231,6 +231,18 @@
       articles: [
         { slug: 'agent-is-three-configs', title: '에이전트 조립하기' }
       ]
+    },
+    'why-react-series': {
+      title: 'React가 뭐길래',
+      articles: [
+        { slug: 'you-can-switch', title: '바꿔도 됩니다' }
+      ]
+    },
+    'code-last-series': {
+      title: '코드는 마지막이다',
+      articles: [
+        { slug: 'time-without-output', title: '결과물이 없는 시간' }
+      ]
     }
   };
 

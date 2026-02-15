@@ -1,0 +1,284 @@
+---
+layout: layouts/article.njk
+pageTitle: "바꿔도 됩니다"
+description: "공공기관과 대학에서 쓰는 상용 웹 플랫폼, React로 바꿔도 되는가. 비개발자 담당자를 위한 기술 선택 가이드."
+datePublished: "2026-02-15"
+---
+<style>
+/* MASTHEAD OVERRIDE */
+.masthead .deck { max-width: 520px; }
+
+/* STAT CARDS — big number contrast */
+.stat-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin: 40px 0 48px;
+}
+.stat-card {
+  background: var(--bg);
+  padding: 32px 24px;
+  text-align: center;
+}
+.stat-card .s-label {
+  font-family: var(--serif);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.stat-card .s-num {
+  font-family: var(--mono);
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-card .s-num.muted {
+  color: var(--muted);
+  font-size: 1.8rem;
+}
+.stat-card .s-desc {
+  font-size: 0.82rem;
+  color: var(--secondary);
+  line-height: 1.6;
+}
+
+/* COMPARE DIAGRAM (2-col) */
+.dia-cmp {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin: 40px 0;
+}
+.dia-cmp-col {
+  background: var(--bg);
+  padding: 24px 20px;
+}
+.dia-cmp-col small {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.dia-cmp-node {
+  border: 1px solid var(--fg);
+  padding: 8px 16px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-bottom: 12px;
+}
+.dia-cmp-list {
+  list-style: none;
+  font-size: 0.82rem;
+  color: var(--prose);
+  line-height: 1.9;
+}
+.dia-cmp-list li {
+  padding: 4px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.dia-cmp-list li:last-child { border-bottom: none; }
+.dia-cmp-list li span { color: var(--muted); font-size: 0.72rem; }
+.dia-cmp-list li.hi { color: var(--accent); font-weight: 700; }
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .stat-row { grid-template-columns: 1fr; }
+  .stat-card .s-num { font-size: 1.8rem; }
+  .stat-card .s-num.muted { font-size: 1.4rem; }
+  .dia-cmp { grid-template-columns: 1fr; }
+}
+</style>
+<div class="page">
+<article>
+  <header class="masthead">
+    <div class="issue">Series 28 — Why React</div>
+    <h1>바꿔도<br><strong>됩니다</strong></h1>
+    <p class="deck">상용 웹 플랫폼과 React<br>비개발자를 위한 기술 선택 가이드</p>
+  </header>
+
+  <main>
+
+<!-- ==================== PART I ==================== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part I</span>
+    <h2>같은 종류의 <strong>도구입니다</strong></h2>
+  </div>
+
+  <p class="prose">WebSquare, Nexacro, eXBuilder — 이것들의 정식 명칭은 <strong>웹 UI 프레임워크</strong>다. 웹 화면을 만드는 도구다.</p>
+
+  <p class="prose">React도 웹 UI 프레임워크다. <strong>같은 일을 한다.</strong> 차이는 하나다. 상용 플랫폼은 특정 회사가 만들어 파는 유료 도구고, React는 전 세계가 함께 만드는 무료 도구다.</p>
+
+  <div class="dia-cmp">
+    <div class="dia-cmp-col">
+      <small>commercial platform</small>
+      <div class="dia-cmp-node">웹 UI 프레임워크</div>
+      <ul class="dia-cmp-list">
+        <li>웹 화면을 만든다</li>
+        <li>특정 회사가 개발/유지</li>
+        <li>유료 라이선스</li>
+        <li>국내에서만 사용</li>
+        <li>벤더 사라지면 고립</li>
+      </ul>
+    </div>
+    <div class="dia-cmp-col">
+      <small>React</small>
+      <div class="dia-cmp-node">웹 UI 프레임워크</div>
+      <ul class="dia-cmp-list">
+        <li class="hi">웹 화면을 만든다</li>
+        <li class="hi">전 세계 커뮤니티가 개발/유지</li>
+        <li class="hi">MIT 라이선스 — 무료</li>
+        <li class="hi">전 세계 표준</li>
+        <li class="hi">Meta 사라져도 유지</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="prose">다른 종류가 아니다. <strong>같은 종류의 도구인데, 생태계 규모가 다르다.</strong></p>
+</section>
+
+<!-- ==================== PART II ==================== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part II</span>
+    <h2>개발자가 <strong>이만큼 다르다</strong></h2>
+  </div>
+
+  <p class="prose">기술의 가치는 그 기술을 다룰 수 있는 사람의 수로 결정된다. 구인 공고를 올렸을 때 지원자가 오느냐, 안 오느냐.</p>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="s-label">React 개발자 비율</div>
+      <div class="s-num">44.7%</div>
+      <div class="s-desc">전 세계 웹 개발자 중 — Stack Overflow 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="s-label">상용 플랫폼 개발자 비율</div>
+      <div class="s-num muted">측정 불가</div>
+      <div class="s-desc">글로벌 통계에 잡히지 않는다</div>
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="s-label">React 국내 채용 공고</div>
+      <div class="s-num">1,123</div>
+      <div class="s-desc">잡코리아 기준, 2026년 2월</div>
+    </div>
+    <div class="stat-card">
+      <div class="s-label">상용 플랫폼 채용 공고</div>
+      <div class="s-num muted">수십 건</div>
+      <div class="s-desc">경력 5년 이상, 수개월째 미달</div>
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="s-label">React 기술 질문</div>
+      <div class="s-num">400K+</div>
+      <div class="s-desc">Stack Overflow — 답이 이미 있다</div>
+    </div>
+    <div class="stat-card">
+      <div class="s-label">상용 플랫폼 기술 질문</div>
+      <div class="s-num muted">수십 건</div>
+      <div class="s-desc">벤더 QnA가 전부다</div>
+    </div>
+  </div>
+
+  <p class="prose">토스, 네이버, 카카오, 배달의민족, 당근마켓 — <strong>이름만 대면 아는 한국 기업들이 React로 서비스를 만든다.</strong> ChatGPT에게 React 코드를 물어보면 즉시 답이 온다. 수억 줄의 공개 코드를 학습했기 때문이다. 상용 플랫폼은 AI가 학습한 데이터 자체가 없다.</p>
+</section>
+
+<!-- ==================== PART III ==================== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part III</span>
+    <h2>오픈소스가 <strong>더 안전하다</strong></h2>
+  </div>
+
+  <p class="prose">"코드가 공개되어 있으면 위험하지 않나요?" <strong>반대다.</strong></p>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="s-label">전 세계 서버 OS</div>
+      <div class="s-num">96.3%</div>
+      <div class="s-desc">Linux(오픈소스)가 돌린다</div>
+    </div>
+    <div class="stat-card">
+      <div class="s-label">React 코드 감시자</div>
+      <div class="s-num">236K</div>
+      <div class="s-desc">GitHub에서 코드를 지켜보는 눈</div>
+    </div>
+  </div>
+
+  <p class="prose">오픈소스는 코드가 공개되어 있어 전 세계 개발자 23만 6천 명이 취약점을 찾아 고친다. 폐쇄형 소프트웨어는 벤더 직원 수백 명이 고친다. <strong>눈이 많을수록 버그는 적다.</strong> 소프트웨어 공학에서 "리누스의 법칙"이라 불리는 기본 원칙이다.</p>
+
+  <p class="prose">은행, 병원, 군사 시스템이 오픈소스 위에서 돌아간다. <strong>대한민국 전자정부표준프레임워크도 오픈소스다.</strong> 정부가 직접 쓰는 프레임워크가 오픈소스인데, React가 오픈소스라서 불안할 이유는 없다.</p>
+
+  <div class="pull-quote">
+    <p>폐쇄형 = 벤더 직원 수백 명이 코드를 본다<br>오픈소스 = 전 세계 개발자 23만 명이 코드를 본다</p>
+  </div>
+</section>
+
+<!-- ==================== PART IV ==================== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part IV</span>
+    <h2>컨벤션도 React가 <strong>앞선다</strong></h2>
+  </div>
+
+  <p class="prose">"개발자마다 코드를 다르게 짜면 유지보수가 안 되지 않나요?" 맞는 걱정이다. 그런데 <strong>이 문제를 더 잘 해결하는 쪽은 React다.</strong></p>
+
+  <div class="dia-cmp">
+    <div class="dia-cmp-col">
+      <small>commercial platform</small>
+      <div class="dia-cmp-node">문서에 적힌 권장사항</div>
+      <ul class="dia-cmp-list">
+        <li>벤더 매뉴얼에 "이렇게 하세요"</li>
+        <li>안 지켜도 코드가 돌아간다</li>
+        <li>프로젝트마다 규칙이 다르다</li>
+        <li>사람이 리뷰해야 발견된다</li>
+      </ul>
+    </div>
+    <div class="dia-cmp-col">
+      <small>React</small>
+      <div class="dia-cmp-node">도구가 강제하는 규칙</div>
+      <ul class="dia-cmp-list">
+        <li class="hi">ESLint — 규칙 위반 시 빌드 차단</li>
+        <li class="hi">Prettier — 코드 포맷 자동 통일</li>
+        <li class="hi">TypeScript — 타입 오류 사전 차단</li>
+        <li class="hi">전자정부 React 템플릿 제공</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="prose">상용 플랫폼의 컨벤션은 "지키길 바라는 규칙"이다. React의 컨벤션은 <strong>"안 지키면 코드가 실행되지 않는 규칙"</strong>이다.</p>
+
+  <p class="prose">전자정부표준프레임워크 v4.0은 <strong>React + Spring Boot 공식 템플릿</strong>을 제공한다. 프로젝트 구조, 폴더 규칙, 코딩 표준이 이미 정해져 있다. 공공 프로젝트에서 "어떤 표준을 따를 것인가"의 답은 이미 나와 있다.</p>
+</section>
+
+  </main>
+
+  <div class="closing">
+    <h2>같은 도구다. 개발자가 압도적으로 많다.<br>오픈소스라 더 안전하다.<br><strong>바꿔도 됩니다</strong></h2>
+    <p class="sub">전자정부표준프레임워크 v4.0 공식 지원. MIT 라이선스. 비용 0원.</p>
+  </div>
+
+  <footer class="footer">
+    <p>Sources: Stack Overflow Developer Survey 2025 &middot; W3Techs Server OS Usage 2025 &middot; npm Registry Statistics &middot; eGovFramework Portal &middot; Jobkorea 2026 &middot; GitHub React Repository</p>
+    <p>Research assisted by Claude &middot; 2026</p>
+  </footer>
+</article>
+</div>

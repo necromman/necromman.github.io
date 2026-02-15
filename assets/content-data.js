@@ -905,5 +905,35 @@ window.CONTENT_DATA = [
         search: 'MCP 에이전트 AI agent function calling tool use 설정 시스템프롬프트 도구 프로토콜 spring fastmcp'
       }
     ]
+  },
+  {
+    id: 'why-react',
+    seriesNum: 28,
+    title: 'React가 뭐길래',
+    description: '공공기관과 대학의 상용 웹 플랫폼, React로 바꿔도 되는가. 비개발자 담당자를 위한 기술 선택 가이드.',
+    articles: [
+      {
+        title: '바꿔도 됩니다',
+        role: '종합 가이드 — 상용 플랫폼의 숨겨진 비용, React 생태계, 전환 안전성',
+        tag: '가이드',
+        href: 'content/why-react-series/you-can-switch.html',
+        search: 'React 리액트 상용 웹 플랫폼 전환 마이그레이션 공공기관 대학 전자정부표준프레임워크 WebSquare Nexacro eXBuilder'
+      }
+    ]
+  },
+  {
+    id: 'code-last',
+    seriesNum: 29,
+    title: '코드는 마지막이다',
+    description: '바이브 코딩이 느려지는 진짜 이유. 45% 보안 결함, 23분 컨텍스트 회복, 3개 워킹 메모리 — 데이터가 증명하는 "급할수록 돌아가라".',
+    articles: [
+      {
+        title: '결과물이 없는 시간',
+        role: '속도의 역설, 인지과학, 5단계 워크플로우와 프롬프트',
+        tag: '분석/가이드',
+        href: 'content/code-last-series/time-without-output.html',
+        search: '바이브코딩 속도 역설 계획 PRD CLAUDE.md 인지과학 워킹메모리 Zeigarnik 프롬프트 5단계 워크플로우'
+      }
+    ]
   }
 ];

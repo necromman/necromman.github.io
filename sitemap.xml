@@ -638,4 +638,18 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- Series 28: React가 뭐길래 -->
+  <url>
+    <loc>https://necromman.github.io/editorial/content/why-react-series/you-can-switch.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Series 29: 코드는 마지막이다 -->
+  <url>
+    <loc>https://necromman.github.io/editorial/content/code-last-series/time-without-output.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
