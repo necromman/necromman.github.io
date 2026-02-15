@@ -890,5 +890,20 @@ window.CONTENT_DATA = [
         search: '거울의숲 반영림 명경 신화 판타지 혜성 에릭 민우 앤디 기억 봉인 명허 소설'
       }
     ]
+  },
+  {
+    id: 'mcp-agent-guide',
+    seriesNum: 27,
+    title: '에이전트 조립 가이드',
+    description: '에이전트, MCP, Function Calling — 이름만 거창하지, 원리는 단순하다. 코드 대신 아키텍처와 프롬프트로 조립한다.',
+    articles: [
+      {
+        title: '에이전트 조립하기',
+        role: '종합 가이드 — 시스템 프롬프트·지식베이스·도구 설계를 프롬프트로 조립',
+        tag: 'AI/에이전트',
+        href: 'content/mcp-agent-guide-series/agent-is-three-configs.html',
+        search: 'MCP 에이전트 AI agent function calling tool use 설정 시스템프롬프트 도구 프로토콜 spring fastmcp'
+      }
+    ]
   }
 ];

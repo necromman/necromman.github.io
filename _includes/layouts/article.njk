@@ -11,20 +11,27 @@
 <meta property="og:title" content="{{ ogTitle or pageTitle }}">
 <meta property="og:description" content="{{ ogDescription or description }}">
 <meta property="og:url" content="https://necromman.github.io{{ page.url }}">
+{% set ogImagePath = page.url | replace("/content/", "/assets/og/") | replace(".html", ".png") %}
+<meta property="og:image" content="https://necromman.github.io{{ ogImagePath }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="Editorial">
 <meta property="article:published_time" content="{{ datePublished }}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ ogTitle or pageTitle }}">
 <meta name="twitter:description" content="{{ ogDescription or description }}">
+<meta name="twitter:image" content="https://necromman.github.io{{ ogImagePath }}">
 {% set headline = ogTitle if ogTitle else pageTitle %}
 {% set modDate = dateModified if dateModified else datePublished %}
 {% set canonicalUrl = "https://necromman.github.io" ~ page.url %}
+{% set ogImageUrl = "https://necromman.github.io" ~ ogImagePath %}
 {% set ld = {
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": headline,
   "description": description,
+  "image": ogImageUrl,
   "datePublished": datePublished,
   "dateModified": modDate,
   "publisher": {

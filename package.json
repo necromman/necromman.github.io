@@ -5,10 +5,17 @@
   "private": true,
   "scripts": {
     "dev": "eleventy --serve --port=3000",
-    "build": "eleventy",
+    "build": "node scripts/generate-og.mjs && eleventy",
+    "build:og": "node scripts/generate-og.mjs",
     "serve": "eleventy --serve"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.0.0"
+    "@11ty/eleventy": "^3.0.0",
+    "@resvg/resvg-js": "^2.6.2",
+    "gray-matter": "^4.0.3",
+    "satori": "^0.19.2"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-code": "^2.1.42"
   }
 }

@@ -1,0 +1,877 @@
+---
+layout: layouts/article.njk
+pageTitle: "에이전트 조립하기"
+description: "시스템 프롬프트 5계층, RAG 파이프라인, MCP vs 내장 도구 판단 기준 — 구성도를 읽고 프롬프트를 복사하면 에이전트가 만들어진다."
+datePublished: "2026-02-15"
+---
+<style>
+/* MASTHEAD OVERRIDE */
+.masthead .deck { max-width: 500px; }
+
+/* CONFIG CARDS */
+.config-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin: 40px 0 48px;
+}
+.config-card {
+  background: var(--bg);
+  padding: 28px 24px;
+}
+.config-card .c-num {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.config-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.config-card p {
+  font-size: 0.88rem;
+  color: var(--secondary);
+  line-height: 1.7;
+}
+.config-card ul {
+  list-style: none;
+  font-size: 0.82rem;
+  color: var(--prose);
+  line-height: 1.9;
+}
+.config-card li {
+  padding: 3px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.config-card li:last-child { border-bottom: none; }
+.config-card li strong { color: var(--fg); }
+
+/* DIAGRAM BASE */
+.dia {
+  margin: 40px 0;
+  padding: 28px 24px;
+  background: var(--card-bg);
+}
+.dia-vline {
+  width: 2px;
+  height: 20px;
+  background: var(--rule);
+  margin: 0 auto;
+}
+
+/* Diagram: Agent Equation */
+.dia-eq-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.dia-eq-box {
+  border: 1px solid var(--rule);
+  background: var(--bg);
+  padding: 12px 16px;
+  text-align: center;
+  min-width: 96px;
+}
+.dia-eq-box small {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.dia-eq-box strong {
+  font-size: 0.88rem;
+  color: var(--fg);
+}
+.dia-eq-op {
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.dia-eq-core { text-align: center; }
+.dia-eq-core span {
+  display: inline-block;
+  border: 2px solid var(--accent);
+  padding: 8px 32px;
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 2px;
+}
+.dia-eq-result { text-align: center; margin-top: 4px; }
+.dia-eq-result span {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border-bottom: 3px double var(--accent);
+  padding-bottom: 2px;
+}
+
+/* English sub-label */
+.en-sub {
+  display: block;
+  font-size: 0.65rem;
+  color: var(--muted);
+  font-weight: 400;
+  margin-top: 3px;
+}
+
+/* Diagram: Compare (2-col) */
+.dia-cmp {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin: 40px 0;
+}
+.dia-cmp-col {
+  background: var(--bg);
+  padding: 24px 20px;
+}
+.dia-cmp-col small {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.dia-cmp-node {
+  border: 1px solid var(--fg);
+  padding: 8px 16px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-bottom: 12px;
+}
+.dia-cmp-list {
+  list-style: none;
+  font-size: 0.82rem;
+  color: var(--prose);
+  line-height: 1.9;
+}
+.dia-cmp-list li {
+  padding: 4px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.dia-cmp-list li:last-child { border-bottom: none; }
+.dia-cmp-list li span { color: var(--muted); font-size: 0.72rem; }
+.dia-cmp-list li.hi { color: var(--accent); font-weight: 700; }
+.dia-cmp-note {
+  margin-top: 14px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* FLOW ARROW */
+.flow-arrow {
+  text-align: center;
+  padding: 8px 0;
+  color: var(--accent);
+  font-size: 1rem;
+}
+.flow-arrow span {
+  display: inline-block;
+  animation: flowBounce 1.5s ease-in-out infinite;
+}
+@keyframes flowBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* ARCHITECTURE DIAGRAM */
+.arch-diagram { margin: 40px 0 48px; }
+.arch-layer {
+  background: var(--card-bg);
+  padding: 24px 28px;
+  border: 1px solid var(--rule);
+}
+.arch-layer .al-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+}
+.arch-layer .al-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 6px 0 4px;
+  color: var(--fg);
+}
+.arch-layer p {
+  font-size: 0.85rem;
+  color: var(--secondary);
+  line-height: 1.6;
+}
+
+/* PROMPT BOX */
+.prompt-box {
+  margin: 40px 0;
+  padding: 28px;
+  border-left: 3px solid var(--accent);
+  background: var(--card-bg);
+}
+.prompt-box .pb-label {
+  font-family: var(--serif);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.prompt-box .pb-desc {
+  font-size: 0.88rem;
+  color: var(--secondary);
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+.prompt-box .pb-prompt {
+  position: relative;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.7;
+  color: var(--prose);
+  background: var(--bg);
+  padding: 18px 68px 18px 20px;
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  margin-bottom: 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.prompt-box .pb-prompt:last-child { margin-bottom: 0; }
+
+/* COPY BUTTON */
+.pb-copy {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  color: var(--muted);
+  font-family: var(--serif);
+  font-size: 0.72rem;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.pb-copy:hover {
+  color: var(--fg);
+  border-color: var(--fg);
+  background: var(--bg);
+}
+.pb-copy.copied {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* CRITERIA LIST */
+.criteria-list {
+  list-style: none;
+  margin: 40px 0 48px;
+  border: 1px solid var(--rule);
+}
+.criteria-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--prose);
+}
+.criteria-list li:last-child { border-bottom: none; }
+.criteria-list .cr-arrow {
+  color: var(--accent);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.criteria-list .cr-result {
+  color: var(--fg);
+  font-weight: 700;
+  flex-shrink: 0;
+  min-width: 48px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .config-cards { grid-template-columns: 1fr; }
+  .dia-eq-row { gap: 6px; }
+  .dia-eq-box { min-width: 72px; padding: 10px 12px; }
+  .dia-eq-box strong { font-size: 0.78rem; }
+  .dia-cmp { grid-template-columns: 1fr; }
+  .prompt-box { padding: 20px; }
+  .prompt-box .pb-prompt { font-size: 0.72rem; padding: 16px 56px 16px 16px; border-radius: 12px; }
+  .pb-copy { top: 10px; right: 10px; font-size: 0.65rem; padding: 4px 8px; }
+  .criteria-list li { padding: 12px 16px; font-size: 0.85rem; }
+}
+</style>
+<div class="page">
+<article>
+  <header class="masthead">
+    <div class="issue">Series 27 — MCP Agent Guide</div>
+    <h1>에이전트<br><strong>조립하기</strong></h1>
+    <p class="deck">시스템 프롬프트 · 지식베이스 · 도구<br>구성도를 읽고 프롬프트를 복사하면 된다.</p>
+  </header>
+
+  <main>
+
+<!-- ==================== PART I ==================== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part I — The Identity</span>
+    <h2>에이전트의 <strong>정체</strong></h2>
+  </div>
+
+  <p class="prose">에이전트는 새로운 기술이 아니다. <strong>LLM 호출에 설정 세 개를 더한 것이 전부다.</strong></p>
+
+  <div class="dia">
+    <div class="dia-eq-row">
+      <div class="dia-eq-box"><small>CONFIG 01</small><strong>시스템 프롬프트</strong><span class="en-sub">System Prompt</span></div>
+      <span class="dia-eq-op">+</span>
+      <div class="dia-eq-box"><small>CONFIG 02</small><strong>지식베이스</strong><span class="en-sub">Knowledge Base</span></div>
+      <span class="dia-eq-op">+</span>
+      <div class="dia-eq-box"><small>CONFIG 03</small><strong>도구 세트</strong><span class="en-sub">Tools</span></div>
+    </div>
+    <div class="dia-vline"></div>
+    <div class="dia-eq-core"><span>LLM</span></div>
+    <div class="dia-vline"></div>
+    <div class="dia-eq-result"><span>AGENT</span></div>
+  </div>
+
+  <div class="config-cards">
+    <div class="config-card">
+      <div class="c-num">CONFIG 01</div>
+      <h3>시스템 프롬프트</h3>
+      <p>역할, 제약, 가드레일. 프롬프트가 다르면 다른 에이전트다.</p>
+    </div>
+    <div class="config-card">
+      <div class="c-num">CONFIG 02</div>
+      <h3>지식베이스</h3>
+      <p>사내 위키, API 문서, 매뉴얼. RAG로 연결하면 에이전트만의 기억이 된다.</p>
+    </div>
+    <div class="config-card">
+      <div class="c-num">CONFIG 03</div>
+      <h3>도구 세트</h3>
+      <p>Jira 이슈 생성, DB 조회, Slack 알림. 도구가 다르면 능력이 다르다.</p>
+    </div>
+  </div>
+
+  <div class="pull-quote">
+    <p>에이전트는 새로운 기술이 아니다. LLM 호출에 이름표를 붙인 것이다.</p>
+  </div>
+</section>
+
+<!-- ==================== PART II ==================== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part II — Config 01</span>
+    <h2>시스템 프롬프트 <strong>설계</strong></h2>
+  </div>
+
+  <p class="prose">시스템 프롬프트가 에이전트의 성격을 결정한다. <strong>다섯 개의 계층으로 설계한다.</strong> 한 계층이라도 빠지면 에이전트가 예측 불가능하게 행동한다.</p>
+
+  <div class="arch-diagram">
+    <div class="arch-layer">
+      <span class="al-label">LAYER 01</span>
+      <div class="al-title">역할 정의</div>
+      <p>"너는 BACKEND 프로젝트의 Jira 이슈를 관리하는 AI다"</p>
+    </div>
+    <div class="flow-arrow"><span>↓</span></div>
+    <div class="arch-layer">
+      <span class="al-label">LAYER 02</span>
+      <div class="al-title">제약 조건</div>
+      <p>"이슈 삭제는 거부한다. 프로젝트 키 없이 생성하지 않는다"</p>
+    </div>
+    <div class="flow-arrow"><span>↓</span></div>
+    <div class="arch-layer">
+      <span class="al-label">LAYER 03</span>
+      <div class="al-title">지식 범위</div>
+      <p>"BACKEND, FRONTEND 프로젝트만 안다. 다른 프로젝트는 모른다고 답한다"</p>
+    </div>
+    <div class="flow-arrow"><span>↓</span></div>
+    <div class="arch-layer">
+      <span class="al-label">LAYER 04</span>
+      <div class="al-title">출력 형식</div>
+      <p>"이슈 생성 결과는 JSON, 요약은 자연어로 응답한다"</p>
+    </div>
+    <div class="flow-arrow"><span>↓</span></div>
+    <div class="arch-layer">
+      <span class="al-label">LAYER 05</span>
+      <div class="al-title">가드레일</div>
+      <p>"확신이 없으면 확인을 요청한다. 도구를 5회 이상 연속 호출하면 중단하고 보고한다"</p>
+    </div>
+  </div>
+
+  <div class="dia-cmp">
+    <div class="dia-cmp-col">
+      <small>BAD</small>
+      <div class="dia-cmp-node">시스템 프롬프트</div>
+      <ul class="dia-cmp-list">
+        <li>"너는 도움이 되는 AI야."</li>
+        <li>"사용자 요청을 처리해줘."</li>
+      </ul>
+      <div class="dia-cmp-note">범용적, 경계 없음, 예측 불가</div>
+    </div>
+    <div class="dia-cmp-col">
+      <small>GOOD</small>
+      <div class="dia-cmp-node">시스템 프롬프트</div>
+      <ul class="dia-cmp-list">
+        <li class="hi">역할: Jira 이슈 관리 전담</li>
+        <li class="hi">제약: 삭제 거부, 키 필수</li>
+        <li class="hi">범위: BACKEND/FRONTEND만</li>
+        <li class="hi">형식: 생성=JSON, 요약=자연어</li>
+        <li class="hi">가드레일: 불확실하면 확인</li>
+      </ul>
+      <div class="dia-cmp-note">역할 명확, 경계 존재, 예측 가능</div>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <div class="w-title">시스템 프롬프트에서 흔한 실수 3가지</div>
+    <ul class="warning-list">
+      <li><strong>역할이 넓을수록 좋다?</strong> — "뭐든 하는 AI"는 아무것도 잘 못 한다. 하나의 역할에 집중해야 도구 선택 정확도가 올라간다</li>
+      <li><strong>제약을 안 써도 상식적으로 행동하겠지?</strong> — LLM에게 상식은 없다. 명시하지 않은 행동은 한다. "삭제 금지"를 안 쓰면 삭제한다</li>
+      <li><strong>출력 형식을 안 정하면?</strong> — "이슈를 만들었습니다!" vs JSON 응답. 후속 처리가 불가능해진다. 파싱할 거면 형식을 강제하라</li>
+    </ul>
+  </div>
+
+  <div class="prompt-box">
+    <div class="pb-label">시스템 프롬프트를 설계하고 싶다면</div>
+    <p class="pb-desc">대괄호 [ ] 안의 내용을 자신의 환경에 맞게 수정한 뒤, AI에 붙여넣으세요.</p>
+    <div class="pb-prompt">에이전트의 시스템 프롬프트를 설계해줘.
+
+에이전트 역할: [예: Jira 이슈 관리 / 고객 문의 응대 / 코드 리뷰]
+사용 도구: [예: create_issue, search_db, send_notification]
+
+다섯 계층 구조로 작성해줘:
+1. 역할 정의 — 누구인지, 어떤 톤으로 응답하는지
+2. 제약 조건 — 절대 하면 안 되는 것 (삭제, 개인정보 노출 등)
+3. 지식 범위 — 답변 가능 영역과 '모른다'고 말해야 하는 영역
+4. 출력 형식 — 상황별 응답 형식 (JSON, 마크다운, 자연어)
+5. 가드레일 — 불확실할 때 행동 (확인 요청, 거부, 에스컬레이션)
+
+주의:
+- '도움이 되는 AI' 같은 범용 역할 금지
+- 도구 사용 판단 기준을 프롬프트에 포함
+- 에러/예외 상황 대응 명시
+
+출력: 즉시 API에 전달할 수 있는 프롬프트 텍스트 + 계층별 설계 의도 주석</div>
+    <div class="pb-prompt">위 시스템 프롬프트를 [Python + OpenAI SDK / TypeScript + Anthropic SDK / Java + Spring AI]로 LLM에 전달하는 코드를 작성해줘.
+
+필수:
+- 프롬프트를 별도 파일에서 로드 (코드에 하드코딩 금지)
+- API 키는 환경 변수로 관리
+- 프롬프트 변경 시 재배포 없이 반영되는 구조
+
+출력: 모듈별 분리, .env.example 포함</div>
+  </div>
+</section>
+
+<!-- ==================== PART III ==================== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part III — Config 02</span>
+    <h2>지식베이스 <strong>구축</strong></h2>
+  </div>
+
+  <p class="prose">LLM은 학습 데이터 밖의 것을 모른다. 사내 위키, API 문서, 온보딩 가이드를 연결하는 기술이 <strong>RAG(Retrieval-Augmented Generation)</strong>다. 문서를 쪼개고, 벡터로 바꾸고, 질문과 유사한 조각을 찾아 LLM에 건넨다.</p>
+
+  <div class="arch-diagram">
+    <div class="arch-layer">
+      <span class="al-label">STAGE 01</span>
+      <div class="al-title">문서 수집</div>
+      <p>PDF, Confluence, Notion, GitHub, Slack 히스토리</p>
+    </div>
+    <div class="flow-arrow"><span>↓</span></div>
+    <div class="arch-layer">
+      <span class="al-label">STAGE 02</span>
+      <div class="al-title">청킹</div>
+      <p>500~1000 토큰 단위 분할, 100 토큰 오버랩으로 맥락 보존</p>
+    </div>
+    <div class="flow-arrow"><span>↓</span></div>
+    <div class="arch-layer">
+      <span class="al-label">STAGE 03</span>
+      <div class="al-title">임베딩</div>
+      <p>텍스트를 벡터(숫자 배열)로 변환 — 의미가 비슷하면 벡터도 가깝다</p>
+    </div>
+    <div class="flow-arrow"><span>↓</span></div>
+    <div class="arch-layer">
+      <span class="al-label">STAGE 04</span>
+      <div class="al-title">벡터 DB 저장</div>
+      <p>벡터를 인덱싱, 유사도 검색이 가능한 형태로 저장</p>
+    </div>
+    <div class="flow-arrow"><span>↓</span></div>
+    <div class="arch-layer">
+      <span class="al-label">STAGE 05</span>
+      <div class="al-title">검색 + 생성</div>
+      <p>질문 → 관련 청크 검색 → LLM 컨텍스트에 주입 → 답변 생성</p>
+    </div>
+  </div>
+
+  <div class="config-cards">
+    <div class="config-card">
+      <div class="c-num">벡터 DB</div>
+      <h3>어디에 저장할 것인가</h3>
+      <ul>
+        <li><strong>Pinecone</strong> — 관리형, 스케일 자동</li>
+        <li><strong>Chroma</strong> — 로컬, 프로토타이핑</li>
+        <li><strong>pgvector</strong> — 기존 PG 활용</li>
+        <li><strong>Weaviate</strong> — 하이브리드 검색</li>
+      </ul>
+    </div>
+    <div class="config-card">
+      <div class="c-num">임베딩 모델</div>
+      <h3>어떻게 벡터로 바꿀 것인가</h3>
+      <ul>
+        <li><strong>OpenAI</strong> — text-embedding-3</li>
+        <li><strong>Cohere</strong> — embed-v3, 다국어</li>
+        <li><strong>BGE / E5</strong> — 오픈소스, 비용 0</li>
+      </ul>
+    </div>
+    <div class="config-card">
+      <div class="c-num">프레임워크</div>
+      <h3>어떤 도구로 조립할 것인가</h3>
+      <ul>
+        <li><strong>LangChain</strong> — 생태계 최대</li>
+        <li><strong>LlamaIndex</strong> — 문서 특화</li>
+        <li><strong>직접 구현</strong> — 의존성 최소</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="dia-cmp">
+    <div class="dia-cmp-col">
+      <small>RAG</small>
+      <div class="dia-cmp-node">외부 지식 연결</div>
+      <ul class="dia-cmp-list">
+        <li>문서 업데이트 → <strong>즉시 반영</strong></li>
+        <li>비용: 벡터 DB + 검색 <span>(낮음)</span></li>
+        <li>환각: 출처 명시로 검증 가능</li>
+        <li class="hi">자주 바뀌는 문서, FAQ에 적합</li>
+      </ul>
+    </div>
+    <div class="dia-cmp-col">
+      <small>FINE-TUNING</small>
+      <div class="dia-cmp-node">모델에 내재화</div>
+      <ul class="dia-cmp-list">
+        <li>재학습 필요 <span>(수일~수주)</span></li>
+        <li>비용: GPU 학습 <span>(높음)</span></li>
+        <li>환각: 출처 추적 어려움</li>
+        <li class="hi">특수 도메인 용어, 톤 변경에 적합</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="prose"><strong>대부분의 경우 RAG가 먼저다.</strong> 파인튜닝은 RAG로 해결이 안 될 때 — 도메인 전문 용어가 많거나, 응답 톤 자체를 바꿔야 할 때 검토한다.</p>
+
+  <div class="prompt-box">
+    <div class="pb-label">RAG 파이프라인을 구축하고 싶다면</div>
+    <p class="pb-desc">대괄호 [ ] 안의 내용을 자신의 환경에 맞게 수정한 뒤, AI에 붙여넣으세요.</p>
+    <div class="pb-prompt">RAG 파이프라인을 [Python + LangChain / TypeScript + LlamaIndex / Python 직접 구현]으로 만들어줘.
+
+문서 소스: [Confluence / Notion / PDF / GitHub]
+문서량: [예: 500페이지 / 10GB]
+업데이트 주기: [매일 / 매주 / 실시간]
+
+5단계 포함:
+1. 문서 로더 — [소스]에서 텍스트 추출
+2. 청킹 — 500~1000 토큰, 오버랩 100
+3. 임베딩 — [OpenAI / Cohere / 오픈소스 BGE]
+4. 벡터 DB — [Pinecone / Chroma / pgvector]
+5. 검색 + 생성 — 유사도 검색 → LLM 컨텍스트 주입
+
+주의:
+- 청크가 너무 크면 관련 없는 내용이 섞인다 (1000 토큰 이하 권장)
+- 임베딩과 검색에 반드시 같은 모델을 써야 한다
+- 메타데이터 필터링 없이 전체 검색하면 노이즈가 심하다
+- 사용자별 문서 접근 권한 체크 필요 (PII 필터링)
+
+확장:
+- 새 문서 추가 시 전체 재인덱싱 없이 증분 업데이트
+- 문서 10배 증가 시 검색 속도를 유지하는 인덱스 전략
+
+출력: 모듈별 분리, 설정은 YAML/환경 변수, .env.example, 테스트 코드 포함</div>
+  </div>
+</section>
+
+<!-- ==================== PART IV ==================== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part IV — Config 03</span>
+    <h2>도구 — <strong>안에서 vs 밖에서</strong></h2>
+  </div>
+
+  <p class="prose">에이전트의 능력은 도구가 결정한다. 도구를 연결하는 방법은 둘이다. 앱 안에서 <strong>Function Calling</strong>으로 직접 호출하거나, <strong>MCP 서버</strong>로 분리해서 연결하거나. 핵심 질문은 하나다 — 이 도구를 안에 넣을까, 밖에 둘까.</p>
+
+  <div class="dia-cmp">
+    <div class="dia-cmp-col">
+      <small>내장 — Function Calling</small>
+      <div class="dia-cmp-node">앱 안에서 직접 호출</div>
+      <ul class="dia-cmp-list">
+        <li>같은 프로세스에서 실행</li>
+        <li>지연 시간 <strong>최소</strong></li>
+        <li>이 앱에서만 사용</li>
+        <li>배포 단위 = 하나</li>
+        <li class="hi">비즈니스 로직 특화</li>
+      </ul>
+    </div>
+    <div class="dia-cmp-col">
+      <small>외부 — MCP 서버</small>
+      <div class="dia-cmp-node">독립 프로세스로 분리</div>
+      <ul class="dia-cmp-list">
+        <li>JSON-RPC로 통신</li>
+        <li>여러 클라이언트에서 <strong>재사용</strong></li>
+        <li>독립 배포, 독립 관리</li>
+        <li>Claude Desktop/Cursor에서도 사용</li>
+        <li class="hi">범용 도구 특화</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="prose"><strong>판단 기준은 단순하다.</strong></p>
+
+  <ul class="criteria-list">
+    <li>
+      <span>여러 앱에서 같은 도구를 공유한다</span>
+      <span class="cr-arrow">→</span>
+      <span class="cr-result">MCP</span>
+    </li>
+    <li>
+      <span>이 앱에서만 쓰는 비즈니스 로직이다</span>
+      <span class="cr-arrow">→</span>
+      <span class="cr-result">내장</span>
+    </li>
+    <li>
+      <span>Claude Desktop이나 Cursor에서도 쓰고 싶다</span>
+      <span class="cr-arrow">→</span>
+      <span class="cr-result">MCP</span>
+    </li>
+    <li>
+      <span>지연 시간이 1ms라도 중요하다</span>
+      <span class="cr-arrow">→</span>
+      <span class="cr-result">내장</span>
+    </li>
+    <li>
+      <span>팀이 도구를 독립 배포하고 관리한다</span>
+      <span class="cr-arrow">→</span>
+      <span class="cr-result">MCP</span>
+    </li>
+    <li>
+      <span>혼자 빠르게 프로토타이핑한다</span>
+      <span class="cr-arrow">→</span>
+      <span class="cr-result">내장</span>
+    </li>
+  </ul>
+
+  <p class="prose"><strong>현실에서는 둘을 섞는다.</strong> 비즈니스 로직은 내장, 외부 서비스 연동은 MCP. 이 구조가 가장 실용적이다.</p>
+
+  <div class="arch-diagram">
+    <div class="arch-layer">
+      <span class="al-label">내부</span>
+      <div class="al-title">에이전트 서버</div>
+      <p>내장 도구 (견적 계산, 권한 검증, 비즈니스 규칙) + MCP 클라이언트</p>
+    </div>
+    <div class="flow-arrow"><span>↓ JSON-RPC</span></div>
+    <div class="arch-layer">
+      <span class="al-label">외부</span>
+      <div class="al-title">MCP 서버들</div>
+      <p>GitHub (이슈/PR) · Slack (메시지) · Jira (이슈) · DB (쿼리) · 사내 위키 (검색)</p>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <div class="w-title">도구 설계에서 흔한 실수 3가지</div>
+    <ul class="warning-list">
+      <li><strong>전부 MCP로 만든다</strong> — 프로세스 간 통신 오버헤드, 배포 복잡도 폭증. 내부 로직까지 MCP로 분리하면 오버엔지니어링이다</li>
+      <li><strong>전부 내장한다</strong> — 앱이 비대해지고 재사용이 불가능하다. 다른 앱에서 같은 도구가 필요하면 코드를 복사하게 된다</li>
+      <li><strong>description을 대충 쓴다</strong> — LLM은 description만 읽고 도구를 고른다. "Creates issue"로는 판단이 불가능하다. "Jira에 Bug/Task/Story 이슈를 생성합니다. 프로젝트 키와 제목이 필수입니다"처럼 써야 한다</li>
+    </ul>
+  </div>
+
+  <div class="prompt-box">
+    <div class="pb-label">MCP 서버를 만들고 싶다면</div>
+    <p class="pb-desc">대괄호 [ ] 안의 내용을 자신의 환경에 맞게 수정한 뒤, AI에 붙여넣으세요.</p>
+    <div class="pb-prompt">[내 시스템/서비스]를 MCP 서버로 만들어줘.
+
+기술 스택: [Python FastMCP / TypeScript @modelcontextprotocol/sdk / Java Spring AI MCP]
+
+노출할 도구:
+- [도구 1]: [설명] — 파라미터: [목록]
+- [도구 2]: [설명] — 파라미터: [목록]
+
+필수:
+- description: LLM이 '언제 이 도구를 선택해야 하는지' 판단할 수 있게 구체적으로
+- 파라미터 검증: [Pydantic / Zod] 스키마
+- 에러 처리: API 타임아웃, 인증 실패, 잘못된 인자
+- 인증: [API Key / OAuth / 없음]
+
+주의:
+- description을 'Creates issue'로 쓰지 마. 한국어로, 구체적으로 써
+- 하나의 도구에 기능을 몰아넣지 마 (단일 책임)
+- 삭제/결제 같은 민감한 작업은 확인 단계 추가
+
+확장:
+- 도구 50개까지 늘어나도 구조가 유지되는 패턴
+- 새 도구 추가 시 기존 코드 변경 최소화
+
+출력: MCP 서버 코드 + claude_desktop_config.json + 테스트 방법 + .env.example</div>
+  </div>
+
+  <div class="prompt-box">
+    <div class="pb-label">내장 Function Calling으로 에이전트 루프를 구현하고 싶다면</div>
+    <p class="pb-desc">Function Calling에 while 루프를 감으면 에이전트가 된다. 텍스트가 올 때까지 도구를 반복 실행한다.</p>
+    <div class="pb-prompt">[프레임워크]에서 Function Calling으로 에이전트 루프를 구현해줘.
+
+기술 스택: [Python + OpenAI SDK / Python + Anthropic SDK / TypeScript + Vercel AI SDK]
+
+내부 도구:
+- [도구 1]: [비즈니스 로직 설명]
+- [도구 2]: [비즈니스 로직 설명]
+
+필수:
+- 도구 정의: description(구체적으로) + JSON Schema
+- 핸들러: tool_call 감지 → 함수 실행 → 결과를 LLM에 반환
+- 에이전트 루프: 텍스트 응답이 올 때까지 while 반복
+- 안전장치: 최대 반복 횟수(max_iterations), 타임아웃
+
+주의:
+- tool_call 응답을 텍스트로 착각하고 바로 반환하지 마
+- 도구 실행 결과를 LLM에 안 돌려보내면 대화가 끊긴다
+- 무한 루프 방지: max_iterations 설정 필수
+- API 키는 환경 변수로
+
+확장:
+- 도구 추가 시 레지스트리 패턴으로 핸들러 자동 매핑
+- 도구 정의를 코드가 아닌 설정 파일에서 로드하는 구조
+
+출력: 도구 정의 / 핸들러 / 에이전트 루프 모듈 분리, 테스트 포함</div>
+  </div>
+</section>
+
+<!-- ==================== PART V ==================== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part V — Assembly</span>
+    <h2>전체 <strong>조립</strong></h2>
+  </div>
+
+  <p class="prose">세 장의 설정을 조립하면 이렇게 된다.</p>
+
+  <div class="arch-diagram">
+    <div class="arch-layer">
+      <span class="al-label">INTERFACE</span>
+      <div class="al-title">사용자</div>
+      <p>자연어 요청 — "로그인 500 에러, 이슈 만들어줘"</p>
+    </div>
+    <div class="flow-arrow"><span>↓</span></div>
+    <div class="arch-layer">
+      <span class="al-label">AGENT SERVER</span>
+      <div class="al-title">에이전트 서버</div>
+      <p>시스템 프롬프트 (성격/제약/가드레일) · 지식베이스 (RAG + 벡터 DB) · 내장 도구 (비즈니스 로직) · MCP 클라이언트 (외부 연결)</p>
+    </div>
+    <div class="flow-arrow"><span>↓ LLM API</span></div>
+    <div class="arch-layer">
+      <span class="al-label">LLM</span>
+      <div class="al-title">판단 엔진</div>
+      <p>GPT-4o / Claude / Gemini — 텍스트 응답 또는 tool_call 반환</p>
+    </div>
+    <div class="flow-arrow"><span>↓ tool_call</span></div>
+    <div class="arch-layer">
+      <span class="al-label">EXTERNAL TOOLS</span>
+      <div class="al-title">MCP 서버들</div>
+      <p>GitHub · Slack · Jira · DB · 사내 위키</p>
+    </div>
+  </div>
+
+  <div class="prompt-box">
+    <div class="pb-label">전체 아키텍처를 설계하고 싶다면</div>
+    <p class="pb-desc">아래 프롬프트 하나로 시스템 설계, 기술 스택, 비용 추정까지 받을 수 있습니다.</p>
+    <div class="pb-prompt">에이전트 시스템의 전체 아키텍처를 설계해줘.
+
+목적: [예: 사내 업무 자동화 / 고객 문의 응대 / 코드 리뷰]
+인터페이스: [Slack 봇 / 웹 챗 / CLI / API]
+LLM: [GPT-4o / Claude Sonnet / Gemini]
+
+구성:
+1. 시스템 프롬프트 — [역할 한 줄 요약]
+2. 지식베이스 — [문서 소스] + [벡터 DB 선택]
+3. 내장 도구 — [비즈니스 로직 목록]
+4. 외부 도구(MCP) — [GitHub, Slack, DB 등]
+
+출력:
+- Mermaid 아키텍처 다이어그램 + 요청 흐름 시퀀스 다이어그램
+- 기술 스택 추천 (언어, 프레임워크, DB, 배포)
+- 프로젝트 디렉토리 구조
+- 월간 비용 추정 (LLM API + 벡터 DB + 인프라)
+
+확장:
+- 에이전트 여러 개 오케스트레이션 구조
+- 동시 사용자 1000명일 때 병목과 스케일링
+- 프롬프트 인젝션 방어 전략
+- 관측성: 로깅, 비용 추적, 에러율, 응답 시간</div>
+  </div>
+
+  <div class="pull-quote">
+    <p>프롬프트가 성격을 정하고, 지식이 기억을 채우고, 도구가 손발이 된다. 나머지는 조립이다.</p>
+  </div>
+</section>
+
+  </main>
+
+  <div class="closing">
+    <h2>구조는 보여줬다<br><strong>나머지는 조립이다</strong></h2>
+    <p class="sub">프롬프트를 복사하고, 대괄호를 채우고, AI에게 건네라.</p>
+  </div>
+
+  <footer class="footer">
+    <p>Sources: Anthropic MCP Specification (2025) &middot; OpenAI Function Calling Reference (2025) &middot; LangChain RAG Documentation (2025) &middot; Linux Foundation AAIF (2025)</p>
+    <p>Research assisted by Claude &middot; 2026</p>
+  </footer>
+</article>
+<script>
+document.querySelectorAll('.pb-prompt').forEach(function(el) {
+  var text = el.textContent.trim();
+  var btn = document.createElement('button');
+  btn.className = 'pb-copy';
+  btn.textContent = '\uBCF5\uC0AC';
+  btn.setAttribute('aria-label', '\uD504\uB86C\uD504\uD2B8 \uBCF5\uC0AC');
+  btn.addEventListener('click', function() {
+    navigator.clipboard.writeText(text).then(function() {
+      btn.textContent = '\uBCF5\uC0AC\uB428';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.textContent = '\uBCF5\uC0AC';
+        btn.classList.remove('copied');
+      }, 1500);
+    });
+  });
+  el.appendChild(btn);
+});
+</script>
+</div>

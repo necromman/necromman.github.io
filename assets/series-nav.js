@@ -225,6 +225,12 @@
         { slug: 'empty-seat', title: '빈 자리' },
         { slug: 'mirror-forest', title: '거울의 숲' }
       ]
+    },
+    'mcp-agent-guide-series': {
+      title: '에이전트 조립 가이드',
+      articles: [
+        { slug: 'agent-is-three-configs', title: '에이전트 조립하기' }
+      ]
     }
   };
 

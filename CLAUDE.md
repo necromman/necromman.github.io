@@ -115,9 +115,11 @@ editorial/
 | **common-header** | `.claude/skills/common-header/SKILL.md` | 공통 네비게이션 헤더 (nav.js) 관리 | 네비 수정 시, 새 콘텐츠 추가 시 |
 | **series-nav** | `.claude/skills/series-nav/SKILL.md` | 시리즈 이전/다음 글 네비게이션 (series-nav.js) | 시리즈 콘텐츠 추가/수정 시 |
 | **series-plan** | `.claude/skills/series-plan/SKILL.md` | 시리즈 기획 워크플로우 (자료조사 → 기획서) | 새 시리즈 기획 시 |
+| **prompt-driven-guide** | `.claude/skills/prompt-driven-guide/SKILL.md` | 코드 대신 프롬프트를 제공하는 기술 가이드 제작 규칙 | 기술 해설 시리즈에서 코드 없이 구성도+프롬프트로 작성 시 |
 
 **스킬 규칙:**
 - HTML 콘텐츠를 생성하거나 수정할 때 **editorial-content-page + seo** 두 스킬을 반드시 참조한다
+- 기술 해설 콘텐츠에서 코드 대신 프롬프트를 제공할 때 **prompt-driven-guide** 스킬을 추가 참조한다
 - 공통 CSS나 네비게이션을 수정할 때 **common-css**, **common-header**, **series-nav** 스킬을 참조한다
 - 사용자가 스타일/레이아웃에 불만을 표시하면 editorial-content-page 스킬도 함께 개선한다
 - 스킬은 피드백을 반영하여 지속적으로 업데이트해야 하는 살아있는 문서다
@@ -361,6 +363,12 @@ editorial/
 | 04 | `seventh-name.html` | 일곱 번째 이름 | 소설 — (예정) |
 | 05 | `the-seventh-seat.html` | 일곱 번째 자리 | 소설 — (예정) |
 
+### 시리즈 27: 에이전트 조립 가이드 (mcp-agent-guide-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `agent-is-three-configs.html` | 에이전트 조립하기 | 종합 가이드 — 시스템 프롬프트·지식베이스·도구 설계를 프롬프트로 조립 |
+
 ## 콘텐츠 제작 워크플로우
 
 0. **기획**: `plans/[시리즈-슬러그]/series-plan.md`에 자료조사 + 시리즈 구성 기획서 작성 (series-plan 스킬 참조)
@@ -453,7 +461,7 @@ editorial/
 - [x] 시리즈 이전/다음 글 네비게이션 (assets/series-nav.js)
 - [x] 랜딩 페이지 리팩토링 (콘텐츠 데이터 분리, 정렬/펼침접기 기능)
 - [x] 11ty SSG 마이그레이션 (레이아웃 템플릿, front matter, 자동 빌드)
-- [ ] OG 이미지 생성 (assets/ 폴더)
+- [x] OG 이미지 생성 (빌드 타임 자동 생성: satori + resvg)
 - [ ] Google AdSense 신청 및 광고 코드 삽입
 - [ ] 커스텀 도메인 연결 (선택)
 - [ ] Tistory 요약 포스트 + 원본 링크 전략 (선택)

@@ -33,7 +33,7 @@ jobs:
         run: npm ci
 
       - name: Build with Eleventy
-        run: npx @11ty/eleventy
+        run: npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
