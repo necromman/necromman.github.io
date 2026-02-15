@@ -125,6 +125,7 @@ dateModified: "2026-02-09"                     # 수정일이 다를 때만 (선
 **등록 검수:**
 - [ ] **`sitemap.xml`에 새 URL이 추가되었는가**
 - [ ] `assets/content-data.js`에 데이터가 추가되었는가
+- [ ] `.ai/content/catalog.md`에 시리즈/글 목록이 추가되었는가
 
 ## 이 스킬의 적용 시점
 

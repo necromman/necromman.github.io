@@ -243,6 +243,12 @@
       articles: [
         { slug: 'time-without-output', title: '결과물이 없는 시간' }
       ]
+    },
+    'ai-job-debate-series': {
+      title: 'AI가 일자리를 빼앗는가',
+      articles: [
+        { slug: 'not-fired-yet', title: '아직 아무도 해고되지 않았다' }
+      ]
     }
   };
 

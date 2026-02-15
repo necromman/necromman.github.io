@@ -91,8 +91,9 @@ nav.js와 마찬가지로 인라인 스타일을 사용한다. editorial-base.cs
 
 1. `series-nav.js`의 `SERIES` 객체에서 해당 시리즈의 `articles` 배열에 새 항목 추가
 2. `assets/content-data.js`의 해당 시리즈 `articles` 배열에도 새 항목 추가 (랜딩 페이지 반영)
-3. 새 HTML 파일에 `<script src="../../assets/series-nav.js" defer></script>` 추가
-4. HTML에 `.footer` 요소가 있는지 확인 (series-nav는 `.footer` 앞에 삽입된다)
+3. `.ai/content/catalog.md`에 해당 시리즈의 글 목록에도 추가
+4. 새 HTML 파일에 `<script src="../../assets/series-nav.js" defer></script>` 추가
+5. HTML에 `.footer` 요소가 있는지 확인 (series-nav는 `.footer` 앞에 삽입된다)
 
 ## 새 시리즈 추가 시
 
@@ -108,8 +109,9 @@ nav.js와 마찬가지로 인라인 스타일을 사용한다. editorial-base.cs
 }
 ```
 2. `assets/content-data.js`에도 새 시리즈 객체를 추가한다 (랜딩 페이지 반영)
-3. 시리즈 키는 `content/` 아래 폴더명과 일치시킨다
-4. `label`은 `Series 02`, `Series 03` 순으로 넘버링한다
+3. `.ai/content/catalog.md`에 새 시리즈 섹션을 추가한다
+4. 시리즈 키는 `content/` 아래 폴더명과 일치시킨다
+5. `label`은 `Series 02`, `Series 03` 순으로 넘버링한다
 
 ## 수정 시 체크리스트
 

@@ -652,4 +652,11 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- Series 30: AI가 일자리를 빼앗는가 -->
+  <url>
+    <loc>https://necromman.github.io/editorial/content/ai-job-debate-series/not-fired-yet.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

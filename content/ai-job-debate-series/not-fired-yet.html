@@ -1,0 +1,445 @@
+---
+layout: layouts/article.njk
+pageTitle: "아직 아무도 해고되지 않았다"
+description: "1억 뷰의 AI 공포 에세이가 촉발한 논쟁. GPT-3 이후 6년, 대규모 실직은 없었다. 낙관론, 비관론, 중립적 시각을 데이터로 교차 검증한다."
+datePublished: "2026-02-15"
+---
+<style>
+  .masthead h1 {
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -2px;
+  }
+  .masthead .deck { max-width: 540px; }
+
+  /* STATS BANNER */
+  .stats-banner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .stat-cell {
+    background: var(--bg);
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .stat-cell .stat-num {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .stat-cell .stat-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .stat-cell .stat-sub {
+    font-size: 0.78rem;
+    color: var(--secondary);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* VS LAYOUT */
+  .vs-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0;
+    margin: 40px 0 48px;
+    border: 1px solid var(--rule);
+  }
+  .vs-col {
+    padding: 32px 24px;
+  }
+  .vs-col.bull { background: var(--bg); }
+  .vs-col.bear { background: var(--card-bg); }
+  .vs-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--fg);
+    color: var(--bg);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 0 12px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+  .vs-col .vs-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .vs-col .vs-quote {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--fg);
+    margin-bottom: 12px;
+  }
+  .vs-col .vs-attr {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+  }
+
+  /* SCORECARD */
+  .scorecard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 32px 0 40px;
+  }
+  .sc-item {
+    background: var(--bg);
+    padding: 24px 20px;
+  }
+  .sc-item .sc-claim {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--fg);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .sc-item .sc-verdict {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .sc-item .sc-verdict.confirmed { color: var(--accent); }
+  .sc-item .sc-verdict.partial { color: var(--muted); }
+  .sc-item .sc-verdict.disputed { color: var(--secondary); }
+  .sc-item .sc-evidence {
+    font-size: 0.82rem;
+    color: var(--secondary);
+    line-height: 1.6;
+  }
+
+  /* TWO COLUMN COMPARE */
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .compare-col {
+    background: var(--bg);
+    padding: 28px 24px;
+  }
+  .compare-col .compare-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .compare-col .compare-item {
+    margin-bottom: 16px;
+  }
+  .compare-col .compare-item h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 4px;
+  }
+  .compare-col .compare-item p {
+    font-size: 0.84rem;
+    color: var(--secondary);
+    line-height: 1.65;
+  }
+  .compare-col .compare-item:last-child { margin-bottom: 0; }
+
+  .closing .sub { max-width: 500px; }
+
+  @media (max-width: 700px) {
+    .stats-banner { grid-template-columns: 1fr; }
+    .stat-cell .stat-num { font-size: 1.6rem; }
+    .vs-row { grid-template-columns: 1fr; }
+    .vs-divider {
+      writing-mode: horizontal-tb;
+      padding: 8px 0;
+    }
+    .scorecard { grid-template-columns: 1fr; }
+    .compare-row { grid-template-columns: 1fr; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <span class="issue">Series 30 &middot; Analysis</span>
+  <h1>아직 아무도<br><strong>해고되지 않았다</strong></h1>
+  <p class="deck">Matt Shumer의 에세이가 1억 회 조회를 돌파하며 "AI 대량 실업"의 공포가 확산됐다. GPT-3 출시 후 6년. 증기 롤러는 정말 오고 있는가. 낙관, 비관, 중립 세 렌즈로 해부한다.</p>
+</header>
+
+<main>
+
+<!-- PART I: 공포의 확산 -->
+<section>
+<div class="section-head">
+  <span class="num">Part I — The Trigger</span>
+  <h2>1억 뷰의 <strong>공포</strong></h2>
+</div>
+
+<p class="prose">2026년 2월, Matt Shumer가 트위터에 <strong>"Something Big Is Happening"</strong>이라는 에세이를 올렸다. 작성 시점 기준 약 1억 회 조회. AI가 코드의 대부분을 작성하고, 에이전트가 비즈니스 로직을 대신 처리하며, 인지 노동의 근간이 흔들리고 있다는 내용이었다. 에세이 상당 부분이 AI로 생성되었다는 사실이 밝혀졌음에도 확산은 멈추지 않았다.</p>
+
+<p class="prose">흥미로운 것은 정치 성향을 가리지 않았다는 점이다. 보수 논객 Matt Walsh는 <strong>"정말 좋은 글"</strong>이라 평가했고, 진보 논객 Mehdi Hasan은 <strong>"이번 달 가장 중요한 글"</strong>이라 언급했다. The Atlantic, Bernie Sanders까지 AI 일자리 상실을 공개적으로 경고했다. 좌우 합의는 드물다. AI 공포는 그 드문 교집합 중 하나가 되었다.</p>
+
+<p class="prose">Shumer의 핵심 비유는 이랬다. <strong>"지금은 2020년 2월이다."</strong> COVID가 본격적으로 확산되기 직전, 대부분의 사람들이 별일 아니라고 생각하던 그 시점. 다가올 충격은 그만큼 급격하고 파괴적일 것이라는 경고였다.</p>
+
+<div class="stats-banner">
+  <div class="stat-cell">
+    <div class="stat-num">1억+</div>
+    <div class="stat-label">views</div>
+    <div class="stat-sub">Shumer 에세이 조회수</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">6년</div>
+    <div class="stat-label">since gpt-3</div>
+    <div class="stat-sub">대규모 AI 해고 부재</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">3년</div>
+    <div class="stat-label">since gpt-4</div>
+    <div class="stat-sub">콜센터조차 건재</div>
+  </div>
+</div>
+
+<p class="prose">David Oks가 정면으로 반박했다. Substack에 게시한 <strong>"Why I'm not worried about AI job loss"</strong>에서 그는 이렇게 단언했다. "지금은 2020년 2월이 아니다. 일반인은 괜찮을 것이다." 비교우위 이론, 제번스 역설, 구조적 병목이라는 세 가지 경제학적 근거를 들이밀었다.</p>
+
+<p class="prose">논쟁은 여기서 갈라진다. 낙관론자들은 역사적 선례와 경제 이론을 근거로 제시하고, 비관론자들은 현장의 해고 사례와 구조적 변화를 경고한다. 어느 쪽이 맞는가. 데이터를 펼쳐놓고 검증한다.</p>
+</section>
+
+<!-- PART II: 낙관론 -->
+<section>
+<div class="section-head">
+  <span class="num">Part II — The Optimist's Case</span>
+  <h2>병목이 <strong>우리를 지킨다</strong></h2>
+</div>
+
+<p class="prose">Oks의 낙관론은 세 개의 기둥 위에 서 있다. 비교우위, 병목 구조, 제번스 역설. 하나씩 해체한다.</p>
+
+<div class="mechanism-row">
+  <div class="mechanism">
+    <div class="m-label">Argument 01</div>
+    <h3>비교우위</h3>
+    <p>AI가 모든 작업에서 인간보다 뛰어나더라도, <strong>인간+AI 조합</strong>이 AI 단독보다 나은 한 인간 노동은 경제적 가치를 유지한다. 절대 우위가 아니라 비교 우위가 문제다.</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">Argument 02</div>
+    <h3>병목 구조</h3>
+    <p>법규, 조직 문화, 관료주의, 변화에 대한 저항. 20세기 초 전기가 공장을 바꾸는 데 <strong>수십 년</strong>이 걸렸다. AI도 같은 병목을 통과해야 한다.</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">Argument 03</div>
+    <h3>제번스 역설</h3>
+    <p>효율이 오르면 수요도 는다. 어셈블리에서 Python으로 전환될 때마다 개발자 수요가 오히려 <strong>폭발적으로 증가</strong>했다. 코딩 비용이 떨어지면 소프트웨어 수요가 따라온다.</p>
+  </div>
+</div>
+
+<p class="prose"><strong>비교우위 논거</strong>는 무역 이론에서 빌려온 것이다. 포르투갈이 와인과 직물 모두에서 영국보다 뛰어나더라도, 각자 상대적으로 잘하는 것에 특화하면 양쪽 모두 이득이라는 리카도의 원리. 이를 AI에 적용하면, AI가 코드 작성, 데이터 분석, 문서 처리 모두에서 인간을 능가하더라도 인간이 보완적 가치를 제공하는 한(사용자 의도 해석, 고객 선호 전달, 맥락적 판단) 인간 노동의 경제적 수요는 사라지지 않는다.</p>
+
+<p class="prose">실제로 Claude Code 출시 후 12개월 동안 소프트웨어 엔지니어 채용 공고가 오히려 증가했다는 데이터가 존재한다. 코딩이 효율화되었음에도 더 많은 사람이 더 많은 시간을 소프트웨어 개발에 투입하고 있다. 제번스 역설의 현대판이다.</p>
+
+<div class="pull-quote">
+  <p>"세상은 인간이 운영한다. 냄새나고, 기름지고, 짜증내고, 고집 부리고, 경쟁하고, 겁먹고, 무엇보다 비효율적인 존재들이. 그래서 세상은 병목으로 가득하다."</p>
+  <div class="attr">David Oks</div>
+</div>
+
+<p class="prose"><strong>병목 논거</strong>는 가장 직관적이다. "생산 과정은 가장 비효율적인 투입 요소에 의해 지배된다. 가장 효율적인 투입 요소가 효율적일수록, 가장 비효율적인 투입 요소의 중요성은 더 커진다." 즉 AI가 아무리 뛰어나도, 계약상의 의무, 레거시 시스템과의 연동, 책임 소재 문제, 규제 준수, 그리고 무엇보다 <strong>불만을 다른 인간에게 표출하려는 심리</strong>가 급격한 자동화를 막는다.</p>
+
+<p class="prose">Oks가 드는 가장 설득력 있는 사례는 아웃소싱 고객 서비스다. GPT-3.5조차 2016년 기준으로는 놀라운 수준이었다. 자동화가 가장 쉬워 보이는 이 분야에서조차 대규모 정리해고 사례가 없다. 지능이 부족해서가 아니다. <strong>지능 밖의 모든 것</strong>이 병목인 것이다.</p>
+
+<p class="prose"><strong>제번스 역설</strong>은 19세기 경제학자 윌리엄 스탠리 제번스의 관찰이다. 석탄 연소 효율이 올라가면 석탄 소비가 줄어야 하는데, 실제로는 늘어났다. 에너지가 저렴해지자 에너지를 사용하는 새로운 방법이 폭발적으로 생겨났기 때문이다. 소프트웨어도 마찬가지다. 코드 작성 비용이 떨어지면 이전에는 경제성이 맞지 않았던 맞춤형 소프트웨어에 대한 수요가 열린다. 중소기업만 봐도 맞춤형 소프트웨어 수요는 무궁무진하다.</p>
+</section>
+
+<!-- PART III: 비관론 -->
+<section>
+<div class="section-head">
+  <span class="num">Part III — The Pessimist's Case</span>
+  <h2>경영진은 <strong>기다리지 않는다</strong></h2>
+</div>
+
+<p class="prose">Oks의 낙관론은 이론적으로 정교하다. 문제는 현실이 이론대로 움직이지 않는다는 것이다. Hacker News에서 수백 명의 실무자가 쏟아낸 반론은 현장의 냄새가 난다.</p>
+
+<div class="mechanism-row">
+  <div class="mechanism">
+    <div class="m-label">Counter 01</div>
+    <h3>인식이 현실을 만든다</h3>
+    <p>AI가 실제로 일을 완전히 대체하지 않아도, <strong>경영진의 인식만으로</strong> 해고가 일어난다. 중형 리테일 회사의 CFO가 AI 도입 후 회계 인력을 절반으로 줄인 사례가 보고됐다.</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">Counter 02</div>
+    <h3>글로벌 최저가 경쟁</h3>
+    <p>AI가 도메인 지식 장벽을 낮추면, 판단 업무조차 <strong>해외 아웃소싱</strong>이 쉬워진다. 교육 시간 단축, 자동 품질 검증, 커뮤니케이션 비용 절감. 일자리는 남지만 임금은 정체된다.</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">Counter 03</div>
+    <h3>파이프라인 고갈</h3>
+    <p>"요즘은 주니어 개발자 자체를 보기 힘들다." AI에 의존하는 신입은 <strong>자신이 작성한 코드조차 이해하지 못한다.</strong> 도메인 전문성이 쌓이지 않는다.</p>
+  </div>
+</div>
+
+<p class="prose">가장 날카로운 반론은 <strong>"인식이 현실을 만든다"</strong>는 것이다. 비교우위 이론이 아무리 정교해도, CEO 회의실에서 통용되는 것은 경제학 논문이 아니라 McKinsey 슬라이드다. "AI가 80%의 업무를 처리합니다. 인건비를 60% 줄이겠습니다." 이 한 줄이 수십 명의 해고 통지서가 된다. AI가 실제로 80%를 해내는지는 중요하지 않다. 경영진이 그렇게 <strong>믿는다는 것</strong>이 중요하다.</p>
+
+<div class="vs-row">
+  <div class="vs-col bull">
+    <div class="vs-label">optimist</div>
+    <div class="vs-quote">"코딩 도구가 발전할수록 개발자 수요는 늘었다. 제번스 역설이다."</div>
+    <div class="vs-attr">David Oks</div>
+  </div>
+  <div class="vs-divider">VS</div>
+  <div class="vs-col bear">
+    <div class="vs-label">pessimist</div>
+    <div class="vs-quote">"LLM은 인간의 입력을 토큰으로 바꾼 것에 불과하다. 새로운 산업을 만들지 않는다."</div>
+    <div class="vs-attr">Hacker News</div>
+  </div>
+</div>
+
+<p class="prose"><strong>글로벌 최저가 경쟁</strong>은 가장 현실적인 위협이다. AI가 만든 것은 "기계적 노동의 자동화"가 아니라 <strong>"판단력의 민주화"</strong>다. 예전에는 도메인 전문가만 할 수 있었던 분석, 검토, 의사결정 보조가 이제는 교육 3개월차 직원에게도 가능해진다. 기업 입장에서 이는 인건비의 글로벌 최저가 경쟁을 의미한다. 일자리가 사라지는 것이 아니라, <strong>그 일자리의 가격이 추락한다.</strong></p>
+
+<p class="prose">화이트칼라 직종의 취약성도 무시할 수 없다. 물리적 노동을 로봇으로 대체하는 것은 여전히 비경제적이다. 맥도날드의 점진적 자동화가 보여주듯, 로보틱스와 AI는 완전히 다른 영역이다. 그러나 컴퓨터 앞에서 이루어지는 업무는 다르다. <strong>"20명이 하던 일을 3~4명이 AI를 관리하며 처리하게 된다"</strong>는 구조 재편은 이미 시작되었다는 현장 보고가 나온다.</p>
+
+<div class="pull-quote">
+  <p>"증기 롤러가 아직 멀리 있으니 발 밑에 닿을 때 걱정하겠다는 건 위험한 생각이다."</p>
+  <div class="attr">Hacker News</div>
+</div>
+
+<p class="prose"><strong>파이프라인 고갈</strong>은 장기적으로 가장 위험한 신호다. 주니어 개발자 채용이 줄고, AI에 의존해 성장한 신입은 코드 리뷰에서 무너진다. 숫자를 직접 입력할 때 생기는 "정신적 지도(mental map)"가 AI 위임으로 사라진다. 회계사가 데이터를 직접 분류하며 쌓았던 감각, 개발자가 디버깅하며 체득한 시스템 이해. 그 암묵지가 쌓이지 않는 세대가 등장하고 있다.</p>
+</section>
+
+<!-- PART IV: 중립적 시각 -->
+<section>
+<div class="section-head">
+  <span class="num">Part IV — The Middle Ground</span>
+  <h2>일은 변한다, <strong>사라지지 않는다</strong></h2>
+</div>
+
+<p class="prose">가장 설득력 있는 시각은 양 극단 사이에 있다. 회계 자동화 도구를 만드는 한 개발자의 증언이 이를 요약한다. "자동화는 일을 없애는 게 아니라, <strong>지루한 부분을 없애고 일의 성격을 바꾸는 것이다.</strong>" 예전에는 데이터 입력과 분류에 80%의 시간을 쓰고 분석에 20%를 썼다면, 지금은 그 비율이 뒤집혔다.</p>
+
+<div class="compare-row">
+  <div class="compare-col">
+    <div class="compare-label">before ai</div>
+    <div class="compare-item">
+      <h4>회계사</h4>
+      <p>데이터 입력과 분류에 80%. 숫자 분석에 20%. 기계적 정확성이 핵심 역량.</p>
+    </div>
+    <div class="compare-item">
+      <h4>개발자</h4>
+      <p>코드 작성에 80%. 아키텍처와 설계에 20%. 타이핑 속도와 문법 암기가 경쟁력.</p>
+    </div>
+    <div class="compare-item">
+      <h4>법률 사무원</h4>
+      <p>판례 검색과 문서 작성에 80%. 법리 분석에 20%. 문서 처리량이 평가 기준.</p>
+    </div>
+  </div>
+  <div class="compare-col">
+    <div class="compare-label">after ai</div>
+    <div class="compare-item">
+      <h4>회계사</h4>
+      <p>숫자 분석과 전략 자문에 80%. 데이터 검증에 20%. 판단력과 통찰이 핵심 역량.</p>
+    </div>
+    <div class="compare-item">
+      <h4>개발자</h4>
+      <p>아키텍처, 코드 리뷰, AI 감독에 80%. 직접 코딩에 20%. 시스템 이해와 의사결정이 경쟁력.</p>
+    </div>
+    <div class="compare-item">
+      <h4>법률 사무원</h4>
+      <p>법리 분석과 고객 상담에 80%. AI 출력 검증에 20%. 맥락 판단이 평가 기준.</p>
+    </div>
+  </div>
+</div>
+
+<p class="prose">핵심은 <strong>"어떤 기술이 평가절하되고, 사람들이 얼마나 빨리 재교육될 수 있느냐"</strong>다. 기계적 정확성, 문서 처리 속도, 코드 타이핑 능력의 가치가 하락한다. 판단력, 도메인 전문성, 맥락적 의사결정의 가치가 상승한다. 이 전환은 일자리의 "수"보다 일자리의 "질"을 바꾼다.</p>
+
+<p class="prose"><strong>1인 기업의 부상</strong>도 중립적 시각에서 주목할 현상이다. "지금의 기업 구조는 AI의 잠재력을 효율적으로 활용하지 못한다." AI는 퍼즐 조각이 아니라 전체 그림을 다룰 수 있는데, 인간 조직은 계층 구조로 나뉘어 있다. 미래에는 한 명의 운영자가 AI 에이전트 팀을 지휘하며 전체 시스템을 관리하는 구조가 등장할 수 있다. 여러 분야를 경험한 제너럴리스트에게는 기회이고, 한 분야에 특화된 스페셜리스트에게는 위기다.</p>
+
+<p class="prose">다만 <strong>"자동화가 풍요를 가져와서 더 이상 일하지 않아도 된다"</strong>는 오래된 환상도 경계해야 한다. 증기기관, 전기, 컴퓨터, 인터넷, AI. 모든 기술이 그 약속을 했고, 모든 기술이 그 약속을 지키지 못했다. 생산비가 줄면 가격이 떨어지고 수요가 늘어난다. 인류는 "일을 줄이는 것"보다 <strong>"삶의 질을 높이는 것"</strong>을 선택해왔다. 100년 전 수준으로만 살면 훨씬 적게 일해도 된다. 문제는 아무도 그러고 싶어 하지 않는다는 것이다.</p>
+
+<div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px">교차 검증</div>
+
+<div class="scorecard">
+  <div class="sc-item">
+    <div class="sc-claim">"대규모 AI 해고는 없었다"</div>
+    <div class="sc-verdict confirmed">CONFIRMED</div>
+    <div class="sc-evidence">GPT-3 이후 6년간 AI 기인 대량 해고 사례는 통계적으로 미미. 다만 채용 둔화와 소규모 구조조정은 진행 중.</div>
+  </div>
+  <div class="sc-item">
+    <div class="sc-claim">"개발자 수요는 오히려 증가했다"</div>
+    <div class="sc-verdict partial">PARTIALLY TRUE</div>
+    <div class="sc-evidence">시니어 채용은 증가세. 그러나 주니어/인턴 채용은 감소 추세. 전체 "수"보다 "구성"이 변하고 있다.</div>
+  </div>
+  <div class="sc-item">
+    <div class="sc-claim">"병목이 급격한 변화를 막는다"</div>
+    <div class="sc-verdict confirmed">CONFIRMED</div>
+    <div class="sc-evidence">규제, 조직 관성, 레거시 시스템이 AI 도입을 제약하는 것은 사실. 그러나 SaaS 기업은 상대적으로 병목이 적다.</div>
+  </div>
+  <div class="sc-item">
+    <div class="sc-claim">"LLM은 새 산업을 만들지 않는다"</div>
+    <div class="sc-verdict disputed">DISPUTED</div>
+    <div class="sc-evidence">AI 네이티브 스타트업, 프롬프트 엔지니어링, AI 감사 등 새 직종이 등장 중. 다만 기존 자동화와 달리 규모가 제한적이라는 반론도 유효.</div>
+  </div>
+</div>
+</section>
+
+<!-- 종합 -->
+<section>
+<div class="section-head">
+  <span class="num">Part V — Synthesis</span>
+  <h2>종합: <strong>무엇을 할 것인가</strong></h2>
+</div>
+
+<p class="prose">세 가지 시각을 교차 검증한 결과, 가장 현실적인 전망은 이렇다. <strong>대량 실업은 오지 않을 가능성이 높다. 그러나 일의 지형은 이미 바뀌고 있다.</strong></p>
+
+<p class="prose">Oks의 낙관론은 거시 경제학의 관점에서 정당하다. 비교우위와 제번스 역설은 200년간 검증된 이론이고, 병목 구조는 현실에서 명확히 관찰된다. 그러나 이 거시적 "정상"이 개인에게는 위안이 되지 않는다. 경영진의 인식에 의한 해고, 임금 정체, 글로벌 아웃소싱 가속은 거시 데이터에 포착되지 않는 미시적 고통이다.</p>
+
+<p class="prose">비관론의 반격도 과장이 섞여 있다. "20명이 하던 일을 3명이 한다"는 극단적 시나리오는 특정 업무에만 해당하며, 대부분의 직무는 여전히 80/20 문제에 갇혀 있다. AI가 80%를 자동화해도 나머지 20%가 전체 품질을 좌우하며, 그 20%에서 실수하면 80%의 자동화가 무의미해진다. "자신감 있게 엉뚱한 답을 내놓는" AI의 본질적 한계가 여전히 작동한다.</p>
+
+<p class="prose">진짜 위험은 Oks가 마지막에 짚은 곳에 있다. <strong>포퓰리즘적 반발.</strong> AI 공포가 데이터센터 건설 금지, 종신 고용 보장, 개발·배포를 옥죄는 규제로 이어진다면, 생산성 향상과 과학적 발전이라는 AI의 실질적 혜택이 차단된다. 공포에 기반한 정책은 언제나 그 공포보다 더 큰 피해를 만든다.</p>
+
+<div class="warning-box">
+  <div class="w-title">변화에 대비하는 세 가지</div>
+  <ol class="warning-list">
+    <li><strong>판단력에 투자하라.</strong> AI가 대체하기 가장 어려운 것은 도메인 전문성과 맥락적 판단이다. 기계적 스킬이 아니라 "왜"를 이해하는 능력에 시간을 쓴다.</li>
+    <li><strong>AI와의 협업 역량을 키워라.</strong> "사이보그" 모델이 AI 단독보다 우수한 지금이 인간-AI 협업의 경쟁력을 확보할 창구다. AI를 도구가 아니라 팀원으로 다루는 워크플로우를 구축한다.</li>
+    <li><strong>경력을 분산하라.</strong> 한 분야에 올인하는 커리어 전략의 리스크가 커졌다. 여러 도메인을 이해하는 제너럴리스트의 가치가 상승하고 있다. 기회가 될 때 영역을 넓혀라.</li>
+  </ol>
+</div>
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>증기 롤러는 느리지만<br><strong>멈추지 않는다</strong></h2>
+  <p class="sub">대량 실업은 오지 않을 수 있다. 그러나 당신의 일이 내일 아침 같은 모양일 것이라는 보장도 없다. 변하지 않을 권리는 누구에게도 주어지지 않았다.</p>
+</div>
+
+<footer class="footer">
+  <p>Sources: David Oks "Why I'm not worried about AI job loss" (2026) &middot; Matt Shumer "Something Big Is Happening" (2026) &middot; Hacker News Discussion &middot; GeekNews</p>
+  <p>Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

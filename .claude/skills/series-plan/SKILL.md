@@ -104,9 +104,12 @@ plans/
 2. 기획서의 Part 구성과 핵심 데이터를 그대로 따른다
 3. 제작 중 기획서에 없는 내용이 필요하면 기획서도 함께 업데이트
 
-## CLAUDE.md 연동
+## 프로젝트 문서 연동
 
 새 시리즈의 기획이 완료되면:
-1. `CLAUDE.md`의 콘텐츠 관리 섹션에 시리즈 정보 추가
-2. `content/index.md` 업데이트
-3. 기획서의 `상태`를 "콘텐츠 제작 중" → "완료"로 갱신
+1. `.ai/content/catalog.md`에 시리즈/글 목록 추가
+2. `assets/content-data.js`에 시리즈/글 데이터 추가 (랜딩 페이지 반영)
+3. `assets/series-nav.js`의 SERIES 데이터에 시리즈 추가
+4. `content/index.md` 업데이트 (기록용)
+5. `sitemap.xml`에 새 URL 추가
+6. 기획서의 `상태`를 "콘텐츠 제작 중" → "완료"로 갱신

@@ -937,6 +937,21 @@
         search: '바이브코딩 속도 역설 계획 PRD CLAUDE.md 인지과학 워킹메모리 Zeigarnik 프롬프트 5단계 워크플로우'
       }
     ]
+  },
+  {
+    id: 'ai-job-debate',
+    seriesNum: 30,
+    title: 'AI가 일자리를 빼앗는가',
+    description: '1억 뷰의 AI 공포 에세이가 촉발한 논쟁. GPT-3 이후 6년, 대규모 실직은 없었다. 비교우위, 제번스 역설, 병목 구조를 낙관·비관·중립 세 렌즈로 교차 검증한다.',
+    articles: [
+      {
+        title: '아직 아무도 해고되지 않았다',
+        role: '낙관·비관·중립 세 시각의 교차 검증과 종합 의견',
+        tag: '종합분석',
+        href: 'content/ai-job-debate-series/not-fired-yet.html',
+        search: 'AI 일자리 해고 대체 자동화 비교우위 제번스역설 병목 Shumer David Oks GPT 낙관 비관 종합 화이트칼라 경영진'
+      }
+    ]
   }
 ];
   // Auto-generate thumbnail from href: content/foo/bar.html → assets/og/foo/bar.png
