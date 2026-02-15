@@ -234,10 +234,26 @@ function buildLandingOgElement() {
   };
 }
 
+// ─── 유틸: 파일 mtime 비교 ─────────────────────────────────
+
+async function isNewer(srcPath, destPath) {
+  try {
+    const [srcStat, destStat] = await Promise.all([
+      fs.stat(srcPath),
+      fs.stat(destPath),
+    ]);
+    return srcStat.mtimeMs > destStat.mtimeMs;
+  } catch {
+    // dest가 없으면 생성 필요
+    return true;
+  }
+}
+
 // ─── 메인 ──────────────────────────────────────────────────
 
 async function main() {
-  console.log('[og] OG 이미지 생성 시작');
+  const forceAll = process.argv.includes('--force');
+  console.log(`[og] OG 이미지 생성 시작${forceAll ? ' (--force: 전체 재생성)' : ''}`);
   const startTime = Date.now();
 
   // 1. 폰트 로드
@@ -258,16 +274,22 @@ async function main() {
   // 4. OG 디렉토리 초기화
   await fs.mkdir(OG_DIR, { recursive: true });
 
-  // 5. 각 콘텐츠에 대해 OG 이미지 생성
+  // 5. 각 콘텐츠에 대해 OG 이미지 생성 (증분)
   let generated = 0;
+  let skipped = 0;
   for (const file of files) {
+    const outDir = path.join(OG_DIR, file.seriesSlug);
+    const outPath = path.join(outDir, `${file.articleSlug}.png`);
+
+    // 증분 체크: HTML이 PNG보다 새로울 때만 생성
+    if (!forceAll && !(await isNewer(file.absPath, outPath))) {
+      skipped++;
+      continue;
+    }
+
     const raw = await fs.readFile(file.absPath, 'utf-8');
     const { data: fm } = matter(raw);
     const title = fm.pageTitle || file.articleSlug;
-
-    // 시리즈 매칭
-    const seriesInfo = seriesMap.get(file.relPath);
-    const seriesNum = seriesInfo?.seriesNum;
 
     const element = buildOgElement({ title });
 
@@ -281,25 +303,29 @@ async function main() {
     const png = resvg.render().asPng();
 
     // 저장
-    const outDir = path.join(OG_DIR, file.seriesSlug);
     await fs.mkdir(outDir, { recursive: true });
-    const outPath = path.join(outDir, `${file.articleSlug}.png`);
     await fs.writeFile(outPath, png);
     generated++;
   }
 
   // 6. 랜딩 페이지용 기본 OG 이미지
-  const landingElement = buildLandingOgElement();
-  const landingSvg = await satori(landingElement, { width: OG_WIDTH, height: OG_HEIGHT, fonts });
-  const landingResvg = new Resvg(landingSvg, {
-    fitTo: { mode: 'width', value: OG_WIDTH },
-  });
-  const landingPng = landingResvg.render().asPng();
-  await fs.writeFile(path.join(OG_DIR, 'default.png'), landingPng);
-  generated++;
+  const landingOgPath = path.join(OG_DIR, 'default.png');
+  const landingSrc = path.join(ROOT, 'index.html');
+  if (forceAll || (await isNewer(landingSrc, landingOgPath))) {
+    const landingElement = buildLandingOgElement();
+    const landingSvg = await satori(landingElement, { width: OG_WIDTH, height: OG_HEIGHT, fonts });
+    const landingResvg = new Resvg(landingSvg, {
+      fitTo: { mode: 'width', value: OG_WIDTH },
+    });
+    const landingPng = landingResvg.render().asPng();
+    await fs.writeFile(landingOgPath, landingPng);
+    generated++;
+  } else {
+    skipped++;
+  }
 
   const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-  console.log(`[og] 완료: ${generated}개 이미지 생성 (${elapsed}s)`);
+  console.log(`[og] 완료: ${generated}개 생성, ${skipped}개 스킵 (${elapsed}s)`);
 }
 
 main().catch((err) => {

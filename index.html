@@ -26,29 +26,52 @@ googleVerification: "kAqrh5ZOHV8HzJRVBXeFuKSymzJKs_H9H4mdilIw168"
 
   <div id="noResults" class="no-results">검색 결과가 없습니다</div>
 
-  <main id="contentArea" class="card-grid">
+  <div class="main-layout">
+    <main id="contentArea" class="card-grid">
 {%- for series in contentData | reverse %}
   {%- set seriesNum = loop.revindex %}
-    <div class="series-divider" data-series="{{ series.id }}" data-series-num="{{ seriesNum }}">
-      <span class="series-divider-num">{{ seriesNum | pad }}</span>
-      <h2 class="series-divider-title">{{ series.title | e }}</h2>
-    </div>
-  {%- for a in series.articles %}
-    <a class="article-card" href="{{ a.href }}" data-search="{{ a.search | e }}" data-series="{{ series.id }}" data-series-num="{{ seriesNum }}">
-      <div class="card-thumbnail">
-        <img src="{{ a.thumbnail }}" alt="" loading="lazy" onerror="this.style.display='none'">
+      <div class="series-divider" id="series-{{ series.id }}" data-series="{{ series.id }}" data-series-num="{{ seriesNum }}">
+        <span class="series-divider-num">{{ seriesNum | pad }}</span>
+        <h2 class="series-divider-title">{{ series.title | e }}</h2>
       </div>
-      <div class="card-body">
-        <h3 class="card-title">{{ a.title | e }}</h3>
-        <p class="card-desc">{{ a.role | e }}</p>
-        <div class="card-meta">
-          <span class="card-tag">{{ a.tag | e }}</span>
+    {%- for a in series.articles %}
+      <a class="article-card" href="{{ a.href }}" data-search="{{ a.search | e }}" data-series="{{ series.id }}" data-series-num="{{ seriesNum }}">
+        <div class="card-thumbnail">
+          <img src="{{ a.thumbnail }}" alt="" loading="lazy" onerror="this.style.display='none'">
         </div>
-      </div>
-    </a>
-  {%- endfor %}
+        <div class="card-body">
+          <h3 class="card-title">{{ a.title | e }}</h3>
+          <p class="card-desc">{{ a.role | e }}</p>
+          <div class="card-meta">
+            <span class="card-tag">{{ a.tag | e }}</span>
+          </div>
+        </div>
+      </a>
+    {%- endfor %}
 {%- endfor %}
-  </main>
+      <div class="load-sentinel" id="loadSentinel"></div>
+    </main>
+
+    <aside class="toc-sidebar" id="tocSidebar">
+      <div class="toc-header">
+        <span class="toc-label">시리즈 목차</span>
+        <span class="toc-page-info" id="tocPageInfo"></span>
+      </div>
+      <nav class="toc-nav" id="tocNav">
+{%- for series in contentData | reverse %}
+  {%- set seriesNum = loop.revindex %}
+        <a class="toc-item" href="#series-{{ series.id }}" data-toc-num="{{ seriesNum }}" data-toc-series="{{ series.id }}">
+          <span class="toc-num">{{ seriesNum | pad }}</span>
+          <span class="toc-title">{{ series.title | e }}</span>
+        </a>
+{%- endfor %}
+      </nav>
+    </aside>
+  </div>
+
+  <button class="toc-mobile-toggle" id="tocMobileToggle" aria-label="목차 열기">목차</button>
+  <button class="scroll-top-btn" id="scrollTopBtn" aria-label="맨 위로">Top</button>
+  <div class="toc-overlay" id="tocOverlay"></div>
 
   <footer class="site-footer">
     <div class="visitor-count" id="visitorCount">
