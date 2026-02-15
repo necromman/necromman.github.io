@@ -2,8 +2,10 @@
  * content-data.js
  * 블로그 콘텐츠 데이터. 새 시리즈/글 추가 시 이 파일만 수정하면 됩니다.
  * 시리즈 번호(seriesNum)와 아티클 번호(num)는 배열 순서에서 자동 계산됩니다.
+ * thumbnail은 href에서 자동 생성: content/foo/bar.html → assets/og/foo/bar.png
  */
-window.CONTENT_DATA = [
+(function () {
+  var data = [
   {
     id: 'wasted-life',
     title: '99%가 인생을 낭비하는 이유',
@@ -937,3 +939,13 @@ window.CONTENT_DATA = [
     ]
   }
 ];
+  // Auto-generate thumbnail from href: content/foo/bar.html → assets/og/foo/bar.png
+  data.forEach(function (series) {
+    series.articles.forEach(function (a) {
+      if (!a.thumbnail && a.href) {
+        a.thumbnail = a.href.replace(/^content\//, 'assets/og/').replace(/\.html$/, '.png');
+      }
+    });
+  });
+  window.CONTENT_DATA = data;
+})();
