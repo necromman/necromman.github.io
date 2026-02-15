@@ -140,7 +140,7 @@ function buildOgElement({ title }) {
         fontFamily: 'Pretendard',
       },
       children: [
-        // 제목 — 가운데 정렬, 화면을 꽉 채움
+        // 제목 — 가운데 정렬, maxWidth로 긴 제목 자동 개행
         {
           type: 'div',
           props: {
@@ -148,8 +148,9 @@ function buildOgElement({ title }) {
               fontSize,
               fontWeight: 700,
               color: TEXT_WHITE,
-              lineHeight: 1.25,
+              lineHeight: 1.3,
               textAlign: 'center',
+              maxWidth: 760,
               wordBreak: 'keep-all',
               overflowWrap: 'break-word',
             },
