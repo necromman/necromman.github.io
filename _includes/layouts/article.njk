@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="naver-site-verification" content="cd49c97139f945e0d4062aa3abc4088187a1c4e9">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <title>{{ pageTitle }} — Editorial</title>
 <meta name="description" content="{{ description }}">
@@ -15,9 +16,10 @@
 <meta property="og:image" content="https://necromman.github.io{{ ogImagePath }}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{ ogTitle or pageTitle }}">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="Editorial">
-<meta property="article:published_time" content="{{ datePublished }}">
+<meta property="article:published_time" content="{{ datePublished }}T00:00:00+09:00">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ ogTitle or pageTitle }}">
 <meta name="twitter:description" content="{{ ogDescription or description }}">
@@ -26,17 +28,27 @@
 {% set modDate = dateModified if dateModified else datePublished %}
 {% set canonicalUrl = "https://necromman.github.io" ~ page.url %}
 {% set ogImageUrl = "https://necromman.github.io" ~ ogImagePath %}
+{% set publishedISO = datePublished ~ "T00:00:00+09:00" %}
+{% set modifiedISO = modDate ~ "T00:00:00+09:00" %}
 {% set ld = {
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": headline,
   "description": description,
   "image": ogImageUrl,
-  "datePublished": datePublished,
-  "dateModified": modDate,
+  "datePublished": publishedISO,
+  "dateModified": modifiedISO,
+  "author": {
+    "@type": "Person",
+    "name": "Editorial"
+  },
   "publisher": {
     "@type": "Organization",
-    "name": "Editorial"
+    "name": "Editorial",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://necromman.github.io/assets/og/default.png"
+    }
   },
   "mainEntityOfPage": {
     "@type": "WebPage",

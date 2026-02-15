@@ -631,6 +631,13 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- Series 26: 겹침 (overlap-series) -->
+  <url>
+    <loc>https://necromman.github.io/content/overlap-series/euljiro-midnight.html</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <!-- Series 27: 에이전트 조립 가이드 -->
   <url>
     <loc>https://necromman.github.io/content/mcp-agent-guide-series/agent-is-three-configs.html</loc>

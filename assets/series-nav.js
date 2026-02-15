@@ -226,6 +226,12 @@
         { slug: 'mirror-forest', title: '거울의 숲' }
       ]
     },
+    'overlap-series': {
+      title: '겹침',
+      articles: [
+        { slug: 'euljiro-midnight', title: '을지로, 자정' }
+      ]
+    },
     'mcp-agent-guide-series': {
       title: '에이전트 조립 가이드',
       articles: [

@@ -894,6 +894,21 @@
     ]
   },
   {
+    id: 'overlap',
+    seriesNum: 26,
+    title: '겹침',
+    description: '32세 출판사 에디터 한서연은 을지로 골목에서 간판 글자가 틀린 것을 발견한다. 골목의 구조가 바뀌고, 사라진 사람을 찾는 밤이 시작된다.',
+    articles: [
+      {
+        title: '을지로, 자정',
+        role: '소설 — 을지로 골목의 이상한 간판, 사라진 사람, 겹쳐진 밤',
+        tag: '소설/미스터리',
+        href: 'content/overlap-series/euljiro-midnight.html',
+        search: '겹침 을지로 자정 소설 미스터리 한서연 골목 간판 사라짐 출판사 에디터'
+      }
+    ]
+  },
+  {
     id: 'mcp-agent-guide',
     seriesNum: 27,
     title: '에이전트 조립 가이드',
