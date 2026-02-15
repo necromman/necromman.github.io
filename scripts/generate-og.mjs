@@ -111,10 +111,11 @@ function seriesLabel(seriesSlug, seriesNum) {
 
 function titleFontSize(title) {
   const len = title.length;
-  if (len <= 10) return 64;
-  if (len <= 16) return 56;
-  if (len <= 24) return 48;
-  return 40;
+  if (len <= 6) return 88;
+  if (len <= 10) return 78;
+  if (len <= 16) return 66;
+  if (len <= 24) return 56;
+  return 46;
 }
 
 function truncate(text, max) {
@@ -125,36 +126,35 @@ function truncate(text, max) {
 function buildOgElement({ title, description, seriesSlug, seriesNum }) {
   const label = seriesNum ? seriesLabel(seriesSlug, seriesNum) : null;
   const fontSize = titleFontSize(title);
-  const desc = truncate(description, 90);
+  const desc = truncate(description, 80);
 
-  const children = [];
+  // 콘텐츠 블록 (시리즈 라벨 + 제목 + bar + 설명)
+  const contentChildren = [];
 
-  // 시리즈 라벨
   if (label) {
-    children.push({
+    contentChildren.push({
       type: 'div',
       props: {
         style: {
           fontSize: 18,
           color: TEXT_MUTED,
           letterSpacing: '3px',
-          marginBottom: 28,
+          marginBottom: 20,
         },
         children: label,
       },
     });
   }
 
-  // 제목
-  children.push({
+  contentChildren.push({
     type: 'div',
     props: {
       style: {
         fontSize,
         fontWeight: 700,
         color: TEXT_WHITE,
-        lineHeight: 1.35,
-        marginBottom: 32,
+        lineHeight: 1.3,
+        marginBottom: 24,
         wordBreak: 'keep-all',
         overflowWrap: 'break-word',
       },
@@ -162,23 +162,21 @@ function buildOgElement({ title, description, seriesSlug, seriesNum }) {
     },
   });
 
-  // Accent bar
-  children.push({
+  contentChildren.push({
     type: 'div',
     props: {
-      style: { width: 80, height: 4, backgroundColor: ACCENT, marginBottom: 28 },
+      style: { width: 80, height: 4, backgroundColor: ACCENT, marginBottom: 20 },
     },
   });
 
-  // 설명
   if (desc) {
-    children.push({
+    contentChildren.push({
       type: 'div',
       props: {
         style: {
-          fontSize: 20,
+          fontSize: 18,
           color: '#aaaaaa',
-          lineHeight: 1.6,
+          lineHeight: 1.5,
           wordBreak: 'keep-all',
           overflowWrap: 'break-word',
         },
@@ -186,25 +184,6 @@ function buildOgElement({ title, description, seriesSlug, seriesNum }) {
       },
     });
   }
-
-  // 스페이서 (flex-grow로 하단 브랜딩 밀어내기)
-  children.push({
-    type: 'div',
-    props: { style: { flexGrow: 1 } },
-  });
-
-  // 브랜딩
-  children.push({
-    type: 'div',
-    props: {
-      style: {
-        fontSize: 22,
-        color: TEXT_BRAND,
-        letterSpacing: '6px',
-      },
-      children: 'Editorial',
-    },
-  });
 
   return {
     type: 'div',
@@ -214,11 +193,35 @@ function buildOgElement({ title, description, seriesSlug, seriesNum }) {
         height: OG_HEIGHT,
         display: 'flex',
         flexDirection: 'column',
-        padding: '60px 80px',
+        justifyContent: 'space-between',
+        padding: '48px 64px',
         backgroundColor: BG_COLOR,
         fontFamily: 'Pretendard',
       },
-      children,
+      children: [
+        // 메인 콘텐츠 블록
+        {
+          type: 'div',
+          props: {
+            style: { display: 'flex', flexDirection: 'column' },
+            children: contentChildren,
+          },
+        },
+        // 하단 브랜딩 (우측 정렬)
+        {
+          type: 'div',
+          props: {
+            style: {
+              display: 'flex',
+              justifyContent: 'flex-end',
+              fontSize: 18,
+              color: TEXT_BRAND,
+              letterSpacing: '5px',
+            },
+            children: 'Editorial',
+          },
+        },
+      ],
     },
   };
 }
