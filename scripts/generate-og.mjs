@@ -117,9 +117,15 @@ function titleFontSize(title) {
   return 40;
 }
 
-function buildOgElement({ title, seriesSlug, seriesNum }) {
+function truncate(text, max) {
+  if (!text || text.length <= max) return text;
+  return text.slice(0, max - 1) + '\u2026';
+}
+
+function buildOgElement({ title, description, seriesSlug, seriesNum }) {
   const label = seriesNum ? seriesLabel(seriesSlug, seriesNum) : null;
   const fontSize = titleFontSize(title);
+  const desc = truncate(description, 90);
 
   const children = [];
 
@@ -148,7 +154,7 @@ function buildOgElement({ title, seriesSlug, seriesNum }) {
         fontWeight: 700,
         color: TEXT_WHITE,
         lineHeight: 1.35,
-        marginBottom: 40,
+        marginBottom: 32,
         wordBreak: 'keep-all',
         overflowWrap: 'break-word',
       },
@@ -160,9 +166,26 @@ function buildOgElement({ title, seriesSlug, seriesNum }) {
   children.push({
     type: 'div',
     props: {
-      style: { width: 80, height: 4, backgroundColor: ACCENT },
+      style: { width: 80, height: 4, backgroundColor: ACCENT, marginBottom: 28 },
     },
   });
+
+  // 설명
+  if (desc) {
+    children.push({
+      type: 'div',
+      props: {
+        style: {
+          fontSize: 20,
+          color: '#aaaaaa',
+          lineHeight: 1.6,
+          wordBreak: 'keep-all',
+          overflowWrap: 'break-word',
+        },
+        children: desc,
+      },
+    });
+  }
 
   // 스페이서 (flex-grow로 하단 브랜딩 밀어내기)
   children.push({
@@ -289,6 +312,7 @@ async function main() {
 
     const element = buildOgElement({
       title,
+      description: fm.description || '',
       seriesSlug: file.seriesSlug,
       seriesNum,
     });
