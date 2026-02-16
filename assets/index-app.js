@@ -75,6 +75,7 @@
   function applyPagination() {
     if (isSearching) return;
 
+    invalidateDividerCache();
     seriesGroups = collectSeriesGroups();
     totalPages = Math.ceil(seriesGroups.length / PAGE_SIZE);
     if (currentPage > totalPages) currentPage = totalPages;
@@ -201,6 +202,21 @@
    */
   var activeSeriesId = null;
   var activeTicking = false;
+  var cachedVisibleDividers = null;   // 스크롤 성능: DOM 쿼리 캐싱
+
+  /** 페이지네이션/정렬/검색 변경 시 캐시 무효화 */
+  function invalidateDividerCache() {
+    cachedVisibleDividers = null;
+  }
+
+  function getVisibleDividers() {
+    if (!cachedVisibleDividers) {
+      cachedVisibleDividers = Array.prototype.slice.call(
+        contentArea.querySelectorAll('.series-divider:not(.paged-hidden)')
+      );
+    }
+    return cachedVisibleDividers;
+  }
 
   function setActiveTocItem(seriesId) {
     if (seriesId === activeSeriesId) return;
@@ -219,18 +235,18 @@
   }
 
   function updateActiveOnScroll() {
-    var dividers = contentArea.querySelectorAll('.series-divider:not(.paged-hidden)');
+    var dividers = getVisibleDividers();
     if (!dividers.length) return;
 
     var offset = 150; // threshold from top of viewport
     var best = null;
 
     // 1. Find the LAST divider whose top has crossed the offset line.
-    //    By iterating forward and overwriting `best`, we naturally
-    //    end up with the most recent (lowest on page) qualifying section.
-    for (var i = 0; i < dividers.length; i++) {
+    //    Binary search 대신 역순 탐색으로 조기 종료
+    for (var i = dividers.length - 1; i >= 0; i--) {
       if (dividers[i].getBoundingClientRect().top <= offset) {
         best = dividers[i];
+        break;
       }
     }
 
@@ -258,7 +274,7 @@
         });
         activeTicking = true;
       }
-    });
+    }, { passive: true });
 
     // Initial sync
     updateActiveOnScroll();
@@ -350,6 +366,7 @@
   /* ========== Search ========== */
 
   function applySearch(query) {
+    invalidateDividerCache();
     var cards = contentArea.querySelectorAll('.article-card');
     var dividers = contentArea.querySelectorAll('.series-divider');
     var totalVisible = 0;
@@ -403,6 +420,7 @@
   }
 
   function clearSearch() {
+    invalidateDividerCache();
     var items = contentArea.querySelectorAll('.article-card, .series-divider');
     for (var i = 0; i < items.length; i++) {
       items[i].style.display = '';
@@ -440,7 +458,7 @@
     // Force reflow for transition
     void tocOverlay.offsetWidth;
     tocOverlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'clip';     // clip은 hidden보다 레이아웃 재계산 비용 낮음
   }
 
   function closeMobileToc() {
@@ -478,7 +496,7 @@
         });
         ticking = true;
       }
-    });
+    }, { passive: true });
   }
 
   /* ========== Init ========== */

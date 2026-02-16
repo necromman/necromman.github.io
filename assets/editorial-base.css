@@ -77,6 +77,10 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html {
+  touch-action: manipulation;        /* 모바일 300ms 탭 딜레이 제거, 즉시 스크롤 */
+}
+
 body {
   font-family: var(--serif);
   background: var(--bg);
@@ -84,6 +88,7 @@ body {
   line-height: 1.85;
   -webkit-font-smoothing: antialiased;
   font-variant-numeric: lining-nums tabular-nums;
+  overscroll-behavior-y: none;        /* pull-to-refresh / 스크롤 체이닝 방지 */
 }
 
 .page {
@@ -386,14 +391,24 @@ body {
   color: var(--muted);
 }
 
-/* SCROLL PERFORMANCE — 블록 단위 레이아웃 격리로 리플로우 범위 제한 */
+/* SCROLL PERFORMANCE — 블록 단위 레이아웃·페인트 격리로 리플로우/리페인트 범위 제한 */
 .section-head,
 .technique,
 .mechanism-row,
 .pull-quote,
 .warning-box,
 .closing {
-  contain: layout style;
+  contain: layout style paint;
+}
+
+/* 뷰포트 밖 섹션의 렌더링을 건너뛰어 스크롤 성능 향상 */
+.section-head,
+.technique,
+.pull-quote,
+.warning-box,
+.closing {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 200px;
 }
 
 /* RESPONSIVE */
