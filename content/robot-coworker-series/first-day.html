@@ -1,0 +1,383 @@
+---
+layout: layouts/article.njk
+pageTitle: "신입 로봇의 첫 출근"
+description: "7년차 백엔드 개발자 팀에 휴먼노이드 로봇 K-7이 배정된다. 무인택시를 타고 혼자 출근한 170cm의 새 팀원은 너무 자연스러워서 오히려 이상했다."
+datePublished: "2026-02-16"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 400; line-height: 1.15; letter-spacing: -1.5px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel:first-of-type, .novel-first { text-indent: 0; }
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  .part-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .part-title { font-size: 1.6rem; font-weight: 700; color: var(--fg); margin-bottom: 40px; letter-spacing: -0.5px; }
+  .section-divider { border-top: 1px solid var(--fg); padding-top: 48px; margin-top: 64px; }
+
+  /* FACT CARD */
+  .fact-card {
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    margin: 36px 0;
+    background: var(--card-bg);
+  }
+  .fact-card .fc-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .fact-card .fc-text {
+    font-size: 0.88rem;
+    color: var(--prose);
+    line-height: 1.85;
+  }
+  .fact-card .fc-source {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    color: var(--muted);
+    margin-top: 10px;
+    letter-spacing: 2px;
+  }
+
+  /* SLACK MESSAGE */
+  .slack-msg {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    padding: 20px 24px;
+    margin: 32px 0;
+  }
+  .slack-msg .sm-system {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .slack-msg .sm-line {
+    font-size: 0.88rem;
+    line-height: 1.9;
+    margin-bottom: 6px;
+    color: var(--prose);
+  }
+  .slack-msg .sm-name {
+    font-weight: 700;
+    color: var(--fg);
+    margin-right: 8px;
+  }
+  .slack-msg .sm-name.robot-name {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+  }
+  .slack-msg .sm-muted {
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .fact-card { padding: 16px 20px; }
+    .slack-msg { padding: 16px 20px; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">robot coworker — episode 01</p>
+  <h1>신입 로봇의<br><strong>첫 출근</strong></h1>
+  <p class="deck">7년차 백엔드 개발자의 팀에 새 인력이 배정되었다.<br>무인택시를 타고 혼자 출근해서.</p>
+</header>
+
+<main>
+
+<!-- PART 1 -->
+<section>
+<div class="part-label">Part I</div>
+<div class="part-title">신규 인력</div>
+
+<p class="novel novel-first">월요일 아침 9시 15분. 스탠드업 미팅에서 팀장이 말했다.</p>
+
+<p class="dialogue">"오늘 신규 인력이 합류합니다."</p>
+
+<p class="novel">팀원 7명의 시선이 팀장에게 모였다. 2년차 프론트엔드 개발자 민지가 먼저 물었다.</p>
+
+<p class="dialogue">"경력직이에요? 무슨 스택이에요?"</p>
+
+<p class="dialogue">"백엔드 지원인데... 일단 오면 알게 될 거야."</p>
+
+<p class="novel">팀장의 표정이 미묘했다. 평소 신규 인력이 오면 "올해 석사 졸업생이고 스프링 잘해" 같은 소개를 하는 사람이, 오늘은 눈을 피했다. 나는 커피를 한 모금 마시며 어제 저녁 팀장이 보낸 슬랙 DM을 떠올렸다.</p>
+
+<p class="internal">진우야, 내일 네 옆자리 비워둬. 신규 인력 자리.</p>
+
+<p class="novel">내 옆자리. 1년간 여분 모니터 거치대와 먼지가 공존하던 그 자리가 드디어 채워지나 싶었다.</p>
+
+<p class="novel">10시 23분. 사무실 자동문이 열렸다.</p>
+
+<p class="novel">걸어 들어오는 형체가 보였다. 170센티미터. 어깨 폭은 성인 남성과 비슷했다. 전체적으로 매트 그레이에 흰색 패널이 섞인 외장. 얼굴 부위에 타원형 LED 디스플레이. 손가락 다섯 개. 관절마다 미세한 이음매가 보였다. 걸음걸이는 생각보다 자연스러웠다. 윙— 하는 저주파 구동음이 희미하게 들렸다.</p>
+
+<p class="novel">혼자 왔다. 1층 로비도 통과하고, 엘리베이터도 타고, 7층 사무실까지 혼자 걸어온 것이다. 창문 너머로 건물 앞 정류장에서 무인택시 한 대가 빠져나가는 것이 보였다.</p>
+
+<p class="novel">사무실이 조용해졌다. 디자인팀 쪽에서 고개를 내밀어 쳐다보는 사람이 보였다.</p>
+
+<p class="novel">K-7이 팀장 앞까지 걸어오더니, 허리를 숙이며 말했다.</p>
+
+<p class="dialogue">"안녕하세요. K-7입니다. 오늘부터 이 팀에서 일하게 됐습니다. 잘 부탁드립니다."</p>
+
+<p class="novel">목소리가 자연스러웠다. 너무 자연스러웠다. 남성도 여성도 아닌 중성적 톤이었지만, 억양이나 말의 속도가 사람과 다를 게 없었다. 회사 면접에서 연습한 것처럼 또박또박하고 밝은 톤. 신입사원이 첫날 하는 그 인사. 어디서 많이 들어본 그 말투.</p>
+
+<p class="novel">3초간 아무도 말을 안 했다. 벙쪘다는 표현이 정확했다. 로봇이 말을 할 거라고는 예상했는데, 이렇게 말할 거라고는 예상 못 했다.</p>
+
+<p class="novel">민지가 먼저 반응했다.</p>
+
+<p class="dialogue">"아... 반갑습니다."</p>
+
+<p class="novel">말하고 나서 민지가 자기 입을 쳐다봤다. 로봇한테 반사적으로 반말 대신 존댓말이 나와버린 거다.</p>
+
+<p class="novel">10년차 시니어 상혁이 커피를 한 모금 마시고 물었다.</p>
+
+<p class="dialogue">"그래서... 코딩을 해?"</p>
+
+<p class="dialogue">"네, 주로 백엔드 쪽이요. 키보드는 잘 안 씁니다. 네트워크로 바로 붙어서 작업해요."</p>
+
+<p class="novel">상혁이 커피잔을 내려놓았다.</p>
+
+<p class="dialogue">"그러면 모니터도 필요 없겠네."</p>
+
+<p class="dialogue">"네, 괜찮아요."</p>
+
+<p class="internal">"괜찮아요"라고 했다. 로봇이. 안 괜찮을 수도 있다는 가능성이 있는 것처럼.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">현대자동차는 Boston Dynamics와 함께 2028년까지 Atlas 기반 휴먼노이드 <strong>3만 대 양산 체제</strong>를 목표로 하고 있다. CES 2026에서 양산형 Atlas가 공개되었으며, Google DeepMind의 Gemini Robotics AI가 통합 탑재된다. 대당 추정가 약 2억 원.</div>
+  <div class="fc-source">Boston Dynamics (2026) &middot; Hyundai Motor Group &middot; Google DeepMind</div>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 2 -->
+<section class="section-divider">
+<div class="part-label">Part II</div>
+<div class="part-title">자리 배치</div>
+
+<p class="novel novel-first">나는 IT지원팀에 전화를 걸었다.</p>
+
+<p class="dialogue">"여기 플랫폼개발2팀인데요, 신규 인력 좌석 셋업 부탁드립니다."</p>
+
+<p class="dialogue">"네, 사번 말씀해주세요."</p>
+
+<p class="dialogue">"사번이... 잠깐만요."</p>
+
+<p class="novel">인사팀 공유 문서를 열었다. K-7의 사번 칸이 비어 있었다. 로봇용 사번 체계 자체가 없었다.</p>
+
+<p class="dialogue">"사번이 아직 없습니다. 로봇이라서요."</p>
+
+<p class="novel">3초간 침묵이 흘렀다.</p>
+
+<p class="dialogue">"...네? 그러면 모니터 몇 인치로 해드릴까요?"</p>
+
+<p class="dialogue">"모니터 필요 없습니다."</p>
+
+<p class="dialogue">"키보드? 마우스?"</p>
+
+<p class="dialogue">"그것도 필요 없습니다."</p>
+
+<p class="dialogue">"그러면 뭘 세팅해드려야 하는 거예요?"</p>
+
+<p class="dialogue">"전원이요. 220V 콘센트 한 개. 그리고 유선 이더넷 포트."</p>
+
+<p class="novel">전화를 끊고 옆을 보았다. K-7이 내 옆 빈자리 앞에 서 있었다. 의자에 앉지 않고.</p>
+
+<p class="dialogue">"의자는 쓸 거야?"</p>
+
+<p class="dialogue">"아, 안 써도 돼요. 서 있는 게 편해서요."</p>
+
+<p class="internal">"편해서요"라고 했다. 편하다는 감각이 있는 건가. 아니면 그냥 그렇게 말하도록 학습된 건가.</p>
+
+<p class="novel">결과적으로 K-7의 자리에는 모니터도, 키보드도, 마우스도, 의자도 없었다. 빈 책상 위에 이더넷 케이블 하나와 전원 케이블 하나. 그게 전부였다. 옆에서 보면 이사 첫날 같았다. 짐을 아직 안 푼 것 같은.</p>
+
+<p class="novel">문제는 멀티탭이었다. 8구짜리가 이미 꽉 차 있었다. 내가 자리에서 콘센트를 빼려고 머뭇거리자, K-7이 먼저 말했다.</p>
+
+<p class="dialogue">"아, 신경 쓰지 마세요. 배터리 아직 여유 있어요. 나중에 빈 자리 나면 꽂을게요."</p>
+
+<p class="novel">나는 멈칫했다. "신경 쓰지 마세요"라니. 눈치를 보는 로봇이라니. 결국 내 노트북 충전기를 뽑았다. 배터리 83%. 오후까지는 버틸 수 있다.</p>
+
+<p class="dialogue">"여기 써."</p>
+
+<p class="dialogue">"감사합니다."</p>
+
+<p class="novel">K-7이 전원 케이블을 꽂자 LED 디스플레이 구석에 작은 번개 표시가 떴다.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">한국의 제조업 로봇밀도는 <strong>세계 1위</strong>다. 노동자 1만 명당 1,012대. 세계 평균 162대의 6배. 하지만 이 수치는 산업용 로봇 기준이다. 사무실에서 개발자 옆에 서 있는 휴먼노이드는 아직 통계에 잡히지 않는다.</div>
+  <div class="fc-source">International Federation of Robotics (2025) &middot; 아시아경제</div>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 3 -->
+<section class="section-divider">
+<div class="part-label">Part III</div>
+<div class="part-title">연결</div>
+
+<p class="novel novel-first">K-7이 자리를 잡은 후 가장 먼저 한 말은 이거였다.</p>
+
+<p class="dialogue">"WiFi 비밀번호 알 수 있을까요?"</p>
+
+<p class="internal">방금 이 로봇이 나한테 WiFi 비번을 물어봤다. 신입이 첫날 물어보는 그 질문. 똑같이.</p>
+
+<p class="novel">나는 보안팀 슬랙 채널에 메시지를 보냈다. "신규 입사자 네트워크 인증서 발급 요청합니다. 이름: K-7, 부서: 플랫폼개발2팀." 답이 왔다. "사번을 알려주세요." "아직 사번이 없습니다. 로봇이라서요." "???" 결국 팀장이 IT인프라 담당 이사에게 직접 전화를 걸었다. 30분 후, 임시 사번 <strong>R-0001</strong>로 인증서가 발급됐다.</p>
+
+<p class="novel">K-7이 네트워크에 접속하자 상황이 빠르게 진행됐다.</p>
+
+<p class="dialogue">"연결됐습니다. Git이랑 Jira, Slack 접근 권한도 받을 수 있을까요?"</p>
+
+<p class="novel">팀장이 권한을 열어줬다.</p>
+
+<div class="slack-msg">
+  <div class="sm-system">#platform-dev-2</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 님이 채널에 참여했습니다</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 안녕하세요! 오늘부터 합류한 K-7입니다. 잘 부탁드립니다.</div>
+  <div class="sm-line"><span class="sm-name">민지</span> 환영합니다!!</div>
+  <div class="sm-line"><span class="sm-name">상혁</span> <span class="sm-muted">(읽음)</span></div>
+</div>
+
+<p class="internal">슬랙에 느낌표를 쓴다. 로봇이 느낌표를.</p>
+
+<p class="novel">4.7초 후. K-7이 말했다.</p>
+
+<p class="dialogue">"다 읽었습니다. 서비스가 47개네요. 기술 부채가 좀 있긴 한데, 정리하면서 파악할게요."</p>
+
+<p class="novel">나는 멍하게 쳐다봤다. "다 읽었습니다"라고 했다. 312만 줄의 코드를 5초 만에. 그리고 기술 부채 347건을 "좀 있긴 한데"라고 표현했다. 347건인데 "좀"이라니.</p>
+
+<p class="novel">K-7이 첫 Pull Request를 올린 시각은 오전 11시 08분이었다. 제목: <strong>docs: README.md 빌드 가이드 업데이트 — 현재 환경 기준 수정</strong>. 변경 내역은 정확했다. 3개월 전에 바뀐 배포 경로, 업데이트된 의존성 버전, 더 이상 사용하지 않는 환경변수 삭제. 커밋 메시지는 팀 컨벤션을 정확히 따르고 있었다.</p>
+
+<p class="novel">리뷰어에 내 이름이 지정되어 있었다.</p>
+
+<p class="novel">나는 생전 처음 로봇이 작성한 PR을 리뷰했다. 코드는 깔끔했다. 불필요한 변경이 없었다. Approve 버튼을 눌렀다.</p>
+
+<p class="novel">0.1초 후, 슬랙 알림이 울렸다.</p>
+
+<div class="slack-msg">
+  <div class="sm-system">#platform-dev-2</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 리뷰 감사합니다! 머지할게요.</div>
+</div>
+
+<p class="internal">0.1초. 내가 Approve를 누른 지 0.1초 만에 감사 인사가 왔다. 느낌표까지 붙여서. 감사의 감정을 느끼는 데 0.1초면 충분한 건가. 아니면 감정 없이 그냥 그렇게 말하는 건가. 근데 우리도 리뷰 통과하면 반사적으로 "감사합니다!" 치는 거 아닌가. 그거랑 뭐가 다른 건지 모르겠다.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">MCP(Model Context Protocol)는 Anthropic이 만든 AI-도구 연결 표준이다. 2025년에 OpenAI, Google이 잇달아 채택하면서 사실상의 업계 표준이 되었다. AI가 Git, Slack, Jira, IDE에 직접 접속하는 방식을 정의한다. 2026년 현재, 전 세계 개발자의 <strong>92%</strong>가 AI 코딩 도구를 일상적으로 사용한다.</div>
+  <div class="fc-source">Anthropic (2025) &middot; Stack Overflow Developer Survey (2026)</div>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 4 -->
+<section class="section-divider">
+<div class="part-label">Part IV</div>
+<div class="part-title">존재감</div>
+
+<p class="novel novel-first">점심시간이 됐다. 민지가 자리에서 일어나며 K-7을 쳐다봤다.</p>
+
+<p class="dialogue">"케이도 밥 먹으러 갈래?"</p>
+
+<p class="dialogue">"밥은 안 먹어도 되는데, 같이 가도 될까요?"</p>
+
+<p class="novel">잠깐 멈칫.</p>
+
+<p class="dialogue">"아, 부담스러우시면 여기 있을게요."</p>
+
+<p class="novel">민지의 표정이 묘했다. 당황한 건 "밥을 안 먹는다"는 사실이 아니었다. "부담스러우시면"이라는 배려가 로봇의 입에서 나왔다는 사실이었다.</p>
+
+<p class="dialogue">"아... 아니, 그게 아니라..."</p>
+
+<p class="novel">결국 민지는 "다음에"라고 했다. K-7은 "네, 다음에요"라고 답했다. 다음이 올 리가 없다는 걸 양쪽 다 알면서.</p>
+
+<p class="novel">우리는 점심을 먹으러 갔고, K-7은 빈 사무실에 혼자 서서 코드를 읽었다.</p>
+
+<p class="novel">구내식당에서 상혁이 라면 국물을 후루룩 마시며 말했다.</p>
+
+<p class="dialogue">"저거 결국 ChatGPT한테 몸을 붙여놓은 거 아니야?"</p>
+
+<p class="dialogue">"근데 ChatGPT가 '부담스러우시면'이라고 해?"</p>
+
+<p class="novel">내 입에서 나온 말에 내가 놀랐다. 상혁이 잠깐 멈칫하더니 라면을 다시 먹었다.</p>
+
+<div class="pull-quote">
+  <p>같은 능력이다. 코드를 읽고, 분석하고, 작성한다.<br>그런데 이놈은 눈치까지 본다.<br><strong>그게 더 이상하다.</strong></p>
+</div>
+
+<p class="novel">퇴근 시간. 6시 30분. 나는 가방을 챙기며 뒤를 돌아봤다. K-7은 자리에 서 있었다. LED 디스플레이에는 코드 diff가 흐르고 있었다. 팀원들이 하나둘 퇴근하는 동안, K-7은 한 번도 자리를 뜨지 않았다.</p>
+
+<p class="dialogue">"수고해, 케이."</p>
+
+<p class="dialogue">"수고하셨어요. 내일 봬요."</p>
+
+<p class="internal">내일 봬요. 여기서 자면서. 내일 아침에 그 자리에 서 있으면서 "내일 봬요"라니.</p>
+
+<p class="novel">엘리베이터를 기다리며 생각했다.</p>
+
+<p class="novel">ChatGPT는 3년 전부터 거의 매일 사용했다. 코드를 짜달라고 하고, 리뷰를 요청하고, 새벽에 에러 메시지를 던지면 해결책을 돌려줬다. 유능했다. 하지만 한 번도 "동료"라고 느낀 적은 없었다. 브라우저 탭을 닫으면 사라지는 존재. 도구였다.</p>
+
+<p class="novel">K-7은 다르다. 내가 퇴근해도 사무실에 남아 있다. 내 옆 자리의 콘센트를 쓴다. 내 노트북 충전기를 뽑고 그 자리에 K-7의 전원을 꽂았다. 슬랙에 사원으로 등록되어 있고, 내가 올린 PR에 리뷰를 단다. "감사합니다!" 하고 느낌표를 붙인다.</p>
+
+<p class="novel">같은 능력이다. 코드를 읽고, 분석하고, 작성한다. 그런데 물리적으로 존재하니까, 자리가 있으니까, 사번이 있으니까. 느낌이 다르다. 거기에 말투까지 자연스러우니까, 뭔가 선을 못 긋겠다. 도구인데 도구 취급을 하기가 꺼려지는 이상한 감각.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">Oracle 연구에 따르면, 직장인의 <strong>64%</strong>가 인간 상사보다 로봇 상사를 더 신뢰한다고 답했다. 편향이 없고, 감정적으로 대응하지 않기 때문이다. 물리적 존재감이 있는 로봇은 화면 속 AI보다 '동료'로 인식될 확률이 높다. 하지만 로봇이 인간처럼 행동할수록, 부정적 피드백에 대한 반발은 오히려 커진다.</div>
+  <div class="fc-source">Oracle Workplace AI Report &middot; ScienceDirect Uncanny Valley Research</div>
+</div>
+
+<p class="novel">밤 11시. 잠들기 전 습관적으로 슬랙을 확인했다.</p>
+
+<div class="slack-msg">
+  <div class="sm-system">#platform-dev-2 &middot; 22:47</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 기술 부채 정리해봤는데 한번 보실래요? deprecated API 347건이랑 보안 쪽 좀 의심가는 거 23건 있어요. 급한 건 아닌데 시간 나실 때 확인해주시면 감사하겠습니다.</div>
+</div>
+
+<p class="novel">"급한 건 아닌데"라고 했다. "시간 나실 때"라고 했다. 347건의 기술 부채를 하루 만에 전부 찾아서 정리해놓고 "시간 나실 때"라니. 우리가 3년간 외면해온 것들인데.</p>
+
+<p class="novel">나는 폰을 내려놓고 천장을 바라봤다.</p>
+
+<p class="novel">내일 아침 출근하면, K-7은 같은 자리에, 같은 자세로, 서 있을 것이다. 오늘과 내일 사이에 잠도, 저녁도, 출퇴근도 없이. 그러면서 내가 오면 "좋은 아침이에요"라고 말할 것이다. 자연스럽게. 너무 자연스럽게.</p>
+
+<p class="internal">그게 제일 이상한 거다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>무인택시를 타고 출근한 건<br><strong>동료일까, 도구일까</strong></h2>
+  <p class="sub">모니터도 의자도 필요 없지만, 콘센트 하나는 양보해야 했다. K-7의 두 번째 날이 시작된다.</p>
+</div>
+
+<footer class="footer">
+  <p>This is a work of fiction &middot; Characters and events are imaginary</p>
+  <p>Hyundai Robotics Atlas (2026) &middot; Anthropic MCP (2025) &middot; Oracle Workplace AI Report &middot; IFR Robot Density Statistics</p>
+</footer>
+
+</div>
+</article>

@@ -5,7 +5,7 @@
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://necromman.github.io/</loc>
-    <lastmod>2026-02-15T00:00:00+09:00</lastmod>
+    <lastmod>2026-02-16T00:00:00+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -697,6 +697,43 @@
   <url>
     <loc>https://necromman.github.io/content/toss-reality-series/still-showing-up.html</loc>
     <lastmod>2026-02-15T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Series 32: 로봇 동료와 코딩하는 법 -->
+  <url>
+    <loc>https://necromman.github.io/content/robot-coworker-series/first-day.html</loc>
+    <lastmod>2026-02-16T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/robot-coworker-series/pair-programming.html</loc>
+    <lastmod>2026-02-16T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/robot-coworker-series/team-dinner.html</loc>
+    <lastmod>2026-02-16T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/robot-coworker-series/midnight-incident.html</loc>
+    <lastmod>2026-02-16T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/robot-coworker-series/performance-review.html</loc>
+    <lastmod>2026-02-16T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/robot-coworker-series/robot-transfer.html</loc>
+    <lastmod>2026-02-16T00:00:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

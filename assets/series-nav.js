@@ -265,6 +265,17 @@
         { slug: 'free-convenience-store', title: '편의점은 공짜인데' },
         { slug: 'still-showing-up', title: '그래도 출근한다' }
       ]
+    },
+    'robot-coworker-series': {
+      title: '로봇 동료와 코딩하는 법',
+      articles: [
+        { slug: 'first-day', title: '신입 로봇의 첫 출근' },
+        { slug: 'pair-programming', title: '케이블로 대화하는 법' },
+        { slug: 'team-dinner', title: '회식에 로봇을 데려갈 수 있나요' },
+        { slug: 'midnight-incident', title: '새벽 3시의 동료' },
+        { slug: 'performance-review', title: '로봇의 연봉은 얼마인가' },
+        { slug: 'robot-transfer', title: '다음 프로젝트로' }
+      ]
     }
   };
 

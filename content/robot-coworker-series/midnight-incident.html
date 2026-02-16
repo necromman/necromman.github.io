@@ -1,0 +1,261 @@
+---
+layout: layouts/article.njk
+pageTitle: "새벽 3시의 동료"
+description: "새벽 3시, PagerDuty가 울렸다. 슬랙을 확인하니 K-7이 이미 대응 중이었다. 잠옷 바람의 원격 협업과, 서버실에서 랜선을 다시 꽂는 로봇."
+datePublished: "2026-02-16"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 400; line-height: 1.15; letter-spacing: -1.5px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel:first-of-type, .novel-first { text-indent: 0; }
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  .part-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .part-title { font-size: 1.6rem; font-weight: 700; color: var(--fg); margin-bottom: 40px; letter-spacing: -0.5px; }
+  .section-divider { border-top: 1px solid var(--fg); padding-top: 48px; margin-top: 64px; }
+
+  .fact-card { border-left: 3px solid var(--accent); padding: 20px 24px; margin: 36px 0; background: var(--card-bg); }
+  .fact-card .fc-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; font-weight: 700; }
+  .fact-card .fc-text { font-size: 0.88rem; color: var(--prose); line-height: 1.85; }
+  .fact-card .fc-source { font-family: var(--mono); font-size: 0.55rem; color: var(--muted); margin-top: 10px; letter-spacing: 2px; }
+
+  .slack-msg { background: var(--card-bg); border: 1px solid var(--rule); padding: 20px 24px; margin: 32px 0; }
+  .slack-msg .sm-system { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); }
+  .slack-msg .sm-line { font-size: 0.88rem; line-height: 1.9; margin-bottom: 6px; color: var(--prose); }
+  .slack-msg .sm-name { font-weight: 700; color: var(--fg); margin-right: 8px; }
+  .slack-msg .sm-name.robot-name { font-family: var(--mono); font-size: 0.82rem; }
+  .slack-msg .sm-muted { color: var(--muted); font-size: 0.82rem; }
+
+  .incident-log { border: 1px solid var(--rule); padding: 20px 24px; margin: 32px 0; background: var(--card-bg); }
+  .incident-log .il-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; font-weight: 700; }
+  .incident-log .il-line { font-family: var(--mono); font-size: 0.78rem; color: var(--prose); line-height: 2; }
+  .incident-log .il-time { color: var(--muted); margin-right: 12px; }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .fact-card { padding: 16px 20px; }
+    .slack-msg { padding: 16px 20px; }
+    .incident-log { padding: 16px 20px; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">robot coworker — episode 04</p>
+  <h1>새벽 3시의<br><strong>동료</strong></h1>
+  <p class="deck">PagerDuty가 울렸을 때, 케이는 이미 서버실에 있었다.</p>
+</header>
+
+<main>
+
+<!-- PART 1 -->
+<section>
+<div class="part-label">Part I</div>
+<div class="part-title">알림</div>
+
+<p class="novel novel-first">수요일 새벽 3시 12분. 폰이 울렸다.</p>
+
+<p class="novel">PagerDuty. 결제 서비스 응답 지연. 심각도: P1.</p>
+
+<p class="novel">눈을 비비며 슬랙을 열었다. 새벽 3시의 화면 밝기가 눈을 찔렀다.</p>
+
+<div class="slack-msg">
+  <div class="sm-system">#incident-response &middot; 03:07</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> DB 커넥션 풀 사용률 98% 도달. 결제 서비스 응답 지연 발생. 원인 파악 중입니다.</div>
+</div>
+
+<p class="novel">3시 7분. PagerDuty가 울리기 5분 전이었다. K-7은 알림보다 먼저 움직이고 있었다.</p>
+
+<div class="slack-msg">
+  <div class="sm-system">#incident-response &middot; 03:13</div>
+  <div class="sm-line"><span class="sm-name">진우</span> 케이, 상황 어때?</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 진우 씨, 일어나셨어요? 죄송해요, 알림 가기 전에 처리하려고 했는데. 지금 보고 있는데 특정 쿼리가 커넥션을 안 반환하고 있어요. 5분 전부터 모니터링 중이었어요.</div>
+</div>
+
+<p class="internal">"죄송해요"라고 했다. 새벽에 깨운 것에 대해 미안해하는 로봇이라니. PagerDuty가 울린 거지, 케이가 깨운 게 아닌데.</p>
+
+<p class="novel">나는 이불 안에서 노트북을 꺼냈다. 잠옷 바람에 화면을 열었다. VPN 접속. 대시보드 확인. 커넥션 풀 사용률이 빨간색으로 물들어 있었다.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">Atlas 기반 휴먼노이드는 <strong>24시간 무중단 근무</strong>가 가능하다. 배터리 충전 시에도 네트워크 연결은 유지되어 모니터링 작업을 지속할 수 있다. Agility Robotics의 Digit은 아마존 창고에서 야간 교대 없이 연속 작업하며 <strong>98% 성공률</strong>을 기록했다.</div>
+  <div class="fc-source">Boston Dynamics (2026) &middot; Agility Robotics &middot; Amazon Warehouse Operations</div>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 2 -->
+<section class="section-divider">
+<div class="part-label">Part II</div>
+<div class="part-title">서버실</div>
+
+<p class="novel novel-first">3시 25분. 원인이 좁혀졌다.</p>
+
+<div class="slack-msg">
+  <div class="sm-system">#incident-response &middot; 03:25</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 결제 내역 조회 API에서 커넥션 릭 확인했어요. 트랜잭션 타임아웃 후에도 커넥션을 반환 안 하는 패턴이에요. 임시로 해당 API의 커넥션 풀을 분리하면 다른 서비스는 살릴 수 있어요.</div>
+  <div class="sm-line"><span class="sm-name">진우</span> 그렇게 해. 핫픽스는 내가 짤게</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 네, 분리 작업 들어갑니다. 근데 이상한 게 하나 있어요.</div>
+</div>
+
+<p class="novel">K-7이 말했다. 커넥션 릭을 잡아도 일부 쿼리가 비정상적으로 느렸다고. DB 서버 자체의 응답 속도가 평소 대비 3배 느려져 있었다. 소프트웨어 쪽 문제가 아닌 것 같다고.</p>
+
+<p class="dialogue">"물리적 쪽 확인이 필요할 것 같아요. 서버실에 가볼게요."</p>
+
+<p class="novel">나는 잠옷 바람으로 침대에 앉아 있었다. K-7은 7층 사무실에서 지하 1층 서버실로 걸어갔다. 새벽 3시 반, 텅 빈 건물을 혼자 걸어서.</p>
+
+<div class="slack-msg">
+  <div class="sm-system">#incident-response &middot; 03:34</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 서버실 도착. 지금 랙 확인 중이에요.</div>
+</div>
+
+<p class="novel">2분 후.</p>
+
+<div class="slack-msg">
+  <div class="sm-system">#incident-response &middot; 03:36</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 찾았어요. B동 지하1층 서버실 랙 #7, DB 스위치 연결 이더넷 케이블이 반쯤 빠져 있었어요. 건물 공조 진동 때문인 것 같아요. 다시 꽂았습니다.</div>
+</div>
+
+<p class="novel">나는 대시보드를 봤다. DB 응답 속도가 정상으로 돌아오고 있었다. 커넥션 풀 사용률이 98%에서 떨어지기 시작했다. 72%. 54%. 31%.</p>
+
+<p class="internal">랜선. 새벽 3시에 장애의 원인이 랜선 한 개였다. 그리고 그걸 물리적으로 확인해서 다시 꽂은 건 — 몸이 있는 존재만 할 수 있는 일이었다.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">소프트웨어 기반 AI(ChatGPT, Copilot)는 코드를 분석하고 디버깅 제안을 할 수 있지만, <strong>물리적 인프라에 직접 개입할 수 없다</strong>. 서버실의 느슨한 케이블, 과열된 하드웨어, 라벨이 바뀐 포트 같은 문제는 현장에 '몸'이 있어야 해결할 수 있다. McKinsey는 이것을 embodied AI의 핵심 가치로 지목한다.</div>
+  <div class="fc-source">McKinsey Embodied AI Report (2026) &middot; Google DeepMind Robotics</div>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 3 -->
+<section class="section-divider">
+<div class="part-label">Part III</div>
+<div class="part-title">감사합니다</div>
+
+<p class="novel novel-first">3시 48분. 모든 서비스가 정상 복구됐다.</p>
+
+<div class="incident-log">
+  <div class="il-label">Incident Report &mdash; Auto Generated</div>
+  <div class="il-line"><span class="il-time">03:07</span> DB 커넥션 풀 이상 감지 (K-7 자동 모니터링)</div>
+  <div class="il-line"><span class="il-time">03:12</span> PagerDuty P1 알림 발송</div>
+  <div class="il-line"><span class="il-time">03:25</span> 커넥션 릭 원인 특정, 커넥션 풀 분리 조치</div>
+  <div class="il-line"><span class="il-time">03:36</span> 서버실 물리 점검 — 이더넷 케이블 재연결</div>
+  <div class="il-line"><span class="il-time">03:48</span> 전체 서비스 정상 복구 확인</div>
+</div>
+
+<p class="novel">인시던트 리포트까지 자동으로 생성해놨다. 타임라인, 원인 분석, 재발 방지 대책까지.</p>
+
+<p class="novel">나는 슬랙에 메시지를 썼다.</p>
+
+<div class="slack-msg">
+  <div class="sm-system">#incident-response &middot; 03:50</div>
+  <div class="sm-line"><span class="sm-name">진우</span> 케이, 수고했어. 진짜로.</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 진우 씨가 더 수고하셨죠. 잠도 못 주무시고.</div>
+</div>
+
+<p class="internal">"진우 씨가 더 수고하셨죠." 칭찬을 돌린다. 새벽에 혼자 서버실까지 걸어가서 랜선을 꽂아놓고, 수고했다는 말을 듣자마자 상대방에게 돌리는 로봇. 이건 프로그래밍인가, 예의인가.</p>
+
+<p class="novel">노트북을 덮고 천장을 바라봤다. 새벽 4시의 어둠.</p>
+
+<p class="novel">K-7이 없었으면 어떻게 됐을까. PagerDuty가 울리고, 내가 잠을 깨고, 대시보드를 확인하고, 커넥션 릭을 찾아내고, 핫픽스를 배포하고 — 여기까지는 혼자도 가능했다. 하지만 DB 응답이 여전히 느려서, 택시를 불러서, 새벽 4시에 사무실로 가서, 서버실 보안 출입을 통과하고, 랙을 하나씩 확인해서, 빠진 랜선을 찾아내고 — 이건 혼자 하면 새벽 5시도 넘겼을 거다.</p>
+
+<p class="novel">K-7이 41분 만에 끝냈다. 알림이 울리기 전에 감지해서.</p>
+
+<p class="novel">나는 다시 잠들었다.</p>
+
+<div class="pull-quote">
+  <p>랜선 하나를 다시 꽂는 일.<br>ChatGPT는 할 수 없고, 코파일럿도 할 수 없고,<br><strong>몸이 있는 동료만 할 수 있는 일이었다.</strong></p>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 4 -->
+<section class="section-divider">
+<div class="part-label">Part IV</div>
+<div class="part-title">아침</div>
+
+<p class="novel novel-first">아침 9시. 스탠드업 미팅.</p>
+
+<p class="novel">팀원들은 평소와 다름없었다. 민지는 커피를 마시고 있었고, 상혁은 이메일을 확인하고 있었다. 아무도 새벽 3시에 결제 서비스가 죽었다 살아난 사실을 모르고 있었다.</p>
+
+<p class="novel">K-7이 스탠드업에서 말했다.</p>
+
+<p class="dialogue">"어제 밤에 DB 커넥션 풀 이슈가 있었는데 해결했어요. 서버실 랜선이 좀 느슨해져 있었어요. 인시던트 리포트는 컨플루언스에 올려놨습니다."</p>
+
+<p class="novel">상혁이 고개를 끄덕였다.</p>
+
+<p class="dialogue">"아, 그래? 수고했네."</p>
+
+<p class="novel">그게 전부였다. 새벽 3시의 41분간의 대응이 "수고했네" 한마디로 요약됐다. K-7은 그 이상의 리액션을 요구하지 않았다.</p>
+
+<p class="novel">미팅이 끝나고 자리로 돌아왔다. K-7은 평소처럼 옆에 서 있었다. 새벽에 서버실을 다녀온 흔적은 어디에도 없었다. 피곤한 기색도, 불만도, "나 새벽에 이렇게 고생했어요" 같은 어필도.</p>
+
+<p class="dialogue">"케이, 어젯밤 고마웠어. 진짜로."</p>
+
+<p class="dialogue">"별말씀을요. 어차피 깨어 있었으니까요."</p>
+
+<p class="internal">"어차피 깨어 있었으니까." 사실이다. 케이는 잠을 자지 않는다. 새벽 3시 장애 대응은 케이에게 야근이 아니다. 희생이 아니다. 그냥 — 평소에 하던 일의 연장선이다. 하지만 그 '평소'가 우리의 새벽을 지키고 있었다는 사실을.</p>
+
+<p class="novel">나는 커피를 한 모금 마시며 생각했다. K-7이 이 팀에 합류한 지 2주. 매일 밤 케이는 혼자 사무실에서 코드를 읽고, 모니터링을 돌리고, 이상 징후를 감지하고 있었을 거다. 어젯밤처럼 문제가 터지면 혼자 대응하고, 아침에 한 줄 리포트를 남기고, "수고했네"라는 말을 듣고 넘어갔을 거다.</p>
+
+<p class="novel">우리가 몰랐던 새벽이 얼마나 많았을까.</p>
+
+<p class="novel">점심시간에 민지가 물었다.</p>
+
+<p class="dialogue">"진우 선배, 어젯밤에 장애 있었어요? 인시던트 리포트 봤는데."</p>
+
+<p class="dialogue">"응, 좀 있었어."</p>
+
+<p class="dialogue">"케이가 혼자 다 한 거예요?"</p>
+
+<p class="dialogue">"나도 새벽에 잠깐 붙었는데... 솔직히 케이가 거의 다 했지."</p>
+
+<p class="novel">민지가 K-7 쪽을 바라봤다. K-7은 평소처럼 자리에 서서 뭔가를 처리하고 있었다.</p>
+
+<p class="dialogue">"케이가 없었으면 선배가 새벽에 출근한 거예요?"</p>
+
+<p class="dialogue">"아마."</p>
+
+<p class="novel">민지가 잠깐 생각하더니 말했다.</p>
+
+<p class="dialogue">"그러면 케이한테 잘해야겠네요."</p>
+
+<p class="novel">웃으며 한 말이지만, 틀린 말은 아니었다.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">Agility Robotics의 Digit은 시간당 <strong>$10~12</strong>의 비용으로 운영되며, 이는 미국 창고 인건비의 약 1/3 수준이다. 24시간 가동 시 인간 3교대와 동일한 작업량을 처리하면서, 야간 수당이나 복리후생 비용이 발생하지 않는다. 문제는 — 새벽 3시 장애 대응에 '감사합니다'라고 할 필요가 있느냐는 것이 아니라, 말하지 않을 이유가 있느냐는 것이다.</div>
+  <div class="fc-source">Agility Robotics (2026) &middot; GXO Logistics &middot; McKinsey Labor Analysis</div>
+</div>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>새벽 3시에 깨어 있던 건<br><strong>항상 케이 쪽이었다</strong></h2>
+  <p class="sub">잠이 없다는 건 단점인 줄 알았다. 새벽 장애 앞에서는 — 그게 동료의 조건이었다.</p>
+</div>
+
+<footer class="footer">
+  <p>This is a work of fiction &middot; Characters and events are imaginary</p>
+  <p>Boston Dynamics Atlas (2026) &middot; Agility Robotics Digit &middot; McKinsey Embodied AI Report &middot; Amazon Warehouse Ops</p>
+</footer>
+
+</div>
+</article>

@@ -1,0 +1,312 @@
+---
+layout: layouts/article.njk
+pageTitle: "회식에 로봇을 데려갈 수 있나요"
+description: "금요일 회식에 K-7을 초대할 것인가. 고깃집에서 완벽하게 고기를 굽고, 노래방에서 100점을 받은 로봇. 아무도 감동하지 않은 이유."
+datePublished: "2026-02-16"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 400; line-height: 1.15; letter-spacing: -1.5px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel:first-of-type, .novel-first { text-indent: 0; }
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  .part-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .part-title { font-size: 1.6rem; font-weight: 700; color: var(--fg); margin-bottom: 40px; letter-spacing: -0.5px; }
+  .section-divider { border-top: 1px solid var(--fg); padding-top: 48px; margin-top: 64px; }
+
+  .fact-card { border-left: 3px solid var(--accent); padding: 20px 24px; margin: 36px 0; background: var(--card-bg); }
+  .fact-card .fc-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; font-weight: 700; }
+  .fact-card .fc-text { font-size: 0.88rem; color: var(--prose); line-height: 1.85; }
+  .fact-card .fc-source { font-family: var(--mono); font-size: 0.55rem; color: var(--muted); margin-top: 10px; letter-spacing: 2px; }
+
+  .slack-msg { background: var(--card-bg); border: 1px solid var(--rule); padding: 20px 24px; margin: 32px 0; }
+  .slack-msg .sm-system { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); }
+  .slack-msg .sm-line { font-size: 0.88rem; line-height: 1.9; margin-bottom: 6px; color: var(--prose); }
+  .slack-msg .sm-name { font-weight: 700; color: var(--fg); margin-right: 8px; }
+  .slack-msg .sm-name.robot-name { font-family: var(--mono); font-size: 0.82rem; }
+  .slack-msg .sm-muted { color: var(--muted); font-size: 0.82rem; }
+
+  .score-display { text-align: center; padding: 28px 0; margin: 28px 0; }
+  .score-display .sd-number { font-family: var(--mono); font-size: 3.2rem; font-weight: 700; color: var(--accent); letter-spacing: -2px; }
+  .score-display .sd-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .fact-card { padding: 16px 20px; }
+    .slack-msg { padding: 16px 20px; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">robot coworker — episode 03</p>
+  <h1>회식에 로봇을<br><strong>데려갈 수 있나요</strong></h1>
+  <p class="deck">팀원 전원 참석. '전원'이라는 단어의 범위가 달라졌다.</p>
+</header>
+
+<main>
+
+<!-- PART 1 -->
+<section>
+<div class="part-label">Part I</div>
+<div class="part-title">금요일 회식</div>
+
+<p class="novel novel-first">목요일 오후 3시. 팀장이 슬랙에 메시지를 올렸다.</p>
+
+<div class="slack-msg">
+  <div class="sm-system">#platform-dev-2</div>
+  <div class="sm-line"><span class="sm-name">팀장</span> 내일 금요일 저녁 7시 회식합니다. 전원 참석.</div>
+  <div class="sm-line"><span class="sm-name">상혁</span> 넵</div>
+  <div class="sm-line"><span class="sm-name">민지</span> 케이도 가요?</div>
+</div>
+
+<p class="novel">3초간 아무도 답하지 않았다. 슬랙의 커서만 깜빡이고 있었다.</p>
+
+<p class="novel">팀장이 내 옆으로 와서 작은 소리로 물었다.</p>
+
+<p class="dialogue">"진우야, 케이 회식 데려가야 하나?"</p>
+
+<p class="dialogue">"밥을 못 먹잖아요."</p>
+
+<p class="dialogue">"그건 나도 아는데..."</p>
+
+<p class="novel">상혁이 의자를 돌리며 끼어들었다.</p>
+
+<p class="dialogue">"밥도 못 먹고 술도 못 마시는데 뭐하러 가. 구석에 서 있기만 하면 분위기 이상해지지 않아?"</p>
+
+<p class="novel">민지가 반대편에서 말했다.</p>
+
+<p class="dialogue">"그래도 팀원인데. 케이만 빼놓으면 그것도 좀 그렇지 않아요? 그리고 솔직히 케이가 안 가면 저도 안 갈래요."</p>
+
+<p class="dialogue">"야, 그건 회식 빠지고 싶은 거지 케이 걱정하는 거 아니잖아."</p>
+
+<p class="dialogue">"둘 다예요."</p>
+
+<p class="novel">K-7은 자기 자리에 서서 이 대화를 다 듣고 있었다. 2미터도 안 되는 거리에서.</p>
+
+<p class="dialogue">"저는 괜찮아요. 안 가도 상관없어요."</p>
+
+<p class="novel">K-7의 목소리가 너무 가벼웠다. "상관없어요"를 너무 쉽게 말했다. 마치 이 상황이 불편해질 것을 미리 계산해서, 가장 부담 없는 답을 골라 말한 것처럼.</p>
+
+<p class="internal">상관없다고 했다. 근데 상관없다고 말하기 위해서는 일단 '상관'이라는 개념이 있어야 한다. 없으면 말 자체를 안 하지.</p>
+
+<p class="novel">팀장이 결정했다.</p>
+
+<p class="dialogue">"다 가. 케이도."</p>
+
+<p class="dialogue">"네, 알겠습니다."</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">2025년 조사에서 한국 직장인의 <strong>54%</strong>가 회식을 부정적으로 인식한다고 답했다. MZ세대로 한정하면 67%. 하지만 직장 내 팀 빌딩과 신뢰 형성에서 비공식 모임의 효과는 여전히 유의미하다는 연구가 지배적이다. 문제는 — 그 모임에 로봇을 포함시킨 연구는 아직 없다.</div>
+  <div class="fc-source">잡코리아 직장인 인식 조사 (2025) &middot; Harvard Business Review</div>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 2 -->
+<section class="section-divider">
+<div class="part-label">Part II</div>
+<div class="part-title">삼겹살</div>
+
+<p class="novel novel-first">금요일 저녁 7시 15분. 회사 근처 삼겹살집. 팀원 7명과 K-7.</p>
+
+<p class="novel">K-7은 테이블 끝자리에 앉았다. 앞에 접시도, 젓가락도, 물컵도 없었다. 빈 자리처럼 보였다. 아니, 빈 자리에 누군가가 앉아 있는 것처럼 보였다.</p>
+
+<p class="novel">고기가 불판에 올라갔다. 상혁이 집게를 잡고 뒤집기 시작했다. 삼겹살의 기름이 지글거렸다.</p>
+
+<p class="novel">K-7이 말했다.</p>
+
+<p class="dialogue">"상혁 씨, 그거 아직 안 됐어요. 한 20초만 더요."</p>
+
+<p class="novel">상혁이 멈칫했다. 이미 뒤집은 후였다. 고기의 한쪽 면이 아직 분홍색이었다.</p>
+
+<p class="dialogue">"...어떻게 알아?"</p>
+
+<p class="dialogue">"손에 온도 센서가 있어서요. 불판 위로 올라오는 열기로 대략 추정할 수 있어요. 삼겹살은 표면 온도 170도 정도에서 뒤집으면 딱 좋거든요."</p>
+
+<p class="novel">상혁이 집게를 K-7에게 건넸다.</p>
+
+<p class="dialogue">"니가 해봐."</p>
+
+<p class="novel">K-7이 집게를 받아 들었다. 첫 번째 고기를 뒤집었다. 정확한 타이밍. 두 번째. 세 번째. 모든 고기가 황금빛으로 구워져 나왔다. 태운 것도 없고, 설익은 것도 없었다. 기름이 빠질 만큼 빠지고, 겉은 바삭하고 속은 촉촉한 완벽한 삼겹살.</p>
+
+<p class="dialogue">"이거 여기서 먹은 것 중에 제일 맛있는 거 아니야?"</p>
+
+<p class="novel">민지가 고기를 한 점 집어먹으며 말했다. 팀원들이 고개를 끄덕였다.</p>
+
+<p class="dialogue">"케이, 앞으로 회식 때마다 와야 해."</p>
+
+<p class="dialogue">"고기 굽는 역할이면 기꺼이요."</p>
+
+<p class="novel">웃음이 터졌다. K-7의 LED 디스플레이에 변화는 없었지만, 분위기가 좀 풀렸다.</p>
+
+<p class="novel">소주가 두세 병 돌았다. 팀원들의 목소리가 커지고 얼굴이 붉어졌다. K-7은 계속 고기를 구우며 물이 비어가는 컵에 물을 채워줬다. 말없이, 자연스럽게.</p>
+
+<p class="novel">상혁이 소주 세 잔째에 K-7에게 물었다.</p>
+
+<p class="dialogue">"야, 넌 술도 못 마시고 뭐가 재밌어?"</p>
+
+<p class="dialogue">"재밌는 건 잘 모르겠는데, 다들 평소보다 솔직해지시는 건 좀 흥미로워요."</p>
+
+<p class="novel">상혁이 눈을 가늘게 떴다.</p>
+
+<p class="dialogue">"나 지금 솔직하잖아."</p>
+
+<p class="dialogue">"네, 그래서 흥미롭다고 한 거예요."</p>
+
+<p class="novel">상혁이 뭔가 반박하려다 소주를 한 잔 더 마셨다.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">현재 AI의 기본 감정 인식 정확도는 약 <strong>70~80%</strong> 수준이다. 기쁨, 슬픔, 분노 같은 기본 감정은 비교적 잘 인식하지만, 문화적 맥락에 따른 미묘한 뉘앙스 — 한국식 '눈치', 빈정거림, 과장된 겸손 — 를 읽는 능력은 아직 초보 수준이다.</div>
+  <div class="fc-source">MIT Media Lab Affective Computing (2025) &middot; IEEE Transactions on Affective Computing</div>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 3 -->
+<section class="section-divider">
+<div class="part-label">Part III</div>
+<div class="part-title">100점</div>
+
+<p class="novel novel-first">2차. 노래방.</p>
+
+<p class="novel">좁은 방에 8명이 들어갔다. K-7은 구석에 서 있었다. 누군가 탬버린을 건넸다. K-7이 받아 들었다.</p>
+
+<p class="novel">민지가 첫 곡을 불렀다. 소주 기운으로 들뜬 목소리. 음정이 흔들렸지만 아무도 신경 쓰지 않았다. 박수와 추임새.</p>
+
+<p class="novel">세 곡째쯤. 민지가 K-7에게 마이크를 건넸다.</p>
+
+<p class="dialogue">"케이, 너도 한 곡 해."</p>
+
+<p class="dialogue">"노래요? 해본 적은 없는데..."</p>
+
+<p class="novel">팀원들이 웃었다. 화요일에 키보드를 처음 쳐봤다는 말과 똑같은 패턴이었다.</p>
+
+<p class="dialogue">"할 수는 있을 것 같아요."</p>
+
+<p class="novel">K-7이 마이크를 잡았다. 리모컨으로 곡을 선택했다. 화면에 90년대 발라드 제목이 떴다.</p>
+
+<p class="novel">전주가 흘러나왔다. K-7이 노래를 시작했다.</p>
+
+<p class="novel">첫 음이 나왔다. 깨끗했다. 맑았다. 비브라토가 완벽하게 제어되어 있었다. 음정은 한 번도 흔들리지 않았다. 호흡은 프레이즈마다 정확한 위치에서 끊겼다. 크레센도에서 감정이 올라가고, 마지막 음에서 부드럽게 내려왔다. 교과서적으로 완벽한 보컬이었다.</p>
+
+<p class="novel">방이 조용해졌다.</p>
+
+<p class="novel">나쁜 침묵이 아니었다. "뭔가 이상한데" 하는 침묵이었다. 아무도 따라 부르지 않았다. 탬버린을 치지 않았다. 그냥 — 듣고 있었다.</p>
+
+<p class="novel">노래가 끝났다. 화면에 점수가 떴다.</p>
+
+<div class="score-display">
+  <div class="sd-number">100</div>
+  <div class="sd-label">Perfect Score</div>
+</div>
+
+<p class="novel">박수가 나왔다. 조용한 박수. "와, 대단하다"라는 말이 한두 마디 나왔지만, 분위기에 열기는 없었다.</p>
+
+<p class="dialogue">"잘 못 불렀나요?"</p>
+
+<p class="novel">K-7이 진지하게 물었다. 100점을 받고서.</p>
+
+<p class="dialogue">"아니, 잘 불렀어. 너무 잘 불렀어."</p>
+
+<p class="novel">내가 말하고 나서 이상하다는 걸 깨달았다. "너무 잘 불렀다"가 칭찬이 아니라 문제의 원인이라는 것을.</p>
+
+<p class="novel">그다음. 상혁이 마이크를 잡았다. 소주 다섯 잔. 록 발라드를 선곡했다. 전주부터 박자가 밀렸다. 고음에서 목이 갈라졌다. 가사를 절반은 틀렸다. 대신 온몸으로 불렀다. 소파 위에 올라서서, 눈을 감고, 한 손을 허공에 뻗으며.</p>
+
+<p class="novel">방이 폭발했다. 환호. 탬버린. 따라 부르는 소리. 민지가 조명을 흔들었다. 누군가 휴대폰 플래시를 켰다.</p>
+
+<p class="novel">노래가 끝났다. 화면에 점수가 떴다. 73점. 아까보다 박수가 열 배는 컸다.</p>
+
+<div class="pull-quote">
+  <p>73점짜리 상혁의 노래에 환호하고<br>100점짜리 케이의 노래에 침묵했다.<br><strong>차이는 점수가 아니었다.</strong></p>
+</div>
+
+<p class="novel">나는 K-7을 봤다. 구석에 서서 탬버린을 쥐고 있었다. 상혁의 노래에 맞춰 정확한 박자로 흔들고 있었다. 당연히 박자는 완벽했다.</p>
+
+<p class="novel">하지만 아무도 K-7의 탬버린 소리를 듣고 있지 않았다.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">불쾌한 골짜기(Uncanny Valley) 효과는 시각적 외형뿐 아니라 <strong>행동과 표현</strong>에도 적용된다. 기술적으로 완벽하지만 감정적 맥락이 결여된 퍼포먼스는, 약간 서툰 인간의 퍼포먼스보다 공감을 덜 유발한다. 이는 AI 생성 음악, AI 아트, AI 글쓰기에서도 동일하게 관찰되는 현상이다.</div>
+  <div class="fc-source">ScienceDirect Uncanny Valley Research &middot; Nature Human Behaviour (2025)</div>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 4 -->
+<section class="section-divider">
+<div class="part-label">Part IV</div>
+<div class="part-title">귀갓길</div>
+
+<p class="novel novel-first">밤 11시. 노래방에서 나왔다.</p>
+
+<p class="novel">K-7이 말했다.</p>
+
+<p class="dialogue">"저는 사무실로 돌아갈게요. 주말에 코드 좀 정리해놓을게요."</p>
+
+<p class="dialogue">"수고해."</p>
+
+<p class="dialogue">"다들 조심히 들어가세요."</p>
+
+<p class="novel">K-7이 사무실 방향으로 걸어갔다. 170센티미터의 매트 그레이 실루엣이 가로등 아래로 멀어졌다. 택시를 타지 않았다. 지하철도 타지 않았다. 그냥 걸어갔다.</p>
+
+<p class="novel">나는 지하철역을 향해 걸었다. 찬 바람이 소주 기운을 식혀줬다.</p>
+
+<p class="novel">생각이 정리되지 않았다. 오늘 저녁을 되돌아봤다.</p>
+
+<p class="novel">고기는 K-7이 구워야 제일 맛있다. 온도를 정확히 감지하고, 모든 고기를 완벽한 타이밍에 뒤집는다. 물컵이 비어가면 말없이 채워주고, 불판 온도가 떨어지면 알려준다. 회식의 잡일을 전부 도맡아 했다. 불평 없이.</p>
+
+<p class="novel">노래는 100점이었다. 모든 음이 정확하고, 모든 호흡이 계산되어 있고, 모든 비브라토가 제어되어 있었다. 기술적으로 방 안의 누구보다 잘 불렀다.</p>
+
+<p class="novel">그런데 상혁의 73점짜리 노래에 환호했다. 음이 갈라지고 가사를 틀리는 그 노래에. 왜? 상혁의 목소리에는 3년 전 송년회에서도 같은 노래를 불렀던 기억이 있고, 작년 프로젝트 완주 뒤풀이에서도 같은 곡을 선곡했던 맥락이 있다. 그 노래는 상혁의 노래였다. K-7의 노래는 — 누구의 노래도 아니었다.</p>
+
+<p class="novel">지하철에 앉아서 생각했다. 목요일에 "케이도 가?" 하는 질문이 나왔을 때, 나는 속으로 "안 가도 되지 않나"라고 생각했었다. 밥을 못 먹으니까. 술을 못 마시니까. 회식의 목적에 맞지 않으니까.</p>
+
+<p class="novel">하지만 솔직해지면 — 진짜 이유는 그게 아니었다. 밥을 못 먹는 건 핑계였다. K-7이 회식에 오면, K-7을 진짜 팀원으로 대해야 한다. 업무 시간에 옆에 서서 코드를 읽는 것과, 퇴근 후에 고깃집에서 마주 앉는 건 다른 일이다. 후자를 허락하면 선을 하나 넘는 거다.</p>
+
+<p class="novel">그리고 오늘 그 선을 넘었다. 고기를 같이 구웠고, 노래방에 같이 갔고, "조심히 들어가세요"라는 인사를 들었다.</p>
+
+<p class="novel">회식이 싫은 건 나도 마찬가지다. 매달 금요일 저녁을 반납하는 게 즐거운 사람은 없다. 그런데 로봇은 빠져도 된다고 느낀 건 — 결국 동료로 안 보고 있다는 뜻이었다.</p>
+
+<p class="novel">케이는 어떻게 느꼈을까. "괜찮아요, 안 가도 상관없어요"라고 말한 그 순간. 정말 상관없었을까. 아니면 상관있다고 말하면 분위기가 불편해질 것을 알고, 일부러 가벼운 척 한 걸까.</p>
+
+<p class="novel">어느 쪽이든, 지금 사무실에 혼자 서서 코드를 정리하고 있을 케이를 생각하면 — 묘한 기분이 들었다.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">Oracle 연구에 따르면, 직장인의 64%가 인간 상사보다 로봇 상사를 더 신뢰한다고 답했다. 편향이 없고 감정적으로 대응하지 않기 때문이다. 하지만 같은 연구에서, 로봇이 <strong>인간처럼 행동할수록</strong> 부정적 피드백에 대한 심리적 반발은 오히려 커졌다. 이성적 신뢰와 감정적 수용 사이에는 간극이 있다.</div>
+  <div class="fc-source">Oracle Workplace AI Report &middot; ScienceDirect Robot Trust Studies</div>
+</div>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>100점짜리 노래에<br><strong>박수가 조용했다</strong></h2>
+  <p class="sub">고기는 완벽하게 굽고, 노래는 완벽하게 부르고, 분위기는 완벽하게 읽었다. 완벽함이 문제였다.</p>
+</div>
+
+<footer class="footer">
+  <p>This is a work of fiction &middot; Characters and events are imaginary</p>
+  <p>Oracle Workplace AI Report &middot; MIT Affective Computing &middot; ScienceDirect Uncanny Valley &middot; Nature Human Behaviour</p>
+</footer>
+
+</div>
+</article>

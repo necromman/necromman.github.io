@@ -1010,6 +1010,56 @@
         search: '토스 번아웃 성장 개발자 정체성 중소기업 대기업 격차 선택 소설'
       }
     ]
+  },
+  {
+    id: 'robot-coworker',
+    seriesNum: 32,
+    title: '로봇 동료와 코딩하는 법',
+    description: '휴먼노이드 로봇 K-7이 개발팀에 합류했다. 택배 박스에서 나온 170cm의 새 팀원과 7년차 백엔드 개발자의 근미래 직장 소설.',
+    articles: [
+      {
+        title: '신입 로봇의 첫 출근',
+        role: '도입 — 무인택시 타고 혼자 출근한 K-7, 사번 R-0001, 모니터도 의자도 없는 자리',
+        tag: '소설',
+        href: 'content/robot-coworker-series/first-day.html',
+        search: '로봇 동료 휴먼노이드 K-7 아틀라스 MCP 개발자 코딩 근미래 직장소설 AI 첫출근'
+      },
+      {
+        title: '케이블로 대화하는 법',
+        role: '핵심 — 0.3초 코드리뷰, 바이브 코딩 논쟁, 네트워크 끊기자 손코딩하는 K-7',
+        tag: '소설',
+        href: 'content/robot-coworker-series/pair-programming.html',
+        search: '로봇 페어프로그래밍 코드리뷰 MCP 바이브코딩 손코딩 키보드 K-7 AI 개발자 근미래'
+      },
+      {
+        title: '회식에 로봇을 데려갈 수 있나요',
+        role: '전환 — 삼겹살집 완벽 굽기, 노래방 100점의 공허, 동료란 무엇인가',
+        tag: '소설',
+        href: 'content/robot-coworker-series/team-dinner.html',
+        search: '로봇 회식 삼겹살 노래방 100점 동료 K-7 사회적 유대 근미래 직장소설'
+      },
+      {
+        title: '새벽 3시의 동료',
+        role: '심화 — 새벽 서버 장애, 물리적 존재의 가치, 랜선 하나를 다시 꽂는 일',
+        tag: '소설',
+        href: 'content/robot-coworker-series/midnight-incident.html',
+        search: '로봇 새벽 서버장애 PagerDuty 랜선 물리적존재 K-7 인시던트 근미래 직장소설'
+      },
+      {
+        title: '로봇의 연봉은 얼마인가',
+        role: '갈등 — 성과 평가 성장 가능성, 1400만 vs 7100만, 주니어의 위기',
+        tag: '소설',
+        href: 'content/robot-coworker-series/performance-review.html',
+        search: '로봇 연봉 성과평가 로봇세 비용비교 주니어 위기 K-7 인사평가 근미래 직장소설'
+      },
+      {
+        title: '다음 프로젝트로',
+        role: '결말 — 재배치 공지, 데이터 이전과 정체성, K-7의 첫 주관적 의견',
+        tag: '소설',
+        href: 'content/robot-coworker-series/robot-transfer.html',
+        search: '로봇 재배치 이별 정체성 테세우스의배 K-7 K-9 마지막 코드리뷰 근미래 직장소설'
+      }
+    ]
   }
 ];
   // Auto-generate thumbnail from href: content/foo/bar.html → assets/og/foo/bar.png

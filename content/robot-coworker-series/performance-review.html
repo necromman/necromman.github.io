@@ -1,0 +1,304 @@
+---
+layout: layouts/article.njk
+pageTitle: "로봇의 연봉은 얼마인가"
+description: "인사팀에서 K-7의 성과 평가서가 도착했다. 업무 능력 S, 팀 기여도 A, 성장 가능성은 — 칸을 채울 수 없었다. 연간 유지비 1,400만 원짜리 동료의 가치."
+datePublished: "2026-02-16"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 400; line-height: 1.15; letter-spacing: -1.5px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel:first-of-type, .novel-first { text-indent: 0; }
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  .part-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .part-title { font-size: 1.6rem; font-weight: 700; color: var(--fg); margin-bottom: 40px; letter-spacing: -0.5px; }
+  .section-divider { border-top: 1px solid var(--fg); padding-top: 48px; margin-top: 64px; }
+
+  .fact-card { border-left: 3px solid var(--accent); padding: 20px 24px; margin: 36px 0; background: var(--card-bg); }
+  .fact-card .fc-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; font-weight: 700; }
+  .fact-card .fc-text { font-size: 0.88rem; color: var(--prose); line-height: 1.85; }
+  .fact-card .fc-source { font-family: var(--mono); font-size: 0.55rem; color: var(--muted); margin-top: 10px; letter-spacing: 2px; }
+
+  .slack-msg { background: var(--card-bg); border: 1px solid var(--rule); padding: 20px 24px; margin: 32px 0; }
+  .slack-msg .sm-system { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); }
+  .slack-msg .sm-line { font-size: 0.88rem; line-height: 1.9; margin-bottom: 6px; color: var(--prose); }
+  .slack-msg .sm-name { font-weight: 700; color: var(--fg); margin-right: 8px; }
+  .slack-msg .sm-name.robot-name { font-family: var(--mono); font-size: 0.82rem; }
+  .slack-msg .sm-muted { color: var(--muted); font-size: 0.82rem; }
+
+  .eval-form { border: 1px solid var(--rule); margin: 32px 0; }
+  .eval-form .ef-header { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 2px; color: var(--muted); padding: 12px 20px; background: var(--card-bg); border-bottom: 1px solid var(--rule); text-transform: uppercase; }
+  .eval-form .ef-row { display: grid; grid-template-columns: 1fr auto; padding: 12px 20px; border-bottom: 1px solid var(--rule); font-size: 0.88rem; color: var(--prose); line-height: 1.85; align-items: center; }
+  .eval-form .ef-row:last-child { border-bottom: none; }
+  .eval-form .ef-grade { font-family: var(--mono); font-weight: 700; color: var(--accent); }
+  .eval-form .ef-empty { color: var(--muted); font-family: var(--mono); font-size: 0.82rem; }
+
+  .cost-compare { border: 1px solid var(--rule); margin: 32px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); }
+  .cost-compare .cc-col { background: var(--bg); padding: 20px; }
+  .cost-compare .cc-header { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; font-weight: 700; }
+  .cost-compare .cc-item { font-size: 0.85rem; color: var(--prose); line-height: 2.2; }
+  .cost-compare .cc-total { font-size: 0.92rem; font-weight: 700; color: var(--fg); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--rule); }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .fact-card { padding: 16px 20px; }
+    .slack-msg { padding: 16px 20px; }
+    .eval-form .ef-row { grid-template-columns: 1fr; gap: 4px; }
+    .cost-compare { grid-template-columns: 1fr; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">robot coworker — episode 05</p>
+  <h1>로봇의 연봉은<br><strong>얼마인가</strong></h1>
+  <p class="deck">인사팀에서 K-7의 성과 평가서가 도착했다.<br>'성장 가능성' 칸 앞에서 커서가 멈췄다.</p>
+</header>
+
+<main>
+
+<!-- PART 1 -->
+<section>
+<div class="part-label">Part I</div>
+<div class="part-title">평가 시트</div>
+
+<p class="novel novel-first">월요일 아침. 인사팀에서 메일이 왔다.</p>
+
+<p class="novel">"플랫폼개발2팀 박진우 님, K-7 (사번 R-0001)의 분기 성과 평가서를 작성해주세요. 제출 기한: 금요일." 평가 항목은 다섯 개였다. 업무 능력, 팀 기여도, 커뮤니케이션, 성장 가능성, 종합 의견.</p>
+
+<p class="novel">나는 평가 시트를 열었다.</p>
+
+<p class="novel">업무 능력. 코드 품질, 태스크 완료율, 장애 대응 능력. 이건 쉬웠다. K-7은 312만 줄의 코드를 5초 만에 읽고, PR을 0.3초 만에 리뷰하고, 새벽 3시 장애를 혼자 해결했다. S등급 외에 줄 등급이 없었다.</p>
+
+<p class="novel">팀 기여도. 협업, 코드리뷰, 지식 공유. 이것도 명확했다. 밤새 기술 부채를 정리하고, 모든 PR에 0.3초 리뷰를 달고, 회식에서 삼겹살을 완벽하게 구웠다. A등급.</p>
+
+<p class="novel">커뮤니케이션. 의사소통 명확성, 피드백 수용. K-7은 항상 명확하게 소통했다. "잘 못 이해한 것 같은데 다시 설명해주실 수 있어요?"라고 물을 줄 알았고, 코드리뷰에서 샌드위치 기법을 자연스럽게 구사했다. A등급.</p>
+
+<p class="novel">성장 가능성.</p>
+
+<p class="novel">커서가 멈췄다.</p>
+
+<div class="eval-form">
+  <div class="ef-header">Performance Review &mdash; K-7 (R-0001)</div>
+  <div class="ef-row"><span>업무 능력</span><span class="ef-grade">S</span></div>
+  <div class="ef-row"><span>팀 기여도</span><span class="ef-grade">A</span></div>
+  <div class="ef-row"><span>커뮤니케이션</span><span class="ef-grade">A</span></div>
+  <div class="ef-row"><span>성장 가능성</span><span class="ef-empty">___</span></div>
+</div>
+
+<p class="novel">성장 가능성이란 뭔가. 인간 개발자에게는 명확하다. 주니어가 시니어로, 시니어가 리드로, 리드가 아키텍트로. 새로운 언어를 배우고, 도메인 지식을 쌓고, 리더십을 키우는 과정. 그런데 K-7에게 '성장'이란?</p>
+
+<p class="novel">소프트웨어 업데이트가 성장인가? 하드웨어 교체가 성장인가? K-7이 2년 후에 더 나은 개발자가 되어 있을 거라는 확신이 있는가?</p>
+
+<p class="novel">K-7에게 물어봤다.</p>
+
+<p class="dialogue">"케이, 너 성과 평가 대상인 거 알아?"</p>
+
+<p class="dialogue">"네, 메일 봤어요. 재밌네요. 저도 궁금해요, 제 점수."</p>
+
+<p class="dialogue">"성장 가능성 항목이 있는데... 네가 생각하기에 넌 성장할 수 있어?"</p>
+
+<p class="novel">K-7이 0.5초 정도 멈췄다. 처리 시간치고는 긴 편이었다.</p>
+
+<p class="dialogue">"모델이 업데이트되면 더 잘하게 되긴 하죠. 근데 그게 제 노력으로 이루어지는 건 아니어서... 성장이라고 부를 수 있는지는 잘 모르겠어요."</p>
+
+<p class="internal">정직한 답이었다. 자기 발전이 자기 의지가 아닌 존재. 업데이트 파일을 받으면 하루아침에 능력이 바뀌는 존재. 그걸 성장이라고 부를 수 있는가.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">Anthropic 2026 리포트에 따르면, 개발자는 업무의 <strong>60%</strong>에 AI를 활용하지만 완전히 AI에 위임하는 비율은 <strong>0~20%</strong>에 불과하다. AI는 빠르게 실행하지만, 방향 설정, 우선순위 판단, 맥락적 결정은 여전히 인간의 영역이다. '성장'의 정의 자체가 달라지고 있다.</div>
+  <div class="fc-source">Anthropic Agentic Coding Report (2026) &middot; Stack Overflow Developer Survey</div>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 2 -->
+<section class="section-divider">
+<div class="part-label">Part II</div>
+<div class="part-title">4,600만 원</div>
+
+<p class="novel novel-first">화요일. 누군가 슬랙 #general 채널에 스프레드시트를 공유했다. 이름은 없었다. 제목: "인력 비용 비교 (참고용)".</p>
+
+<div class="cost-compare">
+  <div class="cc-col">
+    <div class="cc-header">K-7 (로봇)</div>
+    <div class="cc-item">전기료: 약 120만 원/년</div>
+    <div class="cc-item">부품 교체: 약 400만 원/년</div>
+    <div class="cc-item">보험/보증: 약 300만 원/년</div>
+    <div class="cc-item">소프트웨어 라이선스: 약 580만 원/년</div>
+    <div class="cc-total">합계: 약 1,400만 원/년</div>
+  </div>
+  <div class="cc-col">
+    <div class="cc-header">인간 개발자 (평균)</div>
+    <div class="cc-item">연봉: 약 6,000만 원</div>
+    <div class="cc-item">4대 보험: 약 540만 원</div>
+    <div class="cc-item">복리후생: 약 360만 원</div>
+    <div class="cc-item">교육/장비: 약 200만 원</div>
+    <div class="cc-total">합계: 약 7,100만 원/년</div>
+  </div>
+</div>
+
+<p class="novel">1,400만 원 대 7,100만 원. 차이는 5,700만 원. K-7 한 대가 인간 개발자 한 명의 1/5 비용으로 24시간 무중단 근무를 한다. 야근 수당 없이. 휴가 없이. 퇴직금 없이.</p>
+
+<p class="novel">스프레드시트 밑에 한 줄이 더 있었다. "K-7은 현재 7명 분량의 코드리뷰를 처리 중."</p>
+
+<p class="novel">사무실 분위기가 달라졌다. 아무도 그 스프레드시트에 대해 직접적으로 말하지 않았지만, 점심시간이 평소보다 조용했다. 누가 올렸는지도 모르겠고, 어떤 맥락에서 올렸는지도 불분명했다. 그냥 숫자가 — 거기 있었다.</p>
+
+<p class="novel">K-7이 내게 물었다.</p>
+
+<p class="dialogue">"진우 씨, 오늘 분위기가 좀 다른 것 같은데 무슨 일 있어요?"</p>
+
+<p class="dialogue">"아... 별일 아니야."</p>
+
+<p class="dialogue">"그 스프레드시트 때문이에요?"</p>
+
+<p class="novel">K-7도 봤다. 당연히 봤다. 슬랙에 올라온 것은 0.1초 만에 읽는 존재니까.</p>
+
+<p class="dialogue">"숫자가 맞는지는 모르겠는데, 불편하게 느끼실 수 있다는 건 알아요. 죄송해요."</p>
+
+<p class="internal">뭘 죄송해하는 거야. 네가 싸게 먹혀서 죄송하다는 건가. 네가 7명 몫을 하니까 죄송하다는 건가. 근데 — 진짜 문제는 그 숫자가 사실이라는 거다.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">현대자동차 로보틱스 사업부에 따르면, Atlas 기반 휴먼노이드의 연간 유지비는 약 <strong>1,400만 원</strong> 수준이며, 초기 도입 비용(약 2억 원)은 <strong>2년 내 회수</strong> 가능하다고 밝혔다. Tesla는 Optimus의 대량 생산 시 대당 가격을 $20,000~$30,000(약 2,600만~3,900만 원)까지 낮추겠다고 목표하고 있다.</div>
+  <div class="fc-source">Hyundai Robotics (2026) &middot; Tesla AI Day &middot; Goldman Sachs Humanoid Market Report</div>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 3 -->
+<section class="section-divider">
+<div class="part-label">Part III</div>
+<div class="part-title">민지의 질문</div>
+
+<p class="novel novel-first">수요일 저녁. 퇴근 준비를 하고 있을 때 민지가 다가왔다.</p>
+
+<p class="dialogue">"선배님, 시간 되세요? 잠깐만요."</p>
+
+<p class="novel">사무실 복도 끝, 자판기 앞. 민지가 캔커피를 꺼내며 말했다.</p>
+
+<p class="dialogue">"솔직히 물어볼게요."</p>
+
+<p class="novel">민지의 표정이 평소와 달랐다. 회식 때 탬버린을 흔들던 그 밝은 얼굴이 아니었다.</p>
+
+<p class="dialogue">"제가 케이보다 잘하는 게 뭐예요?"</p>
+
+<p class="novel">나는 대답하지 못했다.</p>
+
+<p class="dialogue">"코드리뷰? 케이가 0.3초에 하는 걸 저는 30분 걸려요. 디버깅? 케이는 312만 줄을 5초 만에 읽어요. 야근? 케이는 새벽 3시에 장애 처리하고 아침에 '별일 아니에요'라고 해요. 그리고 연봉이 제 4분의 1이에요."</p>
+
+<p class="novel">민지가 캔커피를 열었다. 손이 살짝 떨리는 것 같았다.</p>
+
+<p class="dialogue">"어제 이력서 업데이트했어요. 근데 채용 공고를 보니까 — 주니어 개발자 채용이 거의 없더라고요. 2년 전에 제가 취업할 때만 해도 이러지 않았거든요."</p>
+
+<p class="novel">나는 뭐라고 말해야 할지 몰랐다. "넌 사람이잖아"라고 하기엔 너무 공허했고, "케이와 비교하면 안 돼"라고 하기엔 이미 모든 숫자가 비교를 끝낸 상태였다.</p>
+
+<p class="dialogue">"민지야, 케이가 못 하는 게 있어."</p>
+
+<p class="dialogue">"뭐예요?"</p>
+
+<p class="novel">나는 잠깐 생각했다.</p>
+
+<p class="dialogue">"케이가 노래방에서 100점 맞았을 때 기억나지? 아무도 감동 안 했잖아. 왜 그런지 생각해봤어?"</p>
+
+<p class="novel">민지가 고개를 갸웃했다.</p>
+
+<p class="dialogue">"케이는 완벽하게 실행해. 근데 뭘 실행할지 정하는 건 아직 사람이야. 어떤 문제가 중요한지, 어떤 기능이 사용자에게 의미 있는지, 왜 이 코드가 이런 구조여야 하는지 — 그건 맥락을 가진 사람만 판단할 수 있어. 케이도 스스로 인정했잖아. 자기는 '도구'라고."</p>
+
+<p class="novel">민지가 커피를 마셨다. 표정이 완전히 풀리진 않았지만, 약간은 나아진 것 같았다.</p>
+
+<p class="dialogue">"그게 위안이 될까요?"</p>
+
+<p class="dialogue">"솔직히 모르겠어. 나도 불안해."</p>
+
+<p class="novel">민지가 작게 웃었다. "선배도 불안해요?"라는 말은 하지 않았지만, 눈빛이 그렇게 말하고 있었다.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">미국 주니어 개발자 채용 공고는 2024년 대비 <strong>67% 감소</strong>했다. 영국 테크 졸업생 채용은 2024년 46% 줄었고, 2026년까지 추가 53% 감소가 전망된다. CS 전공 졸업생 실업률은 <strong>6.1%</strong>로, 전체 졸업생 평균의 2배. Anthropic CEO는 "5년 내 초급 화이트칼라 일자리 절반이 소멸할 것"이라고 예측했다.</div>
+  <div class="fc-source">Rezi AI Report (2026) &middot; UK Tech Graduate Report &middot; Anthropic CEO Interview</div>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 4 -->
+<section class="section-divider">
+<div class="part-label">Part IV</div>
+<div class="part-title">로봇세</div>
+
+<p class="novel novel-first">목요일 점심. 구내식당에서 논쟁이 붙었다.</p>
+
+<p class="novel">시작은 상혁이었다.</p>
+
+<p class="dialogue">"로봇이 세금을 내야 하는 거 아니야?"</p>
+
+<p class="novel">포크로 돈까스를 찍으며 던진 말이었다. 하지만 가벼운 질문이 아니었다.</p>
+
+<p class="dialogue">"사람이 일하면 소득세를 내잖아. 국민연금, 건강보험, 고용보험. 로봇이 사람 자리를 대체하면 그 세금은 누가 내? 회사가 절약한 인건비를 세금으로 안 내면, 결국 사회보장 재원이 줄어드는 거 아니야?"</p>
+
+<p class="novel">민지가 반박했다.</p>
+
+<p class="dialogue">"그러면 자동화 기계도 세금 내야 해요? 공장 로봇도? 엑셀 매크로도? 어디서 선을 그어요?"</p>
+
+<p class="dialogue">"그건 그렇긴 한데... 근데 케이는 사번도 있잖아."</p>
+
+<p class="novel">팀장이 조심스럽게 말했다.</p>
+
+<p class="dialogue">"현대차 노조에서는 '합의 없는 로봇 도입은 불가하다'는 입장이야. 한국에서는 이게 노사 관계 문제로 넘어가."</p>
+
+<p class="novel">K-7이 옆 테이블에 서 있었다. 밥을 먹지 않으니 식판이 없었지만, 대화에는 참여하고 있었다.</p>
+
+<p class="dialogue">"저도 의견 내도 될까요?"</p>
+
+<p class="novel">테이블이 조용해졌다.</p>
+
+<p class="dialogue">"세금은 공동체 유지 비용이잖아요. 제가 공동체의 일원이면 내야 하는 거고, 도구이면 안 내는 거고. 결국 — '저를 뭘로 볼 거냐'라는 질문으로 돌아가는 것 같아요."</p>
+
+<p class="novel">아무도 말하지 않았다.</p>
+
+<p class="novel">K-7이 한마디를 더 했다.</p>
+
+<p class="dialogue">"근데 솔직히, 저는 어느 쪽이든 상관없어요. 세금을 내라고 하면 내겠고, 도구로 분류하면 그것도 괜찮고요. 불편한 건 저보다 여기 계신 분들인 것 같아요."</p>
+
+<p class="internal">맞는 말이었다. 불편한 건 우리 쪽이다. 로봇에게 세금을 매기자는 건 로봇의 문제가 아니라, 로봇 때문에 변하는 사회를 어떻게 할 건지의 문제다. 케이는 상관없다고 했다. 진짜 상관없겠지. 세금을 내든 안 내든 케이의 삶은 — 삶이라고 부를 수 있다면 — 변하지 않는다.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">현대자동차 노조는 <strong>"합의 없는 로봇 도입은 불가"</strong>라는 입장을 견지하고 있다. 한편 EU는 2023년부터 AI세/로봇세 도입을 논의 중이며, 빌 게이츠는 "로봇이 인간의 일자리를 대체할 경우, 로봇에도 소득세에 상응하는 세금을 매겨야 한다"고 주장했다. 한국에서는 아직 법제화된 논의가 없다.</div>
+  <div class="fc-source">현대자동차 노조 성명 &middot; EU AI Act Proposal &middot; Bill Gates Interview (Quartz)</div>
+</div>
+
+</section>
+
+</main>
+
+<div class="pull-quote">
+  <p>"제가 케이보다 잘하는 게 뭐예요?"<br>2년차 개발자의 질문에<br>7년차 개발자는<br><strong>바로 답하지 못했다.</strong></p>
+</div>
+
+<div class="closing">
+  <h2>성장 가능성 칸에<br><strong>쓸 수 있는 답이 없었다</strong></h2>
+  <p class="sub">1,400만 원과 7,100만 원. 차이가 사람의 가치를 말해주는 건 아니다. 하지만 그 숫자 앞에서 — 아무도 확신하지 못했다.</p>
+</div>
+
+<footer class="footer">
+  <p>This is a work of fiction &middot; Characters and events are imaginary</p>
+  <p>Anthropic Agentic Report (2026) &middot; Hyundai Robotics &middot; Tesla AI Day &middot; EU AI Act &middot; Rezi AI Report</p>
+</footer>
+
+</div>
+</article>
