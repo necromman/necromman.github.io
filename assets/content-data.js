@@ -905,6 +905,27 @@
         tag: '소설/미스터리',
         href: 'content/overlap-series/euljiro-midnight.html',
         search: '겹침 을지로 자정 소설 미스터리 한서연 골목 간판 사라짐 출판사 에디터'
+      },
+      {
+        title: '두 번째 밤',
+        role: '소설 — 서연의 복귀, 야경의 세계, 이면의 방황자, 도영의 시험',
+        tag: '소설/미스터리',
+        href: 'content/overlap-series/second-night.html',
+        search: '겹침 두번째밤 소설 미스터리 한서연 박시우 이도영 야경 방황자 겹점 시험'
+      },
+      {
+        title: '잉크 냄새',
+        role: '소설 — 야경 전원 합류, 이면의 5가지 법칙, 고영수의 귀소 본능',
+        tag: '소설/미스터리',
+        href: 'content/overlap-series/ink-scent.html',
+        search: '겹침 잉크냄새 소설 미스터리 한서연 강하진 최유나 야경 이면법칙 고영수 동화'
+      },
+      {
+        title: '한 글자의 차이',
+        role: '소설 — 서연의 능력 진화, 2년 갇힌 서점 주인, 이면의 대가',
+        tag: '소설/미스터리',
+        href: 'content/overlap-series/one-character-off.html',
+        search: '겹침 한글자차이 소설 미스터리 한서연 김소희 서점 정확구역 이면핵 기억손실'
       }
     ]
   },
@@ -1058,6 +1079,27 @@
         tag: '소설',
         href: 'content/robot-coworker-series/robot-transfer.html',
         search: '로봇 재배치 이별 정체성 테세우스의배 K-7 K-9 마지막 코드리뷰 근미래 직장소설'
+      },
+      {
+        title: '882줄의 울산',
+        role: '에필로그 I — 울산 공장의 K-7 재회, 882줄 코드의 73개 주석, 맥락을 전달하는 코드',
+        tag: '소설',
+        href: 'content/robot-coworker-series/882-lines-to-ulsan.html',
+        search: '로봇 동료 울산 공장 K-7 재회 코드 주석 맥락 882줄 에필로그 근미래 직장소설'
+      },
+      {
+        title: '사람들의 계절',
+        role: '에필로그 II — K-7 이후의 팀, 민지의 성장, 상혁의 변신, K-7의 첫 농담',
+        tag: '소설',
+        href: 'content/robot-coworker-series/season-of-people.html',
+        search: '로봇 동료 에필로그 팀 성장 민지 상혁 K-7 농담 관계 복사불가 근미래 직장소설'
+      },
+      {
+        title: '같은 하늘 아래',
+        role: '에필로그 III / Final — K-7 복귀, 두 로봇과 사람들이 함께 걸어가는 마지막 장면',
+        tag: '소설',
+        href: 'content/robot-coworker-series/under-the-same-sky.html',
+        search: '로봇 동료 에필로그 파이널 K-7 K-9 복귀 두로봇 마지막 근미래 직장소설'
       }
     ]
   }

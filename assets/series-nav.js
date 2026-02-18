@@ -229,7 +229,10 @@
     'overlap-series': {
       title: '겹침',
       articles: [
-        { slug: 'euljiro-midnight', title: '을지로, 자정' }
+        { slug: 'euljiro-midnight', title: '을지로, 자정' },
+        { slug: 'second-night', title: '두 번째 밤' },
+        { slug: 'ink-scent', title: '잉크 냄새' },
+        { slug: 'one-character-off', title: '한 글자의 차이' }
       ]
     },
     'mcp-agent-guide-series': {
@@ -274,7 +277,10 @@
         { slug: 'team-dinner', title: '회식에 로봇을 데려갈 수 있나요' },
         { slug: 'midnight-incident', title: '새벽 3시의 동료' },
         { slug: 'performance-review', title: '로봇의 연봉은 얼마인가' },
-        { slug: 'robot-transfer', title: '다음 프로젝트로' }
+        { slug: 'robot-transfer', title: '다음 프로젝트로' },
+        { slug: '882-lines-to-ulsan', title: '882줄의 울산' },
+        { slug: 'season-of-people', title: '사람들의 계절' },
+        { slug: 'under-the-same-sky', title: '같은 하늘 아래' }
       ]
     },
     'youtube-outage-series': {

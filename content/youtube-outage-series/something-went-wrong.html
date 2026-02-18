@@ -1,8 +1,8 @@
 ---
 layout: layouts/article.njk
 pageTitle: "Something Went Wrong"
-description: "2026년 2월 18일 오전 9시 45분, 유튜브가 멈췄다. 30만 명이 신고했고, 화면에는 여섯 단어만 남았다. 보안 엔지니어 한세진은 터미널을 열고 CDN과 피드 서비스의 경계를 추적한다."
-ogDescription: "유튜브가 멈춘 날, 보안 엔지니어 한세진은 터미널을 열고 30만 명이 보지 못한 것을 추적한다."
+description: "2026년 2월 18일 오전 9시 45분, 유튜브가 멈췄다. 28만 명이 신고했고, 화면에는 여섯 단어만 남았다. 보안 엔지니어 한세진은 터미널을 열고 추천 시스템과 CDN의 경계를 추적한다."
+ogDescription: "유튜브가 멈춘 날, 보안 엔지니어 한세진은 터미널을 열고 28만 명이 보지 못한 것을 추적한다."
 datePublished: "2026-02-18"
 ---
 <style>
@@ -238,7 +238,7 @@ datePublished: "2026-02-18"
 <header class="masthead">
   <p class="issue">youtube outage — fiction 01</p>
   <h1>Something Went <strong>Wrong</strong></h1>
-  <p class="deck">2026년 2월 18일 오전 9시 45분, 유튜브가 멈췄다.<br>30만 명이 신고했고, 화면에는 여섯 단어만 남았다.</p>
+  <p class="deck">2026년 2월 18일 오전 9시 45분, 유튜브가 멈췄다.<br>28만 명이 신고했고, 화면에는 여섯 단어만 남았다.</p>
 </header>
 
 <main>
@@ -327,7 +327,7 @@ datePublished: "2026-02-18"
 
 <p class="novel"><strong>200으로 정상인 것들</strong> — 개별 영상 재생, 검색. 이것들은 사용자 맞춤이 아니라 "요청한 데이터를 그대로 돌려주는" API다. 영상 ID를 주면 영상을 주고, 검색어를 주면 결과를 준다.</p>
 
-<p class="internal">사용자 데이터를 건드리는 순간 500이 터진다. CDN은 멀쩡하다. 비디오 서빙 파이프라인은 살아있다. 죽은 건 그 위의 레이어. 사용자 프로필, 구독 관계, 시청 기록을 조회하는 서비스.</p>
+<p class="internal">사용자 맞춤 콘텐츠를 만드는 순간 500이 터진다. CDN은 멀쩡하다. 비디오 서빙 파이프라인은 살아있다. 죽은 건 그 위의 레이어. 사용자의 구독, 시청 기록, 취향을 바탕으로 추천 콘텐츠를 생성하는 서비스.</p>
 
 <p class="novel">습관적으로 DNS를 확인했다.</p>
 
@@ -365,7 +365,7 @@ datePublished: "2026-02-18"
 <br>
 <span class="t-key">## 1차 추론</span><br>
 <span class="t-dim">- CDN/비디오 서빙 파이프라인은 정상</span><br>
-<span class="t-dim">- 사용자 프로필/구독/추천 서비스 레이어에서 장애 발생</span><br>
+<span class="t-dim">- 추천/개인화 서비스 레이어에서 장애 발생 가능성 높음</span><br>
 <span class="t-dim">- 인프라(DNS, TLS) 레벨은 아닌 것으로 보임</span><br>
 <span class="t-dim">- → 애플리케이션 레벨 장애</span>
 </div>
@@ -399,42 +399,42 @@ datePublished: "2026-02-18"
 <section>
 <div class="section-divider">
   <p class="part-label">Part III</p>
-  <p class="part-title">30만의 신고</p>
+  <p class="part-title">28만의 신고</p>
 </div>
 
 <p class="timestamp">10:15 KST</p>
 
-<p class="novel novel-first">DownDetector의 그래프가 수직으로 치솟아 있었다. 유튜브 단일 서비스에 30만 건. YouTube TV에 8,000건. 구글 검색에도 소폭 스파이크. 미국, 영국, 인도, 한국, 유럽 전역. 전 세계가 동시에 같은 화면을 보고 있다.</p>
+<p class="novel novel-first">DownDetector의 그래프가 수직으로 치솟아 있었다. 유튜브 단일 서비스에 28만 건을 넘겼고, 아직 늘어나고 있다. 미국, 영국, 인도, 한국, 유럽 전역. 전 세계가 동시에 같은 화면을 보고 있다.</p>
 
 <div class="dd-chart">
   <div class="dd-title">downdetector — 2026.02.18 10:15 kst</div>
   <div class="dd-bar">
     <span class="dd-label">YouTube</span>
     <div class="dd-fill" style="width:100%"></div>
-    <span class="dd-num">317K</span>
-  </div>
-  <div class="dd-bar">
-    <span class="dd-label">YT TV</span>
-    <div class="dd-fill" style="width:2.5%"></div>
-    <span class="dd-num">8.2K</span>
-  </div>
-  <div class="dd-bar">
-    <span class="dd-label">Google</span>
-    <div class="dd-fill" style="width:0.8%"></div>
-    <span class="dd-num">2.4K</span>
+    <span class="dd-num">283K</span>
   </div>
   <div class="dd-bar">
     <span class="dd-label">YT Music</span>
-    <div class="dd-fill" style="width:0.15%"></div>
-    <span class="dd-num">412</span>
+    <div class="dd-fill" style="width:10%"></div>
+    <span class="dd-num">28K</span>
+  </div>
+  <div class="dd-bar">
+    <span class="dd-label">YT TV</span>
+    <div class="dd-fill" style="width:3.5%"></div>
+    <span class="dd-num">9.8K</span>
+  </div>
+  <div class="dd-bar">
+    <span class="dd-label">YT Kids</span>
+    <div class="dd-fill" style="width:1.6%"></div>
+    <span class="dd-num">4.6K</span>
   </div>
 </div>
 
-<p class="novel">세진은 막대 하나하나를 읽었다. YouTube Music의 신고가 거의 없다. 412건. YouTube 317,000건 대비 0.13%. 이 차이가 결정적인 단서다.</p>
+<p class="novel">세진은 막대 하나하나를 읽었다. YouTube 본체만이 아니다. YouTube Music에 28,000건, YouTube Kids에도 4,600건, YouTube TV까지. 유튜브라는 이름이 붙은 서비스가 전부 같이 죽었다.</p>
 
-<p class="novel">YouTube Music은 YouTube와 같은 구글 인프라 위에서 돌아가지만, 백엔드 서비스 스택이 다르다. 영상 추천 알고리즘, 구독 피드 생성, Shorts 큐레이션 — 이런 것들은 YouTube 본체의 서비스가 처리한다. YouTube Music은 자체 음악 추천 엔진과 라이브러리 관리 시스템이 따로 있다.</p>
+<p class="novel">이 패턴이 중요하다. YouTube Music은 YouTube 본체와 UI도 다르고, 서비스 성격도 다르다. 하지만 같이 죽었다. YouTube Kids도 마찬가지다. 전혀 다른 앱인데 같은 증상을 보인다. 이들의 공통분모가 뭔가?</p>
 
-<p class="novel">반면 YouTube TV는 8,200건. YouTube TV는 YouTube 본체와 피드/인증 인프라를 상당 부분 공유한다. 같이 죽었다는 것은 같은 레이어를 쓴다는 뜻이다.</p>
+<p class="novel">콘텐츠 추천이다. 홈 화면을 열면 "당신이 좋아할 영상"을 보여주는 것 — 이 기능이 YouTube, YouTube Music, YouTube Kids, YouTube TV 전부에 들어간다. 각 서비스의 UI와 콘텐츠 유형은 다르지만, 뒤에서 "이 사용자에게 무엇을 보여줄 것인가"를 결정하는 추천 시스템은 공유한다.</p>
 
 <p class="novel">세진은 증상을 정리했다.</p>
 
@@ -444,16 +444,24 @@ datePublished: "2026-02-18"
     <div class="s-status s-dead">500 — DEAD</div>
   </div>
   <div class="symptom-item">
-    <div class="s-label">subscription feed</div>
-    <div class="s-status s-dead">500 — DEAD</div>
-  </div>
-  <div class="symptom-item">
     <div class="s-label">shorts feed</div>
     <div class="s-status s-dead">500 — DEAD</div>
   </div>
   <div class="symptom-item">
+    <div class="s-label">youtube music</div>
+    <div class="s-status s-dead">DEAD</div>
+  </div>
+  <div class="symptom-item">
+    <div class="s-label">youtube kids</div>
+    <div class="s-status s-dead">DEAD</div>
+  </div>
+  <div class="symptom-item">
     <div class="s-label">youtube tv</div>
-    <div class="s-status s-dead">500 — DEAD</div>
+    <div class="s-status s-dead">DEAD</div>
+  </div>
+  <div class="symptom-item">
+    <div class="s-label">suggestion sidebar</div>
+    <div class="s-status s-dead">BLANK</div>
   </div>
   <div class="symptom-item">
     <div class="s-label">direct video url</div>
@@ -463,33 +471,25 @@ datePublished: "2026-02-18"
     <div class="s-label">search</div>
     <div class="s-status s-alive">200 — ALIVE</div>
   </div>
-  <div class="symptom-item">
-    <div class="s-label">embedded player</div>
-    <div class="s-status s-alive">200 — ALIVE</div>
-  </div>
-  <div class="symptom-item">
-    <div class="s-label">youtube music</div>
-    <div class="s-status s-alive">200 — ALIVE</div>
-  </div>
 </div>
 
 <p class="novel">패턴이 완전히 드러났다. 죽은 것과 산 것의 경계선.</p>
 
-<p class="novel">죽은 것들의 공통점: <strong>사용자를 안다.</strong> "이 사용자의 구독 목록에서 최신 영상을 가져와라", "이 사용자의 시청 기록을 기반으로 추천을 만들어라", "이 사용자의 YouTube TV 채널 라인업을 불러와라." 전부 "이 사용자"에서 시작한다.</p>
+<p class="novel">죽은 것들의 공통점: <strong>추천이 필요하다.</strong> "이 사용자에게 어떤 영상을 보여줄까?" — 홈 피드, Shorts, YouTube Music 홈, YouTube Kids 홈, YouTube TV, 심지어 영상 옆의 추천 사이드바까지. 전부 "무엇을 보여줄 것인가"를 결정하는 시스템에 의존한다.</p>
 
-<p class="novel">산 것들의 공통점: <strong>사용자를 모른다.</strong> 비디오 ID를 주면 비디오를 준다. 검색어를 주면 결과를 준다. "이 사용자"가 누구인지 몰라도 작동한다. CDN은 파일을 서빙할 뿐이고, 검색은 인덱스를 뒤질 뿐이다.</p>
+<p class="novel">산 것들의 공통점: <strong>추천이 필요 없다.</strong> 비디오 ID를 주면 비디오를 준다. 검색어를 주면 결과를 준다. "무엇을 보여줄까"를 고민할 필요 없이, 요청받은 것을 그대로 돌려준다. CDN은 파일을 서빙할 뿐이고, 검색은 자체 인덱스를 뒤질 뿐이다.</p>
 
-<p class="internal">"이 사용자"를 처리하는 서비스가 죽었다. 구독 관계를 조회하고, 시청 기록을 읽고, 권한을 확인하는 레이어. 유튜브의 등뼈.</p>
+<p class="internal">추천 시스템이 죽었다. YouTube, YouTube Music, YouTube Kids — 서비스 이름은 다르지만 "이 사용자에게 뭘 보여줄까"를 결정하는 엔진은 하나다. 그 엔진이 멈추니까 전부 빈 화면이 된 것이다.</p>
 
-<p class="novel">세진은 구글의 공개된 인프라 논문들을 떠올렸다. 2019년 USENIX에 발표된 논문 한 편. 구글이 수백 개의 서비스에서 "이 사용자가 이 리소스에 접근할 수 있는가?"를 판단하는 시스템.</p>
+<p class="novel">세진은 유튜브의 추천 시스템에 대해 알고 있는 것을 떠올렸다. 2016년 RecSys에 발표된 "Deep Neural Networks for YouTube Recommendations" — 구글이 직접 쓴, 유튜브의 추천 시스템이 어떻게 수십억 개의 영상에서 수백 개의 후보를 골라내는지를 설명한 논문이다.</p>
 
-<p class="novel">Zanzibar.</p>
+<p class="novel">유튜브의 추천 시스템은 단순한 알고리즘이 아니다. 두 단계로 이루어진 거대한 ML 파이프라인이다. 첫 번째 단계(candidate generation)에서 수십억 개의 영상을 수백 개로 줄이고, 두 번째 단계(ranking)에서 사용자의 시청 기록, 검색 이력, 인구통계를 반영해 최종 순서를 정한다. 이 파이프라인이 홈 피드, Shorts, YouTube Music의 추천 목록, YouTube Kids의 콘텐츠 큐레이션을 모두 생성한다.</p>
 
-<p class="novel">초당 1,000만 건의 권한 체크. 10,000대 이상의 서버. 30개 이상의 지리적 복제본. 2조 개의 접근 제어 목록. 유튜브, 구글 드라이브, 캘린더, 맵스 — 구글의 거의 모든 서비스가 "이 사용자가 이걸 할 수 있나?"를 Zanzibar에 물어본다.</p>
+<p class="novel">그리고 이 추천 파이프라인은 사용자 요청이 들어올 때마다 실시간으로 실행된다. 홈 화면을 열 때마다, 영상을 볼 때마다, 앱을 켤 때마다. 초당 수십만 건의 추천 요청을 처리하는 시스템이다.</p>
 
-<p class="novel">물론 이번 장애가 Zanzibar 자체의 문제라는 증거는 없다. Zanzibar는 99.999%의 가용성을 3년간 유지했다고 논문에 적혀 있다. 하지만 장애의 원인이 반드시 시스템 자체의 결함일 필요는 없다. 그 시스템을 호출하는 쪽이, 혹은 그 시스템에 데이터를 공급하는 쪽이 문제일 수도 있다.</p>
+<p class="novel">이 시스템이 멈추면? 유튜브의 모든 "보여주기" 화면이 빈 화면이 된다. 정확히 오늘 아침의 증상이다.</p>
 
-<p class="novel">2020년 12월에도 그랬다. 인증 시스템 자체가 고장난 게 아니었다. 인증 시스템의 <strong>쿼터 관리</strong>가 잘못된 신호를 보내서 자동 스케일링이 용량을 0으로 줄여버렸다. 시스템이 자기 자신을 죽인 것이다.</p>
+<p class="novel">2020년 12월에도 비슷한 패턴이 있었다. 인증 시스템 자체가 고장난 게 아니었다. 인증 시스템의 <strong>쿼터 관리</strong>가 잘못된 신호를 보내서 자동 스케일링이 용량을 0으로 줄여버렸다. 시스템이 자기 자신을 죽인 것이다. 대규모 시스템의 장애는 시스템 자체의 결함이 아니라, 그 시스템을 운용하는 과정 — 배포, 설정 변경, 모델 업데이트 — 에서 발생하는 경우가 많다.</p>
 
 <p class="internal">Google Status Dashboard에는 아직 아무것도 올라오지 않았다. @TeamYouTube 트위터도 침묵. 30만 명이 신고했는데 구글은 아무 말이 없다. 장애 발생 후 30분. 확인조차 안 하고 있다는 건 아닐 거다. 내부에서는 지금 전쟁이 벌어지고 있을 거다. SRE 팀의 페이저가 울렸을 거고, 워룸이 열렸을 거고, 인시던트 커맨더가 배정됐을 거다.</p>
 
@@ -564,27 +564,28 @@ datePublished: "2026-02-18"
 
 <p class="novel">유튜브의 비디오 서빙 파이프라인은 상대적으로 단순하다. 사용자가 영상 ID를 요청하면, CDN이 가장 가까운 엣지 서버에서 캐시된 영상을 돌려준다. 전 세계 3,000개 이상의 엣지 로케이션, 98.5~99%의 캐시 적중률. 이 파이프라인은 "이 사용자가 누구인지" 알 필요가 거의 없다. 영상 ID만 있으면 된다.</p>
 
-<p class="novel">하지만 홈 피드를 만드는 과정은 완전히 다르다. "이 사용자가 구독한 채널 목록을 가져오고, 그 채널들의 최신 영상을 가져오고, 시청 기록과 좋아요 데이터를 기반으로 우선순위를 매기고, 이미 본 영상을 필터링하고, 추천 알고리즘의 결과를 섞어서, 최종 피드를 렌더링한다." 이 모든 과정에서 "이 사용자"의 데이터가 필요하다.</p>
+<p class="novel">하지만 홈 피드를 만드는 과정은 완전히 다르다. "이 사용자가 구독한 채널 목록을 가져오고, 그 채널들의 최신 영상을 가져오고, 시청 기록과 좋아요 데이터를 기반으로 우선순위를 매기고, 이미 본 영상을 필터링하고, 추천 알고리즘의 결과를 섞어서, 최종 피드를 렌더링한다." 이 모든 과정의 중심에 추천 시스템이 있다.</p>
 
-<p class="novel">그리고 "이 사용자가 이 데이터에 접근할 수 있는가?"를 판단하는 시스템이 바로 Zanzibar다.</p>
+<p class="novel">그리고 이 추천 시스템은 YouTube 본체만의 것이 아니다. YouTube Music의 "좋아할 만한 노래", YouTube Kids의 "추천 영상", YouTube TV의 "맞춤 채널" — 전부 같은 추천 인프라 위에서 돌아간다. 하나가 죽으면 전부 빈 화면이 된다.</p>
 
 <p class="novel">세진은 노트에 적었다.</p>
 
 <div class="terminal">
 <span class="t-key">## 가설 (10:30 기준)</span><br>
 <br>
-<span class="t-dim">피드 생성에 필요한 사용자 데이터 조회 과정에서</span><br>
+<span class="t-dim">추천 시스템의 장애로 인해 콘텐츠가 표시되지 않는</span><br>
 <span class="t-dim">캐스케이드 실패가 발생한 것으로 추정.</span><br>
 <br>
 <span class="t-dim">가능한 시나리오:</span><br>
-<span class="t-dim">1. 피드 서비스의 백엔드(사용자 프로필/구독 DB)에서 장애</span><br>
-<span class="t-dim">2. 추천 엔진의 과부하 또는 잘못된 배포</span><br>
-<span class="t-dim">3. 권한 체크 레이어(Zanzibar 계열)의 지연 → 타임아웃 → 500</span><br>
+<span class="t-dim">1. 추천 시스템의 장애 (모델 배포 오류 또는 인덱싱 실패)</span><br>
+<span class="t-dim">2. 추천 시스템의 서빙 인프라 과부하 또는 설정 오류</span><br>
+<span class="t-dim">3. 추천 파이프라인이 의존하는 사용자 데이터 저장소의 장애</span><br>
 <span class="t-dim">4. 피드 렌더링 서비스 자체의 배포 실패 (canary gone wrong)</span><br>
 <br>
-<span class="t-dim">→ 가장 유력: 시나리오 1 또는 3</span><br>
-<span class="t-dim">→ 근거: YouTube Music은 정상 (별도 백엔드), 검색은 정상 (사용자 의존도 낮음)</span><br>
-<span class="t-dim">→ 부분 장애의 패턴이 "사용자 컨텍스트 의존" 서비스에 한정됨</span>
+<span class="t-dim">→ 가장 유력: 시나리오 1 또는 2</span><br>
+<span class="t-dim">→ 근거: YouTube, Music, Kids, TV 전부 같은 추천 시스템 공유</span><br>
+<span class="t-dim">→ 추천 불필요 서비스(CDN 재생, 검색)는 전부 정상</span><br>
+<span class="t-dim">→ "추천 의존" 서비스에 한정된 부분 장애 패턴</span>
 </div>
 
 <p class="novel">시계를 봤다. 10:35. 장애 발생 50분. 구글은 여전히 침묵.</p>
@@ -595,11 +596,11 @@ datePublished: "2026-02-18"
 
 <p class="internal">500,000대의 서버로 이루어진 시스템에서, 죽은 것과 산 것의 경계선을 찾았다. 하지만 그 경계선 너머에 정확히 무엇이 깨졌는지는, 구글 내부의 사람만 알 수 있다. 나는 밖에서 증상을 읽고, 공개된 논문과 과거의 패턴을 대조할 수 있을 뿐이다.</p>
 
-<p class="novel">집을 나서면서 마지막으로 @TeamYouTube를 확인했다. 여전히 침묵. DownDetector는 33만을 넘겼다.</p>
+<p class="novel">집을 나서면서 마지막으로 @TeamYouTube를 확인했다. 여전히 침묵. DownDetector는 30만을 넘겼다.</p>
 
 <p class="novel">구글 내부의 워룸에서는 지금 인시던트 커맨더가 소리를 지르고 있을 것이다. SRE 엔지니어들이 Borg 클러스터의 로그를 뒤지고 있을 것이다. 누군가는 Spanner 콘솔에서 쿼리 레이턴시를 확인하고 있을 것이고, 누군가는 최근 배포 이력을 롤백하고 있을 것이다.</p>
 
-<p class="novel">세진은 그 장면을 상상하며 현관문을 잠갔다. 과거의 유령들이 머릿속에서 깨어나기 시작했다. 2020년 12월, 인증 시스템이 자기 자신을 죽인 밤. 2025년 10월, DNS가 길을 잃은 오후. 그리고 오늘, 피드가 사용자를 잊은 아침.</p>
+<p class="novel">세진은 그 장면을 상상하며 현관문을 잠갔다. 과거의 유령들이 머릿속에서 깨어나기 시작했다. 2020년 12월, 인증 시스템이 자기 자신을 죽인 밤. 2025년 10월, DNS가 길을 잃은 오후. 그리고 오늘, 추천 시스템이 멈춘 아침.</p>
 
 <p class="novel">전철에서 분석을 이어가야겠다고 생각했다. 과거의 장애들을 나란히 놓으면, 이번 장애의 윤곽이 더 선명해질 것이다.</p>
 
@@ -614,12 +615,12 @@ datePublished: "2026-02-18"
 </main>
 
 <div class="closing">
-  <h2>30만 명이 같은 화면을 보았다<br><strong>죽은 것과 산 것의 경계선</strong></h2>
-  <p class="sub">CDN은 살아있었다. 죽은 건 "이 사용자"를 아는 모든 것이었다.<br>2편에서 과거의 유령들을 불러낸다.</p>
+  <h2>28만 명이 같은 화면을 보았다<br><strong>죽은 것과 산 것의 경계선</strong></h2>
+  <p class="sub">CDN은 살아있었다. 죽은 건 "무엇을 보여줄까"를 결정하는 모든 것이었다.<br>2편에서 과거의 유령들을 불러낸다.</p>
 </div>
 
 <footer class="footer">
-  <p>Sources: 9to5Google (2026) &middot; TechRadar (2026) &middot; Tom's Guide (2026) &middot; XDA Developers (2026) &middot; Google Research — Zanzibar (USENIX 2019) &middot; DownDetector &middot; 블록미디어 (2026) &middot; 디지털데일리 (2026)</p>
+  <p>Sources: 9to5Google (2026) &middot; TechRadar (2026) &middot; Variety (2026) &middot; Deadline (2026) &middot; 인벤 (2026) &middot; Google Research — Deep Neural Networks for YouTube Recommendations (RecSys 2016) &middot; DownDetector &middot; 블록미디어 (2026)</p>
   <p>Fact-based fiction &middot; Research assisted by Claude &middot; 2026</p>
 </footer>
 

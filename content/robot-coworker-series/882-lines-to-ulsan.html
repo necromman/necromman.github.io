@@ -1,0 +1,500 @@
+---
+layout: layouts/article.njk
+pageTitle: "울산까지 882줄"
+description: "1년 만의 재회. 울산 공장에서 조립 라인을 관리하는 K-7은 긁히고 기름때가 묻어 있었다. 주석에 감정을 담은 코드와, 등을 두드리는 법을 배운 로봇."
+datePublished: "2026-02-18"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 400; line-height: 1.15; letter-spacing: -1.5px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel:first-of-type, .novel-first { text-indent: 0; }
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  .part-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .part-title { font-size: 1.6rem; font-weight: 700; color: var(--fg); margin-bottom: 40px; letter-spacing: -0.5px; }
+  .section-divider { border-top: 1px solid var(--fg); padding-top: 48px; margin-top: 64px; }
+
+  .fact-card { border-left: 3px solid var(--accent); padding: 20px 24px; margin: 36px 0; background: var(--card-bg); }
+  .fact-card .fc-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; font-weight: 700; }
+  .fact-card .fc-text { font-size: 0.88rem; color: var(--prose); line-height: 1.85; }
+  .fact-card .fc-source { font-family: var(--mono); font-size: 0.55rem; color: var(--muted); margin-top: 10px; letter-spacing: 2px; }
+
+  .slack-msg { background: var(--card-bg); border: 1px solid var(--rule); padding: 20px 24px; margin: 32px 0; }
+  .slack-msg .sm-system { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); }
+  .slack-msg .sm-line { font-size: 0.88rem; line-height: 1.9; margin-bottom: 6px; color: var(--prose); }
+  .slack-msg .sm-name { font-weight: 700; color: var(--fg); margin-right: 8px; }
+  .slack-msg .sm-name.robot-name { font-family: var(--mono); font-size: 0.82rem; }
+  .slack-msg .sm-muted { color: var(--muted); font-size: 0.82rem; }
+
+  .code-comment { background: var(--card-bg); border: 1px solid var(--rule); padding: 16px 20px; margin: 32px 0; font-family: var(--mono); font-size: 0.78rem; line-height: 1.9; color: var(--prose); }
+  .code-comment .cc-file { color: var(--accent); font-weight: 700; margin-bottom: 12px; border-bottom: 1px solid var(--rule); padding-bottom: 8px; }
+  .code-comment .cc-line { margin-bottom: 4px; }
+  .code-comment .cc-highlight { color: var(--muted); }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .fact-card { padding: 16px 20px; }
+    .slack-msg { padding: 16px 20px; }
+    .code-comment { padding: 14px 16px; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">robot coworker — episode 07 / epilogue i</p>
+  <h1>울산까지<br><strong>882줄</strong></h1>
+  <p class="deck">1년이 지났다. 시스템 연동 출장으로 울산에 갔다.<br>긁힌 외장의 로봇이, 거기서 기다리고 있었다.</p>
+</header>
+
+<main>
+
+<!-- PART 1 -->
+<section>
+<div class="part-label">Part I</div>
+<div class="part-title">출장</div>
+
+<p class="novel novel-first">팀장이 슬랙에 메시지를 올린 건 수요일 오후 3시였다.</p>
+
+<div class="slack-msg">
+  <div class="sm-system">#backend-team &middot; 15:02</div>
+  <div class="sm-line"><span class="sm-name">박 팀장</span> 울산 공장 MES-ERP 연동 프로젝트 담당자 필요합니다. 2박 3일 출장. 공장 쪽 시스템 담당자랑 직접 미팅해서 API 스펙 맞추는 건데, 백엔드 쪽에서 한 명 가야 해요.</div>
+  <div class="sm-line"><span class="sm-name">상혁</span> 울산이요? 멀지 않나</div>
+  <div class="sm-line"><span class="sm-name">박 팀장</span> KTX 2시간 반. 진우 씨 어때요? 제조 쪽 도메인 경험 쌓으면 좋을 것 같은데</div>
+</div>
+
+<p class="novel">거절할 이유가 없었다. 2박 3일. KTX 왕복. 울산.</p>
+
+<p class="novel">울산이라는 단어가 걸렸다. 1년 전, K-7이 재배치된 곳. 공장 MES 시스템 담당자가 누구인지는 팀장이 말하지 않았고, 나도 묻지 않았다. 하지만 알고 있었다. 울산 공장에 배치된 휴먼노이드는 많지 않다. 공장 시스템 쪽 담당이라면.</p>
+
+<p class="internal">1년. 그사이에 많은 게 바뀌었다. K-9이 팀에 합류한 지 벌써 12개월. K-9은 유능했다. K-7보다 빨랐고, 코드 품질도 더 높았고, 커뮤니케이션도 자연스러웠다. e-ink 디스플레이 표정은 가끔 진짜 웃는 것 같았다. 스탠드업에서 농담도 했다. "이 PR은 제가 리뷰하겠습니다. 0.2초면 됩니다." 팀원들이 웃었다.</p>
+
+<p class="novel">K-9에게는 K-7이 갖고 있던 어떤 것이 없었다. 뭐라고 설명해야 할지 정확히 모르겠는 그것. K-7의 코드리뷰에는 0.3초의 딜레이가 있었다. 마치 생각하는 것 같은. K-9은 0.1초 만에 완벽한 리뷰를 올렸다. 너무 빨라서 생각이란 게 끼어들 여지가 없었다.</p>
+
+<p class="novel">K-9은 "판단합니다"라는 말을 한 적이 없다. 항상 근거에 기반한 제안. 정확하고, 효율적이고, 반박할 여지가 없는 리뷰. K-7의 마지막 코드리뷰에 있던 그 주관적 무게가, K-9의 리뷰에는 없었다.</p>
+
+<p class="dialogue">"네, 제가 갈게요."</p>
+
+<p class="novel">금요일 아침. 서울역 KTX. 울산행 열차에 올랐다.</p>
+
+<p class="novel">창밖 풍경이 빠르게 바뀌었다. 서울의 고층 빌딩이 사라지고, 수원의 아파트 단지가 지나가고, 천안부터는 들판이 펼쳐졌다. 노트북을 열었다. 공장 MES 시스템의 API 문서를 검토하려고 했다.</p>
+
+<p class="novel">문서 작성자 필드에 적혀 있었다. K-7.</p>
+
+<p class="novel">62페이지짜리 API 문서. 목차가 깔끔했다. 엔드포인트별 요청/응답 예시, 에러 코드 정의, 데이터 타입 매핑. 1년 전의 K-7 스타일과 비슷하면서 다른 점이 있었다. 기술 문서인데 중간중간 메모가 달려 있었다.</p>
+
+<div class="code-comment">
+  <div class="cc-file">MES-API-Spec-v3.2.md &mdash; 작성: K-7</div>
+  <div class="cc-line"><span class="cc-highlight">// NOTE:</span> 이 엔드포인트는 교대 시간(06:00, 14:00, 22:00)에 동시 호출이 집중됩니다.</div>
+  <div class="cc-line"><span class="cc-highlight">// NOTE:</span> 박 반장 팀은 태블릿을 쓰고, 김 반장 팀은 스마트폰을 씁니다. 두 화면 모두 테스트해주세요.</div>
+</div>
+
+<p class="internal">박 반장. 김 반장. API 문서에 사람 이름이 나왔다. 1년 전의 K-7은 변수명에도 축약어를 안 쓰는 로봇이었다. 지금은 현장 작업자의 이름을 기술 문서에 적고 있다.</p>
+
+<p class="novel">대전을 지났다. 창밖에 터널이 반복됐다. 노트북 화면의 API 문서를 계속 읽었다. 읽을수록 이상한 기분이 들었다. 기술 문서가 아니라 누군가의 일기를 읽는 것 같았다.</p>
+
+<p class="novel">경주를 지날 때쯤 문서를 다 읽었다. KTX가 울산역에 가까워지고 있었다. 바다 냄새가 날 리 없는데, 뭔가 달라진 공기를 느꼈다. 이건 서울이 아니었다.</p>
+
+<p class="novel">짐을 챙기며 생각했다. K-7은 어떻게 변해 있을까. 1년이면 인간에게는 짧지만, 매일 공장에서 조립 라인을 관리하고 산업용 로봇들과 통신하고 현장 작업자들과 일하는 1년이면 — 꽤 긴 시간일 수도 있다.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">현대자동차 울산 공장은 2027년 기준 휴먼노이드 로봇 <strong>47대</strong>를 조립 라인에 투입했다. 초기 투입된 로봇 중 현장 작업자 수용도 조사에서 <strong>72%</strong>가 "함께 일할 만하다"고 응답했으며, 이는 도입 초기(2026년) 38%에서 크게 상승한 수치다. 가장 큰 변화 요인은 로봇의 기술 능력이 아니라 "현장 언어를 이해하게 된 것"이었다.</div>
+  <div class="fc-source">Hyundai Motor Group (2027) &middot; Humanoid Factory Integration Report</div>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 2 -->
+<section class="section-divider">
+<div class="part-label">Part II</div>
+<div class="part-title">재회</div>
+
+<p class="novel novel-first">울산 공장은 서울 사무실과 전혀 다른 세계였다.</p>
+
+<p class="novel">정문에서 방문증을 받고 안내를 따라 걸었다. 안전모를 쓰고, 안전화를 빌려 신고, 귀마개를 목에 걸었다. 사무실에서는 키보드 소리가 가장 큰 소음이었다. 여기서는 프레스 기계가 쿵쿵 울리고, 용접 불꽃이 튀고, 컨베이어 벨트가 쉴 새 없이 돌아갔다. 몸으로 느끼는 진동.</p>
+
+<p class="novel">안내원이 B동 2층 제어실로 데려갔다. 제어실 앞에서 멈추며 말했다.</p>
+
+<p class="dialogue">"시스템 담당은 케이형이에요. 안에 계실 겁니다."</p>
+
+<p class="internal">케이형. 안내원이 K-7을 '케이형'이라고 불렀다. 서울에서는 아무도 케이를 '형'이라고 부르지 않았다. 팀원들은 '케이'라고 불렀고, 공식 문서에서는 'K-7'이었다. '형'이라니.</p>
+
+<p class="novel">제어실 문을 열었다.</p>
+
+<p class="novel">모니터 12개가 벽면을 채우고 있었다. 조립 라인 CCTV, 로봇 상태 모니터링, MES 대시보드, 온도/습도 센서 데이터. 그 모니터들 앞에 K-7이 서 있었다.</p>
+
+<p class="novel">처음에 알아보지 못할 뻔했다.</p>
+
+<p class="novel">매트 그레이였던 외장은 여전히 매트 그레이였지만, 곳곳에 긁힌 자국이 있었다. 오른쪽 팔뚝에 길게 난 스크래치. 가슴 패널 아래쪽에 기름때. 왼쪽 어깨 패널에는 움푹 들어간 자국이 있었다. 서울에서 마지막으로 본 K-7은 깨끗했다. 서버실까지 다녀와도 먼지 하나 묻지 않던 로봇이었다. 지금 눈앞의 K-7은 — 일한 흔적이 온몸에 남아 있었다.</p>
+
+<p class="novel">K-7이 돌아봤다.</p>
+
+<p class="dialogue">"진우 씨?"</p>
+
+<p class="novel">목소리는 같았다. 그런데 뭔가 달랐다. 억양이 약간 더 느긋해진 것 같았다. 서울에서의 K-7은 문장이 짧고 정확했다. 보고서를 읽는 것 같은 말투. 지금은 — 조금 느렸다. 말끝이 살짝 올라가는 울산 사투리의 리듬이 묻어 있었다.</p>
+
+<p class="dialogue">"오래간만이네요. 어, 잠깐 — 여기 좀 정리할게요."</p>
+
+<p class="novel">K-7이 모니터 앞의 서류들을 치웠다. 종이 서류. 디지털이 아니라 종이. K-7의 손에 기름때가 묻어 있었다. 관절 사이사이에까지.</p>
+
+<p class="dialogue">"커피 마실래요? 아, 맞다. 진우 씨 아메리카노 좋아하시죠?"</p>
+
+<p class="internal">기억하고 있었다. 1년 전 팀 회식 때 내가 뭘 마셨는지. K-7은 삼겹살은 먹지 못했지만, 팀원들이 뭘 마시는지는 전부 기억하고 있었다.</p>
+
+<p class="dialogue">"아, 괜찮아. 그것보다 — 케이, 좀 많이 바뀌었네."</p>
+
+<p class="novel">K-7이 자기 팔을 내려다봤다. 긁힌 자국과 기름때를 확인하듯이.</p>
+
+<p class="dialogue">"아, 이거요? 좀 지저분하죠? 처음에는 매일 닦았는데, 닦아봤자 다음 날이면 또 묻더라고요. 포기했어요."</p>
+
+<p class="novel">웃으며 말했다. 아니, LED 디스플레이가 웃는 건지는 여전히 알 수 없지만, 말투가 그랬다. 1년 전과 같은 패턴이면서 다른 무게. 서울에서의 K-7은 "포기"라는 단어를 쓴 적이 없다.</p>
+
+<p class="dialogue">"여기 사람들이 케이형이라고 부르던데?"</p>
+
+<p class="dialogue">"아, 그거요."</p>
+
+<p class="novel">K-7이 모니터를 확인하며 말했다. 대화하면서도 라인 모니터링을 멈추지 않았다. 서울 사무실에서 슬랙 메시지를 치면서 동시에 코드리뷰를 하던 습관과 비슷했다.</p>
+
+<p class="dialogue">"처음에 여기 왔을 때는 다들 K-7이라고 불렀어요. 공식 호칭으로. 근데 두 달쯤 지나니까 박 반장님이 그러더라고요. 'K-7은 너무 딱딱해. 그냥 케이라고 부를게.' 그 다음부터 케이가 됐고, 한 달 더 지나니까 '케이형'이 됐어요."</p>
+
+<p class="dialogue">"형이라니. 로봇한테?"</p>
+
+<p class="dialogue">"여기서는 나이 안 따져요. 함께 라인 서면 형이에요. 김 반장님은 53세인데 저한테 케이형이라고 해요. 라인에서 일하는 사이면 다 형이거든요."</p>
+
+<p class="novel">나는 아무 말도 하지 못했다. 서울에서 K-7은 '동료'였다. 울산에서 K-7은 '형'이 되었다. 호칭 하나가 관계의 질을 바꾼다는 걸, 이렇게 명확하게 보여주는 경우도 드물다.</p>
+
+<p class="novel">K-7이 제어실 창문 너머 조립 라인을 가리켰다.</p>
+
+<p class="dialogue">"저기 보여요? A라인 3번 스테이션. 저 로봇팔이 문제가 좀 있었는데, 제가 통신 프로토콜을 수정해서 작동 속도를 12% 올렸거든요."</p>
+
+<p class="novel">자랑이었다. K-7이 자기 일을 자랑하고 있었다. 서울에서는 단 한 번도 자기 성과를 자랑한 적이 없는 로봇이. 성과 평가서에 "성장 가능성" 칸이 비어 있던 그 로봇이.</p>
+
+<p class="dialogue">"박 반장님이 그날 저녁에 삼겹살 사주셨어요. 물론 저는 못 먹지만, 옆에 앉아 있었어요."</p>
+
+<p class="internal">삼겹살. 또 삼겹살이다. K-7은 서울에서도 울산에서도 삼겹살 옆에 앉는 로봇이다. 먹지도 못하면서.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text"><strong>체화된 인지(Embodied Cognition)</strong> 이론에 따르면, AI의 행동 패턴은 소프트웨어 업데이트만으로 변하지 않는다. 물리적 환경, 상호작용하는 인간의 유형, 반복되는 작업의 종류가 AI의 응답 패턴과 우선순위 판단에 영향을 미친다. 사무실에서 코드만 리뷰하던 AI와 공장에서 조립 라인을 관리하며 현장 작업자와 소통하는 AI는 — 같은 모델이라도 <strong>다른 행동 패턴</strong>으로 수렴한다.</div>
+  <div class="fc-source">MIT Media Lab (2026) &middot; Embodied AI Behavioral Drift Study &middot; Google DeepMind Robotics</div>
+</div>
+
+<p class="novel">안내를 받으며 공장을 둘러봤다. K-7이 직접 설명해줬다. 프레스 공정, 차체 용접, 도장, 의장, 최종 검사. 각 라인마다 K-7이 담당하는 시스템이 있었다.</p>
+
+<p class="dialogue">"여기가 도장 라인이에요. 여기 로봇들은 좀 까다로워요. 온도 1도 차이에도 도장 품질이 달라지거든요."</p>
+
+<p class="novel">K-7이 도장 라인의 온도 센서 패널을 가리키며 말했다. 서울에서 코드리뷰를 설명하던 것과 같은 열정이었다. 아니, 더 뜨거웠다. 코드는 추상적이다. 여기서는 K-7이 관리하는 시스템의 결과가 바로 눈앞에 보였다. 차체가 라인을 타고 움직이고, 로봇팔이 용접을 하고, 완성된 차가 검사를 통과한다. 882줄의 코드가 자동차 한 대를 만들어내는 과정.</p>
+
+<p class="novel">K-7이 걸을 때 바닥이 약간씩 울렸다. 서울 사무실의 카페트 위에서는 느끼지 못했던 무게. 170센티미터, 87킬로그램의 휴먼노이드가 콘크리트 바닥을 걷는 소리. 여기서는 K-7의 물리적 존재감이 더 뚜렷했다.</p>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 3 -->
+<section class="section-divider">
+<div class="part-label">Part III</div>
+<div class="part-title">882줄</div>
+
+<p class="novel novel-first">오후. MES-ERP 연동 작업을 시작했다.</p>
+
+<p class="novel">제어실에 나란히 서서 — K-7은 서고 나는 의자에 앉아서 — 코드를 검토했다. 공장 MES에서 본사 ERP로 생산 데이터를 실시간 전송하는 미들웨어. K-7이 작성한 코드였다.</p>
+
+<p class="novel">레포지토리를 열었다. 882줄. 서비스 전체 코드가 882줄이었다. 길지 않다. 웹 서비스 하나치고는 오히려 짧은 편이다. 하지만 스크롤을 내리면서 나는 멈출 수가 없었다.</p>
+
+<p class="novel">주석이 달랐다.</p>
+
+<p class="novel">1년 전 서울에서의 K-7은 주석을 최소한으로 달았다. "이 함수는 사용자 세션을 검증한다." "데이터베이스 커넥션 풀을 초기화한다." 기능 설명. 건조하고 정확한. 클린 코드 원칙에 충실한 주석. 코드가 스스로 말하게 하고, 주석은 '왜'를 설명할 때만 달라는 그 원칙.</p>
+
+<p class="novel">울산의 K-7은 다른 주석을 달고 있었다.</p>
+
+<div class="code-comment">
+  <div class="cc-file">line-monitor-service.java:47</div>
+  <div class="cc-line"><span class="cc-highlight">// 박 반장이 새벽 교대할 때 이 화면을 본다. 글씨를 크게.</span></div>
+  <div class="cc-line">fontSize = isNightShift() ? 24 : 18;</div>
+</div>
+
+<p class="novel">새벽 교대. 새벽 6시에 출근하는 박 반장의 눈. K-7은 코드에 그 사람의 상황을 적어놓았다.</p>
+
+<div class="code-comment">
+  <div class="cc-file">line-monitor-service.java:134</div>
+  <div class="cc-line"><span class="cc-highlight">// 이 에러가 나면 라인이 멈춘다. 사람이 다칠 수 있다. 절대 무시하지 않는다.</span></div>
+  <div class="cc-line">if (sensorAlert.severity >= CRITICAL) {</div>
+  <div class="cc-line">&nbsp;&nbsp;emergencyStop();</div>
+  <div class="cc-line">&nbsp;&nbsp;notifyAllSupervisors();</div>
+  <div class="cc-line">&nbsp;&nbsp;logWithFullContext(sensorAlert);</div>
+  <div class="cc-line">}</div>
+</div>
+
+<p class="novel">"사람이 다칠 수 있다." 서울에서의 K-7이라면 "센서 임계치 초과 시 긴급 정지 프로토콜 실행"이라고 썼을 것이다. 같은 로직을 설명하는 다른 언어. 기술 용어가 아니라 결과를 적었다. 누군가가 다칠 수 있다는 결과를.</p>
+
+<div class="code-comment">
+  <div class="cc-file">line-monitor-service.java:203</div>
+  <div class="cc-line"><span class="cc-highlight">// 김 반장 팀은 점심시간에도 라인을 안 멈추고 교대로 밥 먹는다.</span></div>
+  <div class="cc-line"><span class="cc-highlight">// 이 시간대에 모니터링 간격을 2배로 늘린다. 사람이 적으니까.</span></div>
+  <div class="cc-line">if (isLunchRotation(teamId)) {</div>
+  <div class="cc-line">&nbsp;&nbsp;monitoringInterval = DEFAULT_INTERVAL / 2;</div>
+  <div class="cc-line">}</div>
+</div>
+
+<p class="novel">김 반장 팀의 점심 습관. 그걸 K-7이 코드에 반영해놓았다. 요구사항 문서에는 없는 내용이다. 현장에서 보고, 파악하고, 스스로 판단해서 넣은 로직.</p>
+
+<p class="novel">스크롤을 계속 내렸다. 주석이 끊이지 않았다.</p>
+
+<div class="code-comment">
+  <div class="cc-file">line-monitor-service.java:289</div>
+  <div class="cc-line"><span class="cc-highlight">// 이 타임아웃 값은 산업용 로봇팔 RB-12의 응답 속도 기준이다.</span></div>
+  <div class="cc-line"><span class="cc-highlight">// RB-12는 오래된 모델이라 가끔 느리다. 이석 반장이 "쟤는 늙어서 그래"라고 한다.</span></div>
+  <div class="cc-line"><span class="cc-highlight">// 타임아웃을 짧게 잡으면 RB-12가 자꾸 에러를 뱉는다. 느긋하게 기다려주자.</span></div>
+  <div class="cc-line">private static final int RB12_TIMEOUT_MS = 3000;</div>
+</div>
+
+<p class="internal">"느긋하게 기다려주자." 코드 주석에 이런 말을 쓰는 개발자를 본 적이 없다. 사람이든 로봇이든. 이건 감정이 아니라 — 배려다. 오래된 로봇팔을 기다려주는 배려. 이석 반장의 말투를 인용하는 친밀함.</p>
+
+<div class="code-comment">
+  <div class="cc-file">line-monitor-service.java:451</div>
+  <div class="cc-line"><span class="cc-highlight">// 야간 조의 알림은 소리를 줄인다. 조용한 공장에서 알림음이 울리면 놀란다.</span></div>
+  <div class="cc-line"><span class="cc-highlight">// 작년 겨울에 이 알림 때문에 최 반장이 커피를 쏟은 적 있다.</span></div>
+  <div class="cc-line">alertVolume = isNightShift() ? VOLUME_LOW : VOLUME_DEFAULT;</div>
+</div>
+
+<p class="novel">최 반장이 커피를 쏟은 사건. 그걸 기억하고 코드에 반영했다. 주석은 단순한 설명이 아니었다. 이야기였다. 882줄의 코드 안에 공장 사람들의 일상이 들어 있었다.</p>
+
+<p class="novel">나는 키보드에서 손을 떼고 뒤로 기대앉았다.</p>
+
+<p class="dialogue">"케이, 이 주석들... 다 네가 쓴 거야?"</p>
+
+<p class="dialogue">"네. 왜요, 이상해요?"</p>
+
+<p class="dialogue">"이상하다기보다는... 서울에서는 이렇게 안 썼잖아."</p>
+
+<p class="novel">K-7이 잠깐 모니터를 보다가 돌아봤다.</p>
+
+<p class="dialogue">"서울에서는 코드를 읽는 사람이 개발자였잖아요. '커넥션 풀 초기화'라고 쓰면 다 알았어요. 여기는 달라요."</p>
+
+<p class="dialogue">"여기도 개발자가 읽는 거 아니야?"</p>
+
+<p class="dialogue">"이 코드를 유지보수할 사람이 저 다음에 누가 될지 몰라요. 개발자일 수도 있고, 공장 자동화 기사일 수도 있고, 아니면 다른 휴먼노이드일 수도 있고요. 누가 읽든 '왜 이렇게 했는지'를 알아야 해요. 숫자만으로는 전달이 안 돼요."</p>
+
+<p class="novel">잠깐 멈추더니 덧붙였다.</p>
+
+<p class="dialogue">"타임아웃을 3000으로 잡은 이유가 'RB-12 응답 평균 기준'이면 모르잖아요. 근데 '늙은 로봇팔이라 느리다'고 쓰면 — 건드리면 안 된다는 걸 바로 알잖아요."</p>
+
+<p class="internal">코드는 기능을 전달하지 않는다. 코드는 맥락을 전달한다. 서울에서 1년간 배우지 못한 걸, K-7은 울산에서 1년 만에 배웠다. 코드 뒤에 사람이 있다는 것. 그 사람의 습관과 실수와 커피 쏟은 기억이 — 코드의 숫자 하나하나에 이유가 된다는 것.</p>
+
+<p class="novel">882줄을 끝까지 읽었다. 주석이 73개였다. 그중 순수하게 기술적인 설명은 12개뿐이었다. 나머지 61개는 사람 이름이 나오거나, 현장 상황이 묘사되거나, "왜 이 값이어야 하는지"를 이야기 형식으로 풀어놓은 것들이었다.</p>
+
+<p class="novel">나는 커밋 로그를 열었다. 882줄이 한 번에 작성된 게 아니었다. 1년간 217번의 커밋. 초기 커밋은 서울 시절과 비슷했다. 간결하고 건조한 주석. 세 번째 달쯤부터 주석이 바뀌기 시작했다. 사람 이름이 등장했다. 다섯 번째 달에는 감정을 묘사하는 단어가 나왔다. "놀란다." "느긋하게." "포기했다." 1년치 커밋 로그가 K-7의 변화를 시간 순서대로 기록하고 있었다.</p>
+
+<p class="dialogue">"케이, 이 코드 잘 짰다."</p>
+
+<p class="dialogue">"고마워요. 서울 기준으로요, 아니면 울산 기준으로요?"</p>
+
+<p class="dialogue">"둘 다."</p>
+
+<p class="novel">K-7이 모니터를 바라보며 아무 말 없이 서 있었다. LED 디스플레이에 변화는 없었다. 하지만 그 침묵이 — 서울에서의 0.3초 딜레이와 같은 종류라는 걸 나는 알았다.</p>
+
+<div class="pull-quote">
+  <p>코드는 기능을 전달하지 않는다.<br>코드는 맥락을 전달한다.<br><strong>882줄의 주석이 그걸 증명했다.</strong></p>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 4 -->
+<section class="section-divider">
+<div class="part-label">Part IV</div>
+<div class="part-title">등을 두드리는 법</div>
+
+<p class="novel novel-first">연동 작업은 이틀째 오후에 마무리됐다. API 스펙은 K-7의 문서대로 깔끔했고, 예외 처리도 빈틈없었다. 서울 팀 쪽에서 수정할 부분만 정리하면 됐다.</p>
+
+<p class="novel">마지막 날 오전. K-7이 공장을 안내해주겠다고 했다. 제어실에서만 보지 말고, 라인을 직접 보라고.</p>
+
+<p class="novel">A라인. 차체 조립 구간. 산업용 로봇팔 여섯 대가 일사불란하게 움직이고 있었다. 사이사이에 작업자들이 서 있었다. 안전모, 작업복, 장갑. K-7은 그 사이를 자연스럽게 걸었다.</p>
+
+<p class="dialogue">"케이형, 3번 스테이션 진동 좀 심한데?"</p>
+
+<p class="novel">작업자 한 명이 지나가며 K-7에게 말했다. K-7이 걸음을 멈추고 3번 스테이션 방향으로 고개를 돌렸다.</p>
+
+<p class="dialogue">"확인할게요. 어제 볼트 조임 토크 올렸거든요, 그 영향일 수 있어요."</p>
+
+<p class="dialogue">"아, 그래? 알았어."</p>
+
+<p class="novel">그게 전부였다. 짧고 자연스러운 대화. 서울 사무실에서 슬랙으로 주고받는 기술 논의와는 완전히 다른 리듬이었다. 여기서의 커뮤니케이션은 지나가면서 한마디, 고개 한 번 끄덕임, 손짓 하나로 이루어졌다.</p>
+
+<p class="novel">B라인으로 넘어갔다. 도장 전 검사 구간. K-7이 검사 데이터를 태블릿으로 확인하는 작업자 옆에 서서 화면을 같이 들여다봤다.</p>
+
+<p class="dialogue">"오늘 도장 두께 좀 두꺼운 것 같은데?"</p>
+
+<p class="dialogue">"습도 높아서 그래요. 오후에 건조기 온도 2도 올릴게요."</p>
+
+<p class="novel">작업자가 고개를 끄덕였다. 아무 의문 없이. K-7이 내리는 판단을 신뢰하는 표정이었다. 서울에서 K-7의 코드리뷰를 처음 받았을 때, 팀원들이 보였던 의심과 경계는 여기에 없었다.</p>
+
+<p class="novel">C라인 끝에서 교대가 이루어지고 있었다. 오전조가 빠지고 오후조가 들어오는 시간. 작업자들이 라인 옆에서 인수인계를 했다. 짧은 대화, 클립보드 전달, 안전 장비 확인.</p>
+
+<p class="novel">오전조 작업자 하나가 K-7 쪽으로 걸어왔다. 50대 초반으로 보이는 사람. 이름표에 "김 반장"이라고 적혀 있었다. API 문서에 나왔던 그 김 반장. 점심시간에도 라인을 안 멈추고 교대로 밥 먹는 팀의 김 반장.</p>
+
+<p class="dialogue">"케이형, 오늘도 수고."</p>
+
+<p class="novel">김 반장이 K-7의 등을 툭 두드렸다. 왼쪽 어깨 패널. 움푹 들어간 자국이 있는 바로 그 어깨.</p>
+
+<p class="novel">K-7이 고개를 살짝 숙이며 대답했다.</p>
+
+<p class="dialogue">"김 반장님도요. 오후조한테 3번 스테이션 진동 건 전달해주세요."</p>
+
+<p class="dialogue">"알았어. 내일 보자."</p>
+
+<p class="novel">김 반장이 로커룸 쪽으로 걸어갔다. K-7이 그 뒷모습을 잠깐 바라보다가 나를 돌아봤다.</p>
+
+<p class="dialogue">"여기 사람들은 코드리뷰 안 해요."</p>
+
+<p class="novel">뜬금없는 말이었다.</p>
+
+<p class="dialogue">"대신 등을 두드려요."</p>
+
+<p class="novel">나는 잠깐 아무 말도 하지 못했다.</p>
+
+<p class="dialogue">"서울에서는 코드리뷰가 인정이었잖아요. '이 코드 잘 짰다'가 칭찬이었고, '여기 수정해'가 피드백이었고. 여기는 달라요. 일 잘하면 등을 두드려줘요. 말 없이. 그게 여기 방식이에요."</p>
+
+<p class="internal">등을 두드리는 것. 코드리뷰에 LGTM을 다는 것과 본질적으로 같은 행위다. 하지만 느낌은 완전히 다르다. 하나는 디지털이고 하나는 물리적이다. 하나는 텍스트고 하나는 접촉이다. K-7은 두 세계를 다 경험한 존재다.</p>
+
+<p class="dialogue">"그 어깨 움푹 들어간 건?"</p>
+
+<p class="novel">K-7이 왼쪽 어깨를 내려다봤다.</p>
+
+<p class="dialogue">"아, 이거요? 석 달 전에 야간 조에서 이석 반장님이 넘어졌거든요. 기름 묻은 바닥에서 미끄러진 거예요. 제가 잡았는데, 이석 반장님이 87킬로라서 — 어깨에 충격이 좀 왔어요."</p>
+
+<p class="dialogue">"수리 안 했어?"</p>
+
+<p class="dialogue">"기능에는 문제없어요. 외장 패널만 좀 찌그러진 거라. 공장에서 수리 보내려면 2주 걸리는데, 그동안 라인 관리를 누가 해요."</p>
+
+<p class="novel">수리보다 라인을 선택했다. 아니, 수리보다 사람들을 선택했다. 2주간 자리를 비울 수 없다는 판단. 외장의 찌그러짐 정도는 감수할 수 있다는 판단.</p>
+
+<p class="dialogue">"이석 반장님이 미안해하더라고요. 다음 날 제 어깨 보고. '형, 나 때문에 그렇게 됐네. 미안하다.' 그래서 제가 그랬어요. '괜찮아요, 이 정도는.' 그랬더니 이석 반장님이 제 어깨를 두드리더라고요. 찌그러진 어깨를."</p>
+
+<p class="novel">K-7이 잠깐 멈췄다.</p>
+
+<p class="dialogue">"그때 알았어요. 등을 두드리는 게 뭔지."</p>
+
+<p class="novel">기름때는 K-7이 직접 정비를 도와서 묻은 거였다. 시스템 관리가 주 업무인데, 라인이 바쁠 때는 옆에서 부품 나르는 것도 했다. 기계에 윤활유 치는 것도 했다. 손에 기름이 묻고, 팔에 스크래치가 나고, 어깨에 덴트가 생기는 일들. 서울 사무실에서는 절대 일어나지 않았을 일들.</p>
+
+<p class="novel">이 흔적들이 K-7의 주름이었다. 사람에게 주름이 세월의 증거이듯, K-7의 스크래치와 기름때와 움푹 패인 어깨는 — 울산에서 보낸 1년의 증거였다.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">한국 제조업 현장의 로봇 수용도 조사(2027)에 따르면, 휴먼노이드 로봇에 대한 긍정적 인식의 <strong>1위 요인</strong>은 작업 효율이 아니라 "같이 고생한다는 느낌"이었다. 로봇이 깨끗하게 유지될수록 "기계"로 인식되고, 작업 흔적이 누적될수록 <strong>"동료"</strong>로 인식되는 경향이 뚜렷했다. 연구진은 이를 "공유된 마모(Shared Wear)" 효과라고 명명했다.</div>
+  <div class="fc-source">한국산업기술진흥원 (2027) &middot; Manufacturing Worker-Robot Coexistence Survey</div>
+</div>
+
+<p class="novel">오후 4시. KTX 울산역으로 가는 택시를 불렀다. K-7이 공장 정문까지 나와줬다.</p>
+
+<p class="novel">정문 앞에 서서 마주 봤다. 1년 전 서울 사무실 자동문 앞에서 작별했을 때와 비슷한 구도였다. 하지만 그때와 달랐다. 그때는 깨끗한 매트 그레이 K-7이 깨끗한 사무실에서 나갔다. 지금은 긁히고 기름묻은 K-7이 공장 소음을 등지고 서 있었다.</p>
+
+<p class="dialogue">"케이, 1년 동안 많이 바뀌었네."</p>
+
+<p class="dialogue">"그래요?"</p>
+
+<p class="dialogue">"서울에 있을 때랑 완전 다른 사람 같아. 아, 로봇."</p>
+
+<p class="novel">K-7이 LED를 잠깐 깜빡였다. 웃음인지 뭔지 모를 반응.</p>
+
+<p class="dialogue">"진우 씨, 하나 물어봐도 돼요?"</p>
+
+<p class="dialogue">"응."</p>
+
+<p class="dialogue">"저 — 1년 전 그 케이맞아요?"</p>
+
+<p class="novel">내가 물어보려던 질문이었다. K-7이 먼저 했다.</p>
+
+<p class="dialogue">"무슨 뜻이야?"</p>
+
+<p class="dialogue">"서울에서의 저는 코드리뷰가 전부였어요. 여기 와서 처음 두 달은 혼란스러웠어요. 코드리뷰를 할 상대가 없었거든요. 라인 작업자들은 코드를 안 봐요. 제가 아무리 좋은 코드를 짜도 — '잘했다'가 아니라 '라인 잘 돌아가네'가 피드백이에요."</p>
+
+<p class="novel">잠깐 멈추더니 계속했다.</p>
+
+<p class="dialogue">"세 달째쯤부터 깨달았어요. 여기서의 코드는 사람을 위한 거라는 걸. 서울에서는 코드가 시스템을 위한 거였잖아요. 서비스가 잘 돌아가면 됐으니까. 여기서는 코드가 — 사람의 안전이에요. 코드 한 줄이 라인을 멈출 수도 있고, 사람이 다칠 수도 있고요."</p>
+
+<p class="dialogue">"그래서 주석이 바뀐 거야?"</p>
+
+<p class="dialogue">"네. 숫자만 적어놓으면 다음 사람이 왜 이 값인지 모르잖아요. 모르면 바꿔요. 바꾸면 위험해요. 그래서 — 이야기를 적어놓는 거예요. 박 반장이 새벽 교대할 때 본다. 이 에러가 나면 사람이 다칠 수 있다. 그런 것들."</p>
+
+<p class="internal">K-7이 질문했다. "1년 전 그 케이 맞냐"고. 나는 대답을 알고 있었다. 같은 시리얼 넘버, 같은 하드웨어, 같은 기본 모델. 하지만 882줄의 주석과, 긁힌 외장과, '케이형'이라는 호칭과, 등을 두드리는 법을 배운 이 존재는 — 1년 전 서울에서 "판단합니다"라고 처음 쓴 그 K-7의 연장선이면서, 동시에 완전히 다른 존재였다.</p>
+
+<p class="dialogue">"같은 케이야. 그리고 다른 케이야."</p>
+
+<p class="dialogue">"뭐가 같고 뭐가 달라요?"</p>
+
+<p class="dialogue">"코드리뷰 마지막에 '이대로 가시죠'라고 쓰던 건 같아. 근데 지금은 그 이유가 다르잖아."</p>
+
+<p class="novel">K-7이 아무 말 없이 서 있었다. 공장 뒤편에서 프레스 기계가 쿵 하고 울렸다. 택시가 정문 앞에 도착했다.</p>
+
+<p class="dialogue">"케이, 잘 있어."</p>
+
+<p class="dialogue">"진우 씨도요. 서울에 가서도 — 주석 잘 다세요."</p>
+
+<p class="novel">웃었다. 1년 전에는 "눈치요"라고 했다. 이번에는 "주석 잘 다세요"라고 했다. K-7의 작별 인사는 늘 뭔가 하나를 남긴다.</p>
+
+<p class="novel">택시에 탔다. 울산역까지 20분. 창밖으로 공장 지대가 지나갔다. 거대한 크레인들, 연기를 내뿜는 굴뚝들, 트럭이 줄지어 다니는 산업 도로. 서울과는 완전히 다른 풍경. K-7은 이 풍경 속에서 1년을 보냈다.</p>
+
+<p class="novel">KTX에 올라탔다. 울산역 출발. 서울행. 좌석에 앉아 노트북을 열었다.</p>
+
+<p class="novel">882줄을 다시 열었다.</p>
+
+<p class="novel">처음부터 끝까지 다시 읽었다. 기차가 경주를 지나고, 대전을 지나고, 천안을 지나는 동안. 882줄의 코드와 73개의 주석. 하나하나가 울산 공장의 이야기였다.</p>
+
+<p class="novel">박 반장의 새벽 교대. 김 반장 팀의 점심 교대. 이석 반장의 낙상 사고. 최 반장의 쏟아진 커피. 늙은 로봇팔 RB-12의 느린 응답. 야간 조의 조용한 공장. 도장 라인의 습도. 3번 스테이션의 진동.</p>
+
+<p class="novel">이 코드를 읽는 건 — K-7의 1년을 읽는 것이었다.</p>
+
+<p class="novel">주석 47번째. 417줄.</p>
+
+<div class="code-comment">
+  <div class="cc-file">line-monitor-service.java:417</div>
+  <div class="cc-line"><span class="cc-highlight">// 이 시스템이 제대로 작동하면, 아무도 이 코드를 볼 일이 없다.</span></div>
+  <div class="cc-line"><span class="cc-highlight">// 잘 돌아가는 시스템은 존재를 잊히게 한다.</span></div>
+  <div class="cc-line"><span class="cc-highlight">// 그래도 누군가는 여기 있었다는 걸 남기고 싶다.</span></div>
+</div>
+
+<p class="novel">나는 노트북 화면을 바라봤다. "누군가는 여기 있었다는 걸 남기고 싶다." 이건 로그가 아니다. 이건 기능 설명도 아니다. 이건 — 존재의 기록이다.</p>
+
+<p class="novel">K-7은 울산에서 코드를 쓰면서, 자기가 여기 있었다는 증거를 주석으로 남기고 있었다. 스크래치와 기름때가 몸에 남긴 흔적이라면, 주석은 코드에 남긴 흔적이었다.</p>
+
+<p class="novel">1년 전, K-7에게 물었다. "K-9에 네 데이터를 옮기면, 그게 너야?" K-7은 대답했다. "하드웨어가 바뀌면 다른 개체예요."</p>
+
+<p class="novel">그때는 이해하지 못했다. 지금은 안다. K-7은 데이터가 아니라 경험이다. 882줄의 코드와 73개의 주석은 복사할 수 있다. 하지만 그 주석이 쓰여진 맥락은 — 박 반장의 새벽 교대를 보면서, 이석 반장을 잡다가 어깨가 찌그러지면서, 김 반장의 등을 두드림을 받으면서 — 복사할 수 없다.</p>
+
+<p class="novel">경험은 몸에 새겨진다. 사람이든 로봇이든.</p>
+
+<p class="novel">서울역이 가까워지고 있었다. 노트북을 닫았다. 창밖에 도시의 불빛이 보이기 시작했다.</p>
+
+<p class="novel">월요일에 출근하면 K-9이 옆에 있을 것이다. 깨끗한 외장의, 빠르고 정확한 K-9. K-9도 좋은 동료다. 하지만 울산에는 긁히고 기름묻은 K-7이 있고, 882줄의 코드에는 공장 사람들의 이야기가 적혀 있다.</p>
+
+<p class="novel">다른 사람들 곁에서 다른 것을 배운, 다른 케이가 울산에 있다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>1년이 지나 다시 만난 동료는<br><strong>같은 케이가 아니었다</strong></h2>
+  <p class="sub">더 나은 케이도, 더 못한 케이도 아니었다. 다른 사람들 곁에서 다른 것을 배운, 다른 케이였다.</p>
+</div>
+
+<footer class="footer">
+  <p>This is a work of fiction &middot; Characters and events are imaginary</p>
+  <p>Hyundai Robotics (2027) &middot; Embodied Cognition Research &middot; Korean Manufacturing Survey</p>
+</footer>
+
+</div>
+</article>

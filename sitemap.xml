@@ -641,6 +641,24 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://necromman.github.io/content/overlap-series/second-night.html</loc>
+    <lastmod>2026-02-18T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/overlap-series/ink-scent.html</loc>
+    <lastmod>2026-02-18T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/overlap-series/one-character-off.html</loc>
+    <lastmod>2026-02-18T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <!-- Series 27: 에이전트 조립 가이드 -->
   <url>
     <loc>https://necromman.github.io/content/mcp-agent-guide-series/agent-is-three-configs.html</loc>
@@ -734,6 +752,24 @@
   <url>
     <loc>https://necromman.github.io/content/robot-coworker-series/robot-transfer.html</loc>
     <lastmod>2026-02-16T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/robot-coworker-series/882-lines-to-ulsan.html</loc>
+    <lastmod>2026-02-18T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/robot-coworker-series/season-of-people.html</loc>
+    <lastmod>2026-02-18T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/robot-coworker-series/under-the-same-sky.html</loc>
+    <lastmod>2026-02-18T00:00:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

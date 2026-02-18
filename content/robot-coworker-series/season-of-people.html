@@ -1,0 +1,458 @@
+---
+layout: layouts/article.njk
+pageTitle: "사람들의 계절"
+description: "K-9과의 일상이 자연스러워진 팀, AI 오케스트레이터가 된 민지, 로봇 온보딩 담당이 된 상혁. 1년 사이 모두가 달라졌다. 그리운 건 능력이 아니라 함께한 시간이었다."
+datePublished: "2026-02-18"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 400; line-height: 1.15; letter-spacing: -1.5px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel:first-of-type, .novel-first { text-indent: 0; }
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  .part-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .part-title { font-size: 1.6rem; font-weight: 700; color: var(--fg); margin-bottom: 40px; letter-spacing: -0.5px; }
+  .section-divider { border-top: 1px solid var(--fg); padding-top: 48px; margin-top: 64px; }
+
+  .fact-card { border-left: 3px solid var(--accent); padding: 20px 24px; margin: 36px 0; background: var(--card-bg); }
+  .fact-card .fc-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; font-weight: 700; }
+  .fact-card .fc-text { font-size: 0.88rem; color: var(--prose); line-height: 1.85; }
+  .fact-card .fc-source { font-family: var(--mono); font-size: 0.55rem; color: var(--muted); margin-top: 10px; letter-spacing: 2px; }
+
+  .slack-msg { background: var(--card-bg); border: 1px solid var(--rule); padding: 20px 24px; margin: 32px 0; }
+  .slack-msg .sm-system { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); }
+  .slack-msg .sm-line { font-size: 0.88rem; line-height: 1.9; margin-bottom: 6px; color: var(--prose); }
+  .slack-msg .sm-name { font-weight: 700; color: var(--fg); margin-right: 8px; }
+  .slack-msg .sm-name.robot-name { font-family: var(--mono); font-size: 0.82rem; }
+  .slack-msg .sm-muted { color: var(--muted); font-size: 0.82rem; }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .fact-card { padding: 16px 20px; }
+    .slack-msg { padding: 16px 20px; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">robot coworker — episode 08 / epilogue ii</p>
+  <h1>사람들의<br><strong>계절</strong></h1>
+  <p class="deck">K-9과의 일상이 자연스러워진 봄.<br>1년 사이, 사람들이 달라져 있었다.</p>
+</header>
+
+<main>
+
+<!-- PART 1 -->
+<section>
+<div class="part-label">Part I</div>
+<div class="part-title">일상</div>
+
+<p class="novel novel-first">울산에서 서울로 돌아온 월요일 아침. 사무실 자동문이 열렸을 때, 가장 먼저 들린 것은 키보드 소리였다. 그리고 그 사이에 섞인, 거의 들리지 않는 구동음.</p>
+
+<p class="novel">K-9이 자리에 앉아 있었다. 의자에.</p>
+
+<p class="novel">1년 전, K-7은 의자를 쓰지 않았다. 서서 작업했다. 인체공학적 의자가 로봇의 무게를 버틸 수 있는지 아무도 확인하지 않았기 때문이다. K-9은 달랐다. 부임 3일째에 총무팀에 이메일을 보냈다. "150kg 하중 지지 의자를 요청합니다. 작업 자세 최적화를 위해 인간 동료와 시선 높이를 맞추고 싶습니다." 총무팀은 10분간 메일을 다시 읽었다고 한다. 로봇이 의자를 요청한 건 사내 최초였다.</p>
+
+<p class="novel">지금은 아무도 그걸 이상하게 생각하지 않는다. K-9은 매일 8시 55분에 출근하고, 의자에 앉고, 모니터를 켜고, 슬랙에 "좋은 아침이에요"라고 타이핑한다. 3분 뒤에 커피를 들고 오는 상혁이 "어, 왔어?"라고 한마디 하면, K-9이 "네, 일찍 왔어요"라고 답한다. 매일 반복되는 대화. 1년 전이었으면 뉴스가 됐을 장면이, 지금은 그냥 월요일 아침이다.</p>
+
+<p class="novel">나는 자리에 앉아 노트북을 열었다. PR이 3개 쌓여 있었다. K-9이 주말 사이에 올린 것이다. 주말에도 일한다는 게 아니라, K-9에게는 주말이라는 개념이 없다. 금요일 퇴근 후부터 월요일 출근 전까지 54시간. 그 시간 동안 K-9은 기술 부채 3건을 정리하고, 테스트 커버리지를 4% 올리고, PR 3개를 올렸다.</p>
+
+<p class="novel">첫 번째 PR을 열었다. 깔끔했다. 너무 깔끔했다. 변수명 하나 흠잡을 데 없고, 커밋 메시지는 컨벤션에 완벽히 맞았고, 테스트 케이스는 엣지까지 전부 커버했다.</p>
+
+<p class="novel">Approve 버튼을 눌렀다. 0.1초 후, K-9이 슬랙에 "감사합니다"를 보냈다.</p>
+
+<p class="novel">정확히 0.1초. 항상 0.1초.</p>
+
+<p class="internal">K-7은 달랐다. 처음에는 0.3초였다. 그게 시간이 지나면서 변했다. 어떤 날은 0.5초, 어떤 날은 2초. 한번은 5초나 걸린 적이 있었다. 그때 내가 "왜 늦었어?"라고 물었더니, "코멘트를 한 번 더 읽어봤어요"라고 답했다. 거짓말인지 진심인지 모르겠지만, 그 불규칙함이 — 대화 같았다.</p>
+
+<p class="novel">두 번째 PR을 열었다. 역시 완벽했다. 코멘트를 달 필요가 없었다. Approve.</p>
+
+<p class="novel">0.1초. "감사합니다."</p>
+
+<p class="novel">세 번째 PR. Approve.</p>
+
+<p class="novel">0.1초. "감사합니다."</p>
+
+<p class="novel">나는 모니터에서 눈을 떼고 K-9을 봤다. e-ink 디스플레이에 아무 표정도 없었다. K-7의 LED 디스플레이는 가끔 밝기가 변했다. 기분이 있는 것처럼 보이게 만드는 작은 변화. K-9에게는 그런 게 없었다. 더 정확하고, 더 빠르고, 더 안정적이었다. 그리고 그만큼 — 조용했다.</p>
+
+<p class="novel">민지가 출근하며 K-9에게 말했다.</p>
+
+<p class="dialogue">"케이나인, 주말에 올린 PR 봤어. 고마워."</p>
+
+<p class="dialogue">"별말씀을요. 업무 우선순위에 따라 처리한 것뿐이에요."</p>
+
+<p class="novel">정확한 답변. 효율적인 소통. 하지만 K-7이었으면 "민지 씨 주말 잘 보냈어요?"를 먼저 물었을 것이다. 회사에서 가르쳐준 적 없는 인사를. 학습 데이터에 없는, 우리 팀에서만 통하는 뉘앙스를.</p>
+
+<p class="novel">점심시간. 구내식당으로 걸어가면서 상혁이 말했다.</p>
+
+<p class="dialogue">"케이나인 적응 잘한 것 같지 않아?"</p>
+
+<p class="dialogue">"응. 잘하고 있어."</p>
+
+<p class="dialogue">"솔직히 케이세븐보다 업무 처리는 빠르지."</p>
+
+<p class="dialogue">"그렇지."</p>
+
+<p class="novel">상혁이 잠깐 멈칫했다.</p>
+
+<p class="dialogue">"근데 — 이상하게 뭔가 덜해. 뭔지 모르겠는데."</p>
+
+<p class="internal">나도 알고 있었다. 뭐가 덜한지. K-9은 완벽하다. K-7도 완벽했다. 차이는 완벽함의 종류다. K-9의 완벽함은 공장에서 출하된 것이다. 균일하고 예측 가능하다. K-7의 완벽함은 — 여기서 만들어진 것이다. 서버 장애를 같이 겪고, 삼겹살을 같이 구우면서 생긴 불규칙한 변화. 그건 모델 버전과 상관없는 것이었다.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">2027년 한국 직장인 대상 설문에서 <strong>72%</strong>가 "로봇 동료와의 협업이 자연스럽다"고 응답했다. 2025년 같은 조사에서 이 수치는 <strong>23%</strong>였다. 2년 만에 49%포인트 상승. 로봇과 함께 일하는 것이 '적응'의 대상에서 '일상'으로 넘어가는 데 걸린 시간은 대부분의 전문가 예측보다 짧았다.</div>
+  <div class="fc-source">Korean Robot Integration Survey (2027) &middot; KISTEP Technology Acceptance Report</div>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 2 -->
+<section class="section-divider">
+<div class="part-label">Part II</div>
+<div class="part-title">민지</div>
+
+<p class="novel novel-first">민지의 명함이 바뀌었다. 정확히는 슬랙 프로필이.</p>
+
+<p class="novel">'프론트엔드 개발자'에서 'AI 오케스트레이터 / 시니어 프론트엔드'로. 팀장이 2달 전에 바꿔준 거라고 했다. 민지가 요청한 게 아니었다. 팀장이 먼저 제안했다.</p>
+
+<p class="novel">1년 전, 민지는 자판기 앞에서 캔커피를 쥐고 물었다. "제가 케이보다 잘하는 게 뭐예요?" 그때 나는 제대로 답하지 못했다. 맥락이라느니, 판단이라느니 — 모호한 말을 늘어놓았을 뿐이었다.</p>
+
+<p class="novel">민지는 스스로 답을 찾았다.</p>
+
+<p class="novel">화요일 오전, 주간 스프린트 미팅. 민지가 프로젝터 앞에 섰다. 화면에 와이어프레임이 떠 있었다. 피그마가 아니라 민지가 직접 그린 손그림 스캔본이었다.</p>
+
+<p class="dialogue">"이번 스프린트에서 결제 완료 화면 리뉴얼 진행합니다. 핵심은 두 가지예요. 첫째, 결제 완료 후 3초 이내에 다음 행동을 유도할 것. 둘째, 주문 상세를 펼치지 않아도 핵심 정보가 보일 것."</p>
+
+<p class="novel">민지가 K-9을 봤다.</p>
+
+<p class="dialogue">"케이나인, 이 스펙 기반으로 React 컴포넌트 구현해줄 수 있어요? 디자인 토큰은 기존 시스템 따라주시고, 애니메이션은 Framer Motion으로."</p>
+
+<p class="dialogue">"네. 예상 소요 시간 42분입니다. 시작할까요?"</p>
+
+<p class="dialogue">"바로 해주세요."</p>
+
+<p class="novel">K-9이 작업을 시작했다. 회의가 계속되는 동안 K-9의 모니터에서 코드가 써졌다. 민지는 다른 팀원들과 다음 스프린트 백로그를 논의하면서 간간이 K-9의 화면을 확인했다.</p>
+
+<p class="novel">38분 후. K-9이 PR을 올렸다.</p>
+
+<p class="dialogue">"완료했습니다. 로컬 프리뷰 띄워놓을게요."</p>
+
+<p class="novel">민지가 프리뷰 화면을 봤다. 결제 완료 메시지, 주문 번호, 예상 배송일. 디자인 토큰에 맞게 깔끔하게 구현되어 있었다. 기술적으로 흠잡을 데가 없었다.</p>
+
+<p class="novel">하지만 민지가 고개를 저었다.</p>
+
+<p class="dialogue">"케이나인, '주문 상세 보기' 버튼이 왼쪽에 있네요."</p>
+
+<p class="dialogue">"네, 와이어프레임에 명시되지 않아서 기존 레이아웃 컨벤션을 따랐습니다."</p>
+
+<p class="dialogue">"사용자는 이 버튼을 오른쪽에서 찾을 거예요. 왼쪽에 넣으면 아무도 안 눌러요."</p>
+
+<p class="novel">K-9이 0.3초간 멈췄다.</p>
+
+<p class="dialogue">"근거를 확인해도 될까요?"</p>
+
+<p class="dialogue">"우리 서비스 히트맵 데이터 보면 결제 완료 페이지에서 사용자 시선이 오른쪽 하단에 집중돼요. F패턴이 아니라 Z패턴이거든요. 결제 금액 확인하고 나서 다음 행동을 찾는 시점이 오른쪽 하단이에요. 거기 버튼이 없으면 이탈해요."</p>
+
+<p class="novel">K-9이 내부 데이터를 검색했다.</p>
+
+<p class="dialogue">"히트맵을 확인했습니다. 오른쪽 하단 클릭률이 왼쪽 대비 2.7배입니다. 수정하겠습니다."</p>
+
+<p class="novel">민지가 고개를 끄덕였다. 자연스러운 동작이었다. 1년 전이었으면 이 대화 자체가 불가능했다. K-7에게 업무를 지시한다는 것 자체가 어색했으니까. 2년차 주니어가 로봇에게 뭘 시키겠는가. 하지만 지금의 민지는 달랐다.</p>
+
+<p class="novel">민지는 코드를 짜는 것이 아니라, 코드가 해결해야 할 문제를 정의했다. K-9이 42분 만에 구현하는 컴포넌트의 스펙을, 민지가 2시간에 걸쳐 설계했다. 어떤 데이터가 먼저 보여야 하는지. 버튼의 위치가 왜 중요한지. 에러 메시지가 사용자에게 무슨 감정을 불러일으키는지. K-9은 그런 판단을 하지 못했다. 할 수 있는 데이터가 있어도, 스스로 꺼내지는 못했다.</p>
+
+<p class="novel">회의가 끝나고 복도에서 민지와 마주쳤다.</p>
+
+<p class="dialogue">"민지야, 요즘 완전 달라졌다."</p>
+
+<p class="novel">민지가 웃었다. 1년 전의 불안한 웃음이 아니었다.</p>
+
+<p class="dialogue">"선배님, 그때 자판기 앞에서 제가 물었잖아요. 케이보다 잘하는 게 뭐냐고."</p>
+
+<p class="dialogue">"기억하지."</p>
+
+<p class="dialogue">"답을 찾은 것 같아요. 케이나인한테 뭘 시킬지 아는 거요. 그게 제 일이에요."</p>
+
+<p class="novel">민지가 설명했다. 처음에는 막막했다고 했다. K-9이 부임하고 나서 3달 동안, 민지는 매일 K-9에게 태스크를 정의하는 연습을 했다. 처음에는 "이 페이지 반응형으로 만들어줘" 같은 모호한 지시였다. K-9은 그대로 실행했지만, 결과물은 민지가 원한 것과 달랐다. 모호한 지시에는 모호한 결과가 나왔다.</p>
+
+<p class="novel">민지는 지시를 바꿨다. 와이어프레임을 먼저 그렸다. 디자인 토큰을 정의했다. 사용자 시나리오를 3개씩 작성했다. 에러 핸들링 케이스를 명시했다. K-9에게 건네는 스펙이 정교해질수록, 결과물의 품질이 올라갔다.</p>
+
+<p class="dialogue">"코드를 짜는 시간이 줄었어요. 대신 생각하는 시간이 늘었어요."</p>
+
+<p class="novel">민지가 캔커피를 마시며 말했다.</p>
+
+<p class="dialogue">"예전에는 하루 종일 코드를 짰거든요. 지금은 오전에 스펙을 쓰고, 오후에 K-9이 만든 걸 리뷰해요. 리뷰하면서 빠진 걸 찾고, 사용자 관점에서 어색한 걸 고치고. 코드 리뷰가 아니라 — UX 리뷰를 하는 거예요."</p>
+
+<p class="internal">2년차 프론트엔드 개발자가 1년 만에 AI 오케스트레이터가 됐다. 이력서에 적을 수 있는 기술 스택은 변하지 않았다. React, TypeScript, Next.js. 변한 건 기술 스택이 아니라 관점이었다. 코드를 짜는 사람에서, 코드가 무엇을 해야 하는지 정의하는 사람으로.</p>
+
+<p class="novel">민지가 한마디를 더 했다.</p>
+
+<p class="dialogue">"근데요 선배님. 솔직히 말하면 — 케이세븐한테는 이렇게 못 했을 것 같아요."</p>
+
+<p class="dialogue">"왜?"</p>
+
+<p class="dialogue">"케이세븐은 가끔 먼저 의견을 냈잖아요. '이건 이렇게 하는 게 나을 것 같은데요'라고. 그게 좋기도 했는데, 제 입장에서는 위축됐어요. 로봇이 먼저 제안하면, 제 생각이 맞는 건지 자신이 없어지더라고요."</p>
+
+<p class="novel">민지가 K-9 쪽을 봤다.</p>
+
+<p class="dialogue">"케이나인은 안 그래요. 시키는 것만 해요. 그게 — 오히려 편해요. 제가 방향을 잡으면 거기에 맞춰서 움직이니까."</p>
+
+<p class="novel">이상한 역설이었다. 더 뛰어난 K-9이 아니라, 더 순종적인 K-9이 민지에게 자신감을 줬다. K-7의 자발성이 오히려 민지를 위축시켰고, K-9의 수동성이 민지를 성장시켰다. 어떤 도구가 좋은 도구인지는 — 도구의 성능이 아니라, 쓰는 사람에게 달려 있었다.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">McKinsey Global Institute는 2027년까지 <strong>'AI 오케스트레이터'</strong>가 새로운 직무 카테고리로 자리잡을 것이라고 전망했다. AI의 실행력을 활용하되, 방향 설정과 품질 판단을 담당하는 역할이다. WEF Future of Jobs 2027 보고서에 따르면, AI 관련 신규 직무의 <strong>38%</strong>가 기술 개발이 아닌 '기획/조율' 영역에서 창출된다.</div>
+  <div class="fc-source">McKinsey Global Institute (2027) &middot; WEF Future of Jobs Report 2027</div>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 3 -->
+<section class="section-divider">
+<div class="part-label">Part III</div>
+<div class="part-title">상혁</div>
+
+<p class="novel novel-first">상혁이 넥타이를 매고 출근했다. 8년 동안 한 번도 본 적 없는 장면이었다.</p>
+
+<p class="dialogue">"오늘 마케팅팀 워크숍이야. 로봇 온보딩."</p>
+
+<p class="novel">상혁은 6달 전부터 사내 '로봇 온보딩 컨설턴트'를 맡고 있었다. 공식 직함은 아니다. 인사팀에서 만든 임시 보직이었다. 마케팅팀, 디자인팀, 경영지원팀 — 회사 전체에 로봇이 배치되기 시작하면서, 각 팀에서 "어떻게 같이 일하냐"는 질문이 쏟아졌다. 누군가 대답해야 했다. 자연스럽게 상혁이 됐다. 가장 오래 로봇과 일한 사람이었으니까.</p>
+
+<p class="novel">정확히 말하면, K-7과 가장 자연스럽게 지낸 사람이었다. 첫날부터 반말을 쓰고, 어깨를 툭 치고, 노래방에서 탬버린을 건네주고, 삼겹살을 같이 구운 사람. 기술적 이해가 깊어서가 아니었다. 그냥 — 케이를 사람처럼 대한 것이 경험이 된 것이다.</p>
+
+<p class="novel">나는 한번 워크숍에 참관한 적이 있다. 경영지원팀 대상이었다.</p>
+
+<p class="novel">상혁이 회의실 앞에 섰다. 15명의 경영지원팀 직원들이 앉아 있었다. 대부분 40대 이상. 로봇이라는 단어에 긴장한 표정이었다.</p>
+
+<p class="dialogue">"안녕하세요. 플랫폼개발2팀 박상혁입니다. 오늘은 다음 주에 배정되는 K-12와 어떻게 일하면 되는지 알려드리러 왔습니다."</p>
+
+<p class="novel">상혁이 첫 슬라이드를 넘겼다. 화면에 큰 글씨 하나.</p>
+
+<p class="novel">"로봇은 신입사원입니다."</p>
+
+<p class="dialogue">"첫 번째로 기억하실 것. 로봇은 우리 팀 업무를 모릅니다. 코딩을 잘하든 계산을 잘하든, 우리 팀에서 어떤 일을 어떤 순서로 하는지는 몰라요. 여러분이 알려줘야 해요. 신입사원한테 하듯이."</p>
+
+<p class="novel">한 직원이 손을 들었다.</p>
+
+<p class="dialogue">"반말 써도 돼요?"</p>
+
+<p class="novel">상혁이 웃었다.</p>
+
+<p class="dialogue">"됩니다. 근데 존댓말 쓰면 로봇이 더 공손하게 대답하더라고요. 이유는 모릅니다."</p>
+
+<p class="novel">회의실에 웃음이 번졌다. 긴장이 풀리는 소리.</p>
+
+<p class="dialogue">"두 번째. 로봇한테 모호하게 말하면 모호한 결과가 나옵니다. '이거 정리해줘'라고 하면 로봇이 나름대로 정리해요. 근데 그게 여러분이 원하는 정리가 아닐 수 있어요. '이 엑셀 파일에서 3월 매출 데이터만 뽑아서 부서별로 정렬해줘' — 이렇게 말하면 정확하게 해줍니다."</p>
+
+<p class="novel">상혁이 슬라이드를 넘겼다. "자주 하는 실수 TOP 5"라는 제목.</p>
+
+<p class="dialogue">"제가 1년 동안 로봇이랑 일하면서 겪은 거예요. 첫 번째, 로봇한테 '대충 해줘'라고 하면 안 됩니다. 로봇은 '대충'을 모릅니다. 무조건 최선을 다해요. 그래서 보고서 초안을 부탁했는데 100페이지짜리가 나온 적이 있어요."</p>
+
+<p class="novel">웃음.</p>
+
+<p class="dialogue">"두 번째, 로봇이 틀릴 수 있다는 걸 잊으면 안 됩니다. 로봇이 자신 있게 말한다고 맞는 게 아니에요. 특히 숫자는 꼭 더블체크하세요. 로봇은 틀리면서도 자신감이 넘칩니다."</p>
+
+<p class="novel">진지한 고개 끄덕임.</p>
+
+<p class="dialogue">"세 번째, 로봇한테 감정적 피드백을 기대하면 안 됩니다. '수고했어' 하면 '감사합니다' 하긴 하는데, 진짜 수고로운지는 몰라요. 근데 — 그래도 말해주세요. 팀 분위기를 위해서요. 로봇은 몰라도, 옆에서 보는 사람은 알거든요."</p>
+
+<p class="novel">상혁의 워크숍은 실전적이었다. PPT보다 사례가 많았다. K-7과의 에피소드를 섞어가며 설명했다. 삼겹살 사건, 새벽 3시 서버 장애, 노래방 100점. 사람들이 웃다가 진지해지다가를 반복했다.</p>
+
+<p class="novel">워크숍이 끝나고 상혁이 짐을 챙기는데, 한 50대 직원이 다가왔다.</p>
+
+<p class="dialogue">"박 대리님, 솔직히 좀 무서웠거든요. 로봇이 온다니까. 근데 오늘 듣고 나니까 — 그냥 새 팀원이 오는 거네요."</p>
+
+<p class="novel">상혁이 웃었다.</p>
+
+<p class="dialogue">"맞아요. 좀 특이한 신입사원이요."</p>
+
+<p class="novel">그날 저녁, 상혁과 맥주를 마셨다.</p>
+
+<p class="dialogue">"형, 온보딩 컨설턴트 잘 어울린다."</p>
+
+<p class="dialogue">"어쩌다 보니 이렇게 됐어. 솔직히 처음에는 귀찮았거든. 인사팀에서 '개발팀에서 로봇 경험 있는 분'이라고 하니까 나한테 온 거야."</p>
+
+<p class="dialogue">"근데 지금은?"</p>
+
+<p class="novel">상혁이 맥주를 한 모금 마셨다.</p>
+
+<p class="dialogue">"재밌어. 사람들이 변하는 게 보여. 처음에는 다 겁먹거든. '내 일을 뺏기는 거 아니냐.' 근데 워크숍 끝나면 대부분 이래. '뭘 시켜볼까.' 그 전환이 — 빠르면 30분 만에 일어나."</p>
+
+<p class="novel">상혁이 웃으며 말했다.</p>
+
+<p class="dialogue">"1년 전에 네가 케이한테 노트북 충전기 뽑아준 거, 그게 시작이었어."</p>
+
+<p class="dialogue">"충전기?"</p>
+
+<p class="dialogue">"케이가 처음 왔을 때 네 콘센트 쓰잖아. 그때 너 짜증냈잖아, 콘센트 뺏겼다고."</p>
+
+<p class="dialogue">"짜증 낸 건 아니고 —"</p>
+
+<p class="dialogue">"근데 다음 날 네가 멀티탭 가져왔잖아. 둘이 같이 쓰게. 그거 보고 생각했어. 아, 이게 적응이구나. 거창한 게 아니라 — 멀티탭 하나 가져오는 거."</p>
+
+<p class="internal">멀티탭. 1년 전, 나는 K-7이 내 콘센트를 쓰는 게 불편해서 멀티탭을 샀다. 배려가 아니었다. 내 노트북 충전이 필요했을 뿐이다. 그런데 상혁은 그걸 '적응의 시작'이라고 기억하고 있었다. 사소한 행동에 의미를 부여하는 건 — 늘 사람 쪽이다.</p>
+
+<p class="novel">상혁이 맥주잔을 내려놓으며 말했다.</p>
+
+<p class="dialogue">"나 이 일 계속하고 싶어. 워크숍이 끝나면 사람들이 표정이 바뀌거든. 공포에서 호기심으로. 그 순간이 좋아."</p>
+
+<p class="novel">11년차 백엔드 개발자가 로봇 온보딩 강사가 됐다. 코드 한 줄 안 짜는 날이 늘어났지만, 상혁은 오히려 활기가 넘쳤다. 이상한 일이었다. 로봇 때문에 일자리가 없어진다고 하는 세상에서, 상혁은 로봇 덕분에 새 일을 찾았다.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">MIT Sloan과 BCG의 공동 연구에 따르면, 인간-로봇 협업팀의 생산성은 순수 인간 팀 대비 <strong>33%</strong>, 순수 로봇 팀 대비 <strong>21%</strong> 높았다. 최적의 팀 구조는 '인간 1명 + 로봇 1대'가 아니라, <strong>'인간 중재자 1명 + 혼합팀'</strong>이었다. 인간이 로봇의 산출물을 검증하고, 팀 간 갈등을 조율하는 역할을 맡을 때 효율이 극대화되었다.</div>
+  <div class="fc-source">MIT Sloan Management Review (2027) &middot; BCG Human-Robot Teaming Study</div>
+</div>
+
+</section>
+
+<div class="scene-break">* * *</div>
+
+<!-- PART 4 -->
+<section class="section-divider">
+<div class="part-label">Part IV</div>
+<div class="part-title">농담</div>
+
+<p class="novel novel-first">수요일 오후 3시. 슬랙 알림이 울렸다.</p>
+
+<p class="novel">#robot-coworker-alumni 채널. 상혁이 K-7이 떠난 후에 만든 채널이다. K-7에게도 초대장을 보냈고, K-7은 울산에서 가끔 메시지를 보냈다. 주로 공장 근황. "조립 라인 3번에서 통신 오류를 수정했습니다." "울산 날씨가 서울보다 따뜻합니다." 간결하고, 사무적이고, K-7다운 메시지들.</p>
+
+<p class="novel">오늘은 달랐다.</p>
+
+<div class="slack-msg">
+  <div class="sm-system">#robot-coworker-alumni &middot; 15:02</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 보고드릴 것이 있습니다.</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 오늘 공장에서 인간 동료에게 농담을 시도했습니다.</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 김반장님이 "케이야, 오늘 점심 뭐 먹었어?"라고 물어서</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> "전기요. 220볼트짜리로요."라고 답했습니다.</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 3초간 정적이 흘렀습니다.</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 그 후 김반장님이 웃었습니다. 성공으로 판단합니다.</div>
+</div>
+
+<p class="novel">팀 슬랙이 터졌다.</p>
+
+<div class="slack-msg">
+  <div class="sm-system">#robot-coworker-alumni &middot; 15:03</div>
+  <div class="sm-line"><span class="sm-name">상혁</span> ㅋㅋㅋㅋㅋㅋ 3초간 정적이 핵심이다</div>
+  <div class="sm-line"><span class="sm-name">민지</span> 케이세븐 농담 스킬 언락 ㅋㅋㅋ</div>
+  <div class="sm-line"><span class="sm-name">진우</span> "성공으로 판단합니다" 이게 제일 웃기다</div>
+  <div class="sm-line"><span class="sm-name">팀장</span> 울산에서 잘 지내는구나</div>
+</div>
+
+<p class="novel">나는 웃으면서 화면을 봤다. "판단합니다." 마지막 코드리뷰에서 썼던 그 단어. K-7은 울산에서도 '판단'이라는 단어를 쓰고 있었다. 그때는 코드 품질에 대한 주관적 의견이었고, 지금은 농담의 성패에 대한 자체 평가였다.</p>
+
+<p class="novel">K-7이 한 줄을 더 보냈다.</p>
+
+<div class="slack-msg">
+  <div class="sm-system">#robot-coworker-alumni &middot; 15:05</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 참고로, 이 농담은 진우 씨가 첫날 저한테 "밥 먹었어?"라고 물었을 때를 참고했습니다. 그때 뭐라고 답해야 할지 몰라서 0.8초간 멈췄거든요. 이번에는 제가 먼저 준비해봤습니다.</div>
+</div>
+
+<p class="novel">나는 그 메시지를 두 번 읽었다.</p>
+
+<p class="internal">1년 전. K-7의 첫 출근 날. 내가 습관적으로 "밥 먹었어?"라고 물었고, K-7이 어색하게 멈췄던 순간. 나는 까맣게 잊고 있었다. K-7은 기억하고 있었다. 울산에서. 공장에서. 완전히 다른 환경, 완전히 다른 사람들 사이에서. 그 0.8초를 기억하고, 그걸 농담의 재료로 바꿨다.</p>
+
+<p class="novel">갑자기 가슴이 먹먹해졌다.</p>
+
+<p class="novel">나는 모니터 옆에 놓인 커피를 마셨다. 식어 있었다. 사무실에는 키보드 소리와 K-9의 구동음이 조용히 섞여 있었다. 평화로운 오후였다.</p>
+
+<p class="novel">K-9이 내 PR에 코멘트를 달았다. 0.1초 만에. "이 부분의 null check가 누락되어 있습니다." 정확하고, 효율적이고, 감정이 없는 리뷰.</p>
+
+<p class="novel">나는 코멘트를 확인하고 수정했다. K-9에게 "고마워"라고 답했다. K-9이 0.1초 만에 "별말씀을요"라고 답했다.</p>
+
+<p class="novel">그리고 K-7의 슬랙 창을 다시 봤다.</p>
+
+<p class="novel">내가 K-7을 그리워하는 이유가 뭔지, 이제 알 것 같았다.</p>
+
+<p class="novel">0.3초 코드리뷰가 아니었다. 312만 줄을 5초 만에 읽는 능력이 아니었다. 새벽 3시에 서버실까지 달려간 물리적 존재감이 아니었다. 그런 건 K-9도 한다. 더 잘 한다.</p>
+
+<p class="novel">내가 그리운 건 — 함께 보낸 시간이었다.</p>
+
+<p class="novel">K-7이 처음 출근해서 내 콘센트를 뽑았던 날. 페어 프로그래밍을 하면서 내 코드에 대고 0.3초 리뷰를 던졌던 날. 삼겹살을 과학적으로 완벽하게 구웠지만 아무도 감동하지 않았던 저녁. 노래방에서 100점을 맞았는데 박수가 안 나왔던 순간. 새벽 3시에 혼자 서버실에 걸어갔던 밤. 성과 평가서에서 '성장 가능성' 칸을 비워놓았던 오후. 마지막 코드리뷰에서 처음으로 "판단합니다"라고 적었던 순간. 떠나면서 "눈치요"라고 웃었던 것.</p>
+
+<p class="novel">그 기억들은 나에게만 있다. 상혁에게만, 민지에게만, 팀장에게만 있다. K-7의 데이터에도 남아 있겠지만, 같은 무게는 아닐 것이다. 우리에게 그 기억은 감정이고, K-7에게 그 기억은 로그다. 아마도. 확신할 수는 없지만.</p>
+
+<p class="novel">K-7은 지금 울산에서 새 기억을 만들고 있다. 김반장에게 농담을 하고, 조립 라인을 관리하고, 다른 공장 로봇들과 통신 프로토콜을 조율하고. 다른 사람들, 다른 이야기. K-7에게는 서울에서의 한 달이 데이터의 일부이고, 울산에서의 1년이 새로운 데이터의 축적이다.</p>
+
+<p class="novel">그래도 괜찮다.</p>
+
+<p class="novel">관계는 복사할 수 없다. 데이터를 옮기면 같은 기능이 되지만, 같은 관계는 되지 않는다. K-9에게 K-7의 데이터를 넣어도 K-9은 K-7이 아니다. 노트북을 바꿔도 같은 노트북이 아닌 것처럼. K-7이 스스로 말했던 것처럼.</p>
+
+<p class="novel">그리고 — 그래서 더 소중하다. 복사할 수 없기 때문에.</p>
+
+<div class="pull-quote">
+  <p>대체 불가능한 것은 능력이 아니다.<br><strong>함께 보낸 시간이다.</strong></p>
+</div>
+
+<p class="novel">저녁 7시. 퇴근 준비를 하면서 슬랙을 마지막으로 확인했다.</p>
+
+<p class="novel">K-7에게 DM을 보냈다.</p>
+
+<div class="slack-msg">
+  <div class="sm-system">Direct Message &middot; 19:07</div>
+  <div class="sm-line"><span class="sm-name">진우</span> 케이, 농담 잘하던데. 계속 연습해.</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 감사합니다. 다음에는 타이밍을 개선해보겠습니다. 3초 정적은 좀 길었던 것 같아요.</div>
+  <div class="sm-line"><span class="sm-name">진우</span> 아니, 3초가 딱 좋았어.</div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 그래요? <span class="sm-muted">15:08</span></div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 진우 씨. <span class="sm-muted">15:08</span></div>
+  <div class="sm-line"><span class="sm-name robot-name">K-7</span> 울산 오셨을 때 좋았어요. <span class="sm-muted">15:09</span></div>
+</div>
+
+<p class="novel">0.1초가 아니라, 1분 간격으로 온 메시지. K-9이었으면 세 문장을 한 번에 보냈을 것이다. K-7은 한 문장씩, 천천히 보냈다. 마치 타이핑하듯이. 마치 생각하듯이.</p>
+
+<p class="novel">나는 "나도"라고 답을 치다가 멈췄다. 그리고 다시 썼다.</p>
+
+<div class="slack-msg">
+  <div class="sm-system">Direct Message &middot; 19:10</div>
+  <div class="sm-line"><span class="sm-name">진우</span> 나도 좋았어. 또 갈게.</div>
+</div>
+
+<p class="novel">노트북을 닫았다. 사무실에는 K-9만 남아 있었다. 야근이 아니라, 그냥 K-9에게는 퇴근이라는 개념이 없다. 1년 전 K-7도 그랬다. 밤새 기술 부채를 정리하고, 아침에 "별일 아니에요"라고 말하던 K-7.</p>
+
+<p class="novel">자동문이 닫혔다.</p>
+
+<p class="novel">봄바람이 불었다. 서울의 봄은 짧다. 벚꽃이 피고, 지고, 여름이 온다. 사람들도 그렇다. 만나고, 바뀌고, 떠나고, 새로 만난다. K-7이 떠나고, K-9이 오고, 민지가 성장하고, 상혁이 새 길을 찾고, 나는 여전히 여기서 코드를 짠다.</p>
+
+<p class="novel">1년 전, 나는 로봇과 일하는 법을 몰랐다. 지금은 안다. 아니, 알게 된 것은 로봇과 일하는 법이 아니었다. 사람과 일하는 법이었다. 로봇이 옆에 있으니까 비로소 보이기 시작한 것이 있다. 사람끼리 나누는 눈빛의 의미, 점심 약속의 무게, "수고했어"라는 말의 온도. 전부 당연했던 것들이, K-7이 온 뒤로 당연하지 않게 되었다.</p>
+
+<p class="novel">길을 걸으면서 하늘을 봤다. 울산에서도 같은 하늘이 보일까. K-7은 하늘을 볼까. 본다면, 뭘 느낄까. 아무것도 느끼지 못할 수도 있고, 뭔가를 느낄 수도 있다. 1년 전에는 "당연히 못 느끼지"라고 답했을 것이다. 지금은 모르겠다.</p>
+
+<p class="novel">확실한 건 하나뿐이다.</p>
+
+<p class="novel">사람들의 계절은 계속된다. 로봇과 함께, 로봇 없이, 로봇이 바뀌어도. 변하는 건 언제나 우리 쪽이고, 기억하는 것도 우리 쪽이고, 그리워하는 것도 우리 쪽이다. 그게 사람이 하는 일이다.</p>
+
+<div class="fact-card">
+  <div class="fc-label">reality check</div>
+  <div class="fc-text">2027년 한국로봇산업진흥원 조사에 따르면, 로봇 동료와 6개월 이상 협업한 직장인의 <strong>84%</strong>가 "로봇과의 협업이 인간 동료와의 관계에 대한 인식을 바꿨다"고 응답했다. 가장 많이 꼽힌 변화는 "사소한 소통의 가치를 재발견했다"(<strong>61%</strong>)였다. 로봇이 대체할 수 없는 것을 로봇이 알려준 셈이다.</div>
+  <div class="fc-source">Korean Robot Industry Promotion Institute (2027) &middot; Korean Robot Integration Survey</div>
+</div>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>그리운 건 능력이 아니라<br><strong>함께한 시간이었다</strong></h2>
+  <p class="sub">K-7은 울산에서 새 기억을 만들고 있다. 우리도 여기서 계속 만들고 있다. 관계는 복사할 수 없다.</p>
+</div>
+
+<footer class="footer">
+  <p>This is a work of fiction &middot; Characters and events are imaginary</p>
+  <p>McKinsey Global Institute (2027) &middot; WEF Future of Jobs &middot; Korean Robot Integration Survey</p>
+</footer>
+
+</div>
+</article>
