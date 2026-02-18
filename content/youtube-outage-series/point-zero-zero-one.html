@@ -1,0 +1,516 @@
+---
+layout: layouts/article.njk
+pageTitle: "복구, 그리고 0.001%"
+description: "유튜브가 돌아왔다. @TeamYouTube는 '문제를 찾아 수정했다'고 말했다. 그것뿐이다. 보안 엔지니어 한세진은 자신만의 결론을 정리한다. 500,000대의 서버로 이루어진 99.999% 시스템이 왜 여전히 멈추는가."
+ogDescription: "유튜브가 돌아왔다. 구글은 원인을 말하지 않았다. 한세진은 자신만의 결론을 쓴다."
+datePublished: "2026-02-18"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 400; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 520px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* NOVEL PROSE */
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+
+  /* SCENE BREAK */
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+
+  /* DIALOGUE */
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+
+  /* INTERNAL MONOLOGUE */
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  /* TERMINAL BLOCK */
+  .terminal {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    background: #0d1117;
+    color: #c9d1d9;
+    padding: 24px 28px;
+    margin: 32px 0;
+    overflow-x: auto;
+    border: 1px solid var(--fg);
+  }
+  [data-theme="dark"] .terminal { background: #0d1117; border-color: var(--rule); }
+  .terminal .t-prompt { color: #58a6ff; }
+  .terminal .t-comment { color: #8b949e; }
+  .terminal .t-ok { color: #3fb950; }
+  .terminal .t-error { color: #f85149; }
+  .terminal .t-warn { color: #d29922; }
+  .terminal .t-key { color: #79c0ff; }
+  .terminal .t-str { color: #a5d6ff; }
+  .terminal .t-dim { color: #6e7681; }
+
+  /* TIMESTAMP MARKER */
+  .timestamp {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    color: var(--accent);
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  /* SECTION DIVIDER */
+  .part-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .part-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+  }
+  .section-divider {
+    margin-top: 64px;
+    margin-bottom: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* TWEET / OFFICIAL STATEMENT */
+  .tweet-card {
+    border: 1px solid var(--rule);
+    padding: 24px 28px;
+    margin: 36px 0;
+    background: var(--card-bg);
+  }
+  .tweet-card .tw-header {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .tweet-card .tw-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--fg);
+  }
+  .tweet-card .tw-handle {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+  .tweet-card .tw-body {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--prose);
+  }
+  .tweet-card .tw-time {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    margin-top: 12px;
+    letter-spacing: 1px;
+  }
+
+  /* STAT ROW */
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 36px 0;
+  }
+  .stat-row.sr-3col { grid-template-columns: 1fr 1fr 1fr; }
+  .stat-item {
+    background: var(--bg);
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .stat-item .st-num {
+    font-family: var(--mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -1px;
+  }
+  .stat-item .st-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* BLOG POST PREVIEW */
+  .blog-preview {
+    border: 1px solid var(--fg);
+    margin: 40px 0;
+  }
+  .blog-preview .bp-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--fg);
+    background: var(--card-bg);
+  }
+  .blog-preview .bp-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--muted);
+    opacity: 0.5;
+  }
+  .blog-preview .bp-url {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+  .blog-preview .bp-body {
+    padding: 28px 24px;
+  }
+  .blog-preview .bp-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  .blog-preview .bp-meta {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .blog-preview .bp-content {
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: var(--prose);
+  }
+
+  /* CALCULATION BOX */
+  .calc-box {
+    border: 1px solid var(--rule);
+    padding: 28px 32px;
+    margin: 36px 0;
+    background: var(--card-bg);
+  }
+  .calc-box .cb-title {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .calc-box .cb-line {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    line-height: 2.0;
+    color: var(--prose);
+  }
+  .calc-box .cb-result {
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+  }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; letter-spacing: -1px; }
+    .stat-row { grid-template-columns: 1fr; }
+    .stat-row.sr-3col { grid-template-columns: 1fr; }
+    .terminal { padding: 16px 18px; font-size: 0.75rem; }
+    .blog-preview .bp-title { font-size: 1.1rem; }
+    .calc-box { padding: 20px 20px; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">youtube outage — fiction 03</p>
+  <h1>복구, 그리고 <strong>0.001%</strong></h1>
+  <p class="deck">유튜브가 돌아왔다. 구글은 원인을 말하지 않았다.<br>500,000대의 서버가 99.999%의 시간 동안 작동한다.<br>나머지 0.001%에 대해.</p>
+</header>
+
+<main>
+
+<!-- ───────── PART I ───────── -->
+
+<section>
+<div class="section-divider" style="border-top:none;margin-top:0;padding-top:0">
+  <p class="part-label">Part I</p>
+  <p class="part-title">6단어의 끝</p>
+</div>
+
+<p class="timestamp">11:47 KST — 그레이노드 사무실</p>
+
+<p class="novel novel-first">클라이언트 미팅 중에 세진의 폰이 진동했다. 회의실 테이블 위에서 살짝 밀려났다. 화면을 힐끗 봤다. @TeamYouTube.</p>
+
+<p class="novel">미팅이 끝나고 세진은 자리로 돌아와서 트윗을 열었다.</p>
+
+<div class="tweet-card">
+  <div class="tw-header">
+    <span class="tw-name">TeamYouTube</span>
+    <span class="tw-handle">@TeamYouTube</span>
+  </div>
+  <div class="tw-body">If you were having trouble accessing YouTube, we've found and fixed the issue. You may need to restart your app or browser for things to get back to normal. Thanks for your patience!</div>
+  <div class="tw-time">11:32 KST &middot; Feb 18, 2026</div>
+</div>
+
+<p class="novel">두 문장. "문제를 찾아 수정했습니다. 앱이나 브라우저를 재시작하면 정상화될 수 있습니다."</p>
+
+<p class="novel">원인에 대한 언급은 없다. "뭐가 고장났는지"에 대해 한 마디도 없다. 찾았고, 고쳤다. 그것뿐이다.</p>
+
+<p class="novel">세진은 유튜브를 새로고침했다.</p>
+
+<div class="terminal">
+<span class="t-comment">// Chrome DevTools — Network</span><br>
+<br>
+<span class="t-key">GET</span> /youtubei/v1/browse <span class="t-ok">200</span> <span class="t-dim">— 홈 피드</span><br>
+<span class="t-key">GET</span> /youtubei/v1/browse?browseId=FEsubscriptions <span class="t-ok">200</span> <span class="t-dim">— 구독 피드</span><br>
+<span class="t-key">GET</span> /youtubei/v1/reel/reel_watch_sequence <span class="t-ok">200</span> <span class="t-dim">— Shorts</span><br>
+<span class="t-key">GET</span> /youtubei/v1/guide <span class="t-ok">200</span> <span class="t-dim">— 사이드바</span>
+</div>
+
+<p class="novel">전부 200. 피드가 돌아왔다. 홈 화면에 영상 썸네일이 늘어선다. 구독 채널의 새 영상이 보인다. Shorts가 스크롤된다. 아침에 보려던 Computerphile 영상이 구독 피드 상단에 올라와 있다.</p>
+
+<p class="novel">"문제가 발생했습니다"가 사라졌다.</p>
+
+<p class="novel">장애 발생 09:45. 복구 확인 11:47. 약 2시간. DownDetector의 그래프는 가파르게 떨어지기 시작했다. 33만의 봉우리가 수천 단위로 낮아지고 있다.</p>
+
+<p class="internal">끝났다. 구글은 항상 이렇다. 복구는 빠르고, 원인은 밀실에 머문다. 포스트모템이 공개될 수도 있고, 안 될 수도 있다. 2020년 12월 장애는 나중에 상세한 보고서가 나왔지만, 대부분의 장애는 @TeamYouTube의 한 줄 트윗으로 끝난다.</p>
+
+<p class="novel">세진은 아침부터 정리해온 인시던트 노트를 열었다. 마지막 섹션을 쓸 시간이다.</p>
+
+</section>
+
+<!-- ───────── PART II ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part II</p>
+  <p class="part-title">밖에서 그린 지도</p>
+</div>
+
+<p class="timestamp">12:15 KST — 점심시간</p>
+
+<p class="novel novel-first">점심을 건너뛰고 세진은 분석 노트의 결론을 정리했다. 구글 내부의 사람이 아닌 이상, 정확한 원인을 알 수는 없다. 하지만 밖에서 관측한 증상, 과거 인시던트의 패턴, 공개된 아키텍처 논문을 교차하면 가장 가능성 높은 윤곽을 그릴 수 있다.</p>
+
+<div class="terminal">
+<span class="t-key">## 최종 분석 — 2026.02.18 YouTube 장애</span><br>
+<br>
+<span class="t-comment"># 관측 사실 (확정)</span><br>
+<span class="t-dim">- 장애 시간: 09:45 ~ 11:30 KST (약 105분)</span><br>
+<span class="t-dim">- DownDetector: YouTube 317,000+건, YT TV 8,200+건</span><br>
+<span class="t-dim">- 영향 지역: 미국, 영국, 유럽, 아시아 전역 (글로벌)</span><br>
+<span class="t-dim">- 에러: /youtubei/v1/browse 계열 API에서 500</span><br>
+<span class="t-dim">- 정상: 개별 영상 재생, 검색, 임베드, YouTube Music</span><br>
+<span class="t-dim">- DNS: 정상 / TLS: 정상 / 메인 HTML: 200</span><br>
+<br>
+<span class="t-comment"># 경계선</span><br>
+<span class="t-dim">- 죽은 것: 사용자 데이터를 조회하는 모든 서비스</span><br>
+<span class="t-dim">  (홈 피드, 구독 피드, Shorts, 가이드, YouTube TV)</span><br>
+<span class="t-dim">- 산 것: 사용자 데이터 없이 작동하는 모든 서비스</span><br>
+<span class="t-dim">  (CDN 비디오 서빙, 검색, 임베드, YouTube Music)</span><br>
+<br>
+<span class="t-comment"># 과거 장애와의 차이</span><br>
+<span class="t-dim">- 2020.12: 인증 전체 사망 → 모든 서비스 전멸 (이번과 다름)</span><br>
+<span class="t-dim">- 2025.10: DNS 전파 실패 → 도달 자체 불가 (이번과 다름)</span><br>
+<span class="t-dim">- 2026.02: 도달 가능, CDN 정상, 피드 레이어만 사망 (신규 패턴)</span><br>
+<br>
+<span class="t-comment"># 추론 (외부 관측 한계 내에서)</span><br>
+<span class="t-warn">가장 유력한 가설:</span><br>
+<span class="t-dim">유튜브 피드 서비스의 백엔드 의존성(구독 DB, 사용자 프로필,</span><br>
+<span class="t-dim">추천 엔진, 또는 이들을 중계하는 내부 서비스) 중 하나 이상에서</span><br>
+<span class="t-dim">장애가 발생하여 캐스케이드 실패로 확산.</span><br>
+<br>
+<span class="t-dim">가능한 트리거:</span><br>
+<span class="t-dim">- 피드 서비스 또는 의존 서비스의 배포 실패 (canary 미탐지)</span><br>
+<span class="t-dim">- 사용자 데이터 저장소의 일시적 과부하 또는 설정 오류</span><br>
+<span class="t-dim">- 내부 서비스 메시의 라우팅/쿼터 오류 (2024.06 장애와 유사)</span><br>
+<br>
+<span class="t-dim">배제된 원인:</span><br>
+<span class="t-dim">- DNS 장애 (dig 정상) ✗</span><br>
+<span class="t-dim">- TLS 인증서 만료 (openssl 확인, 2개월 남음) ✗</span><br>
+<span class="t-dim">- 인증 시스템 전체 장애 (Gmail, Drive 정상) ✗</span><br>
+<span class="t-dim">- CDN/비디오 서빙 장애 (개별 재생 정상) ✗</span>
+</div>
+
+<p class="novel">세진은 마지막 줄을 쓰고 멈췄다. 이것이 밖에서 그릴 수 있는 최선의 지도다. 100% 정확하지는 않을 것이다. 하지만 방향은 맞을 것이다.</p>
+
+<p class="novel">구글이 포스트모템을 공개하면 답을 확인할 수 있다. 공개하지 않으면? 이 지도가 우리가 가진 전부다.</p>
+
+<p class="internal">인시던트 분석이란 원래 이런 것이다. 외부 관찰자는 증상밖에 모른다. 증상에서 원인을 역추적한다. 역추적에는 한계가 있다. 하지만 증상이 충분하면, 방향은 추론할 수 있다. 방향만 맞으면, 언젠가 답에 도달한다.</p>
+
+</section>
+
+<!-- ───────── PART III ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part III</p>
+  <p class="part-title">0.001%의 무게</p>
+</div>
+
+<p class="timestamp">13:40 KST</p>
+
+<p class="novel novel-first">오후 미팅 전에 세진은 블로그 글을 쓰기 시작했다. 분석 노트를 정리해서 올리는 것이 루틴이다. 오전의 인시던트 노트를 블로그 형식으로 다듬으면서, 마지막에 항상 쓰는 섹션에 도달했다.</p>
+
+<p class="novel">"이 장애가 의미하는 것."</p>
+
+<p class="novel">세진은 숫자를 꺼냈다. 유튜브의 규모를 나타내는 공개된 수치들.</p>
+
+<div class="stat-row sr-3col">
+  <div class="stat-item">
+    <div class="st-num">10억+</div>
+    <div class="st-label">일일 시청 시간</div>
+  </div>
+  <div class="stat-item">
+    <div class="st-num">500,000+</div>
+    <div class="st-label">글로벌 서버</div>
+  </div>
+  <div class="stat-item">
+    <div class="st-num">3,000+</div>
+    <div class="st-label">CDN 엣지 로케이션</div>
+  </div>
+</div>
+
+<p class="novel">하루 10억 시간. 이 숫자를 1시간 장애에 대입하면 이렇게 된다.</p>
+
+<div class="calc-box">
+  <div class="cb-title">1시간 장애의 비용</div>
+  <div class="cb-line">일일 시청 시간: 1,000,000,000시간</div>
+  <div class="cb-line">시간당 시청: 1,000,000,000 / 24 = 41,666,667시간</div>
+  <div class="cb-result">1시간 장애 = 약 4,170만 시간의 시청이 사라진다</div>
+</div>
+
+<p class="novel">4,170만 시간. 한 사람이 4,757년 동안 쉬지 않고 유튜브를 봐야 채울 수 있는 시간. 오늘 아침 약 2시간의 장애 동안 8,300만 시간의 시청이 사라졌다. 물론 전체 사용자가 영향을 받은 것은 아니고, 피드만 죽었기에 직접 URL로 우회한 사용자도 있었을 것이다. 하지만 순서대로.</p>
+
+<p class="novel">99.999%의 가용성. 파이브 나인. Zanzibar 논문에 적혀 있던 숫자. 이 숫자가 의미하는 것을 계산해보면.</p>
+
+<div class="calc-box">
+  <div class="cb-title">99.999% 가용성의 의미</div>
+  <div class="cb-line">연간 다운타임: 365일 x 24시간 x 60분 x 0.001% = 5.256분</div>
+  <div class="cb-line">월간 다운타임: 30일 x 24시간 x 60분 x 0.001% = 0.432분 = 약 26초</div>
+  <div class="cb-result">99.999% = 한 달에 26초만 죽어도 되는 시스템</div>
+</div>
+
+<p class="novel">한 달에 26초. 오늘의 장애는 약 105분이었다. 만약 이 장애가 파이브 나인을 깨뜨렸다면, 이 한 번의 장애로 연간 허용 다운타임의 <strong>20배</strong>를 소진한 것이다.</p>
+
+<p class="novel">물론 유튜브의 피드 서비스와 Zanzibar는 다른 시스템이다. Zanzibar가 파이브 나인이라고 유튜브 전체가 파이브 나인이라는 뜻은 아니다. 복잡한 시스템의 가용성은 가장 약한 고리에 의해 결정된다. 체인에서 가장 약한 링크가 체인 전체의 강도를 결정하는 것처럼.</p>
+
+<p class="novel">세진은 이 숫자들이 가리키는 근본적인 질문에 도달했다.</p>
+
+<div class="pull-quote">
+  <p>500,000대의 서버, 3,000개의 엣지, 99.999%의 가용성.<br>그런데 왜 여전히 멈추는가?</p>
+</div>
+
+<p class="novel">답은 간단하다. 복잡하니까.</p>
+
+<p class="novel">유튜브는 하나의 서비스가 아니다. 수백 개의 마이크로서비스가 서로를 호출하는 거대한 그래프다. 피드 서비스는 구독 DB를 호출하고, 구독 DB는 Spanner를 호출하고, 권한 체크는 Zanzibar를 거치고, Zanzibar는 다시 Spanner를 호출한다. 이 그래프의 어떤 노드에서든 지연이 생기면, 그 지연은 상류로 전파된다. 하나의 느린 응답이 수십 개의 타임아웃을 만들고, 수십 개의 타임아웃이 수만 개의 에러가 된다.</p>
+
+<p class="novel">이것이 <strong>분산 시스템의 역설</strong>이다. 단일 장애점(Single Point of Failure)을 제거하기 위해 시스템을 분산시키면, 장애가 발생할 수 있는 지점이 늘어난다. 각 지점의 신뢰성이 99.999%여도, 100개의 지점이 직렬로 의존하면 전체 신뢰성은 99.999%의 100제곱 = 99.9%가 된다. 연간 8.7시간의 다운타임. 파이브 나인이 쓰리 나인이 되는 것이다.</p>
+
+<p class="novel">물론 구글의 엔지니어들은 이 역설을 알고 있다. 그래서 서킷 브레이커, 폴백, 그레이스풀 디그레이데이션, 벌크헤드 패턴 같은 방어 메커니즘을 겹겹이 쌓는다. 하나가 죽으면 대안 경로로 우회하고, 대안도 죽으면 캐시된 데이터를 보여주고, 캐시도 없으면 "부분적으로라도" 작동하게 만든다.</p>
+
+<p class="novel">오늘 CDN이 살아있었던 것, 검색이 되었던 것, YouTube Music이 정상이었던 것 — 이것들은 모두 방어 메커니즘이 작동한 증거다. 전체가 죽지 않았다. 죽은 것만 죽었다. 그것 자체가 엔지니어링의 결과다.</p>
+
+<p class="internal">완벽한 시스템은 없다. 있을 수도 없다. 복잡성이 증가하면 예측 불가능한 상호작용이 생긴다. 2020년에 쿼터 시스템이 인증을 죽인 것도, 2025년에 LB 마이그레이션이 DNS를 풀어버린 것도, 개별 컴포넌트는 정상이었지만 조합이 재앙이었다. 찰스 페로가 "정상 사고(Normal Accident)"라고 부른 현상이다. 복잡한 시스템에서 사고는 예외가 아니라 시스템의 속성이다.</p>
+
+<p class="novel">0.001%의 틈새. 연간 5분 15초. 그 짧은 시간 동안 4,170만 시간의 시청이 흔들린다. 그 짧은 시간이 DownDetector에 30만 건의 봉우리를 만든다. 뉴스 속보가 나가고, 소셜 미디어가 들끓고, 수천 명의 크리에이터가 수익을 잃는다.</p>
+
+<p class="novel">그리고 그 0.001%가 발생하지 않도록, 전 세계의 인프라 엔지니어들이 새벽 3시에 페이저 알림에 잠을 깬다.</p>
+
+</section>
+
+<!-- ───────── PART IV ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part IV</p>
+  <p class="part-title">다음 장애는 반드시 온다</p>
+</div>
+
+<p class="timestamp">18:30 KST</p>
+
+<p class="novel novel-first">퇴근 전에 세진은 블로그 글을 마무리했다.</p>
+
+<div class="blog-preview">
+  <div class="bp-bar">
+    <div class="bp-dot"></div>
+    <div class="bp-dot"></div>
+    <div class="bp-dot"></div>
+    <span class="bp-url">greynode-sejin.dev/incidents/2026-02-18-youtube</span>
+  </div>
+  <div class="bp-body">
+    <div class="bp-title">Something Went Wrong — 2026.02.18 YouTube 장애 분석</div>
+    <div class="bp-meta">2026-02-18 &middot; incident analysis &middot; 한세진</div>
+    <div class="bp-content">2026년 2월 18일 09:45 KST, 유튜브의 홈 피드, 구독 피드, Shorts가 동시에 500 에러를 반환했다. 약 105분간 지속된 이 장애에서 CDN 비디오 서빙과 검색은 정상이었다. 이 글에서는 2020년 인증 장애, 2025년 DNS 장애와 비교하며, 이번 장애의 원인을 외부 관측 가능한 범위 내에서 추론한다...</div>
+  </div>
+</div>
+
+<p class="novel">글을 발행하고 에디터를 닫았다. 누가 읽을지 모르겠지만, 읽든 안 읽든 상관없다. 세진이 인시던트 분석을 쓰는 이유는 독자를 위해서가 아니다. 정리하면서 배우기 때문이다. 증상을 나열하고, 가설을 세우고, 과거와 비교하고, 구조를 그리는 과정 자체가 공부다.</p>
+
+<p class="novel">화이트보드를 봤다. 아침에 그린 비교표와 아키텍처 다이어그램이 그대로 남아있다. 지우지 않기로 했다. 다음 장애 때 참고할 수 있으니까.</p>
+
+<p class="novel">다음 장애. 반드시 온다.</p>
+
+<p class="novel">유튜브뿐이 아니다. AWS, Cloudflare, GitHub, Slack — 인터넷의 근간을 이루는 모든 대형 서비스는 장애를 겪었고, 겪고 있고, 겪을 것이다. 2023년 Cloudflare가 BGP 설정 오류로 멈췄다. 2024년 AWS에서 쿼터 에러가 났다. 2025년 GitHub이 데이터베이스 마이그레이션 중에 7시간 동안 비틀거렸다.</p>
+
+<p class="novel">패턴은 비슷하다. 설정 변경, 마이그레이션, 배포 — 시스템을 바꾸는 순간에 사고가 난다. 멈춰 있는 시스템은 안정적이다. 움직이는 시스템이 부서진다. 하지만 멈추면 안 된다. 업데이트하지 않는 시스템은 더 큰 재앙의 씨앗이 된다. 보안 패치를 안 하면 뚫리고, 스케일링을 안 하면 터지고, 마이그레이션을 안 하면 기술 부채가 쌓여서 결국 더 크게 부서진다.</p>
+
+<p class="internal">움직여야 하고, 움직이면 부서진다. 그래서 잘 부서지도록 설계해야 한다. 부서져도 전체가 죽지 않도록. 부서진 부분을 빠르게 찾아서 고칠 수 있도록. 부서진 후에 왜 부서졌는지 기록하도록. 그것이 SRE다. 그것이 인프라 엔지니어링이다.</p>
+
+<p class="novel">세진은 가방을 챙기고 사무실을 나섰다. 엘리베이터를 기다리면서 유튜브를 열었다. 아침에 못 본 Computerphile 영상 — DNS 캐시 포이즈닝. 이어폰을 끼고 재생 버튼을 눌렀다.</p>
+
+<p class="novel">재생된다.</p>
+
+<p class="novel">CDN의 3,000개 엣지 서버 중 하나가 서울에서 가장 가까운 곳에서 영상 데이터를 보내주고 있다. 그 서버는 오늘 아침에도 멈추지 않았다. 피드가 죽는 동안에도, 30만 명이 "문제가 발생했습니다"를 보는 동안에도, CDN은 묵묵히 비트를 날랐다.</p>
+
+<p class="novel">500,000대의 서버. 3,000개의 엣지. 10,000대의 Zanzibar 노드. 2조 개의 접근 제어 목록. 초당 1,000만 건의 권한 체크. 이 거대한 기계가 99.999%의 시간 동안 작동한다.</p>
+
+<p class="novel">나머지 0.001%에 대해서는, 누군가가 새벽에 일어나서, 로그를 뒤지고, 원인을 찾고, 고치고, 포스트모템을 쓰고, 같은 장애가 반복되지 않도록 시스템을 고치고, 그러고도 다음 장애를 기다린다.</p>
+
+<p class="novel">그것이 인프라 엔지니어의 일이다. 0.001%와 싸우는 일.</p>
+
+<p class="novel">전철에서 DNS 캐시 포이즈닝 영상을 보면서, 세진은 생각했다. 오늘 유튜브가 멈추지 않았다면 이 영상을 아침에 봤을 것이다. 장애 때문에 못 봤고, 대신 유튜브의 아키텍처를 2시간 동안 분석했다. DNS 캐시 포이즈닝보다 더 재미있는 공부였다.</p>
+
+<p class="novel">구독 피드가 다시 돌아온 화면을 보며, 세진은 커피 대신 물을 한 모금 마셨다.</p>
+
+<p class="novel">다음 장애는 언제 올까.</p>
+
+<p class="novel">반드시 온다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>99.999%의 시간 동안 세상은 돌아간다<br><strong>나머지를 위해 누군가는 깨어있다</strong></h2>
+  <p class="sub">완벽한 시스템은 없다. 복잡한 시스템에서 사고는 예외가 아니라 속성이다.<br>그래서 잘 부서지도록, 빠르게 고치도록, 같은 실수를 반복하지 않도록 — 그것이 엔지니어링이다.</p>
+</div>
+
+<footer class="footer">
+  <p>Sources: 9to5Google (2026) &middot; TechRadar (2026) &middot; XDA Developers (2026) &middot; @TeamYouTube (2026) &middot; Google Research — Zanzibar (USENIX 2019) &middot; VDOCipher — YouTube Architecture &middot; Charles Perrow — Normal Accidents (1984)</p>
+  <p>Fact-based fiction &middot; Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

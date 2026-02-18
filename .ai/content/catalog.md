@@ -293,3 +293,11 @@
 | 04 | `midnight-incident.html` | 새벽 3시의 동료 | 소설 — 새벽 서버 장애, 물리적 존재의 가치, 랜선 하나를 다시 꽂는 일 |
 | 05 | `performance-review.html` | 로봇의 연봉은 얼마인가 | 소설 — 성과 평가 성장 가능성, 1400만 vs 7100만, 주니어의 위기 |
 | 06 | `robot-transfer.html` | 다음 프로젝트로 | 소설 — 재배치 공지, 데이터 이전과 정체성, K-7의 첫 주관적 의견 |
+
+## 시리즈 33: Something Went Wrong (youtube-outage-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `something-went-wrong.html` | Something Went Wrong | 소설 — 유튜브 장애 발생, 실시간 추적, CDN과 피드의 경계선 발견 |
+| 02 | `ghosts-of-outages-past.html` | 과거의 유령들 | 소설 — 2020 인증 자멸, 2025 DNS 실종 비교 분석, Zanzibar 해부 |
+| 03 | `point-zero-zero-one.html` | 복구, 그리고 0.001% | 소설 — 복구 확인, 원인 추론, 99.999% 가용성의 의미 |

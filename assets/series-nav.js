@@ -276,6 +276,14 @@
         { slug: 'performance-review', title: '로봇의 연봉은 얼마인가' },
         { slug: 'robot-transfer', title: '다음 프로젝트로' }
       ]
+    },
+    'youtube-outage-series': {
+      title: 'Something Went Wrong',
+      articles: [
+        { slug: 'something-went-wrong', title: 'Something Went Wrong' },
+        { slug: 'ghosts-of-outages-past', title: '과거의 유령들' },
+        { slug: 'point-zero-zero-one', title: '복구, 그리고 0.001%' }
+      ]
     }
   };
 

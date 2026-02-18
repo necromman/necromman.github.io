@@ -1,0 +1,708 @@
+---
+layout: layouts/article.njk
+pageTitle: "과거의 유령들"
+description: "2020년, 구글 인증 시스템이 자기 자신을 죽였다. 2025년, DNS가 길을 잃었다. 보안 엔지니어 한세진은 과거의 장애들을 불러내 오늘의 장애와 대조한다. Zanzibar, Spanner, Borg — 거대한 시스템의 지도를 펼친다."
+ogDescription: "구글 인증 자멸, DNS 실종, 그리고 오늘의 장애. 과거의 유령들이 가리키는 방향을 따라간다."
+datePublished: "2026-02-18"
+---
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 400; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 520px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* NOVEL PROSE */
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+
+  /* SCENE BREAK */
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+
+  /* DIALOGUE */
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+
+  /* INTERNAL MONOLOGUE */
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  /* TERMINAL BLOCK */
+  .terminal {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    background: #0d1117;
+    color: #c9d1d9;
+    padding: 24px 28px;
+    margin: 32px 0;
+    overflow-x: auto;
+    border: 1px solid var(--fg);
+  }
+  [data-theme="dark"] .terminal { background: #0d1117; border-color: var(--rule); }
+  .terminal .t-prompt { color: #58a6ff; }
+  .terminal .t-comment { color: #8b949e; }
+  .terminal .t-ok { color: #3fb950; }
+  .terminal .t-error { color: #f85149; }
+  .terminal .t-warn { color: #d29922; }
+  .terminal .t-key { color: #79c0ff; }
+  .terminal .t-str { color: #a5d6ff; }
+  .terminal .t-dim { color: #6e7681; }
+
+  /* TIMESTAMP MARKER */
+  .timestamp {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    color: var(--accent);
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  /* SECTION DIVIDER */
+  .part-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .part-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+  }
+  .section-divider {
+    margin-top: 64px;
+    margin-bottom: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* INCIDENT CARD */
+  .incident-card {
+    border: 1px solid var(--rule);
+    margin: 40px 0;
+  }
+  .incident-card .ic-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 16px;
+    align-items: baseline;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--rule);
+    background: var(--card-bg);
+  }
+  .incident-card .ic-year {
+    font-family: var(--mono);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -1px;
+  }
+  .incident-card .ic-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--fg);
+  }
+  .incident-card .ic-duration {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .incident-card .ic-body {
+    padding: 24px;
+  }
+
+  /* TIMELINE (inside incident card) */
+  .ic-timeline {
+    list-style: none;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    display: grid;
+    gap: 1px;
+    margin: 20px 0 0;
+  }
+  .ic-timeline li {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    background: var(--bg);
+  }
+  .ic-timeline .it-time {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    padding: 14px 12px;
+    text-align: right;
+    background: var(--card-bg);
+  }
+  .ic-timeline .it-desc {
+    font-size: 0.88rem;
+    color: var(--prose);
+    line-height: 1.7;
+    padding: 14px 20px;
+  }
+
+  /* ARCHITECTURE DIAGRAM (text-based) */
+  .arch-diagram {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    padding: 28px 32px;
+    margin: 36px 0;
+    overflow-x: auto;
+    text-align: center;
+    color: var(--prose);
+  }
+  .arch-diagram .ad-label {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    text-align: left;
+  }
+  .arch-diagram .ad-node {
+    display: inline-block;
+    border: 1px solid var(--fg);
+    padding: 8px 16px;
+    margin: 4px;
+    background: var(--bg);
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .arch-diagram .ad-node-accent {
+    display: inline-block;
+    border: 2px solid var(--accent);
+    padding: 8px 16px;
+    margin: 4px;
+    background: var(--bg);
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .arch-diagram .ad-node-dead {
+    display: inline-block;
+    border: 2px solid var(--accent);
+    padding: 8px 16px;
+    margin: 4px;
+    background: var(--bg);
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: line-through;
+  }
+  .arch-diagram .ad-arrow {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin: 0 4px;
+  }
+  .arch-diagram .ad-note {
+    font-size: 0.65rem;
+    color: var(--muted);
+    margin-top: 12px;
+    text-align: left;
+    letter-spacing: 0;
+  }
+
+  /* COMPARISON TABLE */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 36px 0;
+  }
+  .compare-cell {
+    background: var(--bg);
+    padding: 20px;
+  }
+  .compare-cell.cc-header {
+    background: var(--card-bg);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent);
+    padding: 14px 20px;
+  }
+  .compare-cell .cc-label {
+    font-family: var(--serif);
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .compare-cell .cc-value {
+    font-size: 0.9rem;
+    color: var(--prose);
+    line-height: 1.6;
+  }
+
+  /* DATA STAT */
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 36px 0;
+  }
+  .stat-item {
+    background: var(--bg);
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .stat-item .st-num {
+    font-family: var(--mono);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -1px;
+  }
+  .stat-item .st-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; letter-spacing: -1px; }
+    .incident-card .ic-header { grid-template-columns: 1fr; gap: 4px; }
+    .ic-timeline li { grid-template-columns: 60px 1fr; }
+    .ic-timeline .it-time { padding: 12px 8px; font-size: 0.7rem; }
+    .ic-timeline .it-desc { padding: 12px 14px; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr; }
+    .terminal { padding: 16px 18px; font-size: 0.75rem; }
+    .arch-diagram { padding: 20px 16px; font-size: 0.72rem; }
+    .arch-diagram .ad-node,
+    .arch-diagram .ad-node-accent,
+    .arch-diagram .ad-node-dead { padding: 6px 10px; font-size: 0.7rem; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">youtube outage — fiction 02</p>
+  <h1>과거의 <strong>유령들</strong></h1>
+  <p class="deck">구글은 과거에 같은 방식으로 죽은 적이 있다.<br>죽은 방식을 비교하면, 이번에 뭐가 죽었는지 보인다.</p>
+</header>
+
+<main>
+
+<!-- ───────── PART I ───────── -->
+
+<section>
+<div class="section-divider" style="border-top:none;margin-top:0;padding-top:0">
+  <p class="part-label">Part I</p>
+  <p class="part-title">인증이 자기 자신을 죽인 날</p>
+</div>
+
+<p class="timestamp">10:48 KST — 2호선 을지로입구역</p>
+
+<p class="novel novel-first">전철 안에서 세진은 노트북 대신 폰을 꺼냈다. 이어폰을 끼고, 자신의 인시던트 아카이브 — GitHub 프라이빗 레포에 마크다운으로 정리해둔 분석 노트 — 를 열었다. 2020년 12월 14일 파일을 탭했다.</p>
+
+<p class="novel">그날 새벽, KISA 침해대응팀의 당직실에서 알람이 울렸다. 세진이 입사한 지 열 달째 되던 때였다. 구글의 거의 모든 서비스가 동시에 멈췄다. Gmail, YouTube, Drive, Docs, Calendar, Google Cloud Platform. 전 세계. 47분간.</p>
+
+<p class="novel">당시 세진은 한국 내 영향을 모니터링하면서, 구글이 나중에 공개한 인시던트 보고서를 한 줄 한 줄 읽었다. 그 보고서의 내용은 지금도 기억한다. 너무 기괴한 원인이었기 때문이다.</p>
+
+<div class="incident-card">
+  <div class="ic-header">
+    <span class="ic-year">2020</span>
+    <span class="ic-title">인증 시스템이 자기 자신을 죽였다</span>
+    <span class="ic-duration">47분</span>
+  </div>
+  <div class="ic-body">
+    <p class="novel novel-first" style="margin-bottom:16px">구글의 모든 서비스는 Google User ID Service라는 중앙 인증 시스템을 거친다. "이 사용자가 로그인되어 있는가?" — 이 하나의 질문에 답하는 서비스다. Gmail도, YouTube도, Drive도 이 서비스에 물어본다. 답이 없으면 아무것도 안 된다.</p>
+
+    <p class="novel" style="margin-bottom:16px">User ID Service의 내부 데이터는 분산 데이터베이스에 저장되고, 구글의 자동 쿼터 관리 시스템이 이 데이터베이스의 용량을 관리한다. 쿼터 시스템은 "현재 사용량"을 모니터링하고, 그에 맞게 용량을 조절한다.</p>
+
+    <p class="novel" style="margin-bottom:16px">문제는 업데이트 과정에서 발생했다. 구글은 인증 시스템을 새 버전으로 마이그레이션하는 작업을 진행 중이었다. 이전 버전의 컴포넌트를 남겨둔 상태에서 새 버전을 배포했다. 이전 컴포넌트가 "사용량 0"이라는 잘못된 값을 보고했다. 구글은 이 오류를 알고 있었고, 유예 기간(grace period)을 설정해서 자동 대응을 막아놓았다.</p>
+
+    <p class="novel" style="margin-bottom:20px"><strong>유예 기간이 만료됐다.</strong></p>
+
+    <p class="novel" style="margin-bottom:16px">자동 쿼터 관리 시스템은 "사용량 0"이라는 신호를 그대로 믿었다. "사용량이 0이니까 할당된 용량도 0이면 되겠지." 시스템은 User ID Service의 용량을 0으로 축소했다. 전 세계의 구글 사용자가 동시에 인증 실패를 경험했다.</p>
+
+    <ul class="ic-timeline">
+      <li>
+        <span class="it-time">03:47</span>
+        <div class="it-desc">장애 발생. 인증 서비스 용량 0으로 축소. <strong>Gmail, YouTube, Drive, Calendar 전체 다운.</strong></div>
+      </li>
+      <li>
+        <span class="it-time">04:08</span>
+        <div class="it-desc">SRE 팀이 원인 파악. "쿼터 시스템이 인증 서비스를 죽였다." 수정 방안 결정.</div>
+      </li>
+      <li>
+        <span class="it-time">04:22</span>
+        <div class="it-desc">한 데이터센터에서 쿼터 강제 비활성화. 해당 DC에서 서비스 복구 시작.</div>
+      </li>
+      <li>
+        <span class="it-time">04:27</span>
+        <div class="it-desc">전체 데이터센터에 같은 조치 적용.</div>
+      </li>
+      <li>
+        <span class="it-time">04:33</span>
+        <div class="it-desc">에러율 정상 수준으로 복귀. <strong>총 장애 시간: 47분.</strong></div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<p class="novel">세진은 전철이 흔들리는 동안 그 보고서의 핵심 문장을 떠올렸다.</p>
+
+<div class="pull-quote">
+  <p>"안전장치가 사형선고를 내렸다."</p>
+  <p class="attr">2020.12.14 incident analysis</p>
+</div>
+
+<p class="novel">쿼터 관리 시스템은 안전장치다. 서비스가 과도한 리소스를 소비하면 자동으로 제한을 건다. 그래야 한 서비스의 폭주가 전체 인프라를 끌어내리지 않는다. 하지만 그 안전장치가 잘못된 데이터를 받으면? 정상적인 서비스를 "과도한 사용량"이 아니라 "사용량 0"으로 인식하면? 안전장치는 자신의 임무를 충실히 수행한다 — 용량을 0으로 맞추는 것.</p>
+
+<p class="internal">시스템이 고장난 게 아니었다. 시스템은 완벽하게 작동했다. 그런데 결과가 재앙이었다. 잘못된 입력에 정확하게 반응한 것. 이것이 대규모 시스템 장애의 가장 무서운 패턴이다. 버그가 아니라 논리적으로 올바른 재앙.</p>
+
+<p class="novel">2020년 장애의 교훈은 명확했다. 인증이 죽으면 <strong>전부</strong> 죽는다. Gmail도, YouTube도, Drive도. 모든 서비스가 하나의 인증 시스템에 의존하기 때문이다. 그날 장애의 증상은 단순했다 — 로그인이 안 되니까 아무것도 안 된다.</p>
+
+<p class="novel">하지만 오늘은 다르다. 유튜브만 죽었다. Gmail은 된다. 구글 검색도 된다. 그리고 유튜브 안에서도 피드만 죽고, 개별 영상 재생은 된다.</p>
+
+<p class="novel">2020년과 같은 패턴이 아니다.</p>
+
+</section>
+
+<!-- ───────── PART II ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part II</p>
+  <p class="part-title">DNS가 길을 잃은 오후</p>
+</div>
+
+<p class="timestamp">10:55 KST — 을지로3가역 환승 통로</p>
+
+<p class="novel novel-first">사람들 사이를 걸으며 세진은 두 번째 파일을 열었다. 2025년 10월 15일. 4개월 전.</p>
+
+<div class="incident-card">
+  <div class="ic-header">
+    <span class="ic-year">2025</span>
+    <span class="ic-title">DNS가 길을 잃었다</span>
+    <span class="ic-duration">~90분</span>
+  </div>
+  <div class="ic-body">
+    <p class="novel novel-first" style="margin-bottom:16px">구글은 로드밸런서를 마이그레이션하고 있었다. 트래픽을 분산하는 장비를 새 버전으로 교체하는 작업. 이런 마이그레이션은 보통 롤링 업데이트로 진행한다 — 구 장비에서 신 장비로 트래픽을 점진적으로 넘기면서, 문제가 생기면 즉시 롤백.</p>
+
+    <p class="novel" style="margin-bottom:16px">문제는 DNS 전파 시간이었다. 로드밸런서가 바뀌면 DNS 레코드도 업데이트해야 한다. "youtube.com은 이 IP 주소야"라는 정보가 전 세계의 DNS 서버로 퍼져나가야 한다. 이 전파에는 시간이 걸린다. DNS 레코드에는 TTL(Time to Live)이라는 캐시 유효 시간이 설정되어 있고, 각 ISP의 DNS 서버는 TTL이 만료될 때까지 이전 레코드를 쓴다.</p>
+
+    <p class="novel" style="margin-bottom:16px">로드밸런서는 바뀌었는데 DNS는 아직 구 주소를 가리키고 있었다. 사용자의 브라우저는 이미 존재하지 않는 서버에 접속을 시도했다. <strong>youtube.com을 치면 아무것도 뜨지 않았다.</strong></p>
+
+    <p class="novel" style="margin-bottom:16px">90분 만에 DownDetector에 38만 건의 신고가 쏟아졌다. 미국, 영국, 캐나다.</p>
+  </div>
+</div>
+
+<p class="novel">DNS 장애의 증상은 2020년과 완전히 달랐다. 2020년은 서버에 도달은 되지만 인증이 안 됐다. 2025년은 서버에 <strong>도달 자체가 안 됐다</strong>. 브라우저가 youtube.com이라는 이름을 IP 주소로 변환하지 못했으니까. 전화번호부에서 이름을 찾았는데, 적힌 번호가 폐번이었던 것과 같다.</p>
+
+<p class="novel">하지만 오늘은? 세진이 아침에 `dig youtube.com`을 쳤을 때 IP가 잘 나왔다. 142.250.196.110. DNS는 정상이다. 서버에 도달도 된다. `curl`에 200이 돌아왔다. 문제는 도달한 후에 일어난다.</p>
+
+<p class="novel">2025년과도 같은 패턴이 아니다.</p>
+
+</section>
+
+<!-- ───────── PART III ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part III</p>
+  <p class="part-title">세 장애의 해부</p>
+</div>
+
+<p class="timestamp">11:08 KST — 그레이노드 사무실</p>
+
+<p class="novel novel-first">사무실에 도착하자마자 세진은 가방도 내려놓기 전에 화이트보드 앞에 섰다. 그레이노드의 사무실은 성수동 리노베이션 건물 5층에 있다. 8명짜리 보안 스타트업. 세진이 쓰는 화이트보드는 원래 미팅용인데, 반은 항상 세진의 인시던트 분석으로 채워져 있다.</p>
+
+<p class="novel">세 장애를 나란히 그렸다.</p>
+
+<div class="compare-grid">
+  <div class="compare-cell cc-header">2020.12</div>
+  <div class="compare-cell cc-header">2025.10</div>
+  <div class="compare-cell cc-header">2026.02</div>
+
+  <div class="compare-cell">
+    <div class="cc-label">원인</div>
+    <div class="cc-value">인증 시스템 쿼터 자멸</div>
+  </div>
+  <div class="compare-cell">
+    <div class="cc-label">원인</div>
+    <div class="cc-value">LB 마이그레이션 중 DNS 전파 실패</div>
+  </div>
+  <div class="compare-cell">
+    <div class="cc-label">원인</div>
+    <div class="cc-value">???</div>
+  </div>
+
+  <div class="compare-cell">
+    <div class="cc-label">증상</div>
+    <div class="cc-value">모든 서비스 전체 사망</div>
+  </div>
+  <div class="compare-cell">
+    <div class="cc-label">증상</div>
+    <div class="cc-value">서버 도달 불가</div>
+  </div>
+  <div class="compare-cell">
+    <div class="cc-label">증상</div>
+    <div class="cc-value">피드/추천만 사망, CDN/검색 정상</div>
+  </div>
+
+  <div class="compare-cell">
+    <div class="cc-label">레이어</div>
+    <div class="cc-value">인증 (인프라)</div>
+  </div>
+  <div class="compare-cell">
+    <div class="cc-label">레이어</div>
+    <div class="cc-value">네트워크 (인프라)</div>
+  </div>
+  <div class="compare-cell">
+    <div class="cc-label">레이어</div>
+    <div class="cc-value">애플리케이션 (피드/사용자 데이터)</div>
+  </div>
+
+  <div class="compare-cell">
+    <div class="cc-label">영향 범위</div>
+    <div class="cc-value">Gmail, YouTube, Drive, Calendar 전부</div>
+  </div>
+  <div class="compare-cell">
+    <div class="cc-label">영향 범위</div>
+    <div class="cc-value">YouTube 전체</div>
+  </div>
+  <div class="compare-cell">
+    <div class="cc-label">영향 범위</div>
+    <div class="cc-value">YouTube 피드 + YouTube TV만</div>
+  </div>
+
+  <div class="compare-cell">
+    <div class="cc-label">CDN</div>
+    <div class="cc-value">사망</div>
+  </div>
+  <div class="compare-cell">
+    <div class="cc-label">CDN</div>
+    <div class="cc-value">도달 불가</div>
+  </div>
+  <div class="compare-cell">
+    <div class="cc-label">CDN</div>
+    <div class="cc-value">정상</div>
+  </div>
+</div>
+
+<p class="novel">화이트보드에 비교표를 다 그리고 나서 세진은 한 발 물러섰다. 뒤에서 커피를 마시던 동료가 화이트보드를 힐끗 봤다.</p>
+
+<p class="dialogue">"유튜브 또 터졌어?"</p>
+
+<p class="dialogue">"오늘 아침에. 아직 원인 발표 안 났어."</p>
+
+<p class="dialogue">"또 DNS야?"</p>
+
+<p class="dialogue">"아니. 이번은 달라."</p>
+
+<p class="novel">세진은 비교표의 핵심을 짚었다.</p>
+
+<p class="novel">2020년은 밑바닥이 무너졌다. 인증이 죽었으니 모든 것이 동시에 죽었다. 진단이 쉽다 — 공통 의존성을 찾으면 된다. 모든 서비스가 의존하는 하나가 뭔지 보면 된다.</p>
+
+<p class="novel">2025년은 문이 잠겼다. DNS가 풀려서 건물에 들어갈 수 없었다. 이것도 진단이 상대적으로 쉽다 — `dig` 한 번이면 DNS 이상을 알 수 있다.</p>
+
+<p class="novel">2026년은? 건물에 들어갔고, 엘리베이터도 타고, 복도도 지났는데, 특정 방의 문만 안 열린다. 다른 방은 다 열린다. CDN은 살아있고, 검색은 되고, 개별 영상은 재생된다. 하지만 "내 구독 피드"는 안 보인다. "내 홈 화면"은 에러다.</p>
+
+<p class="internal">부분 사망. 가장 진단하기 어려운 유형. 전체가 죽으면 공통 원인이 하나다. 부분만 죽으면 경계선을 그려야 한다. 산 것과 죽은 것 사이의 정확한 경계선. 그리고 그 경계선 위에 원인이 있다.</p>
+
+<p class="novel">세진은 이미 아침에 그 경계선을 그렸다. <strong>"사용자를 아는 것"과 "사용자를 모르는 것"</strong> 사이. 피드를 만들려면 사용자를 알아야 한다 — 구독 목록, 시청 기록, 추천 데이터. 영상을 재생하려면 사용자를 몰라도 된다 — 비디오 ID만 있으면 CDN이 서빙한다.</p>
+
+<p class="novel">이 경계선이 가리키는 방향이 있다. 구글이 수백 개의 서비스에서 "이 사용자가 이 데이터에 접근할 수 있는가?"를 판단하는 시스템. 구글이 2019년에 직접 논문으로 공개한 시스템.</p>
+
+</section>
+
+<!-- ───────── PART IV ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part IV</p>
+  <p class="part-title">Zanzibar — 2조 개의 열쇠</p>
+</div>
+
+<p class="timestamp">11:20 KST</p>
+
+<p class="novel novel-first">세진은 자리에 앉아 USENIX ATC 2019 논문을 열었다. "Zanzibar: Google's Consistent, Global Authorization System." 구글이 직접 쓴 자신들의 권한 관리 시스템에 대한 논문이다. 보안 엔지니어라면 한 번쯤 읽어봤을 문서.</p>
+
+<p class="novel">Zanzibar를 설명하는 가장 쉬운 방법은 이렇다. 구글의 모든 서비스는 매 순간 하나의 질문을 던진다.</p>
+
+<div class="pull-quote">
+  <p>"사용자 U가 객체 O에 대해 관계 R을 가지는가?"</p>
+  <p class="attr">zanzibar query model</p>
+</div>
+
+<p class="novel">예를 들면 이렇다. "한세진이 이 유튜브 구독 피드를 볼 수 있는가?" "한세진이 이 구글 드라이브 문서를 편집할 수 있는가?" "한세진이 이 캘린더 일정을 삭제할 수 있는가?" 구글의 수백 개 서비스 — YouTube, Drive, Photos, Calendar, Maps, Cloud — 가 매 요청마다 이 질문을 Zanzibar에 던진다.</p>
+
+<p class="novel">Zanzibar의 규모는 이렇다.</p>
+
+<div class="stat-row">
+  <div class="stat-item">
+    <div class="st-num">10,000+</div>
+    <div class="st-label">서버 (30+ 지리적 복제본)</div>
+  </div>
+  <div class="stat-item">
+    <div class="st-num">2조+</div>
+    <div class="st-label">접근 제어 목록 (ACL)</div>
+  </div>
+  <div class="stat-item">
+    <div class="st-num">1,000만+/초</div>
+    <div class="st-label">권한 체크 요청</div>
+  </div>
+</div>
+
+<p class="novel">초당 1,000만 건. 1초에 천만 번 "이 사용자가 이걸 할 수 있나?"를 판단한다. 그리고 그 판단의 95%를 10밀리초 안에 끝낸다. 논문에 따르면 3년간 99.999%의 가용성을 유지했다.</p>
+
+<p class="novel">99.999%. 파이브 나인. 연간 다운타임 5분 15초. 이건 시스템 자체가 극도로 안정적이라는 뜻이다. 하지만 세진이 관심 있는 건 시스템 자체가 아니다.</p>
+
+<p class="internal">Zanzibar 자체가 죽었을 가능성은 낮다. 파이브 나인 시스템이 1시간 동안 장애를 일으킬 확률은 거의 0에 가깝다. 하지만 Zanzibar를 호출하는 쪽이, 혹은 Zanzibar에 데이터를 공급하는 쪽이 문제였다면?</p>
+
+<p class="novel">Zanzibar는 혼자 작동하지 않는다. 아래에는 Spanner가 있다. 구글이 만든 전 지구적 분산 데이터베이스. Zanzibar의 2조 개 ACL 데이터는 Spanner에 저장된다. Spanner는 원자시계와 GPS를 결합한 TrueTime이라는 기술로 전 세계 데이터센터 간의 시간 동기화를 보장한다. 이덕에 "이 시점에 이 사용자의 구독 관계가 정확한가?"를 어느 데이터센터에서 물어도 같은 답이 나온다.</p>
+
+<p class="novel">세진은 유튜브의 피드 생성 과정을 아키텍처 관점에서 그려봤다.</p>
+
+<div class="arch-diagram">
+  <div class="ad-label">youtube feed generation — simplified</div>
+  <span class="ad-node">사용자 요청</span>
+  <span class="ad-arrow">&rarr;</span>
+  <span class="ad-node">API Gateway</span>
+  <span class="ad-arrow">&rarr;</span>
+  <span class="ad-node-accent">피드 서비스</span>
+  <br><br>
+  <span class="ad-node-accent" style="margin-left:0">피드 서비스</span>
+  <span class="ad-arrow">&rarr;</span>
+  <span class="ad-node">구독 DB</span>
+  <span class="ad-arrow">+</span>
+  <span class="ad-node">시청 기록</span>
+  <span class="ad-arrow">+</span>
+  <span class="ad-node">추천 엔진</span>
+  <br><br>
+  <span class="ad-node-accent" style="margin-left:0">피드 서비스</span>
+  <span class="ad-arrow">&rarr;</span>
+  <span class="ad-node">Zanzibar</span>
+  <span class="ad-arrow">&rarr;</span>
+  <span class="ad-node">Spanner</span>
+  <span class="ad-arrow">&rarr;</span>
+  <span class="ad-node">TrueTime</span>
+  <div class="ad-note">피드 서비스는 구독 DB, 시청 기록, 추천 엔진, 그리고 Zanzibar에 동시에 의존한다.<br>이 중 하나라도 지연되면 피드 생성이 타임아웃되고, 사용자는 "문제가 발생했습니다"를 본다.</div>
+</div>
+
+<p class="novel">핵심은 <strong>팬아웃(fan-out)</strong>이다. 사용자가 홈 피드를 요청하면, 피드 서비스는 동시에 여러 백엔드를 호출한다. 구독 목록을 가져오고, 시청 기록을 조회하고, 추천 알고리즘을 돌리고, 권한을 확인한다. 이 호출들 중 하나라도 실패하면 피드 전체를 만들 수 없다.</p>
+
+<p class="novel">반면 개별 영상 재생은 단순하다.</p>
+
+<div class="arch-diagram">
+  <div class="ad-label">youtube video playback — simplified</div>
+  <span class="ad-node">사용자 요청</span>
+  <span class="ad-arrow">&rarr;</span>
+  <span class="ad-node">API Gateway</span>
+  <span class="ad-arrow">&rarr;</span>
+  <span class="ad-node">Player Service</span>
+  <span class="ad-arrow">&rarr;</span>
+  <span class="ad-node">CDN Edge</span>
+  <div class="ad-note">영상 재생은 비디오 ID만 있으면 된다. CDN의 3,000+ 엣지 서버가 캐시된 영상을 직접 서빙한다.<br>사용자 데이터 조회가 거의 필요 없다. 그래서 오늘도 살아있다.</div>
+</div>
+
+<p class="novel">두 다이어그램을 비교하면 차이가 명확하다. 피드는 복잡하고, 재생은 단순하다. 피드는 사용자를 알아야 하고, 재생은 몰라도 된다. 피드는 팬아웃이 넓고, 재생은 거의 직선이다.</p>
+
+<p class="novel">팬아웃이 넓다는 것은 의존성이 많다는 뜻이고, 의존성이 많다는 것은 실패 지점이 많다는 뜻이다. 의존하는 서비스 중 하나만 느려져도 전체가 느려진다. 하나가 에러를 돌려주면 전체가 에러를 돌려준다. 이것이 <strong>캐스케이드 실패(cascading failure)</strong>다.</p>
+
+<p class="internal">오늘의 장애는 인프라 레벨이 아니다. DNS도, TLS도, 인증도 정상이다. 문제는 그 위. 유튜브의 피드 서비스가 의존하는 백엔드 중 하나 이상이 죽거나 극심하게 느려져서, 피드 생성 전체가 타임아웃되고 있을 가능성이 가장 높다.</p>
+
+<p class="novel">세진은 화이트보드에 네 가지 시나리오를 적었다.</p>
+
+<div class="terminal">
+<span class="t-key">## 유력한 시나리오 (외부 관측 기반)</span><br>
+<br>
+<span class="t-warn">1. 구독/사용자 데이터 서비스 장애</span><br>
+<span class="t-dim">   구독 목록, 시청 기록을 저장하는 백엔드가 응답하지 않음</span><br>
+<span class="t-dim">   → 피드 생성 불가, 하지만 CDN/검색에는 영향 없음</span><br>
+<span class="t-dim">   → YouTube TV도 같은 사용자 데이터를 쓰므로 함께 죽음</span><br>
+<span class="t-dim">   → YouTube Music은 별도 백엔드이므로 정상</span><br>
+<span class="t-ok">   ✓ 모든 증상과 일치</span><br>
+<br>
+<span class="t-warn">2. 추천 엔진의 잘못된 배포 또는 과부하</span><br>
+<span class="t-dim">   ML 추천 모델 업데이트 중 오류 발생</span><br>
+<span class="t-dim">   → 홈 피드와 Shorts(추천 의존도 높음)에서 에러</span><br>
+<span class="t-dim">   → 구독 피드는 추천 없이도 만들 수 있어야 하므로, 약간 불일치</span><br>
+<span class="t-dim">   → 하지만 피드 서비스가 추천을 필수 의존성으로 처리한다면 가능</span><br>
+<span class="t-ok">   △ 부분적 일치</span><br>
+<br>
+<span class="t-warn">3. Zanzibar/권한 체크 지연</span><br>
+<span class="t-dim">   권한 체크 레이턴시 증가 → 피드 서비스 타임아웃</span><br>
+<span class="t-dim">   → 권한 체크가 필요한 모든 개인화 서비스에서 동시 장애</span><br>
+<span class="t-dim">   → 하지만 Gmail, Drive도 Zanzibar를 쓰는데 그쪽은 정상</span><br>
+<span class="t-dim">   → Zanzibar의 YouTube 전용 클러스터/샤드 문제라면 가능</span><br>
+<span class="t-ok">   △ 부분적 일치 (범위 한정 시)</span><br>
+<br>
+<span class="t-warn">4. 피드 서비스 자체의 배포 실패 (canary gone wrong)</span><br>
+<span class="t-dim">   새 버전 배포 중 카나리아 릴리스 실패</span><br>
+<span class="t-dim">   → 피드 서비스의 새 버전이 에러를 뿜지만 롤백이 안 됨</span><br>
+<span class="t-dim">   → 피드에만 국한된 장애, CDN/검색 무관</span><br>
+<span class="t-ok">   ✓ 모든 증상과 일치</span>
+</div>
+
+<p class="novel">시나리오 1과 4가 가장 유력하다. 둘 다 "피드 서비스와 그 의존성"에 문제가 있다는 같은 방향을 가리킨다. 외부에서 이 둘을 구분하는 것은 불가능하다. 구글 내부의 로그, 배포 이력, 서비스 메시 모니터링을 봐야 한다.</p>
+
+<p class="novel">세진은 커피를 한 모금 마시고 유튜브를 다시 열어봤다.</p>
+
+<p class="novel">아직 "문제가 발생했습니다."</p>
+
+<p class="novel">장애 발생 후 1시간 30분. 구글은 여전히 공식 코멘트가 없다. DownDetector의 그래프는 여전히 하늘을 찌르고 있다. 하지만 세진은 알고 있다. 구글 내부에서는 지금 전쟁이 벌어지고 있을 것이다.</p>
+
+<p class="novel">구글의 인시던트 대응 체계는 <strong>SRE(Site Reliability Engineering)</strong>가 중심이다. 장애가 감지되면 자동으로 인시던트가 생성되고, 인시던트 커맨더(IC)가 배정된다. IC는 워룸을 열고, 관련 팀의 온콜 엔지니어를 소집한다. 동시에 여러 가설을 병렬로 검증한다. 최근 배포 이력 확인, 트래픽 패턴 분석, 서비스 간 레이턴시 모니터링, 특정 데이터센터 격리 테스트.</p>
+
+<p class="novel">구글 규모의 장애 대응에서 가장 어려운 것은 "원인을 찾는 것"이 아니다. "원인을 찾으면서 동시에 서비스를 복구하는 것"이다. 원인을 완전히 파악하지 못했더라도, 장애가 발생한 컴포넌트를 격리하거나 이전 버전으로 롤백하면 서비스를 먼저 살릴 수 있다. 원인 분석은 그 후에 해도 된다.</p>
+
+<p class="internal">구글의 SRE 핸드북에 이런 원칙이 있다. "복구가 원인 분석보다 우선한다." 이 원칙이 맞다. 30만 명이 유튜브를 못 보고 있을 때, 원인을 100% 규명하는 것보다 일단 서비스를 살리는 게 먼저다. 근본 원인 분석(RCA)은 포스트모템에서 하면 된다.</p>
+
+<p class="novel">폰에 푸시 알림이 왔다. @TeamYouTube의 트윗이 아니다. 그레이노드 슬랙 — 클라이언트 미팅 알림. 세진은 화이트보드에서 눈을 떼고 노트북을 열었다. 본업이 있으니까.</p>
+
+<p class="novel">하지만 화이트보드는 지우지 않았다. 아직 결론이 안 났다.</p>
+
+<p class="novel">유튜브의 어딘가에서, 수천 명의 엔지니어가 같은 질문을 던지고 있을 것이다. 세진이 밖에서 증상을 읽고 추론한 것을, 그들은 안에서 로그를 보면서 확인하고 있을 것이다.</p>
+
+<p class="novel">곧 끝날 것이다. 구글은 항상 그렇다 — 원인을 찾으면 빠르다. 2020년에도 원인 파악 후 복구까지 25분밖에 안 걸렸다. 문제는 원인을 찾는 시간이다.</p>
+
+<p class="novel">세진은 마지막으로 유튜브를 새로고침했다. 아직.</p>
+
+<p class="novel">과거의 유령들은 각자의 교훈을 남겼다. 2020년은 "자동화를 맹신하지 마라." 2025년은 "기초를 점검하라." 그리고 2026년의 교훈은 아직 밝혀지지 않았다. 하지만 증상이 가리키는 방향은 분명하다.</p>
+
+<p class="novel">유튜브의 등뼈 — 사용자 데이터를 조회하고, 피드를 생성하고, 추천을 만드는 그 복잡한 파이프라인의 어딘가에서, 무언가가 깨졌다. 그리고 그것이 무엇이든, 500,000대의 서버와 3,000개의 엣지 로케이션으로 이루어진 시스템의 나머지 부분은 묵묵히 제 할 일을 하고 있다.</p>
+
+<p class="novel">CDN은 영상을 서빙하고. 검색 인덱스는 쿼리에 답하고. DNS는 이름을 주소로 바꾸고.</p>
+
+<p class="novel">죽은 것만 죽었다. 산 것은 산 채로.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>세 번의 죽음은 각각 달랐다<br><strong>이번엔 등뼈가 부러졌다</strong></h2>
+  <p class="sub">2020년은 심장이 멈췄고, 2025년은 문이 잠겼다.<br>2026년은 등뼈의 한 마디가 어긋났다.<br>3편에서 복구를 확인하고, 0.001%의 의미를 묻는다.</p>
+</div>
+
+<footer class="footer">
+  <p>Sources: Google Cloud Status Incident zall/20013 (2020) &middot; 9to5Google (2020) &middot; BleepingComputer (2020) &middot; Google Research — Zanzibar (USENIX 2019) &middot; ByteByteGo — Zanzibar &middot; AuthZed — Zanzibar Overview &middot; VDOCipher — YouTube Architecture &middot; GeeksforGeeks — YouTube System Design</p>
+  <p>Fact-based fiction &middot; Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

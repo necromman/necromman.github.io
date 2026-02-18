@@ -5,7 +5,7 @@
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://necromman.github.io/</loc>
-    <lastmod>2026-02-16T00:00:00+09:00</lastmod>
+    <lastmod>2026-02-18T00:00:00+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -734,6 +734,25 @@
   <url>
     <loc>https://necromman.github.io/content/robot-coworker-series/robot-transfer.html</loc>
     <lastmod>2026-02-16T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Series 33: Something Went Wrong -->
+  <url>
+    <loc>https://necromman.github.io/content/youtube-outage-series/something-went-wrong.html</loc>
+    <lastmod>2026-02-18T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/youtube-outage-series/ghosts-of-outages-past.html</loc>
+    <lastmod>2026-02-18T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/youtube-outage-series/point-zero-zero-one.html</loc>
+    <lastmod>2026-02-18T00:00:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

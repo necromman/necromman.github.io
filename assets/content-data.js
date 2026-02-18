@@ -1061,6 +1061,35 @@
       }
     ]
   }
+  ,{
+    id: 'youtube-outage',
+    seriesNum: 33,
+    title: 'Something Went Wrong',
+    description: '2026년 2월 18일, 유튜브가 멈췄다. 30만 명이 신고했고 화면에는 여섯 단어만 남았다. 보안 엔지니어 한세진이 CDN과 피드 서비스의 경계를 추적하는 팩트 기반 테크 스릴러.',
+    articles: [
+      {
+        title: 'Something Went Wrong',
+        role: '장애 발생, 실시간 추적, CDN과 피드의 경계선 발견',
+        tag: '소설',
+        href: 'content/youtube-outage-series/something-went-wrong.html',
+        search: '유튜브 장애 YouTube outage 2026 Something Went Wrong CDN 피드 Zanzibar 보안 엔지니어 한세진 소설'
+      },
+      {
+        title: '과거의 유령들',
+        role: '2020 인증 자멸, 2025 DNS 실종 비교 분석, Zanzibar 해부',
+        tag: '소설',
+        href: 'content/youtube-outage-series/ghosts-of-outages-past.html',
+        search: '유튜브 과거 장애 Google outage 2020 인증 DNS Zanzibar Spanner 구글 인프라 소설'
+      },
+      {
+        title: '복구, 그리고 0.001%',
+        role: '복구 확인, 원인 추론, 99.999% 가용성의 의미',
+        tag: '소설',
+        href: 'content/youtube-outage-series/point-zero-zero-one.html',
+        search: '유튜브 복구 SRE 가용성 99.999% 0.001% 구글 인프라 시스템 철학 소설'
+      }
+    ]
+  }
 ];
   // Auto-generate thumbnail from href: content/foo/bar.html → assets/og/foo/bar.png
   data.forEach(function (series) {
