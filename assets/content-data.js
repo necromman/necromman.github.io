@@ -1089,6 +1089,55 @@
         search: '유튜브 복구 SRE 가용성 99.999% 0.001% 구글 인프라 시스템 철학 소설'
       }
     ]
+  },
+  {
+    id: 'debug-mode',
+    title: 'The Dawn of Light as a Supersolid',
+    description: '2046년, 페르미랩 지하에서 빛이 얼어붙었다. 양자 AI가 불가능이라 판정한 것을 인간이 발견했다. 에너지, 광선검, 워프 드라이브, 그리고 첫 외계 조우까지. SF 소설 6편.',
+    articles: [
+      {
+        title: 'Zero Point',
+        role: '시리즈 도입 — 페르미랩 극저온 실험에서 빛의 초고체 발견',
+        tag: '소설',
+        href: 'content/debug-mode-series/zero-point.html',
+        search: 'The Dawn of Light Supersolid 절대영도 영점에너지 BEC 초고체 페르미랩 SF 소설 Elena Voss Marcus Cole'
+      },
+      {
+        title: 'A New Era',
+        role: '기저 에너지 혁명, 유로파 결정, 새벽호 진수, 감응자 등장',
+        tag: '소설',
+        href: 'content/debug-mode-series/a-new-era.html',
+        search: 'A New Era 기저에너지 유로파 결정 광선검 새벽호 워프 감응자 Marcus Cole Elena Voss SF 소설'
+      },
+      {
+        title: 'First Jump',
+        role: '워프 드라이브 완성, 프록시마 센타우리 도착, UEDF 창설',
+        tag: '소설',
+        href: 'content/debug-mode-series/first-jump.html',
+        search: 'First Jump 워프 드라이브 프록시마 센타우리 딜리튬 UEDF 워프 복사 Maria Santos SF 소설'
+      },
+      {
+        title: 'The Frontier',
+        role: '우주 식민지, 리플리케이터/전송기, 자치권 갈등, 심우주 신호 감지',
+        tag: '소설',
+        href: 'content/debug-mode-series/the-frontier.html',
+        search: 'The Frontier 식민지 리플리케이터 전송기 딜리튬 감응자 자치권 심우주 신호 SF 소설'
+      },
+      {
+        title: 'The Anomaly',
+        role: '워프 경로 중력 이상, 거대한 외계 존재와의 첫 조우',
+        tag: '소설',
+        href: 'content/debug-mode-series/the-anomaly.html',
+        search: 'The Anomaly 워프 중력이상 외계 존재 감시자 기저패턴 은하중심 좌표 Santos Vanguard SF 소설'
+      },
+      {
+        title: 'First Contact',
+        role: '외계 감시자 내부 진입, 은하 네트워크, 인류의 선택',
+        tag: '소설',
+        href: 'content/debug-mode-series/first-contact.html',
+        search: 'First Contact 감시자 Observer 은하 네트워크 기저패턴 보편 인류 선택 열린결말 Elena Marcus SF 소설'
+      }
+    ]
   }
 ];
   // Auto-generate thumbnail from href: content/foo/bar.html → assets/og/foo/bar.png

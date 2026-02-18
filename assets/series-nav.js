@@ -284,6 +284,17 @@
         { slug: 'ghosts-of-outages-past', title: '과거의 유령들' },
         { slug: 'point-zero-zero-one', title: '복구, 그리고 0.001%' }
       ]
+    },
+    'debug-mode-series': {
+      title: 'The Dawn of Light as a Supersolid',
+      articles: [
+        { slug: 'zero-point', title: 'Zero Point' },
+        { slug: 'a-new-era', title: 'A New Era' },
+        { slug: 'first-jump', title: 'First Jump' },
+        { slug: 'the-frontier', title: 'The Frontier' },
+        { slug: 'the-anomaly', title: 'The Anomaly' },
+        { slug: 'first-contact', title: 'First Contact' }
+      ]
     }
   };
 

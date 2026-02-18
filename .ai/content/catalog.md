@@ -301,3 +301,14 @@
 | 01 | `something-went-wrong.html` | Something Went Wrong | 소설 — 유튜브 장애 발생, 실시간 추적, CDN과 피드의 경계선 발견 |
 | 02 | `ghosts-of-outages-past.html` | 과거의 유령들 | 소설 — 2020 인증 자멸, 2025 DNS 실종 비교 분석, Zanzibar 해부 |
 | 03 | `point-zero-zero-one.html` | 복구, 그리고 0.001% | 소설 — 복구 확인, 원인 추론, 99.999% 가용성의 의미 |
+
+## 시리즈 34: The Dawn of Light as a Supersolid (debug-mode-series)
+
+| # | 파일 | 제목 | 역할 |
+|---|------|------|------|
+| 01 | `zero-point.html` | Zero Point | 소설 — 페르미랩 극저온 실험에서 빛의 초고체 발견, Dr. Elena Voss와 Marcus Cole |
+| 02 | `a-new-era.html` | A New Era | 소설 — 기저 에너지 혁명, 유로파 결정과 광선검, 새벽호 진수, 감응자 등장 |
+| 03 | `first-jump.html` | First Jump | 소설 — 워프 드라이브 완성, 프록시마 센타우리 0.7초, 워프 복사 피해, UEDF 창설 |
+| 04 | `the-frontier.html` | The Frontier | 소설 — 우주 식민지, 리플리케이터/전송기, 자치권 갈등, 심우주 신호 감지 |
+| 05 | `the-anomaly.html` | The Anomaly | 소설 — 워프 경로 중력 이상, 거대한 외계 존재 조우, 기저장 통신, 은하 중심 좌표 |
+| 06 | `first-contact.html` | First Contact | 소설 — 외계 감시자 내부 진입, 은하 네트워크, 인류의 선택, 열린 결말 |

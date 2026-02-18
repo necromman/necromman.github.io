@@ -756,4 +756,41 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- Series 34: The Dawn of Light as a Supersolid -->
+  <url>
+    <loc>https://necromman.github.io/content/debug-mode-series/zero-point.html</loc>
+    <lastmod>2026-02-18T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/debug-mode-series/a-new-era.html</loc>
+    <lastmod>2026-02-18T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/debug-mode-series/first-jump.html</loc>
+    <lastmod>2026-02-18T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/debug-mode-series/the-frontier.html</loc>
+    <lastmod>2026-02-18T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/debug-mode-series/the-anomaly.html</loc>
+    <lastmod>2026-02-18T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/debug-mode-series/first-contact.html</loc>
+    <lastmod>2026-02-18T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
