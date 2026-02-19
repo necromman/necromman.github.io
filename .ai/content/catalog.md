@@ -318,3 +318,13 @@
 | 04 | `the-frontier.html` | The Frontier | 소설 — 우주 식민지, 리플리케이터/전송기, 자치권 갈등, 심우주 신호 감지 |
 | 05 | `the-anomaly.html` | The Anomaly | 소설 — 워프 경로 중력 이상, 거대한 외계 존재 조우, 기저장 통신, 은하 중심 좌표 |
 | 06 | `first-contact.html` | First Contact | 소설 — 외계 감시자 내부 진입, 은하 네트워크, 인류의 선택, 열린 결말 |
+
+## 시리즈 35: 성실함이 배신하는 순간 (diligence-paradox-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `when-diligence-betrays.html` | 성실함이 배신하는 순간 | 분석 — 피터의 법칙 40,000명 실증과 이건희 프랑크푸르트 선언 |
+| 02 | `contribution-not-todo.html` | 공헌의 기준 | 가이드 — 피터 드러커의 지식근로자 5원칙과 일잘러의 정치력 |
+| 03 | `the-sme-reality.html` | 생존의 기술 | 현실 — 자원 없는 환경에서의 비대칭 전략과 3가지 경로 |
+| 04 | `do-one-thing.html` | 한 가지만 한다 | 실행 — 제약이론 100개 기업 실패율 0%, 병목 하나에 집중 |
+| 05 | `if-it-were-me.html` | 나라면 이렇게 한다 | 실전 — B2B 시장조사부터 90일 MVP 실행 플레이북 |

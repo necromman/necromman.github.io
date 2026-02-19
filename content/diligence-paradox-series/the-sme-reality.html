@@ -1,0 +1,242 @@
+---
+layout: layouts/article.njk
+pageTitle: "생존의 기술"
+description: "대기업 7,121만 원, 중소기업 4,427만 원. 시간도 없고 인력도 없는 중소기업에서 방향 전환은 가능한가. 팩트로 직면하고, 현실적인 탈출 경로를 찾는다."
+ogTitle: "생존의 기술 — 자원 없는 현실에서 방향을 만드는 법"
+ogDescription: "연봉 격차 2,694만 원. AI 도입률 0.1%. 중소기업의 현실을 직시하고 탈출 경로를 찾는다."
+datePublished: "2026-02-19"
+---
+<style>
+  .masthead h1 { font-weight: 900; line-height: 1.15; letter-spacing: -2px; }
+  .masthead .deck { max-width: 540px; }
+
+  .stats-banner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .stat-cell {
+    background: var(--bg);
+    padding: 28px 16px;
+    text-align: center;
+  }
+  .stat-cell .stat-num {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .stat-cell .stat-label {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .stat-cell .stat-sub {
+    font-size: 0.75rem;
+    color: var(--secondary);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  .mechanism-2col { grid-template-columns: 1fr 1fr; }
+
+  .warning-box { border: 1px solid var(--fg); padding: 32px 36px; margin: 40px 0 48px; }
+  .warning-box .w-title {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .warning-list { list-style: none; counter-reset: warn; padding: 0; margin: 0; }
+  .warning-list li {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 16px;
+    align-items: baseline;
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: var(--prose);
+  }
+  .warning-list li:last-child { margin-bottom: 0; }
+  .warning-list li::before {
+    content: counter(warn, decimal-leading-zero);
+    counter-increment: warn;
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .warning-list li strong { color: var(--fg); font-weight: 700; }
+
+  .closing .sub { max-width: 500px; }
+
+  @media (max-width: 700px) {
+    .stats-banner { grid-template-columns: 1fr; }
+    .stat-cell .stat-num { font-size: 1.5rem; }
+    .mechanism-2col { grid-template-columns: 1fr; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <span class="issue">Series 35 &middot; 03 of 05</span>
+  <h1>생존의<br><strong>기술</strong></h1>
+  <p class="deck">방향을 바꾸라고? 공헌을 하라고? 시간도 없고 인력도 없고 돈도 없는 중소기업에서? 팩트로 직면하고, 현실적인 탈출 경로를 찾는다.</p>
+</header>
+
+<main>
+
+<!-- PART I -->
+<section>
+<div class="section-head">
+  <span class="num">Part I — The Cold Facts</span>
+  <h2>직면해야 할 <strong>숫자들</strong></h2>
+</div>
+
+<p class="prose">먼저 현실을 인정한다. 2024년 기준 300인 이상 대기업 평균 연봉은 <strong>7,121만 원</strong>. 300인 미만 중소기업은 <strong>4,427만 원</strong>. 격차 2,694만 원. 대기업 대비 중소기업 임금 수준은 62.2%로 2020년(64.2%)보다 오히려 벌어졌다.</p>
+
+<div class="stats-banner">
+  <div class="stat-cell">
+    <div class="stat-num">62.2%</div>
+    <div class="stat-label">wage ratio</div>
+    <div class="stat-sub">대기업 대비 중소기업 임금</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">0.1%</div>
+    <div class="stat-label">ai adoption</div>
+    <div class="stat-sub">중소 제조업 AI 도입률</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">2.2%</div>
+    <div class="stat-label">workforce gap</div>
+    <div class="stat-sub">산업기술인력 부족률</div>
+  </div>
+</div>
+
+<p class="prose">연봉 인상률도 격차를 벌린다. 2024년 대기업 인상률 <strong>9.0%</strong>, 중소기업 <strong>3.7%</strong>. 2025년 상반기는 대기업 5.7%, 중소기업 2.7%. <strong>시간이 갈수록 차이는 벌어진다.</strong> 국내 중소 제조기업의 AI 도입률은 0.1%. 산업기술인력 부족 인원은 약 4만 명. 채용해도 1년 이내 퇴사하는 악순환.</p>
+
+<p class="prose">냉정하게 말한다. 1편에서 다룬 "처리하는 자리에서 방향을 다루는 자리로"라는 조언은 <strong>여유가 있는 조직에서나 가능한 이야기</strong>처럼 들린다. 2편의 "공헌에 집중하라"도 마찬가지다. 사람이 3명인데 한 명이 멈추면 조직이 멈춘다. 드러커의 5원칙을 실천할 시간적 여유가 애초에 없다.</p>
+
+<div class="pull-quote">
+  <p>"방향을 바꾸려면 먼저 멈춰야 한다.<br>그런데 멈추면 죽는다."</p>
+</div>
+
+<p class="prose">이것이 중소기업의 구조적 딜레마다. 그리고 이 딜레마를 정면으로 인정하는 것이 출발점이다. 거짓 희망은 주지 않겠다. 대신 <strong>숫자가 보여주는 현실적 경로</strong>를 제시한다.</p>
+</section>
+
+<!-- PART II -->
+<section>
+<div class="section-head">
+  <span class="num">Part II — The Leverage</span>
+  <h2>작은 팀의 <strong>비대칭 무기</strong></h2>
+</div>
+
+<p class="prose">나쁜 소식만 있는 것은 아니다. 2024년, 흥미로운 숫자들이 등장했다.</p>
+
+<div class="mechanism-row">
+  <div class="mechanism">
+    <div class="m-label">Case 01</div>
+    <h3>Midjourney</h3>
+    <p>142명으로 연 매출 <strong>3억 달러</strong>. 1인당 <strong>210만 달러</strong>(약 28억 원). 대기업 평균의 수십 배.</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">Case 02</div>
+    <h3>Anysphere</h3>
+    <p>20명으로 첫 해 매출 <strong>7,800만 달러</strong>. 1인당 <strong>390만 달러</strong>. AI 코딩 도구 Cursor를 만든 팀.</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">Case 03</div>
+    <h3>BuiltWith</h3>
+    <p><strong>1명</strong>으로 연 매출 <strong>1,400만 달러</strong>(약 190억 원). 직원 없음. 웹 기술 분석 서비스.</p>
+  </div>
+</div>
+
+<p class="prose">이것은 실리콘밸리의 예외적 사례가 아니다. <strong>구조적 변화</strong>다. WEF(세계경제포럼)의 2024년 보고서는 이렇게 정리했다. AI는 대기업의 규모 우위를 상쇄하고, 소규모 팀에 기업급 역량을 부여한다. AI를 활용하는 엔지니어 한 명이 기존 5명 이상의 산출물을 낸다는 보고가 나온다.</p>
+
+<p class="prose">핵심은 이것이다. 중소기업의 약점(적은 인원, 적은 자원)은 뒤집으면 <strong>강점</strong>이 된다. 의사결정이 빠르다. 관료주의가 없다. 한 사람의 생산성 향상이 조직 전체에 즉시 반영된다. 대기업에서 AI 도입에 1년 걸리는 것을 중소기업은 다음 주에 할 수 있다.</p>
+
+<div class="mechanism-row mechanism-2col">
+  <div class="mechanism">
+    <div class="m-label">대기업</div>
+    <h3>규모의 함정</h3>
+    <p>AI 도입에 위원회 구성, 보안 심사, 파일럿, 전사 교육, 예산 승인. <strong>12~18개월</strong>. 한 사람이 바꿀 수 있는 것이 없다.</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">중소기업</div>
+    <h3>속도의 무기</h3>
+    <p>대표가 결정하면 내일부터 쓴다. 무료 도구부터 시작. 효과 있으면 확대. <strong>1~2주</strong>. 한 사람이 모든 것을 바꿀 수 있다.</p>
+  </div>
+</div>
+
+<div class="pull-quote">
+  <p>"중소기업의 약점은 적은 인원이다.<br>중소기업의 무기도 적은 인원이다."</p>
+</div>
+</section>
+
+<!-- PART III -->
+<section>
+<div class="section-head">
+  <span class="num">Part III — The Playbook</span>
+  <h2>현실적인 <strong>세 가지 경로</strong></h2>
+</div>
+
+<p class="prose">거짓 희망은 없다. "AI 쓰면 다 해결된다"는 것도 아니다. 그러나 <strong>지금 당장 시작할 수 있는 것</strong>은 있다. 세 가지 경로를 제시한다. 상황에 따라 하나를 고른다.</p>
+
+<div class="warning-box">
+  <div class="w-title">경로 A: 지금 있는 자리에서 레버리지를 만든다</div>
+  <ol class="warning-list">
+    <li><strong>반복 업무를 자동화한다.</strong> 보고서 양식, 데이터 정리, 이메일 템플릿, 회의록 정리. 무료 AI 도구(ChatGPT, Claude, Gemini)로 주당 3~5시간을 확보한다. 이것이 "멈출 시간"이 된다.</li>
+    <li><strong>확보한 시간으로 하나만 바꾼다.</strong> 전체 구조를 뒤엎을 필요 없다. 가장 비효율적인 프로세스 하나를 골라 개선안을 만든다. 2편에서 다룬 "불필요한 일 제거"가 이것이다.</li>
+    <li><strong>결과를 숫자로 보여준다.</strong> "주 5시간 절약" "오류율 30% 감소" "처리 시간 절반". 숫자는 상사의 언어다. 공헌은 감상이 아니라 측정값이다.</li>
+  </ol>
+</div>
+
+<div class="warning-box">
+  <div class="w-title">경로 B: 이 조직에서 성장한 뒤 이동한다</div>
+  <ol class="warning-list">
+    <li><strong>중소기업의 구조적 장점을 쓴다.</strong> 대기업에서는 10년 걸리는 경험을 중소기업에서는 2~3년에 압축할 수 있다. 기획, 개발, 영업, 운영을 한 사람이 다 해본 경험은 대체 불가능하다.</li>
+    <li><strong>포트폴리오를 만든다.</strong> AI로 자동화한 프로세스, 개선한 시스템, 줄인 비용을 기록한다. "매출 기여"보다 강력한 이직 무기는 없다. 중소기업에서의 경험을 자산으로 전환한다.</li>
+    <li><strong>타이밍을 잡는다.</strong> 2~3년간 압축 성장한 뒤, 경력과 포트폴리오로 이동한다. 연봉 62.2%의 격차는 능력이 아니라 구조의 문제다. 구조를 바꾸는 가장 빠른 방법은 구조를 옮기는 것이다.</li>
+  </ol>
+</div>
+
+<div class="warning-box">
+  <div class="w-title">경로 C: 조직 밖에서 시작한다</div>
+  <ol class="warning-list">
+    <li><strong>퇴근 후 2시간으로 시작한다.</strong> BuiltWith는 1명으로 190억 원을 번다. 극단적 사례지만 방향은 맞다. AI가 개발, 디자인, 마케팅, 고객 응대를 보조하는 시대에 부업의 진입 장벽은 역사상 가장 낮다.</li>
+    <li><strong>회사에서 발견한 비효율이 사업 아이템이다.</strong> "우리 회사에서 이게 안 돼서 불편하다"는 같은 규모의 다른 회사도 똑같이 겪고 있다. 중소기업의 문제를 아는 것 자체가 시장 지식이다.</li>
+    <li><strong>작게, 빠르게, 혼자.</strong> 팀을 꾸리지 않는다. 투자를 받지 않는다. 월 10만 원 이하의 비용으로 시작한다. 3개월 안에 첫 수익이 나지 않으면 다음 아이디어로 넘어간다.</li>
+  </ol>
+</div>
+
+<p class="prose">세 경로에 공통점이 있다. <strong>작게 시작하고, 숫자로 증명하고, 한 번에 하나만 바꾼다.</strong> 1편에서 이건희가 한 것도 결국 이것이었다. 세탁기 라인 하나를 세운 것이다. 삼성 전체를 동시에 바꾼 것이 아니다.</p>
+
+<p class="prose">중소기업에서 "방향을 바꾸라"는 말이 비현실적으로 들리는 이유는 전부를 한꺼번에 바꾸려 하기 때문이다. 전부를 바꿀 필요 없다. <strong>반복 업무 하나를 자동화해서 주 3시간을 확보하는 것.</strong> 그것이 라인 스톱이다. 그 3시간이 방향을 생각할 시간이 된다.</p>
+
+<p class="prose">연봉 4,427만 원은 당신의 가치가 아니다. <strong>당신이 속한 구조의 가격</strong>이다. 구조를 바꾸거나, 구조를 옮기거나, 구조 밖으로 나가거나. 셋 중 하나는 가능하다.</p>
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>라인 전체를 세울 수는 없다<br><strong>라인 하나는 세울 수 있다</strong></h2>
+  <p class="sub">반복 업무 하나를 자동화해서 주 3시간을 확보하라. 그 시간이 방향을 바꾸는 시작이 된다.</p>
+</div>
+
+<footer class="footer">
+  <p>Sources: MOEL Wage Statistics (2024) &middot; KORCHAM AI Impact Report (2025) &middot; WEF AI &amp; Small Teams (2024) &middot; Gallup State of the Global Workplace (2025) &middot; KIET Digital Transformation Report (2024)</p>
+  <p>Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

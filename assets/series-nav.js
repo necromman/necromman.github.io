@@ -301,6 +301,16 @@
         { slug: 'the-anomaly', title: 'The Anomaly' },
         { slug: 'first-contact', title: 'First Contact' }
       ]
+    },
+    'diligence-paradox-series': {
+      title: '성실함이 배신하는 순간',
+      articles: [
+        { slug: 'when-diligence-betrays', title: '성실함이 배신하는 순간' },
+        { slug: 'contribution-not-todo', title: '공헌의 기준' },
+        { slug: 'the-sme-reality', title: '생존의 기술' },
+        { slug: 'do-one-thing', title: '한 가지만 한다' },
+        { slug: 'if-it-were-me', title: '나라면 이렇게 한다' }
+      ]
     }
   };
 

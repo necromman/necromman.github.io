@@ -1,0 +1,286 @@
+---
+layout: layouts/article.njk
+pageTitle: "나라면 이렇게 한다"
+description: "B2B가 B2C보다 흑자전환이 2년 빠르고 이탈률은 절반이다. 728만 중소기업, AI 도입률 0.1%의 빈자리에서 제품 하나를 만드는 90일 실행 계획."
+ogTitle: "나라면 이렇게 한다 — 시장조사부터 90일 실행까지"
+ogDescription: "B2B vs B2C 데이터 비교, 728만 중소기업 시장 분석, 90일 MVP 실행 플레이북. 이론이 아니라 실전."
+datePublished: "2026-02-19"
+---
+<style>
+  .masthead h1 { font-weight: 900; line-height: 1.15; letter-spacing: -2px; }
+  .masthead .deck { max-width: 540px; }
+
+  .stats-banner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .stat-cell {
+    background: var(--bg);
+    padding: 28px 16px;
+    text-align: center;
+  }
+  .stat-cell .stat-num {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1.2;
+  }
+  .stat-cell .stat-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  .stat-cell .stat-desc {
+    font-size: 0.82rem;
+    color: var(--secondary);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  .mechanism-2col { grid-template-columns: 1fr 1fr; }
+
+  .math-box {
+    background: var(--card-bg);
+    padding: 28px 32px;
+    margin: 32px 0 40px;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    line-height: 2;
+    color: var(--prose);
+  }
+  .math-box .math-result {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--accent);
+    margin-top: 8px;
+  }
+
+  .warning-box { border: 1px solid var(--fg); padding: 32px 36px; margin: 32px 0 40px; }
+  .warning-box .w-title {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .warning-list { list-style: none; counter-reset: warn; padding: 0; margin: 0; }
+  .warning-list li {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 16px;
+    align-items: baseline;
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: var(--prose);
+  }
+  .warning-list li:last-child { margin-bottom: 0; }
+  .warning-list li::before {
+    content: counter(warn, decimal-leading-zero);
+    counter-increment: warn;
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .warning-list li strong { color: var(--fg); font-weight: 700; }
+
+  @media (max-width: 700px) {
+    .stats-banner { grid-template-columns: 1fr; }
+    .mechanism-2col { grid-template-columns: 1fr; }
+    .stat-cell .stat-num { font-size: 1.5rem; }
+  }
+</style>
+
+<div class="page">
+<article>
+<header class="masthead">
+  <span class="issue">Series 35 &middot; 05 of 05</span>
+  <h1>나라면<br><strong>이렇게 한다</strong></h1>
+  <p class="deck">4편에서 "한 가지만 하라"고 했다. 좋다.<br>그 한 가지를 고르는 과정을 보여주겠다.</p>
+</header>
+
+<main>
+<!-- ───── PART I ───── -->
+<section>
+<div class="section-head">
+  <span class="num">Part I — The Decision</span>
+  <h2>왜 <strong>B2B인가</strong></h2>
+</div>
+
+<p class="prose">제품을 만들겠다고 결정했다면, 첫 번째 갈림길은 이것이다. <strong>누구에게 팔 것인가.</strong> 일반 소비자(B2C)인가, 기업(B2B)인가. 감이 아니라 데이터로 판단한다.</p>
+
+<div class="stats-banner">
+  <div class="stat-cell">
+    <div class="stat-num">3년</div>
+    <div class="stat-label">B2B BREAKEVEN</div>
+    <div class="stat-desc">B2C는 5년 이상</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">3.5%</div>
+    <div class="stat-label">B2B CHURN</div>
+    <div class="stat-desc">B2C는 6.5~8%</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">13%</div>
+    <div class="stat-label">$10K MRR</div>
+    <div class="stat-desc">솔로 파운더 돌파율</div>
+  </div>
+</div>
+
+<p class="prose">Intelectium의 스타트업 분석에 따르면, B2B SaaS는 평균 <strong>3년</strong> 안에 흑자전환한다. B2C는 마케팅 비용 때문에 <strong>5년 이상</strong> 걸린다. 이탈률도 다르다. B2B는 연 3.5%, B2C는 6.5~8%. 기업 고객은 한번 쓰기 시작하면 바꾸기 어렵다. 전환 비용이 높고, 업무 프로세스에 녹아들기 때문이다.</p>
+
+<p class="prose">솔로 파운더 중 월 $10K(약 1,300만 원) MRR에 도달하는 비율은 <strong>13%</strong>에 불과하다. 87%는 거기에 이르지 못한다. 살아남는 13%의 공통점은 세 가지다. <strong>B2B</strong>를 골랐다. <strong>니치 마켓</strong>을 택했다. 그리고 <strong>자기가 직접 겪은 문제</strong>를 풀었다.</p>
+
+<div class="mechanism-row mechanism-2col">
+  <div class="mechanism">
+    <div class="m-label">B2C</div>
+    <h3>많은 고객, 낮은 가격</h3>
+    <p>월 $5~$15 가격대. 1만 명 이상의 유료 사용자가 필요하다. 마케팅 비용이 크고, 이탈률이 높다. <strong>규모의 경제</strong>가 유일한 무기다.</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">B2B</div>
+    <h3>적은 고객, 높은 가격</h3>
+    <p>월 $50~$300 가격대. <strong>100명</strong>이면 사업이 된다. 이탈률이 낮고, 고객이 직접 문제를 설명해준다. 관계 기반 영업.</p>
+  </div>
+</div>
+
+<p class="prose">SaaS Capital의 2025년 벤치마크 보고서에 따르면, 부트스트랩(외부 투자 없이 자력 성장) SaaS 기업의 <strong>85%</strong>가 손익분기 근처에서 운영되거나 흑자다. 벤처 투자를 받은 기업은 절반도 안 된다. 혼자 시작하려면 <strong>적은 고객으로 빠르게 흑자에 도달하는 구조</strong>가 유리하다. B2B다.</p>
+
+<div class="pull-quote">
+  <p>87%는 $10K MRR에 도달하지 못한다.<br>살아남는 13%의 공통점은<br>B2B + 니치 + 자기 문제를 풀었다는 것이다.</p>
+</div>
+</section>
+
+<!-- ───── PART II ───── -->
+<section>
+<div class="section-head">
+  <span class="num">Part II — The Market</span>
+  <h2>728만 개의 <strong>빈자리</strong></h2>
+</div>
+
+<p class="prose">B2B를 골랐다. 다음은 어디에서 팔 것인가. 답은 이미 3편에 있었다. 한국 중소기업은 전체 기업의 <strong>99.9%</strong>인 728만 개다. 전체 근로자의 81%가 여기서 일한다. 그런데 이 시장의 디지털 전환은 거의 시작도 안 했다.</p>
+
+<div class="stats-banner">
+  <div class="stat-cell">
+    <div class="stat-num">728만</div>
+    <div class="stat-label">KOREAN SMES</div>
+    <div class="stat-desc">전체 기업의 99.9%</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">0.1%</div>
+    <div class="stat-label">AI ADOPTION</div>
+    <div class="stat-desc">중소 제조업 AI 도입률</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">80%</div>
+    <div class="stat-label">GOV VOUCHER</div>
+    <div class="stat-desc">정부 바우처 지원 비율</div>
+  </div>
+</div>
+
+<p class="prose">OECD의 2025년 중소기업 디지털화 조사에 따르면, 한국 중소기업의 <strong>디지털 성숙도는 100점 만점에 41점</strong>이다. AI·IoT·분석 기반 고도화 수준은 11%에 그친다. 대기업 대비 ERP, AI 도입률에서 <strong>3~7배</strong> 격차가 있다. 국내 SaaS 시장은 2025년 기준 <strong>1조 1,430억 원</strong>, 연평균 14.9% 성장 중이다. 시장은 크고, 빈자리는 넓다.</p>
+
+<p class="prose">3편에서 말했다. <strong>"우리 회사에서 이게 안 돼서 불편하다"는 같은 규모의 다른 회사도 똑같이 겪고 있다.</strong> 중소기업의 문제를 아는 것 자체가 시장 지식이다.</p>
+
+<p class="prose">4편의 Case B를 적용한다. <strong>반복 업무를 제품으로 전환한다.</strong> 중소기업에서 매일 수작업으로 하는 것 중 하나를 골라 AI로 자동화한다. 구체적으로, <strong>견적서·제안서 자동 생성</strong>을 고른다.</p>
+
+<div class="mechanism-row">
+  <div class="mechanism">
+    <div class="m-label">현실</div>
+    <h3>수작업</h3>
+    <p>고객 문의 → 엑셀에서 견적서 작성 → PDF 변환 → 이메일 발송. 건당 <strong>30분~1시간</strong>. 월 수십 건 반복.</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">제품</div>
+    <h3>AI 자동화</h3>
+    <p>고객 정보 입력 → AI가 과거 견적 데이터 기반 자동 생성 → 원클릭 발송. 건당 <strong>3분</strong>. 정확도 80% 이상.</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">무기</div>
+    <h3>정부 바우처</h3>
+    <p>중소기업 클라우드 바우처로 <strong>도입 비용의 80%를 정부가 지원</strong>한다. 고객의 진입 장벽이 사라진다.</p>
+  </div>
+</div>
+
+<p class="prose">왜 이것인가. 첫째, <strong>모든 B2B 기업이 견적서를 쓴다.</strong> 둘째, 대부분 엑셀이나 워드로 수작업한다. 셋째, 채널톡(상담)이나 Flex(HR)처럼 특정 영역에 특화된 SaaS는 있지만, 견적·제안 영역은 아직 <strong>중소기업 가격대의 AI 솔루션이 거의 없다.</strong> 넷째, 경쟁자가 아예 없지는 않다. 자비스앤빌런즈 같은 AI 경리 서비스가 누적 90억 원 투자를 유치했다. <strong>경쟁자가 있다는 것은 시장이 있다는 증거다.</strong></p>
+
+<div class="math-box">
+  100개 기업 &times; 월 9.9만 원 = 월 990만 원 MRR<br>
+  연 1.19억 원 &mdash; 1인 기업 기준 충분한 수준<br>
+  정부 바우처 80% 지원 &rarr; 고객 실질 부담 월 1.98만 원
+  <div class="math-result">고객에게는 커피값, 만든 사람에게는 연봉</div>
+</div>
+</section>
+
+<!-- ───── PART III ───── -->
+<section>
+<div class="section-head">
+  <span class="num">Part III — The Build</span>
+  <h2>90일 <strong>실행</strong></h2>
+</div>
+
+<p class="prose">시장조사는 끝났다. B2B를 골랐고, 한국 중소기업을 타겟으로 정했고, AI 견적 자동화를 제품으로 결정했다. 이제 만든다. <strong>90일 안에 첫 유료 고객을 확보하는 것</strong>이 목표다.</p>
+
+<div class="warning-box">
+  <div class="w-title">Phase 1: 검증 &mdash; Week 1~2</div>
+  <ol class="warning-list">
+    <li><strong>랜딩 페이지 1개를 24시간 안에 만든다.</strong> 제품 설명, 가격, 시작 버튼. 코드를 짤 필요 없다. Framer, Carrd, 또는 Notion으로 충분하다. 비용 0원.</li>
+    <li><strong>중소기업 대표 또는 경리 담당자 10명에게 전화한다.</strong> "견적서 만드는 데 얼마나 걸리세요? 이런 도구가 있으면 쓰시겠습니까?" 두 가지만 묻는다.</li>
+    <li><strong>5명 이상이 "쓰겠다"고 하면 진행한다.</strong> 5명 미만이면 문제를 재정의하고 다른 반복 업무를 찾는다. Dropbox는 제품 없이 설명 영상 하나로 75,000명의 대기 명단을 만들었다. <strong>제품보다 검증이 먼저다.</strong></li>
+  </ol>
+</div>
+
+<div class="warning-box">
+  <div class="w-title">Phase 2: MVP &mdash; Week 3~6</div>
+  <ol class="warning-list">
+    <li><strong>AI + 로우코드로 최소 기능을 구현한다.</strong> 견적서 템플릿 3개, AI 자동완성, PDF 출력. 이 세 가지만 만든다. 나머지 기능은 전부 버린다. 4편의 제약이론이 여기에도 적용된다. <strong>기능도 병목 하나에 집중한다.</strong></li>
+    <li><strong>GitHub Copilot을 쓴다.</strong> 개발 속도 55.8% 향상(GitHub 실증). 혼자 만들어야 하므로 AI 코딩 도구는 선택이 아니라 전제 조건이다.</li>
+    <li><strong>서버 비용은 월 5만 원 이내로 잡는다.</strong> Vercel, Railway, Supabase 같은 스타터 플랜이면 초기에 충분하다. AI API 비용은 사용량 기반이므로 고객이 없을 때는 거의 0원이다.</li>
+  </ol>
+</div>
+
+<div class="warning-box">
+  <div class="w-title">Phase 3: 첫 고객 &mdash; Week 7~10</div>
+  <ol class="warning-list">
+    <li><strong>Phase 1에서 "쓰겠다"고 한 사람에게 2주 무료 체험을 제공한다.</strong> 이미 관계가 형성되어 있다. 콜드 메일을 보내는 것보다 전환율이 10배 높다.</li>
+    <li><strong>2주 후 유료 전환을 제안한다.</strong> 월 9.9만 원. 정부 클라우드 바우처를 안내하면 실질 부담은 월 2만 원 이하. "안 쓸 이유"를 제거한다.</li>
+    <li><strong>첫 유료 고객이 생기면, 그 고객의 사용 사례를 콘텐츠로 작성한다.</strong> 블로그 1편이 SEO 파이프라인의 시작이다. 4편의 Case A(고객이 안 온다)를 동시에 해결한다.</li>
+  </ol>
+</div>
+
+<div class="warning-box">
+  <div class="w-title">Phase 4: 반복 &mdash; Week 11~12</div>
+  <ol class="warning-list">
+    <li><strong>첫 고객의 피드백으로 제품을 개선한다.</strong> 기능 추가가 아니다. 기존 기능의 정확도와 속도를 올린다. 2편에서 말한 "공헌"은 여기서도 적용된다. <strong>양이 아니라 질이다.</strong></li>
+    <li><strong>월 5개 기업 추가를 목표로 한다.</strong> 기존 고객 소개 + SEO 콘텐츠 + 정부 바우처 안내. 3개 채널을 동시에 돌린다.</li>
+    <li><strong>90일 후 목표: 유료 고객 10개, 월 99만 원.</strong> 대단한 숫자가 아니다. 하지만 0에서 1로의 전환이 가장 어렵다. 1에서 100으로는 반복이다.</li>
+  </ol>
+</div>
+
+<p class="prose">ChartMogul의 2025년 SaaS 성장 보고서에 따르면, $1M ARR(연 13억 원)에 도달하는 SaaS 기업의 중위값은 약 <strong>5년</strong>이 걸린다. 최상위 기업은 <strong>9개월</strong>에 도달했다. 90일 안에 세상을 바꾸겠다는 이야기가 아니다. <strong>90일 안에 시작하겠다는 이야기다.</strong></p>
+
+<div class="pull-quote">
+  <p>시장은 있다.<br>빈자리는 넓다.<br>도구는 준비되어 있다.<br>남은 것은 첫 번째 전화를 거는 것뿐이다.</p>
+</div>
+</section>
+</main>
+
+<div class="closing">
+  <h2>계획은 완벽하지 않다<br><strong>시작한 사람만이 수정할 수 있다</strong></h2>
+  <p class="sub">Case B를 골랐다. 시장을 찾았다. 90일을 설계했다. 4편의 100개 기업이 증명한 것을 한 번 더 적용한다. 한 가지만 한다.</p>
+</div>
+
+<footer class="footer">
+  <p>Sources: Intelectium, Startup Profitability (2024) &middot; SaaS Capital, Bootstrapped Benchmarks (2025) &middot; ChartMogul, SaaS Growth Report (2025) &middot; fn7, Solo Founder GTM (2025) &middot; OECD, D4SME Digital Survey (2025) &middot; KBIZ, SME Digital Maturity (2024) &middot; GitHub Copilot Study (2023) &middot; Korean Ministry of SMEs, Cloud Voucher Program (2025)</p>
+  <p>Research assisted by Claude &middot; 2026</p>
+</footer>
+</article>
+</div>

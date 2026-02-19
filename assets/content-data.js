@@ -1180,6 +1180,48 @@
         search: 'First Contact 감시자 Observer 은하 네트워크 기저패턴 보편 인류 선택 열린결말 Elena Marcus SF 소설'
       }
     ]
+  },
+  {
+    id: 'diligence-paradox',
+    title: '성실함이 배신하는 순간',
+    description: '왜 가장 성실한 사람이 가장 먼저 무너지는가. 피터의 법칙 40,000명 실증, OECD 노동시간, Gallup 번아웃 데이터로 해부하는 방향 없는 성실함의 구조적 함정.',
+    articles: [
+      {
+        title: '성실함이 배신하는 순간',
+        role: '피터의 법칙 40,000명 실증과 이건희의 프랑크푸르트 선언으로 해부하는 성실함의 함정',
+        tag: '분석',
+        href: 'content/diligence-paradox-series/when-diligence-betrays.html',
+        search: '성실함 역설 피터의 법칙 역량 함정 번아웃 이건희 프랑크푸르트 선언 신경영 OECD 노동시간 Gallup'
+      },
+      {
+        title: '공헌의 기준',
+        role: '피터 드러커의 지식근로자 5원칙으로 세우는 일 잘하는 사람의 기준',
+        tag: '가이드',
+        href: 'content/diligence-paradox-series/contribution-not-todo.html',
+        search: '공헌 기준 피터 드러커 지식근로자 To-Do 우선순위 강점 의사결정 정치력 자원확보 승진 일잘러'
+      },
+      {
+        title: '생존의 기술',
+        role: '대기업 62.2% 임금, AI 도입률 0.1% — 중소기업 현실과 3가지 탈출 경로',
+        tag: '현실',
+        href: 'content/diligence-paradox-series/the-sme-reality.html',
+        search: '중소기업 현실 임금격차 AI도입 인력부족 Midjourney Anysphere 레버리지 자동화 이직 창업 탈출경로'
+      },
+      {
+        title: '한 가지만 한다',
+        role: '제약이론 100개 기업 실패율 0% — 상황별 병목 진단과 실행 플레이북',
+        tag: '실행',
+        href: 'content/diligence-paradox-series/do-one-thing.html',
+        search: '한가지 집중 병목 제약이론 TOC 골드랫 매출 리드생성 제품화 시장검증 SaaS 플레이북 실행'
+      },
+      {
+        title: '나라면 이렇게 한다',
+        role: '시장조사부터 90일 실행까지 — B2B SaaS 제품 하나를 만드는 실전 플레이북',
+        tag: '실전',
+        href: 'content/diligence-paradox-series/if-it-were-me.html',
+        search: '나라면 실전 B2B SaaS 시장조사 MVP 견적자동화 중소기업 정부바우처 90일 솔로파운더 부트스트랩'
+      }
+    ]
   }
 ];
   // Auto-generate thumbnail from href: content/foo/bar.html → assets/og/foo/bar.png
