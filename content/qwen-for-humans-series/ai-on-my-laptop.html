@@ -1,0 +1,547 @@
+---
+layout: layouts/article.njk
+pageTitle: "내 노트북으로 AI를 돌린다고?"
+description: "Qwen3.5 397B는 개인 PC에서 돌릴 수 없다. 하지만 8B는 된다. Ollama 한 줄이면 5분 안에 로컬 AI가 완성되는 현실적 가이드."
+ogTitle: "내 노트북으로 AI를 돌린다고? — 개인 PC에서 Qwen 돌리는 현실 가이드"
+ogDescription: "RTX 4060에서 초당 42토큰. Ollama 한 줄이면 5분 만에 로컬 AI 완성. GPU별 선택지와 API 비용 비교까지."
+datePublished: "2026-02-20"
+---
+
+<style>
+/* 용어 번역 박스 */
+.term-box {
+  border-left: 4px solid var(--accent);
+  background: var(--card-bg);
+  padding: 20px 24px;
+  margin: 28px 0 36px;
+}
+.term-box .term-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.term-box .term-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 6px;
+}
+.term-box .term-desc {
+  font-size: 0.92rem;
+  color: var(--prose);
+  line-height: 1.8;
+}
+.term-box .term-desc strong {
+  font-weight: 700;
+  color: var(--fg);
+}
+
+/* 비교 테이블 */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 32px 0 40px;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+.compare-table thead th {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--fg);
+}
+.compare-table tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--prose);
+  vertical-align: top;
+}
+.compare-table tbody td:first-child {
+  font-weight: 700;
+  color: var(--fg);
+  white-space: nowrap;
+}
+.compare-table tbody td strong {
+  font-weight: 700;
+  color: var(--accent);
+}
+.compare-table tbody tr:last-child td {
+  border-bottom: 2px solid var(--fg);
+}
+
+/* 터미널 코드 블록 */
+.terminal {
+  background: var(--fg);
+  color: var(--bg);
+  padding: 24px 28px;
+  margin: 28px 0 36px;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  line-height: 2;
+  overflow-x: auto;
+}
+[data-theme="dark"] .terminal {
+  background: var(--card-bg);
+  color: var(--fg);
+  border: 1px solid var(--rule);
+}
+.terminal .t-prompt {
+  color: var(--accent);
+  user-select: none;
+}
+.terminal .t-comment {
+  opacity: 0.45;
+}
+
+/* 의사결정 플로차트 */
+.flow {
+  margin: 40px 0 48px;
+  display: grid;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+.flow-node {
+  background: var(--bg);
+  padding: 24px 28px;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.flow-node .f-tag {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  padding-top: 4px;
+}
+.flow-node .f-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 4px;
+}
+.flow-node .f-desc {
+  font-size: 0.88rem;
+  color: var(--secondary);
+  line-height: 1.7;
+}
+.flow-node .f-pick {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-top: 8px;
+  padding: 4px 10px;
+  border: 1px solid var(--accent);
+}
+.flow-arrow {
+  background: var(--bg);
+  text-align: center;
+  padding: 8px 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* 스펙 카드 그리드 — 4열 */
+.gpu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin: 36px 0 44px;
+}
+.gpu-card {
+  background: var(--bg);
+  padding: 28px 24px;
+}
+.gpu-card .g-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.gpu-card .g-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 4px;
+}
+.gpu-card .g-vram {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.gpu-card .g-desc {
+  font-size: 0.85rem;
+  color: var(--secondary);
+  line-height: 1.7;
+}
+.gpu-card .g-desc strong {
+  font-weight: 700;
+  color: var(--fg);
+}
+
+/* 하이라이트 카드 */
+.highlight-card {
+  background: var(--card-bg);
+  border: 1px solid var(--rule);
+  padding: 28px 32px;
+  margin: 32px 0 40px;
+}
+.highlight-card .h-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.highlight-card .h-text {
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--prose);
+  line-height: 1.85;
+}
+.highlight-card .h-text strong {
+  font-weight: 700;
+  color: var(--fg);
+}
+
+/* 반응형 */
+@media (max-width: 700px) {
+  .gpu-grid { grid-template-columns: 1fr; }
+  .compare-table { font-size: 0.8rem; }
+  .compare-table thead th,
+  .compare-table tbody td { padding: 10px 10px; }
+  .terminal { padding: 16px 18px; font-size: 0.75rem; }
+  .flow-node { grid-template-columns: 40px 1fr; gap: 10px; padding: 18px 20px; }
+}
+</style>
+
+<article>
+<div class="page">
+
+<header class="masthead">
+  <span class="issue">Series 36 &middot; 02 of 05</span>
+  <h1>내 노트북으로<br><strong>AI를 돌린다고?</strong></h1>
+  <p class="deck">397B 풀 모델은 꿈이다. 하지만 8B는 현실이다. 개인 PC에서 AI를 실행하는 방법과, 그래도 API가 나은 순간을 구분하는 가이드.</p>
+</header>
+
+<main>
+
+<!-- ===== PART I ===== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part I — Reality Check</span>
+    <h2>397B는 꿈이고, <strong>8B가 현실이다</strong></h2>
+  </div>
+
+  <p class="prose">1편에서 Qwen3.5의 스펙을 살펴봤다. 397B 파라미터, 256K 컨텍스트, 201개 언어 지원. 인상적인 숫자다. 하지만 한 가지를 짚고 넘어가야 한다. <strong>이 모델을 내 컴퓨터에서 돌릴 수 있는가?</strong></p>
+
+  <p class="prose">결론부터. 397B 풀 모델을 개인 PC에서 실행하는 것은 <strong>사실상 불가능</strong>하다. 이 모델을 8-bit 양자화로 돌리려면 VRAM(GPU 전용 메모리)이 512GB 필요하다. NVIDIA A100 GPU 7장 가격이다. 장당 수백만 원. 합치면 수천만 원이다.</p>
+
+  <div class="term-box">
+    <div class="term-label">translate</div>
+    <div class="term-title">VRAM (Video RAM)</div>
+    <div class="term-desc"><strong>GPU 전용 메모리</strong>. 일반 RAM과 다르다. AI 모델은 실행 중 VRAM 안에 올라가 있어야 한다. VRAM이 부족하면 모델이 일반 RAM으로 넘치는데(offloading), 이 경우 <strong>속도가 5~30배 느려진다</strong>. 게이밍 그래픽카드의 VRAM은 보통 8~24GB다.</div>
+  </div>
+
+  <p class="prose">하지만 Qwen3.5만 있는 것이 아니다. Qwen3 패밀리에는 <strong>크기가 다른 여러 모델</strong>이 있다. 같은 아키텍처를 공유하되, 파라미터 수를 줄인 경량 모델들이다. 이것들은 개인 PC에서 돌아간다.</p>
+
+  <div class="gpu-grid">
+    <div class="gpu-card">
+      <div class="g-label">Entry</div>
+      <div class="g-name">RTX 4060</div>
+      <div class="g-vram">8GB VRAM</div>
+      <div class="g-desc"><strong>Qwen3-8B</strong> 실행 가능. Q4 양자화 기준 초당 42토큰. 일상 대화, 간단한 코딩 보조에 충분한 수준이다.</div>
+    </div>
+    <div class="gpu-card">
+      <div class="g-label">Mid-range</div>
+      <div class="g-name">RTX 4070</div>
+      <div class="g-vram">12GB VRAM</div>
+      <div class="g-desc"><strong>Qwen3-14B</strong> 실행 가능. 8B보다 추론 능력이 한 단계 높다. 문서 요약, 번역, 중간 난이도 코딩에 적합하다.</div>
+    </div>
+    <div class="gpu-card">
+      <div class="g-label">High-end</div>
+      <div class="g-name">RTX 4090</div>
+      <div class="g-vram">24GB VRAM</div>
+      <div class="g-desc"><strong>Qwen3-32B</strong> 실행 가능. 개인 PC에서 돌릴 수 있는 최대급. 복잡한 추론, 긴 문서 처리에 눈에 띄는 품질 차이가 있다.</div>
+    </div>
+    <div class="gpu-card">
+      <div class="g-label">Apple</div>
+      <div class="g-name">M3/M4 Mac</div>
+      <div class="g-vram">통합 메모리 24~192GB</div>
+      <div class="g-desc">Apple Silicon은 CPU와 GPU가 메모리를 공유한다. <strong>M4 Pro(48GB)면 32B</strong>까지 가능. M3 Ultra(192GB)면 MoE 오프로딩으로 72B급까지 시도할 수 있다.</div>
+    </div>
+  </div>
+
+  <div class="term-box">
+    <div class="term-label">translate</div>
+    <div class="term-title">양자화 (Quantization)</div>
+    <div class="term-desc">모델의 <strong>용량을 압축하는 기술</strong>. 원본 모델이 100GB라면, 4-bit 양자화를 적용하면 약 25~30GB로 줄어든다. 사진의 화질을 낮추면 파일 크기가 줄어드는 것과 같다. 품질은 약간 떨어지지만, 일반 사용에서는 거의 체감되지 않는다. <strong>Q4_K_M</strong>이 속도/품질/메모리의 균형점으로 가장 널리 쓰인다.</div>
+  </div>
+
+  <p class="prose">핵심은 이것이다. 397B 풀 모델과 8B 모델은 <strong>같은 모델이 아니다</strong>. 8B는 397B에서 지식을 뽑아서 작게 만든 별개의 모델이다. 당연히 성능 차이가 있다. 하지만 8B도 2년 전의 GPT-3.5보다 대부분의 작업에서 낫다. 무료로, 인터넷 없이, 내 컴퓨터에서 돌아간다는 사실이 핵심이다.</p>
+</section>
+
+<!-- ===== PART II ===== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part II — 5 Minutes Setup</span>
+    <h2>Ollama <strong>5분 세팅</strong></h2>
+  </div>
+
+  <p class="prose">로컬 AI를 실행하는 가장 쉬운 방법은 <strong>Ollama</strong>다. 설치부터 대화까지 5분이면 된다. Windows, macOS, Linux 모두 지원한다.</p>
+
+  <div class="term-box">
+    <div class="term-label">translate</div>
+    <div class="term-title">Ollama</div>
+    <div class="term-desc">AI 모델을 내 컴퓨터에서 실행하게 해주는 <strong>무료 프로그램</strong>. Docker가 컨테이너를 실행하듯, Ollama는 AI 모델을 실행한다. 명령어 한 줄이면 모델 다운로드부터 실행까지 끝난다.</div>
+  </div>
+
+  <p class="prose">설치 과정은 3단계다.</p>
+
+  <div class="terminal">
+    <span class="t-comment"># 1. Ollama 설치 (macOS/Linux)</span><br>
+    <span class="t-prompt">$ </span>curl -fsSL https://ollama.com/install.sh | sh<br>
+    <br>
+    <span class="t-comment"># Windows는 ollama.com에서 설치 파일을 다운로드한다</span><br>
+    <br>
+    <span class="t-comment"># 2. Qwen3 8B 모델 다운로드 + 실행 (약 4.7GB)</span><br>
+    <span class="t-prompt">$ </span>ollama run qwen3:8b<br>
+    <br>
+    <span class="t-comment"># 3. 대화 시작 — 바로 쓸 수 있다</span><br>
+    <span class="t-prompt">>>> </span>한국어로 간단한 파이썬 함수 하나 만들어줘
+  </div>
+
+  <p class="prose">이것이 전부다. 첫 실행 시 모델 파일을 다운로드하는 데 수 분이 걸리고, 이후에는 즉시 실행된다. RTX 4060 기준으로 <strong>초당 약 42토큰</strong>이 생성된다. 체감상 ChatGPT 무료 버전보다 빠르다.</p>
+
+  <p class="prose">더 큰 모델을 쓰고 싶다면 숫자만 바꾸면 된다.</p>
+
+  <div class="terminal">
+    <span class="t-comment"># 14B 모델 — RTX 4070(12GB) 이상 권장</span><br>
+    <span class="t-prompt">$ </span>ollama run qwen3:14b<br>
+    <br>
+    <span class="t-comment"># 32B 모델 — RTX 4090(24GB) 이상 권장</span><br>
+    <span class="t-prompt">$ </span>ollama run qwen3:32b<br>
+    <br>
+    <span class="t-comment"># 비전(이미지 이해) 모델 — 사진을 보여주고 질문 가능</span><br>
+    <span class="t-prompt">$ </span>ollama run qwen3-vl
+  </div>
+
+  <p class="prose">Ollama가 편리한 이유는 또 있다. <strong>로컬 API 서버</strong>가 자동으로 실행된다. 모델을 한 번 띄워놓으면 다른 프로그램에서 HTTP 요청으로 접근할 수 있다. 나중에 사이드 프로젝트에 AI를 붙일 때 이 점이 중요해진다.</p>
+
+  <div class="highlight-card">
+    <div class="h-label">key point</div>
+    <div class="h-text">Ollama로 실행한 모델은 <strong>인터넷에 연결되지 않는다</strong>. 내가 입력한 모든 데이터는 내 컴퓨터 안에 머문다. 회사 문서, 개인 일기, 코드 리뷰 — 어떤 데이터를 넣어도 외부로 나가지 않는다. 이것이 로컬 AI의 가장 큰 장점이다.</div>
+  </div>
+</section>
+
+<!-- ===== PART III ===== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part III — When API Wins</span>
+    <h2>API로 쓰는 게 <strong>나을 때</strong></h2>
+  </div>
+
+  <p class="prose">로컬 AI는 프라이버시와 비용 면에서 강점이 있다. 하지만 <strong>모든 상황에서 로컬이 정답은 아니다</strong>. 로컬 8B 모델과 클라우드 API의 397B 풀 모델은 성능 차이가 분명히 존재한다.</p>
+
+  <div class="mechanism-row">
+    <div class="mechanism">
+      <div class="m-label">Limit 01</div>
+      <h3>모델 크기의 벽</h3>
+      <p>8B 모델은 간단한 작업에 좋지만, 복잡한 추론이나 긴 문서 분석에서는 한계가 드러난다. 397B 풀 모델과의 품질 차이는 체감된다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Limit 02</div>
+      <h3>컨텍스트의 한계</h3>
+      <p>로컬 8B 모델의 실질적 컨텍스트는 8K~32K 수준이다. 풀 모델의 256K와는 비교가 안 된다. 긴 문서 처리에 제약이 있다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Limit 03</div>
+      <h3>멀티모달 제한</h3>
+      <p>이미지/비디오 이해 능력은 큰 모델에서 훨씬 강하다. 로컬 비전 모델은 존재하지만, 정확도와 속도 모두 클라우드에 뒤진다.</p>
+    </div>
+  </div>
+
+  <p class="prose">그렇다면 API는 얼마나 드는가. Qwen3.5는 알리바바 클라우드(ModelStudio)에서 API로 제공된다. OpenAI 호환 형식이라 기존 코드를 거의 수정하지 않고 쓸 수 있다.</p>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Method</th>
+        <th>Cost</th>
+        <th>Performance</th>
+        <th>Best For</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Ollama 8B (로컬)</td>
+        <td><strong>0원</strong> (전기세만)</td>
+        <td>간단한 대화, 요약, 기초 코딩</td>
+        <td>학습, 실험, 프라이버시</td>
+      </tr>
+      <tr>
+        <td>Ollama 32B (로컬)</td>
+        <td><strong>0원</strong> (RTX 4090 필요)</td>
+        <td>중급 추론, 문서 분석</td>
+        <td>개인 프로젝트, 코드 리뷰</td>
+      </tr>
+      <tr>
+        <td>Qwen3.5-Plus API</td>
+        <td>월 수만~수십만 원</td>
+        <td>풀 모델 397B, 1M 컨텍스트</td>
+        <td>프로덕션, 긴 문서, 고품질 필요 시</td>
+      </tr>
+      <tr>
+        <td>Claude / GPT API</td>
+        <td>월 수만~수백만 원</td>
+        <td>프론티어급 (최상위 성능)</td>
+        <td>최고 품질이 필수인 업무</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="prose">Qwen3.5 API의 가장 큰 장점은 <strong>비용</strong>이다. 전작 대비 60% 저렴하고, 동일 예산으로 처리할 수 있는 양이 8배 늘었다. OpenAI나 Anthropic API와 비교하면 토큰당 단가가 상당히 낮다. 성능은 프론티어 모델에 약간 밀리지만, 대부분의 실무 작업에는 충분하다.</p>
+
+  <div class="pull-quote">
+    <p>로컬은 <strong>프라이버시와 자유</strong>를 준다.<br>API는 <strong>성능과 편리함</strong>을 준다.<br>정답은 둘 중 하나가 아니라 <strong>상황</strong>이다.</p>
+  </div>
+</section>
+
+<!-- ===== PART IV ===== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part IV — Decision</span>
+    <h2>그래서 나는 <strong>뭘 선택해야 하는데</strong></h2>
+  </div>
+
+  <p class="prose">상황별로 가장 현실적인 선택지를 정리한다. 자신의 목적과 장비를 아래에 대입해보면 된다.</p>
+
+  <div class="flow">
+    <div class="flow-node">
+      <div class="f-tag">Case A</div>
+      <div>
+        <div class="f-title">AI가 뭔지 궁금해서 한번 써보고 싶다</div>
+        <div class="f-desc">GPU 없는 노트북이어도 된다. CPU만으로도 Qwen3-1.7B는 돌아간다. 느리지만 작동한다. GPU가 있다면 8B를 추천한다.</div>
+        <div class="f-pick">Ollama + Qwen3 1.7B or 8B</div>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node">
+      <div class="f-tag">Case B</div>
+      <div>
+        <div class="f-title">사이드 프로젝트에 AI를 붙이고 싶다</div>
+        <div class="f-desc">로컬 14B로 프로토타입을 만들고, 품질이 부족하면 API로 전환한다. 개발 중에는 로컬(무료), 배포 시에는 API(유료)로 갈아타는 전략이 효율적이다.</div>
+        <div class="f-pick">Local 14B → API fallback</div>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node">
+      <div class="f-tag">Case C</div>
+      <div>
+        <div class="f-title">회사 문서를 AI로 검색하고 싶다</div>
+        <div class="f-desc">데이터가 외부로 나가면 안 되는 환경이다. 로컬 32B + RAG 구성이 가장 안전하다. 문서 양이 많으면 API와 조합할 수도 있지만, 보안 정책을 먼저 확인해야 한다.</div>
+        <div class="f-pick">Local 32B + RAG</div>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node">
+      <div class="f-tag">Case D</div>
+      <div>
+        <div class="f-title">최고 품질의 결과물이 필요하다</div>
+        <div class="f-desc">프레젠테이션용 보고서, 고객 대면 문서, 복잡한 코드 생성. 이런 경우에는 로컬 모델로는 부족하다. Qwen3.5-Plus API나 Claude/GPT API를 쓰는 것이 맞다.</div>
+        <div class="f-pick">Qwen3.5-Plus or Claude / GPT API</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="prose">한 가지 전략이 더 있다. <strong>하이브리드</strong>다. 평소에는 로컬 모델로 빠르게 처리하고, 중요한 작업에만 API를 호출한다. 대부분의 일상 작업(요약, 번역, 간단한 질문)은 로컬 8B로 충분하다. API 비용을 90% 이상 절약하면서도, 필요할 때는 풀 모델의 성능을 쓸 수 있다.</p>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Step</th>
+        <th>Action</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>ollama.com에서 Ollama 설치</td>
+        <td>2분</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><strong>ollama run qwen3:8b</strong> 실행 (첫 다운로드 포함)</td>
+        <td>3~5분</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>한국어로 아무 질문이나 해본다</td>
+        <td>즉시</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>만족스러우면 14B/32B로 업그레이드 시도</td>
+        <td>5분</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>로컬이 부족한 작업이 생기면 API 키 발급</td>
+        <td>필요할 때</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="warning-box">
+    <div class="w-title">로컬 실행 전 반드시 확인할 것</div>
+    <ul class="warning-list">
+      <li>내 GPU의 VRAM 크기를 확인한다. 작업관리자(Windows) 또는 nvidia-smi(터미널)로 확인 가능하다</li>
+      <li>VRAM이 부족하면 모델이 일반 RAM으로 넘친다. 이 경우 속도가 극단적으로 느려진다</li>
+      <li>Apple Silicon Mac은 통합 메모리를 쓰므로 시스템 메모리가 곧 VRAM이다. 메모리가 클수록 유리하다</li>
+      <li>GPU가 전혀 없는 PC에서도 Ollama는 실행된다. 단, CPU 모드는 매우 느리다 (초당 2~5토큰)</li>
+      <li>첫 실행 시 모델 파일을 다운로드한다. 8B 기준 약 4.7GB. 인터넷이 필요한 것은 이때뿐이다</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>AI를 내 손에 넣는 데<br>필요한 것은 수천만 원이 아니다.<br><strong>명령어 한 줄이다.</strong></h2>
+  <p class="sub">ollama run qwen3:8b. 이 한 줄이 무료 AI 시대의 입장권이다. 나머지는 직접 써보면서 알게 된다.</p>
+</div>
+
+<footer class="footer">
+  <p>Sources: Unsloth Qwen3.5 Guide (2026) &middot; LocalLLM VRAM Guide (2026) &middot; APXML GPU Requirements (2026) &middot; WinBuzzer Qwen3.5 Cost Analysis (2026)</p>
+  <p>Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

@@ -673,6 +673,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://necromman.github.io/content/why-react-series/different-world.html</loc>
+    <lastmod>2026-02-20T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <!-- Series 29: 코드는 마지막이다 -->
   <url>
     <loc>https://necromman.github.io/content/code-last-series/time-without-output.html</loc>
@@ -857,6 +863,37 @@
   <url>
     <loc>https://necromman.github.io/content/diligence-paradox-series/if-it-were-me.html</loc>
     <lastmod>2026-02-19T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Series 36: Qwen3.5, 인간의 언어로 -->
+  <url>
+    <loc>https://necromman.github.io/content/qwen-for-humans-series/what-is-token-context.html</loc>
+    <lastmod>2026-02-20T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/qwen-for-humans-series/ai-on-my-laptop.html</loc>
+    <lastmod>2026-02-20T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/qwen-for-humans-series/coding-vs-chatting.html</loc>
+    <lastmod>2026-02-20T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/qwen-for-humans-series/ai-side-project-starter.html</loc>
+    <lastmod>2026-02-20T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/qwen-for-humans-series/qwen-for-small-business.html</loc>
+    <lastmod>2026-02-20T00:00:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

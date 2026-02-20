@@ -244,7 +244,8 @@
     'why-react-series': {
       title: 'React가 뭐길래',
       articles: [
-        { slug: 'you-can-switch', title: '바꿔도 됩니다' }
+        { slug: 'you-can-switch', title: '바꿔도 됩니다' },
+        { slug: 'different-world', title: '같은 화면, 다른 세계' }
       ]
     },
     'code-last-series': {
@@ -310,6 +311,16 @@
         { slug: 'the-sme-reality', title: '생존의 기술' },
         { slug: 'do-one-thing', title: '한 가지만 한다' },
         { slug: 'if-it-were-me', title: '나라면 이렇게 한다' }
+      ]
+    },
+    'qwen-for-humans-series': {
+      title: 'Qwen3.5, 인간의 언어로',
+      articles: [
+        { slug: 'what-is-token-context', title: '토큰이 뭔데, 컨텍스트가 뭔데' },
+        { slug: 'ai-on-my-laptop', title: '내 노트북으로 AI를 돌린다고?' },
+        { slug: 'coding-vs-chatting', title: '코딩에 쓸 만한가, 대화에 쓸 만한가' },
+        { slug: 'ai-side-project-starter', title: '사이드 프로젝트에 AI 붙이기' },
+        { slug: 'qwen-for-small-business', title: '중소기업은 이걸 어떻게 쓰는데' }
       ]
     }
   };

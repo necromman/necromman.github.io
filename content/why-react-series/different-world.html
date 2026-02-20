@@ -1,0 +1,110 @@
+---
+layout: layouts/article.njk
+pageTitle: "React, 만드는 방식이 다르다"
+description: "디자인 생태계, 에이전틱 엔지니어링, 그리고 구조를 잡는 힘. 같은 화면이라도 만드는 방식이 다르면 결과가 다르다."
+datePublished: "2026-02-20"
+---
+<style>
+.masthead .deck { max-width: 540px; }
+</style>
+<div class="page">
+<article>
+  <header class="masthead">
+    <div class="issue">Series 28 — Why React</div>
+    <h1>만드는 방식이<br><strong>다르다</strong></h1>
+    <p class="deck">디자인 생태계, 에이전틱 엔지니어링, 그리고 구조의 힘</p>
+  </header>
+
+  <main>
+
+<!-- ==================== PART I ==================== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part I</span>
+    <h2>둘 다 <strong>된다</strong></h2>
+  </div>
+
+  <p class="prose">대학교 비교과 프로그램 신청 화면. 카테고리 검색, 프로그램 목록, 신청 폼, 현황 조회.</p>
+
+  <p class="prose">상용 플랫폼으로 만들 수 있다. React로 만들 수 있다.</p>
+
+  <p class="prose">반응형? <strong>다 된다.</strong> 소스 공통화? <strong>다 된다.</strong> 컴포넌트 재사용? <strong>다 된다.</strong> 벤더사도 이렇게 말할 것이다. 틀린 말이 아니다.</p>
+
+  <p class="prose"><strong>차이는 기능에 있지 않다.</strong> 기능은 같다. 만드는 방식이 다르다.</p>
+</section>
+
+<!-- ==================== PART II ==================== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part II</span>
+    <h2>디자인 생태계가 <strong>다르다</strong></h2>
+  </div>
+
+  <p class="prose">React에는 전 세계가 만들고 검증한 디자인 시스템이 있다. shadcn/ui(GitHub Stars 106K), MUI(95K), Ant Design(94K). 이 라이브러리들은 수만 개의 프로젝트에서 검증된 컴포넌트를 제공한다. 가져다 쓰면 된다.</p>
+
+  <p class="prose">Tailwind CSS는 개발자 51%가 채택한 스타일링 도구다. px 단위로 디자인을 재현한다. 디자이너가 Figma에서 시안을 잡으면, Figma Dev Mode에서 React 코드로 바로 변환할 수 있다. <strong>시안과 결과물 사이의 간극이 사라진다.</strong></p>
+
+  <p class="prose">디자인 시스템을 한 번 잡으면 200개 화면이 같은 룩앤필로 움직인다. 검색 필터를 한 번 만들면 비교과 신청, 장학금 조회, 수강신청에 다 들어간다. 한 곳을 수정하면 전체에 반영된다. PC와 모바일도 같은 소스, 같은 디자인.</p>
+
+  <div class="pull-quote">
+    <p>한 번 만들고, 어디서든 쓴다<br><strong>200개 화면이 하나의 디자인으로 움직인다</strong></p>
+  </div>
+</section>
+
+<!-- ==================== PART III ==================== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part III</span>
+    <h2>에이전틱으로 <strong>만든다</strong></h2>
+  </div>
+
+  <p class="prose">2023년, AI는 코드를 한 줄씩 제안했다. 개발자가 수락하거나 거부했다. 2025년, "만들어줘"라고 말하면 전체 코드가 나왔다. 바이브코딩이라 불렀다. 누구나 할 수 있었다. <strong>하지만 결과가 매번 달랐다.</strong></p>
+
+  <p class="prose">화면마다 "만들어줘"를 반복하면, 열 번째 화면쯤 10가지 다른 방식으로 만들어져 있다. 화면 10개짜리는 괜찮다. 200개짜리 종합정보시스템에서는 치명적이다.</p>
+
+  <p class="prose">2026년, <strong>에이전틱 엔지니어링이 시작됐다.</strong> AI에게 시키는 것이 아니라 맡기는 것이다. 프로스트는 이 방식으로 React 프로젝트를 진행한다.</p>
+
+  <p class="prose">먼저 에이전트에게 프로젝트의 전체 그림을 이해시킨다. 기술 스택, 폴더 구조, DB 연동 방식, 빌드 규칙. 그 다음, 반복되는 작업을 스킬로 정의한다. 검색 화면 패턴, 폼 유효성 규칙, 디자인 시스템. 에이전트는 이 규칙을 매번 자동으로 따른다.</p>
+
+  <p class="prose">"비교과 검색 화면을 만들어줘." 에이전트가 맥락을 참조하고, 스킬을 적용하고, 코드를 생성하고, 빌드까지 스스로 확인한다. 개발자는 "무엇을"만 말한다. "어떻게"는 에이전트가 구조에서 자동으로 판단한다.</p>
+
+  <p class="prose"><strong>100번째 화면도 1번째 화면과 같은 품질.</strong> 프로젝트가 커질수록 이 구조의 가치가 드러난다.</p>
+
+  <div class="pull-quote">
+    <p>바이브코딩이 "시키는 것"이었다면<br><strong>에이전틱 엔지니어링은 "맡기는 것"이다</strong></p>
+  </div>
+</section>
+
+<!-- ==================== PART IV ==================== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part IV</span>
+    <h2>AI 없이도 <strong>강하다</strong></h2>
+  </div>
+
+  <p class="prose">"에이전틱 엔지니어링을 하는 회사면, AI 없으면 개발 못 하는 거 아닌가?"</p>
+
+  <p class="prose"><strong>거꾸로다.</strong></p>
+
+  <p class="prose">에이전트에게 프로젝트 맥락을 넣으려면, 아키텍처를 설계할 줄 알아야 한다. 규칙과 스킬을 정의하려면, 코딩 표준과 디자인 시스템을 잡을 줄 알아야 한다. 에이전트의 결과를 검수하려면, 코드를 읽고 판단할 줄 알아야 한다.</p>
+
+  <p class="prose">AI를 도구로 제대로 쓸 수 있다는 것은, AI 없이도 제대로 할 수 있다는 뜻이다. 에이전틱 엔지니어링의 핵심은 AI가 아니다. <strong>구조를 잡는 능력이다.</strong> AI는 그 구조 위에서 실행 속도를 올려주는 도구일 뿐이다.</p>
+
+  <div class="pull-quote">
+    <p>AI를 잘 쓰는 팀이 AI 없이도 강한 팀이다<br><strong>구조가 있는 곳에 AI가 더해질 때, 속도가 된다</strong></p>
+  </div>
+</section>
+
+  </main>
+
+  <div class="closing">
+    <h2>디자인 생태계가 다르고,<br>만드는 방식이 다르고,<br>구조를 잡는 능력이 다르다.<br><strong>같은 화면, 다른 결과</strong></h2>
+    <p class="sub">구조가 속도를 만든다. AI 없이도 강하고, AI와 함께 더 빠르다.</p>
+  </div>
+
+  <footer class="footer">
+    <p>Sources: shadcn/ui GitHub (106K Stars) &middot; MUI GitHub (95K Stars) &middot; State of CSS 2025 (Tailwind 51%) &middot; Anthropic: 2026 Agentic Coding Trends Report &middot; Karpathy, A. "Agentic Engineering" (2026)</p>
+    <p>프로스트 기술팀 &middot; Research assisted by Claude &middot; 2026</p>
+  </footer>
+</article>
+</div>

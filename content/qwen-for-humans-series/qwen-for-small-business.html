@@ -1,0 +1,579 @@
+---
+layout: layouts/article.njk
+pageTitle: "중소기업은 이걸 어떻게 쓰는데"
+description: "오픈소스 AI를 중소기업이 도입하는 3가지 경로. API 호출부터 온프레미스까지 비용과 보안을 비교하고, RAG 기반 사내 지식 관리 시스템의 현실적 구축 시나리오를 다룬다."
+ogTitle: "중소기업은 이걸 어떻게 쓰는데 — Qwen3.5 오픈소스 AI 도입 의사결정 가이드"
+ogDescription: "API 월 수만 원 vs 온프레미스 초기 수백만 원. 중소기업을 위한 AI 도입 3가지 경로와 RAG 사내 지식 시스템 구축법."
+datePublished: "2026-02-20"
+---
+
+<style>
+/* 용어 번역 박스 */
+.term-box {
+  border-left: 4px solid var(--accent);
+  background: var(--card-bg);
+  padding: 20px 24px;
+  margin: 28px 0 36px;
+}
+.term-box .term-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.term-box .term-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 6px;
+}
+.term-box .term-desc {
+  font-size: 0.92rem;
+  color: var(--prose);
+  line-height: 1.8;
+}
+.term-box .term-desc strong {
+  font-weight: 700;
+  color: var(--fg);
+}
+
+/* 비교 테이블 */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 32px 0 40px;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+.compare-table thead th {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--fg);
+}
+.compare-table tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--prose);
+  vertical-align: top;
+}
+.compare-table tbody td:first-child {
+  font-weight: 700;
+  color: var(--fg);
+  white-space: nowrap;
+}
+.compare-table tbody td strong {
+  font-weight: 700;
+  color: var(--accent);
+}
+.compare-table tbody tr:last-child td {
+  border-bottom: 2px solid var(--fg);
+}
+
+/* 경로 카드 — 3열 */
+.path-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin: 36px 0 44px;
+}
+.path-card {
+  background: var(--bg);
+  padding: 28px 24px;
+}
+.path-card .p-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.path-card .p-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 8px;
+}
+.path-card .p-cost {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.path-card .p-desc {
+  font-size: 0.85rem;
+  color: var(--secondary);
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+.path-card .p-pros,
+.path-card .p-cons {
+  font-size: 0.8rem;
+  line-height: 1.7;
+  margin-bottom: 4px;
+}
+.path-card .p-pros {
+  color: var(--prose);
+}
+.path-card .p-cons {
+  color: var(--muted);
+}
+.path-card .p-pros strong,
+.path-card .p-cons strong {
+  font-weight: 700;
+}
+
+/* 시나리오 블록 */
+.scenario {
+  border: 1px solid var(--rule);
+  margin: 36px 0 44px;
+  padding: 0;
+}
+.scenario-header {
+  background: var(--card-bg);
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--rule);
+}
+.scenario-header .sc-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.scenario-header .sc-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--fg);
+}
+.scenario-body {
+  padding: 24px 28px;
+}
+.scenario-body .sc-step {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.scenario-body .sc-step:last-child {
+  border-bottom: none;
+}
+.scenario-body .sc-num {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  padding-top: 2px;
+}
+.scenario-body .sc-text {
+  font-size: 0.9rem;
+  color: var(--prose);
+  line-height: 1.75;
+}
+.scenario-body .sc-text strong {
+  font-weight: 700;
+  color: var(--fg);
+}
+
+/* 체크리스트 그리드 — 2열 */
+.check-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin: 36px 0 44px;
+}
+.check-item {
+  background: var(--bg);
+  padding: 24px 24px;
+}
+.check-item .ck-num {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.check-item .ck-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 6px;
+}
+.check-item .ck-desc {
+  font-size: 0.85rem;
+  color: var(--secondary);
+  line-height: 1.7;
+}
+
+/* 반응형 */
+@media (max-width: 700px) {
+  .path-grid { grid-template-columns: 1fr; }
+  .check-grid { grid-template-columns: 1fr; }
+  .compare-table { font-size: 0.8rem; }
+  .compare-table thead th,
+  .compare-table tbody td { padding: 10px 10px; }
+  .scenario-body .sc-step { grid-template-columns: 24px 1fr; gap: 8px; }
+  .scenario-header,
+  .scenario-body { padding-left: 20px; padding-right: 20px; }
+}
+</style>
+
+<article>
+<div class="page">
+
+<header class="masthead">
+  <span class="issue">Series 36 &middot; 05 of 05</span>
+  <h1>중소기업은 이걸<br><strong>어떻게 쓰는데</strong></h1>
+  <p class="deck">API 호출부터 온프레미스 구축까지. 중소기업이 오픈소스 AI를 도입하는 3가지 경로와, 사내 지식을 AI로 검색하는 현실적 시나리오.</p>
+</header>
+
+<main>
+
+<!-- ===== PART I ===== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part I — Why Open Source</span>
+    <h2>왜 <strong>오픈소스 AI</strong>인가</h2>
+  </div>
+
+  <p class="prose">중소기업이 AI를 도입하려 할 때, 첫 번째 질문은 "ChatGPT 유료 구독하면 되는 거 아닌가?"다. 물론 된다. 하지만 기업 환경에서는 개인 사용과 다른 문제가 생긴다.</p>
+
+  <div class="mechanism-row">
+    <div class="mechanism">
+      <div class="m-label">Risk 01</div>
+      <h3>데이터 유출</h3>
+      <p>상용 API를 쓰면 사내 데이터가 외부 서버로 나간다. 계약서, 견적서, 고객 정보, 기술 문서. 유출 시 법적 책임은 우리 회사에 있다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Risk 02</div>
+      <h3>비용 예측 불가</h3>
+      <p>API는 토큰 단위 과금이다. 직원 50명이 매일 사용하면 월 비용이 수백만 원까지 올라갈 수 있다. 사용량이 늘수록 비용도 비례 증가한다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Risk 03</div>
+      <h3>서비스 종속</h3>
+      <p>OpenAI가 가격을 올리거나, 약관을 바꾸거나, 서비스를 중단해도 대응이 어렵다. 우리 비즈니스가 남의 서비스에 의존한다.</p>
+    </div>
+  </div>
+
+  <p class="prose">오픈소스 AI는 이 세 가지 문제에 대한 해답이 된다. <strong>데이터가 외부로 나가지 않고, 비용이 고정되며, 서비스 종속이 없다.</strong> Qwen3.5가 이 맥락에서 주목받는 이유는, 오픈 웨이트 모델 중 최고 수준의 성능을 무료로 제공하기 때문이다.</p>
+
+  <p class="prose">가트너(Gartner)는 2026년 핵심 트렌드로 <strong>DSLM(Domain-Specific Language Model)</strong>을 지목했다. 범용 대형 모델이 아니라, 특정 업종에 맞춰진 소형 특화 모델이 기업 AI의 주류가 될 것이라는 전망이다. Qwen3 패밀리의 8B/14B 모델은 이 트렌드에 정확히 부합한다. 작고, 빠르고, 우리 데이터로 추가 학습시킬 수 있다.</p>
+
+  <div class="pull-quote">
+    <p>중소기업에게 AI 도입의 핵심 질문은<br>"어떤 모델이 좋은가"가 아니다.<br><strong>"우리 데이터를 어떻게 지킬 것인가"</strong>다.</p>
+  </div>
+</section>
+
+<!-- ===== PART II ===== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part II — Three Paths</span>
+    <h2>중소기업이 쓸 수 있는 <strong>3가지 방식</strong></h2>
+  </div>
+
+  <p class="prose">오픈소스 AI를 도입하는 방법은 3가지다. 각각 비용, 난이도, 보안 수준이 다르다. 회사의 상황에 맞게 선택하면 된다.</p>
+
+  <div class="path-grid">
+    <div class="path-card">
+      <div class="p-label">Path A</div>
+      <div class="p-title">API 호출</div>
+      <div class="p-cost">월 3~30만 원</div>
+      <div class="p-desc">알리바바 클라우드 ModelStudio에서 Qwen3.5-Plus API를 호출한다. 서버 없이 바로 시작 가능. OpenAI 호환 형식이라 기존 코드 수정이 거의 없다.</div>
+      <div class="p-pros"><strong>장점:</strong> 즉시 시작, 인프라 불필요, 낮은 진입 장벽</div>
+      <div class="p-cons"><strong>단점:</strong> 데이터가 외부 서버로 전송됨, 사용량에 비례하는 비용</div>
+    </div>
+    <div class="path-card">
+      <div class="p-label">Path B</div>
+      <div class="p-title">클라우드 GPU 임대</div>
+      <div class="p-cost">월 30~100만 원</div>
+      <div class="p-desc">AWS, GCP, 또는 국내 클라우드에서 GPU 서버를 임대하고, Qwen3.5 오픈 웨이트 모델을 직접 배포한다. 데이터가 우리 클라우드 계정 안에 머문다.</div>
+      <div class="p-pros"><strong>장점:</strong> 데이터 통제 가능, 모델 커스터마이징, 확장 용이</div>
+      <div class="p-cons"><strong>단점:</strong> 인프라 관리 필요, 월 고정 비용, 기술 인력 필요</div>
+    </div>
+    <div class="path-card">
+      <div class="p-label">Path C</div>
+      <div class="p-title">온프레미스</div>
+      <div class="p-cost">초기 300~1,000만 원+</div>
+      <div class="p-desc">자체 서버에 GPU를 장착하고 Qwen 모델을 설치한다. 데이터가 회사 건물 밖으로 나가지 않는다. 금융, 의료, 법률 등 보안 규제가 강한 업종에 적합.</div>
+      <div class="p-pros"><strong>장점:</strong> 완전한 데이터 통제, 월 비용 없음(전기세만), 규제 대응</div>
+      <div class="p-cons"><strong>단점:</strong> 높은 초기 비용, 하드웨어 유지보수, 전문 인력 필수</div>
+    </div>
+  </div>
+
+  <p class="prose">대부분의 중소기업에게 현실적인 시작점은 <strong>Path A(API 호출)</strong>다. 개발자 1명이 하루면 프로토타입을 만들 수 있다. 여기서 효과가 확인되면 Path B(클라우드)로 확장하고, 보안 요구가 높으면 Path C(온프레미스)로 전환하는 단계적 접근이 합리적이다.</p>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Criteria</th>
+        <th>API</th>
+        <th>Cloud GPU</th>
+        <th>On-Premise</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>시작까지 시간</td>
+        <td><strong>1일</strong></td>
+        <td>1~2주</td>
+        <td>1~3개월</td>
+      </tr>
+      <tr>
+        <td>필요 인력</td>
+        <td>개발자 1명</td>
+        <td>개발자 + 인프라 1명</td>
+        <td>개발자 + 인프라 + 보안 2~3명</td>
+      </tr>
+      <tr>
+        <td>데이터 보안</td>
+        <td>외부 전송</td>
+        <td>클라우드 내 격리</td>
+        <td><strong>완전 내부</strong></td>
+      </tr>
+      <tr>
+        <td>모델 크기</td>
+        <td>397B 풀 모델</td>
+        <td>8B~397B 선택</td>
+        <td>8B~32B (GPU 장비에 따라)</td>
+      </tr>
+      <tr>
+        <td>확장성</td>
+        <td>즉시</td>
+        <td>유연</td>
+        <td>하드웨어 추가 필요</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="term-box">
+    <div class="term-label">translate</div>
+    <div class="term-title">온프레미스 (On-Premise)</div>
+    <div class="term-desc">클라우드가 아닌 <strong>우리 회사 건물 안에 서버를 두는 것</strong>. 인터넷을 통해 외부 서비스를 쓰는 대신, 자체 서버에서 모든 것을 처리한다. 데이터가 물리적으로 회사 밖을 벗어나지 않으므로 보안이 가장 높다.</div>
+  </div>
+</section>
+
+<!-- ===== PART III ===== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part III — Customization</span>
+    <h2>우리 회사 데이터로 <strong>학습시키기</strong></h2>
+  </div>
+
+  <p class="prose">Qwen3.5는 범용 모델이다. 모든 분야를 알지만, 우리 회사의 업무를 깊이 아는 것은 아니다. "우리 제품 코드 A-301의 사양이 뭐야?"라고 물으면 모른다고 답한다. 이것을 해결하는 방법이 두 가지 있다.</p>
+
+  <div class="term-box">
+    <div class="term-label">translate</div>
+    <div class="term-title">파인튜닝 (Fine-tuning)</div>
+    <div class="term-desc">AI 모델에 <strong>우리 데이터를 추가로 학습시키는 것</strong>. 기존 모델의 능력에 우리 업종/회사의 전문 지식을 덧입힌다. 병원이라면 의료 용어와 진료 가이드라인을, 법률 사무소라면 판례와 법조문을 학습시킬 수 있다.</div>
+  </div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Method</th>
+        <th>Approach</th>
+        <th>When</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>RAG</td>
+        <td>문서를 벡터 DB에 저장하고, 질문 시 관련 문서를 찾아 AI에게 전달</td>
+        <td><strong>대부분의 경우 이것으로 충분</strong>. 문서가 바뀌어도 DB만 업데이트하면 된다</td>
+      </tr>
+      <tr>
+        <td>파인튜닝</td>
+        <td>모델 자체에 우리 데이터를 추가 학습시킴</td>
+        <td>특수 용어, 업계 관행, 특정 말투가 필요할 때. RAG로 해결 안 되는 경우에만</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="prose">중요한 점은, <strong>대부분의 중소기업에게는 RAG만으로 충분</strong>하다는 것이다. 파인튜닝은 데이터 준비, 학습 인프라, 모델 평가에 상당한 리소스가 들어간다. 반면 RAG는 문서를 벡터 DB에 넣기만 하면 바로 쓸 수 있다. 4편에서 다룬 RAG 파이프라인이 기업 환경에서도 동일하게 적용된다.</p>
+
+  <p class="prose">Qwen3 패밀리의 8B/14B 모델이 여기서 빛을 발한다. 가트너가 주목한 DSLM(도메인 특화 언어 모델) 트렌드에 맞게, 거대한 범용 모델 대신 <strong>작고 빠른 모델을 우리 업종에 맞춰서</strong> 쓰는 전략이다. 8B 모델은 RTX 4060 하나면 충분하다. 서버 한 대에 여러 모델을 동시에 올릴 수도 있다.</p>
+
+  <div class="mechanism-row">
+    <div class="mechanism">
+      <div class="m-label">Domain 01</div>
+      <h3>고객 응대</h3>
+      <p>FAQ, 제품 매뉴얼, 이전 문의 기록을 RAG로 연결. 고객이 질문하면 기존 답변 데이터에서 최적 답을 찾아 제공한다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Domain 02</div>
+      <h3>기술 문서</h3>
+      <p>설계 문서, 테스트 보고서, 코드 주석을 인덱싱. 신입 엔지니어가 "이 모듈 어떻게 동작해?"라고 물으면 AI가 문서에서 찾아 답한다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Domain 03</div>
+      <h3>내부 규정/절차</h3>
+      <p>사내 규정집, 업무 프로세스, 인사 규정을 학습. "연차 신청 절차가 어떻게 돼?"에 AI가 즉시 답변. HR팀의 반복 업무를 줄인다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PART IV ===== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part IV — RAG in Practice</span>
+    <h2>사내 지식 관리 시스템 <strong>구축 시나리오</strong></h2>
+  </div>
+
+  <p class="prose">이론은 충분하다. 실제로 중소기업에서 RAG 기반 사내 지식 검색 시스템을 구축하는 시나리오를 살펴보자. 직원 30~50명 규모의 IT 서비스 기업을 가정한다.</p>
+
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="sc-label">Scenario</div>
+      <div class="sc-title">신입이 물어보면 매번 설명해야 했던 것, AI가 대신 답하게 만들기</div>
+    </div>
+    <div class="scenario-body">
+      <div class="sc-step">
+        <div class="sc-num">01</div>
+        <div class="sc-text"><strong>문서 수집.</strong> 사내 위키, Confluence 페이지, 노션 문서, 공유 드라이브의 기술 문서를 모은다. 완벽할 필요 없다. 가장 자주 질문받는 주제부터 50~100개만 시작한다.</div>
+      </div>
+      <div class="sc-step">
+        <div class="sc-num">02</div>
+        <div class="sc-text"><strong>벡터 DB 구축.</strong> 수집한 문서를 텍스트로 변환하고, Qwen3-Embedding으로 벡터화한 뒤 ChromaDB에 저장한다. 파이썬 스크립트 하나로 자동화 가능하다.</div>
+      </div>
+      <div class="sc-step">
+        <div class="sc-num">03</div>
+        <div class="sc-text"><strong>챗봇 연결.</strong> Ollama에 Qwen3-14B를 올리고, 슬랙(Slack) 봇이나 간단한 웹 인터페이스를 만든다. 직원이 질문하면 벡터 DB에서 관련 문서를 찾고, Qwen이 답변을 생성한다.</div>
+      </div>
+      <div class="sc-step">
+        <div class="sc-num">04</div>
+        <div class="sc-text"><strong>피드백 루프.</strong> 잘못된 답변이 나오면 원인을 확인한다. 대부분은 문서가 부족하거나 오래된 경우다. 문서를 보강하면 답변 품질이 올라간다. AI를 고치는 것이 아니라 <strong>데이터를 고치는 것</strong>이다.</div>
+      </div>
+      <div class="sc-step">
+        <div class="sc-num">05</div>
+        <div class="sc-text"><strong>확장.</strong> 기술 문서 외에 인사 규정, 프로젝트 이력, 고객사 정보로 범위를 넓힌다. MCP로 JIRA, GitHub, 사내 DB를 연결하면 "지난주 스프린트에서 미완료된 이슈가 뭐야?" 같은 질문에도 답할 수 있다.</div>
+      </div>
+    </div>
+  </div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Estimate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>구축 기간</td>
+        <td><strong>2~4주</strong> (개발자 1명 기준, 파트타임)</td>
+      </tr>
+      <tr>
+        <td>하드웨어</td>
+        <td>GPU 서버 1대 (RTX 4070 이상) 또는 기존 워크스테이션 활용</td>
+      </tr>
+      <tr>
+        <td>소프트웨어 비용</td>
+        <td><strong>0원</strong> (Ollama, Qwen, ChromaDB, Python — 모두 무료)</td>
+      </tr>
+      <tr>
+        <td>월 운영 비용</td>
+        <td>전기세 + 인력 일부 (서버 관리). API 방식 시 월 3~30만 원</td>
+      </tr>
+      <tr>
+        <td>기대 효과</td>
+        <td>신입 온보딩 시간 단축, 반복 질문 응대 자동화, 지식 이탈 방지</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===== PART V ===== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part V — Before You Start</span>
+    <h2>시작하기 전에 <strong>체크해야 할 것</strong></h2>
+  </div>
+
+  <p class="prose">AI 도입은 기술 문제보다 <strong>조직 문제</strong>가 더 크다. 도구는 준비되었다. 무료이고, 설치하면 바로 돌아간다. 실패하는 이유는 대부분 기술이 아니라 기대 관리, 데이터 준비, 범위 설정에 있다.</p>
+
+  <div class="check-grid">
+    <div class="check-item">
+      <div class="ck-num">01</div>
+      <div class="ck-title">데이터 정리가 먼저다</div>
+      <div class="ck-desc">AI의 답변 품질은 데이터 품질에 비례한다. 사내 문서가 제각각 흩어져 있고, 오래된 버전이 섞여 있고, 포맷이 다르다면 AI를 올리기 전에 정리해야 한다.</div>
+    </div>
+    <div class="check-item">
+      <div class="ck-num">02</div>
+      <div class="ck-title">작게 시작한다</div>
+      <div class="ck-desc">"전사 AI 시스템"을 처음부터 만들면 실패한다. 팀 하나, 업무 하나에 먼저 적용한다. 효과가 확인되면 확장한다. PoC(개념 증명) 범위는 2~4주로 제한한다.</div>
+    </div>
+    <div class="check-item">
+      <div class="ck-num">03</div>
+      <div class="ck-title">완벽을 기대하지 않는다</div>
+      <div class="ck-desc">AI는 100% 정확하지 않다. 90%의 정확도로 80%의 반복 업무를 처리하는 것이 목표다. 나머지 10%는 사람이 검토한다. 이 기대치를 조직에 공유해야 한다.</div>
+    </div>
+    <div class="check-item">
+      <div class="ck-num">04</div>
+      <div class="ck-title">챔피언이 필요하다</div>
+      <div class="ck-desc">AI 도입을 추진할 내부 담당자가 있어야 한다. 개발자 1명이면 충분하다. 이 사람이 프로토타입을 만들고, 피드백을 받고, 개선하는 사이클을 돌린다.</div>
+    </div>
+    <div class="check-item">
+      <div class="ck-num">05</div>
+      <div class="ck-title">보안 정책을 먼저 확인한다</div>
+      <div class="ck-desc">사내 데이터를 AI에 넣어도 되는지, 어떤 데이터까지 허용되는지 경영진과 합의한다. 로컬 실행이면 대부분 문제없지만, API 방식은 데이터 전송 이슈가 있다.</div>
+    </div>
+    <div class="check-item">
+      <div class="ck-num">06</div>
+      <div class="ck-title">"6개월 안에 성과를"에 대비한다</div>
+      <div class="ck-desc">경영진은 빠른 성과를 원한다. 2주 안에 데모를 보여주고, 4주 안에 파일럿을 돌리고, 3개월 안에 정량적 효과를 측정한다. 이 타임라인을 미리 제시한다.</div>
+    </div>
+  </div>
+
+  <div class="pull-quote">
+    <p>AI 도입에 실패하는 중소기업의 공통점은<br>기술이 부족한 것이 아니다.<br><strong>문제 정의 없이 도구부터 산 것</strong>이다.</p>
+  </div>
+
+  <p class="prose">정리하면 이렇다. 먼저 <strong>해결할 문제</strong>를 정한다. "신입 온보딩에 시간이 너무 든다", "고객 문의 응대가 늦다", "기술 문서를 아무도 안 읽는다". 문제가 명확하면, AI는 도구일 뿐이다. Qwen3.5든, Claude든, 어떤 모델이든 문제에 맞게 선택하면 된다.</p>
+
+  <p class="prose">그리고 2026년 현재, 그 도구가 <strong>무료이고, 오픈소스이고, 성능도 충분</strong>하다는 것이 핵심이다. 수천만 원의 컨설팅 비용이나, 연간 수억 원의 라이선스 없이도 시작할 수 있다. 개발자 1명, GPU 1장, 4주. 이것이 중소기업 AI 도입의 현실적 최소 단위다.</p>
+
+  <div class="warning-box">
+    <div class="w-title">이 시리즈의 핵심 요약</div>
+    <ul class="warning-list">
+      <li>토큰은 AI의 글자, 컨텍스트는 AI의 책상 크기. Qwen3.5는 A4 500~2,000페이지를 한 번에 읽는다</li>
+      <li>397B 풀 모델은 개인 PC에서 불가능하지만, 8B~32B 소형 모델은 Ollama 한 줄이면 실행된다</li>
+      <li>코딩은 유료급에 약간 부족, 대화와 요약은 충분, 에이전트는 오픈소스 중 최강</li>
+      <li>Qwen-Agent + MCP + RAG 조합으로 비용 0원 사이드 프로젝트가 가능하다</li>
+      <li>중소기업은 API로 시작하고, 클라우드로 확장하고, 필요 시 온프레미스로 전환한다</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>AI 도입의 시작은<br>거대한 투자가 아니다.<br><strong>해결할 문제를 정하는 것이다.</strong></h2>
+  <p class="sub">문제가 정해지면 도구는 이미 준비되어 있다. 무료이고, 오픈소스이고, 오늘 바로 시작할 수 있다.</p>
+</div>
+
+<footer class="footer">
+  <p>Sources: Gartner DSLM Trend (2026) &middot; WinBuzzer Qwen3.5 Analysis (2026) &middot; Fasoo DSLM Report (2026) &middot; SK AX AI Strategy (2026) &middot; OSS Korea LLM Survey (2025)</p>
+  <p>Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

@@ -956,6 +956,13 @@
         tag: '가이드',
         href: 'content/why-react-series/you-can-switch.html',
         search: 'React 리액트 상용 웹 플랫폼 전환 마이그레이션 공공기관 대학 전자정부표준프레임워크 WebSquare Nexacro eXBuilder'
+      },
+      {
+        title: '같은 화면, 다른 세계',
+        role: '실전 비교 — WebSquare/eXBuilder vs React 개발 프로세스, 바이브코딩, 단일 소스 전략',
+        tag: '비교',
+        href: 'content/why-react-series/different-world.html',
+        search: 'React 리액트 WebSquare eXBuilder 개발 비교 바이브코딩 vibe coding AI 코딩 단일소스 반응형 컴포넌트 TypeScript 대학 정보시스템'
       }
     ]
   },
@@ -1220,6 +1227,48 @@
         tag: '실전',
         href: 'content/diligence-paradox-series/if-it-were-me.html',
         search: '나라면 실전 B2B SaaS 시장조사 MVP 견적자동화 중소기업 정부바우처 90일 솔로파운더 부트스트랩'
+      }
+    ]
+  },
+  {
+    id: 'qwen-for-humans',
+    title: 'Qwen3.5, 인간의 언어로',
+    description: 'Qwen3.5가 왜 화제인가. 토큰, 컨텍스트, MoE를 일상 비유로 해체하고, 개인 PC 실행부터 중소기업 RAG 챗봇까지 현실적 활용법을 다룬다.',
+    articles: [
+      {
+        title: '토큰이 뭔데, 컨텍스트가 뭔데',
+        role: 'AI 용어를 일상 비유로 해체 — 토큰, 컨텍스트 윈도우, MoE, Qwen3.5 핵심 스펙',
+        tag: '입문',
+        href: 'content/qwen-for-humans-series/what-is-token-context.html',
+        search: 'Qwen3.5 토큰 컨텍스트 MoE 파라미터 AI 입문 비전문가 알리바바 오픈소스 LLM 256K'
+      },
+      {
+        title: '내 노트북으로 AI를 돌린다고?',
+        role: '개인 PC 로컬 실행 가이드 — GPU별 선택지, Ollama 5분 세팅, API 비용 비교',
+        tag: '실전',
+        href: 'content/qwen-for-humans-series/ai-on-my-laptop.html',
+        search: 'Qwen3 로컬 AI Ollama GPU VRAM RTX 4060 4070 4090 Mac 개인PC API 비용 양자화'
+      },
+      {
+        title: '코딩에 쓸 만한가, 대화에 쓸 만한가',
+        role: '용도별 비교 — 코딩/대화/에이전트 실력 진단, Claude·GPT와 현실적 비교',
+        tag: '비교',
+        href: 'content/qwen-for-humans-series/coding-vs-chatting.html',
+        search: 'Qwen3.5 코딩 대화 에이전트 비교 Claude GPT 벤치마크 LiveCodeBench MCP Qwen-Agent 한국어'
+      },
+      {
+        title: '사이드 프로젝트에 AI 붙이기',
+        role: '실행 매뉴얼 — Qwen-Agent, MCP, RAG 조합으로 나만의 AI를 만드는 4주 로드맵',
+        tag: '실행',
+        href: 'content/qwen-for-humans-series/ai-side-project-starter.html',
+        search: 'Qwen-Agent MCP RAG 사이드프로젝트 챗봇 벡터DB ChromaDB LangChain 에이전트 자동화 로드맵'
+      },
+      {
+        title: '중소기업은 이걸 어떻게 쓰는데',
+        role: '의사결정 가이드 — API/클라우드/온프레미스 3경로, RAG 사내 지식 시스템 구축',
+        tag: '가이드',
+        href: 'content/qwen-for-humans-series/qwen-for-small-business.html',
+        search: '중소기업 AI 도입 오픈소스 API 온프레미스 클라우드 RAG 사내문서 DSLM 파인튜닝 보안 비용'
       }
     ]
   }

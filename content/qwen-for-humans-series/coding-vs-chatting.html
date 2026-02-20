@@ -1,0 +1,507 @@
+---
+layout: layouts/article.njk
+pageTitle: "코딩에 쓸 만한가, 대화에 쓸 만한가"
+description: "Qwen3.5의 코딩, 대화, 에이전트 능력을 Claude, GPT와 비교한다. 무료 모델 중 최강이라는 말의 실체와, 각 작업에 맞는 현실적 선택지."
+ogTitle: "코딩에 쓸 만한가, 대화에 쓸 만한가 — Qwen3.5 vs Claude vs GPT 용도별 비교"
+ogDescription: "LiveCodeBench 83.6, BFCL-V4 72.9, 한국어 TTS 최저 오류율. 벤치마크 숫자 뒤에 숨은 실전 성능을 해부한다."
+datePublished: "2026-02-20"
+---
+
+<style>
+/* 용어 번역 박스 */
+.term-box {
+  border-left: 4px solid var(--accent);
+  background: var(--card-bg);
+  padding: 20px 24px;
+  margin: 28px 0 36px;
+}
+.term-box .term-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.term-box .term-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 6px;
+}
+.term-box .term-desc {
+  font-size: 0.92rem;
+  color: var(--prose);
+  line-height: 1.8;
+}
+.term-box .term-desc strong {
+  font-weight: 700;
+  color: var(--fg);
+}
+
+/* 비교 테이블 */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 32px 0 40px;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+.compare-table thead th {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--fg);
+}
+.compare-table tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--prose);
+  vertical-align: top;
+}
+.compare-table tbody td:first-child {
+  font-weight: 700;
+  color: var(--fg);
+  white-space: nowrap;
+}
+.compare-table tbody td strong {
+  font-weight: 700;
+  color: var(--accent);
+}
+.compare-table tbody tr:last-child td {
+  border-bottom: 2px solid var(--fg);
+}
+
+/* 판정 바 — 수평 막대 그래프 */
+.verdict-bar {
+  margin: 32px 0 40px;
+  display: grid;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+.v-row {
+  background: var(--bg);
+  display: grid;
+  grid-template-columns: 100px 1fr 60px;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+}
+.v-row .v-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--fg);
+}
+.v-row .v-track {
+  height: 8px;
+  background: var(--card-bg);
+  position: relative;
+}
+.v-row .v-fill {
+  height: 100%;
+  background: var(--accent);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.v-row .v-score {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-align: right;
+}
+
+/* 추천 매트릭스 */
+.matrix {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin: 36px 0 44px;
+}
+.matrix-cell {
+  background: var(--bg);
+  padding: 28px 24px;
+}
+.matrix-cell .mx-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.matrix-cell .mx-task {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 6px;
+}
+.matrix-cell .mx-pick {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.matrix-cell .mx-why {
+  font-size: 0.85rem;
+  color: var(--secondary);
+  line-height: 1.7;
+}
+
+/* 에이전트 흐름 */
+.agent-flow {
+  margin: 36px 0 44px;
+  display: grid;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+.agent-step {
+  background: var(--bg);
+  padding: 20px 24px;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+.agent-step .a-num {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  padding-top: 2px;
+}
+.agent-step .a-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 2px;
+}
+.agent-step .a-desc {
+  font-size: 0.85rem;
+  color: var(--secondary);
+  line-height: 1.7;
+}
+
+/* 반응형 */
+@media (max-width: 700px) {
+  .matrix { grid-template-columns: 1fr; }
+  .compare-table { font-size: 0.8rem; }
+  .compare-table thead th,
+  .compare-table tbody td { padding: 10px 10px; }
+  .v-row { grid-template-columns: 72px 1fr 44px; gap: 10px; padding: 12px 14px; }
+  .v-row .v-label { font-size: 0.78rem; }
+}
+</style>
+
+<article>
+<div class="page">
+
+<header class="masthead">
+  <span class="issue">Series 36 &middot; 03 of 05</span>
+  <h1>코딩에 쓸 만한가,<br><strong>대화에 쓸 만한가</strong></h1>
+  <p class="deck">Qwen3.5의 코딩, 대화, 에이전트 능력을 각각 해부한다. 무료 모델 중 최강이라는 말 뒤에 숨은 실체와 한계.</p>
+</header>
+
+<main>
+
+<!-- ===== PART I ===== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part I — Coding</span>
+    <h2>무료치고 놀랍고, <strong>유료에겐 부족하고</strong></h2>
+  </div>
+
+  <p class="prose">AI 코딩 능력을 평가하는 벤치마크는 여러 가지가 있다. 그중 가장 실전에 가까운 것이 <strong>LiveCodeBench</strong>와 <strong>SWE-bench</strong>다. LiveCodeBench는 실시간 코딩 대회 문제를 풀게 하고, SWE-bench는 실제 오픈소스 프로젝트의 버그를 수정하게 한다.</p>
+
+  <div class="verdict-bar">
+    <div class="v-row">
+      <div class="v-label">Qwen3.5</div>
+      <div class="v-track"><div class="v-fill" style="width:83.6%"></div></div>
+      <div class="v-score">83.6</div>
+    </div>
+    <div class="v-row">
+      <div class="v-label">GPT-5.2</div>
+      <div class="v-track"><div class="v-fill" style="width:88%"></div></div>
+      <div class="v-score">~88</div>
+    </div>
+    <div class="v-row">
+      <div class="v-label">Claude Opus</div>
+      <div class="v-track"><div class="v-fill" style="width:90%"></div></div>
+      <div class="v-score">~90</div>
+    </div>
+  </div>
+
+  <p class="prose">LiveCodeBench v6에서 Qwen3.5는 <strong>83.6점</strong>을 기록했다. 무료(오픈 웨이트) 모델 중에서는 압도적 1위다. 하지만 유료 프론티어 모델(Claude Opus, GPT-5.2)에는 약간 밀린다. SWE-bench Verified에서도 비슷한 양상이다. Qwen3.5는 76.4, Claude Opus 4.6은 80% 이상이다.</p>
+
+  <p class="prose">이것을 실전으로 번역하면 이렇게 된다.</p>
+
+  <div class="mechanism-row">
+    <div class="mechanism">
+      <div class="m-label">Strong</div>
+      <h3>간단한 스크립트</h3>
+      <p>파이썬 함수, 데이터 처리, 웹 페이지 생성, API 호출 코드. 이 수준의 작업에서는 유료 모델과 차이를 느끼기 어렵다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Adequate</div>
+      <h3>중간 난이도 개발</h3>
+      <p>CRUD 앱, 간단한 백엔드, 테스트 코드 작성. 대부분 잘 해내지만, 가끔 엣지 케이스를 놓치거나 비효율적인 패턴을 쓴다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Weak</div>
+      <h3>대규모 리팩토링</h3>
+      <p>수천 줄 코드베이스의 구조 변경, 복잡한 동시성 처리, 아키텍처 설계. 여기서는 Claude/GPT가 확실히 앞선다.</p>
+    </div>
+  </div>
+
+  <p class="prose">Qwen 생태계에는 <strong>Qwen Code</strong>라는 전용 코딩 에이전트도 있다. 터미널에서 동작하는 오픈소스 AI 코딩 도구로, 코드베이스를 탐색하고, 파일을 수정하고, 명령을 실행한다. Claude Code와 비슷한 컨셉이지만 무료다.</p>
+
+  <div class="term-box">
+    <div class="term-label">translate</div>
+    <div class="term-title">Qwen Code</div>
+    <div class="term-desc">터미널에서 동작하는 <strong>무료 AI 코딩 비서</strong>. 코드를 읽고, 수정하고, 명령을 실행한다. Qwen3-Coder 모델에 최적화되어 있다. Claude Code의 오픈소스 대안으로 볼 수 있다.</div>
+  </div>
+
+  <div class="pull-quote">
+    <p>코딩 AI의 판단 기준은 단순하다.<br><strong>무료로 충분한가, 유료가 필요한가.</strong><br>Qwen3.5는 놀라울 만큼 많은 작업에서 "충분"하다.</p>
+  </div>
+</section>
+
+<!-- ===== PART II ===== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part II — Conversation</span>
+    <h2>201개 언어를 이해하는 <strong>대화 상대</strong></h2>
+  </div>
+
+  <p class="prose">코딩은 벤치마크로 측정하기 쉽다. 맞거나 틀리거나. 하지만 대화 능력은 다르다. "자연스러운가", "맥락을 잘 이해하는가", "한국어가 어색하지 않은가" 같은 주관적 요소가 크다.</p>
+
+  <p class="prose">Qwen3.5가 대화에서 강점을 보이는 이유는 두 가지다. 첫째, <strong>201개 언어를 지원</strong>한다. 이전 버전(Qwen3)의 119개에서 대폭 확대되었다. 단순히 언어 수가 늘어난 것이 아니라, 각 언어의 추론 능력이 함께 강화되었다.</p>
+
+  <p class="prose">둘째, <strong>한국어에 대한 별도 강화</strong>가 이루어졌다. 한국어 30,000개의 수학, 과학, 코딩 추론 예제로 추가 학습한 연구 결과가 있다. 이 연구에서는 Qwen3-14B 모델이 한국어로 "생각하는" 능력을 강화 학습(Reinforcement Learning)으로 끌어올렸다.</p>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Qwen3.5</th>
+        <th>Translation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>다국어 지원</td>
+        <td><strong>201개</strong> 언어/방언</td>
+        <td>한국어, 일본어, 중국어, 영어 포함. 마이너 언어도 상당수 커버</td>
+      </tr>
+      <tr>
+        <td>한국어 추론</td>
+        <td><strong>별도 강화</strong></td>
+        <td>30K 한국어 추론 데이터로 추가 학습. 수학/과학 문제를 한국어로 풀 수 있다</td>
+      </tr>
+      <tr>
+        <td>한국어 TTS</td>
+        <td><strong>최저 오류율</strong></td>
+        <td>10개 언어 중 한국어 WER(단어 오류율)이 가장 낮았다</td>
+      </tr>
+      <tr>
+        <td>지식 (MMLU-Pro)</td>
+        <td><strong>87.8</strong></td>
+        <td>범용 지식 테스트에서 상위권. 일상 질문부터 전문 지식까지</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="prose">실전에서 체감하는 대화 품질은 어떠한가. 일상 대화, 요약, 번역 작업에서 Qwen3.5는 <strong>유료 모델과 구분하기 어려운 수준</strong>을 보인다. 특히 한국어 요약과 한영/영한 번역에서 자연스럽다는 평가가 많다.</p>
+
+  <p class="prose">다만, 미묘한 뉘앙스가 중요한 작업에서는 차이가 드러난다. 문학적 표현, 유머, 문화적 맥락을 반영한 답변에서는 Claude 계열이 여전히 강세다. Qwen3.5는 "정보를 정확하게 전달하는" 대화에 강하고, "감성적으로 공감하는" 대화에서는 프론티어 모델에 약간 뒤진다.</p>
+
+  <div class="mechanism-row">
+    <div class="mechanism">
+      <div class="m-label">Strong</div>
+      <h3>요약과 번역</h3>
+      <p>긴 문서를 핵심만 추리거나, 한영/영한 번역을 하는 작업. 201개 언어 학습의 이점이 직접적으로 드러난다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Strong</div>
+      <h3>질의응답</h3>
+      <p>사실 관계 질문, 개념 설명, 비교 분석. MMLU-Pro 87.8의 범용 지식이 뒷받침한다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Adequate</div>
+      <h3>창작과 공감</h3>
+      <p>소설 쓰기, 감성적 대화, 문화 맥락 반영. 가능하지만, 이 영역에서는 Claude가 한 수 위다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PART III ===== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part III — Agent</span>
+    <h2>진짜 강점은 <strong>여기다</strong></h2>
+  </div>
+
+  <p class="prose">코딩과 대화는 대부분의 AI 모델이 하는 일이다. Qwen3.5가 다른 모델과 확실히 구분되는 영역은 <strong>에이전트 기능</strong>이다.</p>
+
+  <div class="term-box">
+    <div class="term-label">translate</div>
+    <div class="term-title">에이전트 (Agent)</div>
+    <div class="term-desc">AI가 단순히 답변만 하는 것이 아니라, <strong>스스로 도구를 사용해서 작업을 수행</strong>하는 것. 파일을 읽고, 웹을 검색하고, 코드를 실행하고, 데이터베이스를 조회한다. 사람이 "이것 좀 알아봐줘"라고 하면, AI가 직접 여러 단계를 거쳐 결과를 가져오는 방식이다.</div>
+  </div>
+
+  <p class="prose">Qwen3.5는 에이전트 벤치마크 BFCL-V4에서 <strong>72.9점</strong>을 기록했다. 이 점수가 의미하는 것은, 주어진 도구들 중에서 상황에 맞는 도구를 골라 올바른 순서로 호출하는 능력이 높다는 것이다. 또 다른 에이전트 벤치마크 TAU2-Bench에서는 <strong>86.7점</strong>으로, 이는 실제 업무 환경에서의 자율 판단 능력을 측정한 결과다.</p>
+
+  <p class="prose">왜 에이전트가 중요한가. 대화형 AI는 질문하면 답한다. 에이전트형 AI는 <strong>목표를 주면 알아서 수행</strong>한다. 차이는 크다.</p>
+
+  <div class="agent-flow">
+    <div class="agent-step">
+      <div class="a-num">01</div>
+      <div>
+        <div class="a-title">사용자가 목표를 준다</div>
+        <div class="a-desc">"이번 달 매출 보고서를 정리해서 요약해줘"</div>
+      </div>
+    </div>
+    <div class="agent-step">
+      <div class="a-num">02</div>
+      <div>
+        <div class="a-title">AI가 필요한 도구를 판단한다</div>
+        <div class="a-desc">파일 시스템에서 매출 데이터 파일을 찾아야 한다 → 파일 읽기 도구 호출</div>
+      </div>
+    </div>
+    <div class="agent-step">
+      <div class="a-num">03</div>
+      <div>
+        <div class="a-title">도구를 호출하고 결과를 받는다</div>
+        <div class="a-desc">sales_2026_02.csv를 읽어서 데이터 확인. 추가로 전월 데이터도 필요 → 한 번 더 호출</div>
+      </div>
+    </div>
+    <div class="agent-step">
+      <div class="a-num">04</div>
+      <div>
+        <div class="a-title">결과를 종합하여 답변한다</div>
+        <div class="a-desc">전월 대비 증감, 주요 항목, 특이사항을 정리한 요약 보고서를 생성한다</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="prose">이것을 가능하게 하는 핵심 기술이 <strong>MCP(Model Context Protocol)</strong>다.</p>
+
+  <div class="term-box">
+    <div class="term-label">translate</div>
+    <div class="term-title">MCP (Model Context Protocol)</div>
+    <div class="term-desc">AI가 외부 도구와 <strong>대화하는 표준 규격</strong>. USB가 어떤 기기든 연결할 수 있게 해주듯, MCP는 AI가 어떤 도구든(파일, DB, 웹, API) 연결할 수 있게 해준다. Qwen3.5는 MCP를 <strong>네이티브로 지원</strong>한다.</div>
+  </div>
+
+  <p class="prose">Qwen3.5가 MCP를 네이티브로 지원한다는 것은, 별도의 복잡한 설정 없이도 파일 시스템 접근, 데이터베이스 쿼리, 외부 API 호출이 가능하다는 뜻이다. 여기에 <strong>Qwen-Agent</strong>라는 오픈소스 프레임워크가 있어서, 이 모든 것을 코드 몇 줄로 조립할 수 있다.</p>
+
+  <div class="pull-quote">
+    <p>대화형 AI는 <strong>비서</strong>다. 물어보면 답한다.<br>에이전트형 AI는 <strong>직원</strong>이다. 시키면 해낸다.<br>Qwen3.5의 진짜 가치는 후자에 있다.</p>
+  </div>
+
+  <p class="prose">오픈소스 모델 중에서 에이전트 기능이 이 정도로 완성된 것은 드물다. Claude나 GPT도 에이전트 기능을 제공하지만, 유료 API를 써야 한다. Qwen3.5는 <strong>무료 모델 + 무료 프레임워크(Qwen-Agent) + 표준 프로토콜(MCP)</strong>의 조합으로 에이전트를 구축할 수 있다. 4편에서 이것을 사이드 프로젝트에 실제로 적용하는 방법을 다룬다.</p>
+</section>
+
+<!-- ===== PART IV ===== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part IV — The Matrix</span>
+    <h2>이 작업엔 <strong>이 모델</strong></h2>
+  </div>
+
+  <p class="prose">3개 영역을 종합하면, Qwen3.5의 위치는 명확하다. <strong>무료 모델 중에서는 거의 모든 영역에서 1위</strong>이고, <strong>유료 프론티어 모델과는 영역에 따라 격차</strong>가 있다. 이것을 작업 유형별로 정리하면 다음과 같다.</p>
+
+  <div class="matrix">
+    <div class="matrix-cell">
+      <div class="mx-label">Task 01</div>
+      <div class="mx-task">간단한 코딩</div>
+      <div class="mx-pick">Qwen3.5 (free)</div>
+      <div class="mx-why">스크립트, 웹 페이지, API 호출 코드. 유료 모델과 차이 체감 어렵다. 비용 0원.</div>
+    </div>
+    <div class="matrix-cell">
+      <div class="mx-label">Task 02</div>
+      <div class="mx-task">대규모 코드 리팩토링</div>
+      <div class="mx-pick">Claude / GPT (paid)</div>
+      <div class="mx-why">수천 줄 코드베이스 구조 변경. 컨텍스트 이해력과 일관성에서 유료 모델이 확실히 앞선다.</div>
+    </div>
+    <div class="matrix-cell">
+      <div class="mx-label">Task 03</div>
+      <div class="mx-task">문서 요약 / 번역</div>
+      <div class="mx-pick">Qwen3.5 (free)</div>
+      <div class="mx-why">201개 언어 지원. 한영/영한 번역과 요약에서 유료급 품질. 256K 컨텍스트로 긴 문서도 가능.</div>
+    </div>
+    <div class="matrix-cell">
+      <div class="mx-label">Task 04</div>
+      <div class="mx-task">창작 / 감성 대화</div>
+      <div class="mx-pick">Claude (paid)</div>
+      <div class="mx-why">소설, 감성적 공감, 문화 맥락이 중요한 작업. Claude의 강점 영역.</div>
+    </div>
+    <div class="matrix-cell">
+      <div class="mx-label">Task 05</div>
+      <div class="mx-task">에이전트 / 자동화</div>
+      <div class="mx-pick">Qwen3.5 (free)</div>
+      <div class="mx-why">MCP 네이티브 + Qwen-Agent 프레임워크. 무료 에이전트 구축에서 독보적 생태계.</div>
+    </div>
+    <div class="matrix-cell">
+      <div class="mx-label">Task 06</div>
+      <div class="mx-task">이미지 / 영상 분석</div>
+      <div class="mx-pick">Qwen3.5 (free) or GPT (paid)</div>
+      <div class="mx-why">MMMU 85.0. 무료 모델 중 최강. 단, 최고 정확도가 필요하면 유료가 안전하다.</div>
+    </div>
+    <div class="matrix-cell">
+      <div class="mx-label">Task 07</div>
+      <div class="mx-task">사내 문서 검색 (RAG)</div>
+      <div class="mx-pick">Qwen3.5 (free)</div>
+      <div class="mx-why">로컬 실행 = 데이터 유출 없음. 256K 컨텍스트 + RAG 조합. 5편에서 상세 다룬다.</div>
+    </div>
+    <div class="matrix-cell">
+      <div class="mx-label">Task 08</div>
+      <div class="mx-task">최고 품질이 필수인 업무</div>
+      <div class="mx-pick">Claude Opus / GPT-5 (paid)</div>
+      <div class="mx-why">계약서 검토, 고객 대면 문서, 중대한 의사결정 보조. 실수 비용이 클 때는 최고를 쓴다.</div>
+    </div>
+  </div>
+
+  <p class="prose">패턴이 보인다. <strong>예산이 0원이거나, 프라이버시가 중요하거나, 에이전트를 만들고 싶다면</strong> Qwen3.5가 현재 최선의 선택이다. <strong>최고 품질이 필수이거나, 복잡한 추론이 필요하거나, 창작 작업이라면</strong> 유료 프론티어 모델이 여전히 우위다.</p>
+
+  <p class="prose">그리고 현실적으로 가장 합리적인 전략은 <strong>둘 다 쓰는 것</strong>이다. 일상적인 80%의 작업에 Qwen3.5(무료)를 쓰고, 나머지 20%의 중요한 작업에만 Claude/GPT(유료)를 쓴다. API 비용을 80% 이상 절약하면서도 결과물 품질은 유지할 수 있다.</p>
+
+  <div class="warning-box">
+    <div class="w-title">벤치마크를 읽을 때 주의할 점</div>
+    <ul class="warning-list">
+      <li>벤치마크 점수는 특정 테스트 조건에서의 결과다. 내 작업과 다를 수 있다</li>
+      <li>점수 차이 5점 미만은 실전에서 체감하기 어렵다. 83 vs 88은 숫자보다 크지 않다</li>
+      <li>모델은 빠르게 업데이트된다. 이 글의 숫자도 수개월 안에 바뀔 수 있다</li>
+      <li>가장 정확한 평가는 자기 작업에 직접 넣어보는 것이다. 무료 모델이니 시도에 비용이 없다</li>
+      <li>로컬 소형 모델(8B/14B)과 클라우드 풀 모델(397B)의 성능은 다르다. 같은 Qwen이라도 모델 크기에 따라 체감이 다르다</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>AI 선택의 기준은<br>"어느 것이 최고인가"가 아니다.<br><strong>"내 작업에 무엇이 맞는가"다.</strong></h2>
+  <p class="sub">무료와 유료, 로컬과 클라우드. 정답은 하나가 아니라 조합이다. 다음 편에서 이 조합을 실제 프로젝트에 적용하는 방법을 다룬다.</p>
+</div>
+
+<footer class="footer">
+  <p>Sources: DataCamp Qwen3.5 Benchmarks (2026) &middot; Digital Applied Guide (2026) &middot; Atoms.dev LLM Review (2025) &middot; Dnotitia Korean RL Research (2025) &middot; Qwen-Agent GitHub (2026)</p>
+  <p>Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

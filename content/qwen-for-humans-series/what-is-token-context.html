@@ -1,0 +1,388 @@
+---
+layout: layouts/article.njk
+pageTitle: "토큰이 뭔데, 컨텍스트가 뭔데"
+description: "AI가 글을 읽는 단위인 토큰, 기억력인 컨텍스트 윈도우, 전문가 시스템인 MoE까지. Qwen3.5가 왜 화제인지 비전문가도 이해할 수 있도록 일상 비유로 해체한다."
+ogTitle: "토큰이 뭔데, 컨텍스트가 뭔데 — Qwen3.5를 이해하기 위한 최소한의 AI 용어"
+ogDescription: "397B 파라미터인데 17B만 쓴다? 256K 토큰은 A4 몇 페이지? AI 용어를 일상 비유로 번역한다."
+datePublished: "2026-02-20"
+---
+
+<style>
+/* 용어 번역 박스 */
+.term-box {
+  border-left: 4px solid var(--accent);
+  background: var(--card-bg);
+  padding: 20px 24px;
+  margin: 28px 0 36px;
+}
+.term-box .term-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.term-box .term-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 6px;
+}
+.term-box .term-desc {
+  font-size: 0.92rem;
+  color: var(--prose);
+  line-height: 1.8;
+}
+.term-box .term-desc strong {
+  font-weight: 700;
+  color: var(--fg);
+}
+
+/* 비교 테이블 */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 32px 0 40px;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+.compare-table thead th {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--fg);
+}
+.compare-table tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--prose);
+  vertical-align: top;
+}
+.compare-table tbody td:first-child {
+  font-weight: 700;
+  color: var(--fg);
+  white-space: nowrap;
+}
+.compare-table tbody td strong {
+  font-weight: 700;
+  color: var(--accent);
+}
+.compare-table tbody tr:last-child td {
+  border-bottom: 2px solid var(--fg);
+}
+
+/* 스펙 그리드 — 2열 */
+.spec-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin: 36px 0 44px;
+}
+.spec-item {
+  background: var(--bg);
+  padding: 28px 24px;
+}
+.spec-item .s-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.spec-item .s-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+.spec-item .s-desc {
+  font-size: 0.85rem;
+  color: var(--secondary);
+  line-height: 1.7;
+}
+
+/* 반응형 */
+@media (max-width: 700px) {
+  .spec-grid { grid-template-columns: 1fr; }
+  .compare-table { font-size: 0.8rem; }
+  .compare-table thead th,
+  .compare-table tbody td { padding: 10px 10px; }
+  .spec-item .s-value { font-size: 1.3rem; }
+}
+</style>
+
+<article>
+<div class="page">
+
+<header class="masthead">
+  <span class="issue">Series 36 &middot; 01 of 05</span>
+  <h1>토큰이 뭔데,<br><strong>컨텍스트가 뭔데</strong></h1>
+  <p class="deck">AI 대화에서 매번 등장하는 용어들을 일상 비유로 해체한다. Qwen3.5가 왜 화제인지 이해하기 위한 최소한의 배경지식.</p>
+</header>
+
+<main>
+
+<!-- ===== PART I ===== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part I — The Language of AI</span>
+    <h2>AI가 글을 읽는 <strong>방법</strong></h2>
+  </div>
+
+  <p class="prose">사람은 글을 단어 단위로 읽는다. "안녕하세요"는 한 단어다. 하지만 AI는 다르다. AI에게 "안녕하세요"는 <strong>2~3개의 조각</strong>이다. 이 조각 하나하나를 <strong>토큰</strong>이라 부른다.</p>
+
+  <div class="term-box">
+    <div class="term-label">translate</div>
+    <div class="term-title">토큰 (Token)</div>
+    <div class="term-desc">AI가 글을 읽고 쓰는 <strong>최소 단위</strong>. 사람에게 글자가 있다면, AI에게는 토큰이 있다. 영어 단어 "hello"는 1토큰이지만, 한국어 "안녕하세요"는 2~3토큰으로 쪼개진다.</div>
+  </div>
+
+  <p class="prose">왜 한국어가 더 많은 토큰을 쓰는가. AI의 사전(vocabulary)은 영어 중심으로 만들어졌기 때문이다. 영어 단어는 통째로 사전에 올라가 있지만, 한글은 자음과 모음의 조합이 워낙 다양해서 더 잘게 쪼개야 표현할 수 있다. 같은 내용을 전달해도 한국어는 영어보다 <strong>토큰을 1.5~2배 더 소비</strong>한다.</p>
+
+  <p class="prose">이게 왜 중요한가. AI 서비스의 요금은 대부분 <strong>토큰 단위</strong>로 매겨진다. 1,000토큰에 얼마, 하는 식이다. 한국어 사용자는 같은 양의 정보를 처리해도 영어 사용자보다 비용이 더 든다. 그래서 AI 모델이 한국어 토큰을 얼마나 효율적으로 처리하는지가 실질적인 성능 지표가 된다.</p>
+
+  <div class="mechanism-row">
+    <div class="mechanism">
+      <div class="m-label">Example 01</div>
+      <h3>"Hello, world"</h3>
+      <p>영어. 2토큰. 가장 효율적인 언어 중 하나. AI의 사전이 영어 중심으로 설계되었기 때문이다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Example 02</div>
+      <h3>"안녕하세요, 세계"</h3>
+      <p>한국어. 4~5토큰. 같은 의미인데 토큰을 2배 이상 소비한다. 비용과 속도 모두 영향을 받는다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Example 03</div>
+      <h3>A4 1페이지</h3>
+      <p>한국어 기준 약 500~600토큰. 영어 기준 약 300~400토큰. 긴 문서를 처리할수록 격차가 벌어진다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PART II ===== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part II — Memory</span>
+    <h2>AI의 <strong>기억력</strong></h2>
+  </div>
+
+  <p class="prose">AI에게 긴 이야기를 하다 보면 앞에서 한 말을 잊어버리는 경험을 해본 적이 있을 것이다. "아까 제가 말한 프로젝트 이름이 뭐였죠?" 하고 물으면 엉뚱한 답이 돌아온다. 이유가 있다. AI에게는 <strong>한 번에 기억할 수 있는 분량의 한계</strong>가 있기 때문이다.</p>
+
+  <div class="term-box">
+    <div class="term-label">translate</div>
+    <div class="term-title">컨텍스트 윈도우 (Context Window)</div>
+    <div class="term-desc">AI가 <strong>한 번에 읽고 기억할 수 있는 최대 분량</strong>. 사람의 단기 기억에 해당한다. 컨텍스트 윈도우 밖으로 밀려난 내용은 AI가 기억하지 못한다. 단위는 토큰이다.</div>
+  </div>
+
+  <p class="prose">초기 ChatGPT(GPT-3.5)의 컨텍스트 윈도우는 4,096토큰이었다. A4로 약 7~8페이지. 긴 보고서를 통째로 넣을 수 없었다. 2024년에 나온 모델들은 128K(약 A4 250페이지)까지 늘었고, 2026년 현재 최신 모델들은 <strong>256K(약 A4 500페이지)</strong>를 기본으로 제공한다.</p>
+
+  <p class="prose">숫자가 커지면 무엇이 달라지는가. <strong>문서 전체를 한 번에 넣고 질문할 수 있다.</strong> 100페이지짜리 계약서를 읽고 특정 조항을 찾아달라고 할 수 있다. 지난 한 달의 대화 기록을 기억한 채로 이어서 대화할 수 있다. 프로젝트의 소스 코드 전체를 넣고 버그를 찾아달라고 할 수 있다.</p>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>Context</th>
+        <th>Equivalent</th>
+        <th>What It Means</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>GPT-3.5 (2022)</td>
+        <td>4K</td>
+        <td>A4 7~8페이지</td>
+        <td>짧은 대화만 가능</td>
+      </tr>
+      <tr>
+        <td>GPT-4 (2023)</td>
+        <td>128K</td>
+        <td>A4 250페이지</td>
+        <td>논문 1편을 통째로</td>
+      </tr>
+      <tr>
+        <td>Claude 4 (2025)</td>
+        <td>200K</td>
+        <td>A4 400페이지</td>
+        <td>보고서 묶음 처리 가능</td>
+      </tr>
+      <tr>
+        <td><strong>Qwen3.5 (2026)</strong></td>
+        <td><strong>256K~1M</strong></td>
+        <td><strong>A4 500~2,000페이지</strong></td>
+        <td><strong>소설 한 권을 통째로 기억</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pull-quote">
+    <p>컨텍스트가 넓다는 것은 AI의 기억력이 좋다는 뜻이 아니다.<br>한 번에 볼 수 있는 <strong>책상이 넓다</strong>는 뜻이다.</p>
+  </div>
+
+  <p class="prose">Qwen3.5는 기본 256K 토큰, YaRN이라는 기술을 적용하면 <strong>1M(100만) 토큰</strong>까지 확장된다. 한국어 기준 A4 약 2,000페이지. 200페이지짜리 소설 10권을 동시에 펼쳐놓고 작업하는 셈이다. 이 정도면 기업의 사내 매뉴얼 전체를 한 번에 넣고 질문할 수 있다.</p>
+</section>
+
+<!-- ===== PART III ===== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part III — The Architecture</span>
+    <h2>무서워하지 마: <strong>파라미터와 MoE</strong></h2>
+  </div>
+
+  <p class="prose">AI 뉴스를 보면 "397B 파라미터"라는 표현이 등장한다. B는 Billion, 즉 10억이다. 397B면 <strong>3,970억 개</strong>. 이 숫자가 클수록 AI가 학습한 지식의 양이 많다고 보면 된다. 하지만 숫자가 크다고 무조건 좋은 것은 아니다.</p>
+
+  <div class="term-box">
+    <div class="term-label">translate</div>
+    <div class="term-title">파라미터 (Parameter)</div>
+    <div class="term-desc">AI의 뇌에 있는 <strong>연결 고리</strong>의 수. 사람의 뇌에 시냅스가 있다면, AI에는 파라미터가 있다. 파라미터가 많을수록 복잡한 패턴을 학습할 수 있지만, 그만큼 더 큰 컴퓨터가 필요하다.</div>
+  </div>
+
+  <p class="prose">여기서 문제가 생긴다. 파라미터가 3,970억 개면 이걸 돌리는 데 수천만 원짜리 GPU가 필요하다. 일반인이 접근할 수 없는 규모다. 그래서 Qwen3.5는 <strong>전혀 다른 방식</strong>을 쓴다.</p>
+
+  <div class="term-box">
+    <div class="term-label">translate</div>
+    <div class="term-title">MoE (Mixture of Experts, 전문가 혼합 모델)</div>
+    <div class="term-desc">종합병원에 <strong>512명의 전문의</strong>가 있다고 상상하자. 환자가 오면 512명 전원이 달려드는 게 아니라, 증상에 맞는 <strong>11명만 진료</strong>한다. 나머지 501명은 대기실에 있다. 병원 전체의 실력은 512명분이지만, 한 번에 쓰는 자원은 11명분이다. 이것이 MoE다.</div>
+  </div>
+
+  <div class="spec-grid">
+    <div class="spec-item">
+      <div class="s-label">Total Parameters</div>
+      <div class="s-value">397B</div>
+      <div class="s-desc">3,970억 개. 모델이 학습한 전체 지식의 규모. 1조(1T) 파라미터급 모델과 동등한 성능을 낸다.</div>
+    </div>
+    <div class="spec-item">
+      <div class="s-label">Active Parameters</div>
+      <div class="s-value">17B</div>
+      <div class="s-desc">전체의 4.2%. 질문 하나에 실제로 동원되는 연산량. GPU 비용이 이것에 비례한다.</div>
+    </div>
+    <div class="spec-item">
+      <div class="s-label">Total Experts</div>
+      <div class="s-value">512</div>
+      <div class="s-desc">모델 안에 탑재된 전문가의 수. 수학, 코딩, 번역, 대화 등 각자 전문 분야가 다르다.</div>
+    </div>
+    <div class="spec-item">
+      <div class="s-label">Active Experts</div>
+      <div class="s-value">10+1</div>
+      <div class="s-desc">질문마다 라우팅 전문가 10명 + 공유 전문가 1명이 투입된다. 나머지 501명은 쉰다.</div>
+    </div>
+  </div>
+
+  <p class="prose">결과적으로 Qwen3.5는 <strong>1조 파라미터급 모델의 성능을 내면서, 실제 연산량은 170억 파라미터 수준</strong>이다. 같은 성능에 GPU 비용은 훨씬 적게 든다. 이것이 MoE 아키텍처의 핵심이다. "적은 돈으로 비싼 병원 수준의 진료를 받는 방법"이라고 이해하면 된다.</p>
+
+  <p class="prose">여기에 한 가지 기술이 더해진다. <strong>Multi-Token Prediction(MTP)</strong>. 보통 AI는 한 번에 토큰 하나씩 생성한다. 한 글자 쓰고, 다음 글자 예측하고, 또 쓰고. MTP는 <strong>한 번에 여러 토큰을 동시에 예측</strong>한다. 답변 생성 속도가 체감될 정도로 빨라진다. Qwen3.5가 256K 컨텍스트에서 이전 모델 대비 <strong>19배 빠른 처리 속도</strong>를 기록한 배경이다.</p>
+</section>
+
+<!-- ===== PART IV ===== -->
+<section>
+  <div class="section-head">
+    <span class="num">Part IV — Why Qwen3.5</span>
+    <h2>그래서 이게 왜 <strong>화제</strong>인가</h2>
+  </div>
+
+  <p class="prose">2026년 2월 16일, 알리바바 클라우드가 Qwen3.5를 공개했다. AI 커뮤니티가 반응한 이유는 단순하다. <strong>무료인데 유료급이다.</strong></p>
+
+  <div class="mechanism-row">
+    <div class="mechanism">
+      <div class="m-label">Reason 01</div>
+      <h3>무료인데 유료급</h3>
+      <p>오픈 웨이트(가중치 공개) 모델이다. 다운로드해서 자유롭게 쓸 수 있다. 상업적 사용도 가능하다. 성능은 GPT-5, Claude 4급에 근접한다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Reason 02</div>
+      <h3>256K 기본 컨텍스트</h3>
+      <p>A4 500페이지를 한 번에 기억한다. 확장하면 1M 토큰(A4 2,000페이지). 오픈소스 모델 중 최대급이다.</p>
+    </div>
+    <div class="mechanism">
+      <div class="m-label">Reason 03</div>
+      <h3>사진도 영상도 이해</h3>
+      <p>텍스트만 아니라 이미지, 비디오까지 네이티브로 이해한다. 스크린샷을 보여주고 "이 화면에서 뭘 해야 해?"라고 물을 수 있다.</p>
+    </div>
+  </div>
+
+  <p class="prose">벤치마크 숫자는 비전문가에게 의미가 없다. 대신 이렇게 번역할 수 있다.</p>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Score</th>
+        <th>Translation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>지식 (MMLU-Pro)</td>
+        <td>87.8</td>
+        <td>대학원 수준 시험에서 상위 12% 성적</td>
+      </tr>
+      <tr>
+        <td>수학 (AIME26)</td>
+        <td>91.3</td>
+        <td>수학 올림피아드급 문제를 10개 중 9개 풂</td>
+      </tr>
+      <tr>
+        <td>코딩 (LiveCodeBench)</td>
+        <td>83.6</td>
+        <td>실시간 코딩 테스트에서 상위권. 무료 모델 중 최강</td>
+      </tr>
+      <tr>
+        <td>에이전트 (BFCL-V4)</td>
+        <td>72.9</td>
+        <td>도구를 호출하고 판단하는 능력. 자동화의 핵심</td>
+      </tr>
+      <tr>
+        <td>멀티모달 (MMMU)</td>
+        <td>85.0</td>
+        <td>이미지 속 텍스트, 표, 그래프를 읽고 해석하는 능력</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="prose">한 가지 더. Qwen3.5는 <strong>201개 언어</strong>를 지원한다. 이전 버전(119개)에서 대폭 확대되었고, 한국어에 대한 추론 능력이 별도로 강화되었다. 한국어 30,000개의 수학/과학/코딩 추론 데이터로 추가 학습한 연구 결과도 있다. 한국어 음성 인식(TTS)에서는 10개 언어 중 <strong>최저 오류율</strong>을 기록했다.</p>
+
+  <div class="pull-quote">
+    <p>핵심은 하나다.<br><strong>돈을 내지 않아도 쓸 수 있는 AI</strong>가<br>돈을 내야 쓸 수 있는 AI와 비슷해졌다.</p>
+  </div>
+
+  <p class="prose">물론 한계도 있다. 복잡한 대규모 코드 리팩토링이나, 최상위 수준의 추론 과제에서는 Claude Opus나 GPT-5 계열이 여전히 우위를 점한다. Qwen3.5는 "모든 분야에서 1등"이 아니라, <strong>"무료 모델 중 거의 모든 분야에서 1등"</strong>이다. 이 차이를 이해하는 것이 중요하다.</p>
+
+  <div class="warning-box">
+    <div class="w-title">이 시리즈에서 다룰 것</div>
+    <ul class="warning-list">
+      <li>개인 PC에서 AI를 돌릴 수 있는지, 어떤 장비가 필요한지의 현실적 진단</li>
+      <li>코딩에 쓸 만한지, 일상 대화에 쓸 만한지의 용도별 비교</li>
+      <li>사이드 프로젝트에 AI를 붙이는 구체적 방법과 로드맵</li>
+      <li>중소기업이 오픈소스 AI를 도입하는 3가지 경로와 비용</li>
+      <li>사내 문서를 학습시킨 RAG 챗봇을 구축하는 현실적 시나리오</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>AI를 이해하는 데<br>필요한 것은 코딩이 아니다.<br><strong>번역이다.</strong></h2>
+  <p class="sub">토큰, 컨텍스트, MoE. 용어가 벽이 되면 기술은 성에 갇힌다. 벽을 허무는 것은 쉬운 말이다.</p>
+</div>
+
+<footer class="footer">
+  <p>Sources: PyTorch Korea Forum (2026) &middot; DataCamp Qwen3.5 Benchmarks (2026) &middot; Unsloth Documentation (2026) &middot; Dnotitia Korean Reasoning Research (2025)</p>
+  <p>Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

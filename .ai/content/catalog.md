@@ -261,6 +261,7 @@
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
 | 01 | `you-can-switch.html` | 바꿔도 됩니다 | 종합 가이드 — 상용 웹 플랫폼의 숨겨진 비용, React 생태계, 전환 안전성 |
+| 02 | `different-world.html` | 같은 화면, 다른 세계 | 실전 비교 — WebSquare/eXBuilder vs React 개발 프로세스, 바이브코딩, 단일 소스 전략 |
 
 ## 시리즈 29: 코드는 마지막이다 (code-last-series)
 
@@ -328,3 +329,17 @@
 | 03 | `the-sme-reality.html` | 생존의 기술 | 현실 — 자원 없는 환경에서의 비대칭 전략과 3가지 경로 |
 | 04 | `do-one-thing.html` | 한 가지만 한다 | 실행 — 제약이론 100개 기업 실패율 0%, 병목 하나에 집중 |
 | 05 | `if-it-were-me.html` | 나라면 이렇게 한다 | 실전 — B2B 시장조사부터 90일 MVP 실행 플레이북 |
+
+## 시리즈 36: Qwen3.5, 인간의 언어로 (qwen-for-humans-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `what-is-token-context.html` | 토큰이 뭔데, 컨텍스트가 뭔데 | 입문 — AI 용어를 일상 비유로 해체 |
+| 02 | `ai-on-my-laptop.html` | 내 노트북으로 AI를 돌린다고? | 실전 — GPU별 선택지, Ollama 세팅, API 비용 비교 |
+| 03 | `coding-vs-chatting.html` | 코딩에 쓸 만한가, 대화에 쓸 만한가 | 비교 — 코딩/대화/에이전트 영역별 실력 진단 |
+| 04 | `ai-side-project-starter.html` | 사이드 프로젝트에 AI 붙이기 | 실행 — Qwen-Agent, MCP, RAG 조합 4주 로드맵 |
+| 05 | `qwen-for-small-business.html` | 중소기업은 이걸 어떻게 쓰는데 | 가이드 — API/클라우드/온프레미스 3경로, 사내 RAG 구축 |
+| 02 | `ai-on-my-laptop.html` | 내 노트북으로 AI를 돌린다고? | 실전 — 개인 PC 로컬 실행 가이드 |
+| 03 | `coding-vs-chatting.html` | 코딩에 쓸 만한가, 대화에 쓸 만한가 | 비교분석 — 용도별 실력 진단 |
+| 04 | `ai-side-project-starter.html` | 사이드 프로젝트에 AI 붙이기 | 실행 매뉴얼 — RAG/에이전트 구축 |
+| 05 | `qwen-for-small-business.html` | 중소기업은 이걸 어떻게 쓰는데 | 의사결정 가이드 — AI 도입 전략 |
