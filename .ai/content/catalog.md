@@ -343,3 +343,19 @@
 | 03 | `coding-vs-chatting.html` | 코딩에 쓸 만한가, 대화에 쓸 만한가 | 비교분석 — 용도별 실력 진단 |
 | 04 | `ai-side-project-starter.html` | 사이드 프로젝트에 AI 붙이기 | 실행 매뉴얼 — RAG/에이전트 구축 |
 | 05 | `qwen-for-small-business.html` | 중소기업은 이걸 어떻게 쓰는데 | 의사결정 가이드 — AI 도입 전략 |
+
+## 시리즈 37: 에이전트 보스 (agent-boss-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `juniors-are-gone.html` | 신입사원이 사라진다 | 분석 — AI가 바꾸는 채용 시장, Agent Boss, AI 네이티브 |
+| 02 | `eighty-to-hundred.html` | 80점을 100점으로 | 가이드 — 중장년의 역전 기회, AI 활용 전략 |
+
+## 시리즈 38: 세계 끝의 정원 (garden-at-worlds-end-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `before-the-flowers-bloom.html` | 꽃이 피기 전에 | OVA 1 — 틈에서 나타난 망자 군대와 죽은 신의 파편, 300년 만의 침묵 |
+| 02 | `what-came-from-the-sky.html` | 하늘에서 온 것 | OVA 2 — 차원 포식자 강림, 세계의 반응, 약초꾼의 정체 |
+| 03 | `gardener-of-time.html` | 시간의 정원사 | OVA 3 — 시간 역류, 과거 현현, 신의 완전한 종결 |
+

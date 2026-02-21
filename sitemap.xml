@@ -5,7 +5,7 @@
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://necromman.github.io/</loc>
-    <lastmod>2026-02-19T00:00:00+09:00</lastmod>
+    <lastmod>2026-02-21T00:00:00+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -894,6 +894,38 @@
   <url>
     <loc>https://necromman.github.io/content/qwen-for-humans-series/qwen-for-small-business.html</loc>
     <lastmod>2026-02-20T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Series 37: 에이전트 보스 -->
+  <url>
+    <loc>https://necromman.github.io/content/agent-boss-series/juniors-are-gone.html</loc>
+    <lastmod>2026-02-21T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/agent-boss-series/eighty-to-hundred.html</loc>
+    <lastmod>2026-02-21T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Series 38: 세계 끝의 정원 -->
+  <url>
+    <loc>https://necromman.github.io/content/garden-at-worlds-end-series/before-the-flowers-bloom.html</loc>
+    <lastmod>2026-02-21T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/garden-at-worlds-end-series/what-came-from-the-sky.html</loc>
+    <lastmod>2026-02-21T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://necromman.github.io/content/garden-at-worlds-end-series/gardener-of-time.html</loc>
+    <lastmod>2026-02-21T00:00:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

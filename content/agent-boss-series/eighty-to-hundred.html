@@ -1,0 +1,242 @@
+---
+layout: layouts/article.njk
+pageTitle: "80점을 100점으로"
+description: "AI는 80점짜리 대답 자판기다. 나머지 20점은 경험이 채운다. 한국 초고령사회 데이터, HBS 연구, PwC 보고서로 검증하는 중장년의 AI 활용 전략."
+ogTitle: "80점을 100점으로 — AI 시대, 경험이 다시 무기가 되는 이유"
+ogDescription: "한국은 초고령사회에 진입했고 연금 소득대체율은 OECD의 62%에 불과하다. AI가 바닥을 올려주는 시대, 경험은 어떻게 무기가 되는가."
+datePublished: "2026-02-21"
+---
+<style>
+  .masthead h1 { font-weight: 900; line-height: 1.15; letter-spacing: -2px; }
+  .masthead .deck { max-width: 540px; }
+
+  .stats-banner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .stat-cell {
+    background: var(--bg);
+    padding: 28px 16px;
+    text-align: center;
+  }
+  .stat-cell .stat-num {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .stat-cell .stat-label {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .stat-cell .stat-sub {
+    font-size: 0.75rem;
+    color: var(--secondary);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  .mechanism-2col { grid-template-columns: 1fr 1fr; }
+
+  .prompt-box {
+    border: 1px solid var(--rule);
+    padding: 28px 32px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .prompt-box .p-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .prompt-box p {
+    font-size: 0.92rem;
+    color: var(--prose);
+    line-height: 1.75;
+  }
+
+  .step-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 32px 0 40px;
+  }
+  .step-cell {
+    background: var(--bg);
+    padding: 28px 20px;
+  }
+  .step-cell .step-num {
+    font-family: var(--mono);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .step-cell .step-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 8px;
+  }
+  .step-cell p {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    line-height: 1.65;
+  }
+
+  .closing .sub { max-width: 520px; }
+
+  @media (max-width: 700px) {
+    .stats-banner { grid-template-columns: 1fr; }
+    .stat-cell .stat-num { font-size: 1.5rem; }
+    .mechanism-2col { grid-template-columns: 1fr; }
+    .step-grid { grid-template-columns: 1fr; }
+  }
+</style>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <span class="issue">Series 37 &middot; 02 of 02</span>
+  <h1>80점을<br><strong>100점으로</strong></h1>
+  <p class="deck">AI는 80점짜리 대답을 내놓는 자판기다. 나머지 20점을 채우는 것은 경험이다. 그리고 그 경험은 20년을 일한 사람에게 있다.</p>
+</header>
+
+<main>
+
+<!-- PART I -->
+<section>
+<div class="section-head">
+  <span class="num">Part I — The Operating System</span>
+  <h2>경험이라는 <strong>운영체제</strong></h2>
+</div>
+
+<p class="prose">2024년 12월, 한국은 공식적으로 초고령사회에 진입했다. 65세 이상 인구가 전체의 20%를 넘었다. 법정 퇴직 나이는 60세이고, 국민연금은 65세부터 나온다. <strong>5년의 공백이 있다.</strong> 그 사이를 채울 소득이 없다.</p>
+
+<div class="stats-banner">
+  <div class="stat-cell">
+    <div class="stat-num">39%</div>
+    <div class="stat-label">pension replacement</div>
+    <div class="stat-sub">한국, OECD 평균은 63%</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">57%</div>
+    <div class="stat-label">employment 65-69</div>
+    <div class="stat-sub">한국, OECD 평균은 26%</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">43%</div>
+    <div class="stat-label">bottom-half uplift</div>
+    <div class="stat-sub">AI 사용 시 하위 50% 성과 향상</div>
+  </div>
+</div>
+
+<p class="prose">한국 65~69세의 고용률은 57%다. OECD 평균 26%의 두 배가 넘는다. 은퇴 후에도 일하지 않으면 먹고살 수 없는 구조이기도 하지만, 반대로 읽으면 <strong>일할 의지와 능력을 가진 시니어가 그만큼 많다는 뜻이다.</strong></p>
+
+<p class="prose">여기에 AI가 변수로 들어온다. HBS/BCG 연구에서 하위 50% 성과자가 AI를 사용했을 때 43% 향상된 것을 기억하자. AI는 천재에게 유리한 도구가 아니다. <strong>AI는 경험은 있지만 도구가 없던 사람에게 도구를 쥐어주는 장치다.</strong></p>
+
+<p class="prose">20년간 공장을 운영하며 원가 구조를 체득한 사람이 있다. 이 사람이 엑셀은 서툴러도, AI에게 "이 원자재 가격으로 마진 15%를 맞추려면 생산량을 얼마로 잡아야 하나"라고 물으면 답이 나온다. <strong>질문의 품질은 경험이 결정한다.</strong></p>
+
+</section>
+
+<!-- PART II -->
+<section>
+<div class="section-head">
+  <span class="num">Part II — The Smart Prompting</span>
+  <h2>AI에게 <strong>역질문을 시켜라</strong></h2>
+</div>
+
+<p class="prose">대부분의 사람은 AI에게 답을 요구한다. "이거 정리해 줘", "보고서 써 줘". 그러면 AI는 80점짜리 결과물을 내놓는다. 나쁘지 않지만, 쓸 수 있는 수준은 아니다.</p>
+
+<p class="prose">김덕진 소장이 제안하는 방법은 다르다. <strong>AI에게 먼저 질문을 시키는 것이다.</strong></p>
+
+<div class="prompt-box">
+  <div class="p-label">prompt technique</div>
+  <p>"답변하기 전에, 네가 더 좋은 답을 내놓기 위해 나에게 알아야 할 정보가 있다면 먼저 질문해 줘."</p>
+</div>
+
+<p class="prose">이렇게 하면 AI는 컨설턴트처럼 작동한다. "타겟 고객층의 연령대가 어떻게 되나요?", "예산 범위가 있나요?", "경쟁사 대비 차별점은 무엇인가요?" — 이런 질문들이 쏟아진다. AI가 스스로 맥락을 파악하도록 유도하는 것이다. 결과물의 품질은 <strong>입력한 맥락의 양에 비례한다.</strong></p>
+
+<div class="mechanism-row mechanism-2col">
+  <div class="mechanism">
+    <div class="m-label">일반적인 사용법</div>
+    <p>"거래처 이메일 써 줘" → AI가 뻔한 인사말과 형식적 본문을 생성한다. 수정할 곳이 절반이다.</p>
+  </div>
+  <div class="mechanism">
+    <div class="m-label">역질문 사용법</div>
+    <p>"거래처 이메일을 쓰려는데, 더 좋은 이메일을 쓰기 위해 나에게 질문해 줘" → AI가 상황, 관계, 목적을 파악한 뒤 맥락에 맞는 초안을 작성한다.</p>
+  </div>
+</div>
+
+<p class="prose">한국 중소기업의 AI 도입률은 31%로 OECD 하위권이다. 하지만 도입한 기업들의 반응은 다르다. AI를 사용하는 중소기업의 <strong>80%가 직원 성과가 향상됐다</strong>고 답했고, 약 40%는 비용 절감과 매출 증가를 경험했다. 도구를 쓰는 것과 쓰지 않는 것의 차이가 이미 데이터로 나타나고 있다.</p>
+
+<div class="pull-quote">
+  <p>"AI는 대답 자판기다.<br>80점짜리 답을 100점으로 끌어올리는 건<br><strong>직관과 경험의 몫이다</strong>"</p>
+  <span class="attr">김덕진, IT 커뮤니케이션 연구소장</span>
+</div>
+
+</section>
+
+<!-- PART III -->
+<section>
+<div class="section-head">
+  <span class="num">Part III — The Amplifier</span>
+  <h2>생각의 <strong>증폭기</strong></h2>
+</div>
+
+<p class="prose">AI를 가장 잘 활용하는 방법은 대체가 아니라 증폭이다. 머릿속에 있는 30년의 경험을 AI라는 증폭기에 올리는 것이다. 방법은 의외로 단순하다.</p>
+
+<div class="step-grid">
+  <div class="step-cell">
+    <div class="step-num">01</div>
+    <div class="step-title">말로 풀어라</div>
+    <p>음성 입력으로 생각을 풀어놓는다. 구조가 엉성해도 괜찮다. AI가 정리해 준다.</p>
+  </div>
+  <div class="step-cell">
+    <div class="step-num">02</div>
+    <div class="step-title">AI로 구조화하라</div>
+    <p>풀어놓은 텍스트를 AI에게 넘긴다. "이 내용을 보고서 형식으로 정리해 줘." 초안이 나온다.</p>
+  </div>
+  <div class="step-cell">
+    <div class="step-num">03</div>
+    <div class="step-title">경험으로 검증하라</div>
+    <p>초안을 읽고 빠진 맥락, 틀린 전제, 과한 일반화를 잡아낸다. 이 단계가 20점이다.</p>
+  </div>
+</div>
+
+<p class="prose">PwC의 2025 보고서에 따르면, AI에 가장 많이 노출된 산업의 1인당 매출 성장률은 비노출 산업의 <strong>3배</strong>다. 고용주가 요구하는 스킬의 변화 속도는 AI 노출 직종에서 66% 더 빠르게 진행되고 있다. 배우지 않으면 뒤처진다. 하지만 배운다면, <strong>30년의 경험 위에 AI라는 레버리지가 올라간다.</strong></p>
+
+<p class="prose">신입이 사라지는 것은 위기이기도 하지만, 중장년에게는 역전의 기회이기도 하다. 도구를 빠르게 다루는 건 젊은 세대가 유리하다. 하지만 <strong>무엇을 시켜야 하는지 아는 것, 결과물의 오류를 잡아내는 것, 80점을 100점으로 끌어올리는 것</strong> — 이건 하루아침에 생기는 능력이 아니다.</p>
+
+<p class="prose">아이디어만 있다면 AI를 활용해 혼자서도 서비스를 만들 수 있는 시대다. 창업의 장벽은 낮아졌다. 엑셀은 몰라도 된다. 코딩은 몰라도 된다. 하지만 <strong>그 사업이 왜 필요한지, 누구에게 팔아야 하는지, 원가 구조를 어떻게 잡아야 하는지는 AI가 대신 판단해 주지 않는다.</strong> 경험이 그 자리에 있다.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>AI가 바닥을 올려준다면<br><strong>경험이 천장을 올린다</strong></h2>
+  <p class="sub">도구가 바뀌어도 판단은 사람의 것이다. 30년의 경험에 AI라는 증폭기를 올리는 순간, 중장년은 대체 대상이 아니라 가장 강력한 에이전트 보스가 된다.</p>
+</div>
+
+<footer class="footer">
+  <p>Sources: OECD Korea Labour Market Report (2025) &middot; Harvard Business School & BCG (2023) &middot; PwC Global AI Jobs Barometer (2025) &middot; KDI AI Impact Report</p>
+  <p>Original: 김덕진 IT 커뮤니케이션 연구소장 인터뷰 &middot; Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>

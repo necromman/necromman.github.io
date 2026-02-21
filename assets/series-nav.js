@@ -322,6 +322,21 @@
         { slug: 'ai-side-project-starter', title: '사이드 프로젝트에 AI 붙이기' },
         { slug: 'qwen-for-small-business', title: '중소기업은 이걸 어떻게 쓰는데' }
       ]
+    },
+    'agent-boss-series': {
+      title: '에이전트 보스',
+      articles: [
+        { slug: 'juniors-are-gone', title: '신입사원이 사라진다' },
+        { slug: 'eighty-to-hundred', title: '80점을 100점으로' }
+      ]
+    },
+    'garden-at-worlds-end-series': {
+      title: '세계 끝의 정원',
+      articles: [
+        { slug: 'before-the-flowers-bloom', title: '꽃이 피기 전에' },
+        { slug: 'what-came-from-the-sky', title: '하늘에서 온 것' },
+        { slug: 'gardener-of-time', title: '시간의 정원사' }
+      ]
     }
   };
 

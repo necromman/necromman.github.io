@@ -1271,6 +1271,55 @@
         search: '중소기업 AI 도입 오픈소스 API 온프레미스 클라우드 RAG 사내문서 DSLM 파인튜닝 보안 비용'
       }
     ]
+  },
+  {
+    id: 'agent-boss',
+    title: '에이전트 보스',
+    description: 'AI가 신입의 일을 대신하고, 혼자서 팀이 되는 에이전트 보스가 등장한다. 중장년의 경험은 어떻게 무기가 되는가. HBS, PwC, OECD 데이터로 읽는 2026 채용 시장.',
+    articles: [
+      {
+        title: '신입사원이 사라진다',
+        role: 'Klarna 700명 대체, HBS 758명 실험, Z세대 76% AI 챗봇 — 데이터로 읽는 채용 시장 변화',
+        tag: '분석',
+        href: 'content/agent-boss-series/juniors-are-gone.html',
+        search: '신입사원 채용 AI 대체 에이전트보스 Klarna HBS BCG Z세대 AI네이티브 자동화 채용트렌드 2026'
+      },
+      {
+        title: '80점을 100점으로',
+        role: 'AI 80점 → 100점은 경험이 채운다. 초고령사회 한국, 중장년의 역전 전략',
+        tag: '가이드',
+        href: 'content/agent-boss-series/eighty-to-hundred.html',
+        search: '80점 100점 중장년 시니어 경험 AI활용 역질문 증폭기 초고령사회 연금 OECD PwC 에이전트보스'
+      }
+    ]
+  },
+  {
+    id: 'garden-at-worlds-end',
+    title: '세계 끝의 정원',
+    description: '대륙의 끝, 심연 위 마을에 약초꾼이 산다. 300년 전 신전을 끝낸 존재. 조용히 살고 싶지만 재앙이 계속 찾아온다. 판타지 OVA 소설 3편.',
+    articles: [
+      {
+        title: '꽃이 피기 전에',
+        role: '틈에서 나타난 망자 군대와 죽은 신의 파편, 300년 만에 깨어난 침묵',
+        tag: '도입',
+        href: 'content/garden-at-worlds-end-series/before-the-flowers-bloom.html',
+        search: '세계끝정원 약초꾼 침묵 신전 망자군대 판타지소설 OVA 아쉔 셀렌 틈'
+      },
+      {
+        title: '하늘에서 온 것',
+        role: '차원 포식자 강림, 마법사 길드도 군대도 막지 못한 위협, 약초꾼의 정체',
+        tag: '전개',
+        href: 'content/garden-at-worlds-end-series/what-came-from-the-sky.html',
+        search: '하늘에서온것 수정존재 차원포식자 세계끝정원 약초꾼정체 침묵 군대 마법사길드'
+      },
+      {
+        title: '시간의 정원사',
+        role: '시간 역류, 죽은 신의 귀환, 과거가 드러나고 약초꾼은 다시 물을 준다',
+        tag: '심화',
+        href: 'content/garden-at-worlds-end-series/gardener-of-time.html',
+        search: '시간정원사 시간역류 신전과거 침묵정체 세계끝정원 약초꾼 OVA 판타지소설'
+      }
+    ]
   }
 ];
   // Auto-generate thumbnail from href: content/foo/bar.html → assets/og/foo/bar.png
