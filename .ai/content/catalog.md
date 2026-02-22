@@ -355,7 +355,7 @@
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
-| 01 | `hair-loss-quest.html` | 리미터를 넘은 자 | OVA 01 — 반값 세일, 블라스트의 방문, 첫 차원 큐브, God의 눈 |
-| 02 | `interdimensional-bargains.html` | 큐브의 진실 | OVA 02 — God의 손, 차원의 시장, 리미터의 비밀, 에이전트 전투 |
-| 03 | `just-a-punch.html` | 그냥 펀치 | OVA 03 (완결) — God 대면, 진심 펀치, 봉인 차원, 반값 달걀 |
+| 01 | `hair-loss-quest.html` | 리미터를 넘은 자 | EP 01 — 반값 세일, 블라스트의 방문, 첫 차원 큐브, God의 눈 |
+| 02 | `interdimensional-bargains.html` | 큐브의 진실 | EP 02 — God의 손, 차원의 시장, 리미터의 비밀, 에이전트 전투 |
+| 03 | `just-a-punch.html` | 그냥 펀치 | EP 03 (완결) — God 대면, 진심 펀치, 봉인 차원, 반값 달걀 |
 

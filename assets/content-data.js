@@ -1296,28 +1296,28 @@
   {
     id: 'one-punch-reason',
     title: '강해져버린 이유',
-    description: '사이타마가 자기 힘의 기원을 찾아 다른 차원을 모험한다. 블라스트의 안내, 미스터리어스 큐브의 비전, 그리고 God과의 조우. 원펀맨 팬픽 OVA 시리즈.',
+    description: '사이타마가 자기 힘의 기원을 찾아 다른 차원을 모험한다. 블라스트의 안내, 미스터리어스 큐브의 비전, 그리고 God과의 조우. 원펀맨 팬픽 EP 시리즈.',
     articles: [
       {
         title: '리미터를 넘은 자',
-        role: 'OVA 01 — 반값 세일, 블라스트의 방문, 첫 차원 큐브, God의 눈',
+        role: 'EP 01 — 반값 세일, 블라스트의 방문, 첫 차원 큐브, God의 눈',
         tag: '소설/팬픽',
         href: 'content/one-punch-reason-series/hair-loss-quest.html',
-        search: '원펀맨 사이타마 팬픽 OVA 리미터 블라스트 제노스 킹 God 차원 큐브 강해져버렸다 반값세일'
+        search: '원펀맨 사이타마 팬픽 EP 리미터 블라스트 제노스 킹 God 차원 큐브 강해져버렸다 반값세일'
       },
       {
         title: '큐브의 진실',
-        role: 'OVA 02 — God의 손, 차원의 시장, 리미터의 비밀, 에이전트 전투',
+        role: 'EP 02 — God의 손, 차원의 시장, 리미터의 비밀, 에이전트 전투',
         tag: '소설/팬픽',
         href: 'content/one-punch-reason-series/interdimensional-bargains.html',
-        search: '원펀맨 사이타마 팬픽 OVA 큐브 리미터 기도 팔굽혀펴기 God 에이전트 차원시장 강해져버렸다'
+        search: '원펀맨 사이타마 팬픽 EP 큐브 리미터 기도 팔굽혀펴기 God 에이전트 차원시장 강해져버렸다'
       },
       {
         title: '그냥 펀치',
-        role: 'OVA 03 (완결) — God 대면, 진심 펀치, 봉인 차원, 반값 달걀',
+        role: 'EP 03 (완결) — God 대면, 진심 펀치, 봉인 차원, 반값 달걀',
         tag: '소설/팬픽',
         href: 'content/one-punch-reason-series/just-a-punch.html',
-        search: '원펀맨 사이타마 팬픽 OVA God 진심펀치 봉인차원 시리어스펀치 에필로그 완결 강해져버렸다 반값세일'
+        search: '원펀맨 사이타마 팬픽 EP God 진심펀치 봉인차원 시리어스펀치 에필로그 완결 강해져버렸다 반값세일'
       }
     ]
   }
