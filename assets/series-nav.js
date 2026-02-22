@@ -330,14 +330,14 @@
         { slug: 'eighty-to-hundred', title: '80점을 100점으로' }
       ]
     },
-    'garden-at-worlds-end-series': {
-      title: '세계 끝의 정원',
+    'one-punch-reason-series': {
+      title: '강해져버린 이유',
       articles: [
-        { slug: 'before-the-flowers-bloom', title: '꽃이 피기 전에' },
-        { slug: 'what-came-from-the-sky', title: '하늘에서 온 것' },
-        { slug: 'gardener-of-time', title: '시간의 정원사' }
+        { slug: 'hair-loss-quest', title: '리미터를 넘은 자' },
+        { slug: 'interdimensional-bargains', title: '큐브의 진실' },
+        { slug: 'just-a-punch', title: '그냥 펀치' }
       ]
-    }
+    },
   };
 
   // 현재 페이지의 슬러그와 시리즈를 찾는다

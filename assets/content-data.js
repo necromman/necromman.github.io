@@ -1294,30 +1294,30 @@
     ]
   },
   {
-    id: 'garden-at-worlds-end',
-    title: '세계 끝의 정원',
-    description: '대륙의 끝, 심연 위 마을에 약초꾼이 산다. 300년 전 신전을 끝낸 존재. 조용히 살고 싶지만 재앙이 계속 찾아온다. 판타지 OVA 소설 3편.',
+    id: 'one-punch-reason',
+    title: '강해져버린 이유',
+    description: '사이타마가 자기 힘의 기원을 찾아 다른 차원을 모험한다. 블라스트의 안내, 미스터리어스 큐브의 비전, 그리고 God과의 조우. 원펀맨 팬픽 OVA 시리즈.',
     articles: [
       {
-        title: '꽃이 피기 전에',
-        role: '틈에서 나타난 망자 군대와 죽은 신의 파편, 300년 만에 깨어난 침묵',
-        tag: '도입',
-        href: 'content/garden-at-worlds-end-series/before-the-flowers-bloom.html',
-        search: '세계끝정원 약초꾼 침묵 신전 망자군대 판타지소설 OVA 아쉔 셀렌 틈'
+        title: '리미터를 넘은 자',
+        role: 'OVA 01 — 반값 세일, 블라스트의 방문, 첫 차원 큐브, God의 눈',
+        tag: '소설/팬픽',
+        href: 'content/one-punch-reason-series/hair-loss-quest.html',
+        search: '원펀맨 사이타마 팬픽 OVA 리미터 블라스트 제노스 킹 God 차원 큐브 강해져버렸다 반값세일'
       },
       {
-        title: '하늘에서 온 것',
-        role: '차원 포식자 강림, 마법사 길드도 군대도 막지 못한 위협, 약초꾼의 정체',
-        tag: '전개',
-        href: 'content/garden-at-worlds-end-series/what-came-from-the-sky.html',
-        search: '하늘에서온것 수정존재 차원포식자 세계끝정원 약초꾼정체 침묵 군대 마법사길드'
+        title: '큐브의 진실',
+        role: 'OVA 02 — God의 손, 차원의 시장, 리미터의 비밀, 에이전트 전투',
+        tag: '소설/팬픽',
+        href: 'content/one-punch-reason-series/interdimensional-bargains.html',
+        search: '원펀맨 사이타마 팬픽 OVA 큐브 리미터 기도 팔굽혀펴기 God 에이전트 차원시장 강해져버렸다'
       },
       {
-        title: '시간의 정원사',
-        role: '시간 역류, 죽은 신의 귀환, 과거가 드러나고 약초꾼은 다시 물을 준다',
-        tag: '심화',
-        href: 'content/garden-at-worlds-end-series/gardener-of-time.html',
-        search: '시간정원사 시간역류 신전과거 침묵정체 세계끝정원 약초꾼 OVA 판타지소설'
+        title: '그냥 펀치',
+        role: 'OVA 03 (완결) — God 대면, 진심 펀치, 봉인 차원, 반값 달걀',
+        tag: '소설/팬픽',
+        href: 'content/one-punch-reason-series/just-a-punch.html',
+        search: '원펀맨 사이타마 팬픽 OVA God 진심펀치 봉인차원 시리어스펀치 에필로그 완결 강해져버렸다 반값세일'
       }
     ]
   }

@@ -351,11 +351,11 @@
 | 01 | `juniors-are-gone.html` | 신입사원이 사라진다 | 분석 — AI가 바꾸는 채용 시장, Agent Boss, AI 네이티브 |
 | 02 | `eighty-to-hundred.html` | 80점을 100점으로 | 가이드 — 중장년의 역전 기회, AI 활용 전략 |
 
-## 시리즈 38: 세계 끝의 정원 (garden-at-worlds-end-series)
+## 시리즈 38: 강해져버린 이유 (one-punch-reason-series)
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
-| 01 | `before-the-flowers-bloom.html` | 꽃이 피기 전에 | OVA 1 — 틈에서 나타난 망자 군대와 죽은 신의 파편, 300년 만의 침묵 |
-| 02 | `what-came-from-the-sky.html` | 하늘에서 온 것 | OVA 2 — 차원 포식자 강림, 세계의 반응, 약초꾼의 정체 |
-| 03 | `gardener-of-time.html` | 시간의 정원사 | OVA 3 — 시간 역류, 과거 현현, 신의 완전한 종결 |
+| 01 | `hair-loss-quest.html` | 리미터를 넘은 자 | OVA 01 — 반값 세일, 블라스트의 방문, 첫 차원 큐브, God의 눈 |
+| 02 | `interdimensional-bargains.html` | 큐브의 진실 | OVA 02 — God의 손, 차원의 시장, 리미터의 비밀, 에이전트 전투 |
+| 03 | `just-a-punch.html` | 그냥 펀치 | OVA 03 (완결) — God 대면, 진심 펀치, 봉인 차원, 반값 달걀 |
 

@@ -15,6 +15,53 @@
 - 사용자가 모를 수 있는 배포/SEO/수익화 등의 영역도 AI가 알아서 챙긴다
 - **날짜를 쓸 때 연도를 절대 혼동하지 않는다.** 현재 연도를 반드시 확인하고, SEO 태그/JSON-LD/sitemap/인덱스 등 모든 곳에 정확한 날짜를 기입한다
 
+## 콘텐츠 제작 워크플로우 (핵심)
+
+> **모든 콘텐츠 요청은 반드시 Phase 0(조사)부터 시작한다.** 상세: [`.claude/rules/content-workflow.md`](.claude/rules/content-workflow.md)
+
+### 콘텐츠 유형 → 에이전트 팀 자동 구성
+
+Orchestrator(메인 Claude)가 요청을 분석하여 콘텐츠 유형을 판별하고, 적절한 에이전트 팀을 동적으로 구성한다:
+
+| 유형 | 판별 키워드 | 에이전트 팀 |
+|------|-----------|------------|
+| **정보전달형** | 정리, 분석, 요약, 해설 | Researcher → Planner → Writer → Fact Checker → Editor → Publisher |
+| **소설형** | 소설, 이야기, 창작, 단편 | Researcher → World Builder → Character Designer → Story Architect → Planner → Writer → Continuity Checker → Editor → Publisher |
+| **혼합형** | 정보 + 소설 형식 | 정보전달 + 소설 에이전트 모두 투입 |
+
+### 파이프라인 개요
+
+```
+Phase 0: 조사 — Researcher (★ 필수, 건너뛸 수 없음)
+  ├── 기존 컨벤션 분석 (기존 콘텐츠 문체/구조/문제점)
+  ├── 주제 자료조사 (최신 데이터, 한국 맥락)
+  └── [소설] 장르 분석, 클리셰 목록, 레퍼런스 수집
+
+Phase 1: 설계 — 유형별 에이전트 분기
+  ├── [정보] Planner: 시리즈 구조
+  ├── [소설] World Builder → Character Designer → Story Architect → Planner
+  └── 사용자 확인 ← ★ 체크포인트
+
+Phase 2: 집필 — Orchestrator 직접 수행
+  └── 설계 문서 기반, 스킬(editorial-content-page + seo) 참조
+
+Phase 3: 검증 — Editor + 유형별 검증 에이전트
+  ├── [소설] Continuity Checker: 설정 모순, 반복 표현, OOC 탐지
+  ├── [정보] Fact Checker: 데이터 정확성, 출처 검증
+  ├── Editor: 클리셰, 문체, 페이싱, 품질
+  └── 기술 검증: HTML, CSS, 빌드
+
+Phase 4: 배포 — Publisher
+  └── 배포 체크리스트 + 사용자 확인
+```
+
+### 소설형 필수 금지 패턴
+
+- **수치/표현 과도한 반복**: 같은 숫자(예: "300년")가 편당 3회 이상 → 경고
+- **파워 판타지 클리셰**: 매번 손가락 하나로 해결 → 긴장감 부재
+- **설명조 대사**: "나는 ~한 존재다" → 행동으로 보여주기
+- **에필로그 공식화**: 매 편 같은 결말 패턴 → 변화 누적
+
 ## 배경
 
 유튜브 영상("99%가 인생을 낭비하는 이유")을 보고, Gemini로 스크립트를 뽑아 Claude로 에디토리얼 HTML을 만들어봤더니 결과물이 괜찮았다. 그래서 반박/종합/실행/메타 문서까지 시리즈로 확장했고, 이걸 블로그로 올려서 운영해보려는 프로젝트. 앞으로 다른 영상/아티클에도 같은 패턴을 적용해서 콘텐츠를 늘려갈 계획.
@@ -29,6 +76,7 @@
 | **콘텐츠 카탈로그** | [`.ai/content/catalog.md`](.ai/content/catalog.md) | 30개 시리즈 전체 목록, 콘텐츠 데이터 관리 규칙 |
 | **컴포넌트 & 디자인** | [`.ai/design/components.md`](.ai/design/components.md) | 공통 CSS, 네비게이션, 랜딩 페이지, 디자인 시스템 규칙 |
 | **수익화 & 전략** | [`.ai/project/monetization.md`](.ai/project/monetization.md) | 배포 전략, 수익화, TODO, 콘텐츠 제작 워크플로우 |
+| **콘텐츠 워크플로우** | [`.claude/rules/content-workflow.md`](.claude/rules/content-workflow.md) | 에이전트 시스템, Phase별 파이프라인, 검증 정책, 소설 품질 가이드 |
 
 ## 빌드 시스템 (요약)
 

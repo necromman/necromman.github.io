@@ -5,7 +5,7 @@
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://necromman.github.io/</loc>
-    <lastmod>2026-02-21T00:00:00+09:00</lastmod>
+    <lastmod>2026-02-22T00:00:00+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -910,22 +910,22 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <!-- Series 38: 세계 끝의 정원 -->
+  <!-- Series 38: 원펀맨: 주먹의 이유 -->
   <url>
-    <loc>https://necromman.github.io/content/garden-at-worlds-end-series/before-the-flowers-bloom.html</loc>
-    <lastmod>2026-02-21T00:00:00+09:00</lastmod>
+    <loc>https://necromman.github.io/content/one-punch-reason-series/hair-loss-quest.html</loc>
+    <lastmod>2026-02-22T00:00:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/content/garden-at-worlds-end-series/what-came-from-the-sky.html</loc>
-    <lastmod>2026-02-21T00:00:00+09:00</lastmod>
+    <loc>https://necromman.github.io/content/one-punch-reason-series/interdimensional-bargains.html</loc>
+    <lastmod>2026-02-22T00:00:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://necromman.github.io/content/garden-at-worlds-end-series/gardener-of-time.html</loc>
-    <lastmod>2026-02-21T00:00:00+09:00</lastmod>
+    <loc>https://necromman.github.io/content/one-punch-reason-series/just-a-punch.html</loc>
+    <lastmod>2026-02-22T00:00:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
