@@ -1320,6 +1320,20 @@
         search: '원펀맨 사이타마 팬픽 EP God 진심펀치 봉인차원 시리어스펀치 에필로그 완결 강해져버렸다 반값세일'
       }
     ]
+  },
+  {
+    id: 'dynamic-model-routing',
+    title: '동적 모델 라우팅',
+    description: 'AI 모델이 수십 개인 시대, 질문마다 최적의 모델을 자동 선택하는 동적 모델 라우팅 아키텍처를 실제 구현 사례 기반으로 풀어낸다.',
+    articles: [
+      {
+        title: '동적 모델 라우팅이란',
+        role: '개념/구조 — 모델 tier, 라우팅 정의, 실제 아키텍처 미리보기',
+        tag: '기술 해설',
+        href: 'content/dynamic-model-routing-series/what-is-model-routing.html',
+        search: '동적 모델 라우팅 dynamic model routing AI 모델 선택 tier fast deep task classifier model router 비용 절감 RouteLLM'
+      }
+    ]
   }
 ];
   // Auto-generate thumbnail from href: content/foo/bar.html → assets/og/foo/bar.png

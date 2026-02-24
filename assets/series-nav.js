@@ -338,6 +338,12 @@
         { slug: 'just-a-punch', title: '그냥 펀치' }
       ]
     },
+    'dynamic-model-routing-series': {
+      title: '동적 모델 라우팅',
+      articles: [
+        { slug: 'what-is-model-routing', title: '동적 모델 라우팅이란' }
+      ]
+    },
   };
 
   // 현재 페이지의 슬러그와 시리즈를 찾는다

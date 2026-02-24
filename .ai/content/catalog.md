@@ -359,3 +359,9 @@
 | 02 | `interdimensional-bargains.html` | 큐브의 진실 | EP 02 — God의 손, 차원의 시장, 리미터의 비밀, 에이전트 전투 |
 | 03 | `just-a-punch.html` | 그냥 펀치 | EP 03 (완결) — God 대면, 진심 펀치, 봉인 차원, 반값 달걀 |
 
+## 시리즈 39: 동적 모델 라우팅 (dynamic-model-routing-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `what-is-model-routing.html` | 동적 모델 라우팅이란 | 개념/구조 — 모델 tier, 라우팅 정의, 4가지 전략, 실제 아키텍처 미리보기 |
+

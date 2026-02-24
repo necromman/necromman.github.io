@@ -5,7 +5,7 @@
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://necromman.github.io/</loc>
-    <lastmod>2026-02-22T00:00:00+09:00</lastmod>
+    <lastmod>2026-02-24T00:00:00+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -926,6 +926,13 @@
   <url>
     <loc>https://necromman.github.io/content/one-punch-reason-series/just-a-punch.html</loc>
     <lastmod>2026-02-22T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Series 39: 동적 모델 라우팅 -->
+  <url>
+    <loc>https://necromman.github.io/content/dynamic-model-routing-series/what-is-model-routing.html</loc>
+    <lastmod>2026-02-24T00:00:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
