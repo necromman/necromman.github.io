@@ -19,15 +19,25 @@
 
 ## 랜딩 페이지 (`index.html` + `assets/content-data.js` + `assets/index-app.js` + `assets/index.css`)
 
-- `index.html`은 front matter + body만 담당 (SEO/head는 `landing.njk` 레이아웃이 처리, GoatCounter 추적 코드는 body에 유지)
+- `index.html`은 front matter + Nunjucks 템플릿 body (SEO/head는 `landing.njk` 레이아웃이 처리, GoatCounter 추적 코드는 body에 유지)
+- **11ty SSR**: `index.html`이 Nunjucks 템플릿으로 `contentData`를 순회하며 카드 HTML을 서버 렌더링. JS는 인터랙션(필터, 페이지네이션, 검색)만 담당
 - `content-data.js`에 시리즈/글 데이터를 JS 배열로 관리 → **새 콘텐츠 추가 시 이 파일만 수정**
-- `index-app.js`가 데이터를 읽어 동적 렌더링 + 검색 + 정렬(ASC/DESC) + 모두 펼침/접기 처리
+- `index-app.js` 기능: 카테고리 필터 + 텍스트 검색(250ms 디바운스) + 번호 페이지네이션 + URL 상태 관리(`?category=&page=`) + 정렬(ASC/DESC) + TOC 연동 + ARIA 라이브 리전
 - `index.css`는 랜딩 페이지 전용 CSS. `editorial-base.css`의 @font-face/변수/리셋을 상속받고, 랜딩 페이지 고유 스타일만 정의
+
+**랜딩 페이지 주요 UI 구성:**
+- **카테고리 탭**: 전체 / 기술 & 개발 / 분석 & 팩트체크 / 소설 & 창작 / 업무 & 커리어 (ARIA `role="tablist"`)
+- **번호 페이지네이션**: 시리즈 5개 단위, 말줄임(...) 지원, URL `?page=N` 동기화
+- **TOC 사이드바**: `<details>/<summary>` 카테고리별 접이식 목차, 카테고리 클릭 시 탭 필터 연동
+- **URL 상태**: `?category=tech&page=2` 형태, `history.replaceState` + `popstate` 처리
+
 - **`content-data.js` 데이터 구조:**
   ```javascript
-  { id: '시리즈-슬러그', seriesNum: 번호, title: '시리즈 제목', description: '설명',
+  var CATEGORIES = { tech: { label: '기술 & 개발' }, analysis: { label: '분석 & 팩트체크' }, fiction: { label: '소설 & 창작' }, career: { label: '업무 & 커리어' } };
+  { id: '시리즈-슬러그', category: 'tech', seriesNum: 번호, title: '시리즈 제목', description: '설명',
     articles: [{ num: 1, title: '글 제목', role: '역할', tag: '태그', href: '경로', search: '검색 키워드' }] }
   ```
+  - `category` 필드 필수. 분류 기준은 CLAUDE.md 참조
 
 ## 네비게이션 (`assets/nav.js`)
 

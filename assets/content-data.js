@@ -5,9 +5,17 @@
  * thumbnail은 href에서 자동 생성: content/foo/bar.html → assets/og/foo/bar.png
  */
 (function () {
+  var CATEGORIES = {
+    tech:     { label: '기술 & 개발' },
+    analysis: { label: '분석 & 팩트체크' },
+    fiction:  { label: '소설 & 창작' },
+    career:   { label: '업무 & 커리어' }
+  };
+
   var data = [
   {
     id: 'wasted-life',
+    category: 'analysis',
     title: '99%가 인생을 낭비하는 이유',
     description: '유튜브 영상 하나에서 출발한 5편 시리즈. 원본 정리에서 팩트 반박, 종합 분석, 실행 매뉴얼, 제작 과정까지.',
     articles: [
@@ -50,6 +58,7 @@
   },
   {
     id: 'bithumb-60t',
+    category: 'analysis',
     title: '딸깍 한 번의 60조 원',
     description: '빗썸 비트코인 62만 개 오지급 사고의 전말. 단위 입력 실수 하나가 만든 60조 원 규모의 유령 자산과 가상자산 거래소의 구조적 문제를 분석한다.',
     articles: [
@@ -78,6 +87,7 @@
   },
   {
     id: 'dev-survival',
+    category: 'analysis',
     title: 'AI 시대 개발자 생존 보고서',
     description: 'AI가 개발자를 대체한다는 불안 속에서, 데이터로 현실을 직시하고 역사적 패턴으로 반론하고 구체적 생존 전략까지. 신입과 경력 모두를 위한 4편 시리즈.',
     articles: [
@@ -113,6 +123,7 @@
   },
   {
     id: 'vibe-coding',
+    category: 'tech',
     title: '그래서 바이브 코딩은 뭘로 해야 되는데?',
     description: 'Cursor? Copilot? Claude Code? AI 코딩 도구가 넘쳐나는 시대, 뭘 써야 하는지부터 프롬프트 작성법까지. 비개발자도 이해할 수 있는 바이브 코딩 완전 가이드.',
     articles: [
@@ -162,6 +173,7 @@
   },
   {
     id: 'openclaw',
+    category: 'tech',
     title: 'OpenClaw 해부',
     description: 'GitHub 역사상 가장 빠르게 성장한 오픈소스 AI 에이전트 OpenClaw. 5번 개명 드라마부터 보안 경고, 비용의 진실, 대안까지 완전 해부한다.',
     articles: [
@@ -190,6 +202,7 @@
   },
   {
     id: 'lineage-classic',
+    category: 'analysis',
     title: '린저씨의 귀환',
     description: '1998년에 PC방을 점령했던 10대가 2026년에 40대가 되어 돌아왔다. 리니지 클래식 연대기 — 역사, BJ 체력 이슈, 9조 원 경제, 그리고 29,700원의 마지막 승부.',
     articles: [
@@ -225,6 +238,7 @@
   },
   {
     id: 'claude-cowork',
+    category: 'analysis',
     title: '딸깍이 소프트웨어를 죽인다고?',
     description: 'Claude Cowork 출시 후 7일 만에 1조 달러가 증발했다. AI 에이전트가 기존 소프트웨어를 정말 대체하는지, 데이터로 검증하고 생존 전략까지.',
     articles: [
@@ -260,6 +274,7 @@
   },
   {
     id: 'vibe-design',
+    category: 'analysis',
     title: '디자이너 없이 제품 만들기',
     description: '바이브 코딩의 진짜 병목은 디자인이다. bg-indigo-500의 원죄부터 디자인 토큰, 참조 디자인 워크플로우, shadcn/ui 전략, 배포 전 QA까지.',
     articles: [
@@ -302,6 +317,7 @@
   },
   {
     id: 'git-survival',
+    category: 'tech',
     title: 'Git, pair 없이 살아남기',
     description: '개발자 93.87%가 쓰지만 52.2%는 매달 실수한다. 주니어 생존 명령어부터 force push 참사, 숨겨진 기능, 브랜치 전략, 생산성 세팅까지.',
     articles: [
@@ -344,6 +360,7 @@
   },
   {
     id: 'gitlab-migration',
+    category: 'tech',
     title: 'CTO의 깃랩 이사 공지가 불안한 이유',
     description: 'CTO가 "내일 깃랩 도메인 바꿉니다"라고 했을 때. NAS에서 전용 서버로의 GitLab 마이그레이션 — 공지문 해부, 정석 가이드, 개발자 생존 스크립트까지.',
     articles: [
@@ -372,6 +389,7 @@
   },
   {
     id: 'server-infra-guide',
+    category: 'tech',
     title: '192.168.0.x의 규칙',
     description: 'Proxmox 위의 VM들은 각자 하나의 역할만 맡는다. Traefik 관문의 구조, 라우팅 추가 절차, 개발자 서버 사용 가이드와 금지 사항까지. 인프라를 공유하는 개발자를 위한 필독 가이드.',
     articles: [
@@ -407,6 +425,7 @@
   },
   {
     id: 'innobiz-guide',
+    category: 'career',
     title: '이노비즈 인증, 서류가 기술을 이긴다',
     description: '이노비즈(INNOBIZ) 인증 완전 가이드. 자격요건, 평가체계, 15개 현장평가 준비서류의 문서형·시스템형 구분, 통과·탈락 패턴, SW기업 맞춤 전략까지 한 권으로.',
     articles: [
@@ -421,6 +440,7 @@
   },
   {
     id: 'sovereign-ai-novel',
+    category: 'fiction',
     title: '소버린 배당일',
     description: '2032년, AI가 국력이 된 세계. 각 나라의 소버린 AI가 벌어다 주는 배당금으로 인류가 살아간다. 문학에서 시작해 과학으로 검증하고 철학으로 끝나는 5편의 시리즈.',
     articles: [
@@ -463,6 +483,7 @@
   },
   {
     id: 'masterkey',
+    category: 'fiction',
     title: '마스터키',
     description: '2031년, 10억 개의 개인 AI가 풀려난 밤. 에코 프레임워크의 취약점을 발견한 보안 엔지니어와, 그 취약점을 무기로 바꾼 자들의 사이버 스릴러. Series 13 "소버린 배당일"의 프리퀄.',
     articles: [
@@ -505,6 +526,7 @@
   },
   {
     id: 'ai-withdrawal',
+    category: 'fiction',
     title: '금단의 코드 — AI 없는 48시간',
     description: 'AI 코딩 도구 사용량 제한에 걸린 개발자가 결제 시스템 장애를 맨손으로 고쳐야 하는 48시간. PostgreSQL advisory lock 버그와 개발자 정체성에 대한 소설.',
     articles: [
@@ -540,6 +562,7 @@
   },
   {
     id: 'illusion-of-knowing',
+    category: 'fiction',
     title: '안다는 착각',
     description: 'AI가 지식을 민주화했다. 하지만 능력의 격차는 줄지 않았다. 바이브 코딩 보안 참사, 역 던닝-크루거 효과, 법정의 격차 — 네 편의 소설로 읽는 AI 시대의 착각.',
     articles: [
@@ -575,6 +598,7 @@
   },
   {
     id: 'future-cashcow',
+    category: 'fiction',
     title: '대표님의 미래먹거리',
     description: '월급 268만원, 겸직 5개, AI 예산 0원. 중소기업 개발자 한도현이 무료 도구로 MVP를 만들고 투자 직전까지 가는 이야기.',
     articles: [
@@ -617,6 +641,7 @@
   },
   {
     id: 'ufo-physics-series',
+    category: 'analysis',
     seriesNum: 18,
     title: '거기서 어떻게 오셨어요',
     description: 'UFO는 왜 물리법칙을 위반하는가. 틱택의 마하 60부터 페르미 역설까지 — 목격, 이론, 성간여행, 그리고 우주의 침묵을 과학으로 해부한다.',
@@ -665,6 +690,7 @@
   },
   {
     id: 'starcraft-timeslip',
+    category: 'fiction',
     title: 'GG',
     description: '38세 QA 엔지니어가 2001년으로 돌아갔다. 25년 뒤의 빌드오더가 머릿속에 있지만, 손가락은 기억하지 못한다. 스타크래프트 프로게이머를 향한 타임슬립 소설.',
     articles: [
@@ -707,6 +733,7 @@
   },
   {
     id: 'vow-system-series',
+    category: 'fiction',
     seriesNum: 20,
     title: '서약빨',
     description: '양산형 VR MMORPG에 숨겨진 서약 시스템. 자발적 제약이 만드는 창의성. 실패한 인디 개발자가 남의 게임에서 자기 철학을 발견하고, 다시 만드는 자로 돌아가기까지.',
@@ -750,6 +777,7 @@
   },
   {
     id: 'claude-code-guide',
+    category: 'tech',
     seriesNum: 21,
     title: '컨텍스트는 우유다',
     description: 'ykdojo/claude-code-tips 45개 팁 중 25개를 큐레이션. 설치 직후 세팅부터 컨텍스트 관리, 자율 실행, DevOps, 메타 자동화까지 Claude Code 필드 가이드.',
@@ -793,6 +821,7 @@
   },
   {
     id: 'voice-phishing',
+    category: 'fiction',
     seriesNum: 22,
     title: '엄마의 전화',
     description: 'AI 딥보이스에 속은 딸바보 엄마의 이야기. 음지에서 털리고 양지에서 또 털린다. 범죄자보다 냉정한 법의 민낯을 그린 공포/법률 소설.',
@@ -829,6 +858,7 @@
   },
   {
     id: 'ai-server-setup',
+    category: 'tech',
     seriesNum: 23,
     title: '서버는 샀는데',
     description: 'GPU 서버를 사고 가장 먼저 해야 할 일. 데이터 확보부터 제품 전략까지, 한국 중소기업 AI 도입의 현실적 로드맵.',
@@ -858,6 +888,7 @@
   },
   {
     id: 'modern-mukhyang',
+    category: 'fiction',
     seriesNum: 24,
     title: '묵향: 리부트',
     description: '묵향(전동조) 오마주. 마교의 살수가 배신당한 밤, 탈마의 경지에서 이계로 떨어진다. 소녀의 몸, 기사와 마법사의 세계, 그리고 타이탄. 모던 무협 팬픽 5편.',
@@ -873,6 +904,7 @@
   },
   {
     id: 'seventh-seat',
+    category: 'fiction',
     seriesNum: 25,
     title: '일곱 번째 자리',
     description: '천추궁의 여섯 기사는 300년간 일곱 번째 자리를 비워두었다. 음양오행의 세계에서 신화 여섯 멤버가 사라진 동료의 흔적을 좇는 하이 판타지 소설.',
@@ -895,6 +927,7 @@
   },
   {
     id: 'overlap',
+    category: 'fiction',
     seriesNum: 26,
     title: '겹침',
     description: '32세 출판사 에디터 한서연은 을지로 골목에서 간판 글자가 틀린 것을 발견한다. 골목의 구조가 바뀌고, 사라진 사람을 찾는 밤이 시작된다.',
@@ -931,6 +964,7 @@
   },
   {
     id: 'mcp-agent-guide',
+    category: 'tech',
     seriesNum: 27,
     title: '에이전트 조립 가이드',
     description: '에이전트, MCP, Function Calling — 이름만 거창하지, 원리는 단순하다. 코드 대신 아키텍처와 프롬프트로 조립한다.',
@@ -946,6 +980,7 @@
   },
   {
     id: 'why-react',
+    category: 'tech',
     seriesNum: 28,
     title: 'React가 뭐길래',
     description: '공공기관과 대학의 상용 웹 플랫폼, React로 바꿔도 되는가. 비개발자 담당자를 위한 기술 선택 가이드.',
@@ -968,9 +1003,10 @@
   },
   {
     id: 'code-last',
+    category: 'tech',
     seriesNum: 29,
     title: '코드는 마지막이다',
-    description: '바이브 코딩이 느려지는 진짜 이유. 45% 보안 결함, 23분 컨텍스트 회복, 3개 워킹 메모리 — 데이터가 증명하는 "급할수록 돌아가라".',
+    description: '바이브 코딩을 넘어 에이전틱 엔지니어링으로. SDD/DDD 방법론 비교, CLAUDE.md 설계, 테스트 주도 AI 개발, 스케일링 전략까지 — 복붙 프롬프트 20개.',
     articles: [
       {
         title: '결과물이 없는 시간',
@@ -978,11 +1014,19 @@
         tag: '분석/가이드',
         href: 'content/code-last-series/time-without-output.html',
         search: '바이브코딩 속도 역설 계획 PRD CLAUDE.md 인지과학 워킹메모리 Zeigarnik 프롬프트 5단계 워크플로우'
+      },
+      {
+        title: '코드를 치기 전에 벌어지는 일',
+        role: '패러다임 전환 — 바이브 코딩에서 에이전틱 엔지니어링으로',
+        tag: '분석',
+        href: 'content/code-last-series/before-you-code.html',
+        search: '에이전틱 엔지니어링 바이브코딩 SDD DDD 코드리뷰 한계 테스트 이해부채 comprehension debt Karpathy'
       }
     ]
   },
   {
     id: 'ai-job-debate',
+    category: 'analysis',
     seriesNum: 30,
     title: 'AI가 일자리를 빼앗는가',
     description: '1억 뷰의 AI 공포 에세이가 촉발한 논쟁. GPT-3 이후 6년, 대규모 실직은 없었다. 비교우위, 제번스 역설, 병목 구조를 낙관·비관·중립 세 렌즈로 교차 검증한다.',
@@ -998,6 +1042,7 @@
   },
   {
     id: 'toss-reality',
+    category: 'fiction',
     seriesNum: 31,
     title: '편의점은 공짜인데',
     description: '월급 268만 원의 중소기업을 떠나 토스에 입사한 한도현. 사이닝 보너스 3,800만 원의 설렘은 첫 코드 리뷰 47건에 박살났다. "대표님의 미래먹거리" 후속 시리즈.',
@@ -1041,6 +1086,7 @@
   },
   {
     id: 'robot-coworker',
+    category: 'fiction',
     seriesNum: 32,
     title: '로봇 동료와 코딩하는 법',
     description: '휴먼노이드 로봇 K-7이 개발팀에 합류했다. 택배 박스에서 나온 170cm의 새 팀원과 7년차 백엔드 개발자의 근미래 직장 소설.',
@@ -1112,6 +1158,7 @@
   }
   ,{
     id: 'youtube-outage',
+    category: 'fiction',
     seriesNum: 33,
     title: 'Something Went Wrong',
     description: '2026년 2월 18일, 유튜브가 멈췄다. 30만 명이 신고했고 화면에는 여섯 단어만 남았다. 보안 엔지니어 한세진이 CDN과 피드 서비스의 경계를 추적하는 팩트 기반 테크 스릴러.',
@@ -1141,6 +1188,7 @@
   },
   {
     id: 'debug-mode',
+    category: 'fiction',
     title: 'The Dawn of Light as a Supersolid',
     description: '2046년, 페르미랩 지하에서 빛이 얼어붙었다. 양자 AI가 불가능이라 판정한 것을 인간이 발견했다. 에너지, 광선검, 워프 드라이브, 그리고 첫 외계 조우까지. SF 소설 6편.',
     articles: [
@@ -1190,6 +1238,7 @@
   },
   {
     id: 'diligence-paradox',
+    category: 'analysis',
     title: '성실함이 배신하는 순간',
     description: '왜 가장 성실한 사람이 가장 먼저 무너지는가. 피터의 법칙 40,000명 실증, OECD 노동시간, Gallup 번아웃 데이터로 해부하는 방향 없는 성실함의 구조적 함정.',
     articles: [
@@ -1232,6 +1281,7 @@
   },
   {
     id: 'qwen-for-humans',
+    category: 'tech',
     title: 'Qwen3.5, 인간의 언어로',
     description: 'Qwen3.5가 왜 화제인가. 토큰, 컨텍스트, MoE를 일상 비유로 해체하고, 개인 PC 실행부터 중소기업 RAG 챗봇까지 현실적 활용법을 다룬다.',
     articles: [
@@ -1274,6 +1324,7 @@
   },
   {
     id: 'agent-boss',
+    category: 'career',
     title: '에이전트 보스',
     description: 'AI가 신입의 일을 대신하고, 혼자서 팀이 되는 에이전트 보스가 등장한다. 중장년의 경험은 어떻게 무기가 되는가. HBS, PwC, OECD 데이터로 읽는 2026 채용 시장.',
     articles: [
@@ -1295,6 +1346,7 @@
   },
   {
     id: 'one-punch-reason',
+    category: 'fiction',
     title: '강해져버린 이유',
     description: '사이타마가 자기 힘의 기원을 찾아 다른 차원을 모험한다. 블라스트의 안내, 미스터리어스 큐브의 비전, 그리고 God과의 조우. 원펀맨 팬픽 EP 시리즈.',
     articles: [
@@ -1323,6 +1375,7 @@
   },
   {
     id: 'dynamic-model-routing',
+    category: 'tech',
     title: '동적 모델 라우팅',
     description: 'AI 모델이 수십 개인 시대, 질문마다 최적의 모델을 자동 선택하는 동적 모델 라우팅 아키텍처를 실제 구현 사례 기반으로 풀어낸다.',
     articles: [
@@ -1345,4 +1398,5 @@
     });
   });
   window.CONTENT_DATA = data;
+  window.CATEGORIES = CATEGORIES;
 })();

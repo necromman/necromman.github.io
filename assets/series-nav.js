@@ -251,7 +251,8 @@
     'code-last-series': {
       title: '코드는 마지막이다',
       articles: [
-        { slug: 'time-without-output', title: '결과물이 없는 시간' }
+        { slug: 'time-without-output', title: '결과물이 없는 시간' },
+        { slug: 'before-you-code', title: '코드를 치기 전에 벌어지는 일' }
       ]
     },
     'ai-job-debate-series': {

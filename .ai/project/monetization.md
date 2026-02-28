@@ -30,7 +30,7 @@
 - [x] 레포지토리명 editorial로 변경, 모든 URL 반영
 - [x] 공통 CSS 분리 (assets/editorial-base.css)
 - [x] 시리즈 이전/다음 글 네비게이션 (assets/series-nav.js)
-- [x] 랜딩 페이지 리팩토링 (콘텐츠 데이터 분리, 정렬/펼침접기 기능)
+- [x] 랜딩 페이지 리팩토링 (콘텐츠 데이터 분리, 카테고리 필터, 번호 페이지네이션, URL 상태 관리, TOC 카테고리 계층)
 - [x] 11ty SSG 마이그레이션 (레이아웃 템플릿, front matter, 자동 빌드)
 - [x] OG 이미지 생성 (빌드 타임 자동 생성: satori + resvg)
 - [ ] Google AdSense 신청 및 광고 코드 삽입
@@ -47,6 +47,6 @@
    - head/scripts/SEO 메타는 **작성 불요** — 레이아웃 템플릿이 자동 생성
    - `<style>` 블록(페이지 고유 CSS)과 `<div class="page">` body만 작성
 3. **확장**: 하나의 주장에서 반박(반대) → 종합(중립) → 실행(실용) → 메타(과정) 시리즈 도출
-4. **등록**: `assets/content-data.js`에 시리즈/글 데이터 추가 + `series-nav.js` SERIES 데이터 추가 + `content/index.md` 업데이트 + **`sitemap.xml`에 URL 추가**
+4. **등록**: `assets/content-data.js`에 시리즈/글 데이터 추가 (**`category` 필드 필수** — 형식 기준 분류) + `series-nav.js` SERIES 데이터 추가 + `content/index.md` 업데이트 + **`sitemap.xml`에 URL 추가**
 5. **빌드 확인**: `npx eleventy`로 빌드 후 `_site/` 결과물 확인
 6. **반복**: 다른 영상/아티클에도 같은 패턴 적용

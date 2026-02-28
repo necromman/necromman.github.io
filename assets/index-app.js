@@ -2,11 +2,13 @@
  * index-app.js
  * Progressive enhancement for the SSR landing page.
  * HTML is pre-rendered by 11ty (SEO-friendly). This script adds:
- * - Pagination (5 series per page, infinite scroll)
- * - TOC sidebar (active tracking, click-to-navigate)
- * - Search (filter cards by keyword, disables pagination)
+ * - Category filtering (tech / analysis / fiction / career)
+ * - Pagination (5 series per page, numbered pages)
+ * - URL state management (?category=&page=)
+ * - TOC sidebar (active tracking, click-to-navigate, category groups)
+ * - Search (filter cards by keyword, debounce 250ms)
  * - Sort (ascending/descending by series number)
- * - Mobile TOC drawer
+ * - Mobile TOC drawer with focus trap
  *
  * localStorage keys:
  *   editorial-sort — 'asc' | 'desc' (default: desc)
@@ -17,6 +19,7 @@
   /* ========== Constants ========== */
 
   var PAGE_SIZE = 5; // series per page
+  var VALID_CATEGORIES = ['tech', 'analysis', 'fiction', 'career'];
 
   /* ========== localStorage ========== */
 
@@ -32,21 +35,21 @@
   /* ========== State ========== */
 
   var sortOrder = loadSort();
+  var currentCategory = null;   // null = 전체
   var currentPage = 1;
   var totalPages = 1;
-  var isSearching = false;
-  var seriesGroups = []; // [{ divider, cards, num, seriesId }] in current DOM order
+  var searchQuery = '';
+  var seriesGroups = [];         // 전체 그룹 (DOM 순서)
+  var filteredGroups = [];       // 카테고리+검색 적용 후
 
   /* ========== DOM refs ========== */
 
   var contentArea, searchInput, searchCount, noResults, sortBtn;
   var tocNav, tocSidebar, tocOverlay, tocToggle, tocPageInfo;
-  var loadSentinel, pageProgress, scrollTopBtn;
-  var scrollObserver = null;
+  var categoryTabs, paginationEl, scrollTopBtn;
 
   /* ========== Series groups ========== */
 
-  /** Collect series dividers and their associated cards from DOM order */
   function collectSeriesGroups() {
     var items = contentArea.querySelectorAll('.series-divider, .article-card');
     var groups = [];
@@ -59,7 +62,8 @@
           divider: el,
           cards: [],
           num: parseInt(el.getAttribute('data-series-num'), 10),
-          seriesId: el.getAttribute('data-series')
+          seriesId: el.getAttribute('data-series'),
+          category: el.getAttribute('data-category')
         };
         groups.push(current);
       } else if (current) {
@@ -70,141 +74,10 @@
     return groups;
   }
 
-  /* ========== Pagination ========== */
+  /* ========== Core render ========== */
 
-  function applyPagination() {
-    if (isSearching) return;
+  var cachedVisibleDividers = null;
 
-    invalidateDividerCache();
-    seriesGroups = collectSeriesGroups();
-    totalPages = Math.ceil(seriesGroups.length / PAGE_SIZE);
-    if (currentPage > totalPages) currentPage = totalPages;
-    if (currentPage < 1) currentPage = 1;
-
-    var visibleCount = currentPage * PAGE_SIZE;
-
-    for (var i = 0; i < seriesGroups.length; i++) {
-      var g = seriesGroups[i];
-      var hidden = i >= visibleCount;
-
-      if (hidden) {
-        g.divider.classList.add('paged-hidden');
-        for (var j = 0; j < g.cards.length; j++) {
-          g.cards[j].classList.add('paged-hidden');
-        }
-      } else {
-        g.divider.classList.remove('paged-hidden');
-        for (var k = 0; k < g.cards.length; k++) {
-          g.cards[k].classList.remove('paged-hidden');
-        }
-      }
-    }
-
-    updateTocStates();
-    updatePageInfo();
-  }
-
-  function loadNextPage() {
-    if (currentPage >= totalPages) return;
-    currentPage++;
-    applyPagination();
-  }
-
-  function loadUpToSeries(seriesId) {
-    seriesGroups = collectSeriesGroups();
-    for (var i = 0; i < seriesGroups.length; i++) {
-      if (seriesGroups[i].seriesId === seriesId) {
-        var neededPage = Math.ceil((i + 1) / PAGE_SIZE);
-        if (neededPage > currentPage) {
-          currentPage = neededPage;
-          applyPagination();
-        }
-        return;
-      }
-    }
-  }
-
-  function updatePageInfo() {
-    var loaded = Math.min(currentPage * PAGE_SIZE, seriesGroups.length);
-    var total = seriesGroups.length;
-
-    if (tocPageInfo) {
-      tocPageInfo.textContent = loaded + ' / ' + total;
-    }
-
-    if (pageProgress) {
-      if (loaded < total) {
-        pageProgress.textContent = loaded + ' / ' + total + ' series';
-      } else {
-        pageProgress.textContent = '';
-      }
-    }
-  }
-
-  /* ========== Infinite Scroll ========== */
-
-  function setupInfiniteScroll() {
-    if (!('IntersectionObserver' in window)) return;
-
-    scrollObserver = new IntersectionObserver(function (entries) {
-      if (isSearching) return;
-      for (var i = 0; i < entries.length; i++) {
-        if (entries[i].isIntersecting && currentPage < totalPages) {
-          loadNextPage();
-        }
-      }
-    }, {
-      rootMargin: '200px'
-    });
-
-    if (loadSentinel) {
-      scrollObserver.observe(loadSentinel);
-    }
-  }
-
-  /* ========== TOC ========== */
-
-  function updateTocStates() {
-    var tocItems = tocNav.querySelectorAll('.toc-item');
-    var visibleCount = currentPage * PAGE_SIZE;
-
-    for (var i = 0; i < tocItems.length; i++) {
-      var tocItem = tocItems[i];
-      var tocSeriesId = tocItem.getAttribute('data-toc-series');
-
-      // Find this series' index in seriesGroups
-      var groupIndex = -1;
-      for (var j = 0; j < seriesGroups.length; j++) {
-        if (seriesGroups[j].seriesId === tocSeriesId) {
-          groupIndex = j;
-          break;
-        }
-      }
-
-      if (groupIndex >= 0 && groupIndex < visibleCount) {
-        tocItem.classList.remove('unloaded');
-      } else {
-        tocItem.classList.add('unloaded');
-      }
-    }
-  }
-
-  /**
-   * Scroll-based active tracking (Bootstrap ScrollSpy approach).
-   *
-   * Algorithm:
-   * 1. Find the LAST divider whose top has scrolled past the offset line
-   *    → this is the section the user is currently reading.
-   * 2. Bottom-of-page: if the user has scrolled to the very bottom,
-   *    force the last visible divider as active (classic ScrollSpy fix).
-   * 3. Top fallback: if no divider has passed the offset yet, activate
-   *    the first one.
-   */
-  var activeSeriesId = null;
-  var activeTicking = false;
-  var cachedVisibleDividers = null;   // 스크롤 성능: DOM 쿼리 캐싱
-
-  /** 페이지네이션/정렬/검색 변경 시 캐시 무효화 */
   function invalidateDividerCache() {
     cachedVisibleDividers = null;
   }
@@ -217,6 +90,305 @@
     }
     return cachedVisibleDividers;
   }
+
+  /**
+   * 핵심 렌더 함수.
+   * 1. seriesGroups에서 카테고리+검색 필터 → filteredGroups
+   * 2. 페이지네이션 적용 (표시/숨김)
+   * 3. TOC 업데이트
+   * 4. 페이지네이션 UI
+   * 5. 페이지 정보
+   */
+  function render() {
+    invalidateDividerCache();
+    seriesGroups = collectSeriesGroups();
+
+    // 1. 필터링
+    filteredGroups = seriesGroups;
+
+    if (currentCategory) {
+      filteredGroups = filteredGroups.filter(function (g) {
+        return g.category === currentCategory;
+      });
+    }
+
+    if (searchQuery) {
+      filteredGroups = filteredGroups.filter(function (g) {
+        return matchesSearch(g, searchQuery);
+      });
+    }
+
+    // 2. 페이지네이션
+    totalPages = Math.max(1, Math.ceil(filteredGroups.length / PAGE_SIZE));
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+
+    var startIdx = (currentPage - 1) * PAGE_SIZE;
+    var endIdx = startIdx + PAGE_SIZE;
+
+    // 모든 시리즈 숨기기
+    for (var i = 0; i < seriesGroups.length; i++) {
+      setGroupVisible(seriesGroups[i], false);
+    }
+
+    // 현재 페이지의 필터된 시리즈만 표시
+    for (var j = 0; j < filteredGroups.length; j++) {
+      setGroupVisible(filteredGroups[j], j >= startIdx && j < endIdx);
+    }
+
+    // 3~5
+    updateTocStates();
+    renderPagination();
+    updatePageInfo();
+
+    // 검색 결과 수 표시
+    if (searchQuery) {
+      searchCount.textContent = filteredGroups.length + ' series';
+      noResults.style.display = filteredGroups.length === 0 ? 'block' : 'none';
+    } else {
+      searchCount.textContent = '';
+      noResults.style.display = 'none';
+    }
+
+    // ARIA announce
+    if (searchQuery) {
+      announce(filteredGroups.length + '개 시리즈 검색됨');
+    } else {
+      announce(filteredGroups.length + '개 시리즈, ' + currentPage + '/' + totalPages + ' 페이지');
+    }
+  }
+
+  function setGroupVisible(group, visible) {
+    var method = visible ? 'remove' : 'add';
+    group.divider.classList[method]('paged-hidden');
+    group.divider.style.display = '';
+    for (var i = 0; i < group.cards.length; i++) {
+      group.cards[i].classList[method]('paged-hidden');
+      group.cards[i].style.display = '';
+    }
+  }
+
+  /* ========== Search ========== */
+
+  function matchesSearch(group, query) {
+    var divTitle = group.divider.querySelector('.series-divider-title');
+    if (divTitle && divTitle.textContent.toLowerCase().indexOf(query) !== -1) {
+      return true;
+    }
+    for (var i = 0; i < group.cards.length; i++) {
+      var card = group.cards[i];
+      var searchText = (card.getAttribute('data-search') || '').toLowerCase();
+      var titleText = card.querySelector('.card-title').textContent.toLowerCase();
+      var roleText = card.querySelector('.card-desc').textContent.toLowerCase();
+      if ((searchText + ' ' + titleText + ' ' + roleText).indexOf(query) !== -1) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  var debounceTimer = null;
+
+  function handleSearch() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(function () {
+      var query = searchInput.value.trim().toLowerCase();
+      searchQuery = query;
+      currentPage = 1;
+      render();
+      updateUrl();
+    }, 250);
+  }
+
+  /* ========== Category ========== */
+
+  function setCategory(cat) {
+    currentCategory = cat || null;
+    currentPage = 1;
+    searchQuery = '';
+    searchInput.value = '';
+    syncCategoryTabs();
+    render();
+    updateUrl();
+  }
+
+  function syncCategoryTabs() {
+    var tabs = categoryTabs.querySelectorAll('.category-tab');
+    for (var i = 0; i < tabs.length; i++) {
+      var tabCat = tabs[i].getAttribute('data-category');
+      var isActive = (tabCat === (currentCategory || ''));
+      tabs[i].classList.toggle('active', isActive);
+      tabs[i].setAttribute('aria-selected', isActive ? 'true' : 'false');
+    }
+  }
+
+  /* ========== Pagination UI ========== */
+
+  function renderPagination() {
+    if (!paginationEl) return;
+
+    if (totalPages <= 1) {
+      paginationEl.innerHTML = '';
+      return;
+    }
+
+    var html = '';
+
+    // 이전 버튼
+    html += '<button class="page-btn page-prev"'
+      + (currentPage <= 1 ? ' disabled' : '')
+      + ' aria-label="이전 페이지">&lsaquo;</button>';
+
+    // 페이지 번호
+    var pages = getPageNumbers(currentPage, totalPages);
+    for (var i = 0; i < pages.length; i++) {
+      var p = pages[i];
+      if (p === '...') {
+        html += '<span class="page-ellipsis">&hellip;</span>';
+      } else {
+        html += '<button class="page-btn page-num'
+          + (p === currentPage ? ' active' : '')
+          + '" data-page="' + p + '"'
+          + (p === currentPage ? ' aria-current="page"' : '')
+          + '>' + p + '</button>';
+      }
+    }
+
+    // 다음 버튼
+    html += '<button class="page-btn page-next"'
+      + (currentPage >= totalPages ? ' disabled' : '')
+      + ' aria-label="다음 페이지">&rsaquo;</button>';
+
+    // 카운터
+    var start = (currentPage - 1) * PAGE_SIZE + 1;
+    var end = Math.min(currentPage * PAGE_SIZE, filteredGroups.length);
+    html += '<div class="page-counter">' + start + '-' + end
+      + ' / ' + filteredGroups.length + ' 시리즈</div>';
+
+    paginationEl.innerHTML = html;
+  }
+
+  function getPageNumbers(current, total) {
+    if (total <= 7) {
+      var arr = [];
+      for (var i = 1; i <= total; i++) arr.push(i);
+      return arr;
+    }
+
+    var pages = [1];
+    if (current > 3) pages.push('...');
+
+    var rangeStart = Math.max(2, current - 1);
+    var rangeEnd = Math.min(total - 1, current + 1);
+    for (var j = rangeStart; j <= rangeEnd; j++) {
+      pages.push(j);
+    }
+
+    if (current < total - 2) pages.push('...');
+    pages.push(total);
+    return pages;
+  }
+
+  function handlePaginationClick(e) {
+    var btn = e.target.closest('.page-btn');
+    if (!btn || btn.disabled) return;
+
+    if (btn.classList.contains('page-prev')) {
+      currentPage--;
+    } else if (btn.classList.contains('page-next')) {
+      currentPage++;
+    } else if (btn.classList.contains('page-num')) {
+      currentPage = parseInt(btn.getAttribute('data-page'), 10);
+    }
+
+    render();
+    updateUrl();
+
+    // 카드 영역 상단으로 스크롤
+    var target = categoryTabs || contentArea;
+    var top = target.getBoundingClientRect().top + window.scrollY - 20;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }
+
+  /* ========== URL State ========== */
+
+  function updateUrl() {
+    var params = new URLSearchParams();
+    if (currentCategory) params.set('category', currentCategory);
+    if (currentPage > 1) params.set('page', String(currentPage));
+
+    var qs = params.toString();
+    var url = window.location.pathname + (qs ? '?' + qs : '');
+    history.replaceState({ category: currentCategory, page: currentPage }, '', url);
+  }
+
+  function restoreFromUrl() {
+    var params = new URLSearchParams(window.location.search);
+
+    var cat = params.get('category');
+    if (cat && VALID_CATEGORIES.indexOf(cat) !== -1) {
+      currentCategory = cat;
+    }
+
+    var page = parseInt(params.get('page'), 10);
+    if (page > 0) {
+      currentPage = page;
+    }
+  }
+
+  /* ========== Page Info ========== */
+
+  function updatePageInfo() {
+    if (tocPageInfo) {
+      tocPageInfo.textContent = filteredGroups.length + ' 시리즈';
+    }
+  }
+
+  /* ========== TOC ========== */
+
+  var activeSeriesId = null;
+
+  function updateTocStates() {
+    // 현재 페이지에 표시 중인 시리즈 ID
+    var visibleIds = {};
+    var startIdx = (currentPage - 1) * PAGE_SIZE;
+    var endIdx = startIdx + PAGE_SIZE;
+    for (var i = 0; i < filteredGroups.length; i++) {
+      if (i >= startIdx && i < endIdx) {
+        visibleIds[filteredGroups[i].seriesId] = true;
+      }
+    }
+
+    // TOC 항목 업데이트
+    var tocItems = tocNav.querySelectorAll('.toc-item');
+    for (var j = 0; j < tocItems.length; j++) {
+      var tocItem = tocItems[j];
+      var sid = tocItem.getAttribute('data-toc-series');
+      tocItem.classList.toggle('unloaded', !visibleIds[sid]);
+      tocItem.style.opacity = '';
+    }
+
+    // 활성 카테고리 details 자동 열기
+    var details = tocNav.querySelectorAll('.toc-category');
+    for (var k = 0; k < details.length; k++) {
+      var detailsCat = details[k].getAttribute('data-category');
+      if (currentCategory) {
+        details[k].open = (detailsCat === currentCategory);
+      } else {
+        // 전체 탭: activeSeriesId가 속한 카테고리만 열기, 없으면 첫 번째 열기
+        if (activeSeriesId) {
+          var activeItem = details[k].querySelector('[data-toc-series="' + activeSeriesId + '"]');
+          details[k].open = !!activeItem;
+        } else {
+          details[k].open = (k === 0);
+        }
+      }
+    }
+  }
+
+  /* ========== Active scroll tracking ========== */
+
+  var activeTicking = false;
 
   function setActiveTocItem(seriesId) {
     if (seriesId === activeSeriesId) return;
@@ -238,11 +410,9 @@
     var dividers = getVisibleDividers();
     if (!dividers.length) return;
 
-    var offset = 150; // threshold from top of viewport
+    var offset = 150;
     var best = null;
 
-    // 1. Find the LAST divider whose top has crossed the offset line.
-    //    Binary search 대신 역순 탐색으로 조기 종료
     for (var i = dividers.length - 1; i >= 0; i--) {
       if (dividers[i].getBoundingClientRect().top <= offset) {
         best = dividers[i];
@@ -250,16 +420,12 @@
       }
     }
 
-    // 2. Bottom-of-page fix: when the user is near the bottom,
-    //    the last section can never scroll its divider past the offset.
-    //    Force the last visible divider as active.
     var scrollBottom = window.innerHeight + window.scrollY;
     var docHeight = document.documentElement.scrollHeight;
     if (docHeight - scrollBottom < 100) {
       best = dividers[dividers.length - 1];
     }
 
-    // 3. Top fallback: nothing has passed the offset yet → first divider.
     if (!best) best = dividers[0];
 
     setActiveTocItem(best.getAttribute('data-series'));
@@ -276,7 +442,6 @@
       }
     }, { passive: true });
 
-    // Initial sync
     updateActiveOnScroll();
   }
 
@@ -290,27 +455,52 @@
     }
   }
 
+  /* ========== TOC click ========== */
+
   function handleTocClick(e) {
     e.preventDefault();
     var tocItem = e.target.closest('.toc-item');
     if (!tocItem) return;
 
     var seriesId = tocItem.getAttribute('data-toc-series');
+    navigateToSeries(seriesId);
+    closeMobileToc();
+  }
 
-    // Load up to this series if not yet loaded
-    loadUpToSeries(seriesId);
+  function navigateToSeries(seriesId) {
+    // filteredGroups에서 찾기
+    for (var i = 0; i < filteredGroups.length; i++) {
+      if (filteredGroups[i].seriesId === seriesId) {
+        var targetPage = Math.floor(i / PAGE_SIZE) + 1;
+        if (targetPage !== currentPage) {
+          currentPage = targetPage;
+          render();
+          updateUrl();
+        }
 
-    // Immediately set this item as active (don't wait for scroll event)
-    setActiveTocItem(seriesId);
-
-    // Scroll to series divider (instant, no animation)
-    var divider = document.getElementById('series-' + seriesId);
-    if (divider) {
-      divider.scrollIntoView({ behavior: 'instant', block: 'start' });
+        setTimeout(function () {
+          var divider = document.getElementById('series-' + seriesId);
+          if (divider) {
+            divider.scrollIntoView({ behavior: 'instant', block: 'start' });
+          }
+          setActiveTocItem(seriesId);
+        }, 50);
+        return;
+      }
     }
 
-    // Close mobile drawer if open
-    closeMobileToc();
+    // filteredGroups에 없으면 — 카테고리 전환
+    for (var j = 0; j < seriesGroups.length; j++) {
+      if (seriesGroups[j].seriesId === seriesId) {
+        currentCategory = seriesGroups[j].category;
+        currentPage = 1;
+        syncCategoryTabs();
+        render();
+        updateUrl();
+        navigateToSeries(seriesId);
+        return;
+      }
+    }
   }
 
   /* ========== Sort ========== */
@@ -324,26 +514,15 @@
       var bNum = parseInt(b.getAttribute('data-series-num'), 10);
       return sortOrder === 'asc' ? aNum - bNum : bNum - aNum;
     });
+    // pagination nav을 제외하고 재배치
+    var pNav = contentArea.querySelector('.pagination');
     items.forEach(function (el) {
-      contentArea.appendChild(el);
+      contentArea.insertBefore(el, pNav);
     });
 
-    // Also reorder TOC items
-    var tocItems = Array.prototype.slice.call(
-      tocNav.querySelectorAll('.toc-item')
-    );
-    tocItems.sort(function (a, b) {
-      var aNum = parseInt(a.getAttribute('data-toc-num'), 10);
-      var bNum = parseInt(b.getAttribute('data-toc-num'), 10);
-      return sortOrder === 'asc' ? aNum - bNum : bNum - aNum;
-    });
-    tocItems.forEach(function (el) {
-      tocNav.appendChild(el);
-    });
-
-    // Reset pagination
     currentPage = 1;
-    applyPagination();
+    render();
+    updateUrl();
   }
 
   function handleSort() {
@@ -351,121 +530,103 @@
     saveSort(sortOrder);
     syncSortBtn();
     reorderAll();
+    announce(sortOrder === 'desc' ? '최신순으로 정렬됨' : '오래된순으로 정렬됨');
   }
 
   function syncSortBtn() {
     if (sortOrder === 'desc') {
       sortBtn.textContent = '\uCD5C\uC2E0\uC21C';
       sortBtn.classList.add('active');
+      sortBtn.setAttribute('aria-label', '정렬 전환 (현재: 최신순)');
+      sortBtn.setAttribute('aria-pressed', 'true');
     } else {
       sortBtn.textContent = '\uC624\uB798\uB41C\uC21C';
       sortBtn.classList.remove('active');
+      sortBtn.setAttribute('aria-label', '정렬 전환 (현재: 오래된순)');
+      sortBtn.setAttribute('aria-pressed', 'false');
     }
   }
 
-  /* ========== Search ========== */
+  /* ========== ARIA Live Region ========== */
 
-  function applySearch(query) {
-    invalidateDividerCache();
-    var cards = contentArea.querySelectorAll('.article-card');
-    var dividers = contentArea.querySelectorAll('.series-divider');
-    var totalVisible = 0;
-    var visibleSeries = {};
+  var announcer = null;
 
-    // Remove pagination hiding during search
-    for (var i = 0; i < cards.length; i++) {
-      cards[i].classList.remove('paged-hidden');
-    }
-    for (var d = 0; d < dividers.length; d++) {
-      dividers[d].classList.remove('paged-hidden');
-    }
-
-    for (var j = 0; j < cards.length; j++) {
-      var card = cards[j];
-      var searchText = (card.getAttribute('data-search') || '').toLowerCase();
-      var titleText = card.querySelector('.card-title').textContent.toLowerCase();
-      var roleText = card.querySelector('.card-desc').textContent.toLowerCase();
-      var combined = searchText + ' ' + titleText + ' ' + roleText;
-
-      if (combined.indexOf(query) !== -1) {
-        card.style.display = '';
-        visibleSeries[card.getAttribute('data-series')] = true;
-        totalVisible++;
-      } else {
-        card.style.display = 'none';
-      }
-    }
-
-    for (var k = 0; k < dividers.length; k++) {
-      var sid = dividers[k].getAttribute('data-series');
-      dividers[k].style.display = visibleSeries[sid] ? '' : 'none';
-    }
-
-    // Update TOC: highlight matching series
-    var tocItems = tocNav.querySelectorAll('.toc-item');
-    for (var t = 0; t < tocItems.length; t++) {
-      var tocSid = tocItems[t].getAttribute('data-toc-series');
-      tocItems[t].classList.remove('unloaded');
-      if (visibleSeries[tocSid]) {
-        tocItems[t].style.opacity = '';
-      } else {
-        tocItems[t].style.opacity = '0.3';
-      }
-    }
-
-    searchCount.textContent = totalVisible + ' results';
-    noResults.style.display = totalVisible === 0 ? 'block' : 'none';
-
-    isSearching = true;
+  function createLiveRegion() {
+    var el = document.createElement('div');
+    el.setAttribute('role', 'status');
+    el.setAttribute('aria-live', 'polite');
+    el.setAttribute('aria-atomic', 'true');
+    el.style.cssText = 'position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden';
+    document.body.appendChild(el);
+    return el;
   }
 
-  function clearSearch() {
-    invalidateDividerCache();
-    var items = contentArea.querySelectorAll('.article-card, .series-divider');
-    for (var i = 0; i < items.length; i++) {
-      items[i].style.display = '';
-    }
-
-    // Reset TOC opacity
-    var tocItems = tocNav.querySelectorAll('.toc-item');
-    for (var t = 0; t < tocItems.length; t++) {
-      tocItems[t].style.opacity = '';
-    }
-
-    searchCount.textContent = '';
-    noResults.style.display = 'none';
-
-    isSearching = false;
-
-    // Re-apply pagination
-    applyPagination();
-  }
-
-  function handleSearch() {
-    var query = searchInput.value.trim().toLowerCase();
-    if (!query) {
-      clearSearch();
-      return;
-    }
-    applySearch(query);
+  function announce(msg) {
+    if (announcer) announcer.textContent = msg;
   }
 
   /* ========== Mobile TOC ========== */
 
+  var focusTrapHandler = null;
+  var prevFocusEl = null;
+
   function openMobileToc() {
+    prevFocusEl = document.activeElement;
+
+    var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     tocSidebar.classList.add('mobile-open');
     tocOverlay.style.display = 'block';
-    // Force reflow for transition
     void tocOverlay.offsetWidth;
     tocOverlay.classList.add('open');
-    document.body.style.overflow = 'clip';     // clip은 hidden보다 레이아웃 재계산 비용 낮음
+    document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = scrollbarWidth + 'px';
+
+    // 포커스 트랩
+    setTimeout(function () {
+      var focusable = tocSidebar.querySelectorAll(
+        'button, [href], input, summary, [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable.length) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+
+      focusTrapHandler = function (e) {
+        if (e.key === 'Escape') { closeMobileToc(); return; }
+        if (e.key !== 'Tab') return;
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      };
+
+      tocSidebar.addEventListener('keydown', focusTrapHandler);
+      first.focus();
+    }, 100);
   }
 
   function closeMobileToc() {
     tocSidebar.classList.remove('mobile-open');
     tocOverlay.classList.remove('open');
     document.body.style.overflow = '';
-    // Hide overlay after transition
+    document.body.style.paddingRight = '';
+
+    if (focusTrapHandler) {
+      tocSidebar.removeEventListener('keydown', focusTrapHandler);
+      focusTrapHandler = null;
+    }
+
+    if (prevFocusEl) {
+      prevFocusEl.focus();
+      prevFocusEl = null;
+    }
+
     setTimeout(function () {
       if (!tocOverlay.classList.contains('open')) {
         tocOverlay.style.display = 'none';
@@ -482,7 +643,6 @@
       window.scrollTo({ top: 0, behavior: 'instant' });
     });
 
-    // Show/hide based on scroll position
     var ticking = false;
     window.addEventListener('scroll', function () {
       if (!ticking) {
@@ -513,29 +673,64 @@
     tocOverlay = document.getElementById('tocOverlay');
     tocToggle = document.getElementById('tocMobileToggle');
     tocPageInfo = document.getElementById('tocPageInfo');
-    loadSentinel = document.getElementById('loadSentinel');
-    pageProgress = document.getElementById('pageProgress');
+    categoryTabs = document.getElementById('categoryTabs');
+    paginationEl = document.getElementById('pagination');
     scrollTopBtn = document.getElementById('scrollTopBtn');
 
-    // Add close button to TOC sidebar (for mobile)
+    // ARIA live region
+    announcer = createLiveRegion();
+
+    // Mobile TOC close button
     var closeBtn = document.createElement('button');
     closeBtn.className = 'toc-close-btn';
     closeBtn.textContent = '\uB2EB\uAE30';
     closeBtn.addEventListener('click', closeMobileToc);
     tocSidebar.insertBefore(closeBtn, tocSidebar.firstChild);
 
-    // Apply saved sort order (SSR default is descending)
+    // URL에서 상태 복원
+    restoreFromUrl();
+
+    // 정렬 적용 (SSR 기본은 desc)
     if (sortOrder === 'asc') {
       reorderAll();
-    } else {
-      // Just apply pagination for default desc order
-      applyPagination();
     }
 
-    // Bind events
+    // 카테고리 탭 싱크
+    syncCategoryTabs();
+
+    // 초기 렌더
+    render();
+
+    // 이벤트 바인딩
     sortBtn.addEventListener('click', handleSort);
     searchInput.addEventListener('input', handleSearch);
     tocNav.addEventListener('click', handleTocClick);
+
+    categoryTabs.addEventListener('click', function (e) {
+      var tab = e.target.closest('.category-tab');
+      if (!tab) return;
+      setCategory(tab.getAttribute('data-category'));
+    });
+
+    // TOC 카테고리 summary 클릭 → 해당 카테고리 탭 필터 연동
+    tocNav.addEventListener('click', function (e) {
+      var summary = e.target.closest('.toc-category > summary');
+      if (!summary) return;
+      var detailsEl = summary.parentElement;
+      var cat = detailsEl.getAttribute('data-category');
+      if (!cat) return;
+
+      // 이미 해당 카테고리가 활성화된 상태면 → 전체 탭으로 복귀
+      if (currentCategory === cat) {
+        setCategory('');
+      } else {
+        setCategory(cat);
+      }
+      // details open/close는 render()의 syncToc가 처리하므로 기본 동작 차단
+      e.preventDefault();
+    });
+
+    paginationEl.addEventListener('click', handlePaginationClick);
 
     if (tocToggle) {
       tocToggle.addEventListener('click', openMobileToc);
@@ -545,16 +740,25 @@
       tocOverlay.addEventListener('click', closeMobileToc);
     }
 
-    // Sync button label
+    // Sync sort button label
     syncSortBtn();
 
-    // Setup infinite scroll
-    setupInfiniteScroll();
-
-    // Setup active series tracking
+    // Active tracking
     setupActiveTracking();
 
-    // Setup scroll to top button
+    // Scroll to top
     setupScrollTopBtn();
+
+    // popstate
+    window.addEventListener('popstate', function (e) {
+      if (e.state) {
+        currentCategory = e.state.category || null;
+        currentPage = e.state.page || 1;
+      } else {
+        restoreFromUrl();
+      }
+      syncCategoryTabs();
+      render();
+    });
   });
 })();

@@ -57,7 +57,7 @@ editorial/
 ├── CLAUDE.md                               # 프로젝트 규칙서 (인덱스)
 ├── .ai/                                    # AI 작업 참조 문서 (빌드 제외)
 │   ├── build/eleventy.md                   # 빌드 시스템 상세
-│   ├── content/catalog.md                  # 콘텐츠 카탈로그 (30개 시리즈)
+│   ├── content/catalog.md                  # 콘텐츠 카탈로그 (38개 시리즈)
 │   ├── design/components.md                # 공통 컴포넌트 & 디자인 시스템
 │   └── project/monetization.md             # 수익화 & 프로젝트 전략
 ├── .claude/
@@ -67,7 +67,7 @@ editorial/
 │   ├── editorial-base.css                  # 콘텐츠 페이지 공통 CSS (디자인 시스템 베이스)
 │   ├── index.css                           # 랜딩 페이지 전용 CSS
 │   ├── content-data.js                     # 랜딩 페이지 콘텐츠 데이터 (시리즈/글 목록)
-│   ├── index-app.js                        # 랜딩 페이지 렌더링/검색/정렬/펼침접기
+│   ├── index-app.js                        # 랜딩 페이지 카테고리필터/검색/페이지네이션/URL상태/TOC연동
 │   ├── fonts/                              # 셀프호스팅 웹폰트 (WOFF2)
 │   ├── nav.js                              # 공통 네비게이션 (런타임 삽입)
 │   ├── theme-toggle.js                     # 다크/라이트 테마 토글

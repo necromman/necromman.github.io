@@ -15,7 +15,7 @@ googleVerification: "kAqrh5ZOHV8HzJRVBXeFuKSymzJKs_H9H4mdilIw168"
   </header>
 
   <div class="toolbar">
-    <input type="text" class="search-input" id="searchInput" placeholder="제목, 키워드로 검색">
+    <input type="text" class="search-input" id="searchInput" placeholder="제목, 키워드로 검색" aria-label="시리즈 및 콘텐츠 검색">
     <div class="toolbar-meta">
       <span class="search-count" id="searchCount"></span>
       <div class="controls">
@@ -24,18 +24,26 @@ googleVerification: "kAqrh5ZOHV8HzJRVBXeFuKSymzJKs_H9H4mdilIw168"
     </div>
   </div>
 
+  <div class="category-tabs" id="categoryTabs" role="tablist" aria-label="카테고리 필터">
+    <button class="category-tab active" data-category="" role="tab" aria-selected="true">전체</button>
+    <button class="category-tab" data-category="tech" role="tab" aria-selected="false">기술 &amp; 개발</button>
+    <button class="category-tab" data-category="analysis" role="tab" aria-selected="false">분석 &amp; 팩트체크</button>
+    <button class="category-tab" data-category="fiction" role="tab" aria-selected="false">소설 &amp; 창작</button>
+    <button class="category-tab" data-category="career" role="tab" aria-selected="false">업무 &amp; 커리어</button>
+  </div>
+
   <div id="noResults" class="no-results">검색 결과가 없습니다</div>
 
   <div class="main-layout">
     <main id="contentArea" class="card-grid">
 {%- for series in contentData | reverse %}
   {%- set seriesNum = loop.revindex %}
-      <div class="series-divider" id="series-{{ series.id }}" data-series="{{ series.id }}" data-series-num="{{ seriesNum }}">
+      <div class="series-divider" id="series-{{ series.id }}" data-series="{{ series.id }}" data-series-num="{{ seriesNum }}" data-category="{{ series.category }}">
         <span class="series-divider-num">{{ seriesNum | pad }}</span>
         <h2 class="series-divider-title">{{ series.title | e }}</h2>
       </div>
     {%- for a in series.articles %}
-      <a class="article-card" href="{{ a.href }}" data-search="{{ a.search | e }}" data-series="{{ series.id }}" data-series-num="{{ seriesNum }}">
+      <a class="article-card" href="{{ a.href }}" data-search="{{ a.search | e }}" data-series="{{ series.id }}" data-series-num="{{ seriesNum }}" data-category="{{ series.category }}">
         <div class="card-thumbnail">
           <img src="{{ a.thumbnail }}" alt="" loading="lazy" onerror="this.style.display='none'">
         </div>
@@ -49,7 +57,7 @@ googleVerification: "kAqrh5ZOHV8HzJRVBXeFuKSymzJKs_H9H4mdilIw168"
       </a>
     {%- endfor %}
 {%- endfor %}
-      <div class="load-sentinel" id="loadSentinel"></div>
+      <nav class="pagination" id="pagination" aria-label="페이지 네비게이션"></nav>
     </main>
 
     <aside class="toc-sidebar" id="tocSidebar">
@@ -58,12 +66,30 @@ googleVerification: "kAqrh5ZOHV8HzJRVBXeFuKSymzJKs_H9H4mdilIw168"
         <span class="toc-page-info" id="tocPageInfo"></span>
       </div>
       <nav class="toc-nav" id="tocNav">
-{%- for series in contentData | reverse %}
-  {%- set seriesNum = loop.revindex %}
-        <a class="toc-item" href="#series-{{ series.id }}" data-toc-num="{{ seriesNum }}" data-toc-series="{{ series.id }}">
-          <span class="toc-num">{{ seriesNum | pad }}</span>
-          <span class="toc-title">{{ series.title | e }}</span>
-        </a>
+{%- set catOrder = ['tech', 'analysis', 'fiction', 'career'] %}
+{%- set catLabels = {
+  'tech': '기술 & 개발',
+  'analysis': '분석 & 팩트체크',
+  'fiction': '소설 & 창작',
+  'career': '업무 & 커리어'
+} %}
+{%- for cat in catOrder %}
+  {%- set catSeries = [] %}
+  {%- for series in contentData %}
+    {%- if series.category == cat %}
+      {%- set catSeries = (catSeries.push(series), catSeries) %}
+    {%- endif %}
+  {%- endfor %}
+        <details class="toc-category" data-category="{{ cat }}">
+          <summary>{{ catLabels[cat] }} <span class="toc-count">({{ catSeries | length }})</span></summary>
+          <div class="toc-items">
+  {%- for series in catSeries | reverse %}
+            <a class="toc-item" href="#series-{{ series.id }}" data-toc-series="{{ series.id }}" title="{{ series.description | e }}">
+              <span class="toc-title">{{ series.title | e }}</span>
+            </a>
+  {%- endfor %}
+          </div>
+        </details>
 {%- endfor %}
       </nav>
     </aside>

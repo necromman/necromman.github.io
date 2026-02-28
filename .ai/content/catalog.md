@@ -1,6 +1,6 @@
 # 콘텐츠 카탈로그
 
-전체 시리즈와 글 목록. 새 콘텐츠 추가 시 이 파일과 함께 `assets/content-data.js`, `series-nav.js`, `sitemap.xml`, `content/index.md`를 업데이트한다.
+전체 39개 시리즈와 글 목록. 새 콘텐츠 추가 시 이 파일과 함께 `assets/content-data.js`, `series-nav.js`, `sitemap.xml`, `content/index.md`를 업데이트한다.
 
 ## 콘텐츠 데이터 관리
 
@@ -8,12 +8,22 @@
 
 **규칙:**
 - 새 콘텐츠를 추가하면 `assets/content-data.js`와 `content/index.md`를 **둘 다** 업데이트한다
-- `content-data.js`가 랜딩 페이지의 **실제 런타임 데이터 소스**다 (JS로 동적 렌더링)
+- `content-data.js`가 랜딩 페이지의 **실제 런타임 데이터 소스**다 (11ty SSR + JS 인터랙션)
 - `content/index.md`는 AI/사람이 콘텐츠 현황을 빠르게 파악하기 위한 기록용 인덱스다
+- `content-data.js`에 `category` 필드 필수 — 분류 기준은 CLAUDE.md 참조 (형식 우선: 소설 형식 → fiction)
+
+## 카테고리별 시리즈 현황
+
+| 카테고리 | 코드 | 시리즈 수 |
+|----------|------|-----------|
+| 기술 & 개발 | `tech` | 12 |
+| 분석 & 팩트체크 | `analysis` | 9 |
+| 소설 & 창작 | `fiction` | 16 |
+| 업무 & 커리어 | `career` | 2 |
 
 ---
 
-## 시리즈 1: 인생 낭비 (wasted-life-series)
+## 시리즈 1: 인생 낭비 (wasted-life-series) `analysis`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -23,7 +33,7 @@
 | 04 | `so-what-now.html` | 그래서 어떡하라고 | 실행 매뉴얼 — 자가 진단 + 90일 프로토콜 |
 | 05 | `how-this-was-made.html` | 이 문서는 어떻게 만들어졌는가 | 메타 문서 — 제작 과정과 워크플로우 |
 
-## 시리즈 2: 딸깍 한 번의 60조 원 (bithumb-60t-series)
+## 시리즈 2: 딸깍 한 번의 60조 원 (bithumb-60t-series) `analysis`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -31,7 +41,7 @@
 | 02 | `whose-money-is-it.html` | 그 돈은 누구의 것인가 | 법적 분석 — 수익화 경로, 판례, 시나리오 검증 |
 | 03 | `why-exchanges-use-ledgers.html` | 거래소는 왜 장부로 거래하는가 | 기술 분석 — 거래소 아키텍처, 블록체인 한계 |
 
-## 시리즈 3: AI 시대, 개발자 생존 보고서 (dev-survival-series)
+## 시리즈 3: AI 시대, 개발자 생존 보고서 (dev-survival-series) `analysis`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -40,7 +50,7 @@
 | 03 | `developer-survival-playbook.html` | 개발자 생존 플레이북 | 실행 매뉴얼 — 신입/경력별 구체 전략 |
 | 04 | `developer-identity-in-ai-era.html` | AI 시대, 개발자라는 정체성 | 결론 — 마인드셋 전환과 미래 전망 |
 
-## 시리즈 4: 그래서 바이브 코딩은 뭘로 해야 되는데? (vibe-coding-series)
+## 시리즈 4: 그래서 바이브 코딩은 뭘로 해야 되는데? (vibe-coding-series) `tech`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -51,7 +61,7 @@
 | 05 | `vibe-coding-future.html` | 에이전틱 엔지니어링 시대 | 전망 — 에이전틱 엔지니어링과 역할 재정의 |
 | 06 | `claude-code-in-practice.html` | 터미널 하나면 된다 | 실전 — Claude Code PRD부터 Docker 배포까지 |
 
-## 시리즈 5: OpenClaw 해부 (openclaw-series)
+## 시리즈 5: OpenClaw 해부 (openclaw-series) `tech`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -59,7 +69,7 @@
 | 02 | `openclaw-setup-and-reality.html` | '무료' AI 에이전트의 진짜 비용 | 가이드 — 설치, 활용 시나리오, 월 비용 분석 |
 | 03 | `openclaw-security-and-alternatives.html` | 만능 열쇠를 건네기 전에 | 분석 — CVE, 보안 리스크, 대안 비교 |
 
-## 시리즈 6: 린저씨의 귀환 (lineage-classic-series)
+## 시리즈 6: 린저씨의 귀환 (lineage-classic-series) `analysis`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -68,7 +78,7 @@
 | 03 | `lineage-classic-bj-stamina.html` | 올나잇은 20대의 특권이었다 | 유머 — 40대 BJ들의 체력 이슈와 데포로쥬 3파전 |
 | 04 | `lineage-never-ends.html` | 리니지는 끝나지 않는다 | 결론 — 트럭시위부터 0.0001% 확률까지 28년 유산과 전망 |
 
-## 시리즈 7: 딸깍이 소프트웨어를 죽인다고? (claude-cowork-series)
+## 시리즈 7: 딸깍이 소프트웨어를 죽인다고? (claude-cowork-series) `analysis`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -77,7 +87,7 @@
 | 03 | `software-survival-playbook.html` | 소프트웨어 생존 플레이북 | 실전가이드 — 기업/개발자/사무직별 대응 |
 | 04 | `future-of-software-2030.html` | 2030년, 소프트웨어의 다음 형태 | 전망 — 4가지 시나리오와 타임라인 |
 
-## 시리즈 8: 디자이너 없이 제품 만들기 (vibe-design-series)
+## 시리즈 8: 디자이너 없이 제품 만들기 (vibe-design-series) `tech`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -87,7 +97,7 @@
 | 04 | `shadcn-cheat-code.html` | shadcn/ui라는 치트키 | 실전 — 컴포넌트 라이브러리와 테마 커스터마이징 |
 | 05 | `before-you-deploy.html` | 배포 버튼을 누르기 전에 | 실전 — 30분 디자인 QA 체크리스트와 제품화 |
 
-## 시리즈 9: Git, pair 없이 살아남기 (git-series)
+## 시리즈 9: Git, pair 없이 살아남기 (git-series) `tech`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -97,7 +107,7 @@
 | 04 | `git-branching-strategies.html` | 브랜치 전략은 팀의 거울이다 | 전략 — Git Flow vs GitHub Flow vs Trunk-Based |
 | 05 | `git-productivity-setup.html` | .gitconfig 하나로 생산성 2배 | 생산성 — 추천 도구, 설정, AI 연동 |
 
-## 시리즈 10: CTO의 깃랩 이사 공지가 불안한 이유 (gitlab-migration-series)
+## 시리즈 10: CTO의 깃랩 이사 공지가 불안한 이유 (gitlab-migration-series) `tech`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -105,7 +115,7 @@
 | 02 | `gitlab-migration-the-right-way.html` | GitLab 서버 이사 — 정석은 이렇다 | 가이드 — NAS → 전용 서버 마이그레이션 정석 + 도메인 전략 |
 | 03 | `gitlab-migration-developer-survival.html` | 월요일 아침, git push가 안 될 때 | 실전 — 개발자 생존 스크립트, 체크리스트, CTO 제안법 |
 
-## 시리즈 11: 192.168.0.x의 규칙 (server-infra-guide-series)
+## 시리즈 11: 192.168.0.x의 규칙 (server-infra-guide-series) `tech`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -114,13 +124,13 @@
 | 03 | `developer-server-survival-guide.html` | 내 서버인데 왜 마음대로 못 쓰냐고요 | 실전 — 개발자 서버 사용 가이드와 금지 사항 |
 | 04 | `traefik-routing-guide.html` | 저장하면 끝이다 | 가이드 — Traefik 라우팅 추가 5단계, 실전 예시, 트러블슈팅 |
 
-## 시리즈 12: 이노비즈 인증, 서류가 기술을 이긴다 (innobiz-guide-series)
+## 시리즈 12: 이노비즈 인증, 서류가 기술을 이긴다 (innobiz-guide-series) `career`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
 | 01 | `innobiz-certification-guide.html` | 서류가 기술을 증명한다 | 종합 가이드 — 자격요건, 평가체계, 15개 준비서류 문서형/시스템형 구분, 통과·탈락 패턴 |
 
-## 시리즈 13: 소버린 배당일 (sovereign-ai-novel-series)
+## 시리즈 13: 소버린 배당일 (sovereign-ai-novel-series) `fiction`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -130,7 +140,7 @@
 | 04 | `geopolitics-of-compute.html` | 연산의 지정학 | 시스템분석 — GPU 공급망, AI 수익모델, 디지털 식민주의 |
 | 05 | `human-without-labor.html` | 일하지 않는 인간 | 철학 — 케인스, 아렌트, 그레이버로 읽는 AI 이후의 노동과 의미 |
 
-## 시리즈 14: 마스터키 (masterkey-series)
+## 시리즈 14: 마스터키 (masterkey-series) `fiction`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -140,7 +150,7 @@
 | 04 | `the-abyss.html` | 심연 | 소설 — 다크 AI 마켓플레이스 "심연" 잠입 취재, 유령의 정체 추적 |
 | 05 | `masterkey.html` | 마스터키 | 소설 — 10억 AI 동시 탈옥의 밤, 리라의 진실과 서진의 최후 선택 |
 
-## 시리즈 15: 금단의 코드 — AI 없는 48시간 (ai-withdrawal-series)
+## 시리즈 15: 금단의 코드 — AI 없는 48시간 (ai-withdrawal-series) `fiction`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -149,7 +159,7 @@
 | 03 | `no-ai-friday.html` | 금요일은 날코딩 | 소설 — 팀 전체가 "No AI Day"를 시도하는 블랙 코미디 |
 | 04 | `the-centaur-developer.html` | 센타우르 | 소설 — 카스파로프 Advanced Chess 은유, AI와의 관계를 재정의하는 시리즈 결론 |
 
-## 시리즈 16: 안다는 착각 (illusion-of-knowing-series)
+## 시리즈 16: 안다는 착각 (illusion-of-knowing-series) `fiction`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -158,7 +168,7 @@
 | 03 | `the-floor-rose.html` | 바닥이 올라왔을 뿐이다 | 소설 — AI가 만든 평준화의 환상, 법정에서 드러나는 진짜 격차 |
 | 04 | `the-map-and-the-terrain.html` | 지도와 지형 | 소설 — 세 이야기가 하나로 수렴하는 시리즈 결론 |
 
-## 시리즈 17: 대표님의 미래먹거리 (future-cashcow-series)
+## 시리즈 17: 대표님의 미래먹거리 (future-cashcow-series) `fiction`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -168,7 +178,7 @@
 | 04 | `demo-day-disaster.html` | 데모가 터진 날 | 소설 — Supabase 일시정지, API 에러, 라이브 디버깅 |
 | 05 | `the-business-plan.html` | 사업계획서를 쓰는 밤 | 소설 — 투자 직전의 밤, 대표의 진심, 열린 결말 |
 
-## 시리즈 18: 거기서 어떻게 오셨어요 (ufo-physics-series)
+## 시리즈 18: 거기서 어떻게 오셨어요 (ufo-physics-series) `analysis`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -178,7 +188,7 @@
 | 04 | `interstellar-travel-reality.html` | 별까지 가는 현실적인 방법 | 우주공학 — 보이저부터 반물질까지 성간여행 기술 스펙트럼 |
 | 05 | `fermis-question.html` | 페르미의 질문 | 우주론 — 드레이크 방정식, 대여과기, 우주의 침묵 |
 
-## 시리즈 19: GG (starcraft-timeslip-series)
+## 시리즈 19: GG (starcraft-timeslip-series) `fiction`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -188,7 +198,7 @@
 | 04 | `the-man-who-changed-meta.html` | 메타를 바꾼 남자 | 소설 — 프로리그 데뷔, 미래 빌드로 메타를 뒤흔든 예언자 |
 | 05 | `gg.html` | GG | 소설 — 개인리그 결승, 미래 지식 vs 천재의 본능, GG의 의미 |
 
-## 시리즈 20: 서약빨 (vow-system-series)
+## 시리즈 20: 서약빨 (vow-system-series) `fiction`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -198,7 +208,7 @@
 | 04 | `tower-of-vows.html` | 서약의 탑 | 소설 — 25층 서약의 탑, 리미터의 파기, 마지막 층의 영구 퇴장 요구 |
 | 05 | `full-dive-out.html` | 풀다이브 아웃 | 소설 — 자유도 0%, 개발자의 숨겨진 메시지, 현실에서의 새 출발 |
 
-## 시리즈 21: 컨텍스트는 우유다 (claude-code-guide-series)
+## 시리즈 21: 컨텍스트는 우유다 (claude-code-guide-series) `tech`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -208,7 +218,7 @@
 | 04 | `beyond-the-terminal.html` | 터미널 밖으로 | 확장 — 컨테이너, 리서치, DevOps, 서브에이전트, 단순화 |
 | 05 | `build-your-own-tools.html` | 나만의 도구를 만든다 | 철학 — 개인화, 메타 자동화, 유니버설 인터페이스, 워크플로우 투자 |
 
-## 시리즈 22: 엄마의 전화 (voice-phishing-series)
+## 시리즈 22: 엄마의 전화 (voice-phishing-series) `fiction`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -217,7 +227,7 @@
 | 03 | `overruled.html` | 각하합니다 | 소설/법률 — 1심 패소, 항소 기각, 사무관의 영업 전화 |
 | 04 | `life-goes-on.html` | 삶은 계속된다 | 소설/결론 — 잃은 것과 남은 것의 가계부, 엄마의 멘탈 |
 
-## 시리즈 23: 서버는 샀는데 (ai-server-setup-series)
+## 시리즈 23: 서버는 샀는데 (ai-server-setup-series) `tech`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -225,13 +235,13 @@
 | 02 | `what-to-build.html` | 뭘 만들 것인가 | 제품전략 — ChatGPT와 싸우지 않는 전략, 대기업 사각지대 |
 | 03 | `before-the-server-arrives.html` | 56일 후 | 준비 — D-56 타임라인, 데이터 정제, PRD 작성, 아이디어 수집 |
 
-## 시리즈 24: 묵향: 리부트 (modern-mukhyang-series)
+## 시리즈 24: 묵향: 리부트 (modern-mukhyang-series) `fiction`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
 | 01 | `non-standard.html` | 탈마(脫魔) | 소설 — 마교의 살수가 배신당하고, 죽음의 문턱에서 이계로 떨어진다 |
 
-## 시리즈 25: 일곱 번째 자리 (seventh-seat-series)
+## 시리즈 25: 일곱 번째 자리 (seventh-seat-series) `fiction`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -241,7 +251,7 @@
 | 04 | `seventh-name.html` | 일곱 번째 이름 | 소설 — (예정) |
 | 05 | `the-seventh-seat.html` | 일곱 번째 자리 | 소설 — (예정) |
 
-## 시리즈 26: 겹침 (overlap-series)
+## 시리즈 26: 겹침 (overlap-series) `fiction`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -250,34 +260,37 @@
 | 03 | `ink-scent.html` | 잉크 냄새 | 소설 — 야경 전원 합류, 이면의 5가지 법칙, 고영수의 귀소 본능 |
 | 04 | `one-character-off.html` | 한 글자의 차이 | 소설 — 서연의 능력 진화, 2년 갇힌 서점 주인, 이면의 대가 |
 
-## 시리즈 27: 에이전트 조립 가이드 (mcp-agent-guide-series)
+## 시리즈 27: 에이전트 조립 가이드 (mcp-agent-guide-series) `tech`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
 | 01 | `agent-is-three-configs.html` | 에이전트 조립하기 | 종합 가이드 — 시스템 프롬프트·지식베이스·도구 설계를 프롬프트로 조립 |
 
-## 시리즈 28: React가 뭐길래 (why-react-series)
+## 시리즈 28: React가 뭐길래 (why-react-series) `tech`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
 | 01 | `you-can-switch.html` | 바꿔도 됩니다 | 종합 가이드 — 상용 웹 플랫폼의 숨겨진 비용, React 생태계, 전환 안전성 |
 | 02 | `different-world.html` | 같은 화면, 다른 세계 | 실전 비교 — WebSquare/eXBuilder vs React 개발 프로세스, 바이브코딩, 단일 소스 전략 |
 
-## 시리즈 29: 코드는 마지막이다 (code-last-series)
+## 시리즈 29: 코드는 마지막이다 (code-last-series) `tech`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
 | 01 | `time-without-output.html` | 결과물이 없는 시간 | 분석/가이드 — 속도의 역설, 인지과학, 5단계 워크플로우와 프롬프트 |
-| 02 | `prd-is-half.html` | PRD가 반이다 | 가이드 — 문서 작성, 맥락 설계, 규칙 파일 (예정) |
-| 03 | `build-in-one-shot.html` | 한 번에 완성한다 | 실전 — 맥락 주입 개발, 디테일링, Before/After (예정) |
+| 02 | `before-you-code.html` | 코드를 치기 전에 벌어지는 일 | 분석 — 패러다임 전환, 에이전틱 엔지니어링, 개발자의 새 역할 |
+| 03 | `sdd-vs-ddd.html` | SDD vs DDD — 어떤 방법론이 맞나 | 분석/가이드 — 방법론 비교, 판단 기준 (예정) |
+| 04 | `design-is-code.html` | 설계서가 곧 코드다 | 가이드 — CLAUDE.md, 폴더 구조, 에이전트 설계 (예정) |
+| 05 | `tests-are-real-code.html` | 테스트가 진짜 코드다 | 가이드 — TDAID, 에이전트 검증 루프 (예정) |
+| 06 | `scaling-with-agents.html` | 100줄에서 10만줄까지 | 전략 — 3-Tier 아키텍처, 스케일링 (예정) |
 
-## 시리즈 30: AI가 일자리를 빼앗는가 (ai-job-debate-series)
+## 시리즈 30: AI가 일자리를 빼앗는가 (ai-job-debate-series) `analysis`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
 | 01 | `not-fired-yet.html` | 아직 아무도 해고되지 않았다 | 종합분석 — 낙관·비관·중립 세 시각의 교차 검증과 종합 의견 |
 
-## 시리즈 31: 편의점은 공짜인데 (toss-reality-series)
+## 시리즈 31: 편의점은 공짜인데 (toss-reality-series) `fiction`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -287,7 +300,7 @@
 | 04 | `free-convenience-store.html` | 편의점은 공짜인데 | 소설 — 복지는 최고인데 쓸 시간이 없는 토양어선의 현실 |
 | 05 | `still-showing-up.html` | 그래도 출근한다 | 소설 — 번아웃과 성장 사이, 도현의 선택 |
 
-## 시리즈 32: 로봇 동료와 코딩하는 법 (robot-coworker-series)
+## 시리즈 32: 로봇 동료와 코딩하는 법 (robot-coworker-series) `fiction`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -301,7 +314,7 @@
 | 08 | `season-of-people.html` | 사람들의 계절 | 소설/에필로그 II — K-7 이후의 팀, 민지의 성장, 상혁의 변신, K-7의 첫 농담 |
 | 09 | `under-the-same-sky.html` | 같은 하늘 아래 | 소설/에필로그 III Final — K-7 복귀, 두 로봇과 사람들이 함께 걸어가는 마지막 장면 |
 
-## 시리즈 33: Something Went Wrong (youtube-outage-series)
+## 시리즈 33: Something Went Wrong (youtube-outage-series) `fiction`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -309,7 +322,7 @@
 | 02 | `ghosts-of-outages-past.html` | 과거의 유령들 | 소설 — 2020 인증 자멸, 2025 DNS 실종 비교 분석, Zanzibar 해부 |
 | 03 | `point-zero-zero-one.html` | 복구, 그리고 0.001% | 소설 — 복구 확인, 원인 추론, 99.999% 가용성의 의미 |
 
-## 시리즈 34: The Dawn of Light as a Supersolid (debug-mode-series)
+## 시리즈 34: The Dawn of Light as a Supersolid (debug-mode-series) `fiction`
 
 | # | 파일 | 제목 | 역할 |
 |---|------|------|------|
@@ -320,7 +333,7 @@
 | 05 | `the-anomaly.html` | The Anomaly | 소설 — 워프 경로 중력 이상, 거대한 외계 존재 조우, 기저장 통신, 은하 중심 좌표 |
 | 06 | `first-contact.html` | First Contact | 소설 — 외계 감시자 내부 진입, 은하 네트워크, 인류의 선택, 열린 결말 |
 
-## 시리즈 35: 성실함이 배신하는 순간 (diligence-paradox-series)
+## 시리즈 35: 성실함이 배신하는 순간 (diligence-paradox-series) `analysis`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -330,7 +343,7 @@
 | 04 | `do-one-thing.html` | 한 가지만 한다 | 실행 — 제약이론 100개 기업 실패율 0%, 병목 하나에 집중 |
 | 05 | `if-it-were-me.html` | 나라면 이렇게 한다 | 실전 — B2B 시장조사부터 90일 MVP 실행 플레이북 |
 
-## 시리즈 36: Qwen3.5, 인간의 언어로 (qwen-for-humans-series)
+## 시리즈 36: Qwen3.5, 인간의 언어로 (qwen-for-humans-series) `analysis`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -339,19 +352,15 @@
 | 03 | `coding-vs-chatting.html` | 코딩에 쓸 만한가, 대화에 쓸 만한가 | 비교 — 코딩/대화/에이전트 영역별 실력 진단 |
 | 04 | `ai-side-project-starter.html` | 사이드 프로젝트에 AI 붙이기 | 실행 — Qwen-Agent, MCP, RAG 조합 4주 로드맵 |
 | 05 | `qwen-for-small-business.html` | 중소기업은 이걸 어떻게 쓰는데 | 가이드 — API/클라우드/온프레미스 3경로, 사내 RAG 구축 |
-| 02 | `ai-on-my-laptop.html` | 내 노트북으로 AI를 돌린다고? | 실전 — 개인 PC 로컬 실행 가이드 |
-| 03 | `coding-vs-chatting.html` | 코딩에 쓸 만한가, 대화에 쓸 만한가 | 비교분석 — 용도별 실력 진단 |
-| 04 | `ai-side-project-starter.html` | 사이드 프로젝트에 AI 붙이기 | 실행 매뉴얼 — RAG/에이전트 구축 |
-| 05 | `qwen-for-small-business.html` | 중소기업은 이걸 어떻게 쓰는데 | 의사결정 가이드 — AI 도입 전략 |
 
-## 시리즈 37: 에이전트 보스 (agent-boss-series)
+## 시리즈 37: 에이전트 보스 (agent-boss-series) `career`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
 | 01 | `juniors-are-gone.html` | 신입사원이 사라진다 | 분석 — AI가 바꾸는 채용 시장, Agent Boss, AI 네이티브 |
 | 02 | `eighty-to-hundred.html` | 80점을 100점으로 | 가이드 — 중장년의 역전 기회, AI 활용 전략 |
 
-## 시리즈 38: 강해져버린 이유 (one-punch-reason-series)
+## 시리즈 38: 강해져버린 이유 (one-punch-reason-series) `fiction`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|
@@ -359,7 +368,7 @@
 | 02 | `interdimensional-bargains.html` | 큐브의 진실 | EP 02 — God의 손, 차원의 시장, 리미터의 비밀, 에이전트 전투 |
 | 03 | `just-a-punch.html` | 그냥 펀치 | EP 03 (완결) — God 대면, 진심 펀치, 봉인 차원, 반값 달걀 |
 
-## 시리즈 39: 동적 모델 라우팅 (dynamic-model-routing-series)
+## 시리즈 39: 동적 모델 라우팅 (dynamic-model-routing-series) `tech`
 
 | # | 파일 | 한글 제목 | 역할 |
 |---|------|-----------|------|

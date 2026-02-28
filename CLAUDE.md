@@ -73,7 +73,7 @@ Phase 4: 배포 — Publisher
 | 문서 | 경로 | 내용 |
 |------|------|------|
 | **빌드 시스템** | [`.ai/build/eleventy.md`](.ai/build/eleventy.md) | 11ty 설정, 빌드 명령, front matter 형식, 레이아웃 템플릿, 폴더 구조 |
-| **콘텐츠 카탈로그** | [`.ai/content/catalog.md`](.ai/content/catalog.md) | 30개 시리즈 전체 목록, 콘텐츠 데이터 관리 규칙 |
+| **콘텐츠 카탈로그** | [`.ai/content/catalog.md`](.ai/content/catalog.md) | 38개 시리즈 전체 목록, 카테고리 분류, 콘텐츠 데이터 관리 규칙 |
 | **컴포넌트 & 디자인** | [`.ai/design/components.md`](.ai/design/components.md) | 공통 CSS, 네비게이션, 랜딩 페이지, 디자인 시스템 규칙 |
 | **수익화 & 전략** | [`.ai/project/monetization.md`](.ai/project/monetization.md) | 배포 전략, 수익화, TODO, 콘텐츠 제작 워크플로우 |
 | **콘텐츠 워크플로우** | [`.claude/rules/content-workflow.md`](.claude/rules/content-workflow.md) | 에이전트 시스템, Phase별 파이프라인, 검증 정책, 소설 품질 가이드 |
@@ -108,13 +108,30 @@ Phase 4: 배포 — Publisher
 
 ## 콘텐츠 관리 (요약)
 
-전체 카탈로그(30개 시리즈): [`.ai/content/catalog.md`](.ai/content/catalog.md)
+전체 카탈로그(39개 시리즈): [`.ai/content/catalog.md`](.ai/content/catalog.md)
 
-**새 콘텐츠 추가 체크리스트:**
+### 카테고리 분류 체계
+
+랜딩 페이지는 4개 카테고리로 콘텐츠를 분류한다. **형식(포맷)이 카테고리를 결정한다. 주제가 아니다.**
+
+| 카테고리 | 코드 | 분류 기준 |
+|----------|------|-----------|
+| **기술 & 개발** | `tech` | 기술 해설, 도구 비교, 개발 실전, 인프라 가이드 — **해설/가이드 형식** |
+| **분석 & 팩트체크** | `analysis` | 데이터 기반 분석, 트렌드 리포트, 팩트체크, 시사 해설 — **분석/논증 형식** |
+| **소설 & 창작** | `fiction` | 소설, 시리즈 서사, 문학 창작 — **서사/대화/장면 묘사 형식** |
+| **업무 & 커리어** | `career` | 업무 가이드, 인증/자격, 경력 전략 — **실용 가이드 형식** |
+
+**핵심 규칙: 형식 우선 분류**
+- 기술/업무 주제라도 소설 형식(대화, 내면 독백, 장면 전환)으로 쓰였으면 → `fiction`
+- 예: `robot-coworker`(IT 직장 소재지만 소설), `future-cashcow`(중소기업 소재지만 소설), `youtube-outage`(장애 분석 소재지만 테크 스릴러 소설)
+- 판별 힌트: articles의 `tag`가 "소설"이면 높은 확률로 `fiction`, CSS에 `.dialogue`/`.internal`/`.scene` 클래스가 있으면 `fiction`
+
+### 새 콘텐츠 추가 체크리스트
+
 1. `content/[시리즈-슬러그]/` 폴더에 HTML 생성 — **front matter + `<style>` + body만 작성**
 2. front matter 필수 필드: `layout`, `pageTitle`, `description`, `datePublished`
 3. `series-nav.js`의 SERIES 데이터에 글 추가
-4. `assets/content-data.js`에 시리즈/글 데이터 추가
+4. `assets/content-data.js`에 시리즈/글 데이터 추가 — **`category` 필드 필수** (위 분류 기준 참조)
 5. `content/index.md` 업데이트 (기록용)
 6. **`sitemap.xml`에 새 URL 추가** (lastmod 날짜 포함)
 7. `.ai/content/catalog.md`에 시리즈/글 목록 추가
