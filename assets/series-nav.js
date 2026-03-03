@@ -345,6 +345,12 @@
         { slug: 'what-is-model-routing', title: '동적 모델 라우팅이란' }
       ]
     },
+    'ai-conversation-pipeline-series': {
+      title: 'AI 채팅 파이프라인 구조',
+      articles: [
+        { slug: 'anatomy-of-a-message', title: 'AI 채팅 파이프라인 구조' }
+      ]
+    },
   };
 
   // 현재 페이지의 슬러그와 시리즈를 찾는다

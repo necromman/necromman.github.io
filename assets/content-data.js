@@ -1387,6 +1387,21 @@
         search: '동적 모델 라우팅 dynamic model routing AI 모델 선택 tier fast deep task classifier model router 비용 절감 RouteLLM'
       }
     ]
+  },
+  {
+    id: 'ai-conversation-pipeline',
+    category: 'tech',
+    title: 'AI 채팅 파이프라인 구조',
+    description: 'AI 채팅 서비스에서 메시지가 응답이 되기까지의 전체 파이프라인. 인증, 모델 선택, RAG, 스트리밍, 비용 정산.',
+    articles: [
+      {
+        title: 'AI 채팅 파이프라인 구조',
+        role: '전체 파이프라인 구조 — 쉬운 부분과 설계 판단이 필요한 3가지 결정',
+        tag: '기술 해설',
+        href: 'content/ai-conversation-pipeline-series/anatomy-of-a-message.html',
+        search: 'AI 채팅 파이프라인 SSE 모델 라우팅 RAG 멀티스텝 폴백 도구 메모리 시스템 프롬프트 streamText 대화 아키텍처'
+      }
+    ]
   }
 ];
   // Auto-generate thumbnail from href: content/foo/bar.html → assets/og/foo/bar.png

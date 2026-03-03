@@ -1,0 +1,651 @@
+---
+layout: layouts/article.njk
+pageTitle: "AI 채팅 파이프라인 구조"
+description: "AI 채팅 서비스에서 메시지가 응답이 되기까지의 전체 파이프라인. 인증, 모델 선택, RAG, 스트리밍, 비용 정산."
+datePublished: "2026-03-03"
+---
+<style>
+  .masthead .deck { max-width: 520px; }
+
+  /* INLINE CODE */
+  article code {
+    font-family: var(--mono);
+    font-size: 0.85em;
+    color: var(--accent);
+  }
+
+  /* PIPELINE FLOW */
+  .pipeline {
+    margin: 40px 0 48px;
+  }
+  .phase {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    border: 1px solid var(--rule);
+    border-bottom: none;
+  }
+  .phase:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+  .phase-label {
+    background: var(--card-bg);
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--rule);
+  }
+  .phase-label .p-num {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .phase-label .p-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--fg);
+  }
+  .phase-steps {
+    padding: 16px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .step {
+    font-size: 0.8rem;
+    color: var(--prose);
+    padding: 6px 12px;
+    border: 1px solid var(--rule);
+    line-height: 1.4;
+  }
+  .step.hard {
+    border-color: var(--accent);
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .step-arrow {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+  }
+
+  /* DECISION FLOW */
+  .decision-flow {
+    margin: 36px 0 40px;
+    border: 1px solid var(--rule);
+  }
+  .df-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    padding: 16px 20px 12px;
+    display: block;
+  }
+  .decision-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    border-top: 1px solid var(--rule);
+  }
+  .d-input {
+    background: var(--card-bg);
+    padding: 14px 16px;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--fg);
+    display: flex;
+    align-items: center;
+    border-right: 1px solid var(--rule);
+  }
+  .d-output {
+    padding: 14px 20px;
+    font-size: 0.85rem;
+    color: var(--prose);
+    line-height: 1.7;
+  }
+
+  /* ASSEMBLY LIST */
+  .assembly {
+    margin: 36px 0 40px;
+    counter-reset: asm;
+    list-style: none;
+    padding: 0;
+  }
+  .assembly li {
+    position: relative;
+    padding: 12px 0 12px 40px;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.88rem;
+    color: var(--prose);
+    line-height: 1.6;
+  }
+  .assembly li:first-child {
+    padding-top: 0;
+  }
+  .assembly li::before {
+    counter-increment: asm;
+    content: counter(asm);
+    position: absolute;
+    left: 8px;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .assembly li strong {
+    color: var(--fg);
+  }
+
+  /* TOOL GRID */
+  .tool-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 36px 0 40px;
+  }
+  .tool-cell {
+    background: var(--bg);
+    padding: 24px 20px;
+  }
+  .tool-cell .tc-label {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .tool-cell h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 4px;
+  }
+  .tool-cell .tc-count {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .tool-cell p {
+    font-size: 0.82rem;
+    color: var(--secondary);
+    line-height: 1.6;
+    margin-top: 8px;
+  }
+
+  /* LAYER STACK */
+  .layer-stack {
+    margin: 36px 0 40px;
+  }
+  .layer {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    border: 1px solid var(--rule);
+    border-bottom: none;
+  }
+  .layer:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+  .l-num {
+    background: var(--card-bg);
+    padding: 20px 12px;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid var(--rule);
+  }
+  .l-body {
+    padding: 16px 20px;
+  }
+  .l-body h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 6px;
+  }
+  .l-body p {
+    font-size: 0.82rem;
+    color: var(--secondary);
+    line-height: 1.6;
+  }
+
+  /* FALLBACK FLOW */
+  .fallback-flow {
+    margin: 36px 0 40px;
+    border: 1px solid var(--rule);
+  }
+  .fb-step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    border-bottom: 1px solid var(--rule);
+  }
+  .fb-step:last-child {
+    border-bottom: none;
+  }
+  .fb-label {
+    background: var(--card-bg);
+    padding: 16px 12px;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--fg);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid var(--rule);
+  }
+  .fb-label.trigger {
+    color: var(--accent);
+  }
+  .fb-body {
+    padding: 16px 20px;
+  }
+  .fb-body h4 {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 4px;
+  }
+  .fb-body p {
+    font-size: 0.82rem;
+    color: var(--secondary);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 700px) {
+    .phase { grid-template-columns: 1fr; }
+    .phase-label {
+      flex-direction: row;
+      gap: 8px;
+      padding: 12px 16px;
+      border-right: none;
+      border-bottom: 1px solid var(--rule);
+    }
+    .phase-steps { padding: 12px 16px; }
+    .decision-row { grid-template-columns: 1fr; }
+    .d-input {
+      border-right: none;
+      border-bottom: 1px solid var(--rule);
+      padding: 12px 16px;
+    }
+    .tool-grid { grid-template-columns: 1fr; }
+    .layer { grid-template-columns: 60px 1fr; }
+    .fb-step { grid-template-columns: 60px 1fr; }
+  }
+</style>
+
+<div class="page">
+  <article>
+    <header class="masthead">
+      <div class="issue">AI Pipeline Guide — Article 01</div>
+      <h1>AI 채팅<br><strong>파이프라인</strong> 구조</h1>
+      <p class="deck">메시지 하나가 응답이 되기까지.<br>대부분은 직관적이다. 문제는 나머지다.</p>
+    </header>
+
+    <main>
+
+      <!-- PART I -->
+      <section>
+        <div class="section-head">
+          <span class="num">Part I — The Big Picture</span>
+          <h2>다섯 개의 <strong>관문</strong></h2>
+        </div>
+
+        <p class="prose">
+          사용자가 채팅창에 메시지를 입력하고 전송 버튼을 누른다. 화면에는 텍스트가 한 글자씩 나타난다. 이 단순해 보이는 과정 뒤에서 <strong>인증, 저장, 검색, 선택, 생성, 정산</strong>을 포함한 다단계 처리가 순차 실행된다. 사용자가 "응답 중..."을 보는 몇 초 안에 전부 끝난다.
+        </p>
+
+        <p class="prose">
+          전체 흐름을 다섯 묶음으로 나눴다. 빨간 테두리가 쳐진 세 곳 — <strong>RAG 판단</strong>, <strong>모델 선택</strong>, <strong>멀티스텝 폴백</strong> — 이 이 글의 핵심이다. 나머지는 패턴대로 하면 된다. 그 셋은 설계 판단이 필요하다.
+        </p>
+
+        <div class="pipeline">
+          <div class="phase">
+            <div class="phase-label">
+              <span class="p-num">Phase A</span>
+              <span class="p-name">Gate</span>
+            </div>
+            <div class="phase-steps">
+              <span class="step">인증/인가</span>
+              <span class="step-arrow">→</span>
+              <span class="step">요청 검증</span>
+              <span class="step-arrow">→</span>
+              <span class="step">SSE 연결</span>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-label">
+              <span class="p-num">Phase B</span>
+              <span class="p-name">Context</span>
+            </div>
+            <div class="phase-steps">
+              <span class="step">메시지 저장</span>
+              <span class="step-arrow">→</span>
+              <span class="step">이력 로드</span>
+              <span class="step-arrow">→</span>
+              <span class="step">프롬프트</span>
+              <span class="step-arrow">→</span>
+              <span class="step">페르소나</span>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-label">
+              <span class="p-num">Phase C</span>
+              <span class="p-name">Intelligence</span>
+            </div>
+            <div class="phase-steps">
+              <span class="step hard">RAG 판단</span>
+              <span class="step-arrow">→</span>
+              <span class="step hard">모델 선택</span>
+              <span class="step-arrow">→</span>
+              <span class="step">도구 로드</span>
+              <span class="step-arrow">→</span>
+              <span class="step">시스템 조립</span>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-label">
+              <span class="p-num">Phase D</span>
+              <span class="p-name">Stream</span>
+            </div>
+            <div class="phase-steps">
+              <span class="step">텍스트 생성</span>
+              <span class="step-arrow">→</span>
+              <span class="step">도구 실행</span>
+              <span class="step-arrow">→</span>
+              <span class="step hard">멀티스텝 폴백</span>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-label">
+              <span class="p-num">Phase E</span>
+              <span class="p-name">Settle</span>
+            </div>
+            <div class="phase-steps">
+              <span class="step">비용 계산</span>
+              <span class="step-arrow">→</span>
+              <span class="step">DB 저장</span>
+              <span class="step-arrow">→</span>
+              <span class="step">크레딧 차감</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PART II -->
+      <section>
+        <div class="section-head">
+          <span class="num">Part II — The Easy Parts</span>
+          <h2>그냥 <strong>하면 되는</strong> 것들</h2>
+        </div>
+
+        <p class="prose">
+          대부분의 단계는 구현 패턴이 정해져 있다. 판단할 게 없다. 입력을 받고, 처리하고, 저장하고, 내보낸다. 그중 세 가지 핵심 메커니즘만 짚는다.
+        </p>
+
+        <p class="prose">
+          첫째, <strong>SSE(Server-Sent Events)</strong>. 클라이언트와 서버 사이의 실시간 통신 채널이다. HTTP 응답을 열어두고, 서버가 이벤트를 밀어넣는다. 글자가 한 글자씩 나타나는 효과의 정체다.
+        </p>
+
+        <div class="mechanism-row">
+          <div class="mechanism">
+            <span class="m-label">status</span>
+            <h3>파이프라인 상태</h3>
+            <p>connecting → generating 등 10개 상태를 순서대로 전송</p>
+          </div>
+          <div class="mechanism">
+            <span class="m-label">chunk</span>
+            <h3>텍스트 조각</h3>
+            <p>생성된 텍스트를 실시간 전송. 한 글자씩 나타나는 효과의 원리</p>
+          </div>
+          <div class="mechanism">
+            <span class="m-label">reasoning</span>
+            <h3>사고 과정</h3>
+            <p>Extended Thinking 모드에서 AI의 추론 과정을 별도 전송</p>
+          </div>
+        </div>
+
+        <div class="mechanism-row">
+          <div class="mechanism">
+            <span class="m-label">tool_call</span>
+            <h3>도구 호출</h3>
+            <p>AI가 도구를 호출할 때 이름과 인자를 전송</p>
+          </div>
+          <div class="mechanism">
+            <span class="m-label">tool_result</span>
+            <h3>도구 결과</h3>
+            <p>실행 완료 후 결과 반환. 파일 생성 시 다운로드 이벤트 추가</p>
+          </div>
+          <div class="mechanism">
+            <span class="m-label">done</span>
+            <h3>완료</h3>
+            <p>전체 파이프라인 종료 신호와 요약 정보 포함</p>
+          </div>
+        </div>
+
+        <p class="prose">
+          둘째, <strong>시스템 프롬프트 조립</strong>. AI에게 역할, 맥락, 도구, 규칙을 알려주는 텍스트다. 8개의 블록을 아래 순서대로 이어붙인다. 순서가 중요하다 — AI는 앞에 있는 지시를 더 강하게 따르는 경향이 있다.
+        </p>
+
+        <ol class="assembly">
+          <li><strong>기본 프롬프트</strong> — 대화/워크스페이스/글로벌 설정에서 가져온 기본 지시문</li>
+          <li><strong>페르소나</strong> — 역할, 톤, 스타일 정의</li>
+          <li><strong>메모리</strong> — 사용자에 대해 기억하고 있는 것 (자동 추출 + 수동 메모)</li>
+          <li><strong>RAG 컨텍스트</strong> — 지식베이스에서 검색한 참조 문서</li>
+          <li><strong>스킬 가이드</strong> — 사용 가능한 스킬 목록과 사용법</li>
+          <li><strong>언어 지시</strong> — 응답 언어 설정 (한국어/영어/자동)</li>
+          <li><strong>도구 가이드</strong> — 사용 가능한 도구 17개의 호출 규칙 (~3,000자)</li>
+          <li><strong>현재 시각</strong> — Asia/Seoul 기준 날짜와 시간</li>
+        </ol>
+
+        <p class="prose">
+          셋째, <strong>완료 핸들러</strong>. 응답 생성이 끝나면 비용 계산, 어시스턴트 메시지 DB 저장, 대화 타임스탬프 갱신, 사용량 기록, 크레딧 차감이 순차 실행된다. 이 중 크레딧 차감과 로그 기록은 <strong>비동기</strong>로 처리해서 응답 지연에 영향을 주지 않는다.
+        </p>
+      </section>
+
+      <!-- PART III -->
+      <section>
+        <div class="section-head">
+          <span class="num">Part III — The Hard Three</span>
+          <h2>여기서 <strong>멈춰라</strong></h2>
+        </div>
+
+        <p class="prose">
+          구현은 어렵지 않다. 코드만 놓고 보면 조건문과 API 호출의 조합이다. 어려운 건 <strong>왜 이 분기인가</strong>, <strong>실패하면 어떻게 되는가</strong>, <strong>비용은 얼마나 드는가</strong>를 결정하는 일이다.
+        </p>
+
+        <p class="prose">
+          <strong>첫 번째 결정: 어떤 모델을 쓸 것인가.</strong> 모든 질문에 최고급 모델을 쓰면 품질은 좋지만 비용이 터진다. 저가형만 쓰면 복잡한 질문에서 엉뚱한 답이 나온다. 해답은 질문마다 다른 모델을 자동 배정하는 것이다.
+        </p>
+
+        <div class="decision-flow">
+          <span class="df-title">Model Routing — Strategy to Model</span>
+          <div class="decision-row">
+            <div class="d-input">manual</div>
+            <div class="d-output">관리자가 지정한 특정 모델을 직접 사용. 지정 모델이 없으면 <code>auto</code>로 전환</div>
+          </div>
+          <div class="decision-row">
+            <div class="d-input">cost_saving</div>
+            <div class="d-output"><code>fast</code> 티어 모델 강제. 단순 질문이 대부분인 워크스페이스에 적합</div>
+          </div>
+          <div class="decision-row">
+            <div class="d-input">high_quality</div>
+            <div class="d-output"><code>deep</code> 티어 모델 강제. 분석/비교가 많은 업무에 적합</div>
+          </div>
+          <div class="decision-row">
+            <div class="d-input">auto</div>
+            <div class="d-output">Fast 모델이 질문을 분류 → 유형에 따라 <code>fast</code> 또는 <code>deep</code> 자동 배정. 분류 실패 시 규칙 기반 폴백</div>
+          </div>
+        </div>
+
+        <p class="prose">
+          <code>auto</code> 전략의 핵심은 <strong>태스크 분류기</strong>다. 저비용 Fast 모델로 "이 질문은 단순한가, 복잡한가"를 먼저 판단한다. 3초 타임아웃을 걸어두고, 실패하면 메시지 길이와 키워드로 대체 판단한다. 분류기 자체의 비용은 무시할 수준이지만, 분류가 틀리면 비용이나 품질에 직접 영향을 준다.
+        </p>
+
+        <p class="prose">
+          <strong>두 번째 결정: 지식베이스를 검색할 것인가.</strong> RAG는 AI가 모르는 내부 문서를 검색해서 답변에 포함시키는 기술이다. 모든 질문에 검색을 걸면 느리고 비싸고, 안 하면 있는 정보도 활용을 못 한다. 3단계 라우터가 이 판단을 대신한다.
+        </p>
+
+        <div class="decision-flow">
+          <span class="df-title">RAG Router — 3-Stage Decision</span>
+          <div class="decision-row">
+            <div class="d-input">Stage 1</div>
+            <div class="d-output"><strong>인프라 규칙.</strong> RAG 비활성이거나 임베딩 API 키가 없으면 즉시 <code>skip</code>. 판단할 것도 없다</div>
+          </div>
+          <div class="decision-row">
+            <div class="d-input">Stage 2</div>
+            <div class="d-output"><strong>패턴 매칭.</strong> QA 모드면 무조건 <code>execute</code>. 30자 이하 인사말이면 <code>skip</code>. 첨부파일 작업이면 <code>skip</code></div>
+          </div>
+          <div class="decision-row">
+            <div class="d-input">Stage 3</div>
+            <div class="d-output"><strong>LLM 판정.</strong> Fast 모델이 "지식베이스가 필요한가"를 판단. 3초 타임아웃, 실패 시 보수적으로 <code>execute</code></div>
+          </div>
+        </div>
+
+        <p class="prose">
+          Stage 1 → 2 → 3 순서로 통과하면서 빠르게 빠질 수 있는 질문은 일찍 빠지게 만든다. 대부분의 인사말과 단순 질문은 Stage 2에서 걸러진다. LLM까지 가는 질문은 소수다.
+        </p>
+
+        <p class="prose">
+          <strong>세 번째 결정: 도구를 쓴 뒤 응답이 비면 어떻게 할 것인가.</strong> AI가 도구를 호출하고 결과를 받았는데, 그걸 사용자에게 설명하는 텍스트를 생성하지 못하는 경우가 있다. AI SDK의 <code>maxSteps</code> 옵션이 이론상 자동 해결해야 하지만, 실제로는 <strong>작동하지 않는 경우가 발생한다</strong>. 수동 폴백 체인이 필요한 이유다.
+        </p>
+
+        <div class="fallback-flow">
+          <div class="fb-step">
+            <div class="fb-label trigger">조건</div>
+            <div class="fb-body">
+              <h4>도구 호출 있음 + 텍스트 200자 미만</h4>
+              <p>도구를 썼는데 사용자에게 보여줄 텍스트가 충분하지 않다</p>
+            </div>
+          </div>
+          <div class="fb-step">
+            <div class="fb-label">Step 2</div>
+            <div class="fb-body">
+              <h4>새 streamText 호출</h4>
+              <p>도구 결과를 컨텍스트에 포함시켜 재생성. 검색 도구는 차단, 파일 생성만 허용</p>
+            </div>
+          </div>
+          <div class="fb-step">
+            <div class="fb-label">Step 3</div>
+            <div class="fb-body">
+              <h4>마지막 시도</h4>
+              <p>Step 2에서도 200자 미만이고 파일 생성이 없으면 한 번 더 시도. Step 4는 없다</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="prose">
+          파일 생성 도구가 성공하면 폴백을 중단하고 완료 메시지를 자동 생성한다. 핵심은 <strong>"200자 미만"이라는 임계치</strong>와 <strong>"최대 3스텝"이라는 제한</strong>이다. 4스텝 이상의 복잡한 도구 체인은 이 시스템으로는 처리할 수 없다 — 현재 아키텍처의 알려진 한계다.
+        </p>
+
+        <div class="pull-quote">
+          <p>구현은 조건문이다.<br>설계는 그 조건의 임계치를 정하는 일이다.</p>
+        </div>
+      </section>
+
+      <!-- PART IV -->
+      <section>
+        <div class="section-head">
+          <span class="num">Part IV — Extension Points</span>
+          <h2>나머지 <strong>퍼즐 조각</strong></h2>
+        </div>
+
+        <p class="prose">
+          파이프라인의 뼈대 위에 살을 붙이는 것은 도구와 메모리다. 파이프라인 자체를 수정하지 않으면서 AI가 할 수 있는 일의 범위를 넓힌다.
+        </p>
+
+        <p class="prose">
+          <strong>도구 시스템</strong>은 17개의 도구를 네 범주로 나눈다. AI가 "이 질문에는 웹 검색이 필요하다" 또는 "엑셀 파일을 만들어야 한다"고 판단하면 해당 도구를 호출한다. 도구 목록과 사용 규칙은 시스템 프롬프트에 포함된다.
+        </p>
+
+        <div class="tool-grid">
+          <div class="tool-cell">
+            <span class="tc-label">File Creation</span>
+            <h4>파일 생성</h4>
+            <span class="tc-count">5개</span>
+            <p>PDF, Word, Excel, Markdown, Text. 생성된 파일은 다운로드 이벤트로 전달</p>
+          </div>
+          <div class="tool-cell">
+            <span class="tc-label">Chat Output</span>
+            <h4>채팅 출력</h4>
+            <span class="tc-count">4개</span>
+            <p>테이블, 구조화 문서, 데이터 추출, 포맷 변환. 채팅 내에서 직접 렌더링</p>
+          </div>
+          <div class="tool-cell">
+            <span class="tc-label">Search</span>
+            <h4>검색</h4>
+            <span class="tc-count">4개</span>
+            <p>시맨틱 검색, 소스 목록/콘텐츠 조회, 외부 웹 검색</p>
+          </div>
+          <div class="tool-cell">
+            <span class="tc-label">Utility</span>
+            <h4>유틸리티</h4>
+            <span class="tc-count">4개</span>
+            <p>수식 계산, 현재 시각, 템플릿 적용, 사용자 메모 관리</p>
+          </div>
+        </div>
+
+        <p class="prose">
+          <strong>메모리 시스템</strong>은 AI가 사용자를 기억하게 만든다. 자동 추출, 수동 관리, 벡터 검색의 3계층 구조다.
+        </p>
+
+        <div class="layer-stack">
+          <div class="layer">
+            <div class="l-num">L1</div>
+            <div class="l-body">
+              <h4>자동 메모리</h4>
+              <p>대화에서 자동 추출. 업무 맥락, 개인 맥락, 관심사, 최근 변경사항. 시스템 프롬프트에 자연스럽게 주입</p>
+            </div>
+          </div>
+          <div class="layer">
+            <div class="l-num">L2</div>
+            <div class="l-body">
+              <h4>명시적 메모</h4>
+              <p>사용자가 도구를 통해 직접 추가/삭제/수정. 최대 30개. 명시적 선호와 지시사항 저장</p>
+            </div>
+          </div>
+          <div class="layer">
+            <div class="l-num">L3</div>
+            <div class="l-body">
+              <h4>대화 검색</h4>
+              <p>과거 대화를 벡터로 검색하는 미래 확장 레이어. pgvector 인덱스 준비 완료, 파이프라인 미연결</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="prose">
+          마지막으로 <strong>설정 우선순위</strong>. 모든 설정은 3단계 체인을 따른다 — 워크스페이스 설정이 글로벌 설정을 이기고, 글로벌 설정이 하드코딩 기본값을 이긴다. 단, 모델 선택 전략이나 API 키 같은 핵심 설정은 글로벌 전용이다.
+        </p>
+      </section>
+
+    </main>
+
+    <div class="closing">
+      <h2>대부분은 패턴이다.<br><strong>아키텍처는 예외를 다루는 법이다</strong></h2>
+      <p class="sub">쉬운 부분은 빠르게 구현하고, 어려운 세 곳에 시간을 쏟아라.</p>
+    </div>
+
+    <footer class="footer">
+      <p>Based on Nexus Hub AI Service Architecture, 2026</p>
+    </footer>
+
+  </article>
+</div>

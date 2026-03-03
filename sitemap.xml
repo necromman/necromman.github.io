@@ -942,4 +942,11 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- Series 40: 메시지 하나의 해부학 -->
+  <url>
+    <loc>https://necromman.github.io/content/ai-conversation-pipeline-series/anatomy-of-a-message.html</loc>
+    <lastmod>2026-03-03T00:00:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
