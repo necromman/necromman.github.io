@@ -255,6 +255,12 @@
         { slug: 'before-you-code', title: '코드를 치기 전에 벌어지는 일' }
       ]
     },
+    'harness-series': {
+      title: '명세와 하네스',
+      articles: [
+        { slug: 'spec-and-guardrails', title: '명세와 하네스' }
+      ]
+    },
     'ai-job-debate-series': {
       title: 'AI가 일자리를 빼앗는가',
       articles: [

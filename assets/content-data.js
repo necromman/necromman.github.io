@@ -1402,6 +1402,21 @@
         search: 'AI 채팅 파이프라인 SSE 모델 라우팅 RAG 멀티스텝 폴백 도구 메모리 시스템 프롬프트 streamText 대화 아키텍처'
       }
     ]
+  },
+  {
+    id: 'harness',
+    category: 'tech',
+    title: '명세와 하네스',
+    description: 'AI에게 코드를 맡기기 전 — 프로젝트 로드맵, RFP(작업 의뢰서), SDD 기반 PRD, 테스트 주도 개발(Red-Green), 그리고 하네스(hook·permissions로 위험 명령을 물리적으로 차단)와 settings.json 스코프까지. 핵심 요약·목차·복붙 프롬프트.',
+    articles: [
+      {
+        title: '명세와 하네스',
+        role: '실전 가이드 — 로드맵·RFP·PRD(SDD)·TDD(Red-Green)·하네스(hook 물리적 차단)·settings.json 스코프',
+        tag: '가이드',
+        href: 'content/harness-series/spec-and-guardrails.html',
+        search: '명세 하네스 harness 로드맵 RFP 제안요구사항 PRD 스펙주도개발 SDD TDD 테스트주도개발 red green refactor TDAID 테스트 자산 hook 물리적 차단 settings.json 전역 프로젝트 스코프 permissions deny PreToolUse 가드레일 프롬프트 초보자'
+      }
+    ]
   }
 ];
   // Auto-generate thumbnail from href: content/foo/bar.html → assets/og/foo/bar.png
